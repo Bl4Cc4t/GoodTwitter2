@@ -1,0 +1,239 @@
+:root {
+  --color-bg: #10171e;
+  --color-navy: #1c2938;
+  --color-navy-dark: #15202b;
+  --color-gray: #8899a6;
+  --color-gray-dark: #38444d;
+  --color-user: $userColor$;
+  --banner: $banner$;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
+
+header h1,
+header nav,
+header a[href='/compose/tweet'],
+header div[data-testid=SideNav_AccountSwitcher_Button],
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1),
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(2) {
+  display: none !important; }
+
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
+  border-radius: 0;
+  border: 1px solid var(--color-gray-dark);
+  background-color: var(--color-navy-dark);
+  margin-bottom: 10px; }
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
+    padding: 15px; }
+
+main > div > div > div {
+  width: 970px !important;
+  margin-top: 46px !important; }
+  main > div > div > div > div:nth-child(1) {
+    margin-top: 10px;
+    border-top-width: 1px; }
+
+div[role=menu][style^="max-height: calc(100vh - 0px);"] {
+  right: calc(100vw / 2 - 360px - 252px) !important;
+  top: 54px; }
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a {
+    transition-duration: 0s; }
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a {
+    padding: 0; }
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div {
+      padding: 15px; }
+      div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div > div:nth-child(2) {
+        margin: 0;
+        font-size: 15px; }
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a span {
+      font-size: 15px;
+      font-weight: 400;
+      margin-left: 0; }
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a svg {
+      color: var(--color-gray);
+      margin-right: 10px;
+      height: 1.25em; }
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt {
+    text-decoration: none;
+    color: white;
+    padding: 15px; }
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt:visited {
+      color: white; }
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover {
+    background-color: var(--color-user); }
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover svg, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover svg {
+      color: white; }
+
+body {
+  background-color: var(--color-bg) !important; }
+
+header > div > div {
+  margin-top: 46px !important; }
+
+.gt2-nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  height: 46px;
+  position: fixed;
+  width: 100%;
+  background-color: var(--color-navy);
+  z-index: 1;
+  display: flex; }
+  .gt2-nav.not-focused {
+    z-index: -1; }
+
+.gt2-nav-left {
+  margin-left: calc(100vw / 2 - 300px - 367px); }
+  .gt2-nav-left > a {
+    padding: 0;
+    width: fit-content;
+    display: inline-flex;
+    height: 100%;
+    transition: all .15s ease-in-out; }
+  .gt2-nav-left > a.active, .gt2-nav-left > a:hover {
+    border-bottom: 2px solid var(--color-user); }
+  .gt2-nav-left > a > div {
+    background-color: unset !important; }
+    .gt2-nav-left > a > div > div:nth-child(1) > div {
+      background-color: var(--color-user); }
+    .gt2-nav-left > a > div > div:nth-child(2) {
+      color: var(--color-gray);
+      font-size: 13px;
+      margin-left: 3px; }
+  .gt2-nav-left > a svg {
+    color: var(--color-gray);
+    width: 23px; }
+  .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav-left > a.active svg, .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav-left > a:hover svg {
+    color: var(--color-user); }
+
+.gt2-nav-center {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  margin-top: 8px;
+  margin-left: -12px; }
+  .gt2-nav-center svg {
+    color: #1da1f2; }
+
+.gt2-nav-right {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0px;
+  margin-right: calc(100vw / 2 - 360px - 252px); }
+  .gt2-nav-right .gt2-search {
+    height: auto;
+    width: 300px;
+    right: 10px;
+    background: unset;
+    position: relative;
+    margin-bottom: 0;
+    border: 1px solid var(--color-gray-dark);
+    border-radius: 21px;
+    transition: all .2s ease-in-out; }
+    .gt2-nav-right .gt2-search input {
+      font-size: 14px;
+      padding: 8px;
+      height: 32px; }
+    .gt2-nav-right .gt2-search:focus-within {
+      border: 2px solid var(--color-user); }
+    .gt2-nav-right .gt2-search form > div:nth-child(1) > div {
+      border: none;
+      background-color: var(--color-navy-dark); }
+  .gt2-nav-right .gt2-user-dropdown {
+    margin-left: 5px;
+    margin-right: 15px; }
+    .gt2-nav-right .gt2-user-dropdown a {
+      height: 32px; }
+    .gt2-nav-right .gt2-user-dropdown img {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px; }
+    .gt2-nav-right .gt2-user-dropdown > div > div {
+      display: none; }
+  .gt2-nav-right > a[href='/compose/tweet'] {
+    font-size: 14px;
+    min-height: 34px !important;
+    width: 73px; }
+    .gt2-nav-right > a[href='/compose/tweet'] > div > span {
+      overflow: visible; }
+      .gt2-nav-right > a[href='/compose/tweet'] > div > span > div > div {
+        right: 13px; }
+
+header .gt2-dashboard-profile {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  display: flex;
+  width: 290px;
+  flex-direction: column;
+  border: 1px solid var(--color-gray-dark);
+  background-color: var(--color-navy-dark); }
+  header .gt2-dashboard-profile a {
+    text-decoration: none; }
+    header .gt2-dashboard-profile a:visited {
+      color: unset; }
+  header .gt2-dashboard-profile .gt2-banner {
+    background-image: var(--banner);
+    background-size: 100%;
+    height: 95px;
+    background-position: 0 50%;
+    width: 100%; }
+  header .gt2-dashboard-profile div {
+    height: 116px; }
+    header .gt2-dashboard-profile div .gt2-avatar {
+      display: inline-block;
+      margin: -30px 0 0 8px;
+      padding: 1px;
+      background-color: var(--color-navy-dark);
+      border-radius: 50%; }
+      header .gt2-dashboard-profile div .gt2-avatar img {
+        border: 3px solid var(--color-navy-dark);
+        border-radius: 50%;
+        width: 72px;
+        height: 72px;
+        box-sizing: border-box; }
+    header .gt2-dashboard-profile div .gt2-user {
+      color: white;
+      position: absolute;
+      top: 103px;
+      left: 90px;
+      width: 185px;
+      height: fit-content;
+      display: flex;
+      flex-direction: column; }
+      header .gt2-dashboard-profile div .gt2-user .gt2-name {
+        font-size: 18px;
+        font-weight: 700;
+        text-decoration: underline; }
+      header .gt2-dashboard-profile div .gt2-user .gt2-screenname {
+        font-size: 14px;
+        color: var(--color-gray); }
+        header .gt2-dashboard-profile div .gt2-user .gt2-screenname:hover span {
+          text-decoration: underline; }
+    header .gt2-dashboard-profile div .gt2-stats {
+      padding: 14px;
+      width: 100%;
+      height: 37px; }
+      header .gt2-dashboard-profile div .gt2-stats ul {
+        display: inline-flex;
+        margin: 0;
+        padding: 0; }
+        header .gt2-dashboard-profile div .gt2-stats ul li {
+          width: 90px;
+          list-style: none; }
+          header .gt2-dashboard-profile div .gt2-stats ul li a {
+            display: flex;
+            flex-direction: column; }
+            header .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(1) {
+              font-size: 12px;
+              font-weight: bold;
+              transition: color .15s ease-in-out;
+              color: var(--color-gray); }
+            header .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(2) {
+              font-size: 18px;
+              font-weight: bold;
+              line-height: 1;
+              padding-top: 3px;
+              color: var(--color-user); }
+          header .gt2-dashboard-profile div .gt2-stats ul li a:hover span:nth-child(1) {
+            color: var(--color-user); }
+
+/*# sourceMappingURL=twitter.gt2eb.style.css.map */

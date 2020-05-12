@@ -1,0 +1,352 @@
+:root {
+  --color-bg:        #10171e;
+  --color-navy:      #1c2938;
+  --color-navy-dark: #15202b;
+  --color-gray:      #8899a6;
+  --color-gray-dark: #38444d;
+
+  --color-user:      $userColor$;
+  --banner:          $banner$;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+// hide stuff
+header h1,   // sidebar twitter logo
+header nav,  // sidebar links
+header a[href='/compose/tweet'],  // sidebar tweet button
+header div[data-testid=SideNav_AccountSwitcher_Button],
+// div[data-testid=primaryColumn] > div > div:not(:last-child), // main tweet button
+// div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:not(:last-child):not(:nth-last-child(2)),
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1),
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(2) {
+  display: none !important;
+}
+
+div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
+  border-radius: 0;
+  border: 1px solid var(--color-gray-dark);
+  background-color: var(--color-navy-dark);
+  margin-bottom: 10px;
+
+  &:nth-last-child(1) nav {
+    padding: 15px;
+  }
+}
+
+
+main {
+
+  & > div > div > div {
+    width: 970px !important;
+    margin-top: 46px !important;
+
+    & > div:nth-child(1) {
+      margin-top: 10px;
+      border-top-width: 1px;
+    }
+  }
+}
+
+// profile menu
+div[role=menu][style^="max-height: calc(100vh - 0px);"] {
+  right: calc(100vw / 2 - 360px - 252px) !important;
+  top: 54px;
+
+  & > div > div > div {
+    // existing elements
+    & > div > a {
+      transition-duration: 0s;
+    }
+
+    // inserted elements
+    & > a {
+      padding: 0;
+      & > div {
+        padding: 15px;
+        & > div:nth-child(2) {
+          margin: 0;
+          font-size: 15px;
+        }
+      }
+
+      & span {
+        font-size: 15px;
+        font-weight: 400;
+        margin-left: 0;
+      }
+      & svg {
+        color: var(--color-gray);
+        margin-right: 10px;
+        height: 1.25em;
+      }
+    }
+
+    // inserted elements (logout/add existing acc)
+    .gt2-acc-opt {
+      text-decoration: none;
+      color: white;
+      padding: 15px;
+      &:visited {
+        color: white;
+      }
+    }
+
+    & > div > a:hover,
+    & > a:hover {
+      background-color: var(--color-user);
+      & svg {
+        color: white;
+      }
+    }
+  }
+}
+
+
+body {
+  background-color: var(--color-bg) !important;
+}
+
+// navbar
+header > div > div {
+  margin-top: 46px !important;
+}
+
+.gt2-nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  height: 46px;
+  position: fixed;
+  width: 100%;
+  background-color: var(--color-navy);
+  z-index: 1;
+  display: flex;
+
+  &.not-focused {
+    z-index: -1;
+  }
+}
+
+.gt2-nav-left {
+  margin-left: calc(100vw / 2 - 300px - 367px);
+
+  & > a {
+    padding: 0;
+    width: fit-content;
+    display: inline-flex;
+    height: 100%;
+    transition: all .15s ease-in-out;
+  }
+
+  & > a.active,
+  & > a:hover {
+    border-bottom: 2px solid var(--color-user);
+  }
+  & > a > div {
+    background-color: unset !important;
+
+    & > div:nth-child(1) > div {
+      background-color: var(--color-user);
+    }
+    & > div:nth-child(2) {
+      color: var(--color-gray);
+      font-size: 13px;
+      margin-left: 3px;
+    }
+  }
+  & > a svg {
+    color: var(--color-gray);
+    width: 23px;
+  }
+
+  & > a.active > div > div:nth-child(2),
+  & > a.active svg,
+  & > a:hover > div > div:nth-child(2),
+  & > a:hover svg {
+    color: var(--color-user);
+  }
+}
+
+// twitter logo
+.gt2-nav-center {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  margin-top: 8px;
+  margin-left: -12px;
+  & svg {
+    color: #1da1f2;
+  }
+}
+
+
+// nav right
+.gt2-nav-right {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0px;
+  margin-right: calc(100vw / 2 - 360px - 252px);
+
+  .gt2-search {
+    height: auto;
+    width: 300px;
+    right: 10px;
+    background: unset;
+    position: relative;
+    margin-bottom: 0;
+    border: 1px solid var(--color-gray-dark);
+    border-radius: 21px;
+    transition: all .2s ease-in-out;
+    & input {
+      font-size: 14px;
+      padding: 8px;
+      height: 32px;
+    }
+    &:focus-within {
+      border: 2px solid var(--color-user);
+    }
+
+    form > div:nth-child(1) > div {
+      border: none;
+      background-color: var(--color-navy-dark);
+    }
+  }
+
+  .gt2-user-dropdown {
+    margin-left: 5px;
+    margin-right: 15px;
+    & a {
+      height: 32px;
+    }
+    & img {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+    }
+    & > div > div {
+      display: none;
+    }
+  }
+
+  & > a[href='/compose/tweet'] {
+    font-size: 14px;
+    min-height: 34px !important;
+    width: 73px;
+
+    & > div > span {
+      overflow: visible;
+      & > div > div {
+        right: 13px;
+      }
+    }
+  }
+}
+
+header .gt2-dashboard-profile {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  display: flex;
+  width: 290px;
+  flex-direction: column;
+  border: 1px solid var(--color-gray-dark);
+  background-color: var(--color-navy-dark);
+
+  a {
+    text-decoration: none;
+    &:visited {
+      color: unset;
+    }
+  }
+
+  .gt2-banner {
+    background-image: var(--banner);
+    background-size: 100%;
+    height: 95px;
+    background-position: 0 50%;
+    width: 100%;
+  }
+  & div {
+    height: 116px;
+
+    .gt2-avatar {
+      display: inline-block;
+      margin: -30px 0 0 8px;
+      padding: 1px;
+      background-color: var(--color-navy-dark);
+      border-radius: 50%;
+
+      img {
+        border: 3px solid var(--color-navy-dark);
+        border-radius: 50%;
+        width: 72px;
+        height: 72px;
+        box-sizing: border-box;
+      }
+    }
+
+    .gt2-user {
+      color: white;
+      position: absolute;
+      top: 103px;
+      left: 90px;
+      width: 185px;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+
+      .gt2-name {
+        font-size: 18px;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+      .gt2-screenname {
+        font-size: 14px;
+        color: var(--color-gray);
+
+        &:hover span {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .gt2-stats {
+      padding: 14px;
+      width: 100%;
+      height: 37px;
+
+      ul {
+        display: inline-flex;
+        margin: 0;
+        padding: 0;
+
+        li {
+          width: 90px;
+          list-style: none;
+          a {
+            display: flex;
+            flex-direction: column;
+
+            span:nth-child(1) {
+              font-size: 12px;
+              font-weight: bold;
+              transition: color .15s ease-in-out;
+              color: var(--color-gray);
+            }
+            span:nth-child(2) {
+              font-size: 18px;
+              font-weight: bold;
+              line-height: 1;
+              padding-top: 3px;
+              color: var(--color-user);
+            }
+          }
+
+          a:hover span:nth-child(1) {
+            color: var(--color-user);
+          }
+        }
+      }
+    }
+  }
+}
