@@ -4,6 +4,7 @@ A try to make Twitter look good again.
 
 ### Content
 - [Background](#background)
+- [Disclaimers](#disclaimers)
 - [Installation](#installation)
 - [Previews](#previews)
 
@@ -11,9 +12,10 @@ A try to make Twitter look good again.
 ### Background
 Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working on June 1st 2020](https://twitter.com/ZusorOW/status/1258885451055800320), I decided to create a somewhat fix for the site.
 
-Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
-
-Also, this is by no means a full recreation of the old design, it is more like a hybrid between the two.
+### Disclaimers
+- Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
+- This is by no means a full recreation of the old design, it is more like a hybrid between the two.
+- Currently only the dark theme (dim mode) is supported. Support for the other modes may be added in the future!
 
 ### Installation
 To use this script, you need a userscript manager.
