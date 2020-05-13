@@ -13,7 +13,7 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 
 Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
 
-
+Also, this is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ### Installation
 To use this script, you need a userscript manager.
