@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.2
+// @version       0.0.3
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         http*://twitter.com/*
@@ -63,6 +63,7 @@
 
   // default values
   if (!GM_getValue("userColor")) GM_setValue("userColor", "rgba(29,161,242,1.00)")
+  if (!GM_getValue("bgColor")) GM_setValue("bgColor", "dim")
 
   // insert navbar
   $("body").prepend(`
@@ -87,25 +88,23 @@
     else GM_setValue("hasRun", true)
 
     // home, notifications, messages
-    $(navHome).detach().appendTo(".gt2-nav-left")
+    $(navHome)
+    .appendTo(".gt2-nav-left")
     urlChange()
 
     // twitter logo
     $("h1 a[href='/home'] svg")
-    .detach().appendTo(".gt2-nav-center a")
+    .appendTo(".gt2-nav-center a")
 
     // tweet button
     $("a[href='/compose/tweet']")
-    .detach().appendTo(".gt2-nav-right")
+    .appendTo(".gt2-nav-right")
 
     // user dropdown
     $("nav > div[data-testid=AppTabBar_More_Menu]")
     .addClass("gt2-more")
-    .detach().appendTo(".gt2-user-dropdown")
-    $(".gt2-more").append(`
-      <a href="javascript:void(0);">
-        <img src="" />
-      </a>`)
+    .appendTo(".gt2-user-dropdown")
+    $(".gt2-more").append(`<img src="" />`)
 
     $(".gt2-user-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
 
@@ -192,15 +191,24 @@
 
   // add elements to dropdown
   $(".gt2-user-dropdown").click(function() {
+    console.log("dropdown button");
+    let i = getInfo()
+    $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
     let more = "div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div"
-    waitForKeyElements(more, () => {
-      $(more).find("> div:eq(-4)").clone().prependTo(more)
-      $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav > a").clone().prependTo(more)
 
-      $(more).find("> div:eq(-4)").clone().appendTo(more)
+    waitForKeyElements(more, () => {
+      let $hr = $(more).find("> div:eq(-4)")
+      let $lm = $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav")
+
+      $hr.clone().prependTo(more)
+      $lm.find(`a[href='/explore']`).clone().prependTo(more)                  // explore
+      $lm.find(`a[href='/i/bookmarks']`).clone().prependTo(more)              // bookmarks
+      $lm.find(`a[href='/${i.screenName}/lists']`).clone().prependTo(more)    // lists
+      $lm.find(`a[href='/${i.screenName}']`).clone().prependTo(more)          // profile
+      $hr.clone().appendTo(more)
       $(more).append(`
         <a class="gt2-acc-opt" href="/account/add">Add an existing account</a>
-        <a class="gt2-acc-opt" href="/logout">Logout @${getInfo().screenName}</a>
+        <a class="gt2-acc-opt" href="/logout">Logout @${i.screenName}</a>
       `)
 
     })
@@ -210,10 +218,20 @@
   let displaySettings = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2)"
   waitForKeyElements(displaySettings, () => {
     $(displaySettings).find("> div > div:nth-child(2) > div > div > div:nth-child(6) > div > div[role=radiogroup] > div > label").click(function() {
-      let color = $(this).find("svg").css("color")
-      GM_setValue("userColor", color)
+      let userColor = $(this).find("svg").css("color")
+      GM_setValue("userColor", userColor)
       updateCSS()
     })
+    $(displaySettings).find("> div > div:nth-child(2) > div > div > div:nth-child(8) > div > div[role=radiogroup] > div").click(function() {
+      let bgColor = {
+        "rgb(255, 255, 255)": "default",
+        "rgb(21, 32, 43)":    "dim",
+        "rgb(0, 0, 0)":       "lightsOut"
+      }[$(this).css("background-color")]
+      GM_setValue("bgColor", bgColor)
+      updateCSS()
+    })
+
   })
 
   // update inserted CSS
@@ -224,11 +242,34 @@
       $(`#${id}`).remove()
     }
 
+    // bgColor schemes
+    let bgColors = {
+      default:   `--color-bg:        #e6ecf0;
+                  --color-elem:      #ffffff;
+                  --color-elem-dark: #ffffff;
+                  --color-gray:      #8899a6;
+                  --color-gray-dark: #e6ecf0;
+                  --color-text:      #14171a;`,
+      dim:       `--color-bg:        #10171e;
+                  --color-elem:      #1c2938;
+                  --color-elem-dark: #15202b;
+                  --color-gray:      #657786;
+                  --color-gray-dark: #38444d;
+                  --color-text:      #ffffff;`,
+      lightsOut: `--color-bg:        #000000;
+                  --color-elem:      #15181c;
+                  --color-elem-dark: #15181c;
+                  --color-gray:      #657786;
+                  --color-gray-dark: #38444d;
+                  --color-text:      #ffffff;`
+    }
+
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
-      .replace("$userColor$", GM_getValue("userColor"))
-      .replace("$banner$",    GM_getValue("banner"))
+      .replace("--bgColors:$;", bgColors[GM_getValue("bgColor")])
+      .replace("$userColor$",   GM_getValue("userColor"))
+      .replace("$banner$",      GM_getValue("banner"))
     )
     GM_setValue("styleId", $(a).attr("id"))
   }
@@ -237,13 +278,27 @@
 
   function urlChange() {
     // highlight current location in left bar
-    let path = window.location.href.split("/")[3].split("?")[0]
+    let url = window.location.href.split("/")
+    let path  = url.length > 3 ? url[3].split("?")[0] : ""
+    let path2 = url.length > 4 ? url[4].split("?")[0] : ""
     console.log(path);
     $(`.gt2-nav-left > a`).removeClass("active")
     $(`.gt2-nav-left > a[href='/${path}']`).addClass("active")
 
     // insert dashboard profile only on these pages
-    if (["home", "notifications", "messages"].includes(path) || window.location.href.includes("/status/")) {
+    if ([
+      "home",
+      "i",
+      "messages",
+      "notifications",
+      "settings",
+    ].includes(path) || [
+      "bookmarks",
+      "lists",
+      "moments",
+      "status",
+      "topics",
+    ].includes(path2)) {
       console.log("insert profile");
       insertDashboardProfile()
     } else {

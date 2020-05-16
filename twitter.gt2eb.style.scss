@@ -1,12 +1,7 @@
 :root {
-  --color-bg:        #10171e;
-  --color-navy:      #1c2938;
-  --color-navy-dark: #15202b;
-  --color-gray:      #8899a6;
-  --color-gray-dark: #38444d;
-
-  --color-user:      $userColor$;
-  --banner:          $banner$;
+  --bgColors:$;
+  --color-user: $userColor$;
+  --banner:     $banner$;
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
@@ -26,12 +21,15 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
   border-radius: 0;
   border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-navy-dark);
+  background-color: var(--color-elem-dark);
   margin-bottom: 10px;
 
   &:nth-last-child(1) nav {
     padding: 15px;
   }
+}
+div[data-testid=primaryColumn] > div > div:nth-child(1) {
+  position: relative;
 }
 
 
@@ -74,6 +72,7 @@ div[role=menu][style^="max-height: calc(100vh - 0px);"] {
         font-size: 15px;
         font-weight: 400;
         margin-left: 0;
+        color: var(--color-text);
       }
       & svg {
         color: var(--color-gray);
@@ -85,13 +84,14 @@ div[role=menu][style^="max-height: calc(100vh - 0px);"] {
     // inserted elements (logout/add existing acc)
     .gt2-acc-opt {
       text-decoration: none;
-      color: white;
+      color: var(--color-text);
       padding: 15px;
       &:visited {
-        color: white;
+        color: var(--color-text);
       }
     }
 
+    // color changes on hover
     & > div > a:hover,
     & > a:hover {
       background-color: var(--color-user);
@@ -117,7 +117,7 @@ header > div > div {
   height: 46px;
   position: fixed;
   width: 100%;
-  background-color: var(--color-navy);
+  background-color: var(--color-elem);
   z-index: 1;
   display: flex;
 
@@ -135,24 +135,27 @@ header > div > div {
     display: inline-flex;
     height: 100%;
     transition: all .15s ease-in-out;
+
+    & > div {
+      background-color: unset !important;
+
+      & > div:nth-child(1) > div {
+        background-color: var(--color-user);
+        border-color: var(--color-elem-dark);
+      }
+      & > div:nth-child(2) {
+        color: var(--color-gray);
+        font-size: 13px;
+        margin-left: 3px;
+      }
+    }
   }
 
   & > a.active,
   & > a:hover {
     border-bottom: 2px solid var(--color-user);
   }
-  & > a > div {
-    background-color: unset !important;
 
-    & > div:nth-child(1) > div {
-      background-color: var(--color-user);
-    }
-    & > div:nth-child(2) {
-      color: var(--color-gray);
-      font-size: 13px;
-      margin-left: 3px;
-    }
-  }
   & > a svg {
     color: var(--color-gray);
     width: 23px;
@@ -201,6 +204,7 @@ header > div > div {
       font-size: 14px;
       padding: 8px;
       height: 32px;
+      color: var(--color-text);
     }
     &:focus-within {
       border: 2px solid var(--color-user);
@@ -208,16 +212,14 @@ header > div > div {
 
     form > div:nth-child(1) > div {
       border: none;
-      background-color: var(--color-navy-dark);
+      background-color: var(--color-elem-dark);
     }
   }
 
   .gt2-user-dropdown {
     margin-left: 5px;
     margin-right: 15px;
-    & a {
-      height: 32px;
-    }
+
     & img {
       border-radius: 50%;
       height: 32px;
@@ -243,6 +245,7 @@ header > div > div {
 }
 
 header .gt2-dashboard-profile {
+  z-index: 1;
   position: absolute;
   right: 0;
   margin: 10px;
@@ -250,7 +253,7 @@ header .gt2-dashboard-profile {
   width: 290px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-navy-dark);
+  background-color: var(--color-elem-dark);
 
   a {
     text-decoration: none;
@@ -273,11 +276,11 @@ header .gt2-dashboard-profile {
       display: inline-block;
       margin: -30px 0 0 8px;
       padding: 1px;
-      background-color: var(--color-navy-dark);
+      background-color: var(--color-elem-dark);
       border-radius: 50%;
 
       img {
-        border: 3px solid var(--color-navy-dark);
+        border: 3px solid var(--color-elem-dark);
         border-radius: 50%;
         width: 72px;
         height: 72px;
@@ -286,7 +289,7 @@ header .gt2-dashboard-profile {
     }
 
     .gt2-user {
-      color: white;
+      color: var(--color-text);
       position: absolute;
       top: 103px;
       left: 90px;
