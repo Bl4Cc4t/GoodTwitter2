@@ -1,7 +1,8 @@
 :root {
   --bgColors:$;
-  --color-user: $userColor$;
-  --banner: $banner$;
+  --color-user: $userColor;
+  --banner: $banner;
+  --scrollbarWidth: $scrollbarWidth;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
 
 header h1,
@@ -78,84 +79,85 @@ header > div > div {
   display: flex; }
   .gt2-nav.not-focused {
     z-index: -1; }
-
-.gt2-nav-left {
-  margin-left: calc(100vw / 2 - 300px - 367px); }
-  .gt2-nav-left > a {
-    padding: 0;
-    width: fit-content;
-    display: inline-flex;
-    height: 100%;
-    transition: all .15s ease-in-out; }
-    .gt2-nav-left > a > div {
-      background-color: unset !important; }
-      .gt2-nav-left > a > div > div:nth-child(1) > div {
-        background-color: var(--color-user);
-        border-color: var(--color-elem-dark); }
-      .gt2-nav-left > a > div > div:nth-child(2) {
-        color: var(--color-gray);
-        font-size: 13px;
-        margin-left: 3px; }
-  .gt2-nav-left > a.active, .gt2-nav-left > a:hover {
-    border-bottom: 2px solid var(--color-user); }
-  .gt2-nav-left > a svg {
-    color: var(--color-gray);
-    width: 23px; }
-  .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav-left > a.active svg, .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav-left > a:hover svg {
-    color: var(--color-user); }
-
-.gt2-nav-center {
-  position: absolute;
-  left: 50%;
-  width: 24px;
-  margin-top: 8px;
-  margin-left: -12px; }
-  .gt2-nav-center svg {
-    color: #1da1f2; }
-
-.gt2-nav-right {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 0px;
-  margin-right: calc(100vw / 2 - 360px - 252px); }
-  .gt2-nav-right .gt2-search > div {
-    height: auto;
-    width: 300px;
-    right: 10px;
-    background: unset;
-    position: relative;
-    margin-bottom: 0;
-    border: 1px solid var(--color-gray-dark);
-    border-radius: 21px;
-    transition: all .2s ease-in-out; }
-    .gt2-nav-right .gt2-search > div input {
+    .gt2-nav.not-focused .gt2-nav-center {
+      margin-right: calc(var(--scrollbarWidth) / 2); }
+    .gt2-nav.not-focused .gt2-nav-right {
+      padding-right: var(--scrollbarWidth); }
+  .gt2-nav .gt2-nav-left {
+    margin-left: calc(100vw / 2 - 300px - 367px); }
+    .gt2-nav .gt2-nav-left > a {
+      padding: 0;
+      width: fit-content;
+      display: inline-flex;
+      height: 100%;
+      transition: all .15s ease-in-out; }
+      .gt2-nav .gt2-nav-left > a > div {
+        background-color: unset !important; }
+        .gt2-nav .gt2-nav-left > a > div > div:nth-child(1) > div {
+          background-color: var(--color-user);
+          border-color: var(--color-elem-dark); }
+        .gt2-nav .gt2-nav-left > a > div > div:nth-child(2) {
+          color: var(--color-gray);
+          font-size: 13px;
+          margin-left: 3px; }
+    .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
+      border-bottom: 2px solid var(--color-user); }
+    .gt2-nav .gt2-nav-left > a svg {
+      color: var(--color-gray);
+      width: 23px; }
+    .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
+      color: var(--color-user); }
+  .gt2-nav .gt2-nav-center {
+    position: absolute;
+    right: 50%;
+    width: 24px;
+    margin-top: 8px; }
+    .gt2-nav .gt2-nav-center svg {
+      color: #1da1f2; }
+  .gt2-nav .gt2-nav-right {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    margin-right: calc(100vw / 2 - 360px - 252px); }
+    .gt2-nav .gt2-nav-right .gt2-search > div {
+      height: auto;
+      width: 300px;
+      right: 10px;
+      background: unset;
+      position: relative;
+      margin-bottom: 0;
+      border: 1px solid var(--color-gray-dark);
+      border-radius: 21px;
+      transition: all .2s ease-in-out; }
+      .gt2-nav .gt2-nav-right .gt2-search > div input {
+        font-size: 14px;
+        padding: 8px;
+        height: 32px;
+        color: var(--color-text); }
+      .gt2-nav .gt2-nav-right .gt2-search > div:focus-within {
+        border: 2px solid var(--color-user); }
+      .gt2-nav .gt2-nav-right .gt2-search > div form > div:nth-child(1) > div {
+        border: none;
+        background-color: var(--color-elem-dark); }
+    .gt2-nav .gt2-nav-right .gt2-user-dropdown {
+      margin-left: 5px;
+      margin-right: 15px; }
+      .gt2-nav .gt2-nav-right .gt2-user-dropdown img {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px; }
+      .gt2-nav .gt2-nav-right .gt2-user-dropdown > div > div {
+        display: none; }
+    .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] {
       font-size: 14px;
-      padding: 8px;
-      height: 32px;
-      color: var(--color-text); }
-    .gt2-nav-right .gt2-search > div:focus-within {
-      border: 2px solid var(--color-user); }
-    .gt2-nav-right .gt2-search > div form > div:nth-child(1) > div {
-      border: none;
-      background-color: var(--color-elem-dark); }
-  .gt2-nav-right .gt2-user-dropdown {
-    margin-left: 5px;
-    margin-right: 15px; }
-    .gt2-nav-right .gt2-user-dropdown img {
-      border-radius: 50%;
-      height: 32px;
-      width: 32px; }
-    .gt2-nav-right .gt2-user-dropdown > div > div {
-      display: none; }
-  .gt2-nav-right > a[href='/compose/tweet'] {
-    font-size: 14px;
-    min-height: 34px !important;
-    width: 73px; }
-    .gt2-nav-right > a[href='/compose/tweet'] > div > span {
-      overflow: visible; }
-      .gt2-nav-right > a[href='/compose/tweet'] > div > span > div > div {
-        right: 13px; }
+      min-height: 34px !important;
+      width: 73px;
+      background-color: var(--color-user); }
+      .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span {
+        overflow: visible; }
+        .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span > div > div {
+          right: 13px; }
 
 header .gt2-dashboard-profile {
   z-index: 1;

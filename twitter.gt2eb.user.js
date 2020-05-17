@@ -9,13 +9,13 @@
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @require       https://code.jquery.com/jquery-3.2.1.min.js
+// @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
 
-(function() {
+(function($, waitForKeyElements) {
   "use strict"
 
   // seperate number with commas
@@ -64,6 +64,7 @@
   // default values
   if (!GM_getValue("userColor")) GM_setValue("userColor", "rgba(29,161,242,1.00)")
   if (!GM_getValue("bgColor")) GM_setValue("bgColor", "dim")
+  if (!GM_getValue("scrollbarWidth")) GM_setValue("scrollbarWidth", window.innerWidth - $("html")[0].clientWidth)
 
   // insert navbar
   $("body").prepend(`
@@ -115,7 +116,7 @@
 
   // add search
   function addSearch() {
-    let search  = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
+    let search = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
     waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
 
       // remove if added previously
@@ -130,7 +131,7 @@
 
 
   // profile view left sidebar
-  function insertDashboardProfile() {
+  function addDashboardProfile() {
     let insertAt = "header > div > div"
     if ($(insertAt).length != 0) {
       let i = getInfo()
@@ -184,6 +185,7 @@
   let obs = new MutationObserver(() => {
     if ($("body").css("overflow-y") == "hidden") {
       $(".gt2-nav").addClass("not-focused")
+
     } else {
       $(".gt2-nav").removeClass("not-focused")
     }
@@ -192,6 +194,7 @@
     attributes: true,
     attributeFilter: [ "style" ]
   })
+
 
   // add elements to dropdown
   $(".gt2-user-dropdown").click(function() {
@@ -269,12 +272,15 @@
                   --color-text:      #ffffff;`
     }
 
+
+
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
-      .replace("--bgColors:$;", bgColors[GM_getValue("bgColor")])
-      .replace("$userColor$",   GM_getValue("userColor"))
-      .replace("$banner$",      GM_getValue("banner"))
+      .replace("--bgColors:$;",   bgColors[GM_getValue("bgColor")])
+      .replace("$userColor",      GM_getValue("userColor"))
+      .replace("$banner",         GM_getValue("banner"))
+      .replace("$scrollbarWidth", `${GM_getValue("scrollbarWidth")}px`)
     )
 
     GM_setValue("styleId", $(a).attr("id"))
@@ -304,8 +310,7 @@
       "status",
       "topics",
     ].includes(path2)) {
-      console.log("insert profile");
-      insertDashboardProfile()
+      addDashboardProfile()
     } else {
       $(".gt2-dashboard-profile").remove()
     }
@@ -332,4 +337,4 @@
     urlChange()
   })
 
-})()
+})(jQuery, waitForKeyElements)

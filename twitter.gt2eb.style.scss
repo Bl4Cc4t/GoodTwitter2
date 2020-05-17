@@ -1,7 +1,8 @@
 :root {
   --bgColors:$;
-  --color-user: $userColor$;
-  --banner:     $banner$;
+  --color-user:     $userColor;
+  --banner:         $banner;
+  --scrollbarWidth: $scrollbarWidth;
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
@@ -45,6 +46,7 @@ main {
     }
   }
 }
+
 
 // profile menu
 div[role=menu][style^="max-height: calc(100vh - 0px);"] {
@@ -123,127 +125,133 @@ header > div > div {
 
   &.not-focused {
     z-index: -1;
+    .gt2-nav-center {
+      margin-right: calc(var(--scrollbarWidth) / 2);
+    }
+    .gt2-nav-right {
+      padding-right: var(--scrollbarWidth);
+    }
   }
-}
 
-.gt2-nav-left {
-  margin-left: calc(100vw / 2 - 300px - 367px);
+  .gt2-nav-left {
+    margin-left: calc(100vw / 2 - 300px - 367px);
 
-  & > a {
-    padding: 0;
-    width: fit-content;
-    display: inline-flex;
-    height: 100%;
-    transition: all .15s ease-in-out;
+    & > a {
+      padding: 0;
+      width: fit-content;
+      display: inline-flex;
+      height: 100%;
+      transition: all .15s ease-in-out;
 
-    & > div {
-      background-color: unset !important;
+      & > div {
+        background-color: unset !important;
 
-      & > div:nth-child(1) > div {
-        background-color: var(--color-user);
-        border-color: var(--color-elem-dark);
+        & > div:nth-child(1) > div {
+          background-color: var(--color-user);
+          border-color: var(--color-elem-dark);
+        }
+        & > div:nth-child(2) {
+          color: var(--color-gray);
+          font-size: 13px;
+          margin-left: 3px;
+        }
       }
-      & > div:nth-child(2) {
-        color: var(--color-gray);
-        font-size: 13px;
-        margin-left: 3px;
+    }
+
+    & > a.active,
+    & > a:hover {
+      border-bottom: 2px solid var(--color-user);
+    }
+
+    & > a svg {
+      color: var(--color-gray);
+      width: 23px;
+    }
+
+    & > a.active > div > div:nth-child(2),
+    & > a.active svg,
+    & > a:hover > div > div:nth-child(2),
+    & > a:hover svg {
+      color: var(--color-user);
+    }
+  }
+
+  // twitter logo
+  .gt2-nav-center {
+    position: absolute;
+    right: 50%;
+    width: 24px;
+    margin-top: 8px;
+    & svg {
+      color: #1da1f2;
+    }
+  }
+
+  // nav right
+  .gt2-nav-right {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    margin-right: calc(100vw / 2 - 360px - 252px);
+
+    .gt2-search > div {
+      height: auto;
+      width: 300px;
+      right: 10px;
+      background: unset;
+      position: relative;
+      margin-bottom: 0;
+      border: 1px solid var(--color-gray-dark);
+      border-radius: 21px;
+      transition: all .2s ease-in-out;
+      & input {
+        font-size: 14px;
+        padding: 8px;
+        height: 32px;
+        color: var(--color-text);
+      }
+      &:focus-within {
+        border: 2px solid var(--color-user);
+      }
+
+      form > div:nth-child(1) > div {
+        border: none;
+        background-color: var(--color-elem-dark);
       }
     }
-  }
 
-  & > a.active,
-  & > a:hover {
-    border-bottom: 2px solid var(--color-user);
-  }
+    .gt2-user-dropdown {
+      margin-left: 5px;
+      margin-right: 15px;
 
-  & > a svg {
-    color: var(--color-gray);
-    width: 23px;
-  }
-
-  & > a.active > div > div:nth-child(2),
-  & > a.active svg,
-  & > a:hover > div > div:nth-child(2),
-  & > a:hover svg {
-    color: var(--color-user);
-  }
-}
-
-// twitter logo
-.gt2-nav-center {
-  position: absolute;
-  left: 50%;
-  width: 24px;
-  margin-top: 8px;
-  margin-left: -12px;
-  & svg {
-    color: #1da1f2;
-  }
-}
-
-
-// nav right
-.gt2-nav-right {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 0px;
-  margin-right: calc(100vw / 2 - 360px - 252px);
-
-  .gt2-search > div {
-    height: auto;
-    width: 300px;
-    right: 10px;
-    background: unset;
-    position: relative;
-    margin-bottom: 0;
-    border: 1px solid var(--color-gray-dark);
-    border-radius: 21px;
-    transition: all .2s ease-in-out;
-    & input {
-      font-size: 14px;
-      padding: 8px;
-      height: 32px;
-      color: var(--color-text);
-    }
-    &:focus-within {
-      border: 2px solid var(--color-user);
-    }
-
-    form > div:nth-child(1) > div {
-      border: none;
-      background-color: var(--color-elem-dark);
-    }
-  }
-
-  .gt2-user-dropdown {
-    margin-left: 5px;
-    margin-right: 15px;
-
-    & img {
-      border-radius: 50%;
-      height: 32px;
-      width: 32px;
-    }
-    & > div > div {
-      display: none;
-    }
-  }
-
-  & > a[href='/compose/tweet'] {
-    font-size: 14px;
-    min-height: 34px !important;
-    width: 73px;
-
-    & > div > span {
-      overflow: visible;
+      & img {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+      }
       & > div > div {
-        right: 13px;
+        display: none;
+      }
+    }
+
+    & > a[href='/compose/tweet'] {
+      font-size: 14px;
+      min-height: 34px !important;
+      width: 73px;
+      background-color: var(--color-user);
+
+      & > div > span {
+        overflow: visible;
+        & > div > div {
+          right: 13px;
+        }
       }
     }
   }
 }
 
+// dashboard profile
 header .gt2-dashboard-profile {
   z-index: 1;
   position: absolute;
