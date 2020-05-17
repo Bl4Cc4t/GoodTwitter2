@@ -6,6 +6,7 @@ A try to make Twitter look good again.
 - [Background](#background)
 - [Disclaimers](#disclaimers)
 - [Installation](#installation)
+- [Hints](#hints)
 - [Previews](#previews)
 
 
@@ -15,7 +16,8 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 ### Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
-- Currently only the dark theme (dim mode) is supported. Support for the other modes may be added in the future!
+- All background themes are fully supported now!
+  - The default and dim theme use the color palette from legacy twitter
 
 ### Installation
 To use this script, you need a userscript manager.
@@ -24,6 +26,12 @@ To use this script, you need a userscript manager.
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you’re good to go!
 
+### Hints
+#### The colors do not match my settings!
+By default, the blue color and the dim theme are selected and used internally in this script.
+
+To change that, navigate to the display settings and select your current color/background setting again.
+Now it should look the way you want!
 
 ### Previews
 ![](https://i.imgur.com/7GQe1AE.png)
