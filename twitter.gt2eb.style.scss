@@ -10,11 +10,7 @@
 header h1,   // sidebar twitter logo
 header nav,  // sidebar links
 header a[href='/compose/tweet'],  // sidebar tweet button
-header div[data-testid=SideNav_AccountSwitcher_Button],
-// div[data-testid=primaryColumn] > div > div:not(:last-child), // main tweet button
-// div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:not(:last-child):not(:nth-last-child(2)),
-div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1),
-div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(2) {
+header div[data-testid=SideNav_AccountSwitcher_Button] {
   display: none !important;
 }
 
@@ -26,6 +22,10 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div 
 
   &:nth-last-child(1) nav {
     padding: 15px;
+  }
+
+  &:empty {
+    display: none;
   }
 }
 div[data-testid=primaryColumn] > div > div:nth-child(1) {
@@ -190,7 +190,7 @@ header > div > div {
   right: 0px;
   margin-right: calc(100vw / 2 - 360px - 252px);
 
-  .gt2-search {
+  .gt2-search > div {
     height: auto;
     width: 300px;
     right: 10px;

@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.3
+// @version       0.0.4
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         http*://twitter.com/*
 // @grant         GM_addStyle
 // @grant         GM_getResourceText
-// @grant         GM_setValue
 // @grant         GM_getValue
+// @grant         GM_setValue
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @require       https://code.jquery.com/jquery-3.2.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
@@ -73,6 +73,7 @@
         <a href="/home"></a>
       </div>
       <div class="gt2-nav-right">
+        <div class="gt2-search"></div>
         <div class="gt2-user-dropdown"></div>
       </div>
     </nav>
@@ -111,18 +112,21 @@
     updateCSS()
   })
 
+
   // add search
-  let search  = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
-  waitForKeyElements(`${search} input`, () => {
-    if (!$(".gt2-nav-right .gt2-search").length) {
+  function addSearch() {
+    let search  = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
+    waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
+
+      // remove if added previously
+      if ($(".gt2-search").length) {
+        $(".gt2-search").empty()
+      }
+      // add search
       $(search)
-      .addClass("gt2-search")
-      .clone().prependTo(".gt2-nav-right")
-      $(`${search} + div`).css("display", "none")
-    }
-  })
-
-
+      .prependTo(".gt2-search")
+    })
+  }
 
 
   // profile view left sidebar
@@ -234,6 +238,7 @@
 
   })
 
+
   // update inserted CSS
   function updateCSS() {
     // delete old stylesheet
@@ -271,9 +276,9 @@
       .replace("$userColor$",   GM_getValue("userColor"))
       .replace("$banner$",      GM_getValue("banner"))
     )
+
     GM_setValue("styleId", $(a).attr("id"))
   }
-
 
 
   function urlChange() {
@@ -304,7 +309,11 @@
     } else {
       $(".gt2-dashboard-profile").remove()
     }
+
+    // readd search
+    addSearch()
   }
+  urlChange()
 
   // run urlChange() when history changes
   let origPush = window.history.pushState
@@ -312,11 +321,13 @@
     origPush.apply(window.history, arguments)
     urlChange()
   }
+
   let origRepl = window.history.replaceState
   window.history.replaceState = function() {
     origRepl.apply(window.history, arguments)
     urlChange()
   }
+
   window.addEventListener("popstate", function(event) {
     urlChange()
   })
