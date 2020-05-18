@@ -280,24 +280,31 @@
 
     // bgColor schemes
     let bgColors = {
-      default:   `--color-bg:        #e6ecf0;
-                  --color-elem:      #ffffff;
-                  --color-elem-dark: #ffffff;
-                  --color-gray:      #8899a6;
-                  --color-gray-dark: #e6ecf0;
-                  --color-text:      #14171a;`,
-      dim:       `--color-bg:        #10171e;
-                  --color-elem:      #1c2938;
-                  --color-elem-dark: #15202b;
-                  --color-gray:      #657786;
-                  --color-gray-dark: #38444d;
-                  --color-text:      #ffffff;`,
-      lightsOut: `--color-bg:        #000000;
-                  --color-elem:      #15181c;
-                  --color-elem-dark: #15181c;
-                  --color-gray:      #657786;
-                  --color-gray-dark: #38444d;
-                  --color-text:      #ffffff;`
+      default:   `--color-bg:         #e6ecf0;
+                  --color-elem:       #ffffff;
+                  --color-elem-dark:  #ffffff;
+                  --color-elem-sel:   rgb(245, 248, 255);
+                  --color-gray:       #8899a6;
+                  --color-gray-dark:  #e6ecf0;
+                  --color-text:       #14171a;`,
+
+      dim:       `--color-bg:         #10171e;
+                  --color-elem:       #1c2938;
+                  --color-elem-dark:  #15202b;
+                  --color-elem-sel:   rgb(25, 39, 52);
+                  --color-gray:       #657786;
+                  --color-gray-dark:  #38444d;
+                  --color-gray-icons: rgb(136, 153, 166);
+                  --color-text:       #ffffff;`,
+
+      lightsOut: `--color-bg:         #000000;
+                  --color-elem:       #15181c;
+                  --color-elem-dark:  #15181c;
+                  --color-elem-sel:   rgb(21, 24, 28);
+                  --color-gray:       #657786;
+                  --color-gray-dark:  #38444d;
+                  --color-gray-icons: rgb(110, 118, 125);
+                  --color-text:       rgb(217, 217, 217);`
     }
 
 

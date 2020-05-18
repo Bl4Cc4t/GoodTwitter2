@@ -61,7 +61,7 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
       color: var(--color-text); }
     div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a svg,
     div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a svg {
-      color: var(--color-gray);
+      color: var(--color-gray-icons);
       margin-right: 10px;
       height: 1.25em; }
   div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt,
@@ -72,14 +72,9 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
     div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt:visited,
     div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div .gt2-acc-opt:visited {
       color: var(--color-text); }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover,
-  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a:hover,
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover,
   div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover {
-    background-color: var(--color-user); }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover svg, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover svg,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a:hover svg,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover svg {
-      color: white; }
+    background-color: var(--color-elem-sel); }
 
 header > div > div {
   margin-top: 46px !important; }
@@ -130,7 +125,7 @@ a.gt2-trend {
     .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
       border-bottom: 2px solid var(--color-user); }
     .gt2-nav .gt2-nav-left > a svg {
-      color: var(--color-gray);
+      color: var(--color-gray-icons);
       width: 23px; }
     .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
       color: var(--color-user); }
