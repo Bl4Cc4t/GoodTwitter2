@@ -82,6 +82,16 @@ body {
 header > div > div {
   margin-top: 46px !important; }
 
+.gt2-dashboard-profile a,
+a.gt2-trend {
+  text-decoration: none; }
+  .gt2-dashboard-profile a:visited,
+  a.gt2-trend:visited {
+    color: unset; }
+  .gt2-dashboard-profile a:link,
+  a.gt2-trend:link {
+    color: unset; }
+
 .gt2-nav {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   height: 46px;
@@ -184,12 +194,6 @@ header .gt2-dashboard-profile {
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark); }
-  header .gt2-dashboard-profile a {
-    text-decoration: none; }
-    header .gt2-dashboard-profile a:visited {
-      color: unset; }
-    header .gt2-dashboard-profile a:link {
-      color: unset; }
   header .gt2-dashboard-profile .gt2-banner {
     background-image: var(--banner);
     background-size: 100%;

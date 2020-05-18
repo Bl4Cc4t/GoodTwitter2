@@ -62,8 +62,8 @@
   }
 
   // default values
-  if (!GM_getValue("userColor")) GM_setValue("userColor", "rgba(29,161,242,1.00)")
-  if (!GM_getValue("bgColor")) GM_setValue("bgColor", "dim")
+  if (!GM_getValue("userColor"))      GM_setValue("userColor",      "rgba(29,161,242,1.00)")
+  if (!GM_getValue("bgColor"))        GM_setValue("bgColor",        "dim")
   if (!GM_getValue("scrollbarWidth")) GM_setValue("scrollbarWidth", window.innerWidth - $("html")[0].clientWidth)
 
   // insert navbar
@@ -147,7 +147,6 @@
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
-      console.log("added profile");
       $(insertAt).prepend(`
         <div class="gt2-dashboard-profile">
           <a href="/${i.screenName}" class="gt2-banner"></a>
@@ -252,6 +251,17 @@
     GM_setValue("bgColor", bgColor)
     updateCSS()
   })
+
+
+  // wrap trends in anchors
+  function wrapTrends() {
+    $("div > div > div[data-testid=trend]").each(function() {
+      let ht = $(this).find("> div > div:nth-child(2) > span").text()
+      $(this).parent().wrap(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'></a>`)
+    })
+  }
+  waitForKeyElements("div[data-testid=trend]", wrapTrends)
+  // $("body").on("click", "")
 
 
   // update inserted CSS
