@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.6
+// @version       0.0.7
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -62,9 +62,10 @@
   }
 
   // default values
-  if (!GM_getValue("userColor"))      GM_setValue("userColor",      "rgba(29,161,242,1.00)")
-  if (!GM_getValue("bgColor"))        GM_setValue("bgColor",        "dim")
-  if (!GM_getValue("scrollbarWidth")) GM_setValue("scrollbarWidth", window.innerWidth - $("html")[0].clientWidth)
+  if (!GM_getValue("userColor"))                GM_setValue("userColor",      "rgba(29,161,242,1.00)")
+  if (!GM_getValue("bgColor"))                  GM_setValue("bgColor",        "dim")
+  if (!GM_getValue("scrollbarWidth"))           GM_setValue("scrollbarWidth", window.innerWidth - $("html")[0].clientWidth)
+  if (GM_getValue("autoRefresh") == undefined)  GM_setValue("autoRefresh",    false)
 
   // insert navbar
   $("body").prepend(`
@@ -257,7 +258,6 @@
   function wrapTrends() {
     $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
       let ht = $(this).text()
-      console.log(ht);
       $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
     })
   }
@@ -268,6 +268,87 @@
   $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", function() {
     $(this).addClass("gt2-compose-large")
   })
+
+
+  // ##########################
+  // #   auto refresh parts   #
+  // ##########################
+
+  // add toggle auto refresh button
+  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div", function() {
+    let sel = "a[href='/settings/content_preferences']"
+    waitForKeyElements(sel, () => {
+      $(sel).after(`
+        <div class="gt2-toggle-auto-refresh">
+          <svg viewBox="0 0 24 24"><g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g></svg>
+          <div>${GM_getValue("autoRefresh") ? "Dis" : "En"}able Auto Refresh</div>
+        </div>
+      `)
+    })
+  })
+
+
+  // toggle auto refresh
+  $("body").on("click", ".gt2-toggle-auto-refresh", function() {
+    GM_setValue("autoRefresh", !GM_getValue("autoRefresh"))
+    window.location.reload()
+  })
+
+
+  // add counter for new tweets
+  function updateNewTweetDisplay() {
+    let nr = $(".gt2-hidden-tweet").length
+    let text = `Show ${nr} new Tweet${nr > 1 ? "s" : ""}`
+    if (nr) {
+      // add button
+      if ($(".gt2-show-hidden-tweets").length == 0) {
+        $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
+      }
+      $(".gt2-show-hidden-tweets").html(text)
+    } else {
+      $(".gt2-show-hidden-tweets").empty().removeClass("gt2-show-hidden-tweets")
+    }
+  }
+
+  // show new tweets
+  $("body").on("click", ".gt2-show-hidden-tweets", function() {
+    let topTweet = $(".gt2-hidden-tweet").eq(0).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
+    GM_setValue("topTweet", topTweet)
+    $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
+
+    updateNewTweetDisplay()
+  })
+
+
+  // observe and hide auto refreshed tweets
+  if (!GM_getValue("autoRefresh")) {
+    let obsTL = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        if (m.addedNodes.length == 1) {
+          let $t = $(m.addedNodes[0])
+          if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
+            $t.addClass("gt2-hidden-tweet")
+            updateNewTweetDisplay()
+          }
+        }
+      })
+    })
+    let tlSel = "div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div"
+    waitForKeyElements(tlSel, () => {
+      // memorize last tweet
+      let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
+      GM_setValue("topTweet", topTweet)
+      obsTL.observe($(tlSel)[0], {
+        childList: true,
+        subtree: true
+      })
+    })
+  }
+
+
+  // ##########
+  // #  rest  #
+  // ##########
 
 
   // update inserted CSS

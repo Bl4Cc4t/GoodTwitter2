@@ -36,6 +36,31 @@ main > div > div > div {
     margin-top: 10px;
     border-top-width: 1px; }
 
+.gt2-hidden-tweet {
+  display: none; }
+
+.gt2-show-hidden-tweets {
+  color: var(--color-text);
+  height: auto;
+  padding: 10px;
+  text-align: center; }
+  .gt2-show-hidden-tweets:hover {
+    cursor: pointer; }
+
+.gt2-toggle-auto-refresh {
+  padding: 15px;
+  display: inline-flex; }
+  .gt2-toggle-auto-refresh svg {
+    height: 1.25em;
+    color: var(--color-gray-icons);
+    fill: currentcolor;
+    margin-right: 10px; }
+  .gt2-toggle-auto-refresh div {
+    color: var(--color-text); }
+  .gt2-toggle-auto-refresh:hover {
+    cursor: pointer;
+    background-color: var(--color-elem-sel); }
+
 div[role=menu][style^="max-height: calc(100vh - 0px);"],
 div[role=menu][style^="max-height: calc(0px + 100vh);"] {
   right: calc(100vw / 2 - 360px - 252px) !important;

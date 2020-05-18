@@ -40,7 +40,7 @@ div[data-testid=primaryColumn] > div {
   & > div:nth-child(1) {
     position: relative;
   }
-  
+
   // compose tweet
   & > div:nth-child(2):not(.gt2-compose-large) {
     & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
@@ -59,6 +59,42 @@ main {
       margin-top: 10px;
       border-top-width: 1px;
     }
+  }
+}
+
+.gt2-hidden-tweet {
+  display: none;
+}
+
+.gt2-show-hidden-tweets {
+  color: var(--color-text);
+  height: auto;
+  padding: 10px;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.gt2-toggle-auto-refresh {
+  padding: 15px;
+  display: inline-flex;
+
+  svg {
+    height: 1.25em;
+    color: var(--color-gray-icons);
+    fill: currentcolor;
+    margin-right: 10px;
+  }
+
+  div {
+    color: var(--color-text);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-elem-sel);
   }
 }
 
@@ -93,7 +129,7 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
         color: var(--color-text);
       }
       & svg {
-        color: var(--color-gray);
+        color: var(--color-gray-icons);
         margin-right: 10px;
         height: 1.25em;
       }
@@ -110,12 +146,13 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
     }
 
     // color changes on hover
-    & > div > a:hover,
+    // & > div > a:hover,
     & > a:hover {
-      background-color: var(--color-user);
-      & svg {
-        color: white;
-      }
+      background-color: var(--color-elem-sel);
+      // svg,
+      // span {
+      //   color: white;
+      // }
     }
   }
 }
@@ -191,7 +228,7 @@ a.gt2-trend {
     }
 
     & > a svg {
-      color: var(--color-gray);
+      color: var(--color-gray-icons);
       width: 23px;
     }
 
