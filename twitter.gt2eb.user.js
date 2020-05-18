@@ -261,8 +261,11 @@
     })
   }
   waitForKeyElements("div[data-testid=trend]", wrapTrends)
-  // $("body").on("click", "")
 
+  // minimize the “What’s happening?” field by default
+  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", function() {
+    $(this).addClass("gt2-compose-large")
+  })
 
   // update inserted CSS
   function updateCSS() {

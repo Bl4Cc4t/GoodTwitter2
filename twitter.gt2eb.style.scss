@@ -7,14 +7,15 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-// hide stuff
-header h1,   // sidebar twitter logo
-header nav,  // sidebar links
-header a[href='/compose/tweet'],  // sidebar tweet button
+// hide stuff in the sidebar
+header h1,   // twitter logo
+header nav,  // links
+header a[href='/compose/tweet'],  // tweet button
 header div[data-testid=SideNav_AccountSwitcher_Button] {
   display: none !important;
 }
 
+// apply theme to sidebar elements
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
   border-radius: 0;
   border: 1px solid var(--color-gray-dark);
@@ -29,13 +30,27 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div 
     display: none;
   }
 }
-div[data-testid=primaryColumn] > div > div:nth-child(1) {
-  position: relative;
+body {
+  background-color: var(--color-bg) !important;
 }
 
 
-main {
+div[data-testid=primaryColumn] > div {
+  // scroll behind nav bar
+  & > div:nth-child(1) {
+    position: relative;
+  }
+  
+  // compose tweet
+  & > div:nth-child(2):not(.gt2-compose-large) {
+    & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
+      display: none;
+    }
+  }
+}
 
+// adjust positions of the columns
+main {
   & > div > div > div {
     width: 970px !important;
     margin-top: 46px !important;
@@ -105,10 +120,6 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
   }
 }
 
-
-body {
-  background-color: var(--color-bg) !important;
-}
 
 // navbar
 header > div > div {

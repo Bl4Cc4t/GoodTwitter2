@@ -21,8 +21,13 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div 
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
     display: none; }
 
+body {
+  background-color: var(--color-bg) !important; }
+
 div[data-testid=primaryColumn] > div > div:nth-child(1) {
   position: relative; }
+div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
+  display: none; }
 
 main > div > div > div {
   width: 970px !important;
@@ -75,9 +80,6 @@ div[role=menu][style^="max-height: calc(0px + 100vh);"] {
     div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a:hover svg,
     div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover svg {
       color: white; }
-
-body {
-  background-color: var(--color-bg) !important; }
 
 header > div > div {
   margin-top: 46px !important; }
