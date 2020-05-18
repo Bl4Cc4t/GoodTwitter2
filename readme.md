@@ -22,11 +22,12 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 ### Installation
 To use this script, you need a userscript manager.
 
-- Simply install Tampermonkey (others should also work fine I think)
+- Install Tampermonkey (Greasemonkey is not supported at the moment)
   - [Chrome Webstore](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
   - [Firefox Add-Ons](https://addons.mozilla.org/de/firefox/addon/tampermonkey/)
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
-- Hit install and you’re good to go!
+- Hit install and you’re (almost) good to go!
+- [Firefox only] Navigate to `about:config` and change the `security.csp.enable` flag to `false` (see [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))
 
 ### Hints
 #### The colors do not match my settings!
