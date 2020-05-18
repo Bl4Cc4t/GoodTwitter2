@@ -253,19 +253,22 @@
   })
 
 
-  // wrap trends in anchors
+  // wrap trending stuff in anchors
   function wrapTrends() {
-    $("div > div > div[data-testid=trend]").each(function() {
-      let ht = $(this).find("> div > div:nth-child(2) > span").text()
-      $(this).parent().wrap(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'></a>`)
+    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
+      let ht = $(this).text()
+      console.log(ht);
+      $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
     })
   }
   waitForKeyElements("div[data-testid=trend]", wrapTrends)
+
 
   // minimize the “What’s happening?” field by default
   $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", function() {
     $(this).addClass("gt2-compose-large")
   })
+
 
   // update inserted CSS
   function updateCSS() {
