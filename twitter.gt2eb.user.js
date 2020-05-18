@@ -3,7 +3,7 @@
 // @version       0.0.6
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
-// @match         http*://twitter.com/*
+// @match         https://twitter.com/*
 // @grant         GM_addStyle
 // @grant         GM_getResourceText
 // @grant         GM_getValue
@@ -144,10 +144,10 @@
   // profile view left sidebar
   function addDashboardProfile() {
     let insertAt = "header > div > div"
-    if ($(insertAt).length != 0) {
+    if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
-
+      console.log("added profile");
       $(insertAt).prepend(`
         <div class="gt2-dashboard-profile">
           <a href="/${i.screenName}" class="gt2-banner"></a>
@@ -232,24 +232,25 @@
     })
   })
 
-  // settings
-  let displaySettings = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2)"
-  waitForKeyElements(displaySettings, () => {
-    $(displaySettings).find("> div > div:nth-child(2) > div > div > div:nth-child(6) > div > div[role=radiogroup] > div > label").click(function() {
-      let userColor = $(this).find("svg").css("color")
-      GM_setValue("userColor", userColor)
-      updateCSS()
-    })
-    $(displaySettings).find("> div > div:nth-child(2) > div > div > div:nth-child(8) > div > div[role=radiogroup] > div").click(function() {
-      let bgColor = {
-        "rgb(255, 255, 255)": "default",
-        "rgb(21, 32, 43)":    "dim",
-        "rgb(0, 0, 0)":       "lightsOut"
-      }[$(this).css("background-color")]
-      GM_setValue("bgColor", bgColor)
-      updateCSS()
-    })
 
+  // display settings
+  let displaySettings = "main > div > div > div > section:nth-child(2) > div:nth-child(2)"
+  let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
+  $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
+                         ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
+    let userColor = $(this).find("svg").css("color")
+    GM_setValue("userColor", userColor)
+    updateCSS()
+  })
+  $("body").on("click", `${displaySettings} > div:nth-child(11) > div > div[role=radiogroup] > div,
+                         ${displaySettingsModal} > div:nth-child(8) > div > div[role=radiogroup] > div`, function() {
+    let bgColor = {
+      "rgb(255, 255, 255)": "default",
+      "rgb(21, 32, 43)":    "dim",
+      "rgb(0, 0, 0)":       "lightsOut"
+    }[$(this).css("background-color")]
+    GM_setValue("bgColor", bgColor)
+    updateCSS()
   })
 
 
@@ -309,6 +310,7 @@
 
     // insert dashboard profile only on these pages
     if ([
+      "compose",
       "home",
       "i",
       "messages",
