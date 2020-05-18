@@ -49,7 +49,8 @@ main {
 
 
 // profile menu
-div[role=menu][style^="max-height: calc(100vh - 0px);"] {
+div[role=menu][style^="max-height: calc(100vh - 0px);"],
+div[role=menu][style^="max-height: calc(0px + 100vh);"] {
   right: calc(100vw / 2 - 360px - 252px) !important;
   top: 54px;
 
@@ -139,6 +140,8 @@ header > div > div {
     & > a {
       padding: 0;
       width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
       display: inline-flex;
       height: 100%;
       transition: all .15s ease-in-out;
@@ -268,6 +271,9 @@ header .gt2-dashboard-profile {
     &:visited {
       color: unset;
     }
+    &:link {
+      color: unset;
+    }
   }
 
   .gt2-banner {
@@ -303,6 +309,8 @@ header .gt2-dashboard-profile {
       left: 90px;
       width: 185px;
       height: fit-content;
+      height: -moz-fit-content;
+      height: -webkit-fit-content;
       display: flex;
       flex-direction: column;
 

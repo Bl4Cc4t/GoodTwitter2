@@ -31,36 +31,49 @@ main > div > div > div {
     margin-top: 10px;
     border-top-width: 1px; }
 
-div[role=menu][style^="max-height: calc(100vh - 0px);"] {
+div[role=menu][style^="max-height: calc(100vh - 0px);"],
+div[role=menu][style^="max-height: calc(0px + 100vh);"] {
   right: calc(100vw / 2 - 360px - 252px) !important;
   top: 54px; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a {
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a,
+  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a {
     transition-duration: 0s; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a {
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a,
+  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a {
     padding: 0; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div {
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a > div {
       padding: 15px; }
-      div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div > div:nth-child(2) {
+      div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div > div:nth-child(2),
+      div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a > div > div:nth-child(2) {
         margin: 0;
         font-size: 15px; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a span {
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a span,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a span {
       font-size: 15px;
       font-weight: 400;
       margin-left: 0;
       color: var(--color-text); }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a svg {
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a svg,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a svg {
       color: var(--color-gray);
       margin-right: 10px;
       height: 1.25em; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt {
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt,
+  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div .gt2-acc-opt {
     text-decoration: none;
     color: var(--color-text);
     padding: 15px; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt:visited {
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt:visited,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div .gt2-acc-opt:visited {
       color: var(--color-text); }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover {
+  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover,
+  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a:hover,
+  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover {
     background-color: var(--color-user); }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover svg, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover svg {
+    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a:hover svg, div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover svg,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a:hover svg,
+    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover svg {
       color: white; }
 
 body {
@@ -88,6 +101,8 @@ header > div > div {
     .gt2-nav .gt2-nav-left > a {
       padding: 0;
       width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
       display: inline-flex;
       height: 100%;
       transition: all .15s ease-in-out; }
@@ -173,6 +188,8 @@ header .gt2-dashboard-profile {
     text-decoration: none; }
     header .gt2-dashboard-profile a:visited {
       color: unset; }
+    header .gt2-dashboard-profile a:link {
+      color: unset; }
   header .gt2-dashboard-profile .gt2-banner {
     background-image: var(--banner);
     background-size: 100%;
@@ -200,6 +217,8 @@ header .gt2-dashboard-profile {
       left: 90px;
       width: 185px;
       height: fit-content;
+      height: -moz-fit-content;
+      height: -webkit-fit-content;
       display: flex;
       flex-direction: column; }
       header .gt2-dashboard-profile div .gt2-user .gt2-name {

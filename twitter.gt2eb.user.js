@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.4
+// @version       0.0.6
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         http*://twitter.com/*
@@ -116,17 +116,28 @@
 
   // add search
   function addSearch() {
-    let search = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
-    waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
-
-      // remove if added previously
+    // remove moved search bar
+    function rem() {
       if ($(".gt2-search").length) {
         $(".gt2-search").empty()
       }
-      // add search
-      $(search)
-      .prependTo(".gt2-search")
-    })
+    }
+
+    // on /search is already a search bar in the center
+    if (window.location.href.split("/")[3].split("?")[0] == "search") {
+      rem()
+    } else {
+      let search = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
+      waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
+
+        // remove if added previously
+        rem()
+
+        // add search
+        $(search)
+        .prependTo(".gt2-search")
+      })
+    }
   }
 
 
@@ -201,7 +212,7 @@
     console.log("dropdown button");
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
-    let more = "div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div"
+    let more = "div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div"
 
     waitForKeyElements(more, () => {
       let $hr = $(more).find("> div:eq(-4)")
@@ -302,6 +313,7 @@
       "i",
       "messages",
       "notifications",
+      "search",
       "settings",
     ].includes(path) || [
       "bookmarks",
