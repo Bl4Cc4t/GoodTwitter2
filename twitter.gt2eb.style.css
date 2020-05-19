@@ -36,7 +36,8 @@ main > div > div > div {
     margin-top: 10px;
     border-top-width: 1px; }
 
-.gt2-hidden-tweet {
+.gt2-hidden-tweet,
+.gt2-hidden-tweet-part {
   display: none; }
 
 .gt2-show-hidden-tweets {
@@ -47,17 +48,17 @@ main > div > div > div {
   .gt2-show-hidden-tweets:hover {
     cursor: pointer; }
 
-.gt2-toggle-auto-refresh {
+.gt2-spark-toggle {
   padding: 15px;
   display: inline-flex; }
-  .gt2-toggle-auto-refresh svg {
+  .gt2-spark-toggle svg {
     height: 1.25em;
     color: var(--color-gray-icons);
     fill: currentcolor;
     margin-right: 10px; }
-  .gt2-toggle-auto-refresh div {
+  .gt2-spark-toggle div {
     color: var(--color-text); }
-  .gt2-toggle-auto-refresh:hover {
+  .gt2-spark-toggle:hover {
     cursor: pointer;
     background-color: var(--color-elem-sel); }
 

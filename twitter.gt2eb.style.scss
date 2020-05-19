@@ -62,9 +62,12 @@ main {
   }
 }
 
-.gt2-hidden-tweet {
+
+.gt2-hidden-tweet,
+.gt2-hidden-tweet-part {
   display: none;
 }
+
 
 .gt2-show-hidden-tweets {
   color: var(--color-text);
@@ -77,7 +80,7 @@ main {
   }
 }
 
-.gt2-toggle-auto-refresh {
+.gt2-spark-toggle {
   padding: 15px;
   display: inline-flex;
 

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.7
+// @version       0.0.8
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -62,10 +62,11 @@
   }
 
   // default values
-  if (!GM_getValue("userColor"))                GM_setValue("userColor",      "rgba(29,161,242,1.00)")
-  if (!GM_getValue("bgColor"))                  GM_setValue("bgColor",        "dim")
-  if (!GM_getValue("scrollbarWidth"))           GM_setValue("scrollbarWidth", window.innerWidth - $("html")[0].clientWidth)
-  if (GM_getValue("autoRefresh") == undefined)  GM_setValue("autoRefresh",    false)
+  if (!GM_getValue("userColor"))                   GM_setValue("userColor",       "rgba(29,161,242,1.00)")
+  if (!GM_getValue("bgColor"))                     GM_setValue("bgColor",         "dim")
+  if (!GM_getValue("scrollbarWidth"))              GM_setValue("scrollbarWidth",  window.innerWidth - $("html")[0].clientWidth)
+  if (GM_getValue("opt_autoRefresh") == undefined) GM_setValue("opt_autoRefresh", false)
+  if (GM_getValue("opt_forceLatest") == undefined) GM_setValue("opt_forceLatest", false)
 
   // insert navbar
   $("body").prepend(`
@@ -274,23 +275,36 @@
   // #   auto refresh parts   #
   // ##########################
 
+  let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div"
+  let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
   // add toggle auto refresh button
-  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div", function() {
-    let sel = "a[href='/settings/content_preferences']"
-    waitForKeyElements(sel, () => {
-      $(sel).after(`
-        <div class="gt2-toggle-auto-refresh">
+  $("body").on("click", sparkOptToggle, function() {
+    waitForKeyElements(sparkOpt, () => {
+      $(sparkOpt).append(`
+        <div class="gt2-spark-toggle gt2-toggle-auto-refresh">
           <svg viewBox="0 0 24 24"><g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g></svg>
-          <div>${GM_getValue("autoRefresh") ? "Dis" : "En"}able Auto Refresh</div>
+          <div>${GM_getValue("opt_autoRefresh") ? "Dis" : "En"}able Auto Refresh</div>
+        </div>
+        <div class="gt2-spark-toggle gt2-toggle-force-latest">
+          <svg viewBox="0 0 24 24"><g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g></svg>
+          <div>${GM_getValue("opt_forceLatest") ? "Dis" : "En"}able Force Latest</div>
         </div>
       `)
     })
   })
 
 
-  // toggle auto refresh
+
+
+  // toggle autoRefresh
   $("body").on("click", ".gt2-toggle-auto-refresh", function() {
-    GM_setValue("autoRefresh", !GM_getValue("autoRefresh"))
+    GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
+    window.location.reload()
+  })
+
+  // toggle forceLatest
+  $("body").on("click", ".gt2-toggle-force-latest", function() {
+    GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
     window.location.reload()
   })
 
@@ -312,23 +326,31 @@
 
   // show new tweets
   $("body").on("click", ".gt2-show-hidden-tweets", function() {
-    let topTweet = $(".gt2-hidden-tweet").eq(0).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
+    let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
     GM_setValue("topTweet", topTweet)
     $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
-
+    console.log(`topTweet: ${topTweet}`)
     updateNewTweetDisplay()
   })
 
 
   // observe and hide auto refreshed tweets
-  if (!GM_getValue("autoRefresh")) {
+  if (!GM_getValue("opt_autoRefresh")) {
     let obsTL = new MutationObserver(mutations => {
       mutations.forEach(m => {
         if (m.addedNodes.length == 1) {
           let $t = $(m.addedNodes[0])
           if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
-            $t.addClass("gt2-hidden-tweet")
-            updateNewTweetDisplay()
+            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && $t.next().find("> div > div > div > a[href^='/i/status/']").length) {
+              $t.addClass("gt2-hidden-tweet-part")
+            } else {
+              console.log($t);
+              $t.addClass("gt2-hidden-tweet")
+              updateNewTweetDisplay()
+            }
+          } else if ($t.find("> div > div > div > a[href^='/i/status/']").length) {
+            console.log($t);
+            $t.addClass("gt2-hidden-tweet-part")
           }
         }
       })
@@ -338,9 +360,36 @@
       // memorize last tweet
       let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
       GM_setValue("topTweet", topTweet)
+      console.log(`topTweet: ${topTweet}`)
       obsTL.observe($(tlSel)[0], {
         childList: true,
         subtree: true
+      })
+    })
+  }
+
+
+  if (GM_getValue("opt_forceLatest")) {
+    let tmp = GM_addStyle(`
+      ${sparkOpt} {
+        display: none;
+      }
+    `)
+
+    GM_setValue("hasRun_forceLatest", false)
+    waitForKeyElements(sparkOptToggle, () => {
+      $(sparkOptToggle).click()
+
+      waitForKeyElements(sparkOpt+" a[href='/settings/content_preferences']", () => {
+        if (!GM_getValue("hasRun_forceLatest")) {
+          GM_setValue("hasRun_forceLatest", true)
+          if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
+            $(sparkOpt).children().eq(1).click()
+          } else {
+            $(sparkOptToggle).click()
+          }
+          $(tmp).remove()
+        }
       })
     })
   }
