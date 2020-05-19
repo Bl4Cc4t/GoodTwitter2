@@ -86,10 +86,10 @@
                  nav > a[href='/notifications'],
                  nav > a[href='/messages']`
 
-  GM_setValue("hasRun", false)
+  GM_setValue("hasRun_insertIntoNavbar", false)
   waitForKeyElements(navHome, () => {
-    if (GM_getValue("hasRun") == true) return
-    else GM_setValue("hasRun", true)
+    if (GM_getValue("hasRun_insertIntoNavbar") == true) return
+    else GM_setValue("hasRun_insertIntoNavbar", true)
 
     // home, notifications, messages
     $(navHome)
@@ -194,7 +194,7 @@
 
 
   // hide navbar on modal
-  let obs = new MutationObserver(() => {
+  let obsModal = new MutationObserver(() => {
     if ($("body").css("overflow-y") == "hidden") {
       $(".gt2-nav").addClass("not-focused")
 
@@ -202,15 +202,14 @@
       $(".gt2-nav").removeClass("not-focused")
     }
   })
-  obs.observe($("body")[0], {
+  obsModal.observe($("body")[0], {
     attributes: true,
     attributeFilter: [ "style" ]
   })
 
 
-  // add elements to dropdown
-  $(".gt2-user-dropdown").click(function() {
-    console.log("dropdown button");
+  // add elements to dropdow menu
+  $(".gt2-user-dropdown").click(() => {
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
     let more = "div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div"
@@ -220,10 +219,10 @@
       let $lm = $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav")
 
       $hr.clone().prependTo(more)
-      $lm.find(`a[href='/explore']`).clone().prependTo(more)                  // explore
-      $lm.find(`a[href='/i/bookmarks']`).clone().prependTo(more)              // bookmarks
-      $lm.find(`a[href='/${i.screenName}/lists']`).clone().prependTo(more)    // lists
-      $lm.find(`a[href='/${i.screenName}']`).clone().prependTo(more)          // profile
+      $lm.find(`a[href='/explore']`)              .clone().prependTo(more) // explore
+      $lm.find(`a[href='/i/bookmarks']`)          .clone().prependTo(more) // bookmarks
+      $lm.find(`a[href='/${i.screenName}/lists']`).clone().prependTo(more) // lists
+      $lm.find(`a[href='/${i.screenName}']`)      .clone().prependTo(more) // profile
       $hr.clone().appendTo(more)
       $(more).append(`
         <a class="gt2-acc-opt" href="/account/add">Add an existing account</a>
@@ -232,6 +231,11 @@
 
     })
   })
+
+
+  // ########################
+  // #   display settings   #
+  // ########################
 
 
   // display settings
@@ -255,38 +259,29 @@
   })
 
 
-  // wrap trending stuff in anchors
-  function wrapTrends() {
-    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
-      let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
-    })
-  }
-  waitForKeyElements("div[data-testid=trend]", wrapTrends)
-
-
-  // minimize the “What’s happening?” field by default
-  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", function() {
-    $(this).addClass("gt2-compose-large")
-  })
-
-
-  // ##########################
-  // #   auto refresh parts   #
-  // ##########################
+  // ######################
+  // #   spark settings   #
+  // ######################
 
   let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div"
   let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
-  // add toggle auto refresh button
-  $("body").on("click", sparkOptToggle, function() {
+  // add custom toggles to the spark settings
+  $("body").on("click", sparkOptToggle, () => {
     waitForKeyElements(sparkOpt, () => {
+      let lightningSvg = `
+        <svg viewBox="0 0 24 24">
+          <g>
+            <path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path>
+          </g>
+        </svg>`
+
       $(sparkOpt).append(`
         <div class="gt2-spark-toggle gt2-toggle-auto-refresh">
-          <svg viewBox="0 0 24 24"><g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g></svg>
+          ${lightningSvg}
           <div>${GM_getValue("opt_autoRefresh") ? "Dis" : "En"}able Auto Refresh</div>
         </div>
         <div class="gt2-spark-toggle gt2-toggle-force-latest">
-          <svg viewBox="0 0 24 24"><g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g></svg>
+          ${lightningSvg}
           <div>${GM_getValue("opt_forceLatest") ? "Dis" : "En"}able Force Latest</div>
         </div>
       `)
@@ -294,19 +289,22 @@
   })
 
 
-
-
   // toggle autoRefresh
-  $("body").on("click", ".gt2-toggle-auto-refresh", function() {
+  $("body").on("click", ".gt2-toggle-auto-refresh", () => {
     GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
     window.location.reload()
   })
 
   // toggle forceLatest
-  $("body").on("click", ".gt2-toggle-force-latest", function() {
+  $("body").on("click", ".gt2-toggle-force-latest", () => {
     GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
     window.location.reload()
   })
+
+
+  // ##########
+  // #  rest  #
+  // ##########
 
 
   // add counter for new tweets
@@ -325,7 +323,7 @@
   }
 
   // show new tweets
-  $("body").on("click", ".gt2-show-hidden-tweets", function() {
+  $("body").on("click", ".gt2-show-hidden-tweets", () => {
     let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
     GM_setValue("topTweet", topTweet)
     $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
@@ -335,7 +333,7 @@
 
 
   // observe and hide auto refreshed tweets
-  if (!GM_getValue("opt_autoRefresh")) {
+  function hideTweetsOnAutoRefresh() {
     let obsTL = new MutationObserver(mutations => {
       mutations.forEach(m => {
         if (m.addedNodes.length == 1) {
@@ -367,9 +365,11 @@
       })
     })
   }
+  if (!GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
 
 
-  if (GM_getValue("opt_forceLatest")) {
+  // force latest tweets view.
+  function forceLatest() {
     let tmp = GM_addStyle(`
       ${sparkOpt} {
         display: none;
@@ -393,11 +393,26 @@
       })
     })
   }
+  if (GM_getValue("opt_forceLatest")) forceLatest()
 
 
-  // ##########
-  // #  rest  #
-  // ##########
+  // wrap trending stuff in anchors
+  function wrapTrends() {
+    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
+      let ht = $(this).text()
+      $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
+    })
+  }
+  waitForKeyElements("div[data-testid=trend]", wrapTrends)
+
+
+  // minimize the “What’s happening?” field by default
+  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", e => $(e.currentTarget).addClass("gt2-compose-large"))
+
+
+  // ################
+  // #  Update CSS  #
+  // ################
 
 
   // update inserted CSS
@@ -437,8 +452,6 @@
                   --color-text:       rgb(217, 217, 217);`
     }
 
-
-
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
@@ -452,6 +465,12 @@
   }
 
 
+  // ################
+  // #  URL change  #
+  // ################
+
+
+  // stuff to do when url changes
   function urlChange() {
     // highlight current location in left bar
     let url = window.location.href.split("/")
