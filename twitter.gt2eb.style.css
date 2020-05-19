@@ -207,7 +207,7 @@ a.gt2-trend {
         .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span > div > div {
           right: 13px; }
 
-header .gt2-dashboard-profile {
+.gt2-dashboard-profile {
   z-index: 1;
   position: absolute;
   right: 0;
@@ -216,28 +216,29 @@ header .gt2-dashboard-profile {
   width: 290px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-elem-dark); }
-  header .gt2-dashboard-profile .gt2-banner {
+  background-color: var(--color-elem-dark);
+  box-sizing: border-box; }
+  .gt2-dashboard-profile .gt2-banner {
     background-image: var(--banner);
     background-size: 100%;
     height: 95px;
     background-position: 0 50%;
     width: 100%; }
-  header .gt2-dashboard-profile div {
+  .gt2-dashboard-profile div {
     height: 116px; }
-    header .gt2-dashboard-profile div .gt2-avatar {
+    .gt2-dashboard-profile div .gt2-avatar {
       display: inline-block;
       margin: -30px 0 0 8px;
       padding: 1px;
       background-color: var(--color-elem-dark);
       border-radius: 50%; }
-      header .gt2-dashboard-profile div .gt2-avatar img {
+      .gt2-dashboard-profile div .gt2-avatar img {
         border: 3px solid var(--color-elem-dark);
         border-radius: 50%;
         width: 72px;
         height: 72px;
         box-sizing: border-box; }
-    header .gt2-dashboard-profile div .gt2-user {
+    .gt2-dashboard-profile div .gt2-user {
       color: var(--color-text);
       position: absolute;
       top: 103px;
@@ -248,41 +249,58 @@ header .gt2-dashboard-profile {
       height: -webkit-fit-content;
       display: flex;
       flex-direction: column; }
-      header .gt2-dashboard-profile div .gt2-user .gt2-name {
+      .gt2-dashboard-profile div .gt2-user .gt2-name {
         font-size: 18px;
         font-weight: 700;
         text-decoration: underline; }
-      header .gt2-dashboard-profile div .gt2-user .gt2-screenname {
+      .gt2-dashboard-profile div .gt2-user .gt2-screenname {
         font-size: 14px;
         color: var(--color-gray); }
-        header .gt2-dashboard-profile div .gt2-user .gt2-screenname:hover span {
+        .gt2-dashboard-profile div .gt2-user .gt2-screenname:hover span {
           text-decoration: underline; }
-    header .gt2-dashboard-profile div .gt2-stats {
+    .gt2-dashboard-profile div .gt2-stats {
       padding: 14px;
       width: 100%;
       height: 37px; }
-      header .gt2-dashboard-profile div .gt2-stats ul {
+      .gt2-dashboard-profile div .gt2-stats ul {
         display: inline-flex;
         margin: 0;
         padding: 0; }
-        header .gt2-dashboard-profile div .gt2-stats ul li {
+        .gt2-dashboard-profile div .gt2-stats ul li {
           width: 90px;
           list-style: none; }
-          header .gt2-dashboard-profile div .gt2-stats ul li a {
+          .gt2-dashboard-profile div .gt2-stats ul li a {
             display: flex;
             flex-direction: column; }
-            header .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(1) {
+            .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(1) {
               font-size: 12px;
               font-weight: bold;
               transition: color .15s ease-in-out;
               color: var(--color-gray); }
-            header .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(2) {
+            .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(2) {
               font-size: 18px;
               font-weight: bold;
               line-height: 1;
               padding-top: 3px;
               color: var(--color-user); }
-          header .gt2-dashboard-profile div .gt2-stats ul li a:hover span:nth-child(1) {
+          .gt2-dashboard-profile div .gt2-stats ul li a:hover span:nth-child(1) {
             color: var(--color-user); }
+
+div[data-testid=sidebarColumn] .gt2-dashboard-profile {
+  position: relative;
+  margin: 0;
+  width: 100%; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile > a {
+    height: 116.67px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-avatar img {
+    width: 82px;
+    height: 82px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-user {
+    top: 125px;
+    left: 100px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats {
+    margin-top: -10px; }
+    div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats li {
+      width: 115px; }
 
 /*# sourceMappingURL=twitter.gt2eb.style.css.map */

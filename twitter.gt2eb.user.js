@@ -145,11 +145,12 @@
 
   // profile view left sidebar
   function addDashboardProfile() {
-    let insertAt = "header > div > div"
+    let insertAt = window.innerWidth >= 1350 ? "header > div > div" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
+
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
-      $(insertAt).prepend(`
+      let dashPro = `
         <div class="gt2-dashboard-profile">
           <a href="/${i.screenName}" class="gt2-banner"></a>
           <div>
@@ -186,11 +187,32 @@
             </div>
           </div>
         </div>
-      `)
+      `
+      if (window.innerWidth >= 1350) {
+        $(insertAt).prepend(dashPro)
+      } else {
+        waitForKeyElements(`${insertAt}`, () => {
+          $(dashPro).insertAfter(`${insertAt} > div:empty`)
+        })
+      }
 
       updateCSS()
     }
   }
+
+
+  // move dash profile
+  function moveDashboardProfile() {
+    if (window.innerWidth >= 1350) {
+      $(".gt2-dashboard-profile").prependTo("header > div > div")
+    } else {
+      // move to right sidebar
+      $(".gt2-dashboard-profile")
+      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty")
+    }
+  }
+
+  $(window).on("resize", moveDashboardProfile)
 
 
   // hide navbar on modal

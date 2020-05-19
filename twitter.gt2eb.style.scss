@@ -319,7 +319,7 @@ a.gt2-trend {
 }
 
 // dashboard profile
-header .gt2-dashboard-profile {
+.gt2-dashboard-profile {
   z-index: 1;
   position: absolute;
   right: 0;
@@ -329,6 +329,7 @@ header .gt2-dashboard-profile {
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);
+  box-sizing: border-box;
 
   .gt2-banner {
     background-image: var(--banner);
@@ -420,6 +421,33 @@ header .gt2-dashboard-profile {
           }
         }
       }
+    }
+  }
+}
+
+div[data-testid=sidebarColumn] .gt2-dashboard-profile {
+  position: relative;
+  margin: 0;
+  width: 100%;
+
+  & > a {
+    height: 116.67px;
+  }
+
+  .gt2-avatar img {
+    width: 82px;
+    height: 82px;
+  }
+
+  .gt2-user {
+    top: 125px;
+    left: 100px;
+  }
+
+  .gt2-stats {
+    margin-top: -10px;
+    li {
+      width: 115px;
     }
   }
 }
