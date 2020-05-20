@@ -5,6 +5,7 @@ A try to make Twitter look good again.
 ### Content
 - [Background](#background)
 - [Disclaimers](#disclaimers)
+- [Features](#features)
 - [Installation](#installation)
 - [Hints](#hints)
 - [Previews](#previews)
@@ -16,8 +17,14 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 ### Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
-- All background themes are fully supported now!
+
+### Features
+- Legacy Navbar is back!
+- Your profile appears on the left side for most pages
+- All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
+- Option to disable auto refresh (works most of the time)
+- Option to force latest tweets mode
 
 ### Installation
 To use this script, you need a userscript manager.
