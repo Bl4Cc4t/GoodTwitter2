@@ -7,13 +7,127 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-// hide stuff in the sidebar
-header h1,   // twitter logo
-header nav,  // links
-header a[href='/compose/tweet'],  // tweet button
-header div[data-testid=SideNav_AccountSwitcher_Button] {
-  display: none !important;
+
+// normal display
+@media only screen and (min-width: 1350px) {
+  .gt2-nav-left {
+    margin-left: calc((100vw - 1340px) / 2);
+  }
+  .gt2-nav-right {
+    margin-right: calc((100vw - 1340px) / 2);
+  }
 }
+
+// only right sidebar
+@media only screen and (max-width: 1350px) {
+  header {
+    display: none !important;
+  }
+  main {
+    align-items: center !important;
+    left: 0 !important;
+  }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 975px) / 2);
+  }
+  .gt2-nav-right {
+    margin-right: calc((100vw - 975px) / 2);
+  }
+
+  // smaller search
+  .gt2-search > div {
+    width: 270px !important;
+  }
+}
+
+// right small sidebar
+@media only screen and (max-width: 1095px) {
+  main > div  > div > div {
+    justify-content: unset !important;
+  }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 915px) / 2);
+  }
+  .gt2-nav-right {
+    margin-right: calc((100vw - 915px) / 2);
+  }
+
+  // small dashboard profile
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile {
+    .gt2-banner {
+      height: 95px;
+    }
+
+    .gt2-avatar img {
+      width: 72px;
+      height: 72px;
+    }
+
+    .gt2-user {
+      top: 103px;
+      left: 90px;
+    }
+
+    .gt2-stats {
+      li {
+        width: 90px;
+      }
+    }
+  }
+}
+
+// no sidebars at all
+@media only screen and (max-width: 1005px) {
+  main > div > div > div > div:nth-child(1) {
+    margin-right: 0 !important;
+  }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 620px) / 2);
+  }
+  .gt2-nav-right {
+    margin-right: calc((100vw - 620px) / 2);
+  }
+}
+
+// adjust positions of the columns
+header {
+  right: -40px;
+  margin-right: 10px !important;
+  margin-left: -5px !important;
+
+  // hide stuff in the sidebar
+  h1,   // twitter logo
+  nav,  // links
+  a[href='/compose/tweet'],  // tweet button
+  div[data-testid=SideNav_AccountSwitcher_Button] {
+    display: none !important;
+  }
+}
+
+main {
+  left: 40px;
+
+  & > div {
+    width: auto !important;
+
+    & > div > div {
+      margin-top: 46px !important;
+
+      & > div:nth-child(1) {
+        margin-top: 10px;
+        margin-right: 10px;
+        border-top-width: 1px;
+      }
+      & > div:nth-child(2) {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
 
 // apply theme to sidebar elements
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
@@ -30,6 +144,8 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div 
     display: none;
   }
 }
+
+// background color
 body {
   background-color: var(--color-bg) !important;
 }
@@ -45,19 +161,6 @@ div[data-testid=primaryColumn] > div {
   & > div:nth-child(2):not(.gt2-compose-large) {
     & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
       display: none;
-    }
-  }
-}
-
-// adjust positions of the columns
-main {
-  & > div > div > div {
-    width: 970px !important;
-    margin-top: 46px !important;
-
-    & > div:nth-child(1) {
-      margin-top: 10px;
-      border-top-width: 1px;
     }
   }
 }
@@ -199,7 +302,6 @@ a.gt2-trend {
   }
 
   .gt2-nav-left {
-    margin-left: calc(100vw / 2 - 300px - 367px);
 
     & > a {
       padding: 0;
@@ -246,7 +348,7 @@ a.gt2-trend {
   // twitter logo
   .gt2-nav-center {
     position: absolute;
-    right: 50%;
+    right: calc(50% - 12px);
     width: 24px;
     margin-top: 8px;
     & svg {
@@ -260,7 +362,6 @@ a.gt2-trend {
     align-items: center;
     position: absolute;
     right: 0px;
-    margin-right: calc(100vw / 2 - 360px - 252px);
 
     .gt2-search > div {
       height: auto;
@@ -323,9 +424,9 @@ a.gt2-trend {
   z-index: 1;
   position: absolute;
   right: 0;
-  margin: 10px;
+  margin: 10px 0;
   display: flex;
-  width: 290px;
+  width: 350px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);
@@ -334,7 +435,7 @@ a.gt2-trend {
   .gt2-banner {
     background-image: var(--banner);
     background-size: 100%;
-    height: 95px;
+    height: 116.67px;
     background-position: 0 50%;
     width: 100%;
   }
@@ -351,8 +452,8 @@ a.gt2-trend {
       img {
         border: 3px solid var(--color-elem-dark);
         border-radius: 50%;
-        width: 72px;
-        height: 72px;
+        width: 82px;
+        height: 82px;
         box-sizing: border-box;
       }
     }
@@ -360,8 +461,8 @@ a.gt2-trend {
     .gt2-user {
       color: var(--color-text);
       position: absolute;
-      top: 103px;
-      left: 90px;
+      top: 125px;
+      left: 100px;
       width: 185px;
       height: fit-content;
       height: -moz-fit-content;
@@ -388,6 +489,7 @@ a.gt2-trend {
       padding: 14px;
       width: 100%;
       height: 37px;
+      margin-top: -10px;
 
       ul {
         display: inline-flex;
@@ -395,7 +497,7 @@ a.gt2-trend {
         padding: 0;
 
         li {
-          width: 90px;
+          width: 115px;
           list-style: none;
           a {
             display: flex;
@@ -429,25 +531,4 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
   margin: 0;
   width: 100%;
-
-  & > a {
-    height: 116.67px;
-  }
-
-  .gt2-avatar img {
-    width: 82px;
-    height: 82px;
-  }
-
-  .gt2-user {
-    top: 125px;
-    left: 100px;
-  }
-
-  .gt2-stats {
-    margin-top: -10px;
-    li {
-      width: 115px;
-    }
-  }
 }

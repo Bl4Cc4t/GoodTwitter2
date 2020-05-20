@@ -5,11 +5,79 @@
   --scrollbarWidth: $scrollbarWidth;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
 
-header h1,
-header nav,
-header a[href='/compose/tweet'],
-header div[data-testid=SideNav_AccountSwitcher_Button] {
-  display: none !important; }
+@media only screen and (min-width: 1350px) {
+  .gt2-nav-left {
+    margin-left: calc((100vw - 1340px) / 2); }
+
+  .gt2-nav-right {
+    margin-right: calc((100vw - 1340px) / 2); } }
+@media only screen and (max-width: 1350px) {
+  header {
+    display: none !important; }
+
+  main {
+    align-items: center !important;
+    left: 0 !important; }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 975px) / 2); }
+
+  .gt2-nav-right {
+    margin-right: calc((100vw - 975px) / 2); }
+
+  .gt2-search > div {
+    width: 270px !important; } }
+@media only screen and (max-width: 1095px) {
+  main > div > div > div {
+    justify-content: unset !important; }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 915px) / 2); }
+
+  .gt2-nav-right {
+    margin-right: calc((100vw - 915px) / 2); }
+
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-banner {
+    height: 95px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-avatar img {
+    width: 72px;
+    height: 72px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-user {
+    top: 103px;
+    left: 90px; }
+  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats li {
+    width: 90px; } }
+@media only screen and (max-width: 1005px) {
+  main > div > div > div > div:nth-child(1) {
+    margin-right: 0 !important; }
+
+  .gt2-nav-left {
+    margin-left: calc((100vw - 620px) / 2); }
+
+  .gt2-nav-right {
+    margin-right: calc((100vw - 620px) / 2); } }
+header {
+  right: -40px;
+  margin-right: 10px !important;
+  margin-left: -5px !important; }
+  header h1,
+  header nav,
+  header a[href='/compose/tweet'],
+  header div[data-testid=SideNav_AccountSwitcher_Button] {
+    display: none !important; }
+
+main {
+  left: 40px; }
+  main > div {
+    width: auto !important; }
+    main > div > div > div {
+      margin-top: 46px !important; }
+      main > div > div > div > div:nth-child(1) {
+        margin-top: 10px;
+        margin-right: 10px;
+        border-top-width: 1px; }
+      main > div > div > div > div:nth-child(2) {
+        margin-right: 0; }
 
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
   border-radius: 0;
@@ -28,13 +96,6 @@ div[data-testid=primaryColumn] > div > div:nth-child(1) {
   position: relative; }
 div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
   display: none; }
-
-main > div > div > div {
-  width: 970px !important;
-  margin-top: 46px !important; }
-  main > div > div > div > div:nth-child(1) {
-    margin-top: 10px;
-    border-top-width: 1px; }
 
 .gt2-hidden-tweet,
 .gt2-hidden-tweet-part {
@@ -129,35 +190,33 @@ a.gt2-trend {
       margin-right: calc(var(--scrollbarWidth) / 2); }
     .gt2-nav.not-focused .gt2-nav-right {
       padding-right: var(--scrollbarWidth); }
-  .gt2-nav .gt2-nav-left {
-    margin-left: calc(100vw / 2 - 300px - 367px); }
-    .gt2-nav .gt2-nav-left > a {
-      padding: 0;
-      width: fit-content;
-      width: -moz-fit-content;
-      width: -webkit-fit-content;
-      display: inline-flex;
-      height: 100%;
-      transition: all .15s ease-in-out; }
-      .gt2-nav .gt2-nav-left > a > div {
-        background-color: unset !important; }
-        .gt2-nav .gt2-nav-left > a > div > div:nth-child(1) > div {
-          background-color: var(--color-user);
-          border-color: var(--color-elem-dark); }
-        .gt2-nav .gt2-nav-left > a > div > div:nth-child(2) {
-          color: var(--color-gray);
-          font-size: 13px;
-          margin-left: 3px; }
-    .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
-      border-bottom: 2px solid var(--color-user); }
-    .gt2-nav .gt2-nav-left > a svg {
-      color: var(--color-gray-icons);
-      width: 23px; }
-    .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
-      color: var(--color-user); }
+  .gt2-nav .gt2-nav-left > a {
+    padding: 0;
+    width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    display: inline-flex;
+    height: 100%;
+    transition: all .15s ease-in-out; }
+    .gt2-nav .gt2-nav-left > a > div {
+      background-color: unset !important; }
+      .gt2-nav .gt2-nav-left > a > div > div:nth-child(1) > div {
+        background-color: var(--color-user);
+        border-color: var(--color-elem-dark); }
+      .gt2-nav .gt2-nav-left > a > div > div:nth-child(2) {
+        color: var(--color-gray);
+        font-size: 13px;
+        margin-left: 3px; }
+  .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
+    border-bottom: 2px solid var(--color-user); }
+  .gt2-nav .gt2-nav-left > a svg {
+    color: var(--color-gray-icons);
+    width: 23px; }
+  .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
+    color: var(--color-user); }
   .gt2-nav .gt2-nav-center {
     position: absolute;
-    right: 50%;
+    right: calc(50% - 12px);
     width: 24px;
     margin-top: 8px; }
     .gt2-nav .gt2-nav-center svg {
@@ -166,8 +225,7 @@ a.gt2-trend {
     display: flex;
     align-items: center;
     position: absolute;
-    right: 0px;
-    margin-right: calc(100vw / 2 - 360px - 252px); }
+    right: 0px; }
     .gt2-nav .gt2-nav-right .gt2-search > div {
       height: auto;
       width: 300px;
@@ -211,9 +269,9 @@ a.gt2-trend {
   z-index: 1;
   position: absolute;
   right: 0;
-  margin: 10px;
+  margin: 10px 0;
   display: flex;
-  width: 290px;
+  width: 350px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);
@@ -221,7 +279,7 @@ a.gt2-trend {
   .gt2-dashboard-profile .gt2-banner {
     background-image: var(--banner);
     background-size: 100%;
-    height: 95px;
+    height: 116.67px;
     background-position: 0 50%;
     width: 100%; }
   .gt2-dashboard-profile div {
@@ -235,14 +293,14 @@ a.gt2-trend {
       .gt2-dashboard-profile div .gt2-avatar img {
         border: 3px solid var(--color-elem-dark);
         border-radius: 50%;
-        width: 72px;
-        height: 72px;
+        width: 82px;
+        height: 82px;
         box-sizing: border-box; }
     .gt2-dashboard-profile div .gt2-user {
       color: var(--color-text);
       position: absolute;
-      top: 103px;
-      left: 90px;
+      top: 125px;
+      left: 100px;
       width: 185px;
       height: fit-content;
       height: -moz-fit-content;
@@ -261,13 +319,14 @@ a.gt2-trend {
     .gt2-dashboard-profile div .gt2-stats {
       padding: 14px;
       width: 100%;
-      height: 37px; }
+      height: 37px;
+      margin-top: -10px; }
       .gt2-dashboard-profile div .gt2-stats ul {
         display: inline-flex;
         margin: 0;
         padding: 0; }
         .gt2-dashboard-profile div .gt2-stats ul li {
-          width: 90px;
+          width: 115px;
           list-style: none; }
           .gt2-dashboard-profile div .gt2-stats ul li a {
             display: flex;
@@ -290,17 +349,5 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
   margin: 0;
   width: 100%; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile > a {
-    height: 116.67px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-avatar img {
-    width: 82px;
-    height: 82px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-user {
-    top: 125px;
-    left: 100px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats {
-    margin-top: -10px; }
-    div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats li {
-      width: 115px; }
 
 /*# sourceMappingURL=twitter.gt2eb.style.css.map */

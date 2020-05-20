@@ -192,7 +192,7 @@
         $(insertAt).prepend(dashPro)
       } else {
         waitForKeyElements(`${insertAt}`, () => {
-          $(dashPro).insertAfter(`${insertAt} > div:empty`)
+          $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
         })
       }
 
@@ -201,18 +201,17 @@
   }
 
 
+
   // move dash profile
-  function moveDashboardProfile() {
+  $(window).on("resize", () => {
     if (window.innerWidth >= 1350) {
       $(".gt2-dashboard-profile").prependTo("header > div > div")
     } else {
       // move to right sidebar
       $(".gt2-dashboard-profile")
-      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty")
+      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
     }
-  }
-
-  $(window).on("resize", moveDashboardProfile)
+  })
 
 
   // hide navbar on modal
