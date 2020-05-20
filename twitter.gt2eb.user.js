@@ -6,10 +6,12 @@
 // @match         https://twitter.com/*
 // @grant         GM_addStyle
 // @grant         GM_getResourceText
+// @grant         GM_getResourceURL
 // @grant         GM_getValue
 // @grant         GM_setValue
-// @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      i18n https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
+// @resource      css     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
+// @resource      cssMap  https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css.map
+// @resource      i18n    https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
@@ -515,6 +517,8 @@
       .replace("$userColor",      GM_getValue("userColor"))
       .replace("$banner",         GM_getValue("banner"))
       .replace("$scrollbarWidth", `${GM_getValue("scrollbarWidth")}px`)
+      // source map
+      .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))
     )
 
     GM_setValue("styleId", $(a).attr("id"))
