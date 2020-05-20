@@ -14,7 +14,12 @@
     margin-right: calc((100vw - 1340px) / 2); }
 
   div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
-    right: calc((100vw - 1340px) / 2) !important; } }
+    right: calc((100vw - 1340px) / 2) !important; }
+
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
+    top: 220px !important;
+    left: calc((100vw - 1248px) / 2) !important;
+    right: unset !important; } }
 @media only screen and (max-width: 1350px) {
   header {
     display: none !important; }
@@ -32,6 +37,11 @@
 
   div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
     right: calc((100vw - 975px) / 2) !important; }
+
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
+    top: 220px !important;
+    left: unset !important;
+    right: calc((100vw - 960px) / 2) !important; }
 
   .gt2-search > div {
     width: 270px !important; } }
@@ -52,6 +62,10 @@
 
   div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
     right: calc((100vw - 915px) / 2) !important; }
+
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
+    top: 195px !important;
+    right: calc((100vw - 902.5px) / 2) !important; }
 
   div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-banner {
     height: 95px; }
@@ -88,15 +102,16 @@ header {
     display: none !important; }
 
 main > div > div > div {
-  left: 40px;
-  margin-top: 56px !important; }
+  left: 40px; }
   main > div > div > div div[data-testid=primaryColumn] {
     margin-right: 10px;
-    border-top-width: 1px; }
+    border-top-width: 1px;
+    margin-top: 56px !important; }
   main > div > div > div div[data-testid=sidebarColumn] {
-    margin-right: 0; }
+    margin-right: 0;
+    margin-top: 56px !important; }
     main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
-      padding-top: 0; }
+      padding: 0; }
       main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
         border-radius: 0;
         border: 1px solid var(--color-gray-dark);
@@ -109,6 +124,21 @@ main > div > div > div {
   main > div > div > div > section {
     border-top-width: 1px !important; }
 
+#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
+  bottom: unset !important; }
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div > div > svg {
+    position: absolute;
+    fill: currentcolor;
+    color: var(--color-elem-dark);
+    filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
+    transform: unset !important;
+    bottom: unset !important;
+    top: -11px !important;
+    right: 5px !important;
+    left: unset !important; }
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div > div > div > div {
+    padding: 0; }
+
 body {
   background-color: var(--color-bg) !important; }
 
@@ -116,6 +146,10 @@ div[data-testid=primaryColumn] > div > div:nth-child(1) {
   position: relative; }
 div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
   display: none; }
+
+.gt2-svg {
+  fill: currentcolor;
+  color: var(--color-gray-icons); }
 
 .gt2-hidden-tweet,
 .gt2-hidden-tweet-part {
@@ -134,8 +168,6 @@ div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) 
   display: inline-flex; }
   .gt2-spark-toggle svg {
     height: 1.25em;
-    color: var(--color-gray-icons);
-    fill: currentcolor;
     margin-right: 10px; }
   .gt2-spark-toggle div {
     color: var(--color-text); }
@@ -163,12 +195,6 @@ div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='
       color: var(--color-gray-icons);
       margin-right: 10px;
       height: 1.25em; }
-  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt {
-    text-decoration: none;
-    color: var(--color-text);
-    padding: calc(15px + var(--font-increment)); }
-    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt:visited, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt:visited {
-      color: var(--color-text); }
   div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a:hover, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a:hover {
     background-color: var(--color-elem-sel); }
 
@@ -258,14 +284,14 @@ a.gt2-trend {
       .gt2-nav .gt2-nav-right .gt2-search > div form > div:nth-child(1) > div {
         border: none;
         background-color: var(--color-elem-dark); }
-    .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown {
+    .gt2-nav .gt2-nav-right .gt2-toggle-navbar-dropdown {
       margin-left: 5px;
       margin-right: 15px; }
-      .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown img {
+      .gt2-nav .gt2-nav-right .gt2-toggle-navbar-dropdown img {
         border-radius: 50%;
         height: 32px;
         width: 32px; }
-      .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown > div > div {
+      .gt2-nav .gt2-nav-right .gt2-toggle-navbar-dropdown > div > div {
         display: none; }
     .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] {
       font-size: 14px;
@@ -293,21 +319,21 @@ a.gt2-trend {
     height: 116.67px;
     background-position: 0 50%;
     width: 100%; }
-  .gt2-dashboard-profile div {
+  .gt2-dashboard-profile > div {
     height: 116px; }
-    .gt2-dashboard-profile div .gt2-avatar {
+    .gt2-dashboard-profile > div .gt2-avatar {
       display: inline-block;
       margin: -30px 0 0 8px;
       padding: 1px;
       background-color: var(--color-elem-dark);
       border-radius: 50%; }
-      .gt2-dashboard-profile div .gt2-avatar img {
+      .gt2-dashboard-profile > div .gt2-avatar img {
         border: 3px solid var(--color-elem-dark);
         border-radius: 50%;
         width: 82px;
         height: 82px;
         box-sizing: border-box; }
-    .gt2-dashboard-profile div .gt2-user {
+    .gt2-dashboard-profile > div .gt2-user {
       color: var(--color-text);
       position: absolute;
       top: calc(125px - var(--font-increment) * 2);
@@ -318,42 +344,68 @@ a.gt2-trend {
       height: -webkit-fit-content;
       display: flex;
       flex-direction: column; }
-      .gt2-dashboard-profile div .gt2-user .gt2-name {
+      .gt2-dashboard-profile > div .gt2-user .gt2-name {
         font-size: calc(18px + var(--font-increment));
         font-weight: 700;
         text-decoration: underline; }
-      .gt2-dashboard-profile div .gt2-user .gt2-screenname {
+      .gt2-dashboard-profile > div .gt2-user .gt2-screenname {
         font-size: calc(14px + var(--font-increment));
         color: var(--color-gray); }
-        .gt2-dashboard-profile div .gt2-user .gt2-screenname:hover span {
+        .gt2-dashboard-profile > div .gt2-user .gt2-screenname:hover span {
           text-decoration: underline; }
-    .gt2-dashboard-profile div .gt2-stats {
+    .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown {
+      right: 7.5px;
+      bottom: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      height: 27px;
+      width: 27px; }
+      .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown div {
+        transition: opacity 0.2s ease-in-out;
+        background-color: var(--color-user);
+        opacity: 0;
+        border-radius: 50%;
+        position: absolute;
+        height: 27px;
+        width: 27px; }
+      .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown svg {
+        width: 1em;
+        height: 1em; }
+      .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown:hover {
+        cursor: pointer; }
+        .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown:hover div {
+          opacity: 0.1; }
+        .gt2-dashboard-profile > div .gt2-toggle-acc-switcher-dropdown:hover svg {
+          color: var(--color-user); }
+    .gt2-dashboard-profile > div .gt2-stats {
       padding: 14px;
       width: 100%;
       height: 37px;
       margin-top: calc(-10px - var(--font-increment) * 2); }
-      .gt2-dashboard-profile div .gt2-stats ul {
+      .gt2-dashboard-profile > div .gt2-stats ul {
         display: inline-flex;
         margin: 0;
         padding: 0; }
-        .gt2-dashboard-profile div .gt2-stats ul li {
+        .gt2-dashboard-profile > div .gt2-stats ul li {
           width: 115px;
           list-style: none; }
-          .gt2-dashboard-profile div .gt2-stats ul li a {
+          .gt2-dashboard-profile > div .gt2-stats ul li a {
             display: flex;
             flex-direction: column; }
-            .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(1) {
+            .gt2-dashboard-profile > div .gt2-stats ul li a span:nth-child(1) {
               font-size: calc(12px + var(--font-increment));
               font-weight: bold;
               transition: color .15s ease-in-out;
               color: var(--color-gray); }
-            .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(2) {
+            .gt2-dashboard-profile > div .gt2-stats ul li a span:nth-child(2) {
               font-size: calc(18px + var(--font-increment));
               font-weight: bold;
               line-height: 1;
               padding-top: 3px;
               color: var(--color-user); }
-          .gt2-dashboard-profile div .gt2-stats ul li a:hover span:nth-child(1) {
+          .gt2-dashboard-profile > div .gt2-stats ul li a:hover span:nth-child(1) {
             color: var(--color-user); }
 
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {

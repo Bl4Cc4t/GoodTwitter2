@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.10
+// @version       0.0.11
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -76,6 +76,18 @@
     }
   }
 
+  // svg convenience
+  function getSvg(key) {
+    let svgs = {
+      lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
+      arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`
+    }
+    return `
+      <svg class="gt2-svg" viewBox="0 0 24 24">
+        ${svgs[key]}
+      </svg>`
+  }
+
   // default values
   if (!GM_getValue("userColor"))                   GM_setValue("userColor",       "rgba(29,161,242,1.00)")
   if (!GM_getValue("bgColor"))                     GM_setValue("bgColor",         "dim")
@@ -93,7 +105,7 @@
       </div>
       <div class="gt2-nav-right">
         <div class="gt2-search"></div>
-        <div class="gt2-toggle-user-dropdown"></div>
+        <div class="gt2-toggle-navbar-dropdown"></div>
       </div>
     </nav>
   `)
@@ -120,13 +132,13 @@
     $("a[href='/compose/tweet']")
     .appendTo(".gt2-nav-right")
 
-    // user dropdown
+    // navbar dropdown
     $("nav > div[data-testid=AppTabBar_More_Menu]")
     .addClass("gt2-more")
-    .appendTo(".gt2-toggle-user-dropdown")
+    .appendTo(".gt2-toggle-navbar-dropdown")
     $(".gt2-more").append(`<img src="" />`)
 
-    $(".gt2-toggle-user-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
+    $(".gt2-toggle-navbar-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
 
     updateCSS()
   })
@@ -179,6 +191,10 @@
                 @<span >${i.screenName}</span>
               </a>
             </div>
+            <div class="gt2-toggle-acc-switcher-dropdown">
+              <div></div>
+              ${getSvg("arrow")}
+            </div>
             <div class="gt2-stats">
               <ul>
                 <li>
@@ -230,8 +246,8 @@
   })
 
 
-  // add elements to dropdow menu
-  $(".gt2-toggle-user-dropdown").click(() => {
+  // add elements to navbar dropdow menu
+  $(".gt2-toggle-navbar-dropdown").click(() => {
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
     let more = `div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div,
@@ -266,14 +282,13 @@
         }
         $tmp.prependTo(more)
       }
-
-      $hr.clone().appendTo(more)
-      $(more).append(`
-        <a class="gt2-acc-opt" href="/account/add">${locStr("addAcc")}</a>
-        <a class="gt2-acc-opt" href="/logout">${locStr("logout")} @${i.screenName}</a>
-      `)
-
     })
+  })
+
+
+  // acc switcher dropdown
+  $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", () => {
+    $("div[data-testid=SideNav_AccountSwitcher_Button]").click()
   })
 
 
@@ -331,20 +346,13 @@
   // add custom toggles to the spark settings
   $("body").on("click", sparkOptToggle, () => {
     waitForKeyElements(sparkOpt, () => {
-      let lightningSvg = `
-        <svg viewBox="0 0 24 24">
-          <g>
-            <path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path>
-          </g>
-        </svg>`
-
       $(sparkOpt).append(`
         <div class="gt2-spark-toggle gt2-toggle-auto-refresh">
-          ${lightningSvg}
+          ${getSvg("lightning")}
           <div>${GM_getValue("opt_autoRefresh") ? locStr("disable") : locStr("enable")} ${locStr("autoRefresh")}</div>
         </div>
         <div class="gt2-spark-toggle gt2-toggle-force-latest">
-          ${lightningSvg}
+          ${getSvg("lightning")}
           <div>${GM_getValue("opt_forceLatest") ? locStr("disable") : locStr("enable")} ${locStr("forceLatest")}</div>
         </div>
       `)
@@ -509,16 +517,19 @@
                   --color-elem-sel:   rgb(245, 248, 255);
                   --color-gray:       #8899a6;
                   --color-gray-dark:  #e6ecf0;
-                  --color-text:       #14171a;`,
+                  --color-gray-icons: rgb(101, 119, 134);
+                  --color-text:       rgb(20, 23, 26);
+                  --color-shadow:     rgb(204, 214, 221);`,
 
       dim:       `--color-bg:         #10171e;
                   --color-elem:       #1c2938;
-                  --color-elem-dark:  #15202b;
+                  --color-elem-dark:  rgb(21, 32, 43);
                   --color-elem-sel:   rgb(25, 39, 52);
                   --color-gray:       #657786;
                   --color-gray-dark:  #38444d;
                   --color-gray-icons: rgb(136, 153, 166);
-                  --color-text:       #ffffff;`,
+                  --color-text:       rgb(255, 255, 255);
+                  --color-shadow:     rgb(61, 84, 102);`,
 
       lightsOut: `--color-bg:         #000000;
                   --color-elem:       #15181c;
@@ -527,7 +538,8 @@
                   --color-gray:       #657786;
                   --color-gray-dark:  #38444d;
                   --color-gray-icons: rgb(110, 118, 125);
-                  --color-text:       rgb(217, 217, 217);`
+                  --color-text:       rgb(217, 217, 217);
+                  --color-shadow:     rgb(47, 51, 54);`
     }
 
     // insert new stylesheet

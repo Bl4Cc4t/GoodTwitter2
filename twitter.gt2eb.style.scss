@@ -8,9 +8,12 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-$userDropdown: "
+$navbarDropdown: "
   div[role=menu][style^='max-height: calc(100vh - 0px);'],
   div[role=menu][style^='max-height: calc(0px + 100vh);']
+";
+$accSwitcherDropdown: "
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)
 ";
 
 // returns calc function for evenly spacing the navbar/other parts
@@ -32,8 +35,13 @@ $userDropdown: "
   .gt2-nav-right {
     margin-right: space(1340px);
   }
-  #{$userDropdown} {
+  #{$navbarDropdown} {
     right: space(1340px) !important;
+  }
+  #{$accSwitcherDropdown} {
+    top: 220px !important;
+    left: space(1248px) !important;
+    right: unset !important;
   }
 }
 
@@ -56,8 +64,13 @@ $userDropdown: "
   .gt2-nav-right {
     margin-right: space(975px);
   }
-  #{$userDropdown} {
+  #{$navbarDropdown} {
     right: space(975px) !important;
+  }
+  #{$accSwitcherDropdown} {
+    top: 220px !important;
+    left: unset !important;
+    right: space(960px) !important;
   }
 
   // smaller search
@@ -88,8 +101,12 @@ $userDropdown: "
   .gt2-nav-right {
     margin-right: space(915px);
   }
-  #{$userDropdown} {
+  #{$navbarDropdown} {
     right: space(915px) !important;
+  }
+  #{$accSwitcherDropdown} {
+    top: 195px !important;
+    right: space(902.5px) !important;
   }
 
   // small dashboard profile
@@ -131,7 +148,7 @@ $userDropdown: "
   .gt2-nav-right {
     margin-right: space(620px);
   }
-  #{$userDropdown} {
+  #{$navbarDropdown} {
     right: space(620px) !important;
   }
 }
@@ -161,7 +178,7 @@ main {
       border-top-width: 1px;
       margin-top: 56px !important;
     }
-    
+
     div[data-testid=sidebarColumn] {
       margin-right: 0;
       margin-top: 56px !important;
@@ -193,6 +210,30 @@ main {
   }
 }
 
+// acc switcher dropdown
+#{$accSwitcherDropdown} {
+  bottom: unset !important;
+
+  & > div > div:nth-child(2) > div > div > div {
+
+    & > svg {
+      position: absolute;
+      fill: currentcolor;
+      color: var(--color-elem-dark);
+      filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
+      transform: unset !important;
+      bottom: unset !important;
+      top: -11px !important;
+      right: 5px !important;
+      left: unset !important;
+    }
+    & > div > div {
+      padding: 0;
+    }
+  }
+
+}
+
 
 // global background color
 body {
@@ -212,6 +253,11 @@ div[data-testid=primaryColumn] > div {
       display: none;
     }
   }
+}
+
+.gt2-svg {
+  fill: currentcolor;
+  color: var(--color-gray-icons);
 }
 
 // hidden tweets (autoRefresh)
@@ -239,8 +285,6 @@ div[data-testid=primaryColumn] > div {
 
   svg {
     height: 1.25em;
-    color: var(--color-gray-icons);
-    fill: currentcolor;
     margin-right: 10px;
   }
 
@@ -255,8 +299,8 @@ div[data-testid=primaryColumn] > div {
 }
 
 
-// user dropdown
-#{$userDropdown} {
+// navbar dropdown
+#{$navbarDropdown} {
   top: 54px;
 
   & > div > div > div {
@@ -286,16 +330,6 @@ div[data-testid=primaryColumn] > div {
         color: var(--color-gray-icons);
         margin-right: 10px;
         height: 1.25em;
-      }
-    }
-
-    // inserted elements (logout/add existing acc)
-    .gt2-acc-opt {
-      text-decoration: none;
-      color: var(--color-text);
-      padding: incr(15px);
-      &:visited {
-        color: var(--color-text);
       }
     }
 
@@ -440,7 +474,7 @@ a.gt2-trend {
       }
     }
 
-    .gt2-toggle-user-dropdown {
+    .gt2-toggle-navbar-dropdown {
       margin-left: 5px;
       margin-right: 15px;
 
@@ -491,7 +525,7 @@ a.gt2-trend {
     background-position: 0 50%;
     width: 100%;
   }
-  & div {
+  & > div {
     height: 116px;
 
     .gt2-avatar {
@@ -533,6 +567,42 @@ a.gt2-trend {
 
         &:hover span {
           text-decoration: underline;
+        }
+      }
+    }
+
+    .gt2-toggle-acc-switcher-dropdown {
+      right: 7.5px;
+      bottom: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      height: 27px;
+      width: 27px;
+
+      div {
+        transition: opacity 0.2s ease-in-out;
+        background-color: var(--color-user);
+        opacity: 0;
+        border-radius: 50%;
+        position: absolute;
+        height: 27px;
+        width: 27px;
+      }
+
+      svg {
+        width: 1em;
+        height: 1em;
+      }
+
+      &:hover {
+        cursor: pointer;
+        div {
+          opacity: 0.1;
+        }
+        svg {
+          color: var(--color-user);
         }
       }
     }
