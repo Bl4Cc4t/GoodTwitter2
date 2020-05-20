@@ -151,20 +151,23 @@ header {
   }
 }
 
+
 main {
   & > div  > div > div {
     left: 40px;
-    margin-top: 56px !important;
 
     div[data-testid=primaryColumn] {
       margin-right: 10px;
       border-top-width: 1px;
+      margin-top: 56px !important;
     }
+    
     div[data-testid=sidebarColumn] {
       margin-right: 0;
+      margin-top: 56px !important;
 
       & > div > div:nth-child(2) > div > div > div {
-        padding-top: 0;
+        padding: 0;
 
         // apply theme to sidebar elements
         & > div {
