@@ -264,12 +264,11 @@ a.gt2-trend {
     .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] {
       font-size: 14px;
       min-height: 34px !important;
-      width: 73px;
-      background-color: var(--color-user); }
+      width: auto;
+      background-color: var(--color-user);
+      padding: 0 10px; }
       .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span {
         overflow: visible; }
-        .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span > div > div {
-          right: 13px; }
 
 .gt2-dashboard-profile {
   z-index: 1;

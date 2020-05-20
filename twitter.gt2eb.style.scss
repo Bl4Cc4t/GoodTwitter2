@@ -438,18 +438,19 @@ a.gt2-trend {
     & > a[href='/compose/tweet'] {
       font-size: 14px;
       min-height: 34px !important;
-      width: 73px;
+      width: auto;
       background-color: var(--color-user);
+      padding: 0 10px;
 
       & > div > span {
         overflow: visible;
         & > div > div {
-          right: 13px;
         }
       }
     }
   }
 }
+
 
 // dashboard profile
 .gt2-dashboard-profile {
