@@ -11,13 +11,17 @@
 
   .gt2-nav-right {
     margin-right: calc((100vw - 1340px) / 2); } }
+@media only screen and (min-width: 1095px) {
+  main > div {
+    width: 960px !important; } }
 @media only screen and (max-width: 1350px) {
   header {
     display: none !important; }
 
   main {
-    align-items: center !important;
-    left: 0 !important; }
+    align-items: center !important; }
+    main > div > div > div {
+      left: 0 !important; }
 
   .gt2-nav-left {
     margin-left: calc((100vw - 975px) / 2); }
@@ -28,8 +32,10 @@
   .gt2-search > div {
     width: 270px !important; } }
 @media only screen and (max-width: 1095px) {
-  main > div > div > div {
-    justify-content: unset !important; }
+  main > div {
+    width: 900px !important; }
+    main > div > div > div {
+      justify-content: unset !important; }
 
   .gt2-nav-left {
     margin-left: calc((100vw - 915px) / 2); }
@@ -48,8 +54,10 @@
   div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats li {
     width: 90px; } }
 @media only screen and (max-width: 1005px) {
-  main > div > div > div > div:nth-child(1) {
-    margin-right: 0 !important; }
+  main > div {
+    width: 600px !important; }
+    main > div > div > div > div:nth-child(1) {
+      margin-right: 0 !important; }
 
   .gt2-nav-left {
     margin-left: calc((100vw - 620px) / 2); }
@@ -66,18 +74,15 @@ header {
   header div[data-testid=SideNav_AccountSwitcher_Button] {
     display: none !important; }
 
-main {
-  left: 40px; }
-  main > div {
-    width: auto !important; }
-    main > div > div > div {
-      margin-top: 46px !important; }
-      main > div > div > div > div:nth-child(1) {
-        margin-top: 10px;
-        margin-right: 10px;
-        border-top-width: 1px; }
-      main > div > div > div > div:nth-child(2) {
-        margin-right: 0; }
+main > div > div > div {
+  left: 40px;
+  margin-top: 46px !important; }
+  main > div > div > div > div:nth-child(1) {
+    margin-top: 10px;
+    margin-right: 10px;
+    border-top-width: 1px; }
+  main > div > div > div > div:nth-child(2) {
+    margin-right: 0; }
 
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
   border-radius: 0;

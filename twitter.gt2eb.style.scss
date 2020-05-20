@@ -18,6 +18,12 @@
   }
 }
 
+@media only screen and (min-width: 1095px) {
+  main > div {
+    width: 960px !important;
+  }
+}
+
 // only right sidebar
 @media only screen and (max-width: 1350px) {
   header {
@@ -25,7 +31,10 @@
   }
   main {
     align-items: center !important;
-    left: 0 !important;
+
+    & > div > div >div {
+      left: 0 !important;
+    }
   }
 
   .gt2-nav-left {
@@ -43,8 +52,11 @@
 
 // right small sidebar
 @media only screen and (max-width: 1095px) {
-  main > div  > div > div {
-    justify-content: unset !important;
+  main > div {
+    width: 900px !important;
+    & > div > div {
+      justify-content: unset !important;
+    }
   }
 
   .gt2-nav-left {
@@ -80,8 +92,11 @@
 
 // no sidebars at all
 @media only screen and (max-width: 1005px) {
-  main > div > div > div > div:nth-child(1) {
-    margin-right: 0 !important;
+  main > div {
+    width: 600px !important;
+    & > div > div > div:nth-child(1) {
+      margin-right: 0 !important;
+    }
   }
 
   .gt2-nav-left {
@@ -108,22 +123,17 @@ header {
 }
 
 main {
-  left: 40px;
+  & > div  > div > div {
+    left: 40px;
+    margin-top: 46px !important;
 
-  & > div {
-    width: auto !important;
-
-    & > div > div {
-      margin-top: 46px !important;
-
-      & > div:nth-child(1) {
-        margin-top: 10px;
-        margin-right: 10px;
-        border-top-width: 1px;
-      }
-      & > div:nth-child(2) {
-        margin-right: 0;
-      }
+    & > div:nth-child(1) {
+      margin-top: 10px;
+      margin-right: 10px;
+      border-top-width: 1px;
+    }
+    & > div:nth-child(2) {
+      margin-right: 0;
     }
   }
 }
