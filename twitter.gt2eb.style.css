@@ -95,6 +95,9 @@ main > div > div > div {
     border-top-width: 1px; }
   main > div > div > div > div:nth-child(2) {
     margin-right: 0; }
+  main > div > div > div > section {
+    margin-top: 10px !important;
+    border-top-width: 1px !important; }
 
 div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
   border-radius: 0;
@@ -252,14 +255,14 @@ a.gt2-trend {
       .gt2-nav .gt2-nav-right .gt2-search > div form > div:nth-child(1) > div {
         border: none;
         background-color: var(--color-elem-dark); }
-    .gt2-nav .gt2-nav-right .gt2-user-dropdown {
+    .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown {
       margin-left: 5px;
       margin-right: 15px; }
-      .gt2-nav .gt2-nav-right .gt2-user-dropdown img {
+      .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown img {
         border-radius: 50%;
         height: 32px;
         width: 32px; }
-      .gt2-nav .gt2-nav-right .gt2-user-dropdown > div > div {
+      .gt2-nav .gt2-nav-right .gt2-toggle-user-dropdown > div > div {
         display: none; }
     .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] {
       font-size: 14px;

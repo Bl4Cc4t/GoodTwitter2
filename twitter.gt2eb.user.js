@@ -9,6 +9,7 @@
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
+// @resource      i18n https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
@@ -61,6 +62,17 @@
     }
   }
 
+  // get localized version of a string.
+  // defaults to english version.
+  function locStr(key) {
+    let lang = $("html").attr("lang")
+    if (Object.keys(i18n).includes(lang)) {
+      return i18n[lang][key]
+    } else {
+      return i18n.en[key]
+    }
+  }
+
   // default values
   if (!GM_getValue("userColor"))                   GM_setValue("userColor",       "rgba(29,161,242,1.00)")
   if (!GM_getValue("bgColor"))                     GM_setValue("bgColor",         "dim")
@@ -77,7 +89,7 @@
       </div>
       <div class="gt2-nav-right">
         <div class="gt2-search"></div>
-        <div class="gt2-user-dropdown"></div>
+        <div class="gt2-toggle-user-dropdown"></div>
       </div>
     </nav>
   `)
@@ -107,10 +119,10 @@
     // user dropdown
     $("nav > div[data-testid=AppTabBar_More_Menu]")
     .addClass("gt2-more")
-    .appendTo(".gt2-user-dropdown")
+    .appendTo(".gt2-toggle-user-dropdown")
     $(".gt2-more").append(`<img src="" />`)
 
-    $(".gt2-user-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
+    $(".gt2-toggle-user-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
 
     updateCSS()
   })
@@ -167,19 +179,19 @@
               <ul>
                 <li>
                   <a href="/${i.screenName}">
-                    <span>Tweets</span>
+                    <span>${locStr("tweets")}</span>
                     <span>${humanizeNumberShort(i.stats.tweets)}</span>
                   </a>
                 </li>
                 <li>
                   <a href="/${i.screenName}/following">
-                    <span>Following</span>
+                    <span>${locStr("following")}</span>
                     <span>${humanizeNumberShort(i.stats.following)}</span>
                   </a>
                 </li>
                 <li>
                   <a href="/${i.screenName}/followers">
-                    <span>Followers</span>
+                    <span>${locStr("followers")}</span>
                     <span>${humanizeNumberShort(i.stats.followers)}</span>
                   </a>
                 </li>
@@ -214,40 +226,47 @@
   })
 
 
-  // hide navbar on modal
-  let obsModal = new MutationObserver(() => {
-    if ($("body").css("overflow-y") == "hidden") {
-      $(".gt2-nav").addClass("not-focused")
-
-    } else {
-      $(".gt2-nav").removeClass("not-focused")
-    }
-  })
-  obsModal.observe($("body")[0], {
-    attributes: true,
-    attributeFilter: [ "style" ]
-  })
-
-
   // add elements to dropdow menu
-  $(".gt2-user-dropdown").click(() => {
+  $(".gt2-toggle-user-dropdown").click(() => {
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
-    let more = "div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div"
+    let more = `div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div,
+                div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div`
 
     waitForKeyElements(more, () => {
-      let $hr = $(more).find("> div:eq(-4)")
-      let $lm = $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav")
+      let $hr = $(more).find("> div:eq(-4)")  // seperator line
+      let $lm = $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav") // left sidebar
 
       $hr.clone().prependTo(more)
-      $lm.find(`a[href='/explore']`)              .clone().prependTo(more) // explore
-      $lm.find(`a[href='/i/bookmarks']`)          .clone().prependTo(more) // bookmarks
-      $lm.find(`a[href='/${i.screenName}/lists']`).clone().prependTo(more) // lists
-      $lm.find(`a[href='/${i.screenName}']`)      .clone().prependTo(more) // profile
+      // items from left menu to attach
+      let toAttach = [
+        {
+          sel: `a[href='/explore']`,
+          name: "explore"
+        }, {
+          sel: `a[href='/i/bookmarks']`,
+          name: "bookmarks"
+        }, {
+          sel: `a[href='/${i.screenName}/lists']`,
+          name: "lists"
+        }, {
+          sel: `a[href='/${i.screenName}']`,
+          name: "profile"
+        }
+      ]
+      for (let e of toAttach) {
+        let $tmp = $lm.find(e.sel).clone()
+        // if the width is too low, the text disappears
+        if (window.innerWidth < 1282) {
+          $tmp.children().append(`<span>${locStr(e.name)}</span>`)
+        }
+        $tmp.prependTo(more)
+      }
+
       $hr.clone().appendTo(more)
       $(more).append(`
-        <a class="gt2-acc-opt" href="/account/add">Add an existing account</a>
-        <a class="gt2-acc-opt" href="/logout">Logout @${i.screenName}</a>
+        <a class="gt2-acc-opt" href="/account/add">${locStr("addAcc")}</a>
+        <a class="gt2-acc-opt" href="/logout">${locStr("logout")} @${i.screenName}</a>
       `)
 
     })
@@ -299,11 +318,11 @@
       $(sparkOpt).append(`
         <div class="gt2-spark-toggle gt2-toggle-auto-refresh">
           ${lightningSvg}
-          <div>${GM_getValue("opt_autoRefresh") ? "Dis" : "En"}able Auto Refresh</div>
+          <div>${GM_getValue("opt_autoRefresh") ? locStr("disable") : locStr("enable")} ${locStr("autoRefresh")}</div>
         </div>
         <div class="gt2-spark-toggle gt2-toggle-force-latest">
           ${lightningSvg}
-          <div>${GM_getValue("opt_forceLatest") ? "Dis" : "En"}able Force Latest</div>
+          <div>${GM_getValue("opt_forceLatest") ? locStr("disable") : locStr("enable")} ${locStr("forceLatest")}</div>
         </div>
       `)
     })
@@ -328,10 +347,25 @@
   // ##########
 
 
+  // hide navbar on modal
+  let obsModal = new MutationObserver(() => {
+    if ($("body").css("overflow-y") == "hidden") {
+      $(".gt2-nav").addClass("not-focused")
+
+    } else {
+      $(".gt2-nav").removeClass("not-focused")
+    }
+  })
+  obsModal.observe($("body")[0], {
+    attributes: true,
+    attributeFilter: [ "style" ]
+  })
+
+
   // add counter for new tweets
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
-    let text = `Show ${nr} new Tweet${nr > 1 ? "s" : ""}`
+    let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
     if (nr) {
       // add button
       if ($(".gt2-show-hidden-tweets").length == 0) {

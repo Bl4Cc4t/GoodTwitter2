@@ -7,7 +7,7 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-$profileMenu: "
+$userDropdown: "
   div[role=menu][style^='max-height: calc(100vh - 0px);'],
   div[role=menu][style^='max-height: calc(0px + 100vh);']
 ";
@@ -26,7 +26,7 @@ $profileMenu: "
   .gt2-nav-right {
     margin-right: space(1340px);
   }
-  #{$profileMenu} {
+  #{$userDropdown} {
     right: space(1340px) !important;
   }
 }
@@ -50,7 +50,7 @@ $profileMenu: "
   .gt2-nav-right {
     margin-right: space(975px);
   }
-  #{$profileMenu} {
+  #{$userDropdown} {
     right: space(975px) !important;
   }
 
@@ -82,7 +82,7 @@ $profileMenu: "
   .gt2-nav-right {
     margin-right: space(915px);
   }
-  #{$profileMenu} {
+  #{$userDropdown} {
     right: space(915px) !important;
   }
 
@@ -125,7 +125,7 @@ $profileMenu: "
   .gt2-nav-right {
     margin-right: space(620px);
   }
-  #{$profileMenu} {
+  #{$userDropdown} {
     right: space(620px) !important;
   }
 }
@@ -157,6 +157,11 @@ main {
     }
     & > div:nth-child(2) {
       margin-right: 0;
+    }
+    // /settings
+    & > section {
+      margin-top: 10px !important;
+      border-top-width: 1px !important;
     }
   }
 }
@@ -239,8 +244,8 @@ div[data-testid=primaryColumn] > div {
 }
 
 
-// profile menu
-#{$profileMenu} {
+// user dropdown
+#{$userDropdown} {
   top: 54px;
 
   & > div > div > div {
@@ -421,7 +426,7 @@ a.gt2-trend {
       }
     }
 
-    .gt2-user-dropdown {
+    .gt2-toggle-user-dropdown {
       margin-left: 5px;
       margin-right: 15px;
 

@@ -1,0 +1,18 @@
+{
+  "en": {
+    "profile": "Profile",
+    "addAcc": "Add an existing account",
+    "tweet": "Tweet",
+    "followers": "Followers",
+    "following": "Following",
+    "explore": "Explore",
+    "bookmarks": "Bookmarks",
+    "lists": "Lists",
+    "enable": "Enable",
+    "disable": "Disable",
+    "autoRefresh": "Auto Refresh",
+    "forceLatest": "Force Latest",
+    "showNewSingle": "Show 1 new Tweet",
+    "showNewMulti": "Show $ new Tweets"
+  }
+}
