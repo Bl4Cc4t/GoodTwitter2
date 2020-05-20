@@ -2,7 +2,8 @@
   --bgColors:$;
   --color-user: $userColor;
   --banner: $banner;
-  --scrollbarWidth: $scrollbarWidth;
+  --scrollbar-width: $scrollbarWidth;
+  --font-increment: $fontIncrement;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
 
 @media only screen and (min-width: 1350px) {
@@ -88,26 +89,25 @@ header {
 
 main > div > div > div {
   left: 40px;
-  margin-top: 46px !important; }
-  main > div > div > div > div:nth-child(1) {
-    margin-top: 10px;
+  margin-top: 56px !important; }
+  main > div > div > div div[data-testid=primaryColumn] {
     margin-right: 10px;
     border-top-width: 1px; }
-  main > div > div > div > div:nth-child(2) {
+  main > div > div > div div[data-testid=sidebarColumn] {
     margin-right: 0; }
+    main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
+      padding-top: 0; }
+      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
+        border-radius: 0;
+        border: 1px solid var(--color-gray-dark);
+        background-color: var(--color-elem-dark);
+        margin-bottom: 10px; }
+        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
+          padding: 15px; }
+        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
+          display: none; }
   main > div > div > div > section {
-    margin-top: 10px !important;
     border-top-width: 1px !important; }
-
-div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
-  border-radius: 0;
-  border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-elem-dark);
-  margin-bottom: 10px; }
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
-    padding: 15px; }
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
-    display: none; }
 
 body {
   background-color: var(--color-bg) !important; }
@@ -150,12 +150,12 @@ div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='
   div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a {
     padding: 0; }
     div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div {
-      padding: 15px; }
+      padding: calc(15px + var(--font-increment)); }
       div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div > div:nth-child(2), div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div > div:nth-child(2) {
         margin: 0;
-        font-size: 15px; }
+        font-size: calc(15px + var(--font-increment)); }
     div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a span, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a span {
-      font-size: 15px;
+      font-size: calc(15px + var(--font-increment));
       font-weight: 400;
       margin-left: 0;
       color: var(--color-text); }
@@ -166,7 +166,7 @@ div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='
   div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt {
     text-decoration: none;
     color: var(--color-text);
-    padding: 15px; }
+    padding: calc(15px + var(--font-increment)); }
     div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt:visited, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt:visited {
       color: var(--color-text); }
   div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a:hover, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a:hover {
@@ -196,9 +196,9 @@ a.gt2-trend {
   .gt2-nav.not-focused {
     z-index: -1; }
     .gt2-nav.not-focused .gt2-nav-center {
-      margin-right: calc(var(--scrollbarWidth) / 2); }
+      margin-right: calc(var(--scrollbar-width) / 2); }
     .gt2-nav.not-focused .gt2-nav-right {
-      padding-right: var(--scrollbarWidth); }
+      padding-right: var(--scrollbar-width); }
   .gt2-nav .gt2-nav-left > a {
     padding: 0;
     width: fit-content;
@@ -208,26 +208,29 @@ a.gt2-trend {
     height: 100%;
     transition: all .15s ease-in-out; }
     .gt2-nav .gt2-nav-left > a > div {
-      background-color: unset !important; }
+      background-color: unset !important;
+      margin-top: calc(var(--font-increment) * -1.25); }
       .gt2-nav .gt2-nav-left > a > div > div:nth-child(1) > div {
         background-color: var(--color-user);
-        border-color: var(--color-elem-dark); }
+        border-color: var(--color-elem-dark);
+        font-size: calc(11px + var(--font-increment) * 0.75); }
       .gt2-nav .gt2-nav-left > a > div > div:nth-child(2) {
         color: var(--color-gray);
-        font-size: 13px;
-        margin-left: 3px; }
+        font-size: calc(13px + var(--font-increment));
+        margin-left: calc(3px + var(--font-increment));
+        margin-right: 3px; }
   .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
     border-bottom: 2px solid var(--color-user); }
   .gt2-nav .gt2-nav-left > a svg {
     color: var(--color-gray-icons);
-    width: 23px; }
+    width: calc(23px + var(--font-increment)); }
   .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
     color: var(--color-user); }
   .gt2-nav .gt2-nav-center {
     position: absolute;
     right: calc(50% - 12px);
-    width: 24px;
-    margin-top: 8px; }
+    width: calc(24px + var(--font-increment));
+    margin-top: calc(8px - var(--font-increment)); }
     .gt2-nav .gt2-nav-center svg {
       color: #1da1f2; }
   .gt2-nav .gt2-nav-right {
@@ -307,7 +310,7 @@ a.gt2-trend {
     .gt2-dashboard-profile div .gt2-user {
       color: var(--color-text);
       position: absolute;
-      top: 125px;
+      top: calc(125px - var(--font-increment) * 2);
       left: 100px;
       width: 185px;
       height: fit-content;
@@ -316,11 +319,11 @@ a.gt2-trend {
       display: flex;
       flex-direction: column; }
       .gt2-dashboard-profile div .gt2-user .gt2-name {
-        font-size: 18px;
+        font-size: calc(18px + var(--font-increment));
         font-weight: 700;
         text-decoration: underline; }
       .gt2-dashboard-profile div .gt2-user .gt2-screenname {
-        font-size: 14px;
+        font-size: calc(14px + var(--font-increment));
         color: var(--color-gray); }
         .gt2-dashboard-profile div .gt2-user .gt2-screenname:hover span {
           text-decoration: underline; }
@@ -328,7 +331,7 @@ a.gt2-trend {
       padding: 14px;
       width: 100%;
       height: 37px;
-      margin-top: -10px; }
+      margin-top: calc(-10px - var(--font-increment) * 2); }
       .gt2-dashboard-profile div .gt2-stats ul {
         display: inline-flex;
         margin: 0;
@@ -340,12 +343,12 @@ a.gt2-trend {
             display: flex;
             flex-direction: column; }
             .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(1) {
-              font-size: 12px;
+              font-size: calc(12px + var(--font-increment));
               font-weight: bold;
               transition: color .15s ease-in-out;
               color: var(--color-gray); }
             .gt2-dashboard-profile div .gt2-stats ul li a span:nth-child(2) {
-              font-size: 18px;
+              font-size: calc(18px + var(--font-increment));
               font-weight: bold;
               line-height: 1;
               padding-top: 3px;

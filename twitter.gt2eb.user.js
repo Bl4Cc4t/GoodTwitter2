@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.9
+// @version       0.0.10
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -80,6 +80,7 @@
   if (!GM_getValue("userColor"))                   GM_setValue("userColor",       "rgba(29,161,242,1.00)")
   if (!GM_getValue("bgColor"))                     GM_setValue("bgColor",         "dim")
   if (!GM_getValue("scrollbarWidth"))              GM_setValue("scrollbarWidth",  window.innerWidth - $("html")[0].clientWidth)
+  if (!GM_getValue("fontIncrement"))               GM_setValue("fontIncrement",   0)
   if (GM_getValue("opt_autoRefresh") == undefined) GM_setValue("opt_autoRefresh", false)
   if (GM_getValue("opt_forceLatest") == undefined) GM_setValue("opt_forceLatest", false)
 
@@ -284,12 +285,31 @@
   // display settings
   let displaySettings = "main > div > div > div > section:nth-child(2) > div:nth-child(2)"
   let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
+
+  // font increment
+  $("body").on("mousedown", `${displaySettings} > div:nth-child(5) > div > div:nth-child(2) > div > div > div > div:not(:empty),
+                             ${displaySettingsModal} > div:nth-child(4) > div > div > div:nth-child(2) > div > div > div > div:not(:empty)`, function() {
+    console.log($(this)[0]);
+    let fontIncr = {
+      "0%":   -2,
+      "25%":  -1,
+      "50%":  0,
+      "75%":  1,
+      "100%": 3
+    }[$(this)[0].style.left]
+    GM_setValue("fontIncrement", fontIncr)
+    updateCSS()
+  })
+
+  // user color
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
                          ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
     let userColor = $(this).find("svg").css("color")
     GM_setValue("userColor", userColor)
     updateCSS()
   })
+
+  // background color
   $("body").on("click", `${displaySettings} > div:nth-child(11) > div > div[role=radiogroup] > div,
                          ${displaySettingsModal} > div:nth-child(8) > div > div[role=radiogroup] > div`, function() {
     let bgColor = {
@@ -516,6 +536,7 @@
       .replace("--bgColors:$;",   bgColors[GM_getValue("bgColor")])
       .replace("$userColor",      GM_getValue("userColor"))
       .replace("$banner",         GM_getValue("banner"))
+      .replace("$fontIncrement",  `${GM_getValue("fontIncrement")}px`)
       .replace("$scrollbarWidth", `${GM_getValue("scrollbarWidth")}px`)
       // source map
       .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))

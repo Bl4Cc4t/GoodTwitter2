@@ -1,8 +1,9 @@
 :root {
   --bgColors:$;
-  --color-user:     $userColor;
-  --banner:         $banner;
-  --scrollbarWidth: $scrollbarWidth;
+  --color-user:       $userColor;
+  --banner:           $banner;
+  --scrollbar-width:  $scrollbarWidth;
+  --font-increment:   $fontIncrement;
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
@@ -15,6 +16,11 @@ $userDropdown: "
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
   @return calc((100vw - #{$val}) / 2);
+}
+
+// returns val with --font-increment added
+@function incr($val) {
+  @return calc(#{$val} + var(--font-increment));
 }
 
 
@@ -179,7 +185,6 @@ main {
     }
     // /settings
     & > section {
-      margin-top: 10px !important;
       border-top-width: 1px !important;
     }
   }
@@ -261,20 +266,20 @@ div[data-testid=primaryColumn] > div {
     & > a {
       padding: 0;
       & > div {
-        padding: 15px;
+        padding: incr(15px);
         & > div:nth-child(2) {
           margin: 0;
-          font-size: 15px;
+          font-size: incr(15px);
         }
       }
 
-      & span {
-        font-size: 15px;
+      span {
+        font-size: incr(15px);
         font-weight: 400;
         margin-left: 0;
         color: var(--color-text);
       }
-      & svg {
+      svg {
         color: var(--color-gray-icons);
         margin-right: 10px;
         height: 1.25em;
@@ -285,7 +290,7 @@ div[data-testid=primaryColumn] > div {
     .gt2-acc-opt {
       text-decoration: none;
       color: var(--color-text);
-      padding: 15px;
+      padding: incr(15px);
       &:visited {
         color: var(--color-text);
       }
@@ -334,10 +339,10 @@ a.gt2-trend {
   &.not-focused {
     z-index: -1;
     .gt2-nav-center {
-      margin-right: calc(var(--scrollbarWidth) / 2);
+      margin-right: calc(var(--scrollbar-width) / 2);
     }
     .gt2-nav-right {
-      padding-right: var(--scrollbarWidth);
+      padding-right: var(--scrollbar-width);
     }
   }
 
@@ -354,15 +359,18 @@ a.gt2-trend {
 
       & > div {
         background-color: unset !important;
+        margin-top: calc(var(--font-increment) * -1.25);
 
         & > div:nth-child(1) > div {
           background-color: var(--color-user);
           border-color: var(--color-elem-dark);
+          font-size: calc(11px + var(--font-increment) * 0.75);
         }
         & > div:nth-child(2) {
           color: var(--color-gray);
-          font-size: 13px;
-          margin-left: 3px;
+          font-size: incr(13px);
+          margin-left: incr(3px);
+          margin-right: 3px;
         }
       }
     }
@@ -374,7 +382,7 @@ a.gt2-trend {
 
     & > a svg {
       color: var(--color-gray-icons);
-      width: 23px;
+      width: incr(23px);
     }
 
     & > a.active > div > div:nth-child(2),
@@ -389,8 +397,8 @@ a.gt2-trend {
   .gt2-nav-center {
     position: absolute;
     right: calc(50% - 12px);
-    width: 24px;
-    margin-top: 8px;
+    width: incr(24px);
+    margin-top: calc(8px - var(--font-increment));
     & svg {
       color: #1da1f2;
     }
@@ -502,7 +510,7 @@ a.gt2-trend {
     .gt2-user {
       color: var(--color-text);
       position: absolute;
-      top: 125px;
+      top: calc(125px - var(--font-increment) * 2);
       left: 100px;
       width: 185px;
       height: fit-content;
@@ -512,12 +520,12 @@ a.gt2-trend {
       flex-direction: column;
 
       .gt2-name {
-        font-size: 18px;
+        font-size: incr(18px);
         font-weight: 700;
         text-decoration: underline;
       }
       .gt2-screenname {
-        font-size: 14px;
+        font-size: incr(14px);
         color: var(--color-gray);
 
         &:hover span {
@@ -530,7 +538,7 @@ a.gt2-trend {
       padding: 14px;
       width: 100%;
       height: 37px;
-      margin-top: -10px;
+      margin-top: calc(-10px - var(--font-increment) * 2);
 
       ul {
         display: inline-flex;
@@ -545,13 +553,13 @@ a.gt2-trend {
             flex-direction: column;
 
             span:nth-child(1) {
-              font-size: 12px;
+              font-size: incr(12px);
               font-weight: bold;
               transition: color .15s ease-in-out;
               color: var(--color-gray);
             }
             span:nth-child(2) {
-              font-size: 18px;
+              font-size: incr(18px);
               font-weight: bold;
               line-height: 1;
               padding-top: 3px;
