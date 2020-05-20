@@ -2,7 +2,8 @@
   "en": {
     "profile": "Profile",
     "addAcc": "Add an existing account",
-    "tweet": "Tweet",
+    "logout": "Logout",
+    "tweets": "Tweets",
     "followers": "Followers",
     "following": "Following",
     "explore": "Explore",

@@ -66,6 +66,7 @@
   // defaults to english version.
   function locStr(key) {
     let lang = $("html").attr("lang")
+    let i18n = JSON.parse(GM_getResourceText("i18n"))
     if (Object.keys(i18n).includes(lang)) {
       return i18n[lang][key]
     } else {
