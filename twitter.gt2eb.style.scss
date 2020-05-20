@@ -148,15 +148,34 @@ header {
 main {
   & > div  > div > div {
     left: 40px;
-    margin-top: 46px !important;
+    margin-top: 56px !important;
 
-    & > div:nth-child(1) {
-      margin-top: 10px;
+    div[data-testid=primaryColumn] {
       margin-right: 10px;
       border-top-width: 1px;
     }
-    & > div:nth-child(2) {
+    div[data-testid=sidebarColumn] {
       margin-right: 0;
+
+      & > div > div:nth-child(2) > div > div > div {
+        padding-top: 0;
+
+        // apply theme to sidebar elements
+        & > div {
+          border-radius: 0;
+          border: 1px solid var(--color-gray-dark);
+          background-color: var(--color-elem-dark);
+          margin-bottom: 10px;
+
+          &:nth-last-child(1) nav {
+            padding: 15px;
+          }
+
+          &:empty {
+            display: none;
+          }
+        }
+      }
     }
     // /settings
     & > section {
@@ -166,22 +185,6 @@ main {
   }
 }
 
-
-// apply theme to sidebar elements
-div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
-  border-radius: 0;
-  border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-elem-dark);
-  margin-bottom: 10px;
-
-  &:nth-last-child(1) nav {
-    padding: 15px;
-  }
-
-  &:empty {
-    display: none;
-  }
-}
 
 // global background color
 body {
