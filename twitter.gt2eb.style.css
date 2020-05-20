@@ -10,10 +10,10 @@
     margin-left: calc((100vw - 1340px) / 2); }
 
   .gt2-nav-right {
-    margin-right: calc((100vw - 1340px) / 2); } }
-@media only screen and (min-width: 1095px) {
-  main > div {
-    width: 960px !important; } }
+    margin-right: calc((100vw - 1340px) / 2); }
+
+  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+    right: calc((100vw - 1340px) / 2) !important; } }
 @media only screen and (max-width: 1350px) {
   header {
     display: none !important; }
@@ -29,8 +29,14 @@
   .gt2-nav-right {
     margin-right: calc((100vw - 975px) / 2); }
 
+  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+    right: calc((100vw - 975px) / 2) !important; }
+
   .gt2-search > div {
     width: 270px !important; } }
+@media only screen and (min-width: 1095px) {
+  main > div {
+    width: 960px !important; } }
 @media only screen and (max-width: 1095px) {
   main > div {
     width: 900px !important; }
@@ -42,6 +48,9 @@
 
   .gt2-nav-right {
     margin-right: calc((100vw - 915px) / 2); }
+
+  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+    right: calc((100vw - 915px) / 2) !important; }
 
   div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-banner {
     height: 95px; }
@@ -63,7 +72,10 @@
     margin-left: calc((100vw - 620px) / 2); }
 
   .gt2-nav-right {
-    margin-right: calc((100vw - 620px) / 2); } }
+    margin-right: calc((100vw - 620px) / 2); }
+
+  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+    right: calc((100vw - 620px) / 2) !important; } }
 header {
   right: -40px;
   margin-right: 10px !important;
@@ -128,44 +140,33 @@ div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) 
     cursor: pointer;
     background-color: var(--color-elem-sel); }
 
-div[role=menu][style^="max-height: calc(100vh - 0px);"],
-div[role=menu][style^="max-height: calc(0px + 100vh);"] {
-  right: calc(100vw / 2 - 360px - 252px) !important;
+div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
   top: 54px; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > div > a,
-  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > div > a {
+  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > div > a, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > div > a {
     transition-duration: 0s; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a,
-  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a {
+  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a {
     padding: 0; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a > div {
+    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div {
       padding: 15px; }
-      div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a > div > div:nth-child(2),
-      div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a > div > div:nth-child(2) {
+      div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div > div:nth-child(2), div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div > div:nth-child(2) {
         margin: 0;
         font-size: 15px; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a span,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a span {
+    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a span, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a span {
       font-size: 15px;
       font-weight: 400;
       margin-left: 0;
       color: var(--color-text); }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a svg,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a svg {
+    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a svg, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a svg {
       color: var(--color-gray-icons);
       margin-right: 10px;
       height: 1.25em; }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt,
-  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div .gt2-acc-opt {
+  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt {
     text-decoration: none;
     color: var(--color-text);
     padding: 15px; }
-    div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div .gt2-acc-opt:visited,
-    div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div .gt2-acc-opt:visited {
+    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div .gt2-acc-opt:visited, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div .gt2-acc-opt:visited {
       color: var(--color-text); }
-  div[role=menu][style^="max-height: calc(100vh - 0px);"] > div > div > div > a:hover,
-  div[role=menu][style^="max-height: calc(0px + 100vh);"] > div > div > div > a:hover {
+  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a:hover, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a:hover {
     background-color: var(--color-elem-sel); }
 
 header > div > div {

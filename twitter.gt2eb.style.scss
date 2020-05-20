@@ -7,20 +7,27 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
+$profileMenu: "
+  div[role=menu][style^='max-height: calc(100vh - 0px);'],
+  div[role=menu][style^='max-height: calc(0px + 100vh);']
+";
+
+// returns calc function for evenly spacing the navbar/other parts
+@function space($val) {
+  @return calc((100vw - #{$val}) / 2);
+}
+
 
 // normal display
 @media only screen and (min-width: 1350px) {
   .gt2-nav-left {
-    margin-left: calc((100vw - 1340px) / 2);
+    margin-left: space(1340px);
   }
   .gt2-nav-right {
-    margin-right: calc((100vw - 1340px) / 2);
+    margin-right: space(1340px);
   }
-}
-
-@media only screen and (min-width: 1095px) {
-  main > div {
-    width: 960px !important;
+  #{$profileMenu} {
+    right: space(1340px) !important;
   }
 }
 
@@ -38,15 +45,25 @@
   }
 
   .gt2-nav-left {
-    margin-left: calc((100vw - 975px) / 2);
+    margin-left: space(975px);
   }
   .gt2-nav-right {
-    margin-right: calc((100vw - 975px) / 2);
+    margin-right: space(975px);
+  }
+  #{$profileMenu} {
+    right: space(975px) !important;
   }
 
   // smaller search
   .gt2-search > div {
     width: 270px !important;
+  }
+}
+
+// not right small sidebar
+@media only screen and (min-width: 1095px) {
+  main > div {
+    width: 960px !important;
   }
 }
 
@@ -60,10 +77,13 @@
   }
 
   .gt2-nav-left {
-    margin-left: calc((100vw - 915px) / 2);
+    margin-left: space(915px);
   }
   .gt2-nav-right {
-    margin-right: calc((100vw - 915px) / 2);
+    margin-right: space(915px);
+  }
+  #{$profileMenu} {
+    right: space(915px) !important;
   }
 
   // small dashboard profile
@@ -100,10 +120,13 @@
   }
 
   .gt2-nav-left {
-    margin-left: calc((100vw - 620px) / 2);
+    margin-left: space(620px);
   }
   .gt2-nav-right {
-    margin-right: calc((100vw - 620px) / 2);
+    margin-right: space(620px);
+  }
+  #{$profileMenu} {
+    right: space(620px) !important;
   }
 }
 
@@ -155,7 +178,7 @@ div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div 
   }
 }
 
-// background color
+// global background color
 body {
   background-color: var(--color-bg) !important;
 }
@@ -175,7 +198,7 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
-
+// hidden tweets (autoRefresh)
 .gt2-hidden-tweet,
 .gt2-hidden-tweet-part {
   display: none;
@@ -193,6 +216,7 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
+// spark settings
 .gt2-spark-toggle {
   padding: 15px;
   display: inline-flex;
@@ -216,9 +240,7 @@ div[data-testid=primaryColumn] > div {
 
 
 // profile menu
-div[role=menu][style^="max-height: calc(100vh - 0px);"],
-div[role=menu][style^="max-height: calc(0px + 100vh);"] {
-  right: calc(100vw / 2 - 360px - 252px) !important;
+#{$profileMenu} {
   top: 54px;
 
   & > div > div > div {
