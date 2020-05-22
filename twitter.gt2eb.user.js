@@ -67,12 +67,13 @@
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
-    let lang = $("html").attr("lang")
     let i18n = JSON.parse(GM_getResourceText("i18n"))
-    if (Object.keys(i18n).includes(lang)) {
+    let lang = $("html").attr("lang")
+        lang = Object.keys(i18n).includes(lang) ? lang : "en"
+    if (Object.keys(i18n[lang]).includes(key)) {
       return i18n[lang][key]
     } else {
-      return i18n.en[key]
+      return false
     }
   }
 
@@ -80,7 +81,8 @@
   function getSvg(key) {
     let svgs = {
       lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
-      arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`
+      arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
+      tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`
     }
     return `
       <svg class="gt2-svg" viewBox="0 0 24 24">
@@ -233,7 +235,6 @@
   }
 
 
-
   // move dash profile
   $(window).on("resize", () => {
     if (window.innerWidth >= 1350) {
@@ -292,6 +293,92 @@
   })
 
 
+  // ###################
+  // #  GT2 settings   #
+  // ###################
+
+  // insert the menu item
+  function addSettingsToggle() {
+    waitForKeyElements("main section a[href='/settings/about']", () => {
+      if (!$(".gt2-toggle-settings").length) {
+        $("main section:nth-child(1) > div:nth-child(2) > div").append(`
+          <a class="gt2-toggle-settings" href="/settings/gt2">
+            <div>
+              <span>GoodTwitter2</span>
+              ${getSvg("arrow")}
+            </div>
+          </a>
+        `)
+      }
+    })
+  }
+
+  // toggle settings display
+  $("body").on("click", ".gt2-toggle-settings", function(event) {
+    event.preventDefault()
+    window.history.pushState({}, "", $(this).attr("href"))
+    addSettings()
+    $("main section:nth-child(1) > div:nth-child(2) > div").addClass("gt2-settings-active")
+  })
+
+  // disable settings display again when clicking on another menu item
+  $("body").on("click", `main section:nth-child(1) > div:nth-child(2) > div:not(:first-child):not(:last-child),
+                         main section:nth-child(1) > div:nth-child(2) > div:last-child > div:not(:first-child):not(:nth-child(2))`, () => {
+    $(".gt2-settings-active").removeClass("gt2-settings-active")
+    $(".gt2-settings-header, .gt2-settings").remove()
+  })
+
+  // get html for a gt2 toggle (checkbox)
+  function getToggleSettingPart(name, className) {
+    let d = `${name}Desc`
+    return `
+      <div class="gt2-setting">
+        <div>
+          <span>${locStr(name)}</span>
+          <div class="gt2-setting-toggle gt2-toggle${GM_getValue(`opt_${name}`) ? " gt2-active" : ""}">
+            <div></div>
+            <div class="${className}">
+              ${getSvg("tick")}
+            </div>
+          </div>
+        </div>
+        ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
+      </div>`
+  }
+
+  // add the settings to the display
+  function addSettings() {
+    if (!$(".gt2-settings").length) {
+      let t = $("title").html()
+      $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
+      $("main section:nth-child(2)").prepend(`
+        <div class="gt2-settings-header">GoodTwitter2 Settings</div>
+        <div class="gt2-settings">
+          <div class="gt2-settings-sub-header">Timeline</div>
+          ${getToggleSettingPart("forceLatest", "gt2-toggle-force-latest")}
+          ${getToggleSettingPart("autoRefresh", "gt2-toggle-auto-refresh")}
+          <div class="gt2-settings-sub-header">Display</div>
+        </div>
+      `)
+    }
+  }
+
+  $("body").on("click", ".gt2-setting-toggle", function() {
+    $(this).toggleClass("gt2-active")
+  })
+
+
+  // toggle autoRefresh
+  $("body").on("click", ".gt2-toggle-auto-refresh", () => {
+    GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
+  })
+
+  // toggle forceLatest
+  $("body").on("click", ".gt2-toggle-force-latest", () => {
+    GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
+  })
+
+
   // ########################
   // #   display settings   #
   // ########################
@@ -334,42 +421,6 @@
     }[$(this).css("background-color")]
     GM_setValue("bgColor", bgColor)
     updateCSS()
-  })
-
-
-  // ######################
-  // #   spark settings   #
-  // ######################
-
-  let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div"
-  let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
-  // add custom toggles to the spark settings
-  $("body").on("click", sparkOptToggle, () => {
-    waitForKeyElements(sparkOpt, () => {
-      $(sparkOpt).append(`
-        <div class="gt2-spark-toggle gt2-toggle-auto-refresh">
-          ${getSvg("lightning")}
-          <div>${GM_getValue("opt_autoRefresh") ? locStr("disable") : locStr("enable")} ${locStr("autoRefresh")}</div>
-        </div>
-        <div class="gt2-spark-toggle gt2-toggle-force-latest">
-          ${getSvg("lightning")}
-          <div>${GM_getValue("opt_forceLatest") ? locStr("disable") : locStr("enable")} ${locStr("forceLatest")}</div>
-        </div>
-      `)
-    })
-  })
-
-
-  // toggle autoRefresh
-  $("body").on("click", ".gt2-toggle-auto-refresh", () => {
-    GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
-    window.location.reload()
-  })
-
-  // toggle forceLatest
-  $("body").on("click", ".gt2-toggle-force-latest", () => {
-    GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
-    window.location.reload()
   })
 
 
@@ -456,6 +507,8 @@
 
   // force latest tweets view.
   function forceLatest() {
+    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div"
+    let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
     let tmp = GM_addStyle(`
       ${sparkOpt} {
         display: none;
@@ -517,7 +570,7 @@
                   --color-elem-sel:   rgb(245, 248, 255);
                   --color-gray:       #8899a6;
                   --color-gray-dark:  #e6ecf0;
-                  --color-gray-icons: rgb(101, 119, 134);
+                  --color-gray-light: rgb(101, 119, 134);
                   --color-text:       rgb(20, 23, 26);
                   --color-shadow:     rgb(204, 214, 221);`,
 
@@ -525,9 +578,9 @@
                   --color-elem:       #1c2938;
                   --color-elem-dark:  rgb(21, 32, 43);
                   --color-elem-sel:   rgb(25, 39, 52);
-                  --color-gray:       #657786;
+                  --color-gray:       rgb(101, 119, 134);
                   --color-gray-dark:  #38444d;
-                  --color-gray-icons: rgb(136, 153, 166);
+                  --color-gray-light: rgb(136, 153, 166);
                   --color-text:       rgb(255, 255, 255);
                   --color-shadow:     rgb(61, 84, 102);`,
 
@@ -537,7 +590,7 @@
                   --color-elem-sel:   rgb(21, 24, 28);
                   --color-gray:       #657786;
                   --color-gray-dark:  #38444d;
-                  --color-gray-icons: rgb(110, 118, 125);
+                  --color-gray-light: rgb(110, 118, 125);
                   --color-text:       rgb(217, 217, 217);
                   --color-shadow:     rgb(47, 51, 54);`
     }
@@ -594,6 +647,12 @@
       $(".gt2-dashboard-profile").remove()
     }
 
+    if (path == "settings") {
+      addSettingsToggle()
+      if (path2 == "gt2") {
+        addSettings()
+      }
+    }
     // readd search
     addSearch()
   }

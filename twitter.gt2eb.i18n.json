@@ -1,19 +1,19 @@
 {
   "en": {
-    "addAcc":         "Add an existing account",
-    "autoRefresh":    "Auto Refresh",
-    "bookmarks":      "Bookmarks",
-    "disable":        "Disable",
-    "enable":         "Enable",
-    "explore":        "Explore",
-    "followers":      "Followers",
-    "following":      "Following",
-    "forceLatest":    "Force Latest",
-    "lists":          "Lists",
-    "logout":         "Logout",
-    "profile":        "Profile",
-    "showNewMulti":   "Show $ new Tweets",
-    "showNewSingle":  "Show 1 new Tweet",
-    "tweets":         "Tweets"
+    "autoRefresh":      "Auto Refresh",
+    "autoRefreshDesc":  "Live display of tweets in your timeline.",
+    "bookmarks":        "Bookmarks",
+    "disable":          "Disable",
+    "enable":           "Enable",
+    "explore":          "Explore",
+    "followers":        "Followers",
+    "following":        "Following",
+    "forceLatest":      "Force Latest",
+    "forceLatestDesc":  "Enabling the latest tweets mode is not permanent anymore. With this setting active, the toggle automatically switches back to the latest tweets mode.",
+    "lists":            "Lists",
+    "profile":          "Profile",
+    "showNewMulti":     "Show $ new Tweets",
+    "showNewSingle":    "Show 1 new Tweet",
+    "tweets":           "Tweets"
   }
 }

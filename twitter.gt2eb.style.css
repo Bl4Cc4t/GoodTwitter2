@@ -103,13 +103,14 @@ header {
 
 main > div > div > div {
   left: 40px; }
+  main > div > div > div div[data-testid=primaryColumn],
+  main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
+    border-top-width: 1px !important;
+    margin-top: 56px !important; }
   main > div > div > div div[data-testid=primaryColumn] {
-    margin-right: 10px;
-    border-top-width: 1px;
-    margin-top: 56px !important; }
+    margin-right: 10px; }
   main > div > div > div div[data-testid=sidebarColumn] {
-    margin-right: 0;
-    margin-top: 56px !important; }
+    margin-right: 0; }
     main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
       padding: 0; }
       main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
@@ -121,8 +122,8 @@ main > div > div > div {
           padding: 15px; }
         main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
           display: none; }
-  main > div > div > div > section {
-    border-top-width: 1px !important; }
+  main > div > div > div > section:nth-child(2) > div:nth-child(3), main > div > div > div > section:nth-child(2) > div:nth-child(4) {
+    display: none; }
 
 #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
   bottom: unset !important; }
@@ -149,7 +150,7 @@ div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) 
 
 .gt2-svg {
   fill: currentcolor;
-  color: var(--color-gray-icons); }
+  color: var(--color-gray-light); }
 
 .gt2-hidden-tweet,
 .gt2-hidden-tweet-part {
@@ -192,7 +193,7 @@ div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='
       margin-left: 0;
       color: var(--color-text); }
     div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a svg, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a svg {
-      color: var(--color-gray-icons);
+      color: var(--color-gray-light);
       margin-right: 10px;
       height: 1.25em; }
   div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a:hover, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a:hover {
@@ -248,7 +249,7 @@ a.gt2-trend {
   .gt2-nav .gt2-nav-left > a.active, .gt2-nav .gt2-nav-left > a:hover {
     border-bottom: 2px solid var(--color-user); }
   .gt2-nav .gt2-nav-left > a svg {
-    color: var(--color-gray-icons);
+    color: var(--color-gray-light);
     width: calc(23px + var(--font-increment)); }
   .gt2-nav .gt2-nav-left > a.active > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a.active svg, .gt2-nav .gt2-nav-left > a:hover > div > div:nth-child(2), .gt2-nav .gt2-nav-left > a:hover svg {
     color: var(--color-user); }
@@ -412,5 +413,105 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
   margin: 0;
   width: 100%; }
+
+.gt2-toggle-settings {
+  background-color: var(--color-elem-dark);
+  border-width: 1px 0;
+  border-color: var(--color-gray-dark);
+  border-style: solid;
+  box-sizing: border-box;
+  font-size: calc(15px + var(--font-increment));
+  color: var(--color-text);
+  text-decoration: none; }
+  .gt2-toggle-settings div {
+    width: inherit;
+    padding: 11.7px 15px; }
+  .gt2-toggle-settings svg {
+    transform: rotate(-90deg);
+    width: calc(1.25em + var(--font-increment));
+    position: absolute;
+    right: 15px; }
+  .gt2-toggle-settings:hover {
+    cursor: pointer;
+    background-color: var(--color-elem-sel); }
+
+.gt2-settings-active > div:not(:empty),
+.gt2-settings-active > div:not(:empty) > div:not(:empty) {
+  background-color: var(--color-elem-dark); }
+  .gt2-settings-active > div:not(:empty) > div:nth-child(2),
+  .gt2-settings-active > div:not(:empty) > div:not(:empty) > div:nth-child(2) {
+    border-right-width: 0; }
+
+.gt2-settings-active .gt2-toggle-settings {
+  background-color: var(--color-elem-sel); }
+  .gt2-settings-active .gt2-toggle-settings div {
+    border-width: 0 2px 0 0;
+    border-color: var(--color-user);
+    border-style: solid; }
+
+.gt2-settings-header,
+.gt2-settings-sub-header,
+.gt2-setting {
+  color: var(--color-text);
+  box-sizing: border-box;
+  border-width: 0 0 1px 0;
+  border-color: var(--color-gray-dark);
+  border-style: solid;
+  background-color: var(--color-elem-dark); }
+
+.gt2-settings-header {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  height: 53px; }
+
+.gt2-settings-header,
+.gt2-settings-sub-header {
+  font-size: calc(19px + var(--font-increment)) !important;
+  font-weight: 800; }
+
+.gt2-settings-sub-header {
+  padding: 10px 15px;
+  line-height: 1.3135em; }
+
+.gt2-setting {
+  padding: 15px; }
+  .gt2-setting > div {
+    display: flex;
+    justify-content: space-between; }
+    .gt2-setting > div .gt2-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px; }
+      .gt2-setting > div .gt2-toggle div {
+        position: absolute;
+        width: 20px;
+        height: 20px; }
+      .gt2-setting > div .gt2-toggle div:nth-child(1) {
+        transition: opacity 0.2s ease-in-out;
+        background-color: var(--color-gray);
+        opacity: 0;
+        border-radius: 50%;
+        padding: 10px; }
+      .gt2-setting > div .gt2-toggle:hover div:nth-child(1) {
+        opacity: 0.1; }
+      .gt2-setting > div .gt2-toggle div:nth-child(2) {
+        border-radius: 4px;
+        border: 2px solid var(--color-gray);
+        box-sizing: border-box; }
+        .gt2-setting > div .gt2-toggle div:nth-child(2) svg {
+          color: white;
+          display: none; }
+    .gt2-setting > div .gt2-toggle.gt2-active div:nth-child(2) {
+      background-color: var(--color-user);
+      border-color: var(--color-user); }
+    .gt2-setting > div .gt2-toggle.gt2-active svg {
+      display: block !important; }
+  .gt2-setting > span {
+    display: block;
+    font-size: calc(13px + var(--font-increment));
+    padding-top: 10px;
+    color: var(--color-gray-light); }
 
 /*# sourceMappingURL=twitter.gt2eb.style.css.map */
