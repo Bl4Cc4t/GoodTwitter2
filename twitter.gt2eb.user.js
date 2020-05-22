@@ -13,12 +13,11 @@
 // @resource      cssMap  https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css.map
 // @resource      i18n    https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
-// @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
 
-(function($, waitForKeyElements) {
+(function($) {
   "use strict"
 
   // seperate number with commas
@@ -45,6 +44,48 @@
       t = t.slice(0, -2)
       return `${t.slice(0, -1)}${t.slice(-1) != 0 ? `.${t.slice(-1)}` : ""}K`
     } else return humanizeNumber(n)
+  }
+
+  // wait for element to appear in the dom
+  function onElementReady(selector, findOnce=false) {
+    // https://gist.github.com/sidneys/ee7a6b80315148ad1fb6847e72a22313
+
+    function queryForElements(selector, callback) {
+      // Remember already-found elements via this attribute
+      const attributeName = "was-queried"
+
+      // Search for elements by selector
+      let elementList = document.querySelectorAll(selector) || []
+      elementList.forEach((element) => {
+        if (element.hasAttribute(attributeName)) return
+        element.setAttribute(attributeName, "true")
+        callback(element)
+      })
+    }
+
+    return new Promise((resolve) => {
+      // Initial Query
+      queryForElements(selector, element => {
+        resolve(element)
+      })
+
+      // Continuous Query
+      const observer = new MutationObserver(() => {
+        // DOM Changes detected
+        queryForElements(selector, element => {
+          resolve(element)
+        })
+
+        if (findOnce) observer.disconnect()
+      })
+
+      // Observe DOM Changes
+      observer.observe(document.documentElement, {
+        attributes: false,
+        childList: true,
+        subtree: true
+      })
+    })
   }
 
   // get account information
@@ -117,7 +158,7 @@
                  nav > a[href='/messages']`
 
   GM_setValue("hasRun_insertIntoNavbar", false)
-  waitForKeyElements(navHome, () => {
+  onElementReady(navHome).then(() => {
     if (GM_getValue("hasRun_insertIntoNavbar") == true) return
     else GM_setValue("hasRun_insertIntoNavbar", true)
 
@@ -159,12 +200,10 @@
     if (window.location.href.split("/")[3].split("?")[0] == "search") {
       rem()
     } else {
-      let search = "div[data-testid=sidebarColumn] > div > div:eq(1) > div > div > div > div:eq(0)"
-      waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
-
+      let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
+      onElementReady(`${search} input[data-testid=SearchBox_Search_Input]`).then(() => {
         // remove if added previously
         rem()
-
         // add search
         $(search)
         .prependTo(".gt2-search")
@@ -225,7 +264,7 @@
       if (window.innerWidth >= 1350) {
         $(insertAt).prepend(dashPro)
       } else {
-        waitForKeyElements(`${insertAt}`, () => {
+        onElementReady(`${insertAt}`).then(() => {
           $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
         })
       }
@@ -254,9 +293,9 @@
     let more = `div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div,
                 div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div`
 
-    waitForKeyElements(more, () => {
-      let $hr = $(more).find("> div:eq(-4)")  // seperator line
-      let $lm = $("header > div > div > div:eq(-1) > div:eq(0) > div:eq(1) > nav") // left sidebar
+    onElementReady(more).then(() => {
+      let $hr = $(more).find("> div").eq(-4)  // seperator line
+      let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
 
       $hr.clone().prependTo(more)
       // items from left menu to attach
@@ -299,7 +338,7 @@
 
   // insert the menu item
   function addSettingsToggle() {
-    waitForKeyElements("main section a[href='/settings/about']", () => {
+    onElementReady("main section a[href='/settings/about']").then(() => {
       if (!$(".gt2-toggle-settings").length) {
         $("main section:nth-child(1) > div:nth-child(2) > div").append(`
           <a class="gt2-toggle-settings" href="/settings/gt2">
@@ -491,7 +530,7 @@
       })
     })
     let tlSel = "div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div"
-    waitForKeyElements(tlSel, () => {
+    onElementReady(tlSel).then(() => {
       // memorize last tweet
       let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
       GM_setValue("topTweet", topTweet)
@@ -516,19 +555,20 @@
     `)
 
     GM_setValue("hasRun_forceLatest", false)
-    waitForKeyElements(sparkOptToggle, () => {
+    onElementReady(sparkOptToggle).then(() => {
       $(sparkOptToggle).click()
 
-      waitForKeyElements(sparkOpt+" a[href='/settings/content_preferences']", () => {
+      onElementReady(`${sparkOpt} a[href='/settings/content_preferences']`).then(() => {
         if (!GM_getValue("hasRun_forceLatest")) {
+          console.log("test");
           GM_setValue("hasRun_forceLatest", true)
           if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
             $(sparkOpt).children().eq(1).click()
           } else {
             $(sparkOptToggle).click()
           }
-          $(tmp).remove()
         }
+        $(tmp).remove()
       })
     })
   }
@@ -542,7 +582,7 @@
       $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
     })
   }
-  waitForKeyElements("div[data-testid=trend]", wrapTrends)
+  onElementReady("div[data-testid=trend]").then(wrapTrends)
 
 
   // minimize the “What’s happening?” field by default
@@ -647,12 +687,14 @@
       $(".gt2-dashboard-profile").remove()
     }
 
+    // add gt2 settings on /settings
     if (path == "settings") {
       addSettingsToggle()
       if (path2 == "gt2") {
         addSettings()
       }
     }
+
     // readd search
     addSearch()
   }
@@ -675,4 +717,4 @@
     urlChange()
   })
 
-})(jQuery, waitForKeyElements)
+})(jQuery)
