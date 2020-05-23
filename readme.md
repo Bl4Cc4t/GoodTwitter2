@@ -24,8 +24,9 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
-- These settings:
-  ![](https://i.imgur.com/gaz4ddV.png)
+
+#### These settings:
+![](https://i.imgur.com/gaz4ddV.png)
 
 ### Installation
 To use this script, you need a userscript manager.
