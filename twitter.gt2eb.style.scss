@@ -28,15 +28,31 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     left: 40px !important;
     right: -40px !important;
   }
-  .gt2-nav-left {
-    margin-left: space(1340px);
+
+  body:not(.gt2-opt-small-sidebars) {
+    .gt2-nav-left {
+      margin-left: space(1340px);
+    }
+    .gt2-nav-right {
+      margin-right: space(1340px);
+    }
+    #{$navbarDropdown} {
+      right: space(1340px) !important;
+    }
   }
-  .gt2-nav-right {
-    margin-right: space(1340px);
+
+  .gt2-opt-small-sidebars {
+    .gt2-nav-left {
+      margin-left: space(1220px);
+    }
+    .gt2-nav-right {
+      margin-right: space(1220px);
+    }
+    #{$navbarDropdown} {
+      right: space(1220px) !important;
+    }
   }
-  #{$navbarDropdown} {
-    right: space(1340px) !important;
-  }
+
   #{$accSwitcherDropdown} {
     top: 220px !important;
     left: space(1248px) !important;
@@ -51,21 +67,41 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   }
   main {
     align-items: center !important;
+  }
 
-    & > div > div >div {
-      left: 0 !important;
+
+  @media only screen and (min-width: 1095px) {
+    body:not(.gt2-opt-small-sidebars) {
+      main > div > div > div {
+        left: 0 !important;
+      }
+      .gt2-nav-left {
+        margin-left: space(975px);
+      }
+      .gt2-nav-right {
+        margin-right: space(975px);
+      }
+      #{$navbarDropdown} {
+        right: space(975px) !important;
+      }
+    }
+  .gt2-opt-small-sidebars {
+      main > div > div > div {
+        left: 30px !important;
+      }
+      .gt2-nav-left {
+        margin-left: space(915px);
+      }
+      .gt2-nav-right {
+        margin-right: space(915px);
+      }
+      #{$navbarDropdown} {
+        right: space(915px) !important;
+      }
     }
   }
 
-  .gt2-nav-left {
-    margin-left: space(975px);
-  }
-  .gt2-nav-right {
-    margin-right: space(975px);
-  }
-  #{$navbarDropdown} {
-    right: space(975px) !important;
-  }
+
   #{$accSwitcherDropdown} {
     top: 220px !important;
     left: unset !important;
@@ -82,6 +118,14 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 @media only screen and (min-width: 1095px) {
   main > div {
     width: 960px !important;
+  }
+  .gt2-opt-small-sidebars main > div > div > div > section {
+    &:nth-child(1) {
+      margin-right: 60px;
+    }
+    &:nth-child(2) {
+      left: -60px;
+    }
   }
 }
 
@@ -190,6 +234,23 @@ main {
         display: none;
       }
     }
+  }
+}
+
+.gt2-opt-small-sidebars {
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
+    width: 290px;
+  }
+}
+
+body:not(.gt2-opt-sticky-sidebars) {
+  header > div > div {
+    position: sticky;
+  }
+
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+    top: 0 !important;
+    position: sticky; // sticks to the top this way, kinda irritating
   }
 }
 
@@ -638,28 +699,29 @@ a.gt2-trend {
       }
     }
   }
+}
 
-  // small dashboard profile
-  &.gt2-small {
-    width: 290px;
-    .gt2-banner {
-      height: 95px;
-    }
+// small dashboard profile
+.gt2-opt-small-sidebars .gt2-dashboard-profile,
+.gt2-dashboard-profile.gt2-small {
+  width: 290px;
+  .gt2-banner {
+    height: 95px;
+  }
 
-    .gt2-avatar img {
-      width: 72px;
-      height: 72px;
-    }
+  .gt2-avatar img {
+    width: 72px;
+    height: 72px;
+  }
 
-    .gt2-user {
-      top: 103px;
-      left: 90px;
-    }
+  .gt2-user {
+    top: 103px;
+    left: 90px;
+  }
 
-    .gt2-stats {
-      li {
-        width: 90px;
-      }
+  .gt2-stats {
+    li {
+      width: 90px;
     }
   }
 }

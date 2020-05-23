@@ -11,14 +11,19 @@
     left: 40px !important;
     right: -40px !important; }
 
-  .gt2-nav-left {
+  body:not(.gt2-opt-small-sidebars) .gt2-nav-left {
     margin-left: calc((100vw - 1340px) / 2); }
-
-  .gt2-nav-right {
+  body:not(.gt2-opt-small-sidebars) .gt2-nav-right {
     margin-right: calc((100vw - 1340px) / 2); }
-
-  div[role=menu][style^='max-height: calc'] {
+  body:not(.gt2-opt-small-sidebars) div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 1340px) / 2) !important; }
+
+  .gt2-opt-small-sidebars .gt2-nav-left {
+    margin-left: calc((100vw - 1220px) / 2); }
+  .gt2-opt-small-sidebars .gt2-nav-right {
+    margin-right: calc((100vw - 1220px) / 2); }
+  .gt2-opt-small-sidebars div[role=menu][style^='max-height: calc'] {
+    right: calc((100vw - 1220px) / 2) !important; }
 
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
     top: 220px !important;
@@ -29,19 +34,26 @@
     display: none !important; }
 
   main {
-    align-items: center !important; }
-    main > div > div > div {
-      left: 0 !important; }
-
-  .gt2-nav-left {
+    align-items: center !important; } }
+@media only screen and (max-width: 1350px) and (min-width: 1095px) {
+  body:not(.gt2-opt-small-sidebars) main > div > div > div {
+    left: 0 !important; }
+  body:not(.gt2-opt-small-sidebars) .gt2-nav-left {
     margin-left: calc((100vw - 975px) / 2); }
-
-  .gt2-nav-right {
+  body:not(.gt2-opt-small-sidebars) .gt2-nav-right {
     margin-right: calc((100vw - 975px) / 2); }
-
-  div[role=menu][style^='max-height: calc'] {
+  body:not(.gt2-opt-small-sidebars) div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 975px) / 2) !important; }
 
+  .gt2-opt-small-sidebars main > div > div > div {
+    left: 30px !important; }
+  .gt2-opt-small-sidebars .gt2-nav-left {
+    margin-left: calc((100vw - 915px) / 2); }
+  .gt2-opt-small-sidebars .gt2-nav-right {
+    margin-right: calc((100vw - 915px) / 2); }
+  .gt2-opt-small-sidebars div[role=menu][style^='max-height: calc'] {
+    right: calc((100vw - 915px) / 2) !important; } }
+@media only screen and (max-width: 1350px) {
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
     top: 220px !important;
     left: unset !important;
@@ -51,7 +63,12 @@
     width: 270px !important; } }
 @media only screen and (min-width: 1095px) {
   main > div {
-    width: 960px !important; } }
+    width: 960px !important; }
+
+  .gt2-opt-small-sidebars main > div > div > div > section:nth-child(1) {
+    margin-right: 60px; }
+  .gt2-opt-small-sidebars main > div > div > div > section:nth-child(2) {
+    left: -60px; } }
 @media only screen and (max-width: 1095px) {
   main > div {
     width: 900px !important; }
@@ -115,6 +132,15 @@ main > div > div > div div[data-testid=sidebarColumn] {
         display: none; }
 main > div > div > div > section:nth-child(2) > div:nth-child(3), main > div > div > div > section:nth-child(2) > div:nth-child(4) {
   display: none; }
+
+.gt2-opt-small-sidebars div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
+  width: 290px; }
+
+body:not(.gt2-opt-sticky-sidebars) header > div > div {
+  position: sticky; }
+body:not(.gt2-opt-sticky-sidebars) div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+  top: 0 !important;
+  position: sticky; }
 
 .gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
   display: none; }
@@ -405,18 +431,24 @@ a.gt2-trend {
               color: var(--color-user); }
           .gt2-dashboard-profile > div .gt2-stats ul li a:hover span:nth-child(1) {
             color: var(--color-user); }
-  .gt2-dashboard-profile.gt2-small {
-    width: 290px; }
-    .gt2-dashboard-profile.gt2-small .gt2-banner {
-      height: 95px; }
-    .gt2-dashboard-profile.gt2-small .gt2-avatar img {
-      width: 72px;
-      height: 72px; }
-    .gt2-dashboard-profile.gt2-small .gt2-user {
-      top: 103px;
-      left: 90px; }
-    .gt2-dashboard-profile.gt2-small .gt2-stats li {
-      width: 90px; }
+
+.gt2-opt-small-sidebars .gt2-dashboard-profile,
+.gt2-dashboard-profile.gt2-small {
+  width: 290px; }
+  .gt2-opt-small-sidebars .gt2-dashboard-profile .gt2-banner,
+  .gt2-dashboard-profile.gt2-small .gt2-banner {
+    height: 95px; }
+  .gt2-opt-small-sidebars .gt2-dashboard-profile .gt2-avatar img,
+  .gt2-dashboard-profile.gt2-small .gt2-avatar img {
+    width: 72px;
+    height: 72px; }
+  .gt2-opt-small-sidebars .gt2-dashboard-profile .gt2-user,
+  .gt2-dashboard-profile.gt2-small .gt2-user {
+    top: 103px;
+    left: 90px; }
+  .gt2-opt-small-sidebars .gt2-dashboard-profile .gt2-stats li,
+  .gt2-dashboard-profile.gt2-small .gt2-stats li {
+    width: 90px; }
 
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;

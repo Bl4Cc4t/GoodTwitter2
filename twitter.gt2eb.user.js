@@ -92,12 +92,14 @@
   }
 
   // default values
-  if (!GM_getValue("userColor"))                   GM_setValue("userColor",       "rgba(29,161,242,1.00)")
-  if (!GM_getValue("bgColor"))                     GM_setValue("bgColor",         "dim")
-  if (!GM_getValue("scrollbarWidth"))              GM_setValue("scrollbarWidth",  window.innerWidth - $("html")[0].clientWidth)
-  if (!GM_getValue("fontIncrement"))               GM_setValue("fontIncrement",   0)
-  if (GM_getValue("opt_autoRefresh") == undefined) GM_setValue("opt_autoRefresh", false)
-  if (GM_getValue("opt_forceLatest") == undefined) GM_setValue("opt_forceLatest", false)
+  if (!GM_getValue("userColor"))                      GM_setValue("userColor",          "rgba(29,161,242,1.00)")
+  if (!GM_getValue("bgColor"))                        GM_setValue("bgColor",            "dim")
+  if (!GM_getValue("scrollbarWidth"))                 GM_setValue("scrollbarWidth",     window.innerWidth - $("html")[0].clientWidth)
+  if (!GM_getValue("fontIncrement"))                  GM_setValue("fontIncrement",      0)
+  if (GM_getValue("opt_autoRefresh") == undefined)    GM_setValue("opt_autoRefresh",    false)
+  if (GM_getValue("opt_forceLatest") == undefined)    GM_setValue("opt_forceLatest",    false)
+  if (GM_getValue("opt_smallSidebars") == undefined)  GM_setValue("opt_smallSidebars",  false)
+  if (GM_getValue("opt_stickySidebars") == undefined) GM_setValue("opt_stickySidebars", true)
 
   // insert navbar
   $("body").prepend(`
@@ -363,6 +365,8 @@
           ${getToggleSettingPart("forceLatest", "gt2-toggle-force-latest")}
           ${getToggleSettingPart("autoRefresh", "gt2-toggle-auto-refresh")}
           <div class="gt2-settings-sub-header">Display</div>
+          ${getToggleSettingPart("stickySidebars", "gt2-toggle-sticky-sidebars")}
+          ${getToggleSettingPart("smallSidebars", "gt2-toggle-small-sidebars")}
         </div>
       `)
     }
@@ -381,6 +385,18 @@
   // toggle forceLatest
   $("body").on("click", ".gt2-toggle-force-latest", () => {
     GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
+  })
+
+  // toggle stickySidebars
+  $("body").on("click", ".gt2-toggle-sticky-sidebars", () => {
+    GM_setValue("opt_stickySidebars", !GM_getValue("opt_stickySidebars"))
+    $("body").toggleClass("gt2-opt-sticky-sidebars")
+  })
+
+  // toggle smallSidebars
+  $("body").on("click", ".gt2-toggle-small-sidebars", () => {
+    GM_setValue("opt_smallSidebars", !GM_getValue("opt_smallSidebars"))
+    $("body").toggleClass("gt2-opt-small-sidebars")
   })
 
 
@@ -614,6 +630,9 @@
       // source map
       .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))
     )
+
+    if (GM_getValue("opt_smallSidebars")) $("body").addClass("gt2-opt-small-sidebars")
+    if (GM_getValue("opt_stickySidebars")) $("body").addClass("gt2-opt-sticky-sidebars")
 
     GM_setValue("styleId", $(a).attr("id"))
   }
