@@ -7,13 +7,17 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
 
 @media only screen and (min-width: 1350px) {
+  main > div > div > div {
+    left: 40px !important;
+    right: -40px !important; }
+
   .gt2-nav-left {
     margin-left: calc((100vw - 1340px) / 2); }
 
   .gt2-nav-right {
     margin-right: calc((100vw - 1340px) / 2); }
 
-  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+  div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 1340px) / 2) !important; }
 
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
@@ -35,7 +39,7 @@
   .gt2-nav-right {
     margin-right: calc((100vw - 975px) / 2); }
 
-  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+  div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 975px) / 2) !important; }
 
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
@@ -60,23 +64,12 @@
   .gt2-nav-right {
     margin-right: calc((100vw - 915px) / 2); }
 
-  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+  div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 915px) / 2) !important; }
 
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
     top: 195px !important;
-    right: calc((100vw - 902.5px) / 2) !important; }
-
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-banner {
-    height: 95px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-avatar img {
-    width: 72px;
-    height: 72px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-user {
-    top: 103px;
-    left: 90px; }
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile .gt2-stats li {
-    width: 90px; } }
+    right: calc((100vw - 902.5px) / 2) !important; } }
 @media only screen and (max-width: 1005px) {
   main > div {
     width: 600px !important; }
@@ -89,7 +82,7 @@
   .gt2-nav-right {
     margin-right: calc((100vw - 620px) / 2); }
 
-  div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+  div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 620px) / 2) !important; } }
 header {
   right: -40px;
@@ -101,29 +94,30 @@ header {
   header div[data-testid=SideNav_AccountSwitcher_Button] {
     display: none !important; }
 
-main > div > div > div {
-  left: 40px; }
-  main > div > div > div div[data-testid=primaryColumn],
-  main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
-    border-top-width: 1px !important;
-    margin-top: 56px !important; }
-  main > div > div > div div[data-testid=primaryColumn] {
-    margin-right: 10px; }
-  main > div > div > div div[data-testid=sidebarColumn] {
-    margin-right: 0; }
-    main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
-      padding: 0; }
-      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
-        border-radius: 0;
-        border: 1px solid var(--color-gray-dark);
-        background-color: var(--color-elem-dark);
-        margin-bottom: 10px; }
-        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
-          padding: 15px; }
-        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
-          display: none; }
-  main > div > div > div > section:nth-child(2) > div:nth-child(3), main > div > div > div > section:nth-child(2) > div:nth-child(4) {
-    display: none; }
+main > div > div > div div[data-testid=primaryColumn],
+main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
+  border-top-width: 1px !important;
+  margin-top: 56px !important; }
+main > div > div > div div[data-testid=primaryColumn] {
+  margin-right: 10px; }
+main > div > div > div div[data-testid=sidebarColumn] {
+  margin-right: 0; }
+  main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
+    padding: 0; }
+    main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
+      border-radius: 0;
+      border: 1px solid var(--color-gray-dark);
+      background-color: var(--color-elem-dark);
+      margin-bottom: 10px; }
+      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
+        padding: 15px; }
+      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
+        display: none; }
+main > div > div > div > section:nth-child(2) > div:nth-child(3), main > div > div > div > section:nth-child(2) > div:nth-child(4) {
+  display: none; }
+
+.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+  display: none; }
 
 #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
   bottom: unset !important; }
@@ -176,28 +170,30 @@ div[data-testid=primaryColumn] > div > div:nth-child(2):not(.gt2-compose-large) 
     cursor: pointer;
     background-color: var(--color-elem-sel); }
 
-div[role=menu][style^='max-height: calc(100vh - 0px);'], div[role=menu][style^='max-height: calc(0px + 100vh);'] {
+div[role=menu][style^='max-height: calc'] {
   top: 54px; }
-  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > div > a, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > div > a {
-    transition-duration: 0s; }
-  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a {
-    padding: 0; }
-    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div {
-      padding: calc(15px + var(--font-increment)); }
-      div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a > div > div:nth-child(2), div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a > div > div:nth-child(2) {
-        margin: 0;
-        font-size: calc(15px + var(--font-increment)); }
-    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a span, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a span {
-      font-size: calc(15px + var(--font-increment));
-      font-weight: 400;
-      margin-left: 0;
-      color: var(--color-text); }
-    div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a svg, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a svg {
-      color: var(--color-gray-light);
-      margin-right: 10px;
-      height: 1.25em; }
-  div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div > a:hover, div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div > a:hover {
-    background-color: var(--color-elem-sel); }
+  div[role=menu][style^='max-height: calc'] > div > div > div {
+    display: flex; }
+    div[role=menu][style^='max-height: calc'] > div > div > div > div > a {
+      transition-duration: 0s; }
+    div[role=menu][style^='max-height: calc'] > div > div > div > a {
+      padding: 0; }
+      div[role=menu][style^='max-height: calc'] > div > div > div > a > div {
+        padding: calc(15px + var(--font-increment)); }
+        div[role=menu][style^='max-height: calc'] > div > div > div > a > div > div:nth-child(2) {
+          margin: 0;
+          font-size: calc(15px + var(--font-increment)); }
+      div[role=menu][style^='max-height: calc'] > div > div > div > a span {
+        font-size: calc(15px + var(--font-increment));
+        font-weight: 400;
+        margin-left: 0;
+        color: var(--color-text); }
+      div[role=menu][style^='max-height: calc'] > div > div > div > a svg {
+        color: var(--color-gray-light);
+        margin-right: 10px;
+        height: 1.25em; }
+    div[role=menu][style^='max-height: calc'] > div > div > div > a:hover {
+      background-color: var(--color-elem-sel); }
 
 header > div > div {
   margin-top: 46px !important; }
@@ -264,7 +260,8 @@ a.gt2-trend {
     display: flex;
     align-items: center;
     position: absolute;
-    right: 0px; }
+    right: 0px;
+    height: 100%; }
     .gt2-nav .gt2-nav-right .gt2-search > div {
       height: auto;
       width: 300px;
@@ -292,8 +289,8 @@ a.gt2-trend {
         border-radius: 50%;
         height: 32px;
         width: 32px; }
-      .gt2-nav .gt2-nav-right .gt2-toggle-navbar-dropdown > div > div {
-        display: none; }
+      .gt2-nav .gt2-nav-right .gt2-toggle-navbar-dropdown:hover {
+        cursor: pointer; }
     .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] {
       font-size: 14px;
       min-height: 34px !important;
@@ -408,6 +405,18 @@ a.gt2-trend {
               color: var(--color-user); }
           .gt2-dashboard-profile > div .gt2-stats ul li a:hover span:nth-child(1) {
             color: var(--color-user); }
+  .gt2-dashboard-profile.gt2-small {
+    width: 290px; }
+    .gt2-dashboard-profile.gt2-small .gt2-banner {
+      height: 95px; }
+    .gt2-dashboard-profile.gt2-small .gt2-avatar img {
+      width: 72px;
+      height: 72px; }
+    .gt2-dashboard-profile.gt2-small .gt2-user {
+      top: 103px;
+      left: 90px; }
+    .gt2-dashboard-profile.gt2-small .gt2-stats li {
+      width: 90px; }
 
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;

@@ -13,11 +13,12 @@
 // @resource      cssMap  https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css.map
 // @resource      i18n    https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
+// @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
 
-(function($) {
+(function($, waitForKeyElements) {
   "use strict"
 
   // seperate number with commas
@@ -46,47 +47,6 @@
     } else return humanizeNumber(n)
   }
 
-  // wait for element to appear in the dom
-  function onElementReady(selector, findOnce=false) {
-    // https://gist.github.com/sidneys/ee7a6b80315148ad1fb6847e72a22313
-
-    function queryForElements(selector, callback) {
-      // Remember already-found elements via this attribute
-      const attributeName = "was-queried"
-
-      // Search for elements by selector
-      let elementList = document.querySelectorAll(selector) || []
-      elementList.forEach((element) => {
-        if (element.hasAttribute(attributeName)) return
-        element.setAttribute(attributeName, "true")
-        callback(element)
-      })
-    }
-
-    return new Promise((resolve) => {
-      // Initial Query
-      queryForElements(selector, element => {
-        resolve(element)
-      })
-
-      // Continuous Query
-      const observer = new MutationObserver(() => {
-        // DOM Changes detected
-        queryForElements(selector, element => {
-          resolve(element)
-        })
-
-        if (findOnce) observer.disconnect()
-      })
-
-      // Observe DOM Changes
-      observer.observe(document.documentElement, {
-        attributes: false,
-        childList: true,
-        subtree: true
-      })
-    })
-  }
 
   // get account information
   function getInfo() {
@@ -148,7 +108,9 @@
       </div>
       <div class="gt2-nav-right">
         <div class="gt2-search"></div>
-        <div class="gt2-toggle-navbar-dropdown"></div>
+        <div class="gt2-toggle-navbar-dropdown">
+          <img src="" />
+        </div>
       </div>
     </nav>
   `)
@@ -158,7 +120,7 @@
                  nav > a[href='/messages']`
 
   GM_setValue("hasRun_insertIntoNavbar", false)
-  onElementReady(navHome).then(() => {
+  waitForKeyElements(navHome, () => {
     if (GM_getValue("hasRun_insertIntoNavbar") == true) return
     else GM_setValue("hasRun_insertIntoNavbar", true)
 
@@ -175,12 +137,7 @@
     $("a[href='/compose/tweet']")
     .appendTo(".gt2-nav-right")
 
-    // navbar dropdown
-    $("nav > div[data-testid=AppTabBar_More_Menu]")
-    .addClass("gt2-more")
-    .appendTo(".gt2-toggle-navbar-dropdown")
-    $(".gt2-more").append(`<img src="" />`)
-
+    // add image to dropdown
     $(".gt2-toggle-navbar-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
 
     updateCSS()
@@ -201,12 +158,13 @@
       rem()
     } else {
       let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
-      onElementReady(`${search} input[data-testid=SearchBox_Search_Input]`).then(() => {
+      waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
         // remove if added previously
         rem()
         // add search
         $(search)
         .prependTo(".gt2-search")
+        $("body").addClass("gt2-search-added")
       })
     }
   }
@@ -214,13 +172,14 @@
 
   // profile view left sidebar
   function addDashboardProfile() {
-    let insertAt = window.innerWidth >= 1350 ? "header > div > div" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
+    let w = window.innerWidth
+    let insertAt = w >= 1350 ? "header > div > div" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
 
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
       let dashPro = `
-        <div class="gt2-dashboard-profile">
+        <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
           <a href="/${i.screenName}" class="gt2-banner"></a>
           <div>
             <a class="gt2-avatar" href="/${i.screenName}">
@@ -261,10 +220,10 @@
           </div>
         </div>
       `
-      if (window.innerWidth >= 1350) {
+      if (w >= 1350) {
         $(insertAt).prepend(dashPro)
       } else {
-        onElementReady(`${insertAt}`).then(() => {
+        waitForKeyElements(`${insertAt}`, () => {
           $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
         })
       }
@@ -283,20 +242,26 @@
       $(".gt2-dashboard-profile")
       .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
     }
+    if (window.innerWidth <= 1095) {
+      $(".gt2-dashboard-profile").addClass("gt2-small")
+    } else {
+      $(".gt2-dashboard-profile").removeClass("gt2-small")
+    }
   })
 
 
   // add elements to navbar dropdow menu
   $(".gt2-toggle-navbar-dropdown").click(() => {
+    console.log("navbar toggled");
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
-    let more = `div[role=menu][style^='max-height: calc(100vh - 0px);'] > div > div > div,
-                div[role=menu][style^='max-height: calc(0px + 100vh);'] > div > div > div`
+    let more = "div[role=menu][style^='max-height: calc'] > div > div > div"
 
-    onElementReady(more).then(() => {
+    waitForKeyElements(`${more} `, () => {
+      if ($(more).find("a[href='/explore']").length) return
       let $hr = $(more).find("> div").eq(-4)  // seperator line
       let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
-
+      console.log("fmrpe");
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -323,6 +288,7 @@
         $tmp.prependTo(more)
       }
     })
+
   })
 
 
@@ -338,7 +304,7 @@
 
   // insert the menu item
   function addSettingsToggle() {
-    onElementReady("main section a[href='/settings/about']").then(() => {
+    waitForKeyElements("main section a[href='/settings/about']", () => {
       if (!$(".gt2-toggle-settings").length) {
         $("main section:nth-child(1) > div:nth-child(2) > div").append(`
           <a class="gt2-toggle-settings" href="/settings/gt2">
@@ -530,7 +496,7 @@
       })
     })
     let tlSel = "div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div"
-    onElementReady(tlSel).then(() => {
+    waitForKeyElements(tlSel, () => {
       // memorize last tweet
       let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
       GM_setValue("topTweet", topTweet)
@@ -553,12 +519,13 @@
         display: none;
       }
     `)
+    console.log("forceLatest");
 
     GM_setValue("hasRun_forceLatest", false)
-    onElementReady(sparkOptToggle).then(() => {
-      $(sparkOptToggle).click()
+    waitForKeyElements(sparkOptToggle, () => {
+      if (!GM_getValue("hasRun_forceLatest")) $(sparkOptToggle).click()
 
-      onElementReady(`${sparkOpt} a[href='/settings/content_preferences']`).then(() => {
+      waitForKeyElements(`${sparkOpt} a[href='/settings/content_preferences']`, () => {
         if (!GM_getValue("hasRun_forceLatest")) {
           console.log("test");
           GM_setValue("hasRun_forceLatest", true)
@@ -567,8 +534,8 @@
           } else {
             $(sparkOptToggle).click()
           }
+          $(tmp).remove()
         }
-        $(tmp).remove()
       })
     })
   }
@@ -582,7 +549,7 @@
       $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
     })
   }
-  onElementReady("div[data-testid=trend]").then(wrapTrends)
+  waitForKeyElements("div[data-testid=trend]", wrapTrends)
 
 
   // minimize the “What’s happening?” field by default
@@ -697,6 +664,9 @@
 
     // readd search
     addSearch()
+    // hide search
+    if (["explore", "search"].includes(path)) $("body").removeClass("gt2-search-added")
+
   }
   urlChange()
 
@@ -717,4 +687,4 @@
     urlChange()
   })
 
-})(jQuery)
+})(jQuery, waitForKeyElements)

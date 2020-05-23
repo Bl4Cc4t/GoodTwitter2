@@ -8,13 +8,8 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-$navbarDropdown: "
-  div[role=menu][style^='max-height: calc(100vh - 0px);'],
-  div[role=menu][style^='max-height: calc(0px + 100vh);']
-";
-$accSwitcherDropdown: "
-  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)
-";
+$navbarDropdown: "div[role=menu][style^='max-height: calc']";
+$accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
@@ -29,6 +24,10 @@ $accSwitcherDropdown: "
 
 // normal display
 @media only screen and (min-width: 1350px) {
+  main > div > div > div {
+    left: 40px !important;
+    right: -40px !important;
+  }
   .gt2-nav-left {
     margin-left: space(1340px);
   }
@@ -108,29 +107,6 @@ $accSwitcherDropdown: "
     top: 195px !important;
     right: space(902.5px) !important;
   }
-
-  // small dashboard profile
-  div[data-testid=sidebarColumn] .gt2-dashboard-profile {
-    .gt2-banner {
-      height: 95px;
-    }
-
-    .gt2-avatar img {
-      width: 72px;
-      height: 72px;
-    }
-
-    .gt2-user {
-      top: 103px;
-      left: 90px;
-    }
-
-    .gt2-stats {
-      li {
-        width: 90px;
-      }
-    }
-  }
 }
 
 // no sidebars at all
@@ -170,8 +146,8 @@ header {
 
 
 main {
-  & > div  > div > div {
-    left: 40px;
+  & > div > div > div {
+
 
     div[data-testid=primaryColumn],
     div[data-testid=sidebarColumn],
@@ -215,6 +191,11 @@ main {
       }
     }
   }
+}
+
+// hide search when added to navbar
+.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+  display: none;
 }
 
 // acc switcher dropdown
@@ -311,6 +292,7 @@ div[data-testid=primaryColumn] > div {
   top: 54px;
 
   & > div > div > div {
+    display: flex;
     // existing elements
     & > div > a {
       transition-duration: 0s;
@@ -454,6 +436,7 @@ a.gt2-trend {
     align-items: center;
     position: absolute;
     right: 0px;
+    height: 100%;
 
     .gt2-search > div {
       height: auto;
@@ -485,13 +468,14 @@ a.gt2-trend {
       margin-left: 5px;
       margin-right: 15px;
 
-      & img {
+      img {
         border-radius: 50%;
         height: 32px;
         width: 32px;
       }
-      & > div > div {
-        display: none;
+
+      &:hover {
+        cursor: pointer;
       }
     }
 
@@ -651,6 +635,30 @@ a.gt2-trend {
             color: var(--color-user);
           }
         }
+      }
+    }
+  }
+
+  // small dashboard profile
+  &.gt2-small {
+    width: 290px;
+    .gt2-banner {
+      height: 95px;
+    }
+
+    .gt2-avatar img {
+      width: 72px;
+      height: 72px;
+    }
+
+    .gt2-user {
+      top: 103px;
+      left: 90px;
+    }
+
+    .gt2-stats {
+      li {
+        width: 90px;
       }
     }
   }
