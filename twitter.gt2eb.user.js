@@ -512,22 +512,23 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div"
+    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"
     let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
-    let tmp = GM_addStyle(`
-      ${sparkOpt} {
-        display: none;
-      }
-    `)
-    console.log("forceLatest");
+    let tmp
 
     GM_setValue("hasRun_forceLatest", false)
     waitForKeyElements(sparkOptToggle, () => {
-      if (!GM_getValue("hasRun_forceLatest")) $(sparkOptToggle).click()
+      if (!GM_getValue("hasRun_forceLatest")) {
+        $(sparkOptToggle).click()
+        tmp = GM_addStyle(`
+          ${sparkOpt} {
+            display: none;
+          }
+        `)
+      }
 
       waitForKeyElements(`${sparkOpt} a[href='/settings/content_preferences']`, () => {
         if (!GM_getValue("hasRun_forceLatest")) {
-          console.log("test");
           GM_setValue("hasRun_forceLatest", true)
           if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
             $(sparkOpt).children().eq(1).click()
