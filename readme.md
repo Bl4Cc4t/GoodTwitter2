@@ -16,6 +16,7 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 
 ### Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
+  - The disableAutoRefresh feature is extremely buggy atm, any help would be very nice
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ### Features
@@ -23,8 +24,8 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
-- Option to disable auto refresh (works most of the time)
-- Option to force latest tweets mode
+- These settings:
+  ![](https://i.imgur.com/gaz4ddV.png)
 
 ### Installation
 To use this script, you need a userscript manager.
@@ -44,5 +45,5 @@ To change that, navigate to the display settings and select your current color/b
 Now it should look the way you want!
 
 ### Previews
-![](https://i.imgur.com/7GQe1AE.png)
-![](https://i.imgur.com/ZdHD5nS.png)
+![](https://i.imgur.com/3xY7IIpr.png)
+![](https://i.imgur.com/gxg8CUEr.png)
