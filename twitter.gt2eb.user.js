@@ -98,8 +98,10 @@
   if (!GM_getValue("fontIncrement"))                  GM_setValue("fontIncrement",      0)
   if (GM_getValue("opt_autoRefresh") == undefined)    GM_setValue("opt_autoRefresh",    false)
   if (GM_getValue("opt_forceLatest") == undefined)    GM_setValue("opt_forceLatest",    false)
+  if (GM_getValue("opt_keepTweetsInTL") == undefined) GM_setValue("opt_keepTweetsInTL", true)
   if (GM_getValue("opt_smallSidebars") == undefined)  GM_setValue("opt_smallSidebars",  false)
   if (GM_getValue("opt_stickySidebars") == undefined) GM_setValue("opt_stickySidebars", true)
+
 
   // insert navbar
   $("body").prepend(`
@@ -342,7 +344,7 @@
       <div class="gt2-setting">
         <div>
           <span>${locStr(name)}</span>
-          <div class="gt2-setting-toggle gt2-toggle${GM_getValue(`opt_${name}`) ? " gt2-active" : ""}">
+          <div class="gt2-setting-toggle ${GM_getValue(`opt_${name}`) ? "gt2-active" : ""}">
             <div></div>
             <div class="${className}">
               ${getSvg("tick")}
@@ -364,15 +366,18 @@
           <div class="gt2-settings-sub-header">Timeline</div>
           ${getToggleSettingPart("forceLatest", "gt2-toggle-force-latest")}
           ${getToggleSettingPart("autoRefresh", "gt2-toggle-auto-refresh")}
+          ${getToggleSettingPart("keepTweetsInTL", "gt2-toggle-keep-tweets-in-tl")}
           <div class="gt2-settings-sub-header">Display</div>
           ${getToggleSettingPart("stickySidebars", "gt2-toggle-sticky-sidebars")}
           ${getToggleSettingPart("smallSidebars", "gt2-toggle-small-sidebars")}
         </div>
       `)
+
+      handleKTILOpt()
     }
   }
 
-  $("body").on("click", ".gt2-setting-toggle", function() {
+  $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
   })
 
@@ -380,11 +385,29 @@
   // toggle autoRefresh
   $("body").on("click", ".gt2-toggle-auto-refresh", () => {
     GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
+    handleKTILOpt()
   })
+
+  function handleKTILOpt() {
+    let $t = $(".gt2-toggle-keep-tweets-in-tl")
+    if (GM_getValue("opt_autoRefresh")) {
+      if (!GM_getValue("opt_keepTweetsInTL")) {
+        $t.click()
+      }
+      $t.parents(".gt2-setting-toggle").addClass("gt2-disabled")
+    } else {
+      $t.parents(".gt2-setting-toggle").removeClass("gt2-disabled")
+    }
+  }
 
   // toggle forceLatest
   $("body").on("click", ".gt2-toggle-force-latest", () => {
     GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
+  })
+
+  // toggle keepTweetsInTL
+  $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled) .gt2-toggle-keep-tweets-in-tl", () => {
+    GM_setValue("opt_keepTweetsInTL", !GM_getValue("opt_keepTweetsInTL"))
   })
 
   // toggle stickySidebars
@@ -472,11 +495,20 @@
     if (nr) {
       // add button
       if ($(".gt2-show-hidden-tweets").length == 0) {
-        $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
+        if (window.location.href.split("/")[3].startsWith("home")) {
+          $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
+        } else {
+          $("div[data-testid='primaryColumn'] section > div > div > div > div:nth-child(1)").append(`
+            <div class="gt2-show-hidden-tweets"></div>
+          `)
+        }
       }
       $(".gt2-show-hidden-tweets").html(text)
+      let t = $("title").text()
+      $("title").text(`[${nr}] ${t.startsWith("(") ? t.split(") ")[1] : t.startsWith("[") ? t.split("] ")[1] : t}`)
     } else {
       $(".gt2-show-hidden-tweets").empty().removeClass("gt2-show-hidden-tweets")
+      resetTitle()
     }
   }
 
@@ -490,6 +522,17 @@
   })
 
 
+  function resetTitle() {
+    let t = $("title").text()
+    let notifications = ".gt2-nav-left a[href='/notifications'] > div > div:nth-child(1) > div:nth-child(2)"
+    let messages      = ".gt2-nav-left a[href='/messages'] > div > div:nth-child(1) > div:nth-child(2)"
+    let nr = 0
+    if ($(notifications).length) nr += parseInt($(notifications).text())
+    if ($(messages).length)      nr += parseInt($(messages).text())
+    $("title").text(`${nr > 0 ? `(${nr}) ` : ""}${t.startsWith("[") ? t.split("] ")[1] : t}`)
+  }
+
+
   // observe and hide auto refreshed tweets
   function hideTweetsOnAutoRefresh() {
     let obsTL = new MutationObserver(mutations => {
@@ -497,7 +540,7 @@
         if (m.addedNodes.length == 1) {
           let $t = $(m.addedNodes[0])
           if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
-            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && $t.next().find("> div > div > div > a[href^='/i/status/']").length) {
+            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && (!$("> div > div > div > a[href^='/i/status/']").length || $t.next().find("> div > div > div > a[href^='/i/status/']").length)) {
               $t.addClass("gt2-hidden-tweet-part")
             } else {
               console.log($t);
@@ -511,7 +554,8 @@
         }
       })
     })
-    let tlSel = "div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div"
+    let tlSel = `div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div,
+                 div[data-testid=primaryColumn] > div > div:nth-child(2) section > div > div > div`
     waitForKeyElements(tlSel, () => {
       // memorize last tweet
       let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
@@ -523,7 +567,22 @@
       })
     })
   }
-  if (!GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
+  if (GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
+
+  // keep the site from removing tweets (not working)
+  function keepTweetsInTL() {
+    let o = Element.prototype.removeChild
+    Element.prototype.removeChild = function(child) {
+      // check if element is a tweet
+      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article > div > div[data-testid=tweet]").length) {
+        console.log($(child)[0])
+        return child
+      } else {
+        return o.apply(this, arguments)
+      }
+    }
+  }
+  // if (GM_getValue("opt_keepTweetsInTL")) keepTweetsInTL()
 
 
   // force latest tweets view.
@@ -633,6 +692,7 @@
 
     if (GM_getValue("opt_smallSidebars")) $("body").addClass("gt2-opt-small-sidebars")
     if (GM_getValue("opt_stickySidebars")) $("body").addClass("gt2-opt-sticky-sidebars")
+    if (GM_getValue("opt_keepTweetsInTL")) $("body").addClass("gt2-opt-keep-tweets-in-tl")
 
     GM_setValue("styleId", $(a).attr("id"))
   }

@@ -142,6 +142,13 @@ body:not(.gt2-opt-sticky-sidebars) div[data-testid=sidebarColumn] > div > div:nt
   top: 0 !important;
   position: sticky; }
 
+/*
+.gt2-opt-keep-tweets-in-tl {
+  div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}*/
 .gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
   display: none; }
 
@@ -520,35 +527,40 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   .gt2-setting > div {
     display: flex;
     justify-content: space-between; }
-    .gt2-setting > div .gt2-toggle {
+    .gt2-setting > div .gt2-setting-toggle {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 20px; }
-      .gt2-setting > div .gt2-toggle div {
+      .gt2-setting > div .gt2-setting-toggle div {
         position: absolute;
         width: 20px;
         height: 20px; }
-      .gt2-setting > div .gt2-toggle div:nth-child(1) {
+      .gt2-setting > div .gt2-setting-toggle div:nth-child(1) {
         transition: opacity 0.2s ease-in-out;
         background-color: var(--color-gray);
         opacity: 0;
         border-radius: 50%;
         padding: 10px; }
-      .gt2-setting > div .gt2-toggle:hover div:nth-child(1) {
+      .gt2-setting > div .gt2-setting-toggle:not(.gt2-disabled):hover div:nth-child(1) {
         opacity: 0.1; }
-      .gt2-setting > div .gt2-toggle div:nth-child(2) {
+      .gt2-setting > div .gt2-setting-toggle div:nth-child(2) {
         border-radius: 4px;
         border: 2px solid var(--color-gray);
         box-sizing: border-box; }
-        .gt2-setting > div .gt2-toggle div:nth-child(2) svg {
+        .gt2-setting > div .gt2-setting-toggle div:nth-child(2) svg {
           color: white;
           display: none; }
-    .gt2-setting > div .gt2-toggle.gt2-active div:nth-child(2) {
-      background-color: var(--color-user);
-      border-color: var(--color-user); }
-    .gt2-setting > div .gt2-toggle.gt2-active svg {
-      display: block !important; }
+      .gt2-setting > div .gt2-setting-toggle.gt2-active div:nth-child(2) {
+        background-color: var(--color-user);
+        border-color: var(--color-user); }
+      .gt2-setting > div .gt2-setting-toggle.gt2-active svg {
+        display: block !important; }
+      .gt2-setting > div .gt2-setting-toggle.gt2-disabled {
+        cursor: not-allowed; }
+        .gt2-setting > div .gt2-setting-toggle.gt2-disabled.gt2-active div:nth-child(2) {
+          background-color: var(--color-gray-dark);
+          border-color: var(--color-gray-dark); }
   .gt2-setting > span {
     display: block;
     font-size: calc(13px + var(--font-increment));

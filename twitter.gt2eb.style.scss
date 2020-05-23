@@ -237,6 +237,7 @@ main {
   }
 }
 
+// options
 .gt2-opt-small-sidebars {
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
     width: 290px;
@@ -253,6 +254,14 @@ body:not(.gt2-opt-sticky-sidebars) {
     position: sticky; // sticks to the top this way, kinda irritating
   }
 }
+/*
+.gt2-opt-keep-tweets-in-tl {
+  div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}*/
+
 
 // hide search when added to navbar
 .gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
@@ -816,7 +825,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
     display: flex;
     justify-content: space-between;
 
-    .gt2-toggle {
+    .gt2-setting-toggle {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -837,7 +846,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
         padding: 10px;
       }
 
-      &:hover div:nth-child(1) {
+      &:not(.gt2-disabled):hover div:nth-child(1) {
         opacity: 0.1;
       }
 
@@ -852,17 +861,29 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
           display: none;
         }
       }
+
+      &.gt2-active {
+        div:nth-child(2) {
+          background-color: var(--color-user);
+          border-color: var(--color-user);
+        }
+        svg {
+          display: block !important;
+        }
+      }
+
+      &.gt2-disabled {
+        cursor: not-allowed;
+
+        &.gt2-active {
+          div:nth-child(2) {
+            background-color: var(--color-gray-dark);
+            border-color: var(--color-gray-dark);
+          }
+        }
+      }
     }
 
-    .gt2-toggle.gt2-active {
-      div:nth-child(2) {
-        background-color: var(--color-user);
-        border-color: var(--color-user);
-      }
-      svg {
-        display: block !important;
-      }
-    }
   }
 
 
