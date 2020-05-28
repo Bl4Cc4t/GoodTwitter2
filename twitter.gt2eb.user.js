@@ -78,6 +78,11 @@
     }
   }
 
+  // current path
+  function getPath() {
+    return window.location.href.slice(20).split("?")[0]
+  }
+
   // svg convenience
   function getSvg(key) {
     let svgs = {
@@ -96,11 +101,12 @@
   if (!GM_getValue("bgColor"))                        GM_setValue("bgColor",            "dim")
   if (!GM_getValue("scrollbarWidth"))                 GM_setValue("scrollbarWidth",     window.innerWidth - $("html")[0].clientWidth)
   if (!GM_getValue("fontIncrement"))                  GM_setValue("fontIncrement",      0)
-  if (GM_getValue("opt_autoRefresh") == undefined)    GM_setValue("opt_autoRefresh",    false)
-  if (GM_getValue("opt_forceLatest") == undefined)    GM_setValue("opt_forceLatest",    false)
+  if (GM_getValue("opt_autoRefresh")    == undefined) GM_setValue("opt_autoRefresh",    false)
+  if (GM_getValue("opt_forceLatest")    == undefined) GM_setValue("opt_forceLatest",    false)
   if (GM_getValue("opt_keepTweetsInTL") == undefined) GM_setValue("opt_keepTweetsInTL", true)
-  if (GM_getValue("opt_smallSidebars") == undefined)  GM_setValue("opt_smallSidebars",  false)
+  if (GM_getValue("opt_smallSidebars")  == undefined) GM_setValue("opt_smallSidebars",  false)
   if (GM_getValue("opt_stickySidebars") == undefined) GM_setValue("opt_stickySidebars", true)
+  if (GM_getValue("opt_leftTrends")     == undefined) GM_setValue("opt_leftTrends",     true)
 
 
   // insert navbar
@@ -254,6 +260,17 @@
   })
 
 
+  // move trends
+  function moveTrends() {
+    let trends = `div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div a[href='/settings/trends']`
+    waitForKeyElements(trends, function() {
+      if ($(".gt2-trends").length) $(".gt2-trends").remove()
+      $(trends).parents("section").parent().parent().parent()
+      .detach().addClass("gt2-trends")
+      .insertBefore("header > div > div > div:last-child")
+    })
+  }
+
   // add elements to navbar dropdow menu
   $(".gt2-toggle-navbar-dropdown").click(() => {
     console.log("navbar toggled");
@@ -364,12 +381,13 @@
         <div class="gt2-settings-header">GoodTwitter2 Settings</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">Timeline</div>
-          ${getToggleSettingPart("forceLatest", "gt2-toggle-force-latest")}
-          ${getToggleSettingPart("autoRefresh", "gt2-toggle-auto-refresh")}
-          ${getToggleSettingPart("keepTweetsInTL", "gt2-toggle-keep-tweets-in-tl")}
+          ${getToggleSettingPart("forceLatest",     "gt2-toggle-force-latest")}
+          ${getToggleSettingPart("autoRefresh",     "gt2-toggle-auto-refresh")}
+          ${getToggleSettingPart("keepTweetsInTL",  "gt2-toggle-keep-tweets-in-tl")}
           <div class="gt2-settings-sub-header">Display</div>
-          ${getToggleSettingPart("stickySidebars", "gt2-toggle-sticky-sidebars")}
-          ${getToggleSettingPart("smallSidebars", "gt2-toggle-small-sidebars")}
+          ${getToggleSettingPart("stickySidebars",  "gt2-toggle-sticky-sidebars")}
+          ${getToggleSettingPart("smallSidebars",   "gt2-toggle-small-sidebars")}
+          ${getToggleSettingPart("leftTrends",      "gt2-toggle-left-trends")}
         </div>
       `)
 
@@ -420,6 +438,11 @@
   $("body").on("click", ".gt2-toggle-small-sidebars", () => {
     GM_setValue("opt_smallSidebars", !GM_getValue("opt_smallSidebars"))
     $("body").toggleClass("gt2-opt-small-sidebars")
+  })
+
+  // toggle leftTrends
+  $("body").on("click", ".gt2-toggle-left-trends", () => {
+    GM_setValue("opt_leftTrends", !GM_getValue("opt_leftTrends"))
   })
 
 
@@ -567,7 +590,7 @@
       })
     })
   }
-  if (GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
+  if (window.location.href.slice(20).startsWith("home") && GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
 
   // keep the site from removing tweets (not working)
   function keepTweetsInTL() {
@@ -705,48 +728,55 @@
 
   // stuff to do when url changes
   function urlChange() {
+    let path  = getPath()
+    console.log(`Current path: ${path}`)
+
     // highlight current location in left bar
-    let url = window.location.href.split("/")
-    let path  = url.length > 3 ? url[3].split("?")[0] : ""
-    let path2 = url.length > 4 ? url[4].split("?")[0] : ""
-    console.log(path);
     $(`.gt2-nav-left > a`).removeClass("active")
-    $(`.gt2-nav-left > a[href='/${path}']`).addClass("active")
+    $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
 
     // insert dashboard profile only on these pages
     if ([
       "compose",
+      "explore",
       "home",
       "i",
       "messages",
       "notifications",
       "search",
       "settings",
-    ].includes(path) || [
+    ].includes(path.split("/")[0]) || [
       "bookmarks",
       "lists",
       "moments",
       "status",
       "topics",
-    ].includes(path2)) {
+    ].some(e => path.match(new RegExp(`^[^\/]+\/${e}`)))
+    ) {
       addDashboardProfile()
     } else {
       $(".gt2-dashboard-profile").remove()
     }
 
+    // hide/add search
+    if (["explore", "search"].some(e => path.startsWith(e))) {
+      $("body").removeClass("gt2-search-added")
+    } else {
+      addSearch()
+    }
+
+    // move trends
+    if (window.innerWidth >= 1350 && GM_getValue("opt_leftTrends")) {
+      moveTrends()
+    }
+
     // add gt2 settings on /settings
-    if (path == "settings") {
+    if (path.split("/")[0] == "settings") {
       addSettingsToggle()
-      if (path2 == "gt2") {
+      if (path.startsWith("settings/gt2")) {
         addSettings()
       }
     }
-
-    // readd search
-    addSearch()
-    // hide search
-    if (["explore", "search"].includes(path)) $("body").removeClass("gt2-search-added")
-
   }
   urlChange()
 

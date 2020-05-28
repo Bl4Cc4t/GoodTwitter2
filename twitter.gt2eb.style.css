@@ -110,6 +110,20 @@ header {
   header a[href='/compose/tweet'],
   header div[data-testid=SideNav_AccountSwitcher_Button] {
     display: none !important; }
+  header .gt2-trends {
+    z-index: 1;
+    margin-top: 10px;
+    width: 350px;
+    position: absolute;
+    right: 0;
+    border: solid 1px var(--color-gray-dark);
+    border-radius: 0;
+    background-color: var(--color-elem-dark); }
+  header .gt2-dashboard-profile + .gt2-trends {
+    margin-top: 255px; }
+
+.gt2-opt-small-sidebars header .gt2-trends {
+  width: 290px; }
 
 main > div > div > div div[data-testid=primaryColumn],
 main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
@@ -340,6 +354,7 @@ a.gt2-trend {
   margin: 10px 0;
   display: flex;
   width: 350px;
+  height: 235px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);
