@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.12
+// @version       0.0.13
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -183,7 +183,7 @@
   // profile view left sidebar
   function addDashboardProfile() {
     let w = window.innerWidth
-    let insertAt = w >= 1350 ? "header > div > div" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
+    let insertAt = w >= 1350 ? ".gt2-left-sidebar" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
 
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
@@ -230,27 +230,30 @@
           </div>
         </div>
       `
-      if (w >= 1350) {
-        $(insertAt).prepend(dashPro)
-      } else {
-        waitForKeyElements(`${insertAt}`, () => {
+
+      waitForKeyElements(`${insertAt}`, () => {
+        if (w >= 1350) {
+          $(insertAt).prepend(dashPro)
+        } else {
           $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
-        })
-      }
+        }
+      })
 
       updateCSS()
     }
   }
 
 
-  // move dash profile
+  // things to do when resizing the window
   $(window).on("resize", () => {
     if (window.innerWidth >= 1350) {
-      $(".gt2-dashboard-profile").prependTo("header > div > div")
+      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
     } else {
-      // move to right sidebar
+      // move dash profile to right sidebar
       $(".gt2-dashboard-profile")
       .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
+      // remove trends
+      $(".gt2-trends").remove()
     }
     if (window.innerWidth <= 1095) {
       $(".gt2-dashboard-profile").addClass("gt2-small")
@@ -267,9 +270,25 @@
       if ($(".gt2-trends").length) $(".gt2-trends").remove()
       $(trends).parents("section").parent().parent().parent()
       .detach().addClass("gt2-trends")
-      .insertBefore("header > div > div > div:last-child")
+      .appendTo(".gt2-left-sidebar")
     })
   }
+
+
+  // recreate the legacy profile layout
+  function rebuildOldProfile() {
+    let banner = `a[href$='/header_photo'] img`
+    waitForKeyElements(banner, () => {
+      // insert banner
+      let bannerUrl = `${$(banner).attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500`
+      $("header").before(`
+        <img src="${bannerUrl}" class="gt2-profile-banner" />
+      `)
+    })
+  }
+  // rebuildOldProfile()
+
+
 
   // add elements to navbar dropdow menu
   $(".gt2-toggle-navbar-dropdown").click(() => {
@@ -327,7 +346,7 @@
   function addSettingsToggle() {
     waitForKeyElements("main section a[href='/settings/about']", () => {
       if (!$(".gt2-toggle-settings").length) {
-        $("main section:nth-child(1) > div:nth-child(2) > div").append(`
+        $("main section:nth-last-child(2) > div:nth-child(2) > div").append(`
           <a class="gt2-toggle-settings" href="/settings/gt2">
             <div>
               <span>GoodTwitter2</span>
@@ -344,12 +363,12 @@
     event.preventDefault()
     window.history.pushState({}, "", $(this).attr("href"))
     addSettings()
-    $("main section:nth-child(1) > div:nth-child(2) > div").addClass("gt2-settings-active")
+    $("main section:nth-last-child(2) > div:nth-child(2) > div").addClass("gt2-settings-active")
   })
 
   // disable settings display again when clicking on another menu item
-  $("body").on("click", `main section:nth-child(1) > div:nth-child(2) > div:not(:first-child):not(:last-child),
-                         main section:nth-child(1) > div:nth-child(2) > div:last-child > div:not(:first-child):not(:nth-child(2))`, () => {
+  $("body").on("click", `main section:nth-last-child(2) > div:nth-child(2) > div:not(:first-child):not(:last-child),
+                         main section:nth-last-child(2) > div:nth-child(2) > div:last-child > div:not(:first-child):not(:nth-child(2))`, () => {
     $(".gt2-settings-active").removeClass("gt2-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
@@ -377,7 +396,7 @@
     if (!$(".gt2-settings").length) {
       let t = $("title").html()
       $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
-      $("main section:nth-child(2)").prepend(`
+      $("main section:nth-last-child(1)").prepend(`
         <div class="gt2-settings-header">GoodTwitter2 Settings</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">Timeline</div>
@@ -735,6 +754,14 @@
     $(`.gt2-nav-left > a`).removeClass("active")
     $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
 
+    // insert left sidebar
+    if (!$(".gt2-left-sidebar").length) {
+      let insertAt = "main > div > div > div"
+      waitForKeyElements(insertAt, function() {
+        $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
+      })
+    }
+
     // insert dashboard profile only on these pages
     if ([
       "compose",
@@ -775,7 +802,15 @@
       addSettingsToggle()
       if (path.startsWith("settings/gt2")) {
         addSettings()
+        $("main section:nth-last-child(2) > div:nth-child(2) > div").addClass("gt2-settings-active")
       }
+    }
+
+    // sectionated pages need special attention on one property
+    if (["settings", "messages"].includes(path.split("/")[0])) {
+      $("body").addClass("gt2-page-with-sections")
+    } else {
+      $("body").removeClass("gt2-page-with-sections")
     }
   }
   urlChange()

@@ -24,24 +24,32 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
 // normal display
 @media only screen and (min-width: 1350px) {
-  main > div > div > div {
-    left: 40px !important;
-    right: -40px !important;
-  }
 
   body:not(.gt2-opt-small-sidebars) {
+    main > div {
+      width: 1320px !important;
+    }
     .gt2-nav-left {
-      margin-left: space(1340px);
+      margin-left: space(1335px);
     }
     .gt2-nav-right {
-      margin-right: space(1340px);
+      margin-right: space(1335px);
     }
     #{$navbarDropdown} {
-      right: space(1340px) !important;
+      right: space(1335px) !important;
+    }
+
+    &.gt2-opt-sticky-sidebars {
+      div[data-testid=primaryColumn] {
+        left: 360px;
+      }
     }
   }
 
   .gt2-opt-small-sidebars {
+    main > div {
+      width: 1200px !important;
+    }
     .gt2-nav-left {
       margin-left: space(1220px);
     }
@@ -50,6 +58,11 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     }
     #{$navbarDropdown} {
       right: space(1220px) !important;
+    }
+    &.gt2-opt-sticky-sidebars {
+      div[data-testid=primaryColumn] {
+        left: 300px;
+      }
     }
   }
 
@@ -62,16 +75,23 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
 // only right sidebar
 @media only screen and (max-width: 1350px) {
-  header {
-    display: none !important;
-  }
-  main {
-    align-items: center !important;
+
+  #{$accSwitcherDropdown} {
+    top: 220px !important;
+    left: unset !important;
+    right: space(960px) !important;
   }
 
+  // smaller search
+  .gt2-search > div {
+    width: 270px !important;
+  }
 
   @media only screen and (min-width: 1095px) {
     body:not(.gt2-opt-small-sidebars) {
+      main > div {
+        width: 960px !important;
+      }
       main > div > div > div {
         left: 0 !important;
       }
@@ -85,9 +105,10 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
         right: space(975px) !important;
       }
     }
-  .gt2-opt-small-sidebars {
-      main > div > div > div {
-        left: 30px !important;
+
+    .gt2-opt-small-sidebars {
+      main > div {
+        width: 900px !important;
       }
       .gt2-nav-left {
         margin-left: space(915px);
@@ -101,30 +122,9 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     }
   }
 
-
-  #{$accSwitcherDropdown} {
-    top: 220px !important;
-    left: unset !important;
-    right: space(960px) !important;
-  }
-
-  // smaller search
-  .gt2-search > div {
-    width: 270px !important;
-  }
-}
-
-// not right small sidebar
-@media only screen and (min-width: 1095px) {
-  main > div {
-    width: 960px !important;
-  }
-  .gt2-opt-small-sidebars main > div > div > div > section {
-    &:nth-child(1) {
-      margin-right: 60px;
-    }
-    &:nth-child(2) {
-      left: -60px;
+  @media only screen and (min-width: 1005px) {
+    div[data-testid=primaryColumn] {
+      margin-right: 10px;
     }
   }
 }
@@ -173,79 +173,58 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   }
 }
 
-// adjust positions of the columns
+// hide complete header
 header {
-  right: -40px;
-  margin-right: 10px !important;
-  margin-left: -5px !important;
-
-  // hide stuff in the sidebar
-  h1,   // twitter logo
-  nav,  // links
-  a[href='/compose/tweet'],  // tweet button
-  div[data-testid=SideNav_AccountSwitcher_Button] {
-    display: none !important;
-  }
-
-  .gt2-trends {
-    z-index: 1;
-    margin-top: 10px;
-    width: 350px;
-    position: absolute;
-    right: 0;
-    border: solid 1px var(--color-gray-dark);
-    border-radius: 0;
-    background-color: var(--color-elem-dark);
-  }
-  .gt2-dashboard-profile + .gt2-trends {
-    margin-top: 255px;
-  }
+  display: none !important;
 }
 
-.gt2-opt-small-sidebars header .gt2-trends {
-  width: 290px;
-}
 
 main {
-  & > div > div > div {
+  margin-top: 56px !important;
+  align-items: center !important;
 
+  & > div > div > div {
 
     div[data-testid=primaryColumn],
     div[data-testid=sidebarColumn],
     & > section {
       border-top-width: 1px !important;
-      margin-top: 56px !important;
-    }
-
-    div[data-testid=primaryColumn] {
-      margin-right: 10px;
     }
 
     div[data-testid=sidebarColumn] {
       margin-right: 0;
 
-      & > div > div:nth-child(2) > div > div > div {
-        padding: 0;
+      & > div > div:nth-child(2) {
 
-        // apply theme to sidebar elements
-        & > div {
-          border-radius: 0;
-          border: 1px solid var(--color-gray-dark);
-          background-color: var(--color-elem-dark);
-          margin-bottom: 10px;
+        // top: 0 !important;
+        // position: sticky;
 
-          &:nth-last-child(1) nav {
-            padding: 15px;
-          }
+        & > div > div > div {
+          padding: 0;
 
-          &:empty {
-            display: none;
+          // apply theme to sidebar elements
+          & > div {
+            border-radius: 0;
+            border: 1px solid var(--color-gray-dark);
+            background-color: var(--color-elem-dark);
+            margin-bottom: 10px;
+
+            &:nth-last-child(1) nav {
+              padding: 15px;
+            }
+
+            &:empty {
+              display: none;
+            }
           }
         }
       }
     }
     // settings
-    & > section:nth-child(2) {
+    & > section:nth-last-child(2) {
+      margin-left: 10px;
+    }
+    & > section:nth-last-child(1) {
       & > div:nth-child(3),
       & > div:nth-child(4) {
         display: none;
@@ -254,6 +233,20 @@ main {
   }
 }
 
+// old profile layout
+.gt2-profile-banner {
+  width: 100%;
+  position: absolute;
+  height: calc(100vw / 3);
+  margin-top: 46px;
+}
+
+.gt2-profile-banner ~ main,
+.gt2-profile-banner ~ header .gt2-trends {
+  margin-top: calc(56px + (100vw / 3)) !important;
+}
+
+
 // options
 .gt2-opt-small-sidebars {
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
@@ -261,16 +254,31 @@ main {
   }
 }
 
-body:not(.gt2-opt-sticky-sidebars) {
-  header > div > div {
-    position: sticky;
+.gt2-opt-sticky-sidebars {
+
+  &:not(.gt2-page-with-sections) {
+    .gt2-left-sidebar {
+      position: fixed;
+    }
   }
 
+
+}
+
+body:not(.gt2-opt-sticky-sidebars) {
   div[data-testid=sidebarColumn] > div > div:nth-child(2) {
     top: 0 !important;
     position: absolute;
   }
 }
+
+.gt2-opt-small-sidebars {
+  .gt2-left-sidebar,
+  div[data-testid=sidebarColumn] {
+    width: 290px;
+  }
+}
+
 
 /*
 .gt2-opt-keep-tweets-in-tl {
@@ -282,7 +290,7 @@ body:not(.gt2-opt-sticky-sidebars) {
 
 
 // hide search when added to navbar
-.gt2-search-added             div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
   display: none;
 }
 
@@ -422,13 +430,7 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
-
-// navbar
-header > div > div {
-  margin-top: 46px !important;
-}
-
-
+// link stuff
 .gt2-dashboard-profile a,
 a.gt2-trend {
   text-decoration: none;
@@ -441,6 +443,7 @@ a.gt2-trend {
 }
 
 
+// navbar
 .gt2-nav {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   height: 46px;
@@ -583,16 +586,28 @@ a.gt2-trend {
   }
 }
 
+.gt2-left-sidebar {
+  width: 350px;
+
+  & > div {
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  // moved trends
+  .gt2-trends {
+    border: solid 1px var(--color-gray-dark);
+    border-radius: 0;
+    background-color: var(--color-elem-dark);
+  }
+}
 
 // dashboard profile
 .gt2-dashboard-profile {
   z-index: 1;
-  position: absolute;
   right: 0;
-  margin: 10px 0;
+  margin-bottom: 10px;
   display: flex;
-  width: 350px;
-  height: 235px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);

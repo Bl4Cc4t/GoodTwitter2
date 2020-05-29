@@ -7,35 +7,43 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; }
 
 @media only screen and (min-width: 1350px) {
-  main > div > div > div {
-    left: 40px !important;
-    right: -40px !important; }
-
+  body:not(.gt2-opt-small-sidebars) main > div {
+    width: 1320px !important; }
   body:not(.gt2-opt-small-sidebars) .gt2-nav-left {
-    margin-left: calc((100vw - 1340px) / 2); }
+    margin-left: calc((100vw - 1335px) / 2); }
   body:not(.gt2-opt-small-sidebars) .gt2-nav-right {
-    margin-right: calc((100vw - 1340px) / 2); }
+    margin-right: calc((100vw - 1335px) / 2); }
   body:not(.gt2-opt-small-sidebars) div[role=menu][style^='max-height: calc'] {
-    right: calc((100vw - 1340px) / 2) !important; }
+    right: calc((100vw - 1335px) / 2) !important; }
+  body:not(.gt2-opt-small-sidebars).gt2-opt-sticky-sidebars div[data-testid=primaryColumn] {
+    left: 360px; }
 
+  .gt2-opt-small-sidebars main > div {
+    width: 1200px !important; }
   .gt2-opt-small-sidebars .gt2-nav-left {
     margin-left: calc((100vw - 1220px) / 2); }
   .gt2-opt-small-sidebars .gt2-nav-right {
     margin-right: calc((100vw - 1220px) / 2); }
   .gt2-opt-small-sidebars div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 1220px) / 2) !important; }
+  .gt2-opt-small-sidebars.gt2-opt-sticky-sidebars div[data-testid=primaryColumn] {
+    left: 300px; }
 
   #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
     top: 220px !important;
     left: calc((100vw - 1248px) / 2) !important;
     right: unset !important; } }
 @media only screen and (max-width: 1350px) {
-  header {
-    display: none !important; }
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
+    top: 220px !important;
+    left: unset !important;
+    right: calc((100vw - 960px) / 2) !important; }
 
-  main {
-    align-items: center !important; } }
+  .gt2-search > div {
+    width: 270px !important; } }
 @media only screen and (max-width: 1350px) and (min-width: 1095px) {
+  body:not(.gt2-opt-small-sidebars) main > div {
+    width: 960px !important; }
   body:not(.gt2-opt-small-sidebars) main > div > div > div {
     left: 0 !important; }
   body:not(.gt2-opt-small-sidebars) .gt2-nav-left {
@@ -45,30 +53,17 @@
   body:not(.gt2-opt-small-sidebars) div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 975px) / 2) !important; }
 
-  .gt2-opt-small-sidebars main > div > div > div {
-    left: 30px !important; }
+  .gt2-opt-small-sidebars main > div {
+    width: 900px !important; }
   .gt2-opt-small-sidebars .gt2-nav-left {
     margin-left: calc((100vw - 915px) / 2); }
   .gt2-opt-small-sidebars .gt2-nav-right {
     margin-right: calc((100vw - 915px) / 2); }
   .gt2-opt-small-sidebars div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 915px) / 2) !important; } }
-@media only screen and (max-width: 1350px) {
-  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
-    top: 220px !important;
-    left: unset !important;
-    right: calc((100vw - 960px) / 2) !important; }
-
-  .gt2-search > div {
-    width: 270px !important; } }
-@media only screen and (min-width: 1095px) {
-  main > div {
-    width: 960px !important; }
-
-  .gt2-opt-small-sidebars main > div > div > div > section:nth-child(1) {
-    margin-right: 60px; }
-  .gt2-opt-small-sidebars main > div > div > div > section:nth-child(2) {
-    left: -60px; } }
+@media only screen and (max-width: 1350px) and (min-width: 1005px) {
+  div[data-testid=primaryColumn] {
+    margin-right: 10px; } }
 @media only screen and (max-width: 1095px) {
   main > div {
     width: 900px !important; }
@@ -102,59 +97,55 @@
   div[role=menu][style^='max-height: calc'] {
     right: calc((100vw - 620px) / 2) !important; } }
 header {
-  right: -40px;
-  margin-right: 10px !important;
-  margin-left: -5px !important; }
-  header h1,
-  header nav,
-  header a[href='/compose/tweet'],
-  header div[data-testid=SideNav_AccountSwitcher_Button] {
-    display: none !important; }
-  header .gt2-trends {
-    z-index: 1;
-    margin-top: 10px;
-    width: 350px;
-    position: absolute;
-    right: 0;
-    border: solid 1px var(--color-gray-dark);
-    border-radius: 0;
-    background-color: var(--color-elem-dark); }
-  header .gt2-dashboard-profile + .gt2-trends {
-    margin-top: 255px; }
+  display: none !important; }
 
-.gt2-opt-small-sidebars header .gt2-trends {
-  width: 290px; }
+main {
+  margin-top: 56px !important;
+  align-items: center !important; }
+  main > div > div > div div[data-testid=primaryColumn],
+  main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
+    border-top-width: 1px !important; }
+  main > div > div > div div[data-testid=sidebarColumn] {
+    margin-right: 0; }
+    main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
+      padding: 0; }
+      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
+        border-radius: 0;
+        border: 1px solid var(--color-gray-dark);
+        background-color: var(--color-elem-dark);
+        margin-bottom: 10px; }
+        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
+          padding: 15px; }
+        main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
+          display: none; }
+  main > div > div > div > section:nth-last-child(2) {
+    margin-left: 10px; }
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(3), main > div > div > div > section:nth-last-child(1) > div:nth-child(4) {
+    display: none; }
 
-main > div > div > div div[data-testid=primaryColumn],
-main > div > div > div div[data-testid=sidebarColumn], main > div > div > div > section {
-  border-top-width: 1px !important;
-  margin-top: 56px !important; }
-main > div > div > div div[data-testid=primaryColumn] {
-  margin-right: 10px; }
-main > div > div > div div[data-testid=sidebarColumn] {
-  margin-right: 0; }
-  main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div {
-    padding: 0; }
-    main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div {
-      border-radius: 0;
-      border: 1px solid var(--color-gray-dark);
-      background-color: var(--color-elem-dark);
-      margin-bottom: 10px; }
-      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-last-child(1) nav {
-        padding: 15px; }
-      main > div > div > div div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty {
-        display: none; }
-main > div > div > div > section:nth-child(2) > div:nth-child(3), main > div > div > div > section:nth-child(2) > div:nth-child(4) {
-  display: none; }
+.gt2-profile-banner {
+  width: 100%;
+  position: absolute;
+  height: calc(100vw / 3);
+  margin-top: 46px; }
+
+.gt2-profile-banner ~ main,
+.gt2-profile-banner ~ header .gt2-trends {
+  margin-top: calc(56px + (100vw / 3)) !important; }
 
 .gt2-opt-small-sidebars div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
   width: 290px; }
 
-body:not(.gt2-opt-sticky-sidebars) header > div > div {
-  position: sticky; }
+.gt2-opt-sticky-sidebars:not(.gt2-page-with-sections) .gt2-left-sidebar {
+  position: fixed; }
+
 body:not(.gt2-opt-sticky-sidebars) div[data-testid=sidebarColumn] > div > div:nth-child(2) {
   top: 0 !important;
   position: absolute; }
+
+.gt2-opt-small-sidebars .gt2-left-sidebar,
+.gt2-opt-small-sidebars div[data-testid=sidebarColumn] {
+  width: 290px; }
 
 /*
 .gt2-opt-keep-tweets-in-tl {
@@ -241,9 +232,6 @@ div[role=menu][style^='max-height: calc'] {
         height: 1.25em; }
     div[role=menu][style^='max-height: calc'] > div > div > div > a:hover {
       background-color: var(--color-elem-sel); }
-
-header > div > div {
-  margin-top: 46px !important; }
 
 .gt2-dashboard-profile a,
 a.gt2-trend {
@@ -347,14 +335,21 @@ a.gt2-trend {
       .gt2-nav .gt2-nav-right > a[href='/compose/tweet'] > div > span {
         overflow: visible; }
 
+.gt2-left-sidebar {
+  width: 350px; }
+  .gt2-left-sidebar > div {
+    margin-bottom: 10px;
+    position: relative; }
+  .gt2-left-sidebar .gt2-trends {
+    border: solid 1px var(--color-gray-dark);
+    border-radius: 0;
+    background-color: var(--color-elem-dark); }
+
 .gt2-dashboard-profile {
   z-index: 1;
-  position: absolute;
   right: 0;
-  margin: 10px 0;
+  margin-bottom: 10px;
   display: flex;
-  width: 350px;
-  height: 235px;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
   background-color: var(--color-elem-dark);
