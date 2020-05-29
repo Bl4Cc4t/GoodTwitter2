@@ -268,7 +268,7 @@ body:not(.gt2-opt-sticky-sidebars) {
 
   div[data-testid=sidebarColumn] > div > div:nth-child(2) {
     top: 0 !important;
-    position: sticky; // sticks to the top this way, kinda irritating
+    position: absolute;
   }
 }
 

@@ -154,7 +154,7 @@ body:not(.gt2-opt-sticky-sidebars) header > div > div {
   position: sticky; }
 body:not(.gt2-opt-sticky-sidebars) div[data-testid=sidebarColumn] > div > div:nth-child(2) {
   top: 0 !important;
-  position: sticky; }
+  position: absolute; }
 
 /*
 .gt2-opt-keep-tweets-in-tl {
