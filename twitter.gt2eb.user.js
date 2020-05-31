@@ -52,15 +52,19 @@
   function getInfo() {
     let sel = "#react-root + script"
     let infoScript = $(sel).text()
+    function x(reg) {
+      let m = infoScript.match(reg)
+      return m ? m[1] : ""
+    }
     return {
-      bannerUrl:  infoScript.match(/profile_banner_url\":\"(.+?)\",/)[1],
-      avatarUrl:  infoScript.match(/profile_image_url_https\":\"(.+?)\",/)[1],
-      screenName: infoScript.match(/screen_name\":\"(.+?)\",/)[1],
-      name:       infoScript.match(/name\":\"(.+?)\",/)[1],
+      bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
+      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/),
+      screenName: x(/screen_name\":\"(.+?)\",/),
+      name:       x(/name\":\"(.+?)\",/),
       stats: {
-        tweets:    infoScript.match(/statuses_count\":(\d+),/)[1],
-        followers: infoScript.match(/\"followers_count\":(\d+),/)[1],
-        following: infoScript.match(/friends_count\":(\d+),/)[1],
+        tweets:    x(/statuses_count\":(\d+),/),
+        followers: x(/\"followers_count\":(\d+),/),
+        following: x(/friends_count\":(\d+),/),
       }
     }
   }
@@ -187,6 +191,7 @@
 
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
+      console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
       GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
       let dashPro = `
         <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
