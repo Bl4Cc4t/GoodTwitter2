@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.13
+// @version       0.0.14
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -202,7 +202,7 @@
 
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
-      console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
+      // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
       GM_setValue("banner", i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset")
       let dashPro = `
         <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
