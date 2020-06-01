@@ -1,7 +1,6 @@
 :root {
   --bgColors:$;
   --color-user:       $userColor;
-  --banner:           $banner;
   --scrollbar-width:  $scrollbarWidth;
   --font-increment:   $fontIncrement;
 
@@ -648,7 +647,6 @@ a.gt2-trend {
   box-sizing: border-box;
 
   .gt2-banner {
-    background-image: var(--banner);
     background-size: 100%;
     height: 116.67px;
     background-position: 0 50%;

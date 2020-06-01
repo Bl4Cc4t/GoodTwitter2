@@ -111,18 +111,40 @@
   }
 
   // default values
-  if (!GM_getValue("userColor"))                      GM_setValue("userColor",          "rgba(29,161,242,1.00)")
-  if (!GM_getValue("bgColor"))                        GM_setValue("bgColor",            "dim")
-  if (!GM_getValue("scrollbarWidth"))                 GM_setValue("scrollbarWidth",     window.innerWidth - $("html")[0].clientWidth)
-  if (!GM_getValue("fontIncrement"))                  GM_setValue("fontIncrement",      0)
-  if (GM_getValue("opt_autoRefresh")    == undefined) GM_setValue("opt_autoRefresh",    false)
-  if (GM_getValue("opt_forceLatest")    == undefined) GM_setValue("opt_forceLatest",    false)
-  if (GM_getValue("opt_keepTweetsInTL") == undefined) GM_setValue("opt_keepTweetsInTL", true)
-  if (GM_getValue("opt_smallSidebars")  == undefined) GM_setValue("opt_smallSidebars",  false)
-  if (GM_getValue("opt_stickySidebars") == undefined) GM_setValue("opt_stickySidebars", true)
-  if (GM_getValue("opt_leftTrends")     == undefined) GM_setValue("opt_leftTrends",     true)
-  if (GM_getValue("opt_squareAvatars")  == undefined) GM_setValue("opt_squareAvatars",  false)
+  const opt = {
+    // custom options
+    gt2: {
+      autoRefresh:    false,
+      forceLatest:    false,
+      keepTweetsInTL: true,
+      smallSidebars:  false,
+      stickySidebars: true,
+      leftTrends:     true,
+      squareAvatars:  false,
+    },
+    // native twitter display options
+    display: {
+      userColor:      "rgba(29, 161, 242, 1.00)",
+      bgColor:        "dim",
+      fontIncrement:  "0"
+    }
+  }
 
+  // set default options
+  if (GM_getValue("opt_gt2")      == undefined) GM_setValue("opt_gt2", opt.gt2)
+  if (GM_getValue("opt_display")  == undefined) GM_setValue("opt_display", opt.display)
+
+  function toggleGt2Opt(key) {
+    let x = GM_getValue("opt_gt2")
+    x[key] = !x[key]
+    GM_setValue("opt_gt2", x)
+  }
+
+  function setOptDisplay(key, val) {
+    let x = GM_getValue("opt_display")
+    x[key] = val
+    GM_setValue("opt_display", x)
+  }
 
   // insert navbar
   $("body").prepend(`
@@ -203,10 +225,9 @@
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
-      GM_setValue("banner", i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset")
       let dashPro = `
         <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
-          <a href="/${i.screenName}" class="gt2-banner"></a>
+          <a href="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
           <div>
             <a class="gt2-avatar" href="/${i.screenName}">
               <img src="${i.avatarUrl.replace("normal", "bigger")}"/>
@@ -390,15 +411,15 @@
   })
 
   // get html for a gt2 toggle (checkbox)
-  function getToggleSettingPart(name) {
+  function getSettingTogglePart(name) {
     let d = `${name}Desc`
     return `
       <div class="gt2-setting">
         <div>
           <span>${locStr(name)}</span>
-          <div class="gt2-setting-toggle ${GM_getValue(`opt_${name}`) ? "gt2-active" : ""}">
+          <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
             <div></div>
-            <div class="gt2-toggle-${name.toKebab()}">
+            <div>
               ${getSvg("tick")}
             </div>
           </div>
@@ -416,14 +437,14 @@
         <div class="gt2-settings-header">GoodTwitter2 Settings</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">Timeline</div>
-          ${getToggleSettingPart("forceLatest")}
-          ${getToggleSettingPart("autoRefresh")}
-          ${getToggleSettingPart("keepTweetsInTL")}
+          ${getSettingTogglePart("forceLatest")}
+          ${getSettingTogglePart("autoRefresh")}
+          ${getSettingTogglePart("keepTweetsInTL")}
           <div class="gt2-settings-sub-header">Display</div>
-          ${getToggleSettingPart("stickySidebars")}
-          ${getToggleSettingPart("smallSidebars")}
-          ${getToggleSettingPart("leftTrends")}
-          ${getToggleSettingPart("squareAvatars")}
+          ${getSettingTogglePart("stickySidebars")}
+          ${getSettingTogglePart("smallSidebars")}
+          ${getSettingTogglePart("leftTrends")}
+          ${getSettingTogglePart("squareAvatars")}
         </div>
       `)
 
@@ -431,61 +452,29 @@
     }
   }
 
+
+  // handler for the toggles
   $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
-  })
-
-
-  // toggle autoRefresh
-  $("body").on("click", ".gt2-toggle-auto-refresh", () => {
-    GM_setValue("opt_autoRefresh", !GM_getValue("opt_autoRefresh"))
+    let name = $(this).attr("data-toggleid").trim()
+    toggleGt2Opt(name)
+    $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
     handleKTILOpt()
   })
 
+
+  // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
   function handleKTILOpt() {
-    let $t = $(".gt2-toggle-keep-tweets-in-tl")
-    if (GM_getValue("opt_autoRefresh")) {
-      if (!GM_getValue("opt_keepTweetsInTL")) {
+    let $t = $("div[data-toggleid=keepTweetsInTL]")
+    if (GM_getValue("opt_gt2").autoRefresh) {
+      if (!GM_getValue("opt_gt2").keepTweetsInTL) {
         $t.click()
       }
-      $t.parents(".gt2-setting-toggle").addClass("gt2-disabled")
+      $t.addClass("gt2-disabled")
     } else {
-      $t.parents(".gt2-setting-toggle").removeClass("gt2-disabled")
+      $t.removeClass("gt2-disabled")
     }
   }
-
-  // toggle forceLatest
-  $("body").on("click", ".gt2-toggle-force-latest", () => {
-    GM_setValue("opt_forceLatest", !GM_getValue("opt_forceLatest"))
-  })
-
-  // toggle keepTweetsInTL
-  $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled) .gt2-toggle-keep-tweets-in-tl", () => {
-    GM_setValue("opt_keepTweetsInTL", !GM_getValue("opt_keepTweetsInTL"))
-  })
-
-  // toggle stickySidebars
-  $("body").on("click", ".gt2-toggle-sticky-sidebars", () => {
-    GM_setValue("opt_stickySidebars", !GM_getValue("opt_stickySidebars"))
-    $("body").toggleClass("gt2-opt-sticky-sidebars")
-  })
-
-  // toggle smallSidebars
-  $("body").on("click", ".gt2-toggle-small-sidebars", () => {
-    GM_setValue("opt_smallSidebars", !GM_getValue("opt_smallSidebars"))
-    $("body").toggleClass("gt2-opt-small-sidebars")
-  })
-
-  // toggle leftTrends
-  $("body").on("click", ".gt2-toggle-left-trends", () => {
-    GM_setValue("opt_leftTrends", !GM_getValue("opt_leftTrends"))
-  })
-
-  // toggle squareAvatars
-  $("body").on("click", ".gt2-toggle-square-avatars", () => {
-    GM_setValue("opt_squareAvatars", !GM_getValue("opt_squareAvatars"))
-    $("body").toggleClass("gt2-opt-square-avatars")
-  })
 
 
   // ########################
@@ -502,13 +491,13 @@
                              ${displaySettingsModal} > div:nth-child(4) > div > div > div:nth-child(2) > div > div > div > div:not(:empty)`, function() {
     console.log($(this)[0]);
     let fontIncr = {
-      "0%":   -2,
-      "25%":  -1,
-      "50%":  0,
-      "75%":  1,
-      "100%": 3
+      "0%":   "-2px",
+      "25%":  "-1px",
+      "50%":  "0px",
+      "75%":  "1px",
+      "100%": "3px"
     }[$(this)[0].style.left]
-    GM_setValue("fontIncrement", fontIncr)
+    setOptDisplay("fontIncrement", fontIncr)
     updateCSS()
   })
 
@@ -516,7 +505,7 @@
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
                          ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
     let userColor = $(this).find("svg").css("color")
-    GM_setValue("userColor", userColor)
+    setOptDisplay("userColor", userColor)
     updateCSS()
   })
 
@@ -528,7 +517,7 @@
       "rgb(21, 32, 43)":    "dim",
       "rgb(0, 0, 0)":       "lightsOut"
     }[$(this).css("background-color")]
-    GM_setValue("bgColor", bgColor)
+    setOptDisplay("bgColor", bgColor)
     updateCSS()
   })
 
@@ -632,7 +621,7 @@
       })
     })
   }
-  if (window.location.href.slice(20).startsWith("home") && GM_getValue("opt_autoRefresh")) hideTweetsOnAutoRefresh()
+  if (window.location.href.slice(20).startsWith("home") && GM_getValue("opt_gt2").autoRefresh) hideTweetsOnAutoRefresh()
 
   // keep the site from removing tweets (not working)
   function keepTweetsInTL() {
@@ -647,7 +636,7 @@
       }
     }
   }
-  // if (GM_getValue("opt_keepTweetsInTL")) keepTweetsInTL()
+  // if (GM_getValue("opt_gt2").keepTweetsInTL) keepTweetsInTL()
 
 
   // force latest tweets view.
@@ -680,7 +669,7 @@
       })
     })
   }
-  if (GM_getValue("opt_forceLatest")) forceLatest()
+  if (GM_getValue("opt_gt2").forceLatest) forceLatest()
 
 
   // wrap trending stuff in anchors
@@ -743,22 +732,24 @@
                   --color-shadow:     rgb(47, 51, 54);`
     }
 
+    // get values
+    let optDisplay  = GM_getValue("opt_display")
+
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
-      .replace("--bgColors:$;",   bgColors[GM_getValue("bgColor")])
-      .replace("$userColor",      GM_getValue("userColor"))
-      .replace("$banner",         GM_getValue("banner"))
-      .replace("$fontIncrement",  `${GM_getValue("fontIncrement")}px`)
-      .replace("$scrollbarWidth", `${GM_getValue("scrollbarWidth")}px`)
+      .replace("--bgColors:$;",   bgColors[optDisplay.bgColor])
+      .replace("$userColor",      optDisplay.userColor)
+      .replace("$fontIncrement",  optDisplay.fontIncrement)
+      .replace("$scrollbarWidth", `${window.innerWidth - $("html")[0].clientWidth}px`)
       // source map
       .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))
     )
 
-    if (GM_getValue("opt_smallSidebars"))   $("body").addClass("gt2-opt-small-sidebars")
-    if (GM_getValue("opt_stickySidebars"))  $("body").addClass("gt2-opt-sticky-sidebars")
-    if (GM_getValue("opt_keepTweetsInTL"))  $("body").addClass("gt2-opt-keep-tweets-in-tl")
-    if (GM_getValue("opt_squareAvatars"))   $("body").addClass("gt2-opt-square-avatars")
+    // add gt2-options to body for the css to take effect
+    for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
+      if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
+    }
 
     GM_setValue("styleId", $(a).attr("id"))
   }
@@ -818,7 +809,7 @@
     }
 
     // move trends
-    if (window.innerWidth >= 1350 && GM_getValue("opt_leftTrends")) {
+    if (window.innerWidth >= 1350 && GM_getValue("opt_gt2").leftTrends) {
       moveTrends()
     }
 
