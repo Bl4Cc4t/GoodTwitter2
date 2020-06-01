@@ -22,8 +22,8 @@
   "use strict"
 
   // seperate number with commas
-  function humanizeNumber(n) {
-    let t = n.toString().split("")
+  Number.prototype.humanize = function() {
+    let t = this.toString().split("")
     let out = ""
     let c = 1
     for (let i=t.length-1; i>=0; i--) {
@@ -36,15 +36,15 @@
   }
 
   // shorter version: 1.4M, 23.4K, etc
-  function humanizeNumberShort(n) {
-    let t = n.toString()
-    if (n >= 1000000) {
+  Number.prototype.humanizeShort = function() {
+    let t = this.toString()
+    if (this >= 1000000) {
       t = t.slice(0, -5)
       return `${t.slice(0, -1)}${t.slice(-1) != 0 ? `.${t.slice(-1)}` : ""}M`
-    } else if (n >= 10000) {
+    } else if (this >= 10000) {
       t = t.slice(0, -2)
       return `${t.slice(0, -1)}${t.slice(-1) != 0 ? `.${t.slice(-1)}` : ""}K`
-    } else return humanizeNumber(n)
+    } else return this.humanize()
   }
 
   // get kebab case
@@ -72,9 +72,9 @@
       screenName: x(/screen_name\":\"(.+?)\",/),
       name:       x(/name\":\"(.+?)\",/),
       stats: {
-        tweets:    x(/statuses_count\":(\d+),/),
-        followers: x(/\"followers_count\":(\d+),/),
-        following: x(/friends_count\":(\d+),/),
+        tweets:    parseInt(x(/statuses_count\":(\d+),/)),
+        followers: parseInt(x(/\"followers_count\":(\d+),/)),
+        following: parseInt(x(/friends_count\":(\d+),/)),
       }
     }
   }
@@ -226,19 +226,19 @@
                 <li>
                   <a href="/${i.screenName}">
                     <span>${locStr("tweets")}</span>
-                    <span>${humanizeNumberShort(i.stats.tweets)}</span>
+                    <span>${i.stats.tweets.humanize()}</span>
                   </a>
                 </li>
                 <li>
                   <a href="/${i.screenName}/following">
                     <span>${locStr("following")}</span>
-                    <span>${humanizeNumberShort(i.stats.following)}</span>
+                    <span>${i.stats.following.humanize()}</span>
                   </a>
                 </li>
                 <li>
                   <a href="/${i.screenName}/followers">
                     <span>${locStr("followers")}</span>
-                    <span>${humanizeNumberShort(i.stats.followers)}</span>
+                    <span>${i.stats.followers.humanize()}</span>
                   </a>
                 </li>
               </ul>
