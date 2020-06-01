@@ -261,8 +261,6 @@ main {
       position: fixed;
     }
   }
-
-
 }
 
 body:not(.gt2-opt-sticky-sidebars) {
@@ -276,6 +274,9 @@ body:not(.gt2-opt-sticky-sidebars) {
   .gt2-left-sidebar,
   div[data-testid=sidebarColumn] {
     width: 290px;
+  }
+  .gt2-toggle-acc-switcher-dropdown {
+    bottom: 82px !important;
   }
 }
 
@@ -477,6 +478,7 @@ a.gt2-trend {
       & > div {
         background-color: unset !important;
         margin-top: calc(var(--font-increment) * -1.25);
+        padding: 10px 15px;
 
         & > div:nth-child(1) > div {
           background-color: var(--color-user);
@@ -615,15 +617,12 @@ a.gt2-trend {
 
   .gt2-banner {
     background-image: var(--banner);
-    background-color: var(--color-shadow);
     background-size: 100%;
     height: 116.67px;
     background-position: 0 50%;
     width: 100%;
   }
-  
   & > div {
-    height: 116px;
 
     .gt2-avatar {
       display: inline-block;
@@ -670,7 +669,7 @@ a.gt2-trend {
 
     .gt2-toggle-acc-switcher-dropdown {
       right: 7.5px;
-      bottom: 82px;
+      bottom: 91px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -705,18 +704,17 @@ a.gt2-trend {
     }
 
     .gt2-stats {
-      padding: 14px;
-      width: 100%;
-      height: 37px;
-      margin-top: calc(-10px - var(--font-increment) * 2);
+      padding: 16px;
+      margin-top: calc(- var(--font-increment) * 2);
 
       ul {
-        display: inline-flex;
+        display: table;
         margin: 0;
         padding: 0;
+        width: 100%;
 
         li {
-          width: 115px;
+          display: table-cell;
           list-style: none;
           a {
             display: flex;
