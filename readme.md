@@ -18,6 +18,7 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
   - The disableAutoRefresh feature is extremely buggy atm, any help would be very nice
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
+- **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
 ### Features
 - Legacy Navbar is back!
@@ -26,7 +27,7 @@ Since [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) will [stop working
   - The default and dim theme use the color palette from legacy twitter
 
 #### These settings:
-![](https://i.imgur.com/gaz4ddV.png)
+![](https://i.imgur.com/i3XeekK.png)
 
 ### Installation
 To use this script, you need a userscript manager.
