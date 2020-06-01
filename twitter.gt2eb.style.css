@@ -356,6 +356,7 @@ a.gt2-trend {
   box-sizing: border-box; }
   .gt2-dashboard-profile .gt2-banner {
     background-image: var(--banner);
+    background-color: var(--color-shadow);
     background-size: 100%;
     height: 116.67px;
     background-position: 0 50%;

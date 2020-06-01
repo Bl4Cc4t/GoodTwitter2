@@ -52,13 +52,13 @@
   function getInfo() {
     let sel = "#react-root + script"
     let infoScript = $(sel).text()
-    function x(reg) {
+    function x(reg, defaultVal="") {
       let m = infoScript.match(reg)
-      return m ? m[1] : ""
+      return m ? m[1] : defaultVal
     }
     return {
       bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
-      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/),
+      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"),
       screenName: x(/screen_name\":\"(.+?)\",/),
       name:       x(/name\":\"(.+?)\",/),
       stats: {
@@ -192,7 +192,7 @@
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
-      GM_setValue("banner", `url(${i.bannerUrl}/600x200)`)
+      GM_setValue("banner", i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset")
       let dashPro = `
         <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
           <a href="/${i.screenName}" class="gt2-banner"></a>

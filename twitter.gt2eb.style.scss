@@ -615,11 +615,13 @@ a.gt2-trend {
 
   .gt2-banner {
     background-image: var(--banner);
+    background-color: var(--color-shadow);
     background-size: 100%;
     height: 116.67px;
     background-position: 0 50%;
     width: 100%;
   }
+  
   & > div {
     height: 116px;
 
