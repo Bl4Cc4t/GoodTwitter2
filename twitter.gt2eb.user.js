@@ -47,6 +47,16 @@
     } else return humanizeNumber(n)
   }
 
+  // get kebab case
+  String.prototype.toKebab = function() {
+    let out = ""
+    for (let e of this.toString().split("")) {
+      if (e == e.toUpperCase()) out += `-${e.toLowerCase()}`
+      else out += e
+    }
+    return out
+  }
+
 
   // get account information
   function getInfo() {
@@ -111,6 +121,7 @@
   if (GM_getValue("opt_smallSidebars")  == undefined) GM_setValue("opt_smallSidebars",  false)
   if (GM_getValue("opt_stickySidebars") == undefined) GM_setValue("opt_stickySidebars", true)
   if (GM_getValue("opt_leftTrends")     == undefined) GM_setValue("opt_leftTrends",     true)
+  if (GM_getValue("opt_squareAvatars")  == undefined) GM_setValue("opt_squareAvatars",  false)
 
 
   // insert navbar
@@ -379,7 +390,7 @@
   })
 
   // get html for a gt2 toggle (checkbox)
-  function getToggleSettingPart(name, className) {
+  function getToggleSettingPart(name) {
     let d = `${name}Desc`
     return `
       <div class="gt2-setting">
@@ -387,7 +398,7 @@
           <span>${locStr(name)}</span>
           <div class="gt2-setting-toggle ${GM_getValue(`opt_${name}`) ? "gt2-active" : ""}">
             <div></div>
-            <div class="${className}">
+            <div class="gt2-toggle-${name.toKebab()}">
               ${getSvg("tick")}
             </div>
           </div>
@@ -405,13 +416,14 @@
         <div class="gt2-settings-header">GoodTwitter2 Settings</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">Timeline</div>
-          ${getToggleSettingPart("forceLatest",     "gt2-toggle-force-latest")}
-          ${getToggleSettingPart("autoRefresh",     "gt2-toggle-auto-refresh")}
-          ${getToggleSettingPart("keepTweetsInTL",  "gt2-toggle-keep-tweets-in-tl")}
+          ${getToggleSettingPart("forceLatest")}
+          ${getToggleSettingPart("autoRefresh")}
+          ${getToggleSettingPart("keepTweetsInTL")}
           <div class="gt2-settings-sub-header">Display</div>
-          ${getToggleSettingPart("stickySidebars",  "gt2-toggle-sticky-sidebars")}
-          ${getToggleSettingPart("smallSidebars",   "gt2-toggle-small-sidebars")}
-          ${getToggleSettingPart("leftTrends",      "gt2-toggle-left-trends")}
+          ${getToggleSettingPart("stickySidebars")}
+          ${getToggleSettingPart("smallSidebars")}
+          ${getToggleSettingPart("leftTrends")}
+          ${getToggleSettingPart("squareAvatars")}
         </div>
       `)
 
@@ -467,6 +479,12 @@
   // toggle leftTrends
   $("body").on("click", ".gt2-toggle-left-trends", () => {
     GM_setValue("opt_leftTrends", !GM_getValue("opt_leftTrends"))
+  })
+
+  // toggle squareAvatars
+  $("body").on("click", ".gt2-toggle-square-avatars", () => {
+    GM_setValue("opt_squareAvatars", !GM_getValue("opt_squareAvatars"))
+    $("body").toggleClass("gt2-opt-square-avatars")
   })
 
 
@@ -737,9 +755,10 @@
       .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))
     )
 
-    if (GM_getValue("opt_smallSidebars")) $("body").addClass("gt2-opt-small-sidebars")
-    if (GM_getValue("opt_stickySidebars")) $("body").addClass("gt2-opt-sticky-sidebars")
-    if (GM_getValue("opt_keepTweetsInTL")) $("body").addClass("gt2-opt-keep-tweets-in-tl")
+    if (GM_getValue("opt_smallSidebars"))   $("body").addClass("gt2-opt-small-sidebars")
+    if (GM_getValue("opt_stickySidebars"))  $("body").addClass("gt2-opt-sticky-sidebars")
+    if (GM_getValue("opt_keepTweetsInTL"))  $("body").addClass("gt2-opt-keep-tweets-in-tl")
+    if (GM_getValue("opt_squareAvatars"))   $("body").addClass("gt2-opt-square-avatars")
 
     GM_setValue("styleId", $(a).attr("id"))
   }
@@ -793,6 +812,7 @@
     // hide/add search
     if (["explore", "search"].some(e => path.startsWith(e))) {
       $("body").removeClass("gt2-search-added")
+      $(".gt2-search").remove()
     } else {
       addSearch()
     }

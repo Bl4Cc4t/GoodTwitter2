@@ -19,6 +19,7 @@
     "leftTrendsDesc": "Show the trends in the left sidebar.",
     "stickySidebars": "Sticky Sidebars",
     "smallSidebars": "Small Sidebars",
-    "smallSidebarsDesc": "290px instead of 350px wide sidebars."
+    "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
+    "squareAvatars": "Square Avatars"
   }
 }

@@ -281,6 +281,38 @@ body:not(.gt2-opt-sticky-sidebars) {
 }
 
 
+.gt2-opt-square-avatars {
+  // /home new tweet
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
+  // profile
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
+  // tweet
+  div[data-testid=tweet] > div:nth-child(1) > div > div,
+  // sidebar (who to follow)
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div {
+    & > a,
+    & > a > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
+    & > a[href$="/photo"] {
+      border-radius: 11.5%
+    }
+  }
+  // tweet (show this thread)
+  article + a[href*="/status/"] {
+    div[role=presentation],
+    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
+  }
+
+  // dashboard profile
+  .gt2-dashboard-profile .gt2-avatar {
+    border-radius: 10%;
+  }
+}
+
+
 /*
 .gt2-opt-keep-tweets-in-tl {
   div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
@@ -633,7 +665,7 @@ a.gt2-trend {
 
       img {
         border: 3px solid var(--color-elem-dark);
-        border-radius: 50%;
+        border-radius: inherit;
         width: 82px;
         height: 82px;
         box-sizing: border-box;
