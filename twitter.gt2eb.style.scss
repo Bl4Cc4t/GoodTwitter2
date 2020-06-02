@@ -753,6 +753,9 @@ a.gt2-trend {
       flex-direction: column;
 
       .gt2-name {
+        width: 210px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: incr(18px);
         font-weight: 700;
         &:hover {
@@ -861,6 +864,9 @@ a.gt2-trend {
   .gt2-user {
     top: 103px;
     left: 90px;
+    .gt2-name {
+      width: 160px;
+    }
   }
 
   .gt2-stats {
