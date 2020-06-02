@@ -211,7 +211,7 @@ main {
           & > div {
             border-radius: 0;
             border: 1px solid var(--color-gray-dark);
-            background-color: var(--color-elem-dark);
+            background-color: var(--color-elem);
             margin-bottom: 10px;
 
             &:nth-last-child(1) nav {
@@ -365,7 +365,7 @@ body:not(.gt2-opt-sticky-sidebars) {
     & > svg {
       position: absolute;
       fill: currentcolor;
-      color: var(--color-elem-dark);
+      color: var(--color-elem);
       filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
       transform: unset !important;
       bottom: unset !important;
@@ -511,7 +511,7 @@ a.gt2-trend {
   height: 46px;
   position: fixed;
   width: 100%;
-  background-color: var(--color-elem);
+  background-color: var(--color-navbar);
   z-index: 1;
   display: flex;
 
@@ -543,7 +543,7 @@ a.gt2-trend {
 
         & > div:nth-child(1) > div {
           background-color: var(--color-user);
-          border-color: var(--color-elem-dark);
+          border-color: var(--color-elem);
           font-size: calc(11px + var(--font-increment) * 0.75);
         }
         & > div:nth-child(2) {
@@ -614,7 +614,7 @@ a.gt2-trend {
 
       form > div:nth-child(1) > div {
         border: none;
-        background-color: var(--color-elem-dark);
+        background-color: var(--color-elem);
       }
     }
 
@@ -661,7 +661,7 @@ a.gt2-trend {
   .gt2-trends {
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;
-    background-color: var(--color-elem-dark);
+    background-color: var(--color-elem);
   }
 }
 
@@ -673,7 +673,7 @@ a.gt2-trend {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--color-gray-dark);
-  background-color: var(--color-elem-dark);
+  background-color: var(--color-elem);
   box-sizing: border-box;
 
   .gt2-banner {
@@ -688,11 +688,11 @@ a.gt2-trend {
       display: inline-block;
       margin: -30px 0 0 8px;
       padding: 1px;
-      background-color: var(--color-elem-dark);
+      background-color: var(--color-elem);
       border-radius: 50%;
 
       img {
-        border: 3px solid var(--color-elem-dark);
+        border: 3px solid var(--color-elem);
         border-radius: inherit;
         width: 82px;
         height: 82px;
@@ -838,7 +838,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 
 // gt2 settings
 .gt2-toggle-settings {
-  background-color: var(--color-elem-dark);
+  background-color: var(--color-elem);
   border-width: 1px 0;
   border-color: var(--color-gray-dark);
   border-style: solid;
@@ -867,7 +867,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 
 .gt2-settings-active > div:not(:empty),
 .gt2-settings-active > div:not(:empty) > div:not(:empty) {
-  background-color: var(--color-elem-dark);
+  background-color: var(--color-elem);
 
   & > div:nth-child(2) {
     border-right-width: 0;
@@ -890,7 +890,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   border-width: 0 0 1px 0;
   border-color: var(--color-gray-dark);
   border-style: solid;
-  background-color: var(--color-elem-dark);
+  background-color: var(--color-elem);
 }
 
 .gt2-settings-header {

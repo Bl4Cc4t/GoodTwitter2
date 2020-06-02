@@ -718,33 +718,33 @@
       "rgb(255, 255, 255)":
         `--color-bg:          #e6ecf0;
          --color-elem:        #ffffff;
-         --color-elem-dark:   #ffffff;
          --color-elem-sel:    rgb(245, 248, 255);
          --color-gray:        #8899a6;
          --color-gray-dark:   #e6ecf0;
          --color-gray-light:  rgb(101, 119, 134);
+         --color-navbar:      #ffffff;
          --color-text:        rgb(20, 23, 26);
          --color-shadow:      rgb(204, 214, 221);`,
       // dim
       "rgb(21, 32, 43)":
         `--color-bg:          #10171e;
-         --color-elem:        #1c2938;
-         --color-elem-dark:   rgb(21, 32, 43);
+         --color-elem:        rgb(21, 32, 43);
          --color-elem-sel:    rgb(25, 39, 52);
          --color-gray:        rgb(101, 119, 134);
          --color-gray-dark:   #38444d;
          --color-gray-light:  rgb(136, 153, 166);
+         --color-navbar:      #1c2938;
          --color-text:        rgb(255, 255, 255);
          --color-shadow:      rgb(61, 84, 102);`,
       // lightsOut
       "rgb(0, 0, 0)":
         `--color-bg:          #000000;
-         --color-elem:        #15181c;
-         --color-elem-dark:   #15181c;
+         --color-elem:        #000000;
          --color-elem-sel:    rgb(21, 24, 28);
          --color-gray:        #657786;
          --color-gray-dark:   #38444d;
          --color-gray-light:  rgb(110, 118, 125);
+         --color-navbar:      #15181c;
          --color-text:        rgb(217, 217, 217);
          --color-shadow:      rgb(47, 51, 54);`
     }
@@ -837,7 +837,7 @@
     // sectionated pages need special attention on one property
     if (["settings", "messages"].includes(path.split("/")[0])) {
       $("body").addClass("gt2-page-with-sections")
-    } else {
+    } else if (!path.startsWith("i/")) {
       $("body").removeClass("gt2-page-with-sections")
     }
   }
