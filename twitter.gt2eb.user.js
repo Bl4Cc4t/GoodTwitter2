@@ -125,8 +125,6 @@
     // native twitter display options
     display: {
       userColor:      "rgba(29, 161, 242, 1.00)",
-      bgColor:        "dim",
-      fontIncrement:  "0px"
     }
   }
 
@@ -140,11 +138,6 @@
     GM_setValue("opt_gt2", x)
   }
 
-  function setOptDisplay(key, val) {
-    let x = GM_getValue("opt_display")
-    x[key] = val
-    GM_setValue("opt_display", x)
-  }
 
   // insert navbar
   $("body").prepend(`
@@ -506,38 +499,25 @@
   let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
 
   // font increment
-  $("body").on("mousedown", `${displaySettings} > div:nth-child(5) > div > div:nth-child(2) > div > div > div > div:not(:empty),
-                             ${displaySettingsModal} > div:nth-child(4) > div > div > div:nth-child(2) > div > div > div > div:not(:empty)`, function() {
-    console.log($(this)[0]);
-    let fontIncr = {
-      "0%":   "-2px",
-      "25%":  "-1px",
-      "50%":  "0px",
-      "75%":  "1px",
-      "100%": "3px"
-    }[$(this)[0].style.left]
-    setOptDisplay("fontIncrement", fontIncr)
-    updateCSS()
+  let globalFontSizeObserver = new MutationObserver(updateCSS)
+  globalFontSizeObserver.observe($("html")[0], {
+    attributes: true,
+    attributeFilter: ["style"]
   })
 
   // user color
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
                          ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
     let userColor = $(this).find("svg").css("color")
-    setOptDisplay("userColor", userColor)
+    GM_setValue("opt_display", { userColor })
     updateCSS()
   })
 
   // background color
-  $("body").on("click", `${displaySettings} > div:nth-child(11) > div > div[role=radiogroup] > div,
-                         ${displaySettingsModal} > div:nth-child(8) > div > div[role=radiogroup] > div`, function() {
-    let bgColor = {
-      "rgb(255, 255, 255)": "default",
-      "rgb(21, 32, 43)":    "dim",
-      "rgb(0, 0, 0)":       "lightsOut"
-    }[$(this).css("background-color")]
-    setOptDisplay("bgColor", bgColor)
-    updateCSS()
+  let bgColorObserver = new MutationObserver(updateCSS)
+  bgColorObserver.observe($("body")[0], {
+    attributes: true,
+     attributeFilter: ["style"]
   })
 
 
@@ -710,6 +690,20 @@
   // ################
 
 
+  // get scrollbar width (https://stackoverflow.com/q/8079187)
+  function getScrollbarWidth() {
+    let $t = jQuery("<div/>").css({
+      position: "absolute",
+      top: "-100px",
+      overflowX: "hidden",
+      overflowY: "scroll"
+    }).prependTo("body")
+    let out = $t[0].offsetWidth - $t[0].clientWidth
+    $t.remove()
+    return out
+  }
+
+
   // update inserted CSS
   function updateCSS() {
     // delete old stylesheet
@@ -720,47 +714,48 @@
 
     // bgColor schemes
     let bgColors = {
-      default:   `--color-bg:         #e6ecf0;
-                  --color-elem:       #ffffff;
-                  --color-elem-dark:  #ffffff;
-                  --color-elem-sel:   rgb(245, 248, 255);
-                  --color-gray:       #8899a6;
-                  --color-gray-dark:  #e6ecf0;
-                  --color-gray-light: rgb(101, 119, 134);
-                  --color-text:       rgb(20, 23, 26);
-                  --color-shadow:     rgb(204, 214, 221);`,
-
-      dim:       `--color-bg:         #10171e;
-                  --color-elem:       #1c2938;
-                  --color-elem-dark:  rgb(21, 32, 43);
-                  --color-elem-sel:   rgb(25, 39, 52);
-                  --color-gray:       rgb(101, 119, 134);
-                  --color-gray-dark:  #38444d;
-                  --color-gray-light: rgb(136, 153, 166);
-                  --color-text:       rgb(255, 255, 255);
-                  --color-shadow:     rgb(61, 84, 102);`,
-
-      lightsOut: `--color-bg:         #000000;
-                  --color-elem:       #15181c;
-                  --color-elem-dark:  #15181c;
-                  --color-elem-sel:   rgb(21, 24, 28);
-                  --color-gray:       #657786;
-                  --color-gray-dark:  #38444d;
-                  --color-gray-light: rgb(110, 118, 125);
-                  --color-text:       rgb(217, 217, 217);
-                  --color-shadow:     rgb(47, 51, 54);`
+      // default (white)
+      "rgb(255, 255, 255)":
+        `--color-bg:          #e6ecf0;
+         --color-elem:        #ffffff;
+         --color-elem-dark:   #ffffff;
+         --color-elem-sel:    rgb(245, 248, 255);
+         --color-gray:        #8899a6;
+         --color-gray-dark:   #e6ecf0;
+         --color-gray-light:  rgb(101, 119, 134);
+         --color-text:        rgb(20, 23, 26);
+         --color-shadow:      rgb(204, 214, 221);`,
+      // dim
+      "rgb(21, 32, 43)":
+        `--color-bg:          #10171e;
+         --color-elem:        #1c2938;
+         --color-elem-dark:   rgb(21, 32, 43);
+         --color-elem-sel:    rgb(25, 39, 52);
+         --color-gray:        rgb(101, 119, 134);
+         --color-gray-dark:   #38444d;
+         --color-gray-light:  rgb(136, 153, 166);
+         --color-text:        rgb(255, 255, 255);
+         --color-shadow:      rgb(61, 84, 102);`,
+      // lightsOut
+      "rgb(0, 0, 0)":
+        `--color-bg:          #000000;
+         --color-elem:        #15181c;
+         --color-elem-dark:   #15181c;
+         --color-elem-sel:    rgb(21, 24, 28);
+         --color-gray:        #657786;
+         --color-gray-dark:   #38444d;
+         --color-gray-light:  rgb(110, 118, 125);
+         --color-text:        rgb(217, 217, 217);
+         --color-shadow:      rgb(47, 51, 54);`
     }
-
-    // get values
-    let optDisplay  = GM_getValue("opt_display")
 
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
-      .replace("--bgColors:$;",   bgColors[optDisplay.bgColor])
-      .replace("$userColor",      optDisplay.userColor)
-      .replace("$fontIncrement",  optDisplay.fontIncrement)
-      .replace("$scrollbarWidth", `${window.innerWidth - $("html")[0].clientWidth}px`)
+      .replace("--bgColors:$;",   bgColors[$("body").css("background-color")])
+      .replace("$userColor",      GM_getValue("opt_display").userColor)
+      .replace("$globalFontSize",  $("html").css("font-size"))
+      .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)
     )
 
     // add gt2-options to body for the css to take effect
