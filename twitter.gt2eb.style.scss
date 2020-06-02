@@ -86,6 +86,11 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     width: 270px !important;
   }
 
+  // hide sidebar
+  .gt2-left-sidebar {
+    display: none;
+  }
+
   @media only screen and (min-width: 1095px) {
     body:not(.gt2-opt-small-sidebars) {
       main > div {

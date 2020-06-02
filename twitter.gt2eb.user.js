@@ -126,7 +126,7 @@
     display: {
       userColor:      "rgba(29, 161, 242, 1.00)",
       bgColor:        "dim",
-      fontIncrement:  "0"
+      fontIncrement:  "0px"
     }
   }
 
@@ -381,9 +381,9 @@
 
   // insert the menu item
   function addSettingsToggle() {
-    waitForKeyElements("main section a[href='/settings/about']", () => {
+    waitForKeyElements("main a[href='/settings/about']", () => {
       if (!$(".gt2-toggle-settings").length) {
-        $("main section:nth-last-child(2) > div:nth-child(2) > div").append(`
+        $("main div[role=tablist]").append(`
           <a class="gt2-toggle-settings" href="/settings/gt2">
             <div>
               <span>GoodTwitter2</span>
