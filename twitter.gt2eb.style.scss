@@ -327,7 +327,7 @@ body:not(.gt2-opt-sticky-sidebars) {
       display: table;
 
       & > div {
-        display: table-cell;
+        display: contents;
         position: relative;
         & > div {
           display: none;
