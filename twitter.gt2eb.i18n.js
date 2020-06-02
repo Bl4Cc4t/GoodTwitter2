@@ -48,4 +48,4 @@ let i18n = {de: {
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
   "squareAvatars": "Square Avatars"
-},}; module.exports = i18n
+},}
