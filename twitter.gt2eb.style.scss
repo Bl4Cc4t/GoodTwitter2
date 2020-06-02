@@ -185,7 +185,6 @@ main {
   & > div > div > div {
 
     div[data-testid=primaryColumn],
-    div[data-testid=sidebarColumn],
     & > section {
       border-top-width: 1px !important;
     }
@@ -308,6 +307,30 @@ body:not(.gt2-opt-sticky-sidebars) {
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
     border-radius: 10%;
+  }
+}
+
+.gt2-opt-bigger-previews {
+  div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
+    & > div:nth-child(1) {
+      padding-bottom: 0 !important;
+    }
+    & > div:nth-child(2) {
+      position: relative;
+      display: table;
+
+      & > div {
+        display: table-cell;
+        position: relative;
+        & > div {
+          display: none;
+        }
+        & > img {
+          position: relative;
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 

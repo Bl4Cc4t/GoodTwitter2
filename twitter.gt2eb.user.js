@@ -121,6 +121,7 @@
       stickySidebars: true,
       leftTrends:     true,
       squareAvatars:  false,
+      biggerPreviews: true
     },
     // native twitter display options
     display: {
@@ -445,6 +446,7 @@
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("biggerPreviews")}
         </div>
       `)
 
