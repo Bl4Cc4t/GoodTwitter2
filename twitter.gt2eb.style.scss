@@ -2,7 +2,9 @@
   --bgColors:$;
   --color-user:       $userColor;
   --scrollbar-width:  $scrollbarWidth;
-  --font-increment:   calc($globalFontSize - 15px);
+  --global-font-size: $globalFontSize;
+
+  --font-increment:   calc(var(--global-font-size) - 15px);
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
@@ -711,12 +713,12 @@ a.gt2-trend {
       flex-direction: column;
 
       .gt2-name {
-        font-size: incr(18px);
+        font-size: incr(19px);
         font-weight: 700;
         text-decoration: underline;
       }
       .gt2-screenname {
-        font-size: incr(14px);
+        font-size: incr(15px);
         color: var(--color-gray);
 
         &:hover span {
@@ -727,7 +729,7 @@ a.gt2-trend {
 
     .gt2-toggle-acc-switcher-dropdown {
       right: 7.5px;
-      bottom: 91px;
+      bottom: calc(90px - (var(--global-font-size) - 13px) / 2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -763,7 +765,7 @@ a.gt2-trend {
 
     .gt2-stats {
       padding: 16px;
-      margin-top: calc(- var(--font-increment) * 2);
+      margin-top: calc(var(--font-increment) * -2);
 
       ul {
         display: table;
