@@ -61,9 +61,9 @@ Adding translations for the UI or even for this readme is not that difficult.
   1. Then, translate all strings and create a pull request.
     - No idea how git works and too proud to learn it? You can also create an new issue with your translation.
       Be sure to wrap the contents in
-      ```
-      \`\`\`code\`\`\`
-      ```
+      ````
+      ```code```
+      ````
 
 </details>
 
