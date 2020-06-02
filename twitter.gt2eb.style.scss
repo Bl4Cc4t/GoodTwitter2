@@ -659,7 +659,7 @@ a.gt2-trend {
       margin-right: 15px;
 
       img {
-        border-radius: 50%;
+        border-radius: 9999px;
         height: 32px;
         width: 32px;
       }
@@ -669,17 +669,19 @@ a.gt2-trend {
       }
     }
 
-    & > a[href='/compose/tweet'] {
-      font-size: 14px;
-      min-height: 34px !important;
-      width: auto;
+    .gt2-compose {
+      display: inline-flex;
+      align-items: center;
+      font-size: var(--global-font-size);
+      font-weight: 700;
+      min-height: 34px;
       background-color: var(--color-user);
-      padding: 0 10px;
+      color: white;
+      padding: 0 16px;
+      border-radius: 9999px;
 
-      & > div > span {
-        overflow: visible;
-        & > div > div {
-        }
+      &:hover {
+        cursor: pointer;
       }
     }
   }
@@ -726,7 +728,7 @@ a.gt2-trend {
       margin: -30px 0 0 8px;
       padding: 1px;
       background-color: var(--color-elem);
-      border-radius: 50%;
+      border-radius: 9999px;
 
       img {
         border: 3px solid var(--color-elem);
@@ -778,7 +780,7 @@ a.gt2-trend {
         transition: opacity 0.2s ease-in-out;
         background-color: var(--color-user);
         opacity: 0;
-        border-radius: 50%;
+        border-radius: 9999px;
         position: absolute;
         height: 27px;
         width: 27px;
@@ -973,7 +975,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
         transition: opacity 0.2s ease-in-out;
         background-color: var(--color-gray);
         opacity: 0;
-        border-radius: 50%;
+        border-radius: 9999px;
         padding: 10px;
       }
 

@@ -87,7 +87,7 @@
     if (Object.keys(i18n[lang]).includes(key)) {
       return i18n[lang][key]
     } else {
-      return false
+      return i18n.en[key]
     }
   }
 
@@ -151,6 +151,7 @@
         <div class="gt2-toggle-navbar-dropdown">
           <img src="" />
         </div>
+        <div class="gt2-compose">${locStr("composeNewTweet")}</div>
       </div>
     </nav>
   `)
@@ -172,10 +173,6 @@
     // twitter logo
     $("h1 a[href='/home'] svg")
     .appendTo(".gt2-nav-center a")
-
-    // tweet button
-    $("a[href='/compose/tweet']")
-    .appendTo(".gt2-nav-right")
 
     // add image to dropdown
     $(".gt2-toggle-navbar-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
@@ -314,6 +311,12 @@
   }
 
 
+  // compose tweet button
+  $("body").on("click", ".gt2-nav .gt2-compose", () => {
+    $("header a[href='/compose/tweet'] > div").click()
+  })
+
+
   // recreate the legacy profile layout
   function rebuildOldProfile() {
     let banner = `a[href$='/header_photo'] img`
@@ -380,6 +383,7 @@
   // ###################
   // #  GT2 settings   #
   // ###################
+
 
   // insert the menu item
   function addSettingsToggle() {
