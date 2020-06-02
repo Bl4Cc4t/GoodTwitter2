@@ -46,6 +46,27 @@ By default, the blue color is selected and used internally in this script.
 To change that, navigate to the display settings and select your current color setting again.
 Now it should look the way you want!
 
+### Helping
+Any help is appreciated!
+Adding translations for the UI or even for this readme is not that difficult.
+
+<details>
+  <summary>Adding an UI Translation</summary>
+
+  1. Go to the i18n folder.
+  1. If a translation does not yet exist for your language, duplicate the `en.json` file and change the file name language id accordingly (i.e. `ja.json` or `nl.json`).
+    - You can get the id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
+      ![](https://i.imgur.com/AarcTav.png)
+
+  1. Then, translate all strings and create a pull request.
+    - No idea how git works and too proud to learn it? You can also create an new issue with your translation.
+      Be sure to wrap the contents in
+      ````
+      ```code```
+      ````
+
+</details>
+
 ### Previews
 ![](https://i.imgur.com/3xY7IIpr.png)
 ![](https://i.imgur.com/gxg8CUEr.png)

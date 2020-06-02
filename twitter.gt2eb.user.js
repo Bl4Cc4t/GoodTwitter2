@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.17
+// @version       0.0.18
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -9,8 +9,8 @@
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
 // @grant         GM_setValue
-// @resource      css     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      i18n    https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
+// @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
+// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
@@ -81,13 +81,13 @@
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
-    let i18n = JSON.parse(GM_getResourceText("i18n"))
+    console.log(GM_getResourceText("i18n"));
     let lang = $("html").attr("lang")
         lang = Object.keys(i18n).includes(lang) ? lang : "en"
     if (Object.keys(i18n[lang]).includes(key)) {
       return i18n[lang][key]
     } else {
-      return false
+      return i18n.en[key]
     }
   }
 
@@ -151,6 +151,7 @@
         <div class="gt2-toggle-navbar-dropdown">
           <img src="" />
         </div>
+        <div class="gt2-compose">${locStr("composeNewTweet")}</div>
       </div>
     </nav>
   `)
@@ -172,10 +173,6 @@
     // twitter logo
     $("h1 a[href='/home'] svg")
     .appendTo(".gt2-nav-center a")
-
-    // tweet button
-    $("a[href='/compose/tweet']")
-    .appendTo(".gt2-nav-right")
 
     // add image to dropdown
     $(".gt2-toggle-navbar-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
@@ -314,6 +311,12 @@
   }
 
 
+  // compose tweet button
+  $("body").on("click", ".gt2-nav .gt2-compose", () => {
+    $("header a[href='/compose/tweet'] > div").click()
+  })
+
+
   // recreate the legacy profile layout
   function rebuildOldProfile() {
     let banner = `a[href$='/header_photo'] img`
@@ -380,6 +383,7 @@
   // ###################
   // #  GT2 settings   #
   // ###################
+
 
   // insert the menu item
   function addSettingsToggle() {
