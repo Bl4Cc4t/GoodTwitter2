@@ -179,7 +179,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   }
 }
 
-// hide complete header
+// hide header completely
 header {
   display: none !important;
 }
@@ -364,8 +364,7 @@ body:not(.gt2-opt-sticky-sidebars) {
 
     & > svg {
       position: absolute;
-      fill: currentcolor;
-      color: var(--color-elem);
+      fill: var(--color-elem);
       filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
       transform: unset !important;
       bottom: unset !important;
@@ -401,9 +400,25 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
+// colorized buttons for image modals
+div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
+  // comments
+  & > div:nth-child(1) svg {
+    fill: #1da1f2;
+  }
+  // retweets
+  & > div:nth-child(2) svg {
+    fill: #17bf63;
+  }
+  // likes
+  & > div:nth-child(3) svg {
+    fill: #e0245e;
+  }
+}
+
+
 .gt2-svg {
-  fill: currentcolor;
-  color: var(--color-gray-light);
+  fill: var(--color-gray-light);
 }
 
 // hidden tweets (autoRefresh)
