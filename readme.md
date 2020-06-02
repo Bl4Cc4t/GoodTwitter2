@@ -59,11 +59,13 @@ Adding translations for the UI or even for this readme is not that difficult.
       ![](https://i.imgur.com/AarcTav.png)
 
   1. Then, translate all strings and create a pull request.
-    1. No idea how git works and too proud to learn it? You can also create an new issue with your translation.
-      Be sure to wrap the contents in
-      ````
-      ```code```
-      ````
+
+  No idea how git works and too proud to learn it? You can also create an new issue with your translation.
+
+  Be sure to wrap the contents in
+  ````
+  ```code```
+  ````
 
 </details>
 
