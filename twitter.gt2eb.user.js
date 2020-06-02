@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.14
+// @version       0.0.15
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -10,7 +10,6 @@
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @resource      css     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      cssMap  https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css.map
 // @resource      i18n    https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.json
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
@@ -744,8 +743,6 @@
       .replace("$userColor",      optDisplay.userColor)
       .replace("$fontIncrement",  optDisplay.fontIncrement)
       .replace("$scrollbarWidth", `${window.innerWidth - $("html")[0].clientWidth}px`)
-      // source map
-      .replace("twitter.gt2eb.style.css.map", GM_getResourceURL("cssMap"))
     )
 
     // add gt2-options to body for the css to take effect
