@@ -713,12 +713,12 @@ a.gt2-trend {
       flex-direction: column;
 
       .gt2-name {
-        font-size: incr(19px);
+        font-size: incr(18px);
         font-weight: 700;
         text-decoration: underline;
       }
       .gt2-screenname {
-        font-size: incr(15px);
+        font-size: incr(14px);
         color: var(--color-gray);
 
         &:hover span {
@@ -729,7 +729,7 @@ a.gt2-trend {
 
     .gt2-toggle-acc-switcher-dropdown {
       right: 7.5px;
-      bottom: calc(90px - (var(--global-font-size) - 13px) / 2);
+      bottom: calc(93px + (var(--font-increment) + 2px) / 2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -781,13 +781,13 @@ a.gt2-trend {
             flex-direction: column;
 
             span:nth-child(1) {
-              font-size: incr(12px);
+              font-size: incr(13px);
               font-weight: bold;
               transition: color .15s ease-in-out;
               color: var(--color-gray);
             }
             span:nth-child(2) {
-              font-size: incr(18px);
+              font-size: incr(19px);
               font-weight: bold;
               line-height: 1;
               padding-top: 3px;
