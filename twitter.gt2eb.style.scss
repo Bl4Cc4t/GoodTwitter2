@@ -25,7 +25,6 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
 // normal display
 @media only screen and (min-width: 1350px) {
-
   body:not(.gt2-opt-small-sidebars) {
     main > div {
       width: 1320px !important;
@@ -36,8 +35,13 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     .gt2-nav-right {
       margin-right: space(1335px);
     }
+
     #{$navbarDropdown} {
       right: space(1335px) !important;
+    }
+    #{$accSwitcherDropdown} {
+      left: space(1248px) !important;
+      right: unset !important;
     }
 
     &.gt2-opt-sticky-sidebars {
@@ -46,7 +50,11 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       }
     }
   }
+}
 
+
+// normal display (with smallSidebars enabled)
+@media only screen and (min-width: 1230px) {
   .gt2-opt-small-sidebars {
     main > div {
       width: 1200px !important;
@@ -57,8 +65,13 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     .gt2-nav-right {
       margin-right: space(1220px);
     }
+
     #{$navbarDropdown} {
       right: space(1220px) !important;
+    }
+    #{$accSwitcherDropdown} {
+      left: space(1248px) !important;
+      right: unset !important;
     }
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
@@ -66,77 +79,45 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       }
     }
   }
-
-  #{$accSwitcherDropdown} {
-    top: 220px !important;
-    left: space(1248px) !important;
-    right: unset !important;
-  }
 }
 
+
 // only right sidebar
-@media only screen and (max-width: 1350px) {
+@media only screen and (max-width: 1350px)
+                   and (min-width: 1095px) {
+  body:not(.gt2-opt-small-sidebars) {
+    main > div {
+      width: 960px !important;
+    }
+    main > div > div > div {
+      left: 0 !important;
+    }
+    .gt2-nav-left {
+      margin-left: space(975px);
+    }
+    .gt2-nav-right {
+      margin-right: space(975px);
+    }
+
+    #{$navbarDropdown} {
+      right: space(975px) !important;
+    }
+
+    // hide sidebar
+    .gt2-left-sidebar {
+      display: none;
+    }
+  }
 
   #{$accSwitcherDropdown} {
-    top: 220px !important;
     left: unset !important;
     right: space(960px) !important;
   }
-
-  // smaller search
-  .gt2-search > div {
-    width: 270px !important;
-  }
-
-  // hide sidebar
-  .gt2-left-sidebar {
-    display: none;
-  }
-
-  @media only screen and (min-width: 1095px) {
-    body:not(.gt2-opt-small-sidebars) {
-      main > div {
-        width: 960px !important;
-      }
-      main > div > div > div {
-        left: 0 !important;
-      }
-      .gt2-nav-left {
-        margin-left: space(975px);
-      }
-      .gt2-nav-right {
-        margin-right: space(975px);
-      }
-      #{$navbarDropdown} {
-        right: space(975px) !important;
-      }
-    }
-
-    .gt2-opt-small-sidebars {
-      main > div {
-        width: 900px !important;
-      }
-      .gt2-nav-left {
-        margin-left: space(915px);
-      }
-      .gt2-nav-right {
-        margin-right: space(915px);
-      }
-      #{$navbarDropdown} {
-        right: space(915px) !important;
-      }
-    }
-  }
-
-  @media only screen and (min-width: 1005px) {
-    div[data-testid=primaryColumn] {
-      margin-right: 10px;
-    }
-  }
 }
 
-// right small sidebar
-@media only screen and (max-width: 1095px) {
+
+// right small sidebar (for reuse)
+@mixin displayRightSmallSidebar {
   main > div {
     width: 900px !important;
     & > div > div {
@@ -157,7 +138,46 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     top: 195px !important;
     right: space(902.5px) !important;
   }
+  // smaller search
+  .gt2-search > div {
+    width: 270px !important;
+  }
 }
+
+
+// only right sidebar (with smallSidebars enabled)
+@media only screen and (max-width: 1230px)
+                   and (min-width: 1095px) {
+  .gt2-opt-small-sidebars {
+    @include displayRightSmallSidebar;
+  }
+}
+
+
+// right small sidebar
+@media only screen and (max-width: 1095px) {
+  @include displayRightSmallSidebar;
+}
+
+
+// some right sidebar
+@mixin someRightSidebar {
+  div[data-testid=primaryColumn] {
+    margin-right: 10px;
+  }
+}
+@media only screen and (max-width: 1350px)
+                   and (min-width: 1005px) {
+  body:not(.gt2-opt-small-sidebars) {
+    @include someRightSidebar;
+  }
+  .gt2-opt-small-sidebars {
+    @media only screen and (max-width: 1230px) {
+      @include someRightSidebar;
+    }
+  }
+}
+
 
 // no sidebars at all
 @media only screen and (max-width: 1005px) {
@@ -226,9 +246,6 @@ main {
       }
     }
     // settings
-    & > section:nth-last-child(2) {
-      margin-left: 10px;
-    }
     & > section:nth-last-child(1) {
       & > div:nth-child(3),
       & > div:nth-child(4) {
@@ -253,14 +270,8 @@ main {
 
 
 // options
-.gt2-opt-small-sidebars {
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
-    width: 290px;
-  }
-}
 
 .gt2-opt-sticky-sidebars {
-
   &:not(.gt2-page-with-sections) {
     .gt2-left-sidebar {
       position: fixed;
@@ -277,11 +288,21 @@ body:not(.gt2-opt-sticky-sidebars) {
 
 .gt2-opt-small-sidebars {
   .gt2-left-sidebar,
-  div[data-testid=sidebarColumn] {
+  div[data-testid=sidebarColumn],
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
     width: 290px;
   }
   .gt2-toggle-acc-switcher-dropdown {
     bottom: 82px !important;
+  }
+  #{$accSwitcherDropdown} {
+    top: 200px !important;
+  }
+}
+
+body:not(.gt2-opt-small-sidebars) {
+  #{$accSwitcherDropdown} {
+    top: 220px !important;
   }
 }
 
@@ -666,6 +687,7 @@ a.gt2-trend {
 
 .gt2-left-sidebar {
   width: 350px;
+  margin-right: 10px;
 
   & > div {
     margin-bottom: 10px;
@@ -966,7 +988,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
         box-sizing: border-box;
 
         svg {
-          color: white;
+          fill: white;
           display: none;
         }
       }

@@ -213,7 +213,13 @@
   // profile view left sidebar
   function addDashboardProfile() {
     let w = window.innerWidth
-    let insertAt = w >= 1350 ? ".gt2-left-sidebar" : "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
+    let insertAt = ".gt2-left-sidebar"
+
+    // insert into the right sidebar
+    if ((!GM_getValue("opt_gt2").smallSidebars && w < 1350) ||
+        ( GM_getValue("opt_gt2").smallSidebars && w < 1230)) {
+      insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
+    }
 
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
@@ -262,7 +268,7 @@
       `
 
       waitForKeyElements(`${insertAt}`, () => {
-        if (w >= 1350) {
+        if (insertAt.startsWith(".gt2")) {
           $(insertAt).prepend(dashPro)
         } else {
           $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
@@ -276,16 +282,19 @@
 
   // things to do when resizing the window
   $(window).on("resize", () => {
-    if (window.innerWidth >= 1350) {
-      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
-    } else {
+    let w = window.innerWidth
+    if ((!GM_getValue("opt_gt2").smallSidebars && w < 1350) ||
+        ( GM_getValue("opt_gt2").smallSidebars && w < 1230)) {
       // move dash profile to right sidebar
       $(".gt2-dashboard-profile")
       .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
       // remove trends
       $(".gt2-trends").remove()
+    } else {
+      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
     }
-    if (window.innerWidth <= 1095) {
+
+    if (w <= 1095) {
       $(".gt2-dashboard-profile").addClass("gt2-small")
     } else {
       $(".gt2-dashboard-profile").removeClass("gt2-small")
