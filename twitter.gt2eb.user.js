@@ -401,6 +401,7 @@
     window.history.pushState({}, "", $(this).attr("href"))
     addSettings()
     $("main section:nth-last-child(2) > div:nth-child(2) > div").addClass("gt2-settings-active")
+    changeSettingsTitle()
   })
 
   // disable settings display again when clicking on another menu item
@@ -428,11 +429,9 @@
       </div>`
   }
 
-  // add the settings to the display
+  // add the settings to the display (does not yet work on screens smaller than 1050px)
   function addSettings() {
     if (!$(".gt2-settings").length) {
-      let t = $("title").html()
-      $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
       $("main section:nth-last-child(1)").prepend(`
         <div class="gt2-settings-header">GoodTwitter2 Settings</div>
         <div class="gt2-settings">
@@ -452,6 +451,25 @@
       handleKTILOpt()
     }
   }
+
+  // change the title to display GoodTwitter2
+  function changeSettingsTitle() {
+    let t = $("title").html()
+    $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
+  }
+
+  // observe title changes when on the gt2 page
+  let settingsTitleMut = new MutationObserver(mutations => {
+    mutations.forEach(m => {
+      if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
+        changeSettingsTitle()
+      }
+    })
+  })
+  settingsTitleMut.observe($("head")[0], {
+    subtree: true,
+    childList: true
+  })
 
 
   // handler for the toggles
