@@ -19,7 +19,6 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
   - The disableAutoRefresh feature is extremely buggy atm, any help would be very nice
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
-- **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
 ## Features
 - Legacy Navbar is back!
@@ -53,6 +52,8 @@ To use this script, you need a userscript manager.
     - This procedure is hopefully not required forever (See [Tampermonkey#952](https://github.com/Tampermonkey/tampermonkey/issues/952))
   - Navigate to `about:config` (that is a Firefox specific page, so type that into your address bar)
   - search for the `security.csp.enable` flag and set it to `false`
+
+**Do not use this script together with the GoodTwitter extension. Disable it first!**
 
 ## FAQ
 ### The highlights color does not match my settings!
