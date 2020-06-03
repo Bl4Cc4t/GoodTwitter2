@@ -53,18 +53,21 @@ Adding translations for the UI or even for this readme is not that difficult.
 <details>
   <summary>Adding an UI Translation</summary>
 
+  1. Switch to the dev branch.
   1. Go to the i18n folder.
-  1. If a translation does not yet exist for your language, duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
-    - You can get the language id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
-      ![](https://i.imgur.com/AarcTav.png)
-
-  1. Then, translate all strings and create a pull request.
+  1. If a translation does not yet exist for your language:
+    1. Fork the repo
+    1. Duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
+      1. You can get the language id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
+        ![](https://i.imgur.com/AarcTav.png)
+    1. Then, translate all strings and create a pull request.
+    1. You can of course search for potential spelling mistakes or the likes and correct them for existing localizations!
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
 
-  Be sure to wrap the contents in
+  Be sure to wrap the contents in backticks, like this:
   ````
-  ```code```
+  ```content```
   ````
 
 </details>
