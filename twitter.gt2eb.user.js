@@ -5,6 +5,7 @@
 // @author        schwarzkatz
 // @match         https://twitter.com/*
 // @grant         GM_addStyle
+// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
@@ -46,7 +47,7 @@
     } else return this.humanize()
   }
 
-  // get kebab case
+  // get kebab case (thisIsAString -> this-is-a-string)
   String.prototype.toKebab = function() {
     let out = ""
     for (let e of this.toString().split("")) {
@@ -70,6 +71,7 @@
       avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"),
       screenName: x(/screen_name\":\"(.+?)\",/),
       name:       x(/name\":\"(.+?)\",/),
+      id:         x(/id_str\":\"(\d+)\"/),
       stats: {
         tweets:    parseInt(x(/statuses_count\":(\d+),/)),
         followers: parseInt(x(/\"followers_count\":(\d+),/)),
@@ -81,7 +83,6 @@
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
-    console.log(GM_getResourceText("i18n"));
     let lang = $("html").attr("lang")
         lang = Object.keys(i18n).includes(lang) ? lang : "en"
     if (Object.keys(i18n[lang]).includes(key)) {
@@ -123,15 +124,28 @@
       biggerPreviews: true
     },
     // native twitter display options
-    display: {
-      userColor:      "rgba(29, 161, 242, 1.00)",
-    }
+    userColor:      "rgba(29, 161, 242, 1.00)"
   }
 
   // set default options
-  if (GM_getValue("opt_gt2")      == undefined) GM_setValue("opt_gt2", opt.gt2)
-  if (GM_getValue("opt_display")  == undefined) GM_setValue("opt_display", opt.display)
+  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt.gt2)
 
+  // backwards compatibility
+  if (GM_getValue("opt_display") != undefined) {
+    GM_setValue("opt_userColor", {
+      [getInfo().id]: GM_getValue("opt_display").userColor
+    })
+    GM_deleteValue("opt_display")
+  }
+
+  // set default userColor
+  if (GM_getValue("opt_userColor") == undefined) {
+    GM_setValue("opt_userColor", {
+      [getInfo().id]: opt.userColor
+    })
+  }
+
+  // toggles opt_gt2 values
   function toggleGt2Opt(key) {
     let x = GM_getValue("opt_gt2")
     x[key] = !x[key]
@@ -521,8 +535,9 @@
   // user color
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
                          ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
-    let userColor = $(this).find("svg").css("color")
-    GM_setValue("opt_display", { userColor })
+    GM_setValue("opt_userColor", {
+      [getInfo().id]: $(this).find("svg").css("color")
+    })
     updateCSS()
   })
 
@@ -765,10 +780,10 @@
     // insert new stylesheet
     let a = GM_addStyle(
       GM_getResourceText("css")
-      .replace("--bgColors:$;",   bgColors[$("body").css("background-color")])
-      .replace("$userColor",      GM_getValue("opt_display").userColor)
-      .replace("$globalFontSize",  $("html").css("font-size"))
-      .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)
+      .replace("--bgColors:$;",     bgColors[$("body").css("background-color")])
+      .replace("$userColor",        GM_getValue("opt_userColor")[getInfo().id])
+      .replace("$globalFontSize",   $("html").css("font-size"))
+      .replace("$scrollbarWidth",   `${getScrollbarWidth()}px`)
     )
 
     // add gt2-options to body for the css to take effect
