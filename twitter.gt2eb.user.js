@@ -121,7 +121,7 @@
       stickySidebars: true,
       leftTrends:     true,
       squareAvatars:  false,
-      biggerPreviews: true
+      biggerPreviews: false
     },
     // native twitter display options
     userColor:      "rgba(29, 161, 242, 1.00)"
