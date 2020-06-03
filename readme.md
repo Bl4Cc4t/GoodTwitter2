@@ -2,7 +2,7 @@
 
 A try to make Twitter look good again.
 
-### Content
+## Content
 - [Background](#background)
 - [Disclaimers](#disclaimers)
 - [Features](#features)
@@ -12,34 +12,34 @@ A try to make Twitter look good again.
 - [Translations](#translations)
 
 
-### Background
+## Background
 Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [stop working too](https://twitter.com/ZusorOW/status/1258885451055800320), I decided to create a somewhat fix for the site.
 
-### Disclaimers
+## Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
   - The disableAutoRefresh feature is extremely buggy atm, any help would be very nice
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 - **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
-### Features
+## Features
 - Legacy Navbar is back!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
 
-#### Custom Settings
-##### Timeline
+### Custom Settings
+#### Timeline
 - *Force Latest*: Forces the “You’re seeing latest tweets first” display option
 - *Disable Auto Refresh*: Hides newly loaded tweets and creates a button to show them. This feature is not stable.
 - *Keep Tweets in Timeline*: Tries to disable the automatic removal of tweets once they are out of viewing range. This does not yet work.
-##### Display
+#### Display
 - *Sticky Sidebars*: This lets the sidebars stick to the page, so you will see them even if you scroll down.
 - *Small Sidebars*: Don’t like sidebars taking up precious space? Decrease their width by 60px with this toggle.
 - *Left Sidebar Trends*: Shows Trends in the left sidebar, if there is one.
 - *Square Avatars*: pre-2017 square avatars.
 - *Bigger Image Previews*: Images that are tall get displayed in their full height.
 
-### Installation
+## Installation
 To use this script, you need a userscript manager.
 
 - Install Tampermonkey (Greasemonkey is not supported at the moment)
@@ -54,30 +54,30 @@ To use this script, you need a userscript manager.
   - Navigate to `about:config` (that is a Firefox specific page, so type that into your address bar)
   - search for the `security.csp.enable` flag and set it to `false`
 
-### FAQ
-#### The highlights color does not match my settings!
+## FAQ
+### The highlights color does not match my settings!
 By default, the blue color is selected and used internally in this script.
 
 To change that, navigate to the display settings and select your current color setting again.
 Now it should look the way you want!
 
-#### I want to help!
+### I want to help!
 That’s awesome! If you want to help with the translations, check out [Adding translations](#adding-translations).
 
 If you want to help with coding, you can take a look at the issue tracker. There are a lot of things that do not work correctly and I certainly could use some help with that :)
 
-### Previews
+## Previews
 ![](https://i.imgur.com/3xY7IIpr.png)
 ![](https://i.imgur.com/gxg8CUEr.png)
 ![](https://i.imgur.com/Z7rzilXr.png)
 
-### Translations
+## Translations
 Thanks to these awesome people, there are translations available for the following languages:
-- [@granmacco](https://github.com/granmacco): Spanish
-- [@krokerik](https://github.com/krokerik): Swedish
-- English and German is natively supported.
+- Spanish (added by [@granmacco](https://github.com/granmacco))
+- Swedish (added by [@krokerik](https://github.com/krokerik))
+- English and German are natively supported.
 
-#### Adding translations
+### Adding translations
 If your language is not yet supported, you can help by adding it!
 Open the following box to learn more.
 
@@ -100,5 +100,4 @@ Open the following box to learn more.
   ````
   ```content```
   ````
-
 </details>
