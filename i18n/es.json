@@ -9,7 +9,7 @@
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
   "tweets": "Tweets",
-  "autoRefresh": "Desactivar Auto Refresco (experimental)",
+  "disableAutoRefresh": "Desactivar Auto Refresco (experimental)",
   "autoRefreshDesc": "Desactiva la representación en directo de tweets en tu timeline. <br />No espere grandes resultados, ya que no siempre funciona.",
   "biggerPreviews": "Previsualizaciones de imágenes más grandes",
   "biggerPreviewsDesc": "Las imágenes más largas de algunos tweets se muestran en toda su longitud.",

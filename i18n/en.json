@@ -9,7 +9,7 @@
   "showNewMulti": "Show $ new Tweets",
   "showNewSingle": "Show 1 new Tweet",
   "tweets": "Tweets",
-  "autoRefresh": "Disable Auto Refresh (experimental)",
+  "disableAutoRefresh": "Disable Auto Refresh (experimental)",
   "autoRefreshDesc": "Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.",
   "biggerPreviews": "Bigger Image Previews",
   "biggerPreviewsDesc": "Tall images in tweets are shown in their full height.",

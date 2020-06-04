@@ -9,7 +9,7 @@
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
   "tweets": "Tweets",
-  "autoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",
+  "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",
   "autoRefreshDesc": "Inaktivera livevisning av tweets på din tidslinje. <br/>Förvänta dig inte fantastiska resultat, det här fungerar inte alltid.",
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",

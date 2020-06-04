@@ -9,7 +9,7 @@
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
   "tweets": "Tweets",
-  "autoRefresh": "Auto Refresh deaktivieren (experimentell)",
+  "disableAutoRefresh": "Auto Refresh deaktivieren (experimentell)",
   "autoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "biggerPreviews": "Größere Bildervorschauen",
   "biggerPreviewsDesc": "Bildervorschauen in Tweets werden komplett angezeigt.",
