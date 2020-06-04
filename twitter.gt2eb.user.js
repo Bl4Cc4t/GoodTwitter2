@@ -68,7 +68,7 @@
 
   // get account information
   function getInfo() {
-    let sel = "#react-root + script"
+    let sel = "#react-root ~ script"
     let infoScript = $(sel).text()
     function x(reg, defaultVal="") {
       let m = infoScript.match(reg)
@@ -722,6 +722,9 @@
 
   // get scrollbar width (https://stackoverflow.com/q/8079187)
   function getScrollbarWidth() {
+    if ($("html").is("[data-minimalscrollbar]")) {
+      return 0
+    }
     let $t = jQuery("<div/>").css({
       position: "absolute",
       top: "-100px",

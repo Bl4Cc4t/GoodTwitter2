@@ -14,7 +14,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
-  @return calc((100vw - #{$val}) / 2);
+  @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
 }
 
 // returns val with --font-increment added
@@ -30,17 +30,17 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       width: 1320px !important;
     }
     .gt2-nav-left {
-      margin-left: space(1335px);
+      margin-left: space(1318px);
     }
     .gt2-nav-right {
-      margin-right: space(1335px);
+      margin-right: space(1318px);
     }
 
     #{$navbarDropdown} {
-      right: space(1335px) !important;
+      right: space(1320px) !important;
     }
     #{$accSwitcherDropdown} {
-      left: space(1248px) !important;
+      left: space(1235px) !important;
       right: unset !important;
     }
 
@@ -48,6 +48,10 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       div[data-testid=primaryColumn] {
         left: 360px;
       }
+    }
+
+    &.gt2-page-with-sections .gt2-left-sidebar + * {
+      margin-left: 10px;
     }
   }
 }
@@ -60,23 +64,27 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       width: 1200px !important;
     }
     .gt2-nav-left {
-      margin-left: space(1220px);
+      margin-left: space(1198px);
     }
     .gt2-nav-right {
-      margin-right: space(1220px);
+      margin-right: space(1198px);
     }
 
     #{$navbarDropdown} {
-      right: space(1220px) !important;
+      right: space(1200px) !important;
     }
     #{$accSwitcherDropdown} {
-      left: space(1248px) !important;
+      left: space(1235px) !important;
       right: unset !important;
     }
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         left: 300px;
       }
+    }
+
+    &.gt2-page-with-sections .gt2-left-sidebar + * {
+      margin-left: 10px;
     }
   }
 }
@@ -93,14 +101,14 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
       left: 0 !important;
     }
     .gt2-nav-left {
-      margin-left: space(975px);
+      margin-left: space(958px);
     }
     .gt2-nav-right {
-      margin-right: space(975px);
+      margin-right: space(958px);
     }
 
     #{$navbarDropdown} {
-      right: space(975px) !important;
+      right: space(960px) !important;
     }
 
     // hide sidebar
@@ -126,13 +134,13 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   }
 
   .gt2-nav-left {
-    margin-left: space(915px);
+    margin-left: space(898px);
   }
   .gt2-nav-right {
-    margin-right: space(915px);
+    margin-right: space(898px);
   }
   #{$navbarDropdown} {
-    right: space(915px) !important;
+    right: space(900px) !important;
   }
   #{$accSwitcherDropdown} {
     top: 195px !important;
@@ -150,6 +158,12 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
                    and (min-width: 1095px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
+
+    &.gt2-page-with-sections {
+      .gt2-left-sidebar {
+        display: none;
+      }
+    }
   }
 }
 
@@ -157,6 +171,12 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 // right small sidebar
 @media only screen and (max-width: 1095px) {
   @include displayRightSmallSidebar;
+
+  .gt2-page-with-sections {
+    .gt2-left-sidebar {
+      display: none;
+    }
+  }
 }
 
 
@@ -409,6 +429,7 @@ body:not(.gt2-opt-small-sidebars) {
 // global background color
 body {
   background-color: var(--color-bg) !important;
+  margin-right: 0 !important; // minimalscrollbar
 }
 
 
