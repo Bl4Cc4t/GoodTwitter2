@@ -8,7 +8,7 @@
   "profile": "プロフィール",
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
-  "tweets": "ツイート数",
+  "tweets": "ツイート",
   "autoRefresh": "自動更新を無効にする（実験的）",
   "autoRefreshDesc": "タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。",
   "biggerPreviews": "より大きな画像プレビュー",
