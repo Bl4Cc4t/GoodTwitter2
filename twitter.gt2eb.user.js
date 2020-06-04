@@ -110,40 +110,20 @@
       </svg>`
   }
 
-  // default values
-  const opt = {
-    // custom options
-    gt2: {
-      autoRefresh:    false,
-      forceLatest:    false,
-      keepTweetsInTL: true,
-      smallSidebars:  false,
-      stickySidebars: true,
-      leftTrends:     true,
-      squareAvatars:  false,
-      biggerPreviews: false
-    },
-    // native twitter display options
-    userColor:      "rgba(29, 161, 242, 1.00)"
+  // custom options and their default values
+  const opt_gt2 = {
+    autoRefresh:    false,
+    forceLatest:    false,
+    keepTweetsInTL: true,
+    smallSidebars:  false,
+    stickySidebars: true,
+    leftTrends:     true,
+    squareAvatars:  false,
+    biggerPreviews: true
   }
 
   // set default options
-  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt.gt2)
-
-  // backwards compatibility
-  if (GM_getValue("opt_display") != undefined) {
-    GM_setValue("opt_userColor", {
-      [getInfo().id]: GM_getValue("opt_display").userColor
-    })
-    GM_deleteValue("opt_display")
-  }
-
-  // set default userColor
-  if (GM_getValue("opt_userColor") == undefined) {
-    GM_setValue("opt_userColor", {
-      [getInfo().id]: opt.userColor
-    })
-  }
+  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
 
   // toggles opt_gt2 values
   function toggleGt2Opt(key) {
@@ -151,7 +131,6 @@
     x[key] = !x[key]
     GM_setValue("opt_gt2", x)
   }
-
 
   // insert navbar
   $("body").prepend(`
@@ -163,7 +142,7 @@
       <div class="gt2-nav-right">
         <div class="gt2-search"></div>
         <div class="gt2-toggle-navbar-dropdown">
-          <img src="" />
+          <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
         </div>
         <div class="gt2-compose">${locStr("composeNewTweet")}</div>
       </div>
@@ -187,11 +166,6 @@
     // twitter logo
     $("h1 a[href='/home'] svg")
     .appendTo(".gt2-nav-center a")
-
-    // add image to dropdown
-    $(".gt2-toggle-navbar-dropdown img").attr("src", getInfo().avatarUrl.replace("normal", "bigger"))
-
-    updateCSS()
   })
 
 
@@ -285,8 +259,6 @@
           $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
         }
       })
-
-      updateCSS()
     }
   }
 
@@ -526,26 +498,41 @@
   let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
 
   // font increment
-  let globalFontSizeObserver = new MutationObserver(updateCSS)
+  let globalFontSizeObserver = new MutationObserver(mut => {
+    mut.forEach(m => {
+      let fs = m.target[m.attributeName]["font-size"]
+      if (m.oldValue && fs != "" && fs != m.oldValue.match(/font-size: (\d+px);/)[1]) {
+        updateCSS()
+      }
+    })
+  })
   globalFontSizeObserver.observe($("html")[0], {
     attributes: true,
+    attributeOldValue: true,
     attributeFilter: ["style"]
   })
 
   // user color
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
                          ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
-    GM_setValue("opt_userColor", {
-      [getInfo().id]: $(this).find("svg").css("color")
-    })
+    GM_setValue("opt_display_userColor", $(this).find("svg").css("color"))
     updateCSS()
   })
 
   // background color
-  let bgColorObserver = new MutationObserver(updateCSS)
+  let bgColorObserver = new MutationObserver(mut => {
+    mut.forEach(m => {
+      let bgc = m.target[m.attributeName]["background-color"]
+      if (m.oldValue && bgc != "" && bgc != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
+        GM_setValue("opt_display_bgColor", bgc)
+        updateCSS()
+      }
+    })
+  })
   bgColorObserver.observe($("body")[0], {
     attributes: true,
-     attributeFilter: ["style"]
+    attributeOldValue: true,
+    attributeFilter: ["style"]
   })
 
 
@@ -733,13 +720,7 @@
 
 
   // update inserted CSS
-  function updateCSS() {
-    // delete old stylesheet
-    let id = GM_getValue("styleId")
-    if ($(`#${id}`).length) {
-      $(`#${id}`).remove()
-    }
-
+  async function updateCSS() {
     // bgColor schemes
     let bgColors = {
       // default (white)
@@ -777,21 +758,38 @@
          --color-shadow:      rgb(47, 51, 54);`
     }
 
-    // insert new stylesheet
-    let a = GM_addStyle(
-      GM_getResourceText("css")
-      .replace("--bgColors:$;",     bgColors[$("body").css("background-color")])
-      .replace("$userColor",        GM_getValue("opt_userColor")[getInfo().id])
-      .replace("$globalFontSize",   $("html").css("font-size"))
-      .replace("$scrollbarWidth",   `${getScrollbarWidth()}px`)
-    )
+    // initialize with the current settings
+    if (GM_getValue("gt2_initialized") == undefined) {
+      waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
+        GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
+        GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
+        GM_setValue("gt2_initialized", true)
+        window.location.reload()
+      })
 
-    // add gt2-options to body for the css to take effect
-    for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
-      if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
+    } else {
+      // add gt2-options to body for the css to take effect
+      for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
+        if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
+      }
+
+      // delete old stylesheet
+      if ($(".gt2-style").length) {
+        $(".gt2-style").remove()
+      }
+      console.log($("body").css("background-color"));
+
+      // insert new stylesheet
+      $("html").prepend(`
+        <style class="gt2-style">
+          ${GM_getResourceText("css")
+          .replace("--bgColors:$;",   bgColors[GM_getValue("opt_display_bgColor")])
+          .replace("$userColor",      GM_getValue("opt_display_userColor"))
+          .replace("$globalFontSize", $("html").css("font-size"))
+          .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
+        </style>`
+      )
     }
-
-    GM_setValue("styleId", $(a).attr("id"))
   }
 
 
@@ -804,6 +802,12 @@
   function urlChange() {
     let path  = getPath()
     console.log(`Current path: ${path}`)
+
+    // update css
+    if (!$("body").hasClass("gt2-css-inserted")) {
+      updateCSS()
+      $("body").addClass("gt2-css-inserted")
+    }
 
     // highlight current location in left bar
     $(`.gt2-nav-left > a`).removeClass("active")
@@ -863,11 +867,12 @@
     }
 
     // sectionated pages need special attention on one property
-    if (["settings", "messages"].includes(path.split("/")[0])) {
+    if (["settings", "messages"].includes(path.split("/")[0]) && !path.startsWith("settings/trends")) {
       $("body").addClass("gt2-page-with-sections")
     } else if (!path.startsWith("i/")) {
       $("body").removeClass("gt2-page-with-sections")
     }
+
   }
   urlChange()
 
