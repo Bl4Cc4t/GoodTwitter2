@@ -160,7 +160,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 }
 
 
-// some right sidebar
+// any right sidebar
 @mixin someRightSidebar {
   div[data-testid=primaryColumn] {
     margin-right: 10px;
@@ -289,6 +289,7 @@ body:not(.gt2-opt-sticky-sidebars) {
 .gt2-opt-small-sidebars {
   .gt2-left-sidebar,
   div[data-testid=sidebarColumn],
+  div[data-testid=sidebarColumn] > div > div:nth-child(2),
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
     width: 290px;
   }
