@@ -21,6 +21,12 @@
 (function($, waitForKeyElements) {
   "use strict"
 
+
+  // ###########################
+  // #  convenience functions  #
+  // ###########################
+
+
   // seperate number with commas
   Number.prototype.humanize = function() {
     let t = this.toString().split("")
@@ -35,6 +41,7 @@
     return out
   }
 
+
   // shorter version: 1.4M, 23.4K, etc
   Number.prototype.humanizeShort = function() {
     let t = this.toString()
@@ -46,6 +53,7 @@
       return `${t.slice(0, -1)}${t.slice(-1) != 0 ? `.${t.slice(-1)}` : ""}K`
     } else return this.humanize()
   }
+
 
   // get kebab case (thisIsAString -> this-is-a-string)
   String.prototype.toKebab = function() {
@@ -80,6 +88,7 @@
     }
   }
 
+
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
@@ -92,10 +101,12 @@
     }
   }
 
+
   // current path
   function getPath() {
     return window.location.href.slice(20).split("?")[0]
   }
+
 
   // svg convenience
   function getSvg(key) {
@@ -110,63 +121,49 @@
       </svg>`
   }
 
-  // custom options and their default values
-  const opt_gt2 = {
-    autoRefresh:    false,
-    forceLatest:    false,
-    keepTweetsInTL: true,
-    smallSidebars:  false,
-    stickySidebars: true,
-    leftTrends:     true,
-    squareAvatars:  false,
-    biggerPreviews: true
-  }
 
-  // set default options
-  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
 
-  // toggles opt_gt2 values
-  function toggleGt2Opt(key) {
-    let x = GM_getValue("opt_gt2")
-    x[key] = !x[key]
-    GM_setValue("opt_gt2", x)
-  }
+  // #######################
+  // #  various functions  #
+  // #######################
 
-  // insert navbar
-  $("body").prepend(`
-    <nav class="gt2-nav">
-      <div class="gt2-nav-left"></div>
-      <div class="gt2-nav-center">
-        <a href="/home"></a>
-      </div>
-      <div class="gt2-nav-right">
-        <div class="gt2-search"></div>
-        <div class="gt2-toggle-navbar-dropdown">
-          <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
+
+  // add navbar
+  function addNavbar() {
+    $("body").prepend(`
+      <nav class="gt2-nav">
+        <div class="gt2-nav-left"></div>
+        <div class="gt2-nav-center">
+          <a href="/home"></a>
         </div>
-        <div class="gt2-compose">${locStr("composeNewTweet")}</div>
-      </div>
-    </nav>
-  `)
+        <div class="gt2-nav-right">
+          <div class="gt2-search"></div>
+          <div class="gt2-toggle-navbar-dropdown">
+            <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
+          </div>
+          <div class="gt2-compose">${locStr("composeNewTweet")}</div>
+        </div>
+      </nav>
+    `)
 
-  let navHome = `nav > a[href='/home'],
-                 nav > a[href='/notifications'],
-                 nav > a[href='/messages']`
+    let navHome = `nav > a[href='/home'],
+                   nav > a[href='/notifications'],
+                   nav > a[href='/messages']`
 
-  GM_setValue("hasRun_insertIntoNavbar", false)
-  waitForKeyElements(navHome, () => {
-    if (GM_getValue("hasRun_insertIntoNavbar") == true) return
-    else GM_setValue("hasRun_insertIntoNavbar", true)
+    waitForKeyElements(navHome, () => {
+      if ($("body").hasClass("gt2-navbar-added")) return
+      // home, notifications, messages
+      $(navHome)
+      .appendTo(".gt2-nav-left")
+      urlChange()
 
-    // home, notifications, messages
-    $(navHome)
-    .appendTo(".gt2-nav-left")
-    urlChange()
+      // twitter logo
+      $("h1 a[href='/home'] svg")
+      .appendTo(".gt2-nav-center a")
 
-    // twitter logo
-    $("h1 a[href='/home'] svg")
-    .appendTo(".gt2-nav-center a")
-  })
+      $("body").addClass("gt2-navbar-added")
+    })
+  }
 
 
   // add search
@@ -179,7 +176,7 @@
     }
 
     // on /search is already a search bar in the center
-    if (window.location.href.split("/")[3].split("?")[0] == "search") {
+    if (getPath() == "search") {
       rem()
     } else {
       let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
@@ -201,8 +198,8 @@
     let insertAt = ".gt2-left-sidebar"
 
     // insert into the right sidebar
-    if ((!GM_getValue("opt_gt2").smallSidebars && w < 1350) ||
-        ( GM_getValue("opt_gt2").smallSidebars && w < 1230)) {
+    if ((!GM_getValue("opt_gt2").smallSidebars && w <= 1350) ||
+        ( GM_getValue("opt_gt2").smallSidebars && w <= 1230)) {
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
@@ -263,28 +260,6 @@
   }
 
 
-  // things to do when resizing the window
-  $(window).on("resize", () => {
-    let w = window.innerWidth
-    if ((!GM_getValue("opt_gt2").smallSidebars && w < 1350) ||
-        ( GM_getValue("opt_gt2").smallSidebars && w < 1230)) {
-      // move dash profile to right sidebar
-      $(".gt2-dashboard-profile")
-      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
-      // remove trends
-      $(".gt2-trends").remove()
-    } else {
-      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
-    }
-
-    if (w <= 1095) {
-      $(".gt2-dashboard-profile").addClass("gt2-small")
-    } else {
-      $(".gt2-dashboard-profile").removeClass("gt2-small")
-    }
-  })
-
-
   // move trends
   function moveTrends() {
     let trends = `div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div a[href='/settings/trends']`
@@ -295,12 +270,6 @@
       .appendTo(".gt2-left-sidebar")
     })
   }
-
-
-  // compose tweet button
-  $("body").on("click", ".gt2-nav .gt2-compose", () => {
-    $("header a[href='/compose/tweet'] > div").click()
-  })
 
 
   // recreate the legacy profile layout
@@ -314,12 +283,182 @@
       `)
     })
   }
-  // rebuildOldProfile()
 
+
+  // hide navbar on modal
+  let obsModal = new MutationObserver(() => {
+    if ($("body").css("overflow-y") == "hidden") {
+      $(".gt2-nav").addClass("not-focused")
+
+    } else {
+      $(".gt2-nav").removeClass("not-focused")
+    }
+  })
+  obsModal.observe($("body")[0], {
+    attributes: true,
+    attributeFilter: [ "style" ]
+  })
+
+
+  // force latest tweets view.
+  function forceLatest() {
+    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"
+    let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
+    let tmp
+
+    GM_setValue("hasRun_forceLatest", false)
+    waitForKeyElements(sparkOptToggle, () => {
+      if (!GM_getValue("hasRun_forceLatest")) {
+        $(sparkOptToggle).click()
+        tmp = GM_addStyle(`
+          ${sparkOpt} {
+            display: none;
+          }
+        `)
+      }
+
+      waitForKeyElements(`${sparkOpt} a[href='/settings/content_preferences']`, () => {
+        if (!GM_getValue("hasRun_forceLatest")) {
+          GM_setValue("hasRun_forceLatest", true)
+          if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
+            $(sparkOpt).children().eq(1).click()
+          } else {
+            $(sparkOptToggle).click()
+          }
+          $(tmp).remove()
+        }
+      })
+    })
+  }
+
+
+  // wrap trending stuff in anchors
+  function wrapTrends() {
+    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
+      let ht = $(this).text()
+      $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
+    })
+  }
+
+
+
+  // ########################
+  // #  disableAutoRefresh  #
+  // ########################
+
+
+  // add counter for new tweets
+  function updateNewTweetDisplay() {
+    let nr = $(".gt2-hidden-tweet").length
+    let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
+    if (nr) {
+      // add button
+      if ($(".gt2-show-hidden-tweets").length == 0) {
+        if (window.location.href.split("/")[3].startsWith("home")) {
+          $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
+        } else {
+          $("div[data-testid='primaryColumn'] section > div > div > div > div:nth-child(1)").append(`
+            <div class="gt2-show-hidden-tweets"></div>
+          `)
+        }
+      }
+      $(".gt2-show-hidden-tweets").html(text)
+      let t = $("title").text()
+      $("title").text(`[${nr}] ${t.startsWith("(") ? t.split(") ")[1] : t.startsWith("[") ? t.split("] ")[1] : t}`)
+    } else {
+      $(".gt2-show-hidden-tweets").empty().removeClass("gt2-show-hidden-tweets")
+      resetTitle()
+    }
+  }
+
+
+  // show new tweets
+  $("body").on("click", ".gt2-show-hidden-tweets", () => {
+    let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
+    GM_setValue("topTweet", topTweet)
+    $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
+    console.log(`topTweet: ${topTweet}`)
+    updateNewTweetDisplay()
+  })
+
+
+  // change title to display X new tweets
+  function resetTitle() {
+    let t = $("title").text()
+    let notifications = ".gt2-nav-left a[href='/notifications'] > div > div:nth-child(1) > div:nth-child(2)"
+    let messages      = ".gt2-nav-left a[href='/messages'] > div > div:nth-child(1) > div:nth-child(2)"
+    let nr = 0
+    if ($(notifications).length) nr += parseInt($(notifications).text())
+    if ($(messages).length)      nr += parseInt($(messages).text())
+    $("title").text(`${nr > 0 ? `(${nr}) ` : ""}${t.startsWith("[") ? t.split("] ")[1] : t}`)
+  }
+
+
+  // observe and hide auto refreshed tweets
+  function hideTweetsOnAutoRefresh() {
+    let obsTL = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        if (m.addedNodes.length == 1) {
+          let $t = $(m.addedNodes[0])
+          if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
+            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && (!$("> div > div > div > a[href^='/i/status/']").length || $t.next().find("> div > div > div > a[href^='/i/status/']").length)) {
+              $t.addClass("gt2-hidden-tweet-part")
+            } else {
+              console.log($t);
+              $t.addClass("gt2-hidden-tweet")
+              updateNewTweetDisplay()
+            }
+          } else if ($t.find("> div > div > div > a[href^='/i/status/']").length) {
+            console.log($t);
+            $t.addClass("gt2-hidden-tweet-part")
+          }
+        }
+      })
+    })
+    let tlSel = `div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div,
+                 div[data-testid=primaryColumn] > div > div:nth-child(2) section > div > div > div`
+    waitForKeyElements(tlSel, () => {
+      // memorize last tweet
+      let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
+      GM_setValue("topTweet", topTweet)
+      console.log(`topTweet: ${topTweet}`)
+      obsTL.observe($(tlSel)[0], {
+        childList: true,
+        subtree: true
+      })
+    })
+  }
+
+
+  // keep the site from removing tweets (not working)
+  function keepTweetsInTL() {
+    let o = Element.prototype.removeChild
+    Element.prototype.removeChild = function(child) {
+      // check if element is a tweet
+      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article > div > div[data-testid=tweet]").length) {
+        console.log($(child)[0])
+        return child
+      } else {
+        return o.apply(this, arguments)
+      }
+    }
+  }
+
+
+
+  // #####################
+  // #  click handlers   #
+  // #####################
+
+
+  // compose tweet button
+  $("body").on("click", ".gt2-nav .gt2-compose", () => {
+    $("header a[href='/compose/tweet'] > div").click()
+  })
 
 
   // add elements to navbar dropdow menu
-  $(".gt2-toggle-navbar-dropdown").click(() => {
+  $("body").on("click", ".gt2-toggle-navbar-dropdown", () => {
     console.log("navbar toggled");
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
@@ -366,9 +505,37 @@
   })
 
 
+  // expand the “What’s happening?” tweet field (minimized by default)
+  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", e => $(e.currentTarget).addClass("gt2-compose-large"))
+
+
+
   // ###################
   // #  GT2 settings   #
   // ###################
+
+
+  // custom options and their default values
+  const opt_gt2 = {
+    disableAutoRefresh: false,
+    forceLatest:        false,
+    keepTweetsInTL:     true,
+    smallSidebars:      false,
+    stickySidebars:     true,
+    leftTrends:         true,
+    squareAvatars:      false,
+    biggerPreviews:     true
+  }
+
+  // set default options
+  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
+
+  // toggles opt_gt2 values
+  function toggleGt2Opt(key) {
+    let x = GM_getValue("opt_gt2")
+    x[key] = !x[key]
+    GM_setValue("opt_gt2", x)
+  }
 
 
   // insert the menu item
@@ -387,6 +554,7 @@
     })
   }
 
+
   // toggle settings display
   $("body").on("click", ".gt2-toggle-settings", function(event) {
     event.preventDefault()
@@ -396,12 +564,14 @@
     changeSettingsTitle()
   })
 
+
   // disable settings display again when clicking on another menu item
   $("body").on("click", `main section:nth-last-child(2) > div:nth-child(2) > div:not(:first-child):not(:last-child),
                          main section:nth-last-child(2) > div:nth-child(2) > div:last-child > div:not(:first-child):not(:nth-child(2))`, () => {
     $(".gt2-settings-active").removeClass("gt2-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
+
 
   // get html for a gt2 toggle (checkbox)
   function getSettingTogglePart(name) {
@@ -420,6 +590,7 @@
         ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
       </div>`
   }
+
 
   // add the settings to the display (does not yet work on screens smaller than 1050px)
   function addSettings() {
@@ -444,11 +615,13 @@
     }
   }
 
+
   // change the title to display GoodTwitter2
   function changeSettingsTitle() {
     let t = $("title").html()
     $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
   }
+
 
   // observe title changes when on the gt2 page
   let settingsTitleMut = new MutationObserver(mutations => {
@@ -488,6 +661,7 @@
   }
 
 
+
   // ########################
   // #   display settings   #
   // ########################
@@ -497,20 +671,6 @@
   let displaySettings = "main > div > div > div > section:nth-last-child(1) > div:nth-child(2)"
   let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
 
-  // font increment
-  let globalFontSizeObserver = new MutationObserver(mut => {
-    mut.forEach(m => {
-      let fs = m.target[m.attributeName]["font-size"]
-      if (m.oldValue && fs != "" && fs != m.oldValue.match(/font-size: (\d+px);/)[1]) {
-        updateCSS()
-      }
-    })
-  })
-  globalFontSizeObserver.observe($("html")[0], {
-    attributes: true,
-    attributeOldValue: true,
-    attributeFilter: ["style"]
-  })
 
   // user color
   $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
@@ -518,6 +678,7 @@
     GM_setValue("opt_display_userColor", $(this).find("svg").css("color"))
     updateCSS()
   })
+
 
   // background color
   let bgColorObserver = new MutationObserver(mut => {
@@ -536,168 +697,21 @@
   })
 
 
-  // ##########
-  // #  rest  #
-  // ##########
-
-
-  // hide navbar on modal
-  let obsModal = new MutationObserver(() => {
-    if ($("body").css("overflow-y") == "hidden") {
-      $(".gt2-nav").addClass("not-focused")
-
-    } else {
-      $(".gt2-nav").removeClass("not-focused")
-    }
+  // font increment
+  let globalFontSizeObserver = new MutationObserver(mut => {
+    mut.forEach(m => {
+      let fs = m.target[m.attributeName]["font-size"]
+      if (m.oldValue && fs != "" && fs != m.oldValue.match(/font-size: (\d+px);/)[1]) {
+        updateCSS()
+      }
+    })
   })
-  obsModal.observe($("body")[0], {
+  globalFontSizeObserver.observe($("html")[0], {
     attributes: true,
-    attributeFilter: [ "style" ]
+    attributeOldValue: true,
+    attributeFilter: ["style"]
   })
 
-
-  // add counter for new tweets
-  function updateNewTweetDisplay() {
-    let nr = $(".gt2-hidden-tweet").length
-    let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
-    if (nr) {
-      // add button
-      if ($(".gt2-show-hidden-tweets").length == 0) {
-        if (window.location.href.split("/")[3].startsWith("home")) {
-          $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
-        } else {
-          $("div[data-testid='primaryColumn'] section > div > div > div > div:nth-child(1)").append(`
-            <div class="gt2-show-hidden-tweets"></div>
-          `)
-        }
-      }
-      $(".gt2-show-hidden-tweets").html(text)
-      let t = $("title").text()
-      $("title").text(`[${nr}] ${t.startsWith("(") ? t.split(") ")[1] : t.startsWith("[") ? t.split("] ")[1] : t}`)
-    } else {
-      $(".gt2-show-hidden-tweets").empty().removeClass("gt2-show-hidden-tweets")
-      resetTitle()
-    }
-  }
-
-  // show new tweets
-  $("body").on("click", ".gt2-show-hidden-tweets", () => {
-    let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
-    GM_setValue("topTweet", topTweet)
-    $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
-    console.log(`topTweet: ${topTweet}`)
-    updateNewTweetDisplay()
-  })
-
-
-  function resetTitle() {
-    let t = $("title").text()
-    let notifications = ".gt2-nav-left a[href='/notifications'] > div > div:nth-child(1) > div:nth-child(2)"
-    let messages      = ".gt2-nav-left a[href='/messages'] > div > div:nth-child(1) > div:nth-child(2)"
-    let nr = 0
-    if ($(notifications).length) nr += parseInt($(notifications).text())
-    if ($(messages).length)      nr += parseInt($(messages).text())
-    $("title").text(`${nr > 0 ? `(${nr}) ` : ""}${t.startsWith("[") ? t.split("] ")[1] : t}`)
-  }
-
-
-  // observe and hide auto refreshed tweets
-  function hideTweetsOnAutoRefresh() {
-    let obsTL = new MutationObserver(mutations => {
-      mutations.forEach(m => {
-        if (m.addedNodes.length == 1) {
-          let $t = $(m.addedNodes[0])
-          if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
-            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && (!$("> div > div > div > a[href^='/i/status/']").length || $t.next().find("> div > div > div > a[href^='/i/status/']").length)) {
-              $t.addClass("gt2-hidden-tweet-part")
-            } else {
-              console.log($t);
-              $t.addClass("gt2-hidden-tweet")
-              updateNewTweetDisplay()
-            }
-          } else if ($t.find("> div > div > div > a[href^='/i/status/']").length) {
-            console.log($t);
-            $t.addClass("gt2-hidden-tweet-part")
-          }
-        }
-      })
-    })
-    let tlSel = `div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div,
-                 div[data-testid=primaryColumn] > div > div:nth-child(2) section > div > div > div`
-    waitForKeyElements(tlSel, () => {
-      // memorize last tweet
-      let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
-      GM_setValue("topTweet", topTweet)
-      console.log(`topTweet: ${topTweet}`)
-      obsTL.observe($(tlSel)[0], {
-        childList: true,
-        subtree: true
-      })
-    })
-  }
-  if (window.location.href.slice(20).startsWith("home") && GM_getValue("opt_gt2").autoRefresh) hideTweetsOnAutoRefresh()
-
-  // keep the site from removing tweets (not working)
-  function keepTweetsInTL() {
-    let o = Element.prototype.removeChild
-    Element.prototype.removeChild = function(child) {
-      // check if element is a tweet
-      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article > div > div[data-testid=tweet]").length) {
-        console.log($(child)[0])
-        return child
-      } else {
-        return o.apply(this, arguments)
-      }
-    }
-  }
-  // if (GM_getValue("opt_gt2").keepTweetsInTL) keepTweetsInTL()
-
-
-  // force latest tweets view.
-  function forceLatest() {
-    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"
-    let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
-    let tmp
-
-    GM_setValue("hasRun_forceLatest", false)
-    waitForKeyElements(sparkOptToggle, () => {
-      if (!GM_getValue("hasRun_forceLatest")) {
-        $(sparkOptToggle).click()
-        tmp = GM_addStyle(`
-          ${sparkOpt} {
-            display: none;
-          }
-        `)
-      }
-
-      waitForKeyElements(`${sparkOpt} a[href='/settings/content_preferences']`, () => {
-        if (!GM_getValue("hasRun_forceLatest")) {
-          GM_setValue("hasRun_forceLatest", true)
-          if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
-            $(sparkOpt).children().eq(1).click()
-          } else {
-            $(sparkOptToggle).click()
-          }
-          $(tmp).remove()
-        }
-      })
-    })
-  }
-  if (GM_getValue("opt_gt2").forceLatest) forceLatest()
-
-
-  // wrap trending stuff in anchors
-  function wrapTrends() {
-    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
-      let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href='/search?q=${ht.includes("#") ? encodeURIComponent(ht) : `"${ht}"` }'>${ht}</a>`)
-    })
-  }
-  waitForKeyElements("div[data-testid=trend]", wrapTrends)
-
-
-  // minimize the “What’s happening?” field by default
-  $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", e => $(e.currentTarget).addClass("gt2-compose-large"))
 
 
   // ################
@@ -793,6 +807,34 @@
   }
 
 
+
+  // ##############
+  // #  resizing  #
+  // ##############
+
+  // things to do when resizing the window
+  $(window).on("resize", () => {
+    let w = window.innerWidth
+    if ((!GM_getValue("opt_gt2").smallSidebars && w <= 1350) ||
+        ( GM_getValue("opt_gt2").smallSidebars && w <= 1230)) {
+      // move dash profile to right sidebar
+      $(".gt2-dashboard-profile")
+      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
+      // remove trends
+      $(".gt2-trends").remove()
+    } else {
+      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
+    }
+
+    if (w <= 1095) {
+      $(".gt2-dashboard-profile").addClass("gt2-small")
+    } else {
+      $(".gt2-dashboard-profile").removeClass("gt2-small")
+    }
+  })
+
+
+
   // ################
   // #  URL change  #
   // ################
@@ -803,15 +845,24 @@
     let path  = getPath()
     console.log(`Current path: ${path}`)
 
+
     // update css
     if (!$("body").hasClass("gt2-css-inserted")) {
       updateCSS()
       $("body").addClass("gt2-css-inserted")
     }
 
+
+    // add navbar
+    if (!$("body").hasClass("gt2-navbar-added")) {
+      addNavbar()
+    }
+
+
     // highlight current location in left bar
     $(`.gt2-nav-left > a`).removeClass("active")
     $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
+
 
     // insert left sidebar
     if (!$(".gt2-left-sidebar").length) {
@@ -820,6 +871,7 @@
         $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
       })
     }
+
 
     // insert dashboard profile only on these pages
     if ([
@@ -844,6 +896,7 @@
       $(".gt2-dashboard-profile").remove()
     }
 
+
     // hide/add search
     if (["explore", "search"].some(e => path.startsWith(e))) {
       $("body").removeClass("gt2-search-added")
@@ -852,10 +905,12 @@
       addSearch()
     }
 
+
     // move trends
     if (window.innerWidth >= 1350 && GM_getValue("opt_gt2").leftTrends) {
       moveTrends()
     }
+
 
     // add gt2 settings on /settings
     if (path.split("/")[0] == "settings") {
@@ -866,12 +921,30 @@
       }
     }
 
-    // sectionated pages need special attention on one property
-    if (["settings", "messages"].includes(path.split("/")[0]) && !path.startsWith("settings/trends")) {
+
+    // sectionated pages need special attention on some properties
+    if (path.split("/")[0] == "messages" ||
+        (path.split("/")[0] == "settings" && !["trends", "profile"].includes(path.split("/")[1])) ) {
       $("body").addClass("gt2-page-with-sections")
     } else if (!path.startsWith("i/")) {
       $("body").removeClass("gt2-page-with-sections")
     }
+
+
+    // disableAutoRefresh
+    if (GM_getValue("opt_gt2").disableAutoRefresh &&
+        (path.split("/")[0] == "home" || path.match(/^[^\/]+\/lists/)) ) {
+      hideTweetsOnAutoRefresh()
+    }
+
+    // force latest
+    if (GM_getValue("opt_gt2").forceLatest && path.split("/")[0] == "home") {
+      forceLatest()
+    }
+
+    // wrap trends
+    waitForKeyElements("div[data-testid=trend]", wrapTrends)
+
 
   }
   urlChange()
