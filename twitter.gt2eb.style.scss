@@ -822,6 +822,7 @@ a.gt2-trend {
         li {
           display: table-cell;
           list-style: none;
+          width: 1%;
           a {
             display: flex;
             flex-direction: column;
@@ -868,12 +869,6 @@ a.gt2-trend {
     left: 90px;
     .gt2-name {
       width: 160px;
-    }
-  }
-
-  .gt2-stats {
-    li {
-      width: 90px;
     }
   }
 }
