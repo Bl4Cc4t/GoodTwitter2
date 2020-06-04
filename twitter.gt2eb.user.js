@@ -130,28 +130,29 @@
 
   // add navbar
   function addNavbar() {
-    $("body").prepend(`
-      <nav class="gt2-nav">
-        <div class="gt2-nav-left"></div>
-        <div class="gt2-nav-center">
-          <a href="/home"></a>
-        </div>
-        <div class="gt2-nav-right">
-          <div class="gt2-search"></div>
-          <div class="gt2-toggle-navbar-dropdown">
-            <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
-          </div>
-          <div class="gt2-compose">${locStr("composeNewTweet")}</div>
-        </div>
-      </nav>
-    `)
-
     let navHome = `nav > a[href='/home'],
                    nav > a[href='/notifications'],
                    nav > a[href='/messages']`
 
     waitForKeyElements(navHome, () => {
       if ($("body").hasClass("gt2-navbar-added")) return
+
+      $("body").prepend(`
+        <nav class="gt2-nav">
+          <div class="gt2-nav-left"></div>
+          <div class="gt2-nav-center">
+            <a href="/home"></a>
+          </div>
+          <div class="gt2-nav-right">
+            <div class="gt2-search"></div>
+            <div class="gt2-toggle-navbar-dropdown">
+              <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
+            </div>
+            <div class="gt2-compose">${locStr("composeNewTweet")}</div>
+          </div>
+        </nav>
+      `)
+
       // home, notifications, messages
       $(navHome)
       .appendTo(".gt2-nav-left")

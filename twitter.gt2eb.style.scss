@@ -241,6 +241,10 @@ main {
             &:empty {
               display: none;
             }
+
+            &:last-child {
+              margin-bottom: 0;
+            }
           }
         }
       }
@@ -690,8 +694,17 @@ a.gt2-trend {
 
 
 .gt2-left-sidebar {
+  margin-top: -10px;
+  padding-top: 10px;
   width: 350px;
-  margin-right: 10px;
+  height: calc(100vh - 57px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   & > div {
     margin-bottom: 10px;
