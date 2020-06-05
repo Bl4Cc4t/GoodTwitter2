@@ -269,18 +269,6 @@
   }
 
 
-  // move trends
-  function moveTrends() {
-    let trends = `div[data-testid=sidebarColumn] div:nth-child(4) > div[data-testid=trend]`
-    waitForKeyElements(trends, function() {
-      if ($(".gt2-trends").length) $(".gt2-trends").remove()
-      $(trends).parents("section").parent().parent().parent()
-      .detach().addClass("gt2-trends")
-      .appendTo(".gt2-left-sidebar")
-    })
-  }
-
-
   // recreate the legacy profile layout
   function rebuildOldProfile() {
     let banner = `a[href$='/header_photo'] img`
@@ -317,6 +305,33 @@
           $("body").removeClass("gt2-hide-spark-opt")
         }
       })
+    })
+  }
+
+
+  // handle trends (move and show10)
+  function handleTrends() {
+    let w = window.innerWidth
+    let trends = `div[data-testid=sidebarColumn] div:nth-child(4) > div[data-testid=trend],
+                  .gt2-left-sidebar div:nth-child(4) > div[data-testid=trend]`
+
+    waitForKeyElements(trends, function() {
+      // move trends
+      if (GM_getValue("opt_gt2").leftTrends
+          && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
+            || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
+        if ($(".gt2-trends").length) $(".gt2-trends").remove()
+        $(trends).parents("section").parent().parent().parent()
+        .detach().addClass("gt2-trends")
+        .appendTo(".gt2-left-sidebar")
+      }
+
+      // show 10 trends
+      if (GM_getValue("opt_gt2").show10Trends) {
+        if ($(trends).parent().parent().find("> div").length == 7) {
+          $(trends).parent().parent().find("> div[role=button]").click()
+        }
+      }
     })
   }
 
@@ -524,11 +539,22 @@
     stickySidebars:     true,
     leftTrends:         true,
     squareAvatars:      false,
-    biggerPreviews:     true
+    biggerPreviews:     true,
+    show10Trends:       false
   }
 
   // set default options
   if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
+
+  // add previously non existant options
+  if (Object.keys(GM_getValue("opt_gt2")).length != Object.keys(opt_gt2).length) {
+    let old = GM_getValue("opt_gt2")
+    for (let k of Object.keys(opt_gt2)) {
+      if (Object.keys(old).includes(k)) delete opt_gt2[k]
+    }
+    Object.apply(old, opt_gt2)
+    GM_setValue("opt_gt2", old)
+  }
 
   // toggles opt_gt2 values
   function toggleGt2Opt(key) {
@@ -608,6 +634,7 @@
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
+          ${getSettingTogglePart("show10Trends")}
         </div>
       `)
 
@@ -905,10 +932,9 @@
       $("body").addClass("gt2-not-logged-in")
     }
 
-    // move trends
-    if (window.innerWidth >= 1350 && GM_getValue("opt_gt2").leftTrends) {
-      moveTrends()
-    }
+
+    // handle trends
+    handleTrends()
 
 
     // add gt2 settings on /settings
@@ -918,6 +944,8 @@
         addSettings()
         $("body").addClass("gt2-settings-active")
       }
+    } else {
+      $("body").removeClass("gt2-settings-active")
     }
 
 
