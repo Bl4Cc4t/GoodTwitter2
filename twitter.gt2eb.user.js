@@ -77,15 +77,21 @@
     return {
       bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
       avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"),
-      screenName: x(/screen_name\":\"(.+?)\",/),
-      name:       x(/name\":\"(.+?)\",/),
-      id:         x(/id_str\":\"(\d+)\"/),
+      screenName: x(/screen_name\":\"(.+?)\",/, "youarenotloggedin"),
+      name:       x(/name\":\"(.+?)\",/, "Anonymous"),
+      id:         x(/id_str\":\"(\d+)\"/, "0"),
       stats: {
-        tweets:    parseInt(x(/statuses_count\":(\d+),/)),
-        followers: parseInt(x(/\"followers_count\":(\d+),/)),
-        following: parseInt(x(/friends_count\":(\d+),/)),
+        tweets:    parseInt(x(/statuses_count\":(\d+),/, "0")),
+        followers: parseInt(x(/\"followers_count\":(\d+),/, "0")),
+        following: parseInt(x(/friends_count\":(\d+),/, "0")),
       }
     }
+  }
+
+
+  // check if the user is logged in
+  function isLoggedIn() {
+    return document.cookie.match(/ twid=/)
   }
 
 
@@ -113,7 +119,8 @@
     let svgs = {
       lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
       arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
-      tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`
+      tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`,
+      moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`
     }
     return `
       <svg class="gt2-svg" viewBox="0 0 24 24">
@@ -207,39 +214,40 @@
     if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
       let i = getInfo()
       // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
+      let href = isLoggedIn() ? "href" : "data-href"
       let dashPro = `
         <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
-          <a href="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
+          <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
           <div>
-            <a class="gt2-avatar" href="/${i.screenName}">
+            <a ${href}="/${i.screenName}" class="gt2-avatar">
               <img src="${i.avatarUrl.replace("normal", "bigger")}"/>
             </a>
             <div class="gt2-user">
-              <a href="/${i.screenName}" class="gt2-name">${i.name}</a>
-              <a href="/${i.screenName}" class="gt2-screenname">
+              <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
+              <a ${href}="/${i.screenName}" class="gt2-screenname">
                 @<span >${i.screenName}</span>
               </a>
             </div>
-            <div class="gt2-toggle-acc-switcher-dropdown">
+            <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode" }">
               <div></div>
-              ${getSvg("arrow")}
+              ${getSvg(isLoggedIn() ? "arrow" : "moon")}
             </div>
             <div class="gt2-stats">
               <ul>
                 <li>
-                  <a href="/${i.screenName}">
+                  <a ${href}="/${i.screenName}">
                     <span>${locStr("tweets")}</span>
                     <span>${i.stats.tweets.humanize()}</span>
                   </a>
                 </li>
                 <li>
-                  <a href="/${i.screenName}/following">
+                  <a ${href}="/${i.screenName}/following">
                     <span>${locStr("following")}</span>
                     <span>${i.stats.following.humanize()}</span>
                   </a>
                 </li>
                 <li>
-                  <a href="/${i.screenName}/followers">
+                  <a ${href}="/${i.screenName}/followers">
                     <span>${locStr("followers")}</span>
                     <span>${i.stats.followers.humanize()}</span>
                   </a>
@@ -505,6 +513,17 @@
   $("body").on("click", "div[data-testid=primaryColumn] > div > div:nth-child(2)", e => $(e.currentTarget).addClass("gt2-compose-large"))
 
 
+  // loggedOut nightmode
+  $("body").on("click", ".gt2-toggle-lo-nightmode", () => {
+    let nm = document.cookie.match(/night_mode=1/) ? 0 : 1
+    let d = new Date()
+    d.setDate(d.getDate() + 500)
+    // create new cookie
+    document.cookie = `night_mode=${nm}; expires=${d.toUTCString()}; path=/;`
+    window.location.reload()
+  })
+
+
 
   // ###################
   // #  GT2 settings   #
@@ -538,7 +557,7 @@
   function addSettingsToggle() {
     waitForKeyElements("main a[href='/settings/about']", () => {
       if (!$(".gt2-toggle-settings").length) {
-        $("main div[role=tablist]").append(`
+        $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
           <a class="gt2-toggle-settings" href="/settings/gt2">
             <div>
               <span>GoodTwitter2</span>
@@ -556,14 +575,14 @@
     event.preventDefault()
     window.history.pushState({}, "", $(this).attr("href"))
     addSettings()
-    $("main section:nth-last-child(2) > div:nth-child(2) > div").addClass("gt2-settings-active")
+    $("body").addClass("gt2-settings-active")
     changeSettingsTitle()
   })
 
 
   // disable settings display again when clicking on another menu item
-  $("body").on("click", `main section:nth-last-child(2) > div:nth-child(2) > div:not(:first-child):not(:last-child),
-                         main section:nth-last-child(2) > div:nth-child(2) > div:last-child > div:not(:first-child):not(:nth-child(2))`, () => {
+  $("body").on("click", `main section:nth-last-child(2) div[role=tablist] a:not(.gt2-toggle-settings),
+                         main section:nth-last-child(2) div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
     $(".gt2-settings-active").removeClass("gt2-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
@@ -773,12 +792,18 @@
 
     // initialize with the current settings
     if (GM_getValue("gt2_initialized") == undefined) {
-      waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
-        GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
-        GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
-        GM_setValue("gt2_initialized", true)
+      if (isLoggedIn()) {
+        waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
+          GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
+          GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
+          GM_setValue("gt2_initialized",        true)
+          window.location.reload()
+        })
+      } else {
+        GM_setValue("opt_display_userColor",  "rgb(29, 161, 242)")
+        GM_setValue("gt2_initialized",        true)
         window.location.reload()
-      })
+      }
 
     } else {
       // add gt2-options to body for the css to take effect
@@ -790,13 +815,18 @@
       if ($(".gt2-style").length) {
         $(".gt2-style").remove()
       }
-      console.log($("body").css("background-color"));
+
+      // get bgColor from cookie if not logged in
+      let opt_display_bgColor = GM_getValue("opt_display_bgColor")
+      if (!isLoggedIn()) {
+        opt_display_bgColor = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
+      }
 
       // insert new stylesheet
       $("html").prepend(`
         <style class="gt2-style">
           ${GM_getResourceText("css")
-          .replace("--bgColors:$;",   bgColors[GM_getValue("opt_display_bgColor")])
+          .replace("--bgColors:$;",   bgColors[opt_display_bgColor])
           .replace("$userColor",      GM_getValue("opt_display_userColor"))
           .replace("$globalFontSize", $("html").css("font-size"))
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
@@ -852,17 +882,6 @@
     }
 
 
-    // add navbar
-    if (!$("body").hasClass("gt2-navbar-added")) {
-      addNavbar()
-    }
-
-
-    // highlight current location in left bar
-    $(`.gt2-nav-left > a`).removeClass("active")
-    $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
-
-
     // insert left sidebar
     if (!$(".gt2-left-sidebar").length) {
       let insertAt = "main > div > div > div"
@@ -872,38 +891,34 @@
     }
 
 
-    // insert dashboard profile only on these pages
-    if ([
-      "compose",
-      "explore",
-      "home",
-      "i",
-      "messages",
-      "notifications",
-      "search",
-      "settings",
-    ].includes(path.split("/")[0]) || [
-      "bookmarks",
-      "lists",
-      "moments",
-      "status",
-      "topics",
-    ].some(e => path.match(new RegExp(`^[^\/]+\/${e}`)))
-    ) {
-      addDashboardProfile()
+    // insert dashboard profile on all pages for now
+    addDashboardProfile()
+    // $(".gt2-dashboard-profile").remove()
+
+
+    if (isLoggedIn()) {
+      // add navbar
+      if (!$("body").hasClass("gt2-navbar-added")) {
+        addNavbar()
+      }
+
+
+      // highlight current location in left bar
+      $(`.gt2-nav-left > a`).removeClass("active")
+      $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
+
+
+      // hide/add search
+      if (["explore", "search"].some(e => path.startsWith(e))) {
+        $("body").removeClass("gt2-search-added")
+        $(".gt2-search").remove()
+      } else {
+        addSearch()
+      }
+
     } else {
-      $(".gt2-dashboard-profile").remove()
+      $("body").addClass("gt2-not-logged-in")
     }
-
-
-    // hide/add search
-    if (["explore", "search"].some(e => path.startsWith(e))) {
-      $("body").removeClass("gt2-search-added")
-      $(".gt2-search").remove()
-    } else {
-      addSearch()
-    }
-
 
     // move trends
     if (window.innerWidth >= 1350 && GM_getValue("opt_gt2").leftTrends) {
@@ -916,7 +931,7 @@
       addSettingsToggle()
       if (path.startsWith("settings/gt2")) {
         addSettings()
-        $("main section:nth-last-child(2) > div:nth-child(2) > div").addClass("gt2-settings-active")
+        $("body").addClass("gt2-settings-active")
       }
     }
 
