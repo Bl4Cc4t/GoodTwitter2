@@ -294,21 +294,6 @@
   }
 
 
-  // hide navbar on modal
-  let obsModal = new MutationObserver(() => {
-    if ($("body").css("overflow-y") == "hidden") {
-      $(".gt2-nav").addClass("not-focused")
-
-    } else {
-      $(".gt2-nav").removeClass("not-focused")
-    }
-  })
-  obsModal.observe($("body")[0], {
-    attributes: true,
-    attributeFilter: [ "style" ]
-  })
-
-
   // force latest tweets view.
   function forceLatest() {
     let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"

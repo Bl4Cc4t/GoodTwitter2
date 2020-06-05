@@ -640,16 +640,6 @@ a.gt2-trend {
   z-index: 1;
   display: flex;
 
-  &.not-focused {
-    z-index: -1;
-    .gt2-nav-center {
-      margin-right: calc(var(--scrollbar-width) / 2);
-    }
-    .gt2-nav-right {
-      padding-right: var(--scrollbar-width);
-    }
-  }
-
   .gt2-nav-left {
 
     & > a {
@@ -776,6 +766,16 @@ a.gt2-trend {
   }
 }
 
+// hide navbar on modal
+body[style*="overflow-y: hidden"] .gt2-nav {
+  z-index: -1;
+  .gt2-nav-center {
+    margin-right: calc(var(--scrollbar-width) / 2);
+  }
+  .gt2-nav-right {
+    padding-right: var(--scrollbar-width);
+  }
+}
 
 .gt2-left-sidebar {
   margin-top: -10px;
