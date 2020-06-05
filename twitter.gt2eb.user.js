@@ -505,7 +505,17 @@
 
   // acc switcher dropdown
   $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", () => {
+    $("body").addClass("gt2-acc-switcher-active")
     $("div[data-testid=SideNav_AccountSwitcher_Button]").click()
+  })
+
+  // remove class on next click
+  $("body").on("click", ":not(.gt2-toggle-acc-switcher-dropdown), :not(div[data-testid=SideNav_AccountSwitcher_Button])", function() {
+    setTimeout(function () {
+      if (!$("a[href='/account/add']").length) {
+        $("body").removeClass("gt2-acc-switcher-active")
+      }
+    }, 2000)
   })
 
 
@@ -822,6 +832,8 @@
       for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
         if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
       }
+      // remove unneeded classes
+      $("body").removeClass("gt2-acc-switcher-active")
 
       // delete old stylesheet
       if ($(".gt2-style").length) {

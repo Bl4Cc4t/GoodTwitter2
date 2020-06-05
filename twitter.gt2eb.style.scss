@@ -10,7 +10,7 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc']";
-$accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
+$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
@@ -26,7 +26,8 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 // normal display
 @media only screen and (min-width: 1350px) {
   body:not(.gt2-opt-small-sidebars) {
-    main > div {
+    main > div,
+    main > div > div > div {
       width: 1320px !important;
     }
     .gt2-nav-left {
@@ -39,7 +40,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     #{$navbarDropdown} {
       right: space(1320px) !important;
     }
-    #{$accSwitcherDropdown} {
+    &#{$accSwitcherDropdown} {
       left: space(1235px) !important;
       right: unset !important;
     }
@@ -89,7 +90,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
     #{$navbarDropdown} {
       right: space(1200px) !important;
     }
-    #{$accSwitcherDropdown} {
+    &#{$accSwitcherDropdown} {
       left: space(1235px) !important;
       right: unset !important;
     }
@@ -167,10 +168,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   #{$navbarDropdown} {
     right: space(900px) !important;
   }
-  #{$accSwitcherDropdown} {
-    top: 195px !important;
-    right: space(902.5px) !important;
-  }
+
   // smaller search
   .gt2-search > div {
     width: 270px !important;
@@ -183,7 +181,10 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
                    and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
-
+    &#{$accSwitcherDropdown} {
+      top: 195px !important;
+      right: space(902.5px) !important;
+    }
   }
 }
 
@@ -192,6 +193,10 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 @media only screen and (min-width: 1005px)
                    and (max-width: 1095px) {
   @include displayRightSmallSidebar;
+  #{$accSwitcherDropdown} {
+    top: 195px !important;
+    right: space(902.5px) !important;
+  }
 }
 
 
@@ -372,13 +377,13 @@ body:not(.gt2-opt-sticky-sidebars) {
   .gt2-toggle-acc-switcher-dropdown {
     bottom: 82px !important;
   }
-  #{$accSwitcherDropdown} {
+  &#{$accSwitcherDropdown} {
     top: 200px !important;
   }
 }
 
 body:not(.gt2-opt-small-sidebars) {
-  #{$accSwitcherDropdown} {
+  &#{$accSwitcherDropdown} {
     top: 220px !important;
   }
 }
