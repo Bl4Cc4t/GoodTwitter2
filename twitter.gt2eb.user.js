@@ -271,7 +271,7 @@
 
   // move trends
   function moveTrends() {
-    let trends = `div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div a[href='/settings/trends']`
+    let trends = `div[data-testid=sidebarColumn] div:nth-child(4) > div[data-testid=trend]`
     waitForKeyElements(trends, function() {
       if ($(".gt2-trends").length) $(".gt2-trends").remove()
       $(trends).parents("section").parent().parent().parent()
