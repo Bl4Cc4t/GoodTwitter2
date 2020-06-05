@@ -44,6 +44,7 @@ To use this script, you need a userscript manager.
 - Install Tampermonkey (Greasemonkey is not supported at the moment)
   - [Chrome Webstore](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
   - [Firefox Add-Ons](https://addons.mozilla.org/de/firefox/addon/tampermonkey/)
+  - [Opera addons](https://addons.opera.com/en/extensions/details/tampermonkey-beta/)
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you’re (almost) good to go!
 - [Firefox only] Disable CSP (See [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))
@@ -67,15 +68,11 @@ That’s awesome! If you want to help with the translations, check out [Adding t
 
 If you want to help with coding, you can take a look at the issue tracker. There are a lot of things that do not work correctly and I certainly could use some help with that :)
 
-## Previews
-![](https://i.imgur.com/3xY7IIpr.png)
-![](https://i.imgur.com/gxg8CUEr.png)
-![](https://i.imgur.com/Z7rzilXr.png)
-
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
+- Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - English and German are natively supported.
 
 ### Adding translations
@@ -85,15 +82,17 @@ Open the following box to learn more.
 <details>
   <summary>Adding an UI Translation</summary>
 
-  1. Switch to the dev branch.
-  1. Go to the i18n folder.
-  1. If a translation does not yet exist for your language:
-    1. Fork the repo
-    1. Duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
-      1. You can get the language id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
+  - Switch to the dev branch.
+  - Go to the i18n folder.
+  - If a translation does not yet exist for your language:
+    - Fork the repo
+    - Duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
+      - You can get the language id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
         ![](https://i.imgur.com/AarcTav.png)
-    1. Then, translate all strings and create a pull request.
-    1. You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
+
+    - Then, translate all strings and create a pull request.
+      - For all the strings up to `autoRefresh`: Please use the official translations on twitter. (e.g. `composeNewTweet` refers to the big tweet button on the bottom left.)
+    - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
 
@@ -102,3 +101,8 @@ Open the following box to learn more.
   ```content```
   ````
 </details>
+
+## Previews
+![](https://i.imgur.com/3xY7IIpr.png)
+![](https://i.imgur.com/gxg8CUEr.png)
+![](https://i.imgur.com/Z7rzilXr.png)
