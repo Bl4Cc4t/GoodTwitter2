@@ -19,6 +19,7 @@
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",
   "leftTrendsDesc": "Show the trends in the left sidebar.",
+  "show10Trends": "Always Show 10 Trends",
   "stickySidebars": "Sticky Sidebars",
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",

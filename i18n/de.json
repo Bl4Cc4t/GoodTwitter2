@@ -19,6 +19,7 @@
   "keepTweetsInTLDesc": "Behält die Tweets auf der Seite, auch wenn man weiterscrollt.",
   "leftTrends": "Trends in der linken Seitenleiste",
   "leftTrendsDesc": "Verschiebt die Trends in die linke Seitenleiste.",
+  "show10Trends": "Zeige immer 10 Trends",
   "stickySidebars": "Feste Seitenleisten",
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
