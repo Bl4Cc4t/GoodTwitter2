@@ -12,7 +12,7 @@ fs.readdir(path.join(__dirname, "i18n"), (err, files) => {
       out += `${file.slice(0, -5)}: ${fs.readFileSync(path.join(__dirname, "i18n", file), "utf8").trim()},`
     }
   }
-  out += "}"
+  out += "}\n"
 
   fs.writeFileSync(path.join(__dirname, "twitter.gt2eb.i18n.js"), out)
 })
