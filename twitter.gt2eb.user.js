@@ -4,8 +4,6 @@
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
-// @grant         GM_addStyle
-// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
@@ -550,7 +548,7 @@
     leftTrends:         true,
     squareAvatars:      false,
     biggerPreviews:     true,
-    show10Trends:       false
+    show10Trends:       false,
   }
 
   // set default options
@@ -632,19 +630,22 @@
   function addSettings() {
     if (!$(".gt2-settings").length) {
       $("main section:nth-last-child(1)").prepend(`
-        <div class="gt2-settings-header">GoodTwitter2 Settings</div>
+        <div class="gt2-settings-header">GoodTwitter2</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">Timeline</div>
           ${getSettingTogglePart("forceLatest")}
-          ${getSettingTogglePart("autoRefresh")}
+          ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
-          <div class="gt2-settings-sub-header">Display</div>
+          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-sub-header">Sidebars</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("leftTrends")}
+          ${getSettingTogglePart("show10Trends")}
+          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-sub-header">Other</div>
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
-          ${getSettingTogglePart("show10Trends")}
         </div>
       `)
 
@@ -787,7 +788,8 @@
          --color-gray-light:  rgb(101, 119, 134);
          --color-navbar:      #ffffff;
          --color-text:        rgb(20, 23, 26);
-         --color-shadow:      rgb(204, 214, 221);`,
+         --color-shadow:      rgb(204, 214, 221);
+         --color-seperator:   rgb(230, 236, 240);`,
       // dim
       "rgb(21, 32, 43)":
         `--color-bg:          #10171e;
@@ -798,7 +800,8 @@
          --color-gray-light:  rgb(136, 153, 166);
          --color-navbar:      #1c2938;
          --color-text:        rgb(255, 255, 255);
-         --color-shadow:      rgb(61, 84, 102);`,
+         --color-shadow:      rgb(61, 84, 102);
+         --color-seperator:   rgb(37, 51, 65);`,
       // lightsOut
       "rgb(0, 0, 0)":
         `--color-bg:          #000000;
@@ -809,7 +812,8 @@
          --color-gray-light:  rgb(110, 118, 125);
          --color-navbar:      #15181c;
          --color-text:        rgb(217, 217, 217);
-         --color-shadow:      rgb(47, 51, 54);`
+         --color-shadow:      rgb(47, 51, 54);
+         --color-seperator:   rgb(32, 35, 39);`
     }
 
     // initialize with the current settings
