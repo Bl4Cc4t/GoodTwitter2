@@ -397,7 +397,11 @@ body:not(.gt2-opt-small-sidebars) {
   // tweet
   div[data-testid=tweet] > div:nth-child(1) > div > div,
   // sidebar (who to follow)
-  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div {
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
+  // small profile modals
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  // notifications
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
     & > a > div:nth-child(1) > div:nth-child(2) > div {
       border-radius: 10%;
