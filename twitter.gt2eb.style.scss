@@ -402,6 +402,12 @@ body:not(.gt2-opt-small-sidebars) {
   display: none;
 }
 
+.gt2-hide-spark-opt {
+  #react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
+    display: none;
+  }
+}
+
 // acc switcher dropdown
 #{$accSwitcherDropdown} {
   bottom: unset !important;
