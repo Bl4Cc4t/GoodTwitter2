@@ -638,18 +638,18 @@
       $("main section:nth-last-child(1)").prepend(`
         <div class="gt2-settings-header">GoodTwitter2</div>
         <div class="gt2-settings">
-          <div class="gt2-settings-sub-header">Timeline</div>
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">Sidebars</div>
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">Other</div>
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
         </div>
