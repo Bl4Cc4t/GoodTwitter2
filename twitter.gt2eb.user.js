@@ -21,7 +21,7 @@
   "use strict"
 
   // do not execute on these pages
-  if (["login"].includes(path.split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
+  if (["login"].includes(getPath().split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
     return
   }
 
@@ -197,7 +197,6 @@
         // add search
         $(search)
         .prependTo(".gt2-search")
-        $("body").addClass("gt2-search-added")
       })
     }
   }
@@ -834,11 +833,6 @@
         GM_setValue("gt2_initialized",        true)
         window.location.reload()
       })
-    // initialize userColor when not logged in
-    } else if (GM_getValue("gt2_initialized_nli") == undefined && !isLoggedIn()) {
-      GM_setValue("opt_display_userColor",  "rgb(29, 161, 242)")
-      GM_setValue("gt2_initialized_nli",    true)
-      window.location.reload()
 
     } else {
       // add gt2-options to body for the css to take effect
@@ -857,10 +851,12 @@
       // options to set if not logged in
       let opt_display_bgColor   = GM_getValue("opt_display_bgColor")
       let opt_display_fontSize  = GM_getValue("opt_display_fontSize")
+      let opt_display_userColor = GM_getValue("opt_display_userColor")
       if (!isLoggedIn()) {
         // get bgColor from cookie
         opt_display_bgColor   = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
         opt_display_fontSize  = "15px"
+        opt_display_userColor = "rgb(29, 161, 242)"
       }
 
       // insert new stylesheet
@@ -868,7 +864,7 @@
         <style class="gt2-style">
           ${GM_getResourceText("css")
           .replace("--bgColors:$;",   bgColors[opt_display_bgColor])
-          .replace("$userColor",      GM_getValue("opt_display_userColor"))
+          .replace("$userColor",      opt_display_userColor)
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
         </style>`
@@ -889,7 +885,7 @@
         ( GM_getValue("opt_gt2").smallSidebars && w <= 1230)) {
       // move dash profile to right sidebar
       $(".gt2-dashboard-profile")
-      .insertAfter("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:empty:nth-child(1)")
+      .prependTo("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div")
       // remove trends
       $(".gt2-trends").remove()
     } else {
@@ -957,7 +953,6 @@
 
       // hide/add search
       if (["explore", "search"].some(e => path.startsWith(e))) {
-        $("body").removeClass("gt2-search-added")
         $(".gt2-search").remove()
       } else {
         addSearch()
