@@ -71,6 +71,7 @@ If you want to help with coding, you can take a look at the issue tracker. There
 
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
+- French (added by [@Aridow](https://github.com/Aridow))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
