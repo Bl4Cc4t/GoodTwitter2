@@ -93,7 +93,7 @@ Open the following box to learn more.
 ![](https://i.imgur.com/AarcTav.png)
 
     - Then, translate all strings and create a pull request.
-      - For all the strings up to `autoRefresh`: Please use the official translations on twitter. (e.g. `composeNewTweet` refers to the big tweet button on the bottom left.)
+      - For all the strings up to `tweets`: Please use the official translations on twitter. (e.g. `composeNewTweet` refers to the big tweet button on the bottom left.)
     - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
