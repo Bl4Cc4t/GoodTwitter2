@@ -61,6 +61,14 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
           margin-left: 370px;
         }
       }
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
+      }
       &.gt2-page-with-sections {
         main > div > div > div {
           max-width: 1310px;
@@ -76,9 +84,10 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   .gt2-opt-small-sidebars {
     main > div {
       width: 1200px !important;
-    }
-    main > div > div > div {
-      max-width: 1200px !important;
+      & > div > div {
+        max-width: 1200px !important;
+        width: 1200px !important;
+      }
     }
     .gt2-nav-left {
       margin-left: space(1198px);
@@ -110,6 +119,14 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
           margin-left: 310px;
         }
       }
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
+      }
     }
   }
 }
@@ -121,9 +138,10 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   body:not(.gt2-opt-small-sidebars) {
     main > div {
       width: 960px !important;
-    }
-    main > div > div > div {
-      left: 0 !important;
+      & > div > div {
+        width: 960px !important;
+        left: 0 !important;
+      }
     }
     .gt2-nav-left {
       margin-left: space(958px);
@@ -156,6 +174,11 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
     & > div > div {
       width: 900px !important;
       justify-content: unset !important;
+
+      div[data-testid=sidebarColumn],
+      div[data-testid=sidebarColumn] > div > div {
+        width: 290px;
+      }
     }
   }
 
@@ -254,6 +277,12 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 
   .gt2-left-sidebar {
     display: none;
+  }
+
+  .gt2-not-logged-in {
+    div[data-testid=sidebarColumn] {
+      display: none;
+    }
   }
 }
 
@@ -358,12 +387,55 @@ main {
       position: fixed;
     }
   }
+  .gt2-left-sidebar {
+    height: calc(100vh - 57px);
+    padding-bottom: 10px;
+  }
+
+  // indepentently scrollable right sidebar
+  div[data-testid=sidebarColumn]:not(:hover) > div {
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+    & > div:nth-child(2) {
+      top: 56px !important;
+      bottom: unset !important;
+    }
+  }
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+    position: fixed;
+    height: calc(100vh - 57px);
+    padding-bottom: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  // bigger native navbar
+  &.gt2-not-logged-in {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      height: calc(100vh - 64px);
+      top: 64px !important;
+    }
+  }
 }
 
 body:not(.gt2-opt-sticky-sidebars) {
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-    top: 0 !important;
-    position: absolute;
+  min-height: unset !important;
+  div[data-testid=sidebarColumn] > div {
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+    & > div:nth-child(2) {
+      top: 0 !important;
+      bottom: unset !important;
+      position: absolute;
+    }
   }
 }
 
@@ -457,11 +529,6 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }*/
 
-
-// hide search when added to navbar
-.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
-  display: none;
-}
 
 .gt2-hide-spark-opt {
   #react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
@@ -790,7 +857,6 @@ body[style*="overflow-y: hidden"] .gt2-nav {
   margin-top: -10px;
   padding-top: 10px;
   width: 350px;
-  height: calc(100vh - 57px);
   overflow-x: hidden;
   overflow-y: scroll;
   -ms-overflow-style: none;
