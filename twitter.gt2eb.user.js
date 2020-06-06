@@ -21,7 +21,7 @@
   "use strict"
 
   // do not execute on these pages
-  if (["login"].includes(getPath().split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
+  if (["login", ""].includes(getPath().split("/")[0])) {
     return
   }
 
@@ -913,7 +913,7 @@
 
 
     // do a reload on these pages
-    if (["login"].includes(path.split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
+    if (["login", ""].includes(path.split("/")[0])) {
       window.location.reload()
     }
 
