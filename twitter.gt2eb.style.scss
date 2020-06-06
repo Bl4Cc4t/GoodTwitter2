@@ -10,11 +10,11 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc']";
-$accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
+$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
-  @return calc((100vw - #{$val}) / 2);
+  @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
 }
 
 // returns val with --font-increment added
@@ -26,27 +26,53 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 // normal display
 @media only screen and (min-width: 1350px) {
   body:not(.gt2-opt-small-sidebars) {
-    main > div {
+    main > div,
+    main > div > div > div {
       width: 1320px !important;
     }
     .gt2-nav-left {
-      margin-left: space(1335px);
+      margin-left: space(1318px);
     }
     .gt2-nav-right {
-      margin-right: space(1335px);
+      margin-right: space(1318px);
     }
 
     #{$navbarDropdown} {
-      right: space(1335px) !important;
+      right: space(1320px) !important;
     }
-    #{$accSwitcherDropdown} {
-      left: space(1248px) !important;
+    &#{$accSwitcherDropdown} {
+      left: space(1235px) !important;
       right: unset !important;
     }
 
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         left: 360px;
+      }
+    }
+
+    &.gt2-page-with-sections .gt2-left-sidebar + * {
+      margin-left: 10px;
+    }
+
+    &.gt2-not-logged-in {
+      &.gt2-opt-sticky-sidebars {
+        div[data-testid=sidebarColumn] {
+          margin-left: 370px;
+        }
+      }
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
+      }
+      &.gt2-page-with-sections {
+        main > div > div > div {
+          max-width: 1310px;
+        }
       }
     }
   }
@@ -58,24 +84,48 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   .gt2-opt-small-sidebars {
     main > div {
       width: 1200px !important;
+      & > div > div {
+        max-width: 1200px !important;
+        width: 1200px !important;
+      }
     }
     .gt2-nav-left {
-      margin-left: space(1220px);
+      margin-left: space(1198px);
     }
     .gt2-nav-right {
-      margin-right: space(1220px);
+      margin-right: space(1198px);
     }
 
     #{$navbarDropdown} {
-      right: space(1220px) !important;
+      right: space(1200px) !important;
     }
-    #{$accSwitcherDropdown} {
-      left: space(1248px) !important;
+    &#{$accSwitcherDropdown} {
+      left: space(1235px) !important;
       right: unset !important;
     }
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         left: 300px;
+      }
+    }
+
+    &.gt2-page-with-sections .gt2-left-sidebar + * {
+      margin-left: 10px;
+    }
+
+    &.gt2-not-logged-in {
+      &.gt2-opt-sticky-sidebars {
+        div[data-testid=sidebarColumn] {
+          margin-left: 310px;
+        }
+      }
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -88,19 +138,20 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   body:not(.gt2-opt-small-sidebars) {
     main > div {
       width: 960px !important;
-    }
-    main > div > div > div {
-      left: 0 !important;
+      & > div > div {
+        width: 960px !important;
+        left: 0 !important;
+      }
     }
     .gt2-nav-left {
-      margin-left: space(975px);
+      margin-left: space(958px);
     }
     .gt2-nav-right {
-      margin-right: space(975px);
+      margin-right: space(958px);
     }
 
     #{$navbarDropdown} {
-      right: space(975px) !important;
+      right: space(960px) !important;
     }
 
     // hide sidebar
@@ -111,7 +162,7 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
   #{$accSwitcherDropdown} {
     left: unset !important;
-    right: space(960px) !important;
+    right: space(945px) !important;
   }
 }
 
@@ -121,23 +172,26 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   main > div {
     width: 900px !important;
     & > div > div {
+      width: 900px !important;
       justify-content: unset !important;
+
+      div[data-testid=sidebarColumn],
+      div[data-testid=sidebarColumn] > div > div {
+        width: 290px;
+      }
     }
   }
 
   .gt2-nav-left {
-    margin-left: space(915px);
+    margin-left: space(898px);
   }
   .gt2-nav-right {
-    margin-right: space(915px);
+    margin-right: space(898px);
   }
   #{$navbarDropdown} {
-    right: space(915px) !important;
+    right: space(900px) !important;
   }
-  #{$accSwitcherDropdown} {
-    top: 195px !important;
-    right: space(902.5px) !important;
-  }
+
   // smaller search
   .gt2-search > div {
     width: 270px !important;
@@ -146,34 +200,57 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
 
 
 // only right sidebar (with smallSidebars enabled)
-@media only screen and (max-width: 1230px)
-                   and (min-width: 1095px) {
+@media only screen and (min-width: 1095px)
+                   and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
+    &#{$accSwitcherDropdown} {
+      top: 195px !important;
+      right: space(902.5px) !important;
+    }
   }
 }
 
 
 // right small sidebar
-@media only screen and (max-width: 1095px) {
+@media only screen and (min-width: 1005px)
+                   and (max-width: 1095px) {
   @include displayRightSmallSidebar;
+  #{$accSwitcherDropdown} {
+    top: 195px !important;
+    right: space(902.5px) !important;
+  }
 }
 
 
-// some right sidebar
+// any right sidebar
 @mixin someRightSidebar {
   div[data-testid=primaryColumn] {
     margin-right: 10px;
+  }
+  .gt2-left-sidebar {
+    display: none;
   }
 }
 @media only screen and (max-width: 1350px)
                    and (min-width: 1005px) {
   body:not(.gt2-opt-small-sidebars) {
     @include someRightSidebar;
+
+    &.gt2-not-logged-in {
+      div[data-testid=sidebarColumn] {
+        margin-left: 10px;
+      }
+    }
   }
   .gt2-opt-small-sidebars {
     @media only screen and (max-width: 1230px) {
       @include someRightSidebar;
+      &.gt2-not-logged-in {
+        div[data-testid=sidebarColumn] {
+          margin-left: 10px;
+        }
+      }
     }
   }
 }
@@ -189,24 +266,53 @@ $accSwitcherDropdown: "#react-root > div > div > div:nth-child(2) > div:nth-chil
   }
 
   .gt2-nav-left {
-    margin-left: space(620px);
+    margin-left: space(598px);
   }
   .gt2-nav-right {
-    margin-right: space(620px);
+    margin-right: space(598px);
   }
   #{$navbarDropdown} {
-    right: space(620px) !important;
+    right: space(600px) !important;
+  }
+
+  .gt2-left-sidebar {
+    display: none;
+  }
+
+  .gt2-not-logged-in {
+    div[data-testid=sidebarColumn] {
+      display: none;
+    }
   }
 }
 
 // hide header completely
-header {
-  display: none !important;
+body:not(.gt2-not-logged-in) {
+  header {
+    display: none !important;
+  }
+  main {
+    margin-top: 56px !important;
+  }
+}
+
+.gt2-not-logged-in {
+  main {
+    margin-top: 10px;
+    & > div > div > div {
+      margin: 0;
+      padding: 0;
+
+      div[data-testid=primaryColumn] {
+        margin: 0;
+      }
+    }
+  }
 }
 
 
+
 main {
-  margin-top: 56px !important;
   align-items: center !important;
 
   & > div > div > div {
@@ -240,6 +346,10 @@ main {
 
             &:empty {
               display: none;
+            }
+
+            &:last-child {
+              margin-bottom: 0;
             }
           }
         }
@@ -277,31 +387,75 @@ main {
       position: fixed;
     }
   }
+  .gt2-left-sidebar {
+    height: calc(100vh - 57px);
+    padding-bottom: 10px;
+  }
+
+  // indepentently scrollable right sidebar
+  div[data-testid=sidebarColumn]:not(:hover) > div {
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+    & > div:nth-child(2) {
+      top: 56px !important;
+      bottom: unset !important;
+    }
+  }
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+    position: fixed;
+    height: calc(100vh - 57px);
+    padding-bottom: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  // bigger native navbar
+  &.gt2-not-logged-in {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      height: calc(100vh - 64px);
+      top: 64px !important;
+    }
+  }
 }
 
 body:not(.gt2-opt-sticky-sidebars) {
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-    top: 0 !important;
-    position: absolute;
+  min-height: unset !important;
+  div[data-testid=sidebarColumn] > div {
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+    & > div:nth-child(2) {
+      top: 0 !important;
+      bottom: unset !important;
+      position: absolute;
+    }
   }
 }
 
 .gt2-opt-small-sidebars {
   .gt2-left-sidebar,
   div[data-testid=sidebarColumn],
+  div[data-testid=sidebarColumn] > div > div:nth-child(2),
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
     width: 290px;
   }
   .gt2-toggle-acc-switcher-dropdown {
     bottom: 82px !important;
   }
-  #{$accSwitcherDropdown} {
+  &#{$accSwitcherDropdown} {
     top: 200px !important;
   }
 }
 
 body:not(.gt2-opt-small-sidebars) {
-  #{$accSwitcherDropdown} {
+  &#{$accSwitcherDropdown} {
     top: 220px !important;
   }
 }
@@ -315,7 +469,11 @@ body:not(.gt2-opt-small-sidebars) {
   // tweet
   div[data-testid=tweet] > div:nth-child(1) > div > div,
   // sidebar (who to follow)
-  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div {
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
+  // small profile modals
+  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  // notifications
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
     & > a > div:nth-child(1) > div:nth-child(2) > div {
       border-radius: 10%;
@@ -372,9 +530,10 @@ body:not(.gt2-opt-small-sidebars) {
 }*/
 
 
-// hide search when added to navbar
-.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
-  display: none;
+.gt2-hide-spark-opt {
+  #react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
+    display: none;
+  }
 }
 
 // acc switcher dropdown
@@ -406,6 +565,12 @@ body {
   background-color: var(--color-bg) !important;
 }
 
+// minimalscrollbar
+html[data-minimalscrollbar] {
+  body {
+    margin-right: 0 !important;
+  }
+}
 
 div[data-testid=primaryColumn] > div {
   // scroll behind nav bar
@@ -551,16 +716,6 @@ a.gt2-trend {
   z-index: 1;
   display: flex;
 
-  &.not-focused {
-    z-index: -1;
-    .gt2-nav-center {
-      margin-right: calc(var(--scrollbar-width) / 2);
-    }
-    .gt2-nav-right {
-      padding-right: var(--scrollbar-width);
-    }
-  }
-
   .gt2-nav-left {
 
     & > a {
@@ -687,14 +842,37 @@ a.gt2-trend {
   }
 }
 
+// hide navbar on modal
+body[style*="overflow-y: hidden"] .gt2-nav {
+  z-index: -1;
+  .gt2-nav-center {
+    margin-right: calc(var(--scrollbar-width) / 2);
+  }
+  .gt2-nav-right {
+    padding-right: var(--scrollbar-width);
+  }
+}
 
 .gt2-left-sidebar {
+  margin-top: -10px;
+  padding-top: 10px;
   width: 350px;
-  margin-right: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   & > div {
     margin-bottom: 10px;
     position: relative;
+  }
+
+  &:empty {
+    display: none;
   }
 
   // moved trends
@@ -716,10 +894,15 @@ a.gt2-trend {
   background-color: var(--color-elem);
   box-sizing: border-box;
 
+  a:not([href]) {
+    cursor: default;
+  }
+
   .gt2-banner {
     background-size: 100%;
     height: 116.67px;
     background-position: 0 50%;
+    background-color: var(--color-gray);
     width: 100%;
   }
   & > div {
@@ -756,6 +939,7 @@ a.gt2-trend {
         width: 210px;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
         font-size: incr(18px);
         font-weight: 700;
         &:hover {
@@ -771,7 +955,8 @@ a.gt2-trend {
       }
     }
 
-    .gt2-toggle-acc-switcher-dropdown {
+    .gt2-toggle-acc-switcher-dropdown,
+    .gt2-toggle-lo-nightmode {
       right: 7.5px;
       bottom: calc(93px + (var(--font-increment) + 2px) / 2);
       display: flex;
@@ -820,6 +1005,7 @@ a.gt2-trend {
         li {
           display: table-cell;
           list-style: none;
+          width: 1%;
           a {
             display: flex;
             flex-direction: column;
@@ -861,17 +1047,15 @@ a.gt2-trend {
     height: 72px;
   }
 
+  .gt2-toggle-lo-nightmode {
+    bottom: calc(83px + (var(--font-increment) + 2px) / 2);
+  }
+
   .gt2-user {
     top: 103px;
     left: 90px;
     .gt2-name {
       width: 160px;
-    }
-  }
-
-  .gt2-stats {
-    li {
-      width: 90px;
     }
   }
 }
@@ -912,22 +1096,28 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   }
 }
 
-.gt2-settings-active > div:not(:empty),
-.gt2-settings-active > div:not(:empty) > div:not(:empty) {
-  background-color: var(--color-elem);
+.gt2-settings-active {
+  main section:nth-last-child(2) > div:nth-child(2) > div {
+    & > div:not(:empty),
+    & > div:not(:empty) > div:not(:empty) {
+      background-color: var(--color-elem);
 
-  & > div:nth-child(2) {
-    border-right-width: 0;
+      & > div:nth-child(2) {
+        border-right-width: 0;
+      }
+    }
+  }
+
+  .gt2-toggle-settings {
+    background-color: var(--color-elem-sel);
+    div {
+      border-width: 0 2px 0 0;
+      border-color: var(--color-user);
+      border-style: solid;
+    }
   }
 }
-.gt2-settings-active .gt2-toggle-settings {
-  background-color: var(--color-elem-sel);
-  div {
-    border-width: 0 2px 0 0;
-    border-color: var(--color-user);
-    border-style: solid;
-  }
-}
+
 
 .gt2-settings-header,
 .gt2-settings-sub-header,
@@ -958,6 +1148,12 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   padding: 10px 15px;
   line-height: 1.3135em;
 }
+
+.gt2-settings-seperator {
+  height: 10px;
+  background-color: var(--color-seperator);
+}
+
 
 .gt2-setting {
   padding: 15px;
@@ -1033,5 +1229,17 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
     font-size: incr(13px);
     padding-top: 10px;
     color: var(--color-gray-light);
+  }
+}
+
+.gt2-sidebar-notice {
+  background-color: var(--color-elem);
+  color: var(--color-text);
+  text-align: center;
+  border: 1px solid var(--color-gray-dark);
+  padding: 10px;
+
+  a:link, a:visited {
+    color: var(--color-user);
   }
 }
