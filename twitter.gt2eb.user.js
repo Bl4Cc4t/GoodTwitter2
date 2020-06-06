@@ -353,10 +353,28 @@
   // ########################
 
 
+  // russian numbering
+  function getRusShowNew(nr) {
+    let end
+    let t1 = nr.toString().slice(-1)
+    let t2 = nr.toString().slice(-2)
+
+    if (t1 == 1)                          end = "новый твит"
+    if (t1 >= 2 && t1 <= 4)               end = "овых твита"
+    if (t1 == 0 || (t1 >= 5 && t1 <= 9))  end = "новых твитов"
+    if (t2 >= 11 && t2 <= 14)             end = "новый твит"
+    return `Посмотреть ${nr} ${end}`
+  }
+
   // add counter for new tweets
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
     let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
+    // exception for russian
+
+    if ($("html").attr("lang") == "ru") {
+      text = getRusShowNew(nr)
+    }
     if (nr) {
       // add button
       if ($(".gt2-show-hidden-tweets").length == 0) {
@@ -730,6 +748,7 @@
       let bgc = m.target[m.attributeName]["background-color"]
       if (m.oldValue && bgc != "" && bgc != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
         GM_setValue("opt_display_bgColor", bgc)
+        console.log(`New background-color: ${bgc}`)
         updateCSS()
       }
     })
