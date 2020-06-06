@@ -19,6 +19,10 @@
 (function($, waitForKeyElements) {
   "use strict"
 
+  // do not execute on these pages
+  if (["login"].includes(path.split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
+    return
+  }
 
   // ###########################
   // #  convenience functions  #
@@ -524,10 +528,12 @@
   // loggedOut nightmode
   $("body").on("click", ".gt2-toggle-lo-nightmode", () => {
     let nm = document.cookie.match(/night_mode=1/) ? 0 : 1
+    // delete old cookie
+    document.cookie = "night_mode=; Max-Age=0;"
+    // create new cookie
     let d = new Date()
     d.setDate(d.getDate() + 500)
-    // create new cookie
-    document.cookie = `night_mode=${nm}; expires=${d.toUTCString()}; path=/;`
+    document.cookie = `night_mode=${nm}; expires=${d.toUTCString()}; path=/; domain=.twitter.com`
     window.location.reload()
   })
 
@@ -547,7 +553,7 @@
     stickySidebars:     true,
     leftTrends:         true,
     squareAvatars:      false,
-    biggerPreviews:     true,
+    biggerPreviews:     false,
     show10Trends:       false,
   }
 
@@ -740,6 +746,7 @@
     mut.forEach(m => {
       let fs = m.target[m.attributeName]["font-size"]
       if (m.oldValue && fs != "" && fs != m.oldValue.match(/font-size: (\d+px);/)[1]) {
+        GM_setValue("opt_display_fontSize", fs)
         updateCSS()
       }
     })
@@ -817,25 +824,27 @@
     }
 
     // initialize with the current settings
-    if (GM_getValue("gt2_initialized") == undefined) {
-      if (isLoggedIn()) {
-        waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
-          GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
-          GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
-          GM_setValue("gt2_initialized",        true)
-          window.location.reload()
-        })
-      } else {
-        GM_setValue("opt_display_userColor",  "rgb(29, 161, 242)")
+    if (GM_getValue("gt2_initialized") == undefined && isLoggedIn()) {
+      waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
+        GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
+        GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
+        GM_setValue("opt_display_fontSize",   $("html").css("font-size"))
+
         GM_setValue("gt2_initialized",        true)
         window.location.reload()
-      }
+      })
+    // initialize userColor when not logged in
+    } else if (GM_getValue("gt2_initialized_nli") == undefined && !isLoggedIn()) {
+      GM_setValue("opt_display_userColor",  "rgb(29, 161, 242)")
+      GM_setValue("gt2_initialized_nli",    true)
+      window.location.reload()
 
     } else {
       // add gt2-options to body for the css to take effect
       for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
         if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
       }
+
       // remove unneeded classes
       $("body").removeClass("gt2-acc-switcher-active")
 
@@ -844,10 +853,13 @@
         $(".gt2-style").remove()
       }
 
-      // get bgColor from cookie if not logged in
-      let opt_display_bgColor = GM_getValue("opt_display_bgColor")
+      // options to set if not logged in
+      let opt_display_bgColor   = GM_getValue("opt_display_bgColor")
+      let opt_display_fontSize  = GM_getValue("opt_display_fontSize")
       if (!isLoggedIn()) {
-        opt_display_bgColor = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
+        // get bgColor from cookie
+        opt_display_bgColor   = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
+        opt_display_fontSize  = "15px"
       }
 
       // insert new stylesheet
@@ -856,7 +868,7 @@
           ${GM_getResourceText("css")
           .replace("--bgColors:$;",   bgColors[opt_display_bgColor])
           .replace("$userColor",      GM_getValue("opt_display_userColor"))
-          .replace("$globalFontSize", $("html").css("font-size"))
+          .replace("$globalFontSize", opt_display_fontSize)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
         </style>`
       )
@@ -903,6 +915,12 @@
     console.log(`Current path: ${path}`)
 
 
+    // do a reload on these pages
+    if (["login"].includes(path.split("/")[0]) || window.location.href.slice(20).startsWith("?logout")) {
+      window.location.reload()
+    }
+
+
     // update css
     if (!$("body").hasClass("gt2-css-inserted")) {
       updateCSS()
@@ -921,10 +939,10 @@
 
     // insert dashboard profile on all pages for now
     addDashboardProfile()
-    // $(".gt2-dashboard-profile").remove()
 
 
     if (isLoggedIn()) {
+
       // add navbar
       if (!$("body").hasClass("gt2-navbar-added")) {
         addNavbar()
