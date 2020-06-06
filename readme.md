@@ -42,17 +42,12 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 To use this script, you need a userscript manager.
 
 - Install Tampermonkey (Greasemonkey is not supported at the moment)
-  - [Chrome Webstore](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-  - [Firefox Add-Ons](https://addons.mozilla.org/de/firefox/addon/tampermonkey/)
-  - [Opera addons](https://addons.opera.com/en/extensions/details/tampermonkey-beta/)
+  - [Official Website](https://www.tampermonkey.net/)
+  - [Firefox only] Please use the Beta Version of Tampermonkey!
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you’re (almost) good to go!
-- [Firefox only] Disable CSP (See [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))
-  - **Important notes:**
-    - This makes you vulnerable to potential XSS attacks! You can read more about that [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-    - This procedure is hopefully not required forever (See [Tampermonkey#952](https://github.com/Tampermonkey/tampermonkey/issues/952))
-  - Navigate to `about:config` (that is a Firefox specific page, so type that into your address bar)
-  - search for the `security.csp.enable` flag and set it to `false`
+- ~~[Firefox only] Disable CSP (See [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))~~
+  - This is not needed anymore when using Tampermonkey Beta v4.11.6114! (See [#952](https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754))
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
@@ -87,8 +82,8 @@ Open the following box to learn more.
   - If a translation does not yet exist for your language:
     - Fork the repo
     - Duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
-      - You can get the language id by pressing <kbd>Ctrl</kbd> + <kbd>U</kbd> on the twitter page and looking at the second line:
-        ![](https://i.imgur.com/AarcTav.png)
+      - You can get the language id by pressing <kbd>Ctrl</kbd>+<kbd>U</kbd> on the twitter page and looking at the second line:
+![](https://i.imgur.com/AarcTav.png)
 
     - Then, translate all strings and create a pull request.
       - For all the strings up to `autoRefresh`: Please use the official translations on twitter. (e.g. `composeNewTweet` refers to the big tweet button on the bottom left.)

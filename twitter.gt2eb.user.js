@@ -8,6 +8,7 @@
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
 // @grant         GM_setValue
+// @grant         GM_info
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
@@ -964,6 +965,22 @@
 
     } else {
       $("body").addClass("gt2-not-logged-in")
+    }
+
+
+    // firefox csp notice
+    if (!$(".gt2-sidebar-notice").length
+      && typeof InstallTrigger !== "undefined"  // on firefox
+      && parseInt(GM_info.version.replace(/\./g, "")) < 4116114
+    ) {
+      $(".gt2-left-sidebar").prepend(`
+        <div class="gt2-sidebar-notice">
+          It looks like you’re on Firefox and do not use the latest Tampermonkey version! <br />
+          <a href="https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754">Since TM Beta 4.11.6114</a>, you do not have to disable the <code>security.csp.enable</code> flag anymore. <br />
+          It is highly recommended to reenable the flag and reinstall the Script with TM Beta >= 4.11.6114! <br />
+          <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md">Click here to learn more.</a>
+        </div>
+      `)
     }
 
 
