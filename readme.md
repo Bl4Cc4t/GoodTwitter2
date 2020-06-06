@@ -1,6 +1,11 @@
-# GoodTwitter 2 - Electric Boogaloo
+<div align="center">
+  <h1>GoodTwitter 2 - Electric Boogaloo</h1>
 
-A try to make Twitter look good again.
+  A try to make Twitter look good again.
+
+  Changelog: [v0.0.19](https://github.com/Bl4Cc4t/GoodTwitter2/pull/65) · [0.0.20](https://github.com/Bl4Cc4t/GoodTwitter2/pull/79)
+
+</div>
 
 ## Content
 - [Background](#background)
@@ -8,8 +13,8 @@ A try to make Twitter look good again.
 - [Features](#features)
 - [Installation](#installation)
 - [FAQ](#faq)
-- [Previews](#previews)
 - [Translations](#translations)
+- [Previews](#previews)
 
 
 ## Background
@@ -21,6 +26,7 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ## Features
+![](https://i.imgur.com/Q4Ss6vkr.png)
 - Legacy Navbar is back!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
@@ -47,7 +53,7 @@ To use this script, you need a userscript manager.
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you’re (almost) good to go!
 - ~~[Firefox only] Disable CSP (See [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))~~
-  - This is not needed anymore when using Tampermonkey Beta v4.11.6114! (See [#952](https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754))
+  - This is not needed anymore when using Tampermonkey Beta v4.11.6114! (See [#952](https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754) and [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md))
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
@@ -101,4 +107,4 @@ Open the following box to learn more.
 ## Previews
 ![](https://i.imgur.com/3xY7IIpr.png)
 ![](https://i.imgur.com/gxg8CUEr.png)
-![](https://i.imgur.com/Z7rzilXr.png)
+![](https://i.imgur.com/aIHaT4or.png)
