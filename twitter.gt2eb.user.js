@@ -987,6 +987,7 @@
     // firefox csp notice
     if (!$(".gt2-sidebar-notice").length
       && typeof InstallTrigger !== "undefined"  // on firefox
+      && GM_info.scriptHandler == "Tampermonkey"
       && parseInt(GM_info.version.replace(/\./g, "")) < 4116114
     ) {
       $(".gt2-left-sidebar").prepend(`
