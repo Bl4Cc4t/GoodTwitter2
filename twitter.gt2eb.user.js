@@ -21,7 +21,8 @@
   "use strict"
 
   // do not execute on these pages
-  if (["login", ""].includes(getPath().split("/")[0])) {
+  if (["login"].includes(getPath().split("/")[0])
+    || (!isLoggedIn() && [""].includes(getPath().split("/")[0]))) {
     return
   }
 
@@ -932,7 +933,8 @@
 
 
     // do a reload on these pages
-    if (["login", ""].includes(path.split("/")[0])) {
+    if (["login"].includes(path.split("/")[0])
+      || (!isLoggedIn() && [""].includes(path.split("/")[0]))) {
       window.location.reload()
     }
 
