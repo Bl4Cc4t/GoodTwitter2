@@ -475,7 +475,8 @@ body:not(.gt2-opt-small-sidebars) {
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
-    & > a > div:nth-child(1) > div:nth-child(2) > div {
+    & > a > div:nth-child(1) > div:nth-child(2) > div,
+    & > a > div:nth-child(2) {
       border-radius: 10%;
     }
     & > a[href$="/photo"] {
