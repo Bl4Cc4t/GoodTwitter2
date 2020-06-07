@@ -617,8 +617,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
 
 .gt2-show-hidden-tweets {
   color: var(--color-text);
-  height: auto;
-  padding: 10px;
+  height: auto !important;
+  padding: 10px !important;
   text-align: center;
 
   &:hover {
