@@ -537,6 +537,11 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// hide search when added to navbar
+.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+  display: none;
+}
+
 // acc switcher dropdown
 #{$accSwitcherDropdown} {
   bottom: unset !important;

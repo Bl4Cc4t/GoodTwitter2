@@ -180,26 +180,15 @@
 
   // add search
   function addSearch() {
-    // remove moved search bar
-    function rem() {
-      if ($(".gt2-search").length) {
-        $(".gt2-search").empty()
-      }
-    }
-
-    // on /search is already a search bar in the center
-    if (getPath() == "search") {
-      rem()
-    } else {
-      let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
-      waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
-        // remove if added previously
-        rem()
-        // add search
-        $(search)
-        .prependTo(".gt2-search")
-      })
-    }
+    let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
+    waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
+      // remove if added previously
+      $(".gt2-search").empty()
+      // add search
+      $(search)
+      .prependTo(".gt2-search")
+      $("body").addClass("gt2-search-added")
+    })
   }
 
 
@@ -974,7 +963,8 @@
 
       // hide/add search
       if (["explore", "search"].some(e => path.startsWith(e))) {
-        $(".gt2-search").remove()
+        $(".gt2-search").empty()
+        $("body").removeClass("gt2-search-added")
       } else {
         addSearch()
       }
