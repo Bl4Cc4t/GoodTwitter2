@@ -333,7 +333,7 @@
   function wrapTrends() {
     $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
       let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht}%22` }">${ht}</a>`)
+      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht.replace(/(^\"|\"$)/g, "")}%22` }">${ht}</a>`)
     })
   }
 
