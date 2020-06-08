@@ -124,7 +124,8 @@
       lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
       arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
       tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`,
-      moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`
+      moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`,
+      x: `<g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g>`
     }
     return `
       <svg class="gt2-svg" viewBox="0 0 24 24">
@@ -979,15 +980,29 @@
       && typeof InstallTrigger !== "undefined"  // on firefox
       && GM_info.scriptHandler == "Tampermonkey"
       && parseInt(GM_info.version.replace(/\./g, "")) < 4116114
+      && !GM_getValue("ff_csp_acknowledged")
     ) {
       $(".gt2-left-sidebar").prepend(`
-        <div class="gt2-sidebar-notice">
-          It looks like you’re on Firefox and do not use the latest Tampermonkey version! <br />
-          <a href="https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754">Since TM Beta 4.11.6114</a>, you do not have to disable the <code>security.csp.enable</code> flag anymore. <br />
-          It is highly recommended to reenable the flag and reinstall the Script with TM Beta >= 4.11.6114! <br />
-          <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md">Click here to learn more.</a>
+        <div class="gt2-sidebar-notice" id="ff-csp-notice">
+          <div class="gt2-sidebar-notice-header">
+            GoodTwitter 2 Notice
+            <div class="gt2-sidebar-notice-close">
+              <div></div>
+              ${getSvg("x")}
+            </div>
+          </div>
+          <div class="gt2-sidebar-notice-content">
+            It looks like you’re on Firefox and do not use the latest Tampermonkey version! <br />
+            <a href="https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754">Since TM Beta 4.11.6114</a>, you do not have to disable the <code>security.csp.enable</code> flag anymore. <br />
+            It is highly recommended to reenable the flag and reinstall the Script with TM Beta >= 4.11.6114! <br />
+            <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md">Click here to learn more.</a>
+          </div>
         </div>
       `)
+      $("body").on("click", "#ff-csp-notice .gt2-sidebar-notice-close", function() {
+        GM_setValue("ff_csp_acknowledged", true)
+        $(this).parents(".gt2-sidebar-notice").remove()
+      })
     }
 
 

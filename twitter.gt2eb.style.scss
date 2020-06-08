@@ -23,6 +23,42 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 }
 
 
+@mixin hoverableSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 1.5em;
+  width: 1.5em;
+
+  div {
+    transition: opacity 0.2s ease-in-out;
+    background-color: var(--color-user);
+    opacity: 0;
+    border-radius: 9999px;
+    position: absolute;
+    height: 39px;
+    width: 39px;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: var(--color-user);
+  }
+
+  &:hover {
+    cursor: pointer;
+    div {
+      opacity: 0.1;
+    }
+    svg {
+      fill: var(--color-user) !important;
+    }
+  }
+}
+
+
 // normal display
 @media only screen and (min-width: 1350px) {
   body:not(.gt2-opt-small-sidebars) {
@@ -965,36 +1001,13 @@ body[style*="overflow-y: hidden"] .gt2-nav {
     .gt2-toggle-lo-nightmode {
       right: 7.5px;
       bottom: calc(93px + (var(--font-increment) + 2px) / 2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      height: 27px;
-      width: 27px;
-
+      @include hoverableSvg;
       div {
-        transition: opacity 0.2s ease-in-out;
-        background-color: var(--color-user);
-        opacity: 0;
-        border-radius: 9999px;
-        position: absolute;
-        height: 27px;
         width: 27px;
+        height: 27px;
       }
-
       svg {
-        width: 1em;
-        height: 1em;
-      }
-
-      &:hover {
-        cursor: pointer;
-        div {
-          opacity: 0.1;
-        }
-        svg {
-          color: var(--color-user);
-        }
+        fill: var(--color-gray);
       }
     }
 
@@ -1241,11 +1254,25 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 .gt2-sidebar-notice {
   background-color: var(--color-elem);
   color: var(--color-text);
-  text-align: center;
   border: 1px solid var(--color-gray-dark);
-  padding: 10px;
 
   a:link, a:visited {
     color: var(--color-user);
+  }
+  .gt2-sidebar-notice-header {
+    font-size: incr(19px);
+    font-weight: 800;
+    border-bottom: solid 1px var(--color-gray-dark);
+    .gt2-sidebar-notice-close {
+      right: 10px;
+      top: 10px;
+      @include hoverableSvg;
+    }
+  }
+  .gt2-sidebar-notice-content {
+    text-align: center;
+  }
+  & > div {
+    padding: 10px 15px;
   }
 }
