@@ -792,7 +792,7 @@
 
 
   // update inserted CSS
-  async function updateCSS() {
+  function updateCSS() {
     // bgColor schemes
     let bgColors = {
       // default (white)
