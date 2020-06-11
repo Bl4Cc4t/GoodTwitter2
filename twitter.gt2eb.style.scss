@@ -635,7 +635,8 @@ div[data-testid=primaryColumn] > div {
 // colorized buttons for image modals
 div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
   // comments
-  div[data-testid=reply]:hover {
+  div[data-testid=reply]:hover,
+  div[role=button]:not([data-testid]):hover {
     & > div > div > div {
       background-color: rgba(29, 161, 242, 0.1);
     }
