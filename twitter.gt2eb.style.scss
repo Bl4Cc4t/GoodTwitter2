@@ -425,30 +425,34 @@ main {
   }
   .gt2-left-sidebar {
     height: calc(100vh - 57px);
-    padding-bottom: 10px;
   }
 
   // indepentently scrollable right sidebar
-  div[data-testid=sidebarColumn]:not(:hover) > div {
+  div[data-testid=sidebarColumn] > div {
+
     & > div:nth-child(1) {
       margin-top: 0 !important;
     }
-    & > div:nth-child(2) {
+
+    > div:nth-child(2) {
+      position: fixed;
       top: 56px !important;
       bottom: unset !important;
-    }
-  }
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-    position: fixed;
-    height: calc(100vh - 57px);
-    padding-bottom: 10px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+      height: calc(100vh - 47px);
+      padding-top: 10px;
+      margin-top: -10px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 
-    &::-webkit-scrollbar {
-      display: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      > div {
+        margin-bottom: 10px;
+      }
     }
   }
 
