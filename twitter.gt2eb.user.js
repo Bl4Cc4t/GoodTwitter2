@@ -306,7 +306,7 @@
   // handle trends (move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div[data-testid=trend]`
+    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div:nth-child(1) ~ div[data-testid=trend]`
 
     waitForKeyElements(trends, function() {
       let $trends = $(trends)
@@ -363,11 +363,12 @@
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
     let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
-    // exception for russian
 
+    // exception for russian
     if ($("html").attr("lang") == "ru") {
       text = getRusShowNew(nr)
     }
+
     if (nr) {
       // add button
       if ($(".gt2-show-hidden-tweets").length == 0) {
@@ -394,6 +395,7 @@
     let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
     GM_setValue("topTweet", topTweet)
     $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
+    $(".gt2-hidden-tweet-part").removeClass("gt2-hidden-tweet-part")
     console.log(`topTweet: ${topTweet}`)
     updateNewTweetDisplay()
   })
@@ -485,7 +487,6 @@
       if ($(more).find("a[href='/explore']").length) return
       let $hr = $(more).find("> div").eq(-4)  // seperator line
       let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
-      console.log("fmrpe");
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -705,7 +706,7 @@
   // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
   function handleKTILOpt() {
     let $t = $("div[data-toggleid=keepTweetsInTL]")
-    if (GM_getValue("opt_gt2").autoRefresh) {
+    if (GM_getValue("opt_gt2").disableAutoRefresh) {
       if (!GM_getValue("opt_gt2").keepTweetsInTL) {
         $t.click()
       }
@@ -1055,16 +1056,19 @@
   let origPush = window.history.pushState
   window.history.pushState = function() {
     origPush.apply(window.history, arguments)
+    // console.log("push")
     urlChange()
   }
 
   let origRepl = window.history.replaceState
   window.history.replaceState = function() {
     origRepl.apply(window.history, arguments)
+    // console.log("replace")
     urlChange()
   }
 
   window.addEventListener("popstate", function(event) {
+    // console.log("pop")
     urlChange()
   })
 
