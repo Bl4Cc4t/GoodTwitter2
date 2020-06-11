@@ -305,24 +305,25 @@
   // handle trends (move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=sidebarColumn] div:nth-child(4) > div[data-testid=trend],
-                  .gt2-left-sidebar div:nth-child(4) > div[data-testid=trend]`
+    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div[data-testid=trend]`
 
     waitForKeyElements(trends, function() {
+      let $trends = $(trends)
       // move trends
       if (GM_getValue("opt_gt2").leftTrends
           && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
             || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
         if ($(".gt2-trends").length) $(".gt2-trends").remove()
-        $(trends).parents("section").parent().parent().parent()
+
+        $trends.parents("section").parent().parent().parent()
         .detach().addClass("gt2-trends")
         .appendTo(".gt2-left-sidebar")
       }
 
       // show 10 trends
       if (GM_getValue("opt_gt2").show10Trends) {
-        if ($(trends).parent().parent().find("> div").length == 7) {
-          $(trends).parent().parent().find("> div[role=button]").click()
+        if ($trends.parent().parent().find("> div").length == 7) {
+          $trends.parent().parent().find("> div[role=button]").click()
         }
       }
     })
