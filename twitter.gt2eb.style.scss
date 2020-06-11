@@ -357,14 +357,26 @@ main {
     div[data-testid=primaryColumn] {
       height: fit-content;
       margin-bottom: 10px;
+      border-bottom: 1px solid var(--color-gray-dark);
       & > div > div:nth-child(2) > div > section > div > div {
         padding-bottom: 0 !important;
-        & > div > div:not([class]):last-child {
-          display: none;
+        & > div > div:not([class]) {
+          &:nth-last-child(2) > div {
+            border-bottom-width: 0;
+          }
+
+          &:last-child > div {
+            height: fit-content;
+            & > div {
+              height: calc(6.5625rem);
+              &:empty {
+                display: none;
+              }
+            }
+          }
         }
       }
     }
-
 
     div[data-testid=primaryColumn],
     & > section {
