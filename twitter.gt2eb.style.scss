@@ -912,9 +912,13 @@ a.gt2-trend {
   }
 }
 
-// hide navbar on modal
-body[style*="overflow-y: hidden"] .gt2-nav {
-  z-index: -1;
+// stuff to do on modal
+body[style*="overflow-y: hidden"] {
+  // hide navbar and other things
+  .gt2-nav,
+  .gt2-search-overflow-hider {
+    z-index: -1 !important;
+  }
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }
@@ -923,6 +927,31 @@ body[style*="overflow-y: hidden"] .gt2-nav {
   }
 }
 
+// /search overflow, let search box stay on top
+body:not(.gt2-search-added) {
+  .gt2-search-overflow-hider {
+    position: fixed;
+    width: 600px;
+    height: 9px;
+    top: 47px;
+    right: calc(50% - 300px);
+    background-color: var(--color-bg);
+    z-index: 1;
+  }
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+    & > div > div:nth-child(1) {
+      position: sticky;
+      top: 56px;
+      border-top: 1px solid var(--color-gray-dark);
+    }
+  }
+}
+
+
+
+
+// left sidebar
 .gt2-left-sidebar {
   margin-top: -10px;
   padding-top: 10px;
@@ -1267,9 +1296,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
         }
       }
     }
-
   }
-
 
   & > span {
     display: block;
@@ -1304,6 +1331,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
     padding: 10px 15px;
   }
 }
+
 
 // tweet analytics
 body[data-promote-url^="/i/tfb/v1/quick_promote"] {

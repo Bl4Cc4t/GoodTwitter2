@@ -163,6 +163,7 @@
             <div class="gt2-compose">${locStr("composeNewTweet")}</div>
           </div>
         </nav>
+        <div class="gt2-search-overflow-hider"></div>
       `)
 
       // home, notifications, messages
@@ -964,7 +965,7 @@
 
 
       // hide/add search
-      if (["explore", "search"].some(e => path.startsWith(e))) {
+      if (["explore", "search"].some(e => e == path.split("/")[0])) {
         $(".gt2-search").empty()
         $("body").removeClass("gt2-search-added")
       } else {
@@ -1025,7 +1026,7 @@
 
     // sectionated pages need special attention on some properties
     if (path.split("/")[0] == "messages" ||
-        (path.split("/")[0] == "settings" && !["trends", "profile"].includes(path.split("/")[1])) ) {
+        (path.split("/")[0] == "settings" && !["trends", "profile", "explore"].includes(path.split("/")[1])) ) {
       $("body").addClass("gt2-page-with-sections")
     } else if (!path.startsWith("i/")) {
       $("body").removeClass("gt2-page-with-sections")
