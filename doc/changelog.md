@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.21.1
+- inline translation cookie hotfix
+
 ## [0.0.21](https://github.com/Bl4Cc4t/GoodTwitter2/pull/92)
 *released 2020-06-12*
 - French translation added (Thanks [@Aridow](https://github.com/Aridow)!)
