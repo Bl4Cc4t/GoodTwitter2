@@ -648,7 +648,7 @@
   function addSettings() {
     if (!$(".gt2-settings").length) {
       $("main section:nth-last-child(1)").prepend(`
-        <div class="gt2-settings-header">GoodTwitter2</div>
+        <div class="gt2-settings-header">GoodTwitter2 v${GM_info.script.version}</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
@@ -978,15 +978,11 @@
     }
 
 
-    // firefox csp notice
-    if (!$(".gt2-sidebar-notice").length
-      && typeof InstallTrigger !== "undefined"  // on firefox
-      && GM_info.scriptHandler == "Tampermonkey"
-      && parseInt(GM_info.version.replace(/\./g, "")) < 4116114
-      && !GM_getValue("ff_csp_acknowledged")
-    ) {
+    // update changelog
+    let v = GM_info.script.version
+    if (!$(".gt2-sidebar-notice").length && !GM_getValue(`sb_notice_ack_update_${v}`)) {
       $(".gt2-left-sidebar").prepend(`
-        <div class="gt2-sidebar-notice" id="ff-csp-notice">
+        <div class="gt2-sidebar-notice">
           <div class="gt2-sidebar-notice-header">
             GoodTwitter 2 Notice
             <div class="gt2-sidebar-notice-close">
@@ -995,15 +991,13 @@
             </div>
           </div>
           <div class="gt2-sidebar-notice-content">
-            It looks like you’re on Firefox and do not use the latest Tampermonkey version! <br />
-            <a href="https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754">Since TM Beta 4.11.6114</a>, you do not have to disable the <code>security.csp.enable</code> flag anymore. <br />
-            It is highly recommended to reenable the flag and reinstall the Script with TM Beta >= 4.11.6114! <br />
-            <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md">Click here to learn more.</a>
+            Your GoodTwitter 2 has just been updated to v${v}!
+            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v}" target="_blank">here</a>!
           </div>
         </div>
       `)
-      $("body").on("click", "#ff-csp-notice .gt2-sidebar-notice-close", function() {
-        GM_setValue("ff_csp_acknowledged", true)
+      $("body").on("click", ".gt2-sidebar-notice-close", function() {
+        GM_setValue(`sb_notice_ack_update_${v}`, true)
         $(this).parents(".gt2-sidebar-notice").remove()
       })
     }
@@ -1052,22 +1046,10 @@
   }
   urlChange()
 
-  // run urlChange() when history changes
-  // let origPush = window.history.pushState
-  // window.history.pushState = function() {
-  //   origPush.apply(window.history, arguments)
-  //   // console.log("push")
-  //   urlChange()
-  // }
-  //
-  // let origRepl = window.history.replaceState
-  // window.history.replaceState = function() {
-  //   origRepl.apply(window.history, arguments)
-  //   // console.log("replace")
-  //   urlChange()
-  // }
 
-  const exportFunc = typeof exportFunction === 'function' ? exportFunction : (fn => fn)
+  // run urlChange() when history changes
+  // https://github.com/Bl4Cc4t/GoodTwitter2/issues/96
+  const exportFunc = typeof exportFunction === "function" ? exportFunction : (fn => fn)
   const pageWindow = unsafeWindow.wrappedJSObject || unsafeWindow
   const pageHistory = pageWindow.History.prototype
 
@@ -1083,8 +1065,7 @@
     urlChange()
   }, pageWindow)
 
-  window.addEventListener("popstate", function(event) {
-    // console.log("pop")
+  window.addEventListener("popstate", function() {
     urlChange()
   })
 

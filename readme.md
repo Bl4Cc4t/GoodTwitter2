@@ -3,7 +3,7 @@
 
   A try to make Twitter look good again.
 
-  Changelog: [0.0.19](https://github.com/Bl4Cc4t/GoodTwitter2/pull/65) · [0.0.20](https://github.com/Bl4Cc4t/GoodTwitter2/pull/79)
+  [Changelog](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md)
 
 </div>
 
