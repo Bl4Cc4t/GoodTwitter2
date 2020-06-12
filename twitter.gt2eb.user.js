@@ -348,11 +348,12 @@
 
 
 
-  // ###########################
-  // #  translate in timelime  #
-  // ###########################
+  // ##################################
+  // #  translate tweets in timelime  #
+  // ##################################
 
 
+  // add translate button
   waitForKeyElements("div[data-testid=tweet]", function(e) {
     let tweetLang = $(e).find("div[lang]").attr("lang")
     if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
@@ -430,7 +431,8 @@
 
           }
 
-          $(_this).addClass("gt2-hidden").after(`
+          $(_this).addClass("gt2-hidden")
+          $(_this).after(`
             <div class="gt2-translated-tweet-info">
               ${GM_getValue("tmp_translatedTweetInfo")
                 .replace("$lang$", o.localizedSourceLanguage)

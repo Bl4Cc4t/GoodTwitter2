@@ -356,6 +356,8 @@ main {
     // compact conversations on tweets
     div[data-testid=primaryColumn] {
       height: fit-content;
+      height: -moz-fit-content;
+      height: -webkit-fit-content;
       margin-bottom: 10px;
       border-bottom: 1px solid var(--color-gray-dark);
       & > div > div:nth-child(2) > div > section > div > div {
@@ -367,6 +369,8 @@ main {
 
           &:last-child > div {
             height: fit-content;
+            height: -moz-fit-content;
+            height: -webkit-fit-content;
             & > div {
               height: calc(6.5625rem);
               &:empty {
