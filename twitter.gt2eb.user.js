@@ -1053,19 +1053,35 @@
   urlChange()
 
   // run urlChange() when history changes
-  let origPush = window.history.pushState
-  window.history.pushState = function() {
-    origPush.apply(window.history, arguments)
-    // console.log("push")
-    urlChange()
-  }
+  // let origPush = window.history.pushState
+  // window.history.pushState = function() {
+  //   origPush.apply(window.history, arguments)
+  //   // console.log("push")
+  //   urlChange()
+  // }
+  //
+  // let origRepl = window.history.replaceState
+  // window.history.replaceState = function() {
+  //   origRepl.apply(window.history, arguments)
+  //   // console.log("replace")
+  //   urlChange()
+  // }
 
-  let origRepl = window.history.replaceState
-  window.history.replaceState = function() {
-    origRepl.apply(window.history, arguments)
-    // console.log("replace")
+  const exportFunc = typeof exportFunction === 'function' ? exportFunction : (fn => fn)
+  const pageWindow = unsafeWindow.wrappedJSObject || unsafeWindow
+  const pageHistory = pageWindow.History.prototype
+
+  const origPush = exportFunc(pageHistory.pushState, pageWindow)
+  pageHistory.pushState = exportFunc(function () {
+    origPush.apply(this, arguments)
     urlChange()
-  }
+  }, pageWindow)
+
+  const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
+  pageHistory.replaceState = exportFunc(function () {
+    origRepl.apply(this, arguments)
+    urlChange()
+  }, pageWindow)
 
   window.addEventListener("popstate", function(event) {
     // console.log("pop")
