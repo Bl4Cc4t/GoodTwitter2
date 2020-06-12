@@ -1113,7 +1113,7 @@
           </div>
           <div class="gt2-sidebar-notice-content">
             Your GoodTwitter 2 has just been updated to v${v}!
-            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v}" target="_blank">here</a>!
+            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">here</a>!
           </div>
         </div>
       `)
