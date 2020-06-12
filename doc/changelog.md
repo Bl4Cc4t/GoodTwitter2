@@ -6,6 +6,7 @@
 - Violentmonkey support (be gone, CSP issues!) thanks to [@tophf](https://github.com/tophf) (see [#96](https://github.com/Bl4Cc4t/GoodTwitter2/issues/96#issuecomment-643209498))
 - various cosmetic fixes
 - added changelog
+- added translation button for tweets in timeline([#32](https://github.com/Bl4Cc4t/GoodTwitter2/issues/32))
 
 
 ## [0.0.20](https://github.com/Bl4Cc4t/GoodTwitter2/pull/79)

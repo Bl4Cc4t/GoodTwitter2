@@ -1404,3 +1404,42 @@ body[data-payment-endpoint-path] {
     }
   }
 }
+
+.gt2-hidden {
+  display: none;
+}
+
+// translate tweet
+.gt2-translate-tweet,
+.gt2-translated-tweet-info {
+  margin-top: 5px;
+  color: var(--color-user);
+  font-size: incr(13px);
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+
+  svg {
+    height: 1.25em;
+    fill: var(--color-text);
+    vertical-align: middle;
+    margin-left: 1px;
+  }
+}
+.gt2-translated-tweet {
+  color: var(--color-text);
+  font-size: incr(15px);
+  white-space: pre-line;
+
+  a,
+  a:link,
+  a:visited {
+    color: var(--color-user);
+    text-decoration-line: none;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+}
