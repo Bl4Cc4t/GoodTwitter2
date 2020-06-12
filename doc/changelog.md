@@ -1,6 +1,10 @@
 # Changelog
 
+## 0.0.21.1
+- inline translation cookie hotfix
+
 ## [0.0.21](https://github.com/Bl4Cc4t/GoodTwitter2/pull/92)
+*released 2020-06-12*
 - French translation added (Thanks [@Aridow](https://github.com/Aridow)!)
 - Korean translation added (Thanks [@Lastorder-DC](https://github.com/Lastorder-DC)!)
 - Violentmonkey support (be gone, CSP issues!) thanks to [@tophf](https://github.com/tophf) (see [#96](https://github.com/Bl4Cc4t/GoodTwitter2/issues/96#issuecomment-643209498))

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.21
+// @version       0.0.21.1
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -27,6 +27,17 @@
     || (!isLoggedIn() && [""].includes(getPath().split("/")[0]))) {
     return
   }
+
+
+
+  // window.setInterval(() => {
+  //   console.log("test");
+  //   window.scroll(0, 700)
+  //   window.setTimeout(() => {
+  //     window.scroll(0, 0)
+  //   }, 100)
+  // }, 5000)
+
 
   // ###########################
   // #  convenience functions  #
@@ -381,7 +392,7 @@
 
     // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
     let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
-    let csrf = window.document.cookie.match(/ct0=([^;]+);/)[1]
+    let csrf = window.document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
     let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
     GM_xmlhttpRequest({
       method: "GET",
