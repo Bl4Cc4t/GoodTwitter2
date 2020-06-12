@@ -31,6 +31,8 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
+- Added toggle for nightmode when not logged in
+- Translate tweets directly in your timeline!
 
 ### Custom Settings
 #### Timeline
