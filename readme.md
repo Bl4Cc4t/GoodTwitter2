@@ -3,7 +3,7 @@
 
   A try to make Twitter look good again.
 
-  Changelog: [0.0.19](https://github.com/Bl4Cc4t/GoodTwitter2/pull/65) · [0.0.20](https://github.com/Bl4Cc4t/GoodTwitter2/pull/79)
+  [Changelog](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md)
 
 </div>
 
@@ -31,6 +31,8 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
+- Added toggle for nightmode when not logged in
+- Translate tweets directly in your timeline!
 
 ### Custom Settings
 #### Timeline
@@ -47,13 +49,10 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 ## Installation
 To use this script, you need a userscript manager.
 
-- Install Tampermonkey (Greasemonkey is not supported at the moment)
-  - [Official Website](https://www.tampermonkey.net/)
-  - [Firefox only] Please use the Beta Version of Tampermonkey!
+- Install [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/) (Greasemonkey is not supported at the moment)
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
-- Hit install and you’re (almost) good to go!
-- ~~[Firefox only] Disable CSP (See [#4](https://github.com/Bl4Cc4t/GoodTwitter2/issues/4))~~
-  - This is not needed anymore when using Tampermonkey Beta v4.11.6114! (See [#952](https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754) and [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md))
+- Hit install and you should be good to go!
+- [Firefox] You do not need to disable CSP on anymore. If you disabled it previously, see [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md) on how to enable it again.
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
@@ -71,7 +70,9 @@ If you want to help with coding, you can take a look at the issue tracker. There
 
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
+- French (added by [@Aridow](https://github.com/Aridow))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
+- Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))

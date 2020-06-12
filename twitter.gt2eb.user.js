@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.20
+// @version       0.0.21
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -9,6 +9,8 @@
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @grant         GM_info
+// @grant         GM_xmlhttpRequest
+// @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
@@ -21,7 +23,8 @@
   "use strict"
 
   // do not execute on these pages
-  if (["login", ""].includes(getPath().split("/")[0])) {
+  if (["login"].includes(getPath().split("/")[0])
+    || (!isLoggedIn() && [""].includes(getPath().split("/")[0]))) {
     return
   }
 
@@ -66,6 +69,10 @@
       else out += e
     }
     return out
+  }
+
+  String.prototype.insertAt = function(index, text) {
+    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index)}`
   }
 
 
@@ -123,10 +130,12 @@
       lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
       arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
       tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`,
-      moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`
+      moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`,
+      x: `<g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g>`,
+      google: `<g><path d="M9.827 17.667c-4.82 0-8.873-3.927-8.873-8.747S5.007.173 9.827.173c2.667 0 4.567 1.047 5.993 2.413l-1.687 1.687c-1.027-.96-2.413-1.707-4.307-1.707-3.52 0-6.273 2.84-6.273 6.36s2.753 6.36 6.273 6.36c2.28 0 3.587-.92 4.413-1.747.68-.68 1.132-1.668 1.3-3.008H10v-2.4h7.873c.087.428.127.935.127 1.495 0 1.793-.493 4.013-2.067 5.587-1.54 1.6-3.5 2.453-6.106 2.453zm20.806-5.627c0 3.24-2.533 5.633-5.633 5.633-3.107 0-5.633-2.387-5.633-5.633 0-3.267 2.527-5.633 5.633-5.633 3.1.006 5.633 2.373 5.633 5.633zm-2.466 0c0-2.027-1.467-3.413-3.167-3.413-1.7 0-3.167 1.387-3.167 3.413 0 2.007 1.467 3.413 3.167 3.413 1.7 0 3.167-1.406 3.167-3.413zm15.133-.007c0 3.24-2.527 5.633-5.633 5.633s-5.633-2.387-5.633-5.633c0-3.267 2.527-5.633 5.633-5.633S43.3 8.773 43.3 12.033zm-2.467 0c0-2.027-1.467-3.413-3.167-3.413S34.5 10.007 34.5 12.033c0 2.007 1.467 3.413 3.167 3.413s3.166-1.406 3.166-3.413zm14.5-5.286V16.86c0 4.16-2.453 5.867-5.353 5.867-2.733 0-4.373-1.833-4.993-3.327l2.153-.893c.387.92 1.32 2.007 2.84 2.007 1.853 0 3.007-1.153 3.007-3.307v-.813H52.9c-.553.68-1.62 1.28-2.967 1.28-2.813 0-5.267-2.453-5.267-5.613 0-3.18 2.453-5.652 5.267-5.652 1.347 0 2.413.6 2.967 1.26h.087v-.92h2.346zm-2.173 5.306c0-1.987-1.32-3.433-3.007-3.433-1.707 0-3.007 1.453-3.007 3.433 0 1.96 1.3 3.393 3.007 3.393 1.68 0 3.007-1.426 3.007-3.393zM59.807.78v16.553h-2.473V.78h2.473zm9.886 13.113l1.92 1.28c-.62.92-2.113 2.493-4.693 2.493-3.2 0-5.587-2.473-5.587-5.633 0-3.347 2.413-5.633 5.313-5.633 2.92 0 4.353 2.327 4.82 3.587l.253.64-7.534 3.113c.573 1.133 1.473 1.707 2.733 1.707s2.133-.62 2.773-1.554zm-5.906-2.026l5.033-2.093c-.28-.707-1.107-1.193-2.093-1.193-1.254 0-3.007 1.107-2.94 3.287z"></path></g>`
     }
     return `
-      <svg class="gt2-svg" viewBox="0 0 24 24">
+      <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
         ${svgs[key]}
       </svg>`
   }
@@ -156,11 +165,12 @@
           <div class="gt2-nav-right">
             <div class="gt2-search"></div>
             <div class="gt2-toggle-navbar-dropdown">
-              <img src="${getInfo().avatarUrl.replace("normal", "bigger")}" />
+              <img src="${getInfo().avatarUrl.replace("normal.", "bigger.")}" />
             </div>
             <div class="gt2-compose">${locStr("composeNewTweet")}</div>
           </div>
         </nav>
+        <div class="gt2-search-overflow-hider"></div>
       `)
 
       // home, notifications, messages
@@ -179,26 +189,15 @@
 
   // add search
   function addSearch() {
-    // remove moved search bar
-    function rem() {
-      if ($(".gt2-search").length) {
-        $(".gt2-search").empty()
-      }
-    }
-
-    // on /search is already a search bar in the center
-    if (getPath() == "search") {
-      rem()
-    } else {
-      let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
-      waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
-        // remove if added previously
-        rem()
-        // add search
-        $(search)
-        .prependTo(".gt2-search")
-      })
-    }
+    let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
+    waitForKeyElements(`${search} input[data-testid=SearchBox_Search_Input]`, () => {
+      // remove if added previously
+      $(".gt2-search").empty()
+      // add search
+      $(search)
+      .prependTo(".gt2-search")
+      $("body").addClass("gt2-search-added")
+    })
   }
 
 
@@ -222,7 +221,7 @@
           <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
           <div>
             <a ${href}="/${i.screenName}" class="gt2-avatar">
-              <img src="${i.avatarUrl.replace("normal", "bigger")}"/>
+              <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
             </a>
             <div class="gt2-user">
               <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
@@ -314,24 +313,25 @@
   // handle trends (move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=sidebarColumn] div:nth-child(4) > div[data-testid=trend],
-                  .gt2-left-sidebar div:nth-child(4) > div[data-testid=trend]`
+    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div:nth-child(1) ~ div[data-testid=trend]`
 
     waitForKeyElements(trends, function() {
+      let $trends = $(trends)
       // move trends
       if (GM_getValue("opt_gt2").leftTrends
           && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
             || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
         if ($(".gt2-trends").length) $(".gt2-trends").remove()
-        $(trends).parents("section").parent().parent().parent()
+
+        $trends.parents("section").parent().parent().parent()
         .detach().addClass("gt2-trends")
         .appendTo(".gt2-left-sidebar")
       }
 
       // show 10 trends
       if (GM_getValue("opt_gt2").show10Trends) {
-        if ($(trends).parent().parent().find("> div").length == 7) {
-          $(trends).parent().parent().find("> div[role=button]").click()
+        if ($trends.parent().parent().find("> div").length == 7) {
+          $trends.parent().parent().find("> div[role=button]").click()
         }
       }
     })
@@ -342,9 +342,125 @@
   function wrapTrends() {
     $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
       let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht}%22` }">${ht}</a>`)
+      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht.replace(/(^\"|\"$)/g, "")}%22` }">${ht}</a>`)
     })
   }
+
+
+
+  // ##################################
+  // #  translate tweets in timelime  #
+  // ##################################
+
+
+  // add translate button
+  waitForKeyElements("div[data-testid=tweet]", function(e) {
+    let tweetLang = $(e).find("div[lang]").attr("lang")
+    if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
+      $(e).find("div[lang]").after(`
+        <div class="gt2-translate-tweet">
+          ${locStr("translateTweet")}
+        </div>
+      `)
+    }
+  })
+
+  // translate a tweet
+  $("body").on("click", ".gt2-translate-tweet", function(event) {
+    event.preventDefault()
+
+    // already translated
+    if ($(this).parent().find(".gt2-translated-tweet").length) {
+      $(this).addClass("gt2-hidden")
+      $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").removeClass("gt2-hidden")
+      return
+    }
+
+    let _this = this
+    GM_setValue("tmp_translatedTweetInfo", locStr("translatedTweetInfo"))
+
+    // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
+    let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+    let csrf = window.document.cookie.match(/ct0=([^;]+);/)[1]
+    let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
+    GM_xmlhttpRequest({
+      method: "GET",
+      url:    `https://api.twitter.com/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
+      headers: {
+        authorization: `Bearer ${publicBearer}`,
+        "x-twitter-client-language": $("html").attr("lang"),
+        "x-csrf-token": csrf,
+        "x-twitter-active-user": "yes",
+        "x-twitter-auth-type": "OAuth2Session"
+      },
+      onload: function(res) {
+        if (res.status == "200") {
+          let o = JSON.parse(res.response)
+          console.log(o);
+          let out = o.translation
+
+
+          // handle entities in tweet
+
+          if (o.entities) {
+            // add to output helper function
+            let offset = 0
+            function addToOut(index, text) {
+              out = out.insertAt(index + offset, text)
+              offset += text.length
+            }
+
+            // urls
+            for (let url of o.entities.urls) {
+              addToOut(url.indices[0], `<a href="`)
+              addToOut(url.indices[1], `" target="_blank">${url.display_url}</a> `)
+            }
+
+            // users
+            for (let user of o.entities.user_mentions) {
+              addToOut(user.indices[0], `<a href="/${user.screen_name}">`)
+              addToOut(user.indices[1], `</a> `)
+            }
+
+            // hashtags
+            for (let hashtag of o.entities.hashtags) {
+              console.log(offset);
+              addToOut(hashtag.indices[0], `<a href="/hashtag/${hashtag.text}">`)
+              addToOut(hashtag.indices[1], `</a> `)
+            }
+
+          }
+
+          $(_this).addClass("gt2-hidden")
+          $(_this).after(`
+            <div class="gt2-translated-tweet-info">
+              ${GM_getValue("tmp_translatedTweetInfo")
+                .replace("$lang$", o.localizedSourceLanguage)
+                .replace("$source$", `
+                  <a href="https://translate.google.com">
+                    ${getSvg("google")}
+                  </a>
+                `)
+              }
+            </div>
+            <div class="gt2-translated-tweet">
+              ${out}
+            </div>
+          `)
+        } else {
+          console.error("Error occurred while translating.")
+        }
+      }
+    })
+  })
+
+  // hide translation
+  $("body").on("click", ".gt2-translated-tweet-info", function(event) {
+    event.preventDefault()
+
+    $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").addClass("gt2-hidden")
+    $(this).parent().find(".gt2-translate-tweet").removeClass("gt2-hidden")
+  })
 
 
 
@@ -353,10 +469,29 @@
   // ########################
 
 
+  // russian numbering
+  function getRusShowNew(nr) {
+    let end
+    let t1 = nr.toString().slice(-1)
+    let t2 = nr.toString().slice(-2)
+
+    if (t1 == 1)                          end = "новый твит"
+    if (t1 >= 2 && t1 <= 4)               end = "новых твита"
+    if (t1 == 0 || (t1 >= 5 && t1 <= 9))  end = "новых твитов"
+    if (t2 >= 11 && t2 <= 14)             end = "новый твит"
+    return `Посмотреть ${nr} ${end}`
+  }
+
   // add counter for new tweets
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
     let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
+
+    // exception for russian
+    if ($("html").attr("lang") == "ru") {
+      text = getRusShowNew(nr)
+    }
+
     if (nr) {
       // add button
       if ($(".gt2-show-hidden-tweets").length == 0) {
@@ -383,6 +518,7 @@
     let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
     GM_setValue("topTweet", topTweet)
     $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
+    $(".gt2-hidden-tweet-part").removeClass("gt2-hidden-tweet-part")
     console.log(`topTweet: ${topTweet}`)
     updateNewTweetDisplay()
   })
@@ -474,7 +610,6 @@
       if ($(more).find("a[href='/explore']").length) return
       let $hr = $(more).find("> div").eq(-4)  // seperator line
       let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
-      console.log("fmrpe");
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -636,7 +771,7 @@
   function addSettings() {
     if (!$(".gt2-settings").length) {
       $("main section:nth-last-child(1)").prepend(`
-        <div class="gt2-settings-header">GoodTwitter2</div>
+        <div class="gt2-settings-header">GoodTwitter2 v${GM_info.script.version}</div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
@@ -694,7 +829,7 @@
   // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
   function handleKTILOpt() {
     let $t = $("div[data-toggleid=keepTweetsInTL]")
-    if (GM_getValue("opt_gt2").autoRefresh) {
+    if (GM_getValue("opt_gt2").disableAutoRefresh) {
       if (!GM_getValue("opt_gt2").keepTweetsInTL) {
         $t.click()
       }
@@ -730,6 +865,7 @@
       let bgc = m.target[m.attributeName]["background-color"]
       if (m.oldValue && bgc != "" && bgc != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
         GM_setValue("opt_display_bgColor", bgc)
+        console.log(`New background-color: ${bgc}`)
         updateCSS()
       }
     })
@@ -782,7 +918,7 @@
 
 
   // update inserted CSS
-  async function updateCSS() {
+  function updateCSS() {
     // bgColor schemes
     let bgColors = {
       // default (white)
@@ -913,7 +1049,8 @@
 
 
     // do a reload on these pages
-    if (["login", ""].includes(path.split("/")[0])) {
+    if (["login"].includes(path.split("/")[0])
+      || (!isLoggedIn() && [""].includes(path.split("/")[0]))) {
       window.location.reload()
     }
 
@@ -952,8 +1089,9 @@
 
 
       // hide/add search
-      if (["explore", "search"].some(e => path.startsWith(e))) {
-        $(".gt2-search").remove()
+      if (["explore", "search"].some(e => e == path.split("/")[0])) {
+        $(".gt2-search").empty()
+        $("body").removeClass("gt2-search-added")
       } else {
         addSearch()
       }
@@ -963,19 +1101,28 @@
     }
 
 
-    // firefox csp notice
-    if (!$(".gt2-sidebar-notice").length
-      && typeof InstallTrigger !== "undefined"  // on firefox
-      && parseInt(GM_info.version.replace(/\./g, "")) < 4116114
-    ) {
+    // update changelog
+    let v = GM_info.script.version
+    if (!$(".gt2-sidebar-notice").length && !GM_getValue(`sb_notice_ack_update_${v}`)) {
       $(".gt2-left-sidebar").prepend(`
         <div class="gt2-sidebar-notice">
-          It looks like you’re on Firefox and do not use the latest Tampermonkey version! <br />
-          <a href="https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754">Since TM Beta 4.11.6114</a>, you do not have to disable the <code>security.csp.enable</code> flag anymore. <br />
-          It is highly recommended to reenable the flag and reinstall the Script with TM Beta >= 4.11.6114! <br />
-          <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md">Click here to learn more.</a>
+          <div class="gt2-sidebar-notice-header">
+            GoodTwitter 2 Notice
+            <div class="gt2-sidebar-notice-close">
+              <div></div>
+              ${getSvg("x")}
+            </div>
+          </div>
+          <div class="gt2-sidebar-notice-content">
+            Your GoodTwitter 2 has just been updated to v${v}!
+            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">here</a>!
+          </div>
         </div>
       `)
+      $("body").on("click", ".gt2-sidebar-notice-close", function() {
+        GM_setValue(`sb_notice_ack_update_${v}`, true)
+        $(this).parents(".gt2-sidebar-notice").remove()
+      })
     }
 
 
@@ -997,7 +1144,7 @@
 
     // sectionated pages need special attention on some properties
     if (path.split("/")[0] == "messages" ||
-        (path.split("/")[0] == "settings" && !["trends", "profile"].includes(path.split("/")[1])) ) {
+        (path.split("/")[0] == "settings" && !["trends", "profile", "explore"].includes(path.split("/")[1])) ) {
       $("body").addClass("gt2-page-with-sections")
     } else if (!path.startsWith("i/")) {
       $("body").removeClass("gt2-page-with-sections")
@@ -1022,20 +1169,26 @@
   }
   urlChange()
 
+
   // run urlChange() when history changes
-  let origPush = window.history.pushState
-  window.history.pushState = function() {
-    origPush.apply(window.history, arguments)
-    urlChange()
-  }
+  // https://github.com/Bl4Cc4t/GoodTwitter2/issues/96
+  const exportFunc = typeof exportFunction === "function" ? exportFunction : (fn => fn)
+  const pageWindow = unsafeWindow.wrappedJSObject || unsafeWindow
+  const pageHistory = pageWindow.History.prototype
 
-  let origRepl = window.history.replaceState
-  window.history.replaceState = function() {
-    origRepl.apply(window.history, arguments)
+  const origPush = exportFunc(pageHistory.pushState, pageWindow)
+  pageHistory.pushState = exportFunc(function () {
+    origPush.apply(this, arguments)
     urlChange()
-  }
+  }, pageWindow)
 
-  window.addEventListener("popstate", function(event) {
+  const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
+  pageHistory.replaceState = exportFunc(function () {
+    origRepl.apply(this, arguments)
+    urlChange()
+  }, pageWindow)
+
+  window.addEventListener("popstate", function() {
     urlChange()
   })
 

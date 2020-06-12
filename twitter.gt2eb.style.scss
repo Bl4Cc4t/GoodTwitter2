@@ -23,6 +23,42 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 }
 
 
+@mixin hoverableSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 1.5em;
+  width: 1.5em;
+
+  div {
+    transition: opacity 0.2s ease-in-out;
+    background-color: var(--color-user);
+    opacity: 0;
+    border-radius: 9999px;
+    position: absolute;
+    height: 39px;
+    width: 39px;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: var(--color-user);
+  }
+
+  &:hover {
+    cursor: pointer;
+    div {
+      opacity: 0.1;
+    }
+    svg {
+      fill: var(--color-user) !important;
+    }
+  }
+}
+
+
 // normal display
 @media only screen and (min-width: 1350px) {
   body:not(.gt2-opt-small-sidebars) {
@@ -317,6 +353,35 @@ main {
 
   & > div > div > div {
 
+    // compact conversations on tweets
+    div[data-testid=primaryColumn] {
+      height: fit-content;
+      height: -moz-fit-content;
+      height: -webkit-fit-content;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--color-gray-dark);
+      & > div > div:nth-child(2) > div > section > div > div {
+        padding-bottom: 0 !important;
+        & > div > div:not([class]) {
+          &:nth-last-child(2) > div {
+            border-bottom-width: 0;
+          }
+
+          &:last-child > div {
+            height: fit-content;
+            height: -moz-fit-content;
+            height: -webkit-fit-content;
+            & > div {
+              height: calc(6.5625rem);
+              &:empty {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
     div[data-testid=primaryColumn],
     & > section {
       border-top-width: 1px !important;
@@ -325,31 +390,33 @@ main {
     div[data-testid=sidebarColumn] {
       margin-right: 0;
 
-      & > div > div:nth-child(2) {
+      & > div {
+        min-height: 0 !important;
 
-        // top: 0 !important;
-        // position: sticky;
+        & > div:nth-child(2) > div {
+          margin-bottom: 10px;
 
-        & > div > div > div {
-          padding: 0;
+          & > div > div {
+            padding: 0;
 
-          // apply theme to sidebar elements
-          & > div {
-            border-radius: 0;
-            border: 1px solid var(--color-gray-dark);
-            background-color: var(--color-elem);
-            margin-bottom: 10px;
+            // apply theme to sidebar elements
+            & > div {
+              border-radius: 0;
+              border: 1px solid var(--color-gray-dark);
+              background-color: var(--color-elem);
+              margin-bottom: 10px;
 
-            &:nth-last-child(1) nav {
-              padding: 15px;
-            }
+              &:nth-last-child(1) nav {
+                padding: 15px;
+              }
 
-            &:empty {
-              display: none;
-            }
+              &:empty {
+                display: none;
+              }
 
-            &:last-child {
-              margin-bottom: 0;
+              &:last-child {
+                margin-bottom: 0;
+              }
             }
           }
         }
@@ -389,30 +456,30 @@ main {
   }
   .gt2-left-sidebar {
     height: calc(100vh - 57px);
-    padding-bottom: 10px;
   }
 
   // indepentently scrollable right sidebar
-  div[data-testid=sidebarColumn]:not(:hover) > div {
+  div[data-testid=sidebarColumn] > div {
+
     & > div:nth-child(1) {
       margin-top: 0 !important;
     }
-    & > div:nth-child(2) {
+
+    > div:nth-child(2) {
+      position: fixed;
       top: 56px !important;
       bottom: unset !important;
-    }
-  }
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-    position: fixed;
-    height: calc(100vh - 57px);
-    padding-bottom: 10px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+      height: calc(100vh - 47px);
+      padding-top: 10px;
+      margin-top: -10px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 
-    &::-webkit-scrollbar {
-      display: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 
@@ -475,7 +542,8 @@ body:not(.gt2-opt-small-sidebars) {
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
-    & > a > div:nth-child(1) > div:nth-child(2) > div {
+    & > a > div:nth-child(1) > div:nth-child(2) > div,
+    & > a > div:nth-child(2) {
       border-radius: 10%;
     }
     & > a[href$="/photo"] {
@@ -536,6 +604,11 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// hide search when added to navbar
+.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+  display: none;
+}
+
 // acc switcher dropdown
 #{$accSwitcherDropdown} {
   bottom: unset !important;
@@ -589,16 +662,41 @@ div[data-testid=primaryColumn] > div {
 // colorized buttons for image modals
 div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
   // comments
-  & > div:nth-child(1) svg {
-    fill: #1da1f2;
+  div[data-testid=reply]:hover,
+  div[role=button]:not([data-testid]):hover {
+    & > div > div > div {
+      background-color: rgba(29, 161, 242, 0.1);
+    }
+    svg {
+      fill: #1da1f2;
+    }
   }
   // retweets
-  & > div:nth-child(2) svg {
-    fill: #17bf63;
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet]:hover {
+    & > div > div > div {
+      background-color: rgba(23, 191, 99, 0.1);
+    }
   }
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet] {
+    svg {
+      fill: #17bf63;
+    }
+  }
+
   // likes
-  & > div:nth-child(3) svg {
-    fill: #e0245e;
+  div[data-testid=like]:hover,
+  div[data-testid=unlike]:hover {
+    & > div > div > div {
+      background-color: rgba(224, 36, 94, 0.1);
+    }
+  }
+  div[data-testid=like]:hover,
+  div[data-testid=unlike] {
+    svg {
+      fill: #e0245e;
+    }
   }
 }
 
@@ -616,8 +714,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
 
 .gt2-show-hidden-tweets {
   color: var(--color-text);
-  height: auto;
-  padding: 10px;
+  height: auto !important;
+  padding: 10px !important;
   text-align: center;
 
   &:hover {
@@ -842,9 +940,13 @@ a.gt2-trend {
   }
 }
 
-// hide navbar on modal
-body[style*="overflow-y: hidden"] .gt2-nav {
-  z-index: -1;
+// stuff to do on modal
+body[style*="overflow-y: hidden"] {
+  // hide navbar and other things
+  .gt2-nav,
+  .gt2-search-overflow-hider {
+    z-index: -1 !important;
+  }
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }
@@ -853,6 +955,31 @@ body[style*="overflow-y: hidden"] .gt2-nav {
   }
 }
 
+// /search overflow, let search box stay on top
+body:not(.gt2-search-added) {
+  .gt2-search-overflow-hider {
+    position: fixed;
+    width: 600px;
+    height: 9px;
+    top: 47px;
+    right: calc(50% - 300px);
+    background-color: var(--color-bg);
+    z-index: 1;
+  }
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+    & > div > div:nth-child(1) {
+      position: sticky;
+      top: 56px;
+      border-top: 1px solid var(--color-gray-dark);
+    }
+  }
+}
+
+
+
+
+// left sidebar
 .gt2-left-sidebar {
   margin-top: -10px;
   padding-top: 10px;
@@ -959,36 +1086,13 @@ body[style*="overflow-y: hidden"] .gt2-nav {
     .gt2-toggle-lo-nightmode {
       right: 7.5px;
       bottom: calc(93px + (var(--font-increment) + 2px) / 2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      height: 27px;
-      width: 27px;
-
+      @include hoverableSvg;
       div {
-        transition: opacity 0.2s ease-in-out;
-        background-color: var(--color-user);
-        opacity: 0;
-        border-radius: 9999px;
-        position: absolute;
-        height: 27px;
         width: 27px;
+        height: 27px;
       }
-
       svg {
-        width: 1em;
-        height: 1em;
-      }
-
-      &:hover {
-        cursor: pointer;
-        div {
-          opacity: 0.1;
-        }
-        svg {
-          color: var(--color-user);
-        }
+        fill: var(--color-gray);
       }
     }
 
@@ -1220,9 +1324,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
         }
       }
     }
-
   }
-
 
   & > span {
     display: block;
@@ -1235,11 +1337,113 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 .gt2-sidebar-notice {
   background-color: var(--color-elem);
   color: var(--color-text);
-  text-align: center;
   border: 1px solid var(--color-gray-dark);
-  padding: 10px;
 
   a:link, a:visited {
     color: var(--color-user);
+  }
+  .gt2-sidebar-notice-header {
+    font-size: incr(19px);
+    font-weight: 800;
+    border-bottom: solid 1px var(--color-gray-dark);
+    .gt2-sidebar-notice-close {
+      right: 10px;
+      top: 10px;
+      @include hoverableSvg;
+    }
+  }
+  .gt2-sidebar-notice-content {
+    text-align: center;
+  }
+  & > div {
+    padding: 10px 15px;
+  }
+}
+
+
+// tweet analytics
+body[data-promote-url^="/i/tfb/v1/quick_promote"] {
+  background-color: var(--color-elem) !important;
+
+  .QuoteTweet {
+    border-color: var(--color-gray);
+  }
+
+  // buttons
+  .ep-ViewAllEngagementsButton,
+  .ep-InlineSignupButton {
+    color: white !important;
+    background-color: #55acee !important;
+  }
+
+  // seperators
+  .ep-Campaign,
+  .ep-DetailedEngagementsSection {
+    border-color: var(--color-shadow);
+  }
+
+  // text
+  .ProfileTweet-originalAuthor b,
+  .QuoteTweet-text,
+  .QuoteTweet-text b,
+  .QuoteTweet-text s,
+  .QuoteTweet-text span,
+  .ep-MetricName,
+  .ep-MetricValue span,
+  .ep-SectionTitle {
+    color: var(--color-text) !important;
+  }
+}
+
+// signup for tweet promoting
+body[data-payment-endpoint-path] {
+  background-color: var(--color-elem) !important;
+
+  .as-Label,
+  .as-SelectContainer {
+    color: var(--color-text);
+
+    option {
+      background-color: var(--color-elem);
+    }
+  }
+}
+
+.gt2-hidden {
+  display: none;
+}
+
+// translate tweet
+.gt2-translate-tweet,
+.gt2-translated-tweet-info {
+  margin-top: 5px;
+  color: var(--color-user);
+  font-size: incr(13px);
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+
+  svg {
+    height: 1.25em;
+    fill: var(--color-text);
+    vertical-align: middle;
+    margin-left: 1px;
+  }
+}
+.gt2-translated-tweet {
+  color: var(--color-text);
+  font-size: incr(15px);
+  white-space: pre-line;
+
+  a,
+  a:link,
+  a:visited {
+    color: var(--color-user);
+    text-decoration-line: none;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
   }
 }
