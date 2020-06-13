@@ -927,7 +927,7 @@
     if ($("html").is("[data-minimalscrollbar]")) {
       return 0
     }
-    let $t = jQuery("<div/>").css({
+    let $t = $("<div/>").css({
       position: "absolute",
       top: "-100px",
       overflowX: "hidden",
@@ -1089,6 +1089,12 @@
       let insertAt = "main > div > div > div"
       waitForKeyElements(insertAt, function() {
         $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
+        // on error page
+        if ($(insertAt).find("h1[data-testid=error-detail]").length) {
+          $("body").addClass("gt2-page-error")
+        } else {
+          $("body").removeClass("gt2-page-error")
+        }
       })
     }
 
