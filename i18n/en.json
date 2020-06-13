@@ -11,7 +11,7 @@
   "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
   "tweets": "Tweets",
-  
+
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",
   "settingsHeaderOther": "Other",
@@ -29,5 +29,6 @@
   "stickySidebars": "Sticky Sidebars",
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
-  "squareAvatars": "Square Avatars"
+  "squareAvatars": "Square Avatars",
+  "updateNotifications": "GoodTwitter 2 update notifications"
 }

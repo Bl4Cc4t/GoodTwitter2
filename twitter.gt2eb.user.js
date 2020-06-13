@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.21.1
+// @version       0.0.22
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -212,8 +212,8 @@
   }
 
 
-  // profile view left sidebar
-  function addDashboardProfile() {
+  // add element to sidebar
+  function addToSidebar(elements) {
     let w = window.innerWidth
     let insertAt = ".gt2-left-sidebar"
 
@@ -223,61 +223,86 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
-    if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
-      let i = getInfo()
-      // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
-      let href = isLoggedIn() ? "href" : "data-href"
-      let dashPro = `
-        <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
-          <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
-          <div>
-            <a ${href}="/${i.screenName}" class="gt2-avatar">
-              <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
+    waitForKeyElements(`${insertAt}`, () => {
+      for (let elem of elements) {
+        if (insertAt.startsWith(".gt2")) {
+          $(insertAt).prepend(elem)
+        } else {
+          $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+        }
+      }
+    })
+  }
+
+
+  // profile view left sidebar
+  function getDashboardProfile() {
+    let i = getInfo()
+    // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
+    let href = isLoggedIn() ? "href" : "data-href"
+    return `
+      <div class="gt2-dashboard-profile ${window.innerWidth <= 1095 ? "gt2-small": ""}">
+        <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
+        <div>
+          <a ${href}="/${i.screenName}" class="gt2-avatar">
+            <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
+          </a>
+          <div class="gt2-user">
+            <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
+            <a ${href}="/${i.screenName}" class="gt2-screenname">
+              @<span >${i.screenName}</span>
             </a>
-            <div class="gt2-user">
-              <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
-              <a ${href}="/${i.screenName}" class="gt2-screenname">
-                @<span >${i.screenName}</span>
-              </a>
-            </div>
-            <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode" }">
-              <div></div>
-              ${getSvg(isLoggedIn() ? "arrow" : "moon")}
-            </div>
-            <div class="gt2-stats">
-              <ul>
-                <li>
-                  <a ${href}="/${i.screenName}">
-                    <span>${locStr("tweets")}</span>
-                    <span>${i.stats.tweets.humanize()}</span>
-                  </a>
-                </li>
-                <li>
-                  <a ${href}="/${i.screenName}/following">
-                    <span>${locStr("following")}</span>
-                    <span>${i.stats.following.humanize()}</span>
-                  </a>
-                </li>
-                <li>
-                  <a ${href}="/${i.screenName}/followers">
-                    <span>${locStr("followers")}</span>
-                    <span>${i.stats.followers.humanize()}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+          </div>
+          <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode" }">
+            <div></div>
+            ${getSvg(isLoggedIn() ? "arrow" : "moon")}
+          </div>
+          <div class="gt2-stats">
+            <ul>
+              <li>
+                <a ${href}="/${i.screenName}">
+                  <span>${locStr("tweets")}</span>
+                  <span>${i.stats.tweets.humanize()}</span>
+                </a>
+              </li>
+              <li>
+                <a ${href}="/${i.screenName}/following">
+                  <span>${locStr("following")}</span>
+                  <span>${i.stats.following.humanize()}</span>
+                </a>
+              </li>
+              <li>
+                <a ${href}="/${i.screenName}/followers">
+                  <span>${locStr("followers")}</span>
+                  <span>${i.stats.followers.humanize()}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      `
+      </div>
+    `
+  }
 
-      waitForKeyElements(`${insertAt}`, () => {
-        if (insertAt.startsWith(".gt2")) {
-          $(insertAt).prepend(dashPro)
-        } else {
-          $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
-        }
-      })
-    }
+
+  // gt2 update notice
+  function getUpdateNotice() {
+    let v = GM_info.script.version
+    return `
+      <div class="gt2-sidebar-notice gt2-update-notice">
+        <div class="gt2-sidebar-notice-header">
+          GoodTwitter 2 Notice
+          <div class="gt2-sidebar-notice-close">
+            <div></div>
+            ${getSvg("x")}
+          </div>
+        </div>
+        <div class="gt2-sidebar-notice-content">
+          ${getSvg("tick")} Updated to v${v}!<br />
+          <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">Changelog</a>
+        </div>
+      </div>
+    `
   }
 
 
@@ -333,7 +358,6 @@
       if ($toWrap.length) {
         $(trends).first().addClass("gt2-trend-wrapped")
         let txt = $toWrap.text()
-        console.log(txt);
         let query = encodeURIComponent($toWrap.text())
           .replace(/'/g, "%27")
           .replace(/(^\"|\"$)/g, "")
@@ -696,6 +720,15 @@
   })
 
 
+  // close sidebar notice
+  $("body").on("click", ".gt2-sidebar-notice-close", function() {
+    if ($(this).hasClass("gt2-update-notice")) {
+      GM_setValue(`sb_notice_ack_update_${GM_info.script.version}`, true)
+    }
+    $(this).parents(".gt2-sidebar-notice").remove()
+  })
+
+
 
   // ###################
   // #  GT2 settings   #
@@ -704,15 +737,16 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    disableAutoRefresh: false,
-    forceLatest:        false,
-    keepTweetsInTL:     true,
-    smallSidebars:      false,
-    stickySidebars:     true,
-    leftTrends:         true,
-    squareAvatars:      false,
-    biggerPreviews:     false,
-    show10Trends:       false,
+    disableAutoRefresh:   false,
+    forceLatest:          false,
+    keepTweetsInTL:       true,
+    smallSidebars:        false,
+    stickySidebars:       true,
+    leftTrends:           true,
+    squareAvatars:        false,
+    biggerPreviews:       false,
+    show10Trends:         false,
+    updateNotifications:  true
   }
 
   // set default options
@@ -724,7 +758,7 @@
     for (let k of Object.keys(opt_gt2)) {
       if (Object.keys(old).includes(k)) delete opt_gt2[k]
     }
-    Object.apply(old, opt_gt2)
+    Object.assign(old, opt_gt2)
     GM_setValue("opt_gt2", old)
   }
 
@@ -810,6 +844,7 @@
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
+          ${getSettingTogglePart("updateNotifications")}
         </div>
       `)
 
@@ -1091,7 +1126,8 @@
       waitForKeyElements(insertAt, function() {
         $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
         // on error page
-        if ($(insertAt).find("h1[data-testid=error-detail]").length) {
+        if ($(insertAt).find("h1[data-testid=error-detail]").length
+         && !path.startsWith("settings/gt2")) {
           $("body").addClass("gt2-page-error")
         } else {
           $("body").removeClass("gt2-page-error")
@@ -1100,8 +1136,18 @@
     }
 
 
+    // sidebar
+    let sidebarContent = []
+
     // insert dashboard profile on all pages for now
-    addDashboardProfile()
+    sidebarContent.push(getDashboardProfile())
+    // update changelog
+    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
+     && GM_getValue("opt_gt2").updateNotifications
+    ) {
+      sidebarContent.push(getUpdateNotice())
+    }
+    addToSidebar(sidebarContent)
 
 
     if (isLoggedIn()) {
@@ -1127,31 +1173,6 @@
 
     } else {
       $("body").addClass("gt2-not-logged-in")
-    }
-
-
-    // update changelog
-    let v = GM_info.script.version
-    if (!$(".gt2-sidebar-notice").length && !GM_getValue(`sb_notice_ack_update_${v}`)) {
-      $(".gt2-left-sidebar").prepend(`
-        <div class="gt2-sidebar-notice">
-          <div class="gt2-sidebar-notice-header">
-            GoodTwitter 2 Notice
-            <div class="gt2-sidebar-notice-close">
-              <div></div>
-              ${getSvg("x")}
-            </div>
-          </div>
-          <div class="gt2-sidebar-notice-content">
-            Your GoodTwitter 2 has just been updated to v${v}!
-            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">here</a>!
-          </div>
-        </div>
-      `)
-      $("body").on("click", ".gt2-sidebar-notice-close", function() {
-        GM_setValue(`sb_notice_ack_update_${v}`, true)
-        $(this).parents(".gt2-sidebar-notice").remove()
-      })
     }
 
 

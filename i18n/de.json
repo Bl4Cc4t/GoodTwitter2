@@ -11,7 +11,7 @@
   "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
   "tweets": "Tweets",
-  
+
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
   "settingsHeaderOther": "Diverses",
@@ -29,5 +29,6 @@
   "stickySidebars": "Feste Seitenleisten",
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
-  "squareAvatars": "Eckige Avatare"
+  "squareAvatars": "Eckige Avatare",
+  "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen"
 }

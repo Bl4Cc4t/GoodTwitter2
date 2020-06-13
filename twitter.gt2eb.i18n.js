@@ -12,7 +12,7 @@ de: {
   "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
   "tweets": "Tweets",
-  
+
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
   "settingsHeaderOther": "Diverses",
@@ -30,7 +30,8 @@ de: {
   "stickySidebars": "Feste Seitenleisten",
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
-  "squareAvatars": "Eckige Avatare"
+  "squareAvatars": "Eckige Avatare",
+  "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen"
 },
 en: {
   "bookmarks": "Bookmarks",
@@ -45,7 +46,7 @@ en: {
   "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
   "tweets": "Tweets",
-  
+
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",
   "settingsHeaderOther": "Other",
@@ -63,7 +64,8 @@ en: {
   "stickySidebars": "Sticky Sidebars",
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
-  "squareAvatars": "Square Avatars"
+  "squareAvatars": "Square Avatars",
+  "updateNotifications": "GoodTwitter 2 update notifications"
 },
 es: {
   "bookmarks": "Guardados",
