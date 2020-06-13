@@ -1,6 +1,6 @@
 {
   "bookmarks": "ブックマーク",
-  "composeNewTweet": "ツイートする",
+  "composeNewTweet": "ツイート",
   "explore": "話題を検索",
   "followers": "フォロワー",
   "following": "フォロー中",
@@ -11,7 +11,7 @@
   "translateTweet": "ツイートを翻訳",
   "translatedTweetInfo": "$source$による$lang$からの翻訳",
   "tweets": "ツイート",
- "settingsHeaderTimeline": "タイムライン",
+  "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
   "settingsHeaderOther": "その他",
   "biggerPreviews": "画像プレビュー表示の拡張",
@@ -29,7 +29,7 @@
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
   "squareAvatars": "四角いアイコン表示",
-  "updateNotifications": "GoodTwitter 2の更新通知",
+  "updateNotifications": "GoodTwitter2の更新通知",
   "updatedInfo": "バージョン$version$に更新完了しました！",
   "updatedInfoChangelog": "更新履歴"
 }
