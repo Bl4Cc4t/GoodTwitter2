@@ -410,6 +410,7 @@
       url:    `https://api.twitter.com/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
       headers: {
         authorization: `Bearer ${publicBearer}`,
+        referer: statusUrl,
         "x-twitter-client-language": $("html").attr("lang"),
         "x-csrf-token": csrf,
         "x-twitter-active-user": "yes",
