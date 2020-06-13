@@ -365,7 +365,7 @@
 
 
   // add translate button
-  waitForKeyElements("div[data-testid=tweet]", function(e) {
+  waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
     let tweetLang = $(e).find("div[lang]").attr("lang")
     if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
       $(e).find("div[lang]").after(`
