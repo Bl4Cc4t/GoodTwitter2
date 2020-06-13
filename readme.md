@@ -58,10 +58,13 @@ To use this script, you need a userscript manager.
 
 ## FAQ
 ### The highlights color does not match my settings!
-By default, the blue color is selected and used internally in this script.
-
-To change that, navigate to the display settings and select your current color setting again.
+Normally, the script should detect what colors you are using.
+If it somehow does not, just navigate to the display settings, switch to another color and then select your desired color again.
 Now it should look the way you want!
+
+### I use a very old version of Firefox and the script does not work
+For Firefox 56.0 and similar versions, please use Violentmonkey.
+If that does not help, please open a new issue.
 
 ### I want to help!
 That’s awesome! If you want to help with the translations, check out [Adding translations](#adding-translations).
