@@ -29,5 +29,9 @@
   "stickySidebars": "Barres latérales fixes",
   "smallSidebars": "Petites barres latérales",
   "smallSidebarsDesc": "Barres latérales de 290px au lieu de 350px de large.",
-  "squareAvatars": "Avatars Carrés"
+  "squareAvatars": "Avatars Carrés",
+  "updateNotifications": "Notification de mise à jour de GoodTwitter 2",
+
+  "updatedInfo": "Mis à jour à la version $version$ !",
+  "updatedInfoChangelog": "Journal des modifications"
 }
