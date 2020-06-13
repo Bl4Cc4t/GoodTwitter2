@@ -321,39 +321,50 @@
   }
 
 
-  // handle trends (move and show10)
+  // handle trends (wrap, move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div:nth-child(1) ~ div[data-testid=trend]`
+    let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped)`
 
     waitForKeyElements(trends, function() {
-      let $trends = $(trends)
-      // move trends
-      if (GM_getValue("opt_gt2").leftTrends
-          && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
-            || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
-        if ($(".gt2-trends").length) $(".gt2-trends").remove()
 
-        $trends.parents("section").parent().parent().parent()
-        .detach().addClass("gt2-trends")
-        .appendTo(".gt2-left-sidebar")
+      // wrap trends in anchors
+      let $toWrap = $(trends).first().find("> div > div:nth-child(2) > span")
+      if ($toWrap.length) {
+        $(trends).first().addClass("gt2-trend-wrapped")
+        let txt = $toWrap.text()
+        console.log(txt);
+        let query = encodeURIComponent($toWrap.text())
+          .replace(/'/g, "%27")
+          .replace(/(^\"|\"$)/g, "")
+
+        $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
       }
 
-      // show 10 trends
-      if (GM_getValue("opt_gt2").show10Trends) {
-        if ($trends.parent().parent().find("> div").length == 7) {
-          $trends.parent().parent().find("> div[role=button]").click()
+      // actions for the whole container
+      if (!$(trends).parents("section").hasClass("gt2-trends-handled")
+        && $(trends).parents("div[data-testid=sidebarColumn]").length
+      ) {
+        $(trends).parents("section").addClass("gt2-trends-handled")
+
+        // move trends
+        if (GM_getValue("opt_gt2").leftTrends
+            && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
+              || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
+          if ($(".gt2-trends").length) $(".gt2-trends").remove()
+
+          $(trends).parents("section").parent().parent().parent()
+          .detach().addClass("gt2-trends")
+          .appendTo(".gt2-left-sidebar")
+        }
+
+        // show 10 trends
+        if (GM_getValue("opt_gt2").show10Trends) {
+          if ($(trends).parent().parent().find("> div").length == 7) {
+            $(trends).parent().parent().find("> div[role=button]").click()
+          }
         }
       }
-    })
-  }
-
-
-  // wrap trending stuff in anchors
-  function wrapTrends() {
-    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
-      let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht.replace(/(^\"|\"$)/g, "")}%22` }">${ht}</a>`)
     })
   }
 
@@ -1172,10 +1183,6 @@
     if (GM_getValue("opt_gt2").forceLatest && path.split("/")[0] == "home") {
       forceLatest()
     }
-
-    // wrap trends
-    waitForKeyElements("div[data-testid=trend]", wrapTrends)
-
 
   }
   urlChange()
