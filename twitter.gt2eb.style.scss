@@ -32,7 +32,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   width: 1.5em;
 
   div {
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity .2s ease-in-out;
     background-color: var(--color-user);
     opacity: 0;
     border-radius: 9999px;
@@ -50,7 +50,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   &:hover {
     cursor: pointer;
     div {
-      opacity: 0.1;
+      opacity: .1;
     }
     svg {
       fill: var(--color-user) !important;
@@ -594,7 +594,10 @@ body:not(.gt2-opt-small-sidebars) {
 
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
-    border-radius: 10%;
+    border-radius: 11.5%;
+    img {
+      border-radius: 10%;
+    }
   }
 }
 
@@ -693,6 +696,7 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
+
 // colorized buttons for image modals
 div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
   // comments
@@ -731,6 +735,26 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
     svg {
       fill: #e0245e;
     }
+  }
+}
+
+
+// color carets with the user color
+div[data-testid=caret] {
+  & > div > div > div {
+    transition: all .2s ease-in-out;
+    background-color: var(--color-user);
+    opacity: 0;
+    &:hover {
+      opacity: .1;
+      & + svg {
+        fill: var(--color-user);
+      }
+    }
+  }
+  svg {
+    fill: var(--color-gray-light);
+    pointer-events: none;
   }
 }
 
