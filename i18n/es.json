@@ -8,7 +8,10 @@
   "profile": "Perfil",
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
+  "translateTweet": "Traducir Tweet",
+  "translatedTweetInfo": "Traducido del $lang$ al $source$",
   "tweets": "Tweets",
+
   "settingsHeaderTimeline": "Cronología",
   "settingsHeaderSidebars": "Barras laterales",
   "settingsHeaderOther": "Otros",

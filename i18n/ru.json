@@ -8,7 +8,10 @@
   "profile": "Профиль",
   "showNewMulti": "Посмотреть новые твиты ($)",
   "showNewSingle": "Посмотреть 1 новый твит",
+  "translateTweet": "Перевести твит",
+  "translatedTweetInfo": "Язык оригинала: $lang$, переведено с помощью $source$",
   "tweets": "Твиты",
+
   "settingsHeaderTimeline": "Лента",
   "settingsHeaderSidebars": "Боковые панели",
   "settingsHeaderOther": "Другое",

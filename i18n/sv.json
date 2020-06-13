@@ -8,7 +8,10 @@
   "profile": "Profil",
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
+  "translateTweet": "Översätt tweeten",
+  "translatedTweetInfo": "Översatt från $lang$ av $source$",
   "tweets": "Tweets",
+
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
   "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",

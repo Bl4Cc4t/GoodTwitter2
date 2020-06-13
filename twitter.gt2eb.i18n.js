@@ -1,4 +1,5 @@
-let i18n = {de: {
+let i18n = {
+de: {
   "bookmarks": "Lesezeichen",
   "composeNewTweet": "Twittern",
   "explore": "Entdecken",
@@ -11,6 +12,7 @@ let i18n = {de: {
   "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
   "tweets": "Tweets",
+  
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
   "settingsHeaderOther": "Diverses",
@@ -29,7 +31,8 @@ let i18n = {de: {
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
   "squareAvatars": "Eckige Avatare"
-},en: {
+},
+en: {
   "bookmarks": "Bookmarks",
   "composeNewTweet": "Tweet",
   "explore": "Explore",
@@ -42,6 +45,7 @@ let i18n = {de: {
   "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
   "tweets": "Tweets",
+  
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",
   "settingsHeaderOther": "Other",
@@ -60,7 +64,8 @@ let i18n = {de: {
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
   "squareAvatars": "Square Avatars"
-},es: {
+},
+es: {
   "bookmarks": "Guardados",
   "composeNewTweet": "Twittear",
   "explore": "Explorar",
@@ -70,7 +75,10 @@ let i18n = {de: {
   "profile": "Perfil",
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
+  "translateTweet": "Traducir Tweet",
+  "translatedTweetInfo": "Traducido del $lang$ al $source$",
   "tweets": "Tweets",
+
   "settingsHeaderTimeline": "Cronología",
   "settingsHeaderSidebars": "Barras laterales",
   "settingsHeaderOther": "Otros",
@@ -89,7 +97,8 @@ let i18n = {de: {
   "smallSidebars": "Barras laterales pequeñas",
   "smallSidebarsDesc": "Barras laterales de 290 píxeles de ancho en lugar de 350px.",
   "squareAvatars": "Avatares Cuadrados"
-},fr: {
+},
+fr: {
   "bookmarks": "Signets",
   "composeNewTweet": "Tweeter",
   "explore": "Explorer",
@@ -99,7 +108,10 @@ let i18n = {de: {
   "profile": "Profil",
   "showNewMulti": "Voir $ nouveaux Tweets",
   "showNewSingle": "Voir 1 nouveau Tweet",
+  "translateTweet": "Traduire le Tweet",
+  "translatedTweetInfo": "À l'origine en $lang$ et traduit par $source$",
   "tweets": "Tweets",
+
   "settingsHeaderTimeline": "Fil d'actualités",
   "settingsHeaderSidebars": "Barres latérales",
   "settingsHeaderOther": "Autres",
@@ -118,7 +130,8 @@ let i18n = {de: {
   "smallSidebars": "Petites barres latérales",
   "smallSidebarsDesc": "Barres latérales de 290px au lieu de 350px de large.",
   "squareAvatars": "Avatars Carrés"
-},ja: {
+},
+ja: {
   "bookmarks": "ブックマーク",
   "composeNewTweet": "ツイートする",
   "explore": "話題を検索",
@@ -128,7 +141,10 @@ let i18n = {de: {
   "profile": "プロフィール",
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
+  "translateTweet": "ツイートを翻訳",
+  "translatedTweetInfo": "による$lang$からの翻訳$source$",
   "tweets": "ツイート",
+
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
   "settingsHeaderOther": "その他",
@@ -147,7 +163,8 @@ let i18n = {de: {
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
   "squareAvatars": "四角いアイコン表示"
-},ko: {
+},
+ko: {
   "bookmarks": "북마크",
   "composeNewTweet": "트윗",
   "explore": "탐색하기",
@@ -157,7 +174,10 @@ let i18n = {de: {
   "profile": "프로필",
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
+  "translateTweet": "트윗 번역하기",
+  "translatedTweetInfo": "영$lang$서 번역 ($source$ 제공)",
   "tweets": "트윗",
+
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",
   "settingsHeaderOther": "기타",
@@ -176,7 +196,8 @@ let i18n = {de: {
   "smallSidebars": "작은 사이드바",
   "smallSidebarsDesc": "사이드바 크기를 350px에서 290px로 조정.",
   "squareAvatars": "사각형 프로필 사진"
-},ru: {
+},
+ru: {
   "bookmarks": "Закладки",
   "composeNewTweet": "Твитнуть",
   "explore": "Поиск",
@@ -186,7 +207,10 @@ let i18n = {de: {
   "profile": "Профиль",
   "showNewMulti": "Посмотреть новые твиты ($)",
   "showNewSingle": "Посмотреть 1 новый твит",
+  "translateTweet": "Перевести твит",
+  "translatedTweetInfo": "Язык оригинала: $lang$, переведено с помощью $source$",
   "tweets": "Твиты",
+
   "settingsHeaderTimeline": "Лента",
   "settingsHeaderSidebars": "Боковые панели",
   "settingsHeaderOther": "Другое",
@@ -205,7 +229,8 @@ let i18n = {de: {
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
   "squareAvatars": "Квадратные аватары"
-},sv: {
+},
+sv: {
   "bookmarks": "Bokmärken",
   "composeNewTweet": "Tweeta",
   "explore": "Utforska",
@@ -215,7 +240,10 @@ let i18n = {de: {
   "profile": "Profil",
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
+  "translateTweet": "Översätt tweeten",
+  "translatedTweetInfo": "Översatt från $lang$ av $source$",
   "tweets": "Tweets",
+
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
   "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",

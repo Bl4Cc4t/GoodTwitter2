@@ -8,7 +8,10 @@
   "profile": "프로필",
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
+  "translateTweet": "트윗 번역하기",
+  "translatedTweetInfo": "영$lang$서 번역 ($source$ 제공)",
   "tweets": "트윗",
+
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",
   "settingsHeaderOther": "기타",

@@ -11,6 +11,7 @@
   "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
   "tweets": "Tweets",
+  
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",
   "settingsHeaderOther": "Other",

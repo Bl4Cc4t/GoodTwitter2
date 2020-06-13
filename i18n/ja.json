@@ -8,7 +8,10 @@
   "profile": "プロフィール",
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
+  "translateTweet": "ツイートを翻訳",
+  "translatedTweetInfo": "による$lang$からの翻訳$source$",
   "tweets": "ツイート",
+
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
   "settingsHeaderOther": "その他",
