@@ -83,7 +83,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
-        left: 360px;
+        margin-left: 360px;
       }
     }
 
@@ -141,7 +141,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
     }
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
-        left: 300px;
+        margin-left: 300px;
       }
     }
 
