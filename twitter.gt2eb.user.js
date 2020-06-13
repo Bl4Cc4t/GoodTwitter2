@@ -4,6 +4,7 @@
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
+// @noframes
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
