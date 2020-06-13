@@ -31,7 +31,10 @@ de: {
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
   "squareAvatars": "Eckige Avatare",
-  "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen"
+  "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen",
+
+  "updatedInfo": "Aktualisiert auf $version$!",
+  "updatedInfoChangelog": "Changelog"
 },
 en: {
   "bookmarks": "Bookmarks",
@@ -65,7 +68,10 @@ en: {
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
   "squareAvatars": "Square Avatars",
-  "updateNotifications": "GoodTwitter 2 update notifications"
+  "updateNotifications": "GoodTwitter 2 update notifications",
+
+  "updatedInfo": "Updated to $version$!",
+  "updatedInfoChangelog": "Changelog"
 },
 es: {
   "bookmarks": "Guardados",

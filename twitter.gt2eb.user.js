@@ -291,15 +291,19 @@
     return `
       <div class="gt2-sidebar-notice gt2-update-notice">
         <div class="gt2-sidebar-notice-header">
-          GoodTwitter 2 Notice
+          GoodTwitter 2
           <div class="gt2-sidebar-notice-close">
             <div></div>
             ${getSvg("x")}
           </div>
         </div>
         <div class="gt2-sidebar-notice-content">
-          ${getSvg("tick")} Updated to v${v}!<br />
-          <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">Changelog</a>
+          ${getSvg("tick")} ${locStr("updatedInfo").replace("$version$", `v${v}`)}<br />
+          <a
+            href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
+            target="_blank">
+            ${locStr("updatedInfoChangelog")}
+          </a>
         </div>
       </div>
     `
