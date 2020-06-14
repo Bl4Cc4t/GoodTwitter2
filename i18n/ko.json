@@ -21,6 +21,7 @@
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
   "forceLatest": "항상 최신 트윗 보기",
   "forceLatestDesc": "최신 트윗 보기 모드는 더이상 저장되지 않습니다. 이 설정을 활성화하면 항상 자동으로 최신 트윗 보기 모드로 전환합니다.",
+  "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "트윗 유지하기 (지금은 동작하지 않습니다)",

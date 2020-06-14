@@ -21,6 +21,7 @@
   "disableAutoRefreshDesc": "Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.",
   "forceLatest": "Force Latest",
   "forceLatestDesc": "Enabling the latest tweets mode is not permanent anymore. With this setting active, the site automatically switches back to the latest tweets mode.",
+  "hideTranslateTweetButton": "Hide Translate Tweet Button",
   "hideTrends": "Hide Trends",
   "hideWhoToFollow": "Hide Who To Follow",
   "keepTweetsInTL": "Keep Tweets (this does not work atm)",

@@ -625,6 +625,13 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// hide translated tweets
+.gt2-opt-hide-translate-tweet-button {
+  div[data-testid=tweet] + div div[lang] + div[role=button] {
+    display: none;
+  }
+}
+
 
 /*
 .gt2-opt-keep-tweets-in-tl {

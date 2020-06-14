@@ -403,6 +403,8 @@
     })
   }
 
+
+  // handle who to follow (hide)
   function handleWhoToFollow() {
     let wtf = "div[data-testid=sidebarColumn] div[data-testid=UserCell]"
 
@@ -420,22 +422,26 @@
   }
 
 
+
   // ##################################
   // #  translate tweets in timelime  #
   // ##################################
 
 
   // add translate button
-  waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
-    let tweetLang = $(e).find("div[lang]").attr("lang")
-    if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
-      $(e).find("div[lang]").after(`
-        <div class="gt2-translate-tweet">
-          ${locStr("translateTweet")}
-        </div>
-      `)
-    }
-  })
+  if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
+    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
+      let tweetLang = $(e).find("div[lang]").attr("lang")
+      if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
+        $(e).find("div[lang]").first().after(`
+          <div class="gt2-translate-tweet">
+            ${locStr("translateTweet")}
+          </div>
+        `)
+      }
+    })
+  }
+
 
   // translate a tweet
   $("body").on("click", ".gt2-translate-tweet", function(event) {
@@ -526,6 +532,7 @@
       }
     })
   })
+
 
   // hide translation
   $("body").on("click", ".gt2-translated-tweet-info", function(event) {
@@ -764,18 +771,19 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    disableAutoRefresh:   false,
-    forceLatest:          false,
-    keepTweetsInTL:       true,
-    smallSidebars:        false,
-    stickySidebars:       true,
-    leftTrends:           true,
-    squareAvatars:        false,
-    biggerPreviews:       false,
-    show10Trends:         false,
-    updateNotifications:  true,
-    hideTrends:           false,
-    hideWhoToFollow:      false
+    disableAutoRefresh:       false,
+    forceLatest:              false,
+    keepTweetsInTL:           true,
+    smallSidebars:            false,
+    stickySidebars:           true,
+    leftTrends:               true,
+    squareAvatars:            false,
+    biggerPreviews:           false,
+    show10Trends:             false,
+    updateNotifications:      true,
+    hideTrends:               false,
+    hideWhoToFollow:          false,
+    hideTranslateTweetButton: false
   }
 
   // set default options
@@ -876,6 +884,7 @@
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
           ${getSettingTogglePart("updateNotifications")}
+          ${getSettingTogglePart("hideTranslateTweetButton")}
         </div>
       `)
 

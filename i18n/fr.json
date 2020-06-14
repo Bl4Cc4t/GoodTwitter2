@@ -21,6 +21,7 @@
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
   "forceLatest": "Forcer les tout derniers Tweets",
   "forceLatestDesc": "Activer le mode « tout derniers Tweets » n'est plus permanent. En activant cette option, le site revient automatiquement à ce mode.",
+  "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Conserver les Tweets (ne fonctionne pas tout le temps)",

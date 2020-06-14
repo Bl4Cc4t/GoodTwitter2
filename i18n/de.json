@@ -21,6 +21,7 @@
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "forceLatest": "Immer die neusten Tweets",
   "forceLatestDesc": "Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.",
+  "hideTranslateTweetButton": "Tweet übersetzen verstecken",
   "hideTrends": "Trends verstecken",
   "hideWhoToFollow": "Wem folgen? verstecken",
   "keepTweetsInTL": "Keep Tweets (funktioniert aktuell nich)",
