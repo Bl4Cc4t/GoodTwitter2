@@ -1499,6 +1499,7 @@ body[data-payment-endpoint-path] {
 // translate tweet
 .gt2-translate-tweet,
 .gt2-translated-tweet-info {
+  width: max-content;
   margin-top: 5px;
   color: var(--color-user);
   font-size: incr(13px);
