@@ -727,7 +727,7 @@
 
   // close sidebar notice
   $("body").on("click", ".gt2-sidebar-notice-close", function() {
-    if ($(this).hasClass("gt2-update-notice")) {
+    if ($(this).parents(".gt2-sidebar-notice").hasClass("gt2-update-notice")) {
       GM_setValue(`sb_notice_ack_update_${GM_info.script.version}`, true)
     }
     $(this).parents(".gt2-sidebar-notice").remove()
