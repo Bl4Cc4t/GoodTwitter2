@@ -21,6 +21,8 @@
   "disableAutoRefreshDesc": "Desactiva la representación en directo de tweets en tu cronología. <br />No espere grandes resultados, ya que no siempre funciona.",
   "forceLatest": "Forzar \"Tweets más recientes\"",
   "forceLatestDesc": "Activar el modo de \"Tweets más recientes\" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de \"Tweets más recientes\".",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Mantener Tweets (aún no funciona)",
   "keepTweetsInTLDesc": "Evita que la web elimine automáticamente tweets una vez estén fuera de la vista.",
   "leftTrends": "Barra lateral izquierda de Tendencias",

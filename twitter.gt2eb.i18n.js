@@ -22,6 +22,8 @@ de: {
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "forceLatest": "Immer die neusten Tweets",
   "forceLatestDesc": "Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.",
+  "hideTrends": "Trends verstecken",
+  "hideWhoToFollow": "Wem folgen? verstecken",
   "keepTweetsInTL": "Keep Tweets (funktioniert aktuell nich)",
   "keepTweetsInTLDesc": "Behält die Tweets auf der Seite, auch wenn man weiterscrollt.",
   "leftTrends": "Trends in der linken Seitenleiste",
@@ -59,6 +61,8 @@ en: {
   "disableAutoRefreshDesc": "Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.",
   "forceLatest": "Force Latest",
   "forceLatestDesc": "Enabling the latest tweets mode is not permanent anymore. With this setting active, the site automatically switches back to the latest tweets mode.",
+  "hideTrends": "Hide Trends",
+  "hideWhoToFollow": "Hide Who To Follow",
   "keepTweetsInTL": "Keep Tweets (this does not work atm)",
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",
@@ -84,7 +88,7 @@ es: {
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
   "translateTweet": "Traducir Tweet",
-  "translatedTweetInfo": "Traducido del $lang$ al $source$",
+  "translatedTweetInfo": "Traducido del $lang$ por $source$",
   "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Cronología",
@@ -96,6 +100,8 @@ es: {
   "disableAutoRefreshDesc": "Desactiva la representación en directo de tweets en tu cronología. <br />No espere grandes resultados, ya que no siempre funciona.",
   "forceLatest": "Forzar \"Tweets más recientes\"",
   "forceLatestDesc": "Activar el modo de \"Tweets más recientes\" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de \"Tweets más recientes\".",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Mantener Tweets (aún no funciona)",
   "keepTweetsInTLDesc": "Evita que la web elimine automáticamente tweets una vez estén fuera de la vista.",
   "leftTrends": "Barra lateral izquierda de Tendencias",
@@ -104,7 +110,11 @@ es: {
   "stickySidebars": "Barras laterales \"pegajosas\" (sticky)",
   "smallSidebars": "Barras laterales pequeñas",
   "smallSidebarsDesc": "Barras laterales de 290 píxeles de ancho en lugar de 350px.",
-  "squareAvatars": "Avatares Cuadrados"
+  "squareAvatars": "Avatares Cuadrados",
+  "updateNotifications": "Notificaciones de actualización de GoodTwitter 2",
+
+  "updatedInfo": "¡Actualizado a $version$!",
+  "updatedInfoChangelog": "Lista de cambios"
 },
 fr: {
   "bookmarks": "Signets",
@@ -129,6 +139,8 @@ fr: {
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
   "forceLatest": "Forcer les tout derniers Tweets",
   "forceLatestDesc": "Activer le mode « tout derniers Tweets » n'est plus permanent. En activant cette option, le site revient automatiquement à ce mode.",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Conserver les Tweets (ne fonctionne pas tout le temps)",
   "keepTweetsInTLDesc": "Empêche le site de retirer automatiquement les tweets une fois qu'ils ne sont plus affichés.",
   "leftTrends": "Barre des Tendances à gauche",
@@ -137,11 +149,15 @@ fr: {
   "stickySidebars": "Barres latérales fixes",
   "smallSidebars": "Petites barres latérales",
   "smallSidebarsDesc": "Barres latérales de 290px au lieu de 350px de large.",
-  "squareAvatars": "Avatars Carrés"
+  "squareAvatars": "Avatars Carrés",
+  "updateNotifications": "Notification de mise à jour de GoodTwitter 2",
+
+  "updatedInfo": "Mis à jour à la version $version$ !",
+  "updatedInfoChangelog": "Journal des modifications"
 },
 ja: {
   "bookmarks": "ブックマーク",
-  "composeNewTweet": "ツイートする",
+  "composeNewTweet": "ツイート",
   "explore": "話題を検索",
   "followers": "フォロワー",
   "following": "フォロー中",
@@ -150,27 +166,33 @@ ja: {
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
   "translateTweet": "ツイートを翻訳",
-  "translatedTweetInfo": "による$lang$からの翻訳$source$",
+  "translatedTweetInfo": "$source$による$lang$からの翻訳",
   "tweets": "ツイート",
 
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
   "settingsHeaderOther": "その他",
-  "biggerPreviews": "より大きな画像プレビュー",
-  "biggerPreviewsDesc": "ツイート内の画像プレビューを完全表示します。",
+  "biggerPreviews": "画像プレビュー表示の拡張",
+  "biggerPreviewsDesc": "ツイート内のプレビュー画像を完全表示します。",
   "disableAutoRefresh": "自動更新を無効にする（実験的）",
   "disableAutoRefreshDesc": "タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。",
   "forceLatest": "最新ツイート表示を強制する",
-  "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると、自動的に最新ツイート表示モードに切り替えることができます。",
-  "keepTweetsInTL": "ツイートを保持 (これは現在動作しません)",
+  "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
+  "keepTweetsInTL": "ツイートを保持する (現在動作しません)",
   "keepTweetsInTLDesc": "スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。",
   "leftTrends": "トレンドを左に表示",
   "leftTrendsDesc": "トレンドを左サイドバーに表示します。",
-  "show10Trends": "常に10個のトレンドを表示する。",
+  "show10Trends": "常に10個のトレンドを表示する",
   "stickySidebars": "サイドバーの固定",
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
-  "squareAvatars": "四角いアイコン表示"
+  "squareAvatars": "四角いアイコン表示",
+  "updateNotifications": "GoodTwitter2の更新通知",
+
+  "updatedInfo": "バージョン$version$に更新完了しました！",
+  "updatedInfoChangelog": "更新履歴"
 },
 ko: {
   "bookmarks": "북마크",
@@ -183,7 +205,7 @@ ko: {
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
   "translateTweet": "트윗 번역하기",
-  "translatedTweetInfo": "영$lang$서 번역 ($source$ 제공)",
+  "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
   "tweets": "트윗",
 
   "settingsHeaderTimeline": "타임라인",
@@ -195,6 +217,8 @@ ko: {
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
   "forceLatest": "항상 최신 트윗 보기",
   "forceLatestDesc": "최신 트윗 보기 모드는 더이상 저장되지 않습니다. 이 설정을 활성화하면 항상 자동으로 최신 트윗 보기 모드로 전환합니다.",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "트윗 유지하기 (지금은 동작하지 않습니다)",
   "keepTweetsInTLDesc": "스크롤 등으로 트윗이 화면 밖으로 나갔을 때 삭제되는 것을 방지합니다.",
   "leftTrends": "왼쪽 사이드바 트렌드",
@@ -203,7 +227,11 @@ ko: {
   "stickySidebars": "사이드바 고정",
   "smallSidebars": "작은 사이드바",
   "smallSidebarsDesc": "사이드바 크기를 350px에서 290px로 조정.",
-  "squareAvatars": "사각형 프로필 사진"
+  "squareAvatars": "사각형 프로필 사진",
+  "updateNotifications": "GoodTwitter 2 업데이트 알림",
+
+  "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",
+  "updatedInfoChangelog": "변경 기록"
 },
 ru: {
   "bookmarks": "Закладки",
@@ -228,6 +256,8 @@ ru: {
   "disableAutoRefreshDesc": "Отключить показ твитов в режиме реального времени. <br/>Не ожидайте хороших результатов, эта функция не всегда работает.",
   "forceLatest": "Всегда последние твиты",
   "forceLatestDesc": "Выбор режима показа последних твитов теперь является временным. Но если включен этот параметр, сайт будет автоматически переключаться на режим показа последних твитов.",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Хранить твиты (сейчас эта функция не работает)",
   "keepTweetsInTLDesc": "Сохранять твиты на странице, даже если вы продолжаете прокручивать.",
   "leftTrends": "Актуальные темы слева",
@@ -236,7 +266,11 @@ ru: {
   "stickySidebars": "Фиксированные боковые панели",
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
-  "squareAvatars": "Квадратные аватары"
+  "squareAvatars": "Квадратные аватары",
+  "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
+
+  "updatedInfo": "Обновлено до $version$!",
+  "updatedInfoChangelog": "Список изменений"
 },
 sv: {
   "bookmarks": "Bokmärken",
@@ -252,18 +286,28 @@ sv: {
   "translatedTweetInfo": "Översatt från $lang$ av $source$",
   "tweets": "Tweets",
 
+  "settingsHeaderTimeline": "*NEW* Timeline",
+  "settingsHeaderSidebars": "*NEW* Sidebars",
+  "settingsHeaderOther": "*NEW* Other",
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
   "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",
   "disableAutoRefreshDesc": "Inaktivera livevisning av tweets på din tidslinje. <br/>Förvänta dig inte fantastiska resultat, det här fungerar inte alltid.",
   "forceLatest": "Tvinga senaste",
   "forceLatestDesc": "Att aktivera läget för senaste tweets är inte längre permanent. Med den här inställningen aktiv kommer sidan automatiskt byta tillbaka till läget Senaste Tweets.",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Behåll Tweets (Det är fungerar inte för nuvarande)",
   "keepTweetsInTLDesc": "Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.",
   "leftTrends": "Trender i Vänster Sidofält",
   "leftTrendsDesc": "Visar trender i vänster sidofält.",
+  "show10Trends": "*NEW* Always Show 10 Trends",
   "stickySidebars": "Orörliga Sidofält",
   "smallSidebars": "Små Sidofält",
   "smallSidebarsDesc": "290px istället för 350px breda sidofält.",
-  "squareAvatars": "Fyrkantiga Visningsbilder"
+  "squareAvatars": "Fyrkantiga Visningsbilder",
+  "updateNotifications": "*NEW* GoodTwitter 2 update notifications",
+
+  "updatedInfo": "*NEW* Updated to $version$!",
+  "updatedInfoChangelog": "*NEW* Changelog"
 },}

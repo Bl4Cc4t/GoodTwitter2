@@ -356,7 +356,7 @@
     let w = window.innerWidth
     let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped)`
 
-    waitForKeyElements(trends, function() {
+    waitForKeyElements(trends, () => {
 
       // wrap trends in anchors
       let $toWrap = $(trends).first().find("> div > div:nth-child(2) > span")
@@ -375,6 +375,12 @@
         && $(trends).parents("div[data-testid=sidebarColumn]").length
       ) {
         $(trends).parents("section").addClass("gt2-trends-handled")
+
+        // hide trends
+        if (GM_getValue("opt_gt2").hideTrends) {
+          $(trends).parents("section").parent().parent().parent().remove()
+          return
+        }
 
         // move trends
         if (GM_getValue("opt_gt2").leftTrends
@@ -397,6 +403,21 @@
     })
   }
 
+  function handleWhoToFollow() {
+    let wtf = "div[data-testid=sidebarColumn] div[data-testid=UserCell]"
+
+    waitForKeyElements(wtf, () => {
+      // actions for the whole container
+      if (!$(wtf).parents("aside").hasClass("gt2-wtf-handled")) {
+        $(wtf).parents("aside").addClass("gt2-wtf-handled")
+
+        // hide who to follow
+        if (GM_getValue("opt_gt2").hideWhoToFollow) {
+          $(wtf).parents("aside").parent().remove()
+        }
+      }
+    })
+  }
 
 
   // ##################################
@@ -698,6 +719,7 @@
     $("div[data-testid=SideNav_AccountSwitcher_Button]").click()
   })
 
+
   // remove class on next click
   $("body").on("click", ":not(.gt2-toggle-acc-switcher-dropdown), :not(div[data-testid=SideNav_AccountSwitcher_Button])", function() {
     setTimeout(function () {
@@ -751,7 +773,9 @@
     squareAvatars:        false,
     biggerPreviews:       false,
     show10Trends:         false,
-    updateNotifications:  true
+    updateNotifications:  true,
+    hideTrends:           false,
+    hideWhoToFollow:      false
   }
 
   // set default options
@@ -767,7 +791,7 @@
     GM_setValue("opt_gt2", old)
   }
 
-  // toggles opt_gt2 values
+  // toggle opt_gt2 value
   function toggleGt2Opt(key) {
     let x = GM_getValue("opt_gt2")
     x[key] = !x[key]
@@ -843,6 +867,8 @@
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
+          ${getSettingTogglePart("hideWhoToFollow")}
+          ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
@@ -853,7 +879,7 @@
         </div>
       `)
 
-      handleKTILOpt()
+      disableTogglesIfNeeded()
     }
   }
 
@@ -885,12 +911,12 @@
     let name = $(this).attr("data-toggleid").trim()
     toggleGt2Opt(name)
     $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
-    handleKTILOpt()
+    disableTogglesIfNeeded()
   })
 
 
-  // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
-  function handleKTILOpt() {
+  function disableTogglesIfNeeded() {
+    // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
     let $t = $("div[data-toggleid=keepTweetsInTL]")
     if (GM_getValue("opt_gt2").disableAutoRefresh) {
       if (!GM_getValue("opt_gt2").keepTweetsInTL) {
@@ -900,6 +926,15 @@
     } else {
       $t.removeClass("gt2-disabled")
     }
+
+    // other trend related toggles are not needed when the trends are disabled
+    $t = $("div[data-toggleid=leftTrends], div[data-toggleid=show10Trends]")
+    if (GM_getValue("opt_gt2").hideTrends) {
+      $t.addClass("gt2-disabled")
+    } else {
+      $t.removeClass("gt2-disabled")
+    }
+
   }
 
 
@@ -1181,8 +1216,9 @@
     }
 
 
-    // handle trends
+    // handle stuff in sidebars
     handleTrends()
+    handleWhoToFollow()
 
 
     // add gt2 settings on /settings
