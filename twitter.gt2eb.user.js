@@ -153,6 +153,24 @@
   }
 
 
+  // request headers
+  function getRequestHeaders(additionalHeaders) {
+    // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
+    let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+    let csrf = window.document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
+
+    let out = {
+      authorization: `Bearer ${publicBearer}`,
+      origin: "https://twitter.com",
+      "x-twitter-client-language": $("html").attr("lang"),
+      "x-csrf-token": csrf,
+      "x-twitter-active-user": "yes",
+      "x-twitter-auth-type": "OAuth2Session"
+    }
+    Object.assign(out, additionalHeaders)
+    return out
+  }
+
 
   // #######################
   // #  various functions  #
@@ -432,7 +450,10 @@
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
     waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
       let tweetLang = $(e).find("div[lang]").attr("lang")
-      if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
+      let userLang  = $("html").attr("lang").trim()
+          userLang  = userLang == "en-GB" ? "en" : userLang
+          console.log(userLang);
+      if (tweetLang != userLang && tweetLang != "und") {
         $(e).find("div[lang]").first().after(`
           <div class="gt2-translate-tweet">
             ${locStr("translateTweet")}
@@ -457,21 +478,14 @@
     let _this = this
     GM_setValue("tmp_translatedTweetInfo", locStr("translatedTweetInfo"))
 
-    // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
-    let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
-    let csrf = window.document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
     let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
+
     GM_xmlhttpRequest({
       method: "GET",
       url:    `https://api.twitter.com/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
-      headers: {
-        authorization: `Bearer ${publicBearer}`,
-        referer: statusUrl,
-        "x-twitter-client-language": $("html").attr("lang"),
-        "x-csrf-token": csrf,
-        "x-twitter-active-user": "yes",
-        "x-twitter-auth-type": "OAuth2Session"
-      },
+      headers: getRequestHeaders({
+        referer: statusUrl
+      }),
       onload: function(res) {
         if (res.status == "200") {
           let o = JSON.parse(res.response)
