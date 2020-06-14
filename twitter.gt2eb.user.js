@@ -122,7 +122,7 @@
   function locStr(key) {
     let lang = $("html").attr("lang")
         lang = Object.keys(i18n).includes(lang) ? lang : "en"
-    if (Object.keys(i18n[lang]).includes(key)) {
+    if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
       return i18n[lang][key]
     } else {
       return i18n.en[key]

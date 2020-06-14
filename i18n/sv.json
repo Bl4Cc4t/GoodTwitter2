@@ -12,6 +12,9 @@
   "translatedTweetInfo": "Översatt från $lang$ av $source$",
   "tweets": "Tweets",
 
+  "settingsHeaderTimeline": "*NEW* Timeline",
+  "settingsHeaderSidebars": "*NEW* Sidebars",
+  "settingsHeaderOther": "*NEW* Other",
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
   "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",
@@ -22,8 +25,13 @@
   "keepTweetsInTLDesc": "Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.",
   "leftTrends": "Trender i Vänster Sidofält",
   "leftTrendsDesc": "Visar trender i vänster sidofält.",
+  "show10Trends": "*NEW* Always Show 10 Trends",
   "stickySidebars": "Orörliga Sidofält",
   "smallSidebars": "Små Sidofält",
   "smallSidebarsDesc": "290px istället för 350px breda sidofält.",
-  "squareAvatars": "Fyrkantiga Visningsbilder"
+  "squareAvatars": "Fyrkantiga Visningsbilder",
+  "updateNotifications": "*NEW* GoodTwitter 2 update notifications",
+
+  "updatedInfo": "*NEW* Updated to $version$!",
+  "updatedInfoChangelog": "*NEW* Changelog"
 }
