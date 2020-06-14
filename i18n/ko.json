@@ -9,7 +9,7 @@
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
   "translateTweet": "트윗 번역하기",
-  "translatedTweetInfo": "영$lang$서 번역 ($source$ 제공)",
+  "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
   "tweets": "트윗",
 
   "settingsHeaderTimeline": "타임라인",
@@ -29,5 +29,9 @@
   "stickySidebars": "사이드바 고정",
   "smallSidebars": "작은 사이드바",
   "smallSidebarsDesc": "사이드바 크기를 350px에서 290px로 조정.",
-  "squareAvatars": "사각형 프로필 사진"
+  "squareAvatars": "사각형 프로필 사진",
+  "updateNotifications": "GoodTwitter 2 업데이트 알림",
+
+  "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",
+  "updatedInfoChangelog": "변경 기록"
 }
