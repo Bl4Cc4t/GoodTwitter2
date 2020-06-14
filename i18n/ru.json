@@ -29,5 +29,9 @@
   "stickySidebars": "Фиксированные боковые панели",
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
-  "squareAvatars": "Квадратные аватары"
+  "squareAvatars": "Квадратные аватары",
+  "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
+
+  "updatedInfo": "Обновлено до $version$!",
+  "updatedInfoChangelog": "Список изменений"
 }
