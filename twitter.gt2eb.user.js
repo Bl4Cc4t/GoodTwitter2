@@ -1285,7 +1285,7 @@
     handleWhoToFollow()
 
 
-    // add gt2 settings on /settings
+    // settings
     if (path.split("/")[0] == "settings") {
       addSettingsToggle()
       $("body").addClass("gt2-page-settings")
@@ -1302,13 +1302,10 @@
       $("body").removeClass("gt2-page-settings gt2-settings-active")
     }
 
-
-    // sectionated pages need special attention on some properties
-    if (path.split("/")[0] == "messages" ||
-        (path.split("/")[0] == "settings" && !["trends", "profile", "explore"].includes(path.split("/")[1])) ) {
-      $("body").addClass("gt2-page-with-sections")
-    } else if (!path.startsWith("i/")) {
-      $("body").removeClass("gt2-page-with-sections")
+    if (path.split("/")[0] == "messages") {
+      $("body").addClass("gt2-page-messages")
+    } else {
+      $("body").removeClass("gt2-page-messages")
     }
 
 

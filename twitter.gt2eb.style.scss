@@ -97,10 +97,6 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
       }
     }
 
-    &.gt2-page-with-sections .gt2-left-sidebar + * {
-      margin-left: 10px;
-    }
-
     &.gt2-page-settings {
       main {
         section:nth-last-child(2) {
@@ -165,10 +161,6 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
       div[data-testid=primaryColumn] {
         margin-left: 300px;
       }
-    }
-
-    &.gt2-page-with-sections .gt2-left-sidebar + * {
-      margin-left: 10px;
     }
 
     &.gt2-page-settings {
@@ -1329,6 +1321,36 @@ body[style*="overflow-y: hidden"] {
 
     &:last-child {
       border-bottom: unset;
+    }
+  }
+}
+
+
+.gt2-page-messages {
+  .gt2-left-sidebar {
+    display: none;
+  }
+  main > div > div > div {
+    & > section {
+      max-width: unset;
+      border-bottom-width: 1px;
+      margin-bottom: 10px;
+
+      &:nth-last-child(2) {
+        width: 40%;
+      }
+      &:nth-last-child(1) {
+        width: 60%;
+        & > div:nth-child(1),
+        & > div:nth-child(2) > div > div,
+        & > div:nth-child(2) > div > div > div > div > div > div > div {
+          max-width: unset;
+          margin: unset;
+        }
+      }
+    }
+    & > section div:not([class]) > div:empty {
+      display: none;
     }
   }
 }
