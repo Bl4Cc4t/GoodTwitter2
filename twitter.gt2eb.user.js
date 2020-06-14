@@ -181,7 +181,7 @@
   function addNavbar() {
     let navHome = `nav > a[href='/home'],
                    nav > a[href='/notifications'],
-                   nav > a[href='/messages']`
+                   nav > a[href^='/messages']`
 
     waitForKeyElements(navHome, () => {
       if ($("body").hasClass("gt2-navbar-added")) return
@@ -1262,7 +1262,7 @@
 
       // highlight current location in left bar
       $(`.gt2-nav-left > a`).removeClass("active")
-      $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
+      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
 
 
       // hide/add search
