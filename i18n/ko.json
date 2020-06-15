@@ -1,16 +1,7 @@
 {
-  "bookmarks": "북마크",
-  "composeNewTweet": "트윗",
-  "explore": "탐색하기",
-  "followers": "팔로워",
-  "following": "팔로잉",
-  "lists": "리스트",
-  "profile": "프로필",
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
-  "translateTweet": "트윗 번역하기",
   "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
-  "tweets": "트윗",
 
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",

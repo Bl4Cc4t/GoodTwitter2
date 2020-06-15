@@ -1,16 +1,7 @@
 {
-  "bookmarks": "Bokmärken",
-  "composeNewTweet": "Tweeta",
-  "explore": "Utforska",
-  "followers": "Följare",
-  "following": "Följer",
-  "lists": "Listor",
-  "profile": "Profil",
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
-  "translateTweet": "Översätt tweeten",
   "translatedTweetInfo": "Översatt från $lang$ av $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "*NEW* Timeline",
   "settingsHeaderSidebars": "*NEW* Sidebars",

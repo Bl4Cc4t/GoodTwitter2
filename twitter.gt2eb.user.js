@@ -5,12 +5,14 @@
 // @author        schwarzkatz
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
+// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
+// @connect       abs.twimg.com
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
@@ -116,15 +118,37 @@
   }
 
 
+  // save the contents of the internal i18n-rweb script in a variable
+  function setI18nInternalRweb() {
+    GM_xmlhttpRequest({
+      type: "GET",
+      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src"),
+      headers: {
+        referer: "https://twitter.com"
+      },
+      onload: function(res) {
+        GM_setValue("i18n_internal_rweb", res.responseText)
+        window.location.reload()
+      }
+    })
+  }
+  if (GM_getValue("i18n_internal_rweb") == undefined) setI18nInternalRweb()
+
+
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
-    let lang = $("html").attr("lang")
-        lang = Object.keys(i18n).includes(lang) ? lang : "en"
-    if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
-      return i18n[lang][key]
+    if (Object.keys(i18n.internal).includes(key)) {
+      let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
+      return GM_getValue("i18n_internal_rweb").match(re)[1]
     } else {
-      return i18n.en[key]
+      let lang = $("html").attr("lang")
+      lang = Object.keys(i18n).includes(lang) ? lang : "en"
+      if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
+        return i18n[lang][key]
+      } else {
+        return i18n.en[key]
+      }
     }
   }
 
@@ -179,11 +203,7 @@
 
   // add navbar
   function addNavbar() {
-    let navHome = `nav > a[href='/home'],
-                   nav > a[href='/notifications'],
-                   nav > a[href^='/messages']`
-
-    waitForKeyElements(navHome, () => {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Home_Link]", () => {
       if ($("body").hasClass("gt2-navbar-added")) return
 
       $("body").prepend(`
@@ -204,9 +224,20 @@
       `)
 
       // home, notifications, messages
-      $(navHome)
-      .appendTo(".gt2-nav-left")
-      urlChange()
+      for (let e of [
+        "Home",
+        "Notifications",
+        "DirectMessage"
+      ]) {
+        $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
+        .appendTo(".gt2-nav-left")
+        $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
+        .append(`
+          <div class="gt2-nav-header">
+            ${locStr(`nav${e}`)}
+          </div>
+        `)
+      }
 
       // twitter logo
       $("h1 a[href='/home'] svg")
@@ -280,19 +311,19 @@
             <ul>
               <li>
                 <a ${href}="/${i.screenName}">
-                  <span>${locStr("tweets")}</span>
+                  <span>${locStr("statsTweets")}</span>
                   <span>${i.stats.tweets.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/following">
-                  <span>${locStr("following")}</span>
+                  <span>${locStr("statsFollowing")}</span>
                   <span>${i.stats.following.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/followers">
-                  <span>${locStr("followers")}</span>
+                  <span>${locStr("statsFollowers")}</span>
                   <span>${i.stats.followers.humanize()}</span>
                 </a>
               </li>
@@ -438,6 +469,22 @@
       }
     })
   }
+
+
+  // removeChild interception
+  Element.prototype.removeChild = (function(fun) {
+    return function(child) {
+      // if ([
+      //   "a[data-testid=AppTabBar_Home_Link]",
+      //   "a[data-testid=AppTabBar_Notifications_Link]",
+      //   "a[data-testid=AppTabBar_DirectMessage_Link]"
+      // ].some(e => $(child).parent().parent().is(e))) {
+      //   return child
+      // }
+
+      return fun.apply(this, arguments)
+    }
+  }(Element.prototype.removeChild))
 
 
 
@@ -702,30 +749,26 @@
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
       let $hr = $(more).find("> div").eq(-4)  // seperator line
-      let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
         {
-          sel: `a[href='/explore']`,
-          name: "explore"
+          sel:  `a[href='/explore']`,
+          name: "Explore"
         }, {
-          sel: `a[href='/i/bookmarks']`,
-          name: "bookmarks"
+          sel:  `a[href='/i/bookmarks']`,
+          name: "Bookmarks"
         }, {
-          sel: `a[href='/${i.screenName}/lists']`,
-          name: "lists"
+          sel:  `a[href='/${i.screenName}/lists']`,
+          name: "Lists"
         }, {
-          sel: `a[href='/${i.screenName}']`,
-          name: "profile"
+          sel:  `a[href='/${i.screenName}']`,
+          name: "Profile"
         }
       ]
       for (let e of toAttach) {
-        let $tmp = $lm.find(e.sel).clone()
-        // if the width is too low, the text disappears
-        if (window.innerWidth < 1282) {
-          $tmp.children().append(`<span>${locStr(e.name)}</span>`)
-        }
+        let $tmp = $("header nav").find(e.sel).clone()
+        $tmp.children().append(`<span>${locStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
       }
     })
@@ -773,6 +816,14 @@
       GM_setValue(`sb_notice_ack_update_${GM_info.script.version}`, true)
     }
     $(this).parents(".gt2-sidebar-notice").remove()
+  })
+
+
+  // reload i18n_internal_rweb
+  $("body").on("click", "div[data-testid=settingsDetailSave]", function() {
+    if ($(this).parent().parent().find("div[data-testid=languageSelector]").length) {
+      GM_deleteValue("i18n_internal_rweb")
+    }
   })
 
 

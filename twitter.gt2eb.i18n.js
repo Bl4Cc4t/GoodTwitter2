@@ -1,17 +1,8 @@
 let i18n = {
 de: {
-  "bookmarks": "Lesezeichen",
-  "composeNewTweet": "Twittern",
-  "explore": "Entdecken",
-  "followers": "Follower",
-  "following": "Folge ich",
-  "lists": "Listen",
-  "profile": "Profil",
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
-  "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
@@ -40,18 +31,9 @@ de: {
   "updatedInfoChangelog": "Changelog"
 },
 en: {
-  "bookmarks": "Bookmarks",
-  "composeNewTweet": "Tweet",
-  "explore": "Explore",
-  "followers": "Followers",
-  "following": "Following",
-  "lists": "Lists",
-  "profile": "Profile",
   "showNewMulti": "Show $ new Tweets",
   "showNewSingle": "Show 1 new Tweet",
-  "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",
@@ -80,18 +62,9 @@ en: {
   "updatedInfoChangelog": "Changelog"
 },
 es: {
-  "bookmarks": "Guardados",
-  "composeNewTweet": "Twittear",
-  "explore": "Explorar",
-  "followers": "Seguidores",
-  "following": "Siguiendo",
-  "lists": "Listas",
-  "profile": "Perfil",
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
-  "translateTweet": "Traducir Tweet",
   "translatedTweetInfo": "Traducido del $lang$ por $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Cronología",
   "settingsHeaderSidebars": "Barras laterales",
@@ -120,18 +93,9 @@ es: {
   "updatedInfoChangelog": "Lista de cambios"
 },
 fr: {
-  "bookmarks": "Signets",
-  "composeNewTweet": "Tweeter",
-  "explore": "Explorer",
-  "followers": "abonnés",
-  "following": "abonnements",
-  "lists": "Listes",
-  "profile": "Profil",
   "showNewMulti": "Voir $ nouveaux Tweets",
   "showNewSingle": "Voir 1 nouveau Tweet",
-  "translateTweet": "Traduire le Tweet",
   "translatedTweetInfo": "À l'origine en $lang$ et traduit par $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Fil d'actualités",
   "settingsHeaderSidebars": "Barres latérales",
@@ -159,19 +123,24 @@ fr: {
   "updatedInfo": "Mis à jour à la version $version$ !",
   "updatedInfoChangelog": "Journal des modifications"
 },
+internal: {
+  "composeNewTweet": "c6432564",
+  "navBookmarks": "cd1a6a79",
+  "navDirectMessage": "d2c0434e",
+  "navExplore": "h1847666",
+  "navHome": "bacb0ed2",
+  "navLists": "df98e6d9",
+  "navNotifications": "g47fb936",
+  "navProfile": "b22ba8dc",
+  "statsFollowers": "hfa811da",
+  "statsFollowing": "fd87318c",
+  "statsTweets": "c4f8ac47",
+  "translateTweet": "gdf45ca0"
+},
 ja: {
-  "bookmarks": "ブックマーク",
-  "composeNewTweet": "ツイート",
-  "explore": "話題を検索",
-  "followers": "フォロワー",
-  "following": "フォロー中",
-  "lists": "リスト",
-  "profile": "プロフィール",
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
-  "translateTweet": "ツイートを翻訳",
   "translatedTweetInfo": "$source$による$lang$からの翻訳",
-  "tweets": "ツイート",
 
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
@@ -200,18 +169,9 @@ ja: {
   "updatedInfoChangelog": "更新履歴"
 },
 ko: {
-  "bookmarks": "북마크",
-  "composeNewTweet": "트윗",
-  "explore": "탐색하기",
-  "followers": "팔로워",
-  "following": "팔로잉",
-  "lists": "리스트",
-  "profile": "프로필",
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
-  "translateTweet": "트윗 번역하기",
   "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
-  "tweets": "트윗",
 
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",
@@ -240,18 +200,9 @@ ko: {
   "updatedInfoChangelog": "변경 기록"
 },
 ru: {
-  "bookmarks": "Закладки",
-  "composeNewTweet": "Твитнуть",
-  "explore": "Поиск",
-  "followers": "Читатели",
-  "following": "Читаемые",
-  "lists": "Списки",
-  "profile": "Профиль",
   "showNewMulti": "Посмотреть новые твиты ($)",
   "showNewSingle": "Посмотреть 1 новый твит",
-  "translateTweet": "Перевести твит",
   "translatedTweetInfo": "Язык оригинала: $lang$, переведено с помощью $source$",
-  "tweets": "Твиты",
 
   "settingsHeaderTimeline": "Лента",
   "settingsHeaderSidebars": "Боковые панели",
@@ -280,18 +231,9 @@ ru: {
   "updatedInfoChangelog": "Список изменений"
 },
 sv: {
-  "bookmarks": "Bokmärken",
-  "composeNewTweet": "Tweeta",
-  "explore": "Utforska",
-  "followers": "Följare",
-  "following": "Följer",
-  "lists": "Listor",
-  "profile": "Profil",
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
-  "translateTweet": "Översätt tweeten",
   "translatedTweetInfo": "Översatt från $lang$ av $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "*NEW* Timeline",
   "settingsHeaderSidebars": "*NEW* Sidebars",

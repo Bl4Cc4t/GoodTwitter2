@@ -1,16 +1,7 @@
 {
-  "bookmarks": "Signets",
-  "composeNewTweet": "Tweeter",
-  "explore": "Explorer",
-  "followers": "abonnés",
-  "following": "abonnements",
-  "lists": "Listes",
-  "profile": "Profil",
   "showNewMulti": "Voir $ nouveaux Tweets",
   "showNewSingle": "Voir 1 nouveau Tweet",
-  "translateTweet": "Traduire le Tweet",
   "translatedTweetInfo": "À l'origine en $lang$ et traduit par $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Fil d'actualités",
   "settingsHeaderSidebars": "Barres latérales",

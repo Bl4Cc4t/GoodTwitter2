@@ -1,16 +1,7 @@
 {
-  "bookmarks": "Bookmarks",
-  "composeNewTweet": "Tweet",
-  "explore": "Explore",
-  "followers": "Followers",
-  "following": "Following",
-  "lists": "Lists",
-  "profile": "Profile",
   "showNewMulti": "Show $ new Tweets",
   "showNewSingle": "Show 1 new Tweet",
-  "translateTweet": "Translate Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Sidebars",

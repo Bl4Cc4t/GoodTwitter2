@@ -1,16 +1,7 @@
 {
-  "bookmarks": "ブックマーク",
-  "composeNewTweet": "ツイート",
-  "explore": "話題を検索",
-  "followers": "フォロワー",
-  "following": "フォロー中",
-  "lists": "リスト",
-  "profile": "プロフィール",
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
-  "translateTweet": "ツイートを翻訳",
   "translatedTweetInfo": "$source$による$lang$からの翻訳",
-  "tweets": "ツイート",
 
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",

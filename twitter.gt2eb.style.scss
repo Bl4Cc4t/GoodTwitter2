@@ -366,6 +366,9 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 
   .gt2-nav-left {
     margin-left: space(598px);
+    .gt2-nav-header {
+      display: none;
+    }
   }
   .gt2-nav-right {
     margin-right: space(598px);
@@ -902,10 +905,10 @@ div[data-testid=caret] {
       & > div {
         padding: incr(15px);
         & > div:nth-child(2) {
-          margin: 0;
-          font-size: incr(15px);
+          display: none;
         }
       }
+
 
       span {
         font-size: incr(15px);
@@ -976,11 +979,15 @@ a.gt2-trend {
           border-color: var(--color-elem);
           font-size: calc(11px + var(--font-increment) * 0.75);
         }
-        & > div:nth-child(2) {
+        & > div:not(:first-child):not(.gt2-nav-header) {
+          display: none;
+        }
+        .gt2-nav-header {
           color: var(--color-gray);
           font-size: incr(13px);
           margin-left: incr(3px);
           margin-right: 3px;
+          font-weight: bold;
         }
       }
     }
@@ -1173,7 +1180,7 @@ body[style*="overflow-y: hidden"] {
     }
   }
 
-  .gt2-settings-active {
+  &.gt2-settings-active {
     main section:nth-last-child(2) > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {

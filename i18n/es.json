@@ -1,16 +1,7 @@
 {
-  "bookmarks": "Guardados",
-  "composeNewTweet": "Twittear",
-  "explore": "Explorar",
-  "followers": "Seguidores",
-  "following": "Siguiendo",
-  "lists": "Listas",
-  "profile": "Perfil",
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
-  "translateTweet": "Traducir Tweet",
   "translatedTweetInfo": "Traducido del $lang$ por $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Cronología",
   "settingsHeaderSidebars": "Barras laterales",

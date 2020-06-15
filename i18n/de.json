@@ -1,16 +1,7 @@
 {
-  "bookmarks": "Lesezeichen",
-  "composeNewTweet": "Twittern",
-  "explore": "Entdecken",
-  "followers": "Follower",
-  "following": "Folge ich",
-  "lists": "Listen",
-  "profile": "Profil",
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
-  "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
-  "tweets": "Tweets",
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
