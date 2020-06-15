@@ -394,7 +394,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
         margin-bottom: 0;
       }
     }
-    &.gt2-settings-active {
+    &.gt2-page-settings-active {
       main > div > div > div > div:not(.gt2-left-sidebar) {
         display: none;
       }
@@ -1180,7 +1180,7 @@ body[style*="overflow-y: hidden"] {
     }
   }
 
-  &.gt2-settings-active {
+  &.gt2-page-settings-active {
     main section:nth-last-child(2) > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {

@@ -873,18 +873,16 @@
 
   // insert the menu item
   function addSettingsToggle() {
-    waitForKeyElements("main a[href='/settings/about']", () => {
-      if (!$(".gt2-toggle-settings").length) {
-        $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
-          <a class="gt2-toggle-settings" href="/settings/gt2">
-            <div>
-              <span>GoodTwitter2</span>
-              ${getSvg("caret")}
-            </div>
-          </a>
-        `)
-      }
-    })
+    if (!$(".gt2-toggle-settings").length) {
+      $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
+        <a class="gt2-toggle-settings" href="/settings/gt2">
+          <div>
+            <span>GoodTwitter2</span>
+            ${getSvg("caret")}
+          </div>
+        </a>
+      `)
+    }
   }
 
 
@@ -957,7 +955,6 @@
           ${getSettingTogglePart("hideTranslateTweetButton")}
         </div>
       `
-
       if ($("main section").length) {
         $("main section:nth-last-child(1)").prepend(elem)
       } else {
@@ -965,7 +962,6 @@
           <section>${elem}</section>
         `)
       }
-
       disableTogglesIfNeeded()
     }
   }
@@ -1273,20 +1269,29 @@
     }
 
 
-    // insert left sidebar
-    if (!$(".gt2-left-sidebar").length) {
-      let insertAt = "main > div > div > div"
-      waitForKeyElements(insertAt, function() {
-        $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
-        // on error page
-        if ($(insertAt).find("h1[data-testid=error-detail]").length
-         && !path.startsWith("settings/gt2")) {
-          $("body").addClass("gt2-page-error")
-        } else {
-          $("body").removeClass("gt2-page-error")
+    let mainView = "main > div > div > div"
+    waitForKeyElements(mainView, function() {
+      // insert left sidebar
+      if (!$(".gt2-left-sidebar").length) {
+        $(mainView).prepend(`<div class="gt2-left-sidebar"></div>`)
+      }
+
+      // on error page
+      if ($(mainView).find("h1[data-testid=error-detail]").length
+       && !path.startsWith("settings/gt2")) {
+        $("body").addClass("gt2-page-error")
+      } else {
+        $("body").removeClass("gt2-page-error")
+      }
+
+      // settings
+      if (path.split("/")[0] == "settings") {
+        addSettingsToggle()
+        if (path.startsWith("settings/gt2")) {
+          addSettings()
         }
-      })
-    }
+      }
+    })
 
 
     // sidebar
@@ -1342,17 +1347,19 @@
       $("body").addClass("gt2-page-settings")
       if (path.startsWith("settings/gt2")) {
         addSettings()
-        $("body").addClass("gt2-settings-active")
+        $("body").addClass("gt2-page-settings-active")
       } else {
         if (window.innerWidth < 1005) {
           $("main section").remove()
         }
-        $("body").removeClass("gt2-settings-active")
+        $("body").removeClass("gt2-page-settings-active")
       }
     } else {
-      $("body").removeClass("gt2-page-settings gt2-settings-active")
+      $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
     }
 
+
+    // messages
     if (path.split("/")[0] == "messages") {
       $("body").addClass("gt2-page-messages")
     } else {
