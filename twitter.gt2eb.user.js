@@ -291,7 +291,7 @@
     // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
     let href = isLoggedIn() ? "href" : "data-href"
     return `
-      <div class="gt2-dashboard-profile ${window.innerWidth <= 1095 ? "gt2-small": ""}">
+      <div class="gt2-dashboard-profile">
         <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
         <div>
           <a ${href}="/${i.screenName}" class="gt2-avatar">
@@ -1212,12 +1212,6 @@
       $(".gt2-trends").remove()
     } else {
       $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
-    }
-
-    if (w <= 1095) {
-      $(".gt2-dashboard-profile").addClass("gt2-small")
-    } else {
-      $(".gt2-dashboard-profile").removeClass("gt2-small")
     }
   })
 

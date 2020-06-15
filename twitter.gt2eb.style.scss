@@ -69,6 +69,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 }
 
 
+
 // normal display
 @media only screen and (min-width: 1350px) {
   body:not(.gt2-opt-small-sidebars) {
@@ -269,6 +270,31 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   // smaller search
   .gt2-search > div {
     width: 270px !important;
+  }
+
+  // small dashboard profile
+  .gt2-dashboard-profile {
+    width: 290px;
+    .gt2-banner {
+      height: 96px;
+    }
+
+    .gt2-avatar img {
+      width: 72px;
+      height: 72px;
+    }
+
+    .gt2-toggle-lo-nightmode {
+      bottom: calc(83px + (var(--font-increment) + 2px) / 2);
+    }
+
+    .gt2-user {
+      top: 103px;
+      left: 90px;
+      .gt2-name {
+        width: 160px;
+      }
+    }
   }
 }
 
@@ -1524,31 +1550,6 @@ body[style*="overflow-y: hidden"] {
   }
 }
 
-// small dashboard profile
-.gt2-opt-small-sidebars .gt2-dashboard-profile,
-.gt2-dashboard-profile.gt2-small {
-  width: 290px;
-  .gt2-banner {
-    height: 96px;
-  }
-
-  .gt2-avatar img {
-    width: 72px;
-    height: 72px;
-  }
-
-  .gt2-toggle-lo-nightmode {
-    bottom: calc(83px + (var(--font-increment) + 2px) / 2);
-  }
-
-  .gt2-user {
-    top: 103px;
-    left: 90px;
-    .gt2-name {
-      width: 160px;
-    }
-  }
-}
 
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
