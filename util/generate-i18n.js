@@ -9,7 +9,7 @@ fs.readdir(path.join(__dirname, "..", "i18n"), (err, files) => {
   let out = "let i18n = {"
   for (let file of files) {
     if (file.endsWith(".json")) {
-      out += `\n${file.slice(0, -5)}: ${fs.readFileSync(path.join(__dirname, "..", "i18n", file), "utf8").trim()},`
+      out += `\n"${file.slice(0, -5)}": ${fs.readFileSync(path.join(__dirname, "..", "i18n", file), "utf8").trim()},`
     }
   }
   out += "}\n"

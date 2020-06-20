@@ -1,5 +1,5 @@
 let i18n = {
-de: {
+"de": {
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
@@ -13,6 +13,8 @@ de: {
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "forceLatest": "Immer die neusten Tweets",
   "forceLatestDesc": "Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.",
+  "hideMessageBox": "Nachrichten-Box verstecken",
+  "hideMessageBoxDesc": "Versteckt die neue, immer präsente Box unten rechts.",
   "hideTranslateTweetButton": "Tweet übersetzen verstecken",
   "hideTrends": "Trends verstecken",
   "hideWhoToFollow": "Wem folgen? verstecken",
@@ -30,7 +32,7 @@ de: {
   "updatedInfo": "Aktualisiert auf $version$!",
   "updatedInfoChangelog": "Changelog"
 },
-en: {
+"en": {
   "showNewMulti": "Show $ new Tweets",
   "showNewSingle": "Show 1 new Tweet",
   "translatedTweetInfo": "Translated from $lang$ by $source$",
@@ -44,6 +46,8 @@ en: {
   "disableAutoRefreshDesc": "Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.",
   "forceLatest": "Force Latest",
   "forceLatestDesc": "Enabling the latest tweets mode is not permanent anymore. With this setting active, the site automatically switches back to the latest tweets mode.",
+  "hideMessageBox": "Hide Message Box",
+  "hideMessageBoxDesc": "Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "Hide Translate Tweet Button",
   "hideTrends": "Hide Trends",
   "hideWhoToFollow": "Hide Who To Follow",
@@ -61,7 +65,7 @@ en: {
   "updatedInfo": "Updated to $version$!",
   "updatedInfoChangelog": "Changelog"
 },
-es: {
+"es": {
   "showNewMulti": "Mostrar $ nuevos Tweets",
   "showNewSingle": "Mostrar 1 nuevo Tweet",
   "translatedTweetInfo": "Traducido del $lang$ por $source$",
@@ -75,6 +79,8 @@ es: {
   "disableAutoRefreshDesc": "Desactiva la representación en directo de tweets en tu cronología. <br />No espere grandes resultados, ya que no siempre funciona.",
   "forceLatest": "Forzar \"Tweets más recientes\"",
   "forceLatestDesc": "Activar el modo de \"Tweets más recientes\" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de \"Tweets más recientes\".",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
@@ -92,7 +98,7 @@ es: {
   "updatedInfo": "¡Actualizado a $version$!",
   "updatedInfoChangelog": "Lista de cambios"
 },
-fr: {
+"fr": {
   "showNewMulti": "Voir $ nouveaux Tweets",
   "showNewSingle": "Voir 1 nouveau Tweet",
   "translatedTweetInfo": "À l'origine en $lang$ et traduit par $source$",
@@ -106,6 +112,8 @@ fr: {
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
   "forceLatest": "Forcer les tout derniers Tweets",
   "forceLatestDesc": "Activer le mode « tout derniers Tweets » n'est plus permanent. En activant cette option, le site revient automatiquement à ce mode.",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
@@ -123,7 +131,7 @@ fr: {
   "updatedInfo": "Mis à jour à la version $version$ !",
   "updatedInfoChangelog": "Journal des modifications"
 },
-internal: {
+"internal": {
   "composeNewTweet": "c6432564",
   "navBookmarks": "cd1a6a79",
   "navDirectMessage": "d2c0434e",
@@ -137,7 +145,7 @@ internal: {
   "statsTweets": "c4f8ac47",
   "translateTweet": "gdf45ca0"
 },
-ja: {
+"ja": {
   "showNewMulti": "新しいツイート$件を見る",
   "showNewSingle": "新しいツイート1件を見る",
   "translatedTweetInfo": "$source$による$lang$からの翻訳",
@@ -151,6 +159,8 @@ ja: {
   "disableAutoRefreshDesc": "タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。",
   "forceLatest": "最新ツイート表示を強制する",
   "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
@@ -168,7 +178,7 @@ ja: {
   "updatedInfo": "バージョン$version$に更新完了しました！",
   "updatedInfoChangelog": "更新履歴"
 },
-ko: {
+"ko": {
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
   "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
@@ -182,9 +192,11 @@ ko: {
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
   "forceLatest": "항상 최신 트윗 보기",
   "forceLatestDesc": "최신 트윗 보기 모드는 더이상 저장되지 않습니다. 이 설정을 활성화하면 항상 자동으로 최신 트윗 보기 모드로 전환합니다.",
-  "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
-  "hideTrends": "*NEW* Hide Trends",
-  "hideWhoToFollow": "*NEW* Hide Who To Follow",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "트윗 번역 버튼 숨기기",
+  "hideTrends": "트렌드 숨기기",
+  "hideWhoToFollow": "팔로우 추천 숨기기",
   "keepTweetsInTL": "트윗 유지하기 (지금은 동작하지 않습니다)",
   "keepTweetsInTLDesc": "스크롤 등으로 트윗이 화면 밖으로 나갔을 때 삭제되는 것을 방지합니다.",
   "leftTrends": "왼쪽 사이드바 트렌드",
@@ -199,9 +211,9 @@ ko: {
   "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",
   "updatedInfoChangelog": "변경 기록"
 },
-ru: {
-  "showNewMulti": "Посмотреть новые твиты ($)",
-  "showNewSingle": "Посмотреть 1 новый твит",
+"ru": {
+  "showNewMulti": "Посмотреть новые твиты ($)",//not used but just in case,
+  "showNewSingle": "Посмотреть 1 новый твит",//not used but just in case,
   "translatedTweetInfo": "Язык оригинала: $lang$, переведено с помощью $source$",
 
   "settingsHeaderTimeline": "Лента",
@@ -213,9 +225,11 @@ ru: {
   "disableAutoRefreshDesc": "Отключить показ твитов в режиме реального времени. <br/>Не ожидайте хороших результатов, эта функция не всегда работает.",
   "forceLatest": "Всегда последние твиты",
   "forceLatestDesc": "Выбор режима показа последних твитов теперь является временным. Но если включен этот параметр, сайт будет автоматически переключаться на режим показа последних твитов.",
-  "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
-  "hideTrends": "*NEW* Hide Trends",
-  "hideWhoToFollow": "*NEW* Hide Who To Follow",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "Скрыть кнопку «Перевести твит»",
+  "hideTrends": "Скрыть «Актуальные темы»",
+  "hideWhoToFollow": "Скрыть «Кого читать»",
   "keepTweetsInTL": "Хранить твиты (сейчас эта функция не работает)",
   "keepTweetsInTLDesc": "Сохранять твиты на странице, даже если вы продолжаете прокручивать.",
   "leftTrends": "Актуальные темы слева",
@@ -230,7 +244,7 @@ ru: {
   "updatedInfo": "Обновлено до $version$!",
   "updatedInfoChangelog": "Список изменений"
 },
-sv: {
+"sv": {
   "showNewMulti": "Visa $ nya Tweets",
   "showNewSingle": "Visa 1 nytt Tweet",
   "translatedTweetInfo": "Översatt från $lang$ av $source$",
@@ -244,6 +258,8 @@ sv: {
   "disableAutoRefreshDesc": "Inaktivera livevisning av tweets på din tidslinje. <br/>Förvänta dig inte fantastiska resultat, det här fungerar inte alltid.",
   "forceLatest": "Tvinga senaste",
   "forceLatestDesc": "Att aktivera läget för senaste tweets är inte längre permanent. Med den här inställningen aktiv kommer sidan automatiskt byta tillbaka till läget Senaste Tweets.",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
@@ -260,4 +276,37 @@ sv: {
 
   "updatedInfo": "*NEW* Updated to $version$!",
   "updatedInfoChangelog": "*NEW* Changelog"
+},
+"zh-Hant": {
+  "showNewMulti": "顯示 $ 新推文",
+  "showNewSingle": "顯示 1 個新推文",
+  "translatedTweetInfo": "由 $source$ 從 $lang$ 翻譯",
+
+  "settingsHeaderTimeline": "時間軸",
+  "settingsHeaderSidebars": "側邊欄",
+  "settingsHeaderOther": "其他",
+  "biggerPreviews": "更大的圖片預覽",
+  "biggerPreviewsDesc": "長的圖片在推文內顯示完整的高度",
+  "disableAutoRefresh": "禁用自動刷新 (實驗性功能)",
+  "disableAutoRefreshDesc": "禁用時間軸自動貼文刷新 <br/>實驗性功能，結果可能會不正常",
+  "forceLatest": "強制最新貼文模式",
+  "forceLatestDesc": "最新貼文模式不再是永久啟用的。啟用這個選項後網站會自動切換回最新貼文模式",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "隱藏翻譯此推文按鈕",
+  "hideTrends": "隱藏流行趨勢",
+  "hideWhoToFollow": "隱藏跟隨誰",
+  "keepTweetsInTL": "保留貼文 (目前沒有功能)",
+  "keepTweetsInTLDesc": "當貼文離開可視區時使網站不自動移除它",
+  "leftTrends": "側邊欄流行趨勢",
+  "leftTrendsDesc": "在左側邊欄顯示流行趨勢",
+  "show10Trends": "總是顯示 10 個流行趨勢",
+  "stickySidebars": "固定側邊欄",
+  "smallSidebars": "小的側邊欄",
+  "smallSidebarsDesc": "使用 290px 的側邊欄 (預設 350px) ",
+  "squareAvatars": "正方形的頭像",
+  "updateNotifications": "GoodTwitter 2 更新通知",
+
+  "updatedInfo": "更新了 $version$!",
+  "updatedInfoChangelog": "更新日誌"
 },}

@@ -12,6 +12,8 @@
   "disableAutoRefreshDesc": "タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。",
   "forceLatest": "最新ツイート表示を強制する",
   "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideWhoToFollow": "*NEW* Hide Who To Follow",
