@@ -848,21 +848,32 @@
     updateNotifications:      true,
     hideTrends:               false,
     hideWhoToFollow:          false,
-    hideTranslateTweetButton: false
+    hideTranslateTweetButton: false,
+    hideMessageBox:           true
   }
 
   // set default options
   if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
 
   // add previously non existant options
-  if (Object.keys(GM_getValue("opt_gt2")).length != Object.keys(opt_gt2).length) {
+  if (JSON.stringify(Object.keys(GM_getValue("opt_gt2"))) != JSON.stringify(Object.keys(opt_gt2))) {
     let old = GM_getValue("opt_gt2")
+
+    // remove default options that are modified
     for (let k of Object.keys(opt_gt2)) {
       if (Object.keys(old).includes(k)) delete opt_gt2[k]
     }
+
+    // remove old options
+    for (let k of Object.keys(old))  {
+      if (Object.keys(opt_gt2).includes(k)) delete old[k]
+    }
+
     Object.assign(old, opt_gt2)
+    console.log(old);
     GM_setValue("opt_gt2", old)
   }
+  console.log(GM_getValue("opt_gt2"));
 
   // toggle opt_gt2 value
   function toggleGt2Opt(key) {
@@ -954,6 +965,7 @@
           ${getSettingTogglePart("biggerPreviews")}
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("hideMessageBox")}
         </div>
       `
       if ($("main section").length) {

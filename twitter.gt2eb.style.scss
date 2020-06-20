@@ -10,7 +10,7 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc']";
-$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
+$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
@@ -673,7 +673,7 @@ body:not(.gt2-opt-small-sidebars) {
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
-  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
@@ -737,6 +737,12 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+.gt2-opt-hide-message-box {
+  #react-root > div > div > h2 + div {
+    display: none;
+  }
+}
+
 
 /*
 .gt2-opt-keep-tweets-in-tl {
@@ -748,7 +754,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 .gt2-hide-spark-opt {
-  #react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
+  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
     display: none;
   }
 }
