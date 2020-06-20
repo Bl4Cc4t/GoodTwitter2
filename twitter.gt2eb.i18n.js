@@ -60,7 +60,7 @@ let i18n = {
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",
   "squareAvatars": "Square Avatars",
-  "updateNotifications": "GoodTwitter 2 update notifications",
+  "updateNotifications": "GoodTwitter 2 Update Notifications",
 
   "updatedInfo": "Updated to $version$!",
   "updatedInfoChangelog": "Changelog"
