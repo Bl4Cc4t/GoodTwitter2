@@ -79,6 +79,7 @@ Thanks to these awesome people, there are translations available for the followi
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
+- Traditional Chinese (added by [@roy4801](https://github.com/roy4801))
 - English and German are natively supported.
 
 ### Adding translations
