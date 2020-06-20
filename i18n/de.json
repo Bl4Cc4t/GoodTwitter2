@@ -1,16 +1,8 @@
 {
-  "bookmarks": "Lesezeichen",
-  "composeNewTweet": "Twittern",
-  "explore": "Entdecken",
-  "followers": "Follower",
-  "following": "Folge ich",
-  "lists": "Listen",
-  "profile": "Profil",
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
-  "translateTweet": "Tweet übersetzen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
-  "tweets": "Tweets",
+
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
   "settingsHeaderOther": "Diverses",
@@ -20,6 +12,11 @@
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "forceLatest": "Immer die neusten Tweets",
   "forceLatestDesc": "Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.",
+  "hideMessageBox": "Nachrichten-Box verstecken",
+  "hideMessageBoxDesc": "Versteckt die neue, immer präsente Box unten rechts.",
+  "hideTranslateTweetButton": "Tweet übersetzen verstecken",
+  "hideTrends": "Trends verstecken",
+  "hideWhoToFollow": "Wem folgen? verstecken",
   "keepTweetsInTL": "Keep Tweets (funktioniert aktuell nich)",
   "keepTweetsInTLDesc": "Behält die Tweets auf der Seite, auch wenn man weiterscrollt.",
   "leftTrends": "Trends in der linken Seitenleiste",
@@ -28,5 +25,9 @@
   "stickySidebars": "Feste Seitenleisten",
   "smallSidebars": "Schmalere Seitenleisten",
   "smallSidebarsDesc": "290px anstelle von 350px breiten Seitenleisten.",
-  "squareAvatars": "Eckige Avatare"
+  "squareAvatars": "Eckige Avatare",
+  "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen",
+
+  "updatedInfo": "Aktualisiert auf $version$!",
+  "updatedInfoChangelog": "Changelog"
 }

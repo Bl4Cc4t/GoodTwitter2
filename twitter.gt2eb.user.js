@@ -1,15 +1,18 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.21.1
+// @version       0.0.22
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
+// @exclude       https://twitter.com/i/cards/*
+// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
+// @connect       abs.twimg.com
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
@@ -27,7 +30,6 @@
     || (!isLoggedIn() && [""].includes(getPath().split("/")[0]))) {
     return
   }
-
 
 
   // window.setInterval(() => {
@@ -116,15 +118,37 @@
   }
 
 
+  // save the contents of the internal i18n-rweb script in a variable
+  function setI18nInternalRweb() {
+    GM_xmlhttpRequest({
+      type: "GET",
+      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src"),
+      headers: {
+        referer: "https://twitter.com"
+      },
+      onload: function(res) {
+        GM_setValue("i18n_internal_rweb", res.responseText)
+        window.location.reload()
+      }
+    })
+  }
+  if (GM_getValue("i18n_internal_rweb") == undefined) setI18nInternalRweb()
+
+
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
-    let lang = $("html").attr("lang")
-        lang = Object.keys(i18n).includes(lang) ? lang : "en"
-    if (Object.keys(i18n[lang]).includes(key)) {
-      return i18n[lang][key]
+    if (Object.keys(i18n.internal).includes(key)) {
+      let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
+      return GM_getValue("i18n_internal_rweb").match(re)[1]
     } else {
-      return i18n.en[key]
+      let lang = $("html").attr("lang")
+      lang = Object.keys(i18n).includes(lang) ? lang : "en"
+      if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
+        return i18n[lang][key]
+      } else {
+        return i18n.en[key]
+      }
     }
   }
 
@@ -139,11 +163,12 @@
   function getSvg(key) {
     let svgs = {
       lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
-      arrow: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
+      caret: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
       tick: `<g><path d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z"></path></g>`,
       moon: `<g><path d="M 13.277344 24 C 16.976562 24 20.355469 22.316406 22.597656 19.554688 C 22.929688 19.148438 22.566406 18.550781 22.054688 18.648438 C 16.234375 19.757812 10.886719 15.292969 10.886719 9.417969 C 10.886719 6.03125 12.699219 2.917969 15.644531 1.242188 C 16.097656 0.984375 15.984375 0.296875 15.46875 0.199219 C 14.746094 0.0664062 14.011719 0 13.277344 0 C 6.652344 0 1.277344 5.367188 1.277344 12 C 1.277344 18.625 6.644531 24 13.277344 24 Z M 13.277344 24 "/></g>`,
       x: `<g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g>`,
-      google: `<g><path d="M9.827 17.667c-4.82 0-8.873-3.927-8.873-8.747S5.007.173 9.827.173c2.667 0 4.567 1.047 5.993 2.413l-1.687 1.687c-1.027-.96-2.413-1.707-4.307-1.707-3.52 0-6.273 2.84-6.273 6.36s2.753 6.36 6.273 6.36c2.28 0 3.587-.92 4.413-1.747.68-.68 1.132-1.668 1.3-3.008H10v-2.4h7.873c.087.428.127.935.127 1.495 0 1.793-.493 4.013-2.067 5.587-1.54 1.6-3.5 2.453-6.106 2.453zm20.806-5.627c0 3.24-2.533 5.633-5.633 5.633-3.107 0-5.633-2.387-5.633-5.633 0-3.267 2.527-5.633 5.633-5.633 3.1.006 5.633 2.373 5.633 5.633zm-2.466 0c0-2.027-1.467-3.413-3.167-3.413-1.7 0-3.167 1.387-3.167 3.413 0 2.007 1.467 3.413 3.167 3.413 1.7 0 3.167-1.406 3.167-3.413zm15.133-.007c0 3.24-2.527 5.633-5.633 5.633s-5.633-2.387-5.633-5.633c0-3.267 2.527-5.633 5.633-5.633S43.3 8.773 43.3 12.033zm-2.467 0c0-2.027-1.467-3.413-3.167-3.413S34.5 10.007 34.5 12.033c0 2.007 1.467 3.413 3.167 3.413s3.166-1.406 3.166-3.413zm14.5-5.286V16.86c0 4.16-2.453 5.867-5.353 5.867-2.733 0-4.373-1.833-4.993-3.327l2.153-.893c.387.92 1.32 2.007 2.84 2.007 1.853 0 3.007-1.153 3.007-3.307v-.813H52.9c-.553.68-1.62 1.28-2.967 1.28-2.813 0-5.267-2.453-5.267-5.613 0-3.18 2.453-5.652 5.267-5.652 1.347 0 2.413.6 2.967 1.26h.087v-.92h2.346zm-2.173 5.306c0-1.987-1.32-3.433-3.007-3.433-1.707 0-3.007 1.453-3.007 3.433 0 1.96 1.3 3.393 3.007 3.393 1.68 0 3.007-1.426 3.007-3.393zM59.807.78v16.553h-2.473V.78h2.473zm9.886 13.113l1.92 1.28c-.62.92-2.113 2.493-4.693 2.493-3.2 0-5.587-2.473-5.587-5.633 0-3.347 2.413-5.633 5.313-5.633 2.92 0 4.353 2.327 4.82 3.587l.253.64-7.534 3.113c.573 1.133 1.473 1.707 2.733 1.707s2.133-.62 2.773-1.554zm-5.906-2.026l5.033-2.093c-.28-.707-1.107-1.193-2.093-1.193-1.254 0-3.007 1.107-2.94 3.287z"></path></g>`
+      google: `<g><path d="M9.827 17.667c-4.82 0-8.873-3.927-8.873-8.747S5.007.173 9.827.173c2.667 0 4.567 1.047 5.993 2.413l-1.687 1.687c-1.027-.96-2.413-1.707-4.307-1.707-3.52 0-6.273 2.84-6.273 6.36s2.753 6.36 6.273 6.36c2.28 0 3.587-.92 4.413-1.747.68-.68 1.132-1.668 1.3-3.008H10v-2.4h7.873c.087.428.127.935.127 1.495 0 1.793-.493 4.013-2.067 5.587-1.54 1.6-3.5 2.453-6.106 2.453zm20.806-5.627c0 3.24-2.533 5.633-5.633 5.633-3.107 0-5.633-2.387-5.633-5.633 0-3.267 2.527-5.633 5.633-5.633 3.1.006 5.633 2.373 5.633 5.633zm-2.466 0c0-2.027-1.467-3.413-3.167-3.413-1.7 0-3.167 1.387-3.167 3.413 0 2.007 1.467 3.413 3.167 3.413 1.7 0 3.167-1.406 3.167-3.413zm15.133-.007c0 3.24-2.527 5.633-5.633 5.633s-5.633-2.387-5.633-5.633c0-3.267 2.527-5.633 5.633-5.633S43.3 8.773 43.3 12.033zm-2.467 0c0-2.027-1.467-3.413-3.167-3.413S34.5 10.007 34.5 12.033c0 2.007 1.467 3.413 3.167 3.413s3.166-1.406 3.166-3.413zm14.5-5.286V16.86c0 4.16-2.453 5.867-5.353 5.867-2.733 0-4.373-1.833-4.993-3.327l2.153-.893c.387.92 1.32 2.007 2.84 2.007 1.853 0 3.007-1.153 3.007-3.307v-.813H52.9c-.553.68-1.62 1.28-2.967 1.28-2.813 0-5.267-2.453-5.267-5.613 0-3.18 2.453-5.652 5.267-5.652 1.347 0 2.413.6 2.967 1.26h.087v-.92h2.346zm-2.173 5.306c0-1.987-1.32-3.433-3.007-3.433-1.707 0-3.007 1.453-3.007 3.433 0 1.96 1.3 3.393 3.007 3.393 1.68 0 3.007-1.426 3.007-3.393zM59.807.78v16.553h-2.473V.78h2.473zm9.886 13.113l1.92 1.28c-.62.92-2.113 2.493-4.693 2.493-3.2 0-5.587-2.473-5.587-5.633 0-3.347 2.413-5.633 5.313-5.633 2.92 0 4.353 2.327 4.82 3.587l.253.64-7.534 3.113c.573 1.133 1.473 1.707 2.733 1.707s2.133-.62 2.773-1.554zm-5.906-2.026l5.033-2.093c-.28-.707-1.107-1.193-2.093-1.193-1.254 0-3.007 1.107-2.94 3.287z"></path></g>`,
+      arrow: `<g><path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z"></path></g>`
     }
     return `
       <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
@@ -151,6 +176,24 @@
       </svg>`
   }
 
+
+  // request headers
+  function getRequestHeaders(additionalHeaders) {
+    // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
+    let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+    let csrf = window.document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
+
+    let out = {
+      authorization: `Bearer ${publicBearer}`,
+      origin: "https://twitter.com",
+      "x-twitter-client-language": $("html").attr("lang"),
+      "x-csrf-token": csrf,
+      "x-twitter-active-user": "yes",
+      "x-twitter-auth-type": "OAuth2Session"
+    }
+    Object.assign(out, additionalHeaders)
+    return out
+  }
 
 
   // #######################
@@ -160,11 +203,7 @@
 
   // add navbar
   function addNavbar() {
-    let navHome = `nav > a[href='/home'],
-                   nav > a[href='/notifications'],
-                   nav > a[href='/messages']`
-
-    waitForKeyElements(navHome, () => {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Home_Link]", () => {
       if ($("body").hasClass("gt2-navbar-added")) return
 
       $("body").prepend(`
@@ -185,9 +224,20 @@
       `)
 
       // home, notifications, messages
-      $(navHome)
-      .appendTo(".gt2-nav-left")
-      urlChange()
+      for (let e of [
+        "Home",
+        "Notifications",
+        "DirectMessage"
+      ]) {
+        $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
+        .appendTo(".gt2-nav-left")
+        $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
+        .append(`
+          <div class="gt2-nav-header">
+            ${locStr(`nav${e}`)}
+          </div>
+        `)
+      }
 
       // twitter logo
       $("h1 a[href='/home'] svg")
@@ -212,8 +262,8 @@
   }
 
 
-  // profile view left sidebar
-  function addDashboardProfile() {
+  // add element to sidebar
+  function addToSidebar(elements) {
     let w = window.innerWidth
     let insertAt = ".gt2-left-sidebar"
 
@@ -223,61 +273,90 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
-    if ($(insertAt).find(".gt2-dashboard-profile").length == 0) {
-      let i = getInfo()
-      // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
-      let href = isLoggedIn() ? "href" : "data-href"
-      let dashPro = `
-        <div class="gt2-dashboard-profile ${w <= 1095 ? "gt2-small": ""}">
-          <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
-          <div>
-            <a ${href}="/${i.screenName}" class="gt2-avatar">
-              <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
+    waitForKeyElements(`${insertAt}`, () => {
+      for (let elem of elements) {
+        if (insertAt.startsWith(".gt2")) {
+          $(insertAt).prepend(elem)
+        } else {
+          $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+        }
+      }
+    })
+  }
+
+
+  // profile view left sidebar
+  function getDashboardProfile() {
+    let i = getInfo()
+    // console.log(`userInformation:\n${JSON.stringify(i, null, 2)}`)
+    let href = isLoggedIn() ? "href" : "data-href"
+    return `
+      <div class="gt2-dashboard-profile">
+        <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
+        <div>
+          <a ${href}="/${i.screenName}" class="gt2-avatar">
+            <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
+          </a>
+          <div class="gt2-user">
+            <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
+            <a ${href}="/${i.screenName}" class="gt2-screenname">
+              @<span >${i.screenName}</span>
             </a>
-            <div class="gt2-user">
-              <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
-              <a ${href}="/${i.screenName}" class="gt2-screenname">
-                @<span >${i.screenName}</span>
-              </a>
-            </div>
-            <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode" }">
-              <div></div>
-              ${getSvg(isLoggedIn() ? "arrow" : "moon")}
-            </div>
-            <div class="gt2-stats">
-              <ul>
-                <li>
-                  <a ${href}="/${i.screenName}">
-                    <span>${locStr("tweets")}</span>
-                    <span>${i.stats.tweets.humanize()}</span>
-                  </a>
-                </li>
-                <li>
-                  <a ${href}="/${i.screenName}/following">
-                    <span>${locStr("following")}</span>
-                    <span>${i.stats.following.humanize()}</span>
-                  </a>
-                </li>
-                <li>
-                  <a ${href}="/${i.screenName}/followers">
-                    <span>${locStr("followers")}</span>
-                    <span>${i.stats.followers.humanize()}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+          </div>
+          <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode" }">
+            <div></div>
+            ${getSvg(isLoggedIn() ? "caret" : "moon")}
+          </div>
+          <div class="gt2-stats">
+            <ul>
+              <li>
+                <a ${href}="/${i.screenName}">
+                  <span>${locStr("statsTweets")}</span>
+                  <span>${i.stats.tweets.humanize()}</span>
+                </a>
+              </li>
+              <li>
+                <a ${href}="/${i.screenName}/following">
+                  <span>${locStr("statsFollowing")}</span>
+                  <span>${i.stats.following.humanize()}</span>
+                </a>
+              </li>
+              <li>
+                <a ${href}="/${i.screenName}/followers">
+                  <span>${locStr("statsFollowers")}</span>
+                  <span>${i.stats.followers.humanize()}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      `
+      </div>
+    `
+  }
 
-      waitForKeyElements(`${insertAt}`, () => {
-        if (insertAt.startsWith(".gt2")) {
-          $(insertAt).prepend(dashPro)
-        } else {
-          $(dashPro).insertAfter(`${insertAt} > div:empty:nth-child(2)`)
-        }
-      })
-    }
+
+  // gt2 update notice
+  function getUpdateNotice() {
+    let v = GM_info.script.version
+    return `
+      <div class="gt2-sidebar-notice gt2-update-notice">
+        <div class="gt2-sidebar-notice-header">
+          GoodTwitter 2
+          <div class="gt2-sidebar-notice-close">
+            <div></div>
+            ${getSvg("x")}
+          </div>
+        </div>
+        <div class="gt2-sidebar-notice-content">
+          ${getSvg("tick")} ${locStr("updatedInfo").replace("$version$", `v${v}`)}<br />
+          <a
+            href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
+            target="_blank">
+            ${locStr("updatedInfoChangelog")}
+          </a>
+        </div>
+      </div>
+    `
   }
 
 
@@ -321,41 +400,92 @@
   }
 
 
-  // handle trends (move and show10)
+  // handle trends (wrap, move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=sidebarColumn] div:nth-last-child(2) > div:nth-child(1) ~ div[data-testid=trend]`
+    let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped)`
 
-    waitForKeyElements(trends, function() {
-      let $trends = $(trends)
-      // move trends
-      if (GM_getValue("opt_gt2").leftTrends
-          && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
-            || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
-        if ($(".gt2-trends").length) $(".gt2-trends").remove()
+    waitForKeyElements(trends, () => {
 
-        $trends.parents("section").parent().parent().parent()
-        .detach().addClass("gt2-trends")
-        .appendTo(".gt2-left-sidebar")
+      // wrap trends in anchors
+      let $toWrap = $(trends).first().find("> div > div:nth-child(2) > span")
+      if ($toWrap.length) {
+        $(trends).first().addClass("gt2-trend-wrapped")
+        let txt = $toWrap.text()
+        let query = encodeURIComponent($toWrap.text())
+          .replace(/%/g, "%25")
+          .replace(/'/g, "%27")
+          .replace(/(^\"|\"$)/g, "")
+
+        $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
       }
 
-      // show 10 trends
-      if (GM_getValue("opt_gt2").show10Trends) {
-        if ($trends.parent().parent().find("> div").length == 7) {
-          $trends.parent().parent().find("> div[role=button]").click()
+      // actions for the whole container
+      if (!$(trends).parents("section").hasClass("gt2-trends-handled")
+        && $(trends).parents("div[data-testid=sidebarColumn]").length
+      ) {
+        $(trends).parents("section").addClass("gt2-trends-handled")
+
+        // hide trends
+        if (GM_getValue("opt_gt2").hideTrends) {
+          $(trends).parents("section").parent().parent().parent().remove()
+          return
+        }
+
+        // move trends
+        if (GM_getValue("opt_gt2").leftTrends
+            && ((!GM_getValue("opt_gt2").smallSidebars && w > 1350)
+              || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
+          if ($(".gt2-trends").length) $(".gt2-trends").remove()
+
+          $(trends).parents("section").parent().parent().parent()
+          .detach().addClass("gt2-trends")
+          .appendTo(".gt2-left-sidebar")
+        }
+
+        // show 10 trends
+        if (GM_getValue("opt_gt2").show10Trends) {
+          if ($(trends).parent().parent().find("> div").length == 7) {
+            $(trends).parent().parent().find("> div[role=button]").click()
+          }
         }
       }
     })
   }
 
 
-  // wrap trending stuff in anchors
-  function wrapTrends() {
-    $("div > div > div[data-testid=trend] > div > div:nth-child(2) > span").each(function() {
-      let ht = $(this).text()
-      $(this).html(`<a class="gt2-trend" href="/search?q=${ht.includes("#") ? encodeURIComponent(ht).replace(/'/g, "%27") : `%22${ht.replace(/(^\"|\"$)/g, "")}%22` }">${ht}</a>`)
+  // handle who to follow (hide)
+  function handleWhoToFollow() {
+    let wtf = "div[data-testid=sidebarColumn] div[data-testid=UserCell]"
+
+    waitForKeyElements(wtf, () => {
+      // actions for the whole container
+      if (!$(wtf).parents("aside").hasClass("gt2-wtf-handled")) {
+        $(wtf).parents("aside").addClass("gt2-wtf-handled")
+
+        // hide who to follow
+        if (GM_getValue("opt_gt2").hideWhoToFollow) {
+          $(wtf).parents("aside").parent().remove()
+        }
+      }
     })
   }
+
+
+  // removeChild interception
+  Element.prototype.removeChild = (function(fun) {
+    return function(child) {
+      // if ([
+      //   "a[data-testid=AppTabBar_Home_Link]",
+      //   "a[data-testid=AppTabBar_Notifications_Link]",
+      //   "a[data-testid=AppTabBar_DirectMessage_Link]"
+      // ].some(e => $(child).parent().parent().is(e))) {
+      //   return child
+      // }
+
+      return fun.apply(this, arguments)
+    }
+  }(Element.prototype.removeChild))
 
 
 
@@ -365,16 +495,21 @@
 
 
   // add translate button
-  waitForKeyElements("div[data-testid=tweet]", function(e) {
-    let tweetLang = $(e).find("div[lang]").attr("lang")
-    if ($("html").attr("lang") != tweetLang && tweetLang != "und") {
-      $(e).find("div[lang]").after(`
-        <div class="gt2-translate-tweet">
-          ${locStr("translateTweet")}
-        </div>
-      `)
-    }
-  })
+  if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
+    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
+      let tweetLang = $(e).find("div[lang]").attr("lang")
+      let userLang  = $("html").attr("lang").trim()
+          userLang  = userLang == "en-GB" ? "en" : userLang
+      if (tweetLang != userLang && tweetLang != "und") {
+        $(e).find("div[lang]").first().after(`
+          <div class="gt2-translate-tweet">
+            ${locStr("translateTweet")}
+          </div>
+        `)
+      }
+    })
+  }
+
 
   // translate a tweet
   $("body").on("click", ".gt2-translate-tweet", function(event) {
@@ -390,20 +525,14 @@
     let _this = this
     GM_setValue("tmp_translatedTweetInfo", locStr("translatedTweetInfo"))
 
-    // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
-    let publicBearer = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
-    let csrf = window.document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
     let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
+
     GM_xmlhttpRequest({
       method: "GET",
       url:    `https://api.twitter.com/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
-      headers: {
-        authorization: `Bearer ${publicBearer}`,
-        "x-twitter-client-language": $("html").attr("lang"),
-        "x-csrf-token": csrf,
-        "x-twitter-active-user": "yes",
-        "x-twitter-auth-type": "OAuth2Session"
-      },
+      headers: getRequestHeaders({
+        referer: statusUrl
+      }),
       onload: function(res) {
         if (res.status == "200") {
           let o = JSON.parse(res.response)
@@ -464,6 +593,7 @@
       }
     })
   })
+
 
   // hide translation
   $("body").on("click", ".gt2-translated-tweet-info", function(event) {
@@ -620,30 +750,26 @@
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
       let $hr = $(more).find("> div").eq(-4)  // seperator line
-      let $lm = $("header > div > div > div:last-child > div:first-child > div:nth-child(2) > nav") // left sidebar
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
         {
-          sel: `a[href='/explore']`,
-          name: "explore"
+          sel:  `a[href='/explore']`,
+          name: "Explore"
         }, {
-          sel: `a[href='/i/bookmarks']`,
-          name: "bookmarks"
+          sel:  `a[href='/i/bookmarks']`,
+          name: "Bookmarks"
         }, {
-          sel: `a[href='/${i.screenName}/lists']`,
-          name: "lists"
+          sel:  `a[href='/${i.screenName}/lists']`,
+          name: "Lists"
         }, {
-          sel: `a[href='/${i.screenName}']`,
-          name: "profile"
+          sel:  `a[href='/${i.screenName}']`,
+          name: "Profile"
         }
       ]
       for (let e of toAttach) {
-        let $tmp = $lm.find(e.sel).clone()
-        // if the width is too low, the text disappears
-        if (window.innerWidth < 1282) {
-          $tmp.children().append(`<span>${locStr(e.name)}</span>`)
-        }
+        let $tmp = $("header nav").find(e.sel).clone()
+        $tmp.children().append(`<span>${locStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
       }
     })
@@ -652,10 +778,23 @@
 
 
   // acc switcher dropdown
-  $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", () => {
+  $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", function() {
     $("body").addClass("gt2-acc-switcher-active")
     $("div[data-testid=SideNav_AccountSwitcher_Button]").click()
+
+    // change dropdown position
+    $(".gt2-style-acc-switcher-dropdown").remove()
+    let pos = $(".gt2-toggle-acc-switcher-dropdown").offset()
+    $("html").prepend(`
+      <style class="gt2-style-acc-switcher-dropdown">
+        #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
+          top: ${Math.round(pos.top) + 29}px !important;
+          left: ${Math.round(pos.left) - 274}px !important;
+        }
+      </style>
+    `)
   })
+
 
   // remove class on next click
   $("body").on("click", ":not(.gt2-toggle-acc-switcher-dropdown), :not(div[data-testid=SideNav_AccountSwitcher_Button])", function() {
@@ -684,6 +823,23 @@
   })
 
 
+  // close sidebar notice
+  $("body").on("click", ".gt2-sidebar-notice-close", function() {
+    if ($(this).parents(".gt2-sidebar-notice").hasClass("gt2-update-notice")) {
+      GM_setValue(`sb_notice_ack_update_${GM_info.script.version}`, true)
+    }
+    $(this).parents(".gt2-sidebar-notice").remove()
+  })
+
+
+  // reload i18n_internal_rweb
+  $("body").on("click", "div[data-testid=settingsDetailSave]", function() {
+    if ($(this).parent().parent().find("div[data-testid=languageSelector]").length) {
+      GM_deleteValue("i18n_internal_rweb")
+    }
+  })
+
+
 
   // ###################
   // #  GT2 settings   #
@@ -692,31 +848,46 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    disableAutoRefresh: false,
-    forceLatest:        false,
-    keepTweetsInTL:     true,
-    smallSidebars:      false,
-    stickySidebars:     true,
-    leftTrends:         true,
-    squareAvatars:      false,
-    biggerPreviews:     false,
-    show10Trends:       false,
+    disableAutoRefresh:       false,
+    forceLatest:              false,
+    keepTweetsInTL:           true,
+    smallSidebars:            false,
+    stickySidebars:           true,
+    leftTrends:               true,
+    squareAvatars:            false,
+    biggerPreviews:           false,
+    show10Trends:             false,
+    updateNotifications:      true,
+    hideTrends:               false,
+    hideWhoToFollow:          false,
+    hideTranslateTweetButton: false,
+    hideMessageBox:           true
   }
 
   // set default options
   if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
 
   // add previously non existant options
-  if (Object.keys(GM_getValue("opt_gt2")).length != Object.keys(opt_gt2).length) {
+  if (JSON.stringify(Object.keys(GM_getValue("opt_gt2"))) != JSON.stringify(Object.keys(opt_gt2))) {
     let old = GM_getValue("opt_gt2")
+
+    // remove default options that are modified
     for (let k of Object.keys(opt_gt2)) {
       if (Object.keys(old).includes(k)) delete opt_gt2[k]
     }
-    Object.apply(old, opt_gt2)
+
+    // remove old options
+    for (let k of Object.keys(old))  {
+      if (Object.keys(opt_gt2).includes(k)) delete old[k]
+    }
+
+    Object.assign(old, opt_gt2)
+    console.log(old);
     GM_setValue("opt_gt2", old)
   }
+  console.log(GM_getValue("opt_gt2"));
 
-  // toggles opt_gt2 values
+  // toggle opt_gt2 value
   function toggleGt2Opt(key) {
     let x = GM_getValue("opt_gt2")
     x[key] = !x[key]
@@ -726,18 +897,16 @@
 
   // insert the menu item
   function addSettingsToggle() {
-    waitForKeyElements("main a[href='/settings/about']", () => {
-      if (!$(".gt2-toggle-settings").length) {
-        $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
-          <a class="gt2-toggle-settings" href="/settings/gt2">
-            <div>
-              <span>GoodTwitter2</span>
-              ${getSvg("arrow")}
-            </div>
-          </a>
-        `)
-      }
-    })
+    if (!$(".gt2-toggle-settings").length) {
+      $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
+        <a class="gt2-toggle-settings" href="/settings/gt2">
+          <div>
+            <span>GoodTwitter2</span>
+            ${getSvg("caret")}
+          </div>
+        </a>
+      `)
+    }
   }
 
 
@@ -781,8 +950,14 @@
   // add the settings to the display (does not yet work on screens smaller than 1050px)
   function addSettings() {
     if (!$(".gt2-settings").length) {
-      $("main section:nth-last-child(1)").prepend(`
-        <div class="gt2-settings-header">GoodTwitter2 v${GM_info.script.version}</div>
+      let elem = `
+        <div class="gt2-settings-header">
+          <div class="gt2-settings-back">
+            <div></div>
+            ${getSvg("arrow")}
+          </div>
+          GoodTwitter2 v${GM_info.script.version}
+        </div>
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
@@ -792,16 +967,27 @@
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
+          ${getSettingTogglePart("hideWhoToFollow")}
+          ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
+          ${getSettingTogglePart("updateNotifications")}
+          ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("hideMessageBox")}
         </div>
-      `)
-
-      handleKTILOpt()
+      `
+      if ($("main section").length) {
+        $("main section:nth-last-child(1)").prepend(elem)
+      } else {
+        $("main > div > div > div").append(`
+          <section>${elem}</section>
+        `)
+      }
+      disableTogglesIfNeeded()
     }
   }
 
@@ -833,12 +1019,12 @@
     let name = $(this).attr("data-toggleid").trim()
     toggleGt2Opt(name)
     $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
-    handleKTILOpt()
+    disableTogglesIfNeeded()
   })
 
 
-  // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
-  function handleKTILOpt() {
+  function disableTogglesIfNeeded() {
+    // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
     let $t = $("div[data-toggleid=keepTweetsInTL]")
     if (GM_getValue("opt_gt2").disableAutoRefresh) {
       if (!GM_getValue("opt_gt2").keepTweetsInTL) {
@@ -848,7 +1034,20 @@
     } else {
       $t.removeClass("gt2-disabled")
     }
+
+    // other trend related toggles are not needed when the trends are disabled
+    $t = $("div[data-toggleid=leftTrends], div[data-toggleid=show10Trends]")
+    if (GM_getValue("opt_gt2").hideTrends) {
+      $t.addClass("gt2-disabled")
+    } else {
+      $t.removeClass("gt2-disabled")
+    }
+
   }
+
+
+  // click on the back button
+  $("body").on("click", ".gt2-settings-back", () => window.history.back())
 
 
 
@@ -916,7 +1115,7 @@
     if ($("html").is("[data-minimalscrollbar]")) {
       return 0
     }
-    let $t = jQuery("<div/>").css({
+    let $t = $("<div/>").css({
       position: "absolute",
       top: "-100px",
       overflowX: "hidden",
@@ -1025,6 +1224,7 @@
   // #  resizing  #
   // ##############
 
+
   // things to do when resizing the window
   $(window).on("resize", () => {
     let w = window.innerWidth
@@ -1038,13 +1238,28 @@
     } else {
       $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
     }
-
-    if (w <= 1095) {
-      $(".gt2-dashboard-profile").addClass("gt2-small")
-    } else {
-      $(".gt2-dashboard-profile").removeClass("gt2-small")
-    }
   })
+
+
+
+  // ###############
+  // #  scrolling  #
+  // ###############
+
+
+  // things to do when scrolling
+  ;(function() {
+    let prev = window.pageYOffset
+    $(window).on("scroll", () => {
+      let curr = window.pageYOffset
+      if (prev < curr) {
+        $("body").addClass("gt2-scrolled-down")
+      } else {
+        $("body").removeClass("gt2-scrolled-down")
+      }
+      prev = curr
+    })
+  }())
 
 
 
@@ -1073,17 +1288,43 @@
     }
 
 
-    // insert left sidebar
-    if (!$(".gt2-left-sidebar").length) {
-      let insertAt = "main > div > div > div"
-      waitForKeyElements(insertAt, function() {
-        $(insertAt).prepend(`<div class="gt2-left-sidebar"></div>`)
-      })
-    }
+    let mainView = "main > div > div > div"
+    waitForKeyElements(mainView, function() {
+      // insert left sidebar
+      if (!$(".gt2-left-sidebar").length) {
+        $(mainView).prepend(`<div class="gt2-left-sidebar"></div>`)
+      }
 
+      // on error page
+      if ($(mainView).find("h1[data-testid=error-detail]").length
+       && !path.startsWith("settings/gt2")) {
+        $("body").addClass("gt2-page-error")
+      } else {
+        $("body").removeClass("gt2-page-error")
+      }
+
+      // settings
+      if (path.split("/")[0] == "settings") {
+        addSettingsToggle()
+        if (path.startsWith("settings/gt2")) {
+          addSettings()
+        }
+      }
+    })
+
+
+    // sidebar
+    let sidebarContent = []
 
     // insert dashboard profile on all pages for now
-    addDashboardProfile()
+    sidebarContent.push(getDashboardProfile())
+    // update changelog
+    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
+     && GM_getValue("opt_gt2").updateNotifications
+    ) {
+      sidebarContent.push(getUpdateNotice())
+    }
+    addToSidebar(sidebarContent)
 
 
     if (isLoggedIn()) {
@@ -1096,14 +1337,16 @@
 
       // highlight current location in left bar
       $(`.gt2-nav-left > a`).removeClass("active")
-      $(`.gt2-nav-left > a[href='/${path.split("/")[0]}']`).addClass("active")
+      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
 
 
       // hide/add search
       if (["explore", "search"].some(e => e == path.split("/")[0])) {
         $(".gt2-search").empty()
         $("body").removeClass("gt2-search-added")
+        $("body").addClass("gt2-page-search")
       } else {
+        $("body").removeClass("gt2-page-search")
         addSearch()
       }
 
@@ -1112,53 +1355,34 @@
     }
 
 
-    // update changelog
-    let v = GM_info.script.version
-    if (!$(".gt2-sidebar-notice").length && !GM_getValue(`sb_notice_ack_update_${v}`)) {
-      $(".gt2-left-sidebar").prepend(`
-        <div class="gt2-sidebar-notice">
-          <div class="gt2-sidebar-notice-header">
-            GoodTwitter 2 Notice
-            <div class="gt2-sidebar-notice-close">
-              <div></div>
-              ${getSvg("x")}
-            </div>
-          </div>
-          <div class="gt2-sidebar-notice-content">
-            Your GoodTwitter 2 has just been updated to v${v}!
-            You can view the changes <a href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}" target="_blank">here</a>!
-          </div>
-        </div>
-      `)
-      $("body").on("click", ".gt2-sidebar-notice-close", function() {
-        GM_setValue(`sb_notice_ack_update_${v}`, true)
-        $(this).parents(".gt2-sidebar-notice").remove()
-      })
-    }
-
-
-    // handle trends
+    // handle stuff in sidebars
     handleTrends()
+    handleWhoToFollow()
 
 
-    // add gt2 settings on /settings
+    // settings
     if (path.split("/")[0] == "settings") {
       addSettingsToggle()
+      $("body").addClass("gt2-page-settings")
       if (path.startsWith("settings/gt2")) {
         addSettings()
-        $("body").addClass("gt2-settings-active")
+        $("body").addClass("gt2-page-settings-active")
+      } else {
+        if (window.innerWidth < 1005) {
+          $("main section").remove()
+        }
+        $("body").removeClass("gt2-page-settings-active")
       }
     } else {
-      $("body").removeClass("gt2-settings-active")
+      $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
     }
 
 
-    // sectionated pages need special attention on some properties
-    if (path.split("/")[0] == "messages" ||
-        (path.split("/")[0] == "settings" && !["trends", "profile", "explore"].includes(path.split("/")[1])) ) {
-      $("body").addClass("gt2-page-with-sections")
-    } else if (!path.startsWith("i/")) {
-      $("body").removeClass("gt2-page-with-sections")
+    // messages
+    if (path.split("/")[0] == "messages") {
+      $("body").addClass("gt2-page-messages")
+    } else {
+      $("body").removeClass("gt2-page-messages")
     }
 
 
@@ -1172,10 +1396,6 @@
     if (GM_getValue("opt_gt2").forceLatest && path.split("/")[0] == "home") {
       forceLatest()
     }
-
-    // wrap trends
-    waitForKeyElements("div[data-testid=trend]", wrapTrends)
-
 
   }
   urlChange()

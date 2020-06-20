@@ -1,14 +1,8 @@
 {
-  "bookmarks": "북마크",
-  "composeNewTweet": "트윗",
-  "explore": "탐색하기",
-  "followers": "팔로워",
-  "following": "팔로잉",
-  "lists": "리스트",
-  "profile": "프로필",
   "showNewMulti": "$개의 트윗 더 보기",
   "showNewSingle": "1개의 트윗 더 보기",
-  "tweets": "트윗",
+  "translatedTweetInfo": "$lang$에서 번역 ($source$ 제공)",
+
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",
   "settingsHeaderOther": "기타",
@@ -18,6 +12,11 @@
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
   "forceLatest": "항상 최신 트윗 보기",
   "forceLatestDesc": "최신 트윗 보기 모드는 더이상 저장되지 않습니다. 이 설정을 활성화하면 항상 자동으로 최신 트윗 보기 모드로 전환합니다.",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "트윗 번역 버튼 숨기기",
+  "hideTrends": "트렌드 숨기기",
+  "hideWhoToFollow": "팔로우 추천 숨기기",
   "keepTweetsInTL": "트윗 유지하기 (지금은 동작하지 않습니다)",
   "keepTweetsInTLDesc": "스크롤 등으로 트윗이 화면 밖으로 나갔을 때 삭제되는 것을 방지합니다.",
   "leftTrends": "왼쪽 사이드바 트렌드",
@@ -26,5 +25,9 @@
   "stickySidebars": "사이드바 고정",
   "smallSidebars": "작은 사이드바",
   "smallSidebarsDesc": "사이드바 크기를 350px에서 290px로 조정.",
-  "squareAvatars": "사각형 프로필 사진"
+  "squareAvatars": "사각형 프로필 사진",
+  "updateNotifications": "GoodTwitter 2 업데이트 알림",
+
+  "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",
+  "updatedInfoChangelog": "변경 기록"
 }

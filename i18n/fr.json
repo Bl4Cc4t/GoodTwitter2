@@ -1,14 +1,8 @@
 {
-  "bookmarks": "Signets",
-  "composeNewTweet": "Tweeter",
-  "explore": "Explorer",
-  "followers": "abonnés",
-  "following": "abonnements",
-  "lists": "Listes",
-  "profile": "Profil",
   "showNewMulti": "Voir $ nouveaux Tweets",
   "showNewSingle": "Voir 1 nouveau Tweet",
-  "tweets": "Tweets",
+  "translatedTweetInfo": "À l'origine en $lang$ et traduit par $source$",
+
   "settingsHeaderTimeline": "Fil d'actualités",
   "settingsHeaderSidebars": "Barres latérales",
   "settingsHeaderOther": "Autres",
@@ -18,6 +12,11 @@
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
   "forceLatest": "Forcer les tout derniers Tweets",
   "forceLatestDesc": "Activer le mode « tout derniers Tweets » n'est plus permanent. En activant cette option, le site revient automatiquement à ce mode.",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
+  "hideTrends": "*NEW* Hide Trends",
+  "hideWhoToFollow": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Conserver les Tweets (ne fonctionne pas tout le temps)",
   "keepTweetsInTLDesc": "Empêche le site de retirer automatiquement les tweets une fois qu'ils ne sont plus affichés.",
   "leftTrends": "Barre des Tendances à gauche",
@@ -26,5 +25,9 @@
   "stickySidebars": "Barres latérales fixes",
   "smallSidebars": "Petites barres latérales",
   "smallSidebarsDesc": "Barres latérales de 290px au lieu de 350px de large.",
-  "squareAvatars": "Avatars Carrés"
+  "squareAvatars": "Avatars Carrés",
+  "updateNotifications": "Notification de mise à jour de GoodTwitter 2",
+
+  "updatedInfo": "Mis à jour à la version $version$ !",
+  "updatedInfoChangelog": "Journal des modifications"
 }

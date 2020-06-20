@@ -1,14 +1,8 @@
 {
-  "bookmarks": "Закладки",
-  "composeNewTweet": "Твитнуть",
-  "explore": "Поиск",
-  "followers": "Читатели",
-  "following": "Читаемые",
-  "lists": "Списки",
-  "profile": "Профиль",
-  "showNewMulti": "Посмотреть новые твиты ($)",
-  "showNewSingle": "Посмотреть 1 новый твит",
-  "tweets": "Твиты",
+  "showNewMulti": "Посмотреть новые твиты ($)",//not used but just in case,
+  "showNewSingle": "Посмотреть 1 новый твит",//not used but just in case,
+  "translatedTweetInfo": "Язык оригинала: $lang$, переведено с помощью $source$",
+
   "settingsHeaderTimeline": "Лента",
   "settingsHeaderSidebars": "Боковые панели",
   "settingsHeaderOther": "Другое",
@@ -18,6 +12,11 @@
   "disableAutoRefreshDesc": "Отключить показ твитов в режиме реального времени. <br/>Не ожидайте хороших результатов, эта функция не всегда работает.",
   "forceLatest": "Всегда последние твиты",
   "forceLatestDesc": "Выбор режима показа последних твитов теперь является временным. Но если включен этот параметр, сайт будет автоматически переключаться на режим показа последних твитов.",
+  "hideMessageBox": "*NEW* Hide Message Box",
+  "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
+  "hideTranslateTweetButton": "Скрыть кнопку «Перевести твит»",
+  "hideTrends": "Скрыть «Актуальные темы»",
+  "hideWhoToFollow": "Скрыть «Кого читать»",
   "keepTweetsInTL": "Хранить твиты (сейчас эта функция не работает)",
   "keepTweetsInTLDesc": "Сохранять твиты на странице, даже если вы продолжаете прокручивать.",
   "leftTrends": "Актуальные темы слева",
@@ -26,5 +25,9 @@
   "stickySidebars": "Фиксированные боковые панели",
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
-  "squareAvatars": "Квадратные аватары"
+  "squareAvatars": "Квадратные аватары",
+  "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
+
+  "updatedInfo": "Обновлено до $version$!",
+  "updatedInfoChangelog": "Список изменений"
 }

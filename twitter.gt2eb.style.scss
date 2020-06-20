@@ -10,7 +10,6 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc']";
-$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
@@ -32,7 +31,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   width: 1.5em;
 
   div {
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity .2s ease-in-out;
     background-color: var(--color-user);
     opacity: 0;
     border-radius: 9999px;
@@ -50,10 +49,48 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   &:hover {
     cursor: pointer;
     div {
-      opacity: 0.1;
+      opacity: .1;
     }
     svg {
       fill: var(--color-user) !important;
+    }
+  }
+}
+
+@mixin grayscaleHover {
+  transition: filter .2s ease-in-out;
+  backface-visibility: hidden;
+
+  &:hover {
+    filter: brightness(87.5%);
+    -webkit-filter: brightness(87.5%);
+  }
+}
+
+
+// small dashboard profile
+@mixin smallDashboardProfile {
+  .gt2-dashboard-profile {
+    width: 290px;
+    .gt2-banner {
+      height: 96px;
+    }
+
+    .gt2-avatar img {
+      width: 72px;
+      height: 72px;
+    }
+
+    .gt2-toggle-lo-nightmode {
+      bottom: calc(83px + (var(--font-increment) + 2px) / 2);
+    }
+
+    .gt2-user {
+      top: 103px;
+      left: 90px;
+      .gt2-name {
+        width: 160px;
+      }
     }
   }
 }
@@ -76,19 +113,23 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
     #{$navbarDropdown} {
       right: space(1320px) !important;
     }
-    &#{$accSwitcherDropdown} {
-      left: space(1235px) !important;
-      right: unset !important;
-    }
 
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
-        left: 360px;
+        margin-left: 360px;
       }
     }
 
-    &.gt2-page-with-sections .gt2-left-sidebar + * {
-      margin-left: 10px;
+    &.gt2-page-settings {
+      main {
+        section:nth-last-child(2) {
+          margin-left: 360px;
+          width: 360px;
+        }
+        section:nth-last-child(1) {
+          margin-left: 720px;
+        }
+      }
     }
 
     &.gt2-not-logged-in {
@@ -105,7 +146,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
           margin-left: 0;
         }
       }
-      &.gt2-page-with-sections {
+      &.gt2-page-settings {
         main > div > div > div {
           max-width: 1310px;
         }
@@ -135,18 +176,23 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
     #{$navbarDropdown} {
       right: space(1200px) !important;
     }
-    &#{$accSwitcherDropdown} {
-      left: space(1235px) !important;
-      right: unset !important;
-    }
+
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
-        left: 300px;
+        margin-left: 300px;
       }
     }
 
-    &.gt2-page-with-sections .gt2-left-sidebar + * {
-      margin-left: 10px;
+    &.gt2-page-settings {
+      main {
+        section:nth-last-child(2) {
+          margin-left: 300px;
+          width: 300px;
+        }
+        section:nth-last-child(1) {
+          margin-left: 600px;
+        }
+      }
     }
 
     &.gt2-not-logged-in {
@@ -194,12 +240,20 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
     .gt2-left-sidebar {
       display: none;
     }
+
+    &.gt2-page-settings {
+      main {
+        section:nth-last-child(2) {
+          margin-left: 0;
+          width: 360px;
+        }
+        section:nth-last-child(1) {
+          margin-left: 360px;
+        }
+      }
+    }
   }
 
-  #{$accSwitcherDropdown} {
-    left: unset !important;
-    right: space(945px) !important;
-  }
 }
 
 
@@ -240,9 +294,16 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
                    and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
-    &#{$accSwitcherDropdown} {
-      top: 195px !important;
-      right: space(902.5px) !important;
+    &.gt2-page-settings {
+      main {
+        section:nth-last-child(2) {
+          margin-left: 0;
+          width: 300px;
+        }
+        section:nth-last-child(1) {
+          margin-left: 300px;
+        }
+      }
     }
   }
 }
@@ -252,9 +313,18 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 @media only screen and (min-width: 1005px)
                    and (max-width: 1095px) {
   @include displayRightSmallSidebar;
-  #{$accSwitcherDropdown} {
-    top: 195px !important;
-    right: space(902.5px) !important;
+  @include smallDashboardProfile;
+
+  .gt2-page-settings {
+    main {
+      section:nth-last-child(2) {
+        margin-left: 0;
+        width: 300px;
+      }
+      section:nth-last-child(1) {
+        margin-left: 300px;
+      }
+    }
   }
 }
 
@@ -266,6 +336,9 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   }
   .gt2-left-sidebar {
     display: none;
+  }
+  .gt2-settings-back {
+    display: none !important;
   }
 }
 @media only screen and (max-width: 1350px)
@@ -303,6 +376,9 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
 
   .gt2-nav-left {
     margin-left: space(598px);
+    .gt2-nav-header {
+      display: none;
+    }
   }
   .gt2-nav-right {
     margin-right: space(598px);
@@ -314,6 +390,30 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root > div > div > div:nt
   .gt2-left-sidebar {
     display: none;
   }
+
+  .gt2-page-settings {
+    main > div > div > div {
+      section {
+        margin-bottom: 0 !important;
+      }
+      border-width: 1px;
+      height: max-content;
+      flex-grow: 0;
+      margin-bottom: 10px;
+      > div:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &.gt2-page-settings-active {
+      main > div > div > div > div:not(.gt2-left-sidebar) {
+        display: none;
+      }
+    }
+    .gt2-settings-back {
+      display: flex !important;
+    }
+  }
+
 
   .gt2-not-logged-in {
     div[data-testid=sidebarColumn] {
@@ -346,10 +446,30 @@ body:not(.gt2-not-logged-in) {
   }
 }
 
+.gt2-page-error {
+  main > div > div > div {
+    display: inline;
+    .gt2-left-sidebar {
+      float: left;
+      position: relative !important;
+
+      & + div {
+        width: 600px;
+        background-color: var(--color-elem);
+        float: left;
+        margin: 0 10px;
+      }
+    }
+  }
+}
 
 
 main {
   align-items: center !important;
+
+  & > div > div {
+    margin: 0 !important;
+  }
 
   & > div > div > div {
 
@@ -449,11 +569,10 @@ main {
 // options
 
 .gt2-opt-sticky-sidebars {
-  &:not(.gt2-page-with-sections) {
-    .gt2-left-sidebar {
-      position: fixed;
-    }
+  .gt2-left-sidebar {
+    position: fixed;
   }
+
   .gt2-left-sidebar {
     height: calc(100vh - 57px);
   }
@@ -516,15 +635,8 @@ body:not(.gt2-opt-sticky-sidebars) {
   .gt2-toggle-acc-switcher-dropdown {
     bottom: 82px !important;
   }
-  &#{$accSwitcherDropdown} {
-    top: 200px !important;
-  }
-}
 
-body:not(.gt2-opt-small-sidebars) {
-  &#{$accSwitcherDropdown} {
-    top: 220px !important;
-  }
+  @include smallDashboardProfile;
 }
 
 
@@ -538,18 +650,22 @@ body:not(.gt2-opt-small-sidebars) {
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
-  #react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
-    & > a > div:nth-child(1) > div:nth-child(2) > div,
+    & > a > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
     & > a > div:nth-child(2) {
+      border-width: 0;
       border-radius: 10%;
     }
     & > a[href$="/photo"] {
       border-radius: 11.5%
     }
   }
+
   // tweet (show this thread)
   article + a[href*="/status/"] {
     div[role=presentation],
@@ -560,7 +676,10 @@ body:not(.gt2-opt-small-sidebars) {
 
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
-    border-radius: 10%;
+    border-radius: 11.5%;
+    img {
+      border-radius: 10%;
+    }
   }
 }
 
@@ -588,6 +707,19 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// hide translated tweets
+.gt2-opt-hide-translate-tweet-button {
+  div[data-testid=tweet] + div div[lang] + div[role=button] {
+    display: none;
+  }
+}
+
+.gt2-opt-hide-message-box {
+  div[data-testid=DMDrawer] {
+    display: none;
+  }
+}
+
 
 /*
 .gt2-opt-keep-tweets-in-tl {
@@ -599,7 +731,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 .gt2-hide-spark-opt {
-  #react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
+  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div {
     display: none;
   }
 }
@@ -610,8 +742,9 @@ body:not(.gt2-opt-small-sidebars) {
 }
 
 // acc switcher dropdown
-#{$accSwitcherDropdown} {
+.gt2-acc-switcher-active #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
   bottom: unset !important;
+  right: unset !important;
 
   & > div > div:nth-child(2) > div > div > div {
 
@@ -659,6 +792,7 @@ div[data-testid=primaryColumn] > div {
   }
 }
 
+
 // colorized buttons for image modals
 div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
   // comments
@@ -697,6 +831,26 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
     svg {
       fill: #e0245e;
     }
+  }
+}
+
+
+// color carets with the user color
+div[data-testid=caret] {
+  & > div > div > div {
+    transition: all .2s ease-in-out;
+    background-color: var(--color-user);
+    opacity: 0;
+    &:hover {
+      opacity: .1;
+      & + svg {
+        fill: var(--color-user);
+      }
+    }
+  }
+  svg {
+    fill: var(--color-gray-light);
+    pointer-events: none;
   }
 }
 
@@ -761,10 +915,10 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
       & > div {
         padding: incr(15px);
         & > div:nth-child(2) {
-          margin: 0;
-          font-size: incr(15px);
+          display: none;
         }
       }
+
 
       span {
         font-size: incr(15px);
@@ -835,11 +989,15 @@ a.gt2-trend {
           border-color: var(--color-elem);
           font-size: calc(11px + var(--font-increment) * 0.75);
         }
-        & > div:nth-child(2) {
+        & > div:not(:first-child):not(.gt2-nav-header) {
+          display: none;
+        }
+        .gt2-nav-header {
           color: var(--color-gray);
           font-size: incr(13px);
           margin-left: incr(3px);
           margin-right: 3px;
+          font-weight: bold;
         }
       }
     }
@@ -910,11 +1068,14 @@ a.gt2-trend {
     .gt2-toggle-navbar-dropdown {
       margin-left: 5px;
       margin-right: 15px;
+      height: 34px;
+      width: 34px;
 
       img {
         border-radius: 9999px;
-        height: 32px;
-        width: 32px;
+        height: 100%;
+        width: 100%;
+        @include grayscaleHover;
       }
 
       &:hover {
@@ -956,7 +1117,7 @@ body[style*="overflow-y: hidden"] {
 }
 
 // /search overflow, let search box stay on top
-body:not(.gt2-search-added) {
+.gt2-page-search {
   .gt2-search-overflow-hider {
     position: fixed;
     width: 600px;
@@ -972,11 +1133,244 @@ body:not(.gt2-search-added) {
       position: sticky;
       top: 56px;
       border-top: 1px solid var(--color-gray-dark);
+      transition: top .2s ease-in-out;
+    }
+  }
+  &.gt2-scrolled-down {
+    div[data-testid=primaryColumn] > div > div:nth-child(1) {
+      top: calc(56px - 107px);
+    }
+  }
+}
+
+.gt2-page-settings {
+  main {
+    section div:nth-child(2) {
+      margin-bottom: 0;
+    }
+    section:nth-last-child(2) {
+      position: fixed;
+      border-right-width: 0;
+      border-bottom-width: 1px;
+      > div:nth-child(2) {
+        margin-bottom: 0;
+      }
+    }
+    section:nth-last-child(1) {
+      height: max-content;
+      border-left-width: 1px;
+      border-bottom-width: 1px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .gt2-toggle-settings {
+    background-color: var(--color-elem);
+    border-top: 1px solid var(--color-gray-dark);
+    box-sizing: border-box;
+    font-size: incr(15px);
+    color: var(--color-text);
+    text-decoration: none;
+
+    div {
+      width: inherit;
+      padding: 11.7px 15px;
+    }
+
+    svg {
+      transform: rotate(-90deg);
+      width: incr(1.25em);
+      position: absolute;
+      right: 15px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-elem-sel);
+    }
+  }
+
+  &.gt2-page-settings-active {
+    main section:nth-last-child(2) > div:nth-child(2) > div {
+      & > div:not(:empty),
+      & > div:not(:empty) > div:not(:empty) {
+        background-color: var(--color-elem);
+
+        & > div:nth-child(2) {
+          border-right-width: 0;
+        }
+      }
+    }
+
+    .gt2-toggle-settings {
+      background-color: var(--color-elem-sel);
+      div {
+        border-width: 0 2px 0 0;
+        border-color: var(--color-user);
+        border-style: solid;
+      }
+    }
+  }
+
+
+  .gt2-settings-header,
+  .gt2-settings-sub-header,
+  .gt2-setting {
+    color: var(--color-text);
+    box-sizing: border-box;
+    border-width: 0 0 1px 0;
+    border-color: var(--color-gray-dark);
+    border-style: solid;
+    background-color: var(--color-elem);
+  }
+
+  .gt2-settings-header {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    height: 53px;
+
+    .gt2-settings-back {
+      @include hoverableSvg;
+      width: 39px;
+      height: 39px;
+      position: relative;
+      margin-left: -4px;
+      margin-right: 18px;
+      svg {
+        width: 1.5em;
+        height: 1.5em;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .gt2-settings-header,
+  .gt2-settings-sub-header {
+    font-size: incr(19px) !important;
+    font-weight: 800;
+  }
+
+  .gt2-settings-sub-header {
+    padding: 10px 15px;
+    line-height: 1.3135em;
+  }
+
+  .gt2-settings-seperator {
+    height: 10px;
+    background-color: var(--color-seperator);
+  }
+
+
+  .gt2-setting {
+    padding: 15px;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+
+      .gt2-setting-toggle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+
+        div {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+        }
+
+        // hover shadow
+        div:nth-child(1) {
+          transition: opacity 0.2s ease-in-out;
+          background-color: var(--color-gray);
+          opacity: 0;
+          border-radius: 9999px;
+          padding: 10px;
+        }
+
+        &:not(.gt2-disabled):hover div:nth-child(1) {
+          opacity: 0.1;
+        }
+
+        // checkbox
+        div:nth-child(2) {
+          border-radius: 4px;
+          border: 2px solid var(--color-gray);
+          box-sizing: border-box;
+
+          svg {
+            fill: white;
+            display: none;
+          }
+        }
+
+        &.gt2-active {
+          div:nth-child(2) {
+            background-color: var(--color-user);
+            border-color: var(--color-user);
+          }
+          svg {
+            display: block !important;
+          }
+        }
+
+        &.gt2-disabled {
+          cursor: not-allowed;
+
+          &.gt2-active {
+            div:nth-child(2) {
+              background-color: var(--color-gray-dark);
+              border-color: var(--color-gray-dark);
+            }
+          }
+        }
+      }
+    }
+
+    & > span {
+      display: block;
+      font-size: incr(13px);
+      padding-top: 10px;
+      color: var(--color-gray-light);
+    }
+
+    &:last-child {
+      border-bottom: unset;
     }
   }
 }
 
 
+.gt2-page-messages {
+  .gt2-left-sidebar {
+    display: none;
+  }
+  main > div > div > div {
+    & > section {
+      max-width: unset;
+      border-bottom-width: 1px;
+      margin-bottom: 10px;
+
+      &:nth-last-child(2) {
+        width: 40%;
+      }
+      &:nth-last-child(1) {
+        width: 60%;
+        & > div:nth-child(1),
+        & > div:nth-child(2) > div > div,
+        & > div:nth-child(2) > div > div > div > div > div > div > div {
+          max-width: unset;
+          margin: unset;
+        }
+      }
+    }
+    & > section div:not([class]) > div:empty {
+      display: none;
+    }
+  }
+}
 
 
 // left sidebar
@@ -994,7 +1388,7 @@ body:not(.gt2-search-added) {
   }
 
   & > div {
-    margin-bottom: 10px;
+    margin-bottom: 11px;
     position: relative;
   }
 
@@ -1027,7 +1421,7 @@ body:not(.gt2-search-added) {
 
   .gt2-banner {
     background-size: 100%;
-    height: 116.67px;
+    height: 116px;
     background-position: 0 50%;
     background-color: var(--color-gray);
     width: 100%;
@@ -1035,18 +1429,20 @@ body:not(.gt2-search-added) {
   & > div {
 
     .gt2-avatar {
-      display: inline-block;
+      display: flex;
+      width: 82px;
+      height: 82px;
       margin: -30px 0 0 8px;
-      padding: 1px;
       background-color: var(--color-elem);
       border-radius: 9999px;
+      align-items: center;
+      justify-content: center;
 
       img {
-        border: 3px solid var(--color-elem);
         border-radius: inherit;
-        width: 82px;
-        height: 82px;
-        box-sizing: border-box;
+        width: 90%;
+        height: 90%;
+        @include grayscaleHover;
       }
     }
 
@@ -1138,31 +1534,6 @@ body:not(.gt2-search-added) {
   }
 }
 
-// small dashboard profile
-.gt2-opt-small-sidebars .gt2-dashboard-profile,
-.gt2-dashboard-profile.gt2-small {
-  width: 290px;
-  .gt2-banner {
-    height: 95px;
-  }
-
-  .gt2-avatar img {
-    width: 72px;
-    height: 72px;
-  }
-
-  .gt2-toggle-lo-nightmode {
-    bottom: calc(83px + (var(--font-increment) + 2px) / 2);
-  }
-
-  .gt2-user {
-    top: 103px;
-    left: 90px;
-    .gt2-name {
-      width: 160px;
-    }
-  }
-}
 
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
@@ -1171,177 +1542,22 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 }
 
 
-// gt2 settings
-.gt2-toggle-settings {
-  background-color: var(--color-elem);
-  border-width: 1px 0;
-  border-color: var(--color-gray-dark);
-  border-style: solid;
-  box-sizing: border-box;
-  font-size: incr(15px);
-  color: var(--color-text);
-  text-decoration: none;
-
-  div {
-    width: inherit;
-    padding: 11.7px 15px;
-  }
-
-  svg {
-    transform: rotate(-90deg);
-    width: incr(1.25em);
-    position: absolute;
-    right: 15px;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--color-elem-sel);
-  }
-}
-
-.gt2-settings-active {
-  main section:nth-last-child(2) > div:nth-child(2) > div {
-    & > div:not(:empty),
-    & > div:not(:empty) > div:not(:empty) {
-      background-color: var(--color-elem);
-
-      & > div:nth-child(2) {
-        border-right-width: 0;
-      }
-    }
-  }
-
-  .gt2-toggle-settings {
-    background-color: var(--color-elem-sel);
-    div {
-      border-width: 0 2px 0 0;
-      border-color: var(--color-user);
-      border-style: solid;
-    }
-  }
-}
-
-
-.gt2-settings-header,
-.gt2-settings-sub-header,
-.gt2-setting {
-  color: var(--color-text);
-  box-sizing: border-box;
-  border-width: 0 0 1px 0;
-  border-color: var(--color-gray-dark);
-  border-style: solid;
-  background-color: var(--color-elem);
-}
-
-.gt2-settings-header {
-  display: flex;
-  align-items: center;
-  padding: 0 15px;
-
-  height: 53px;
-}
-
-.gt2-settings-header,
-.gt2-settings-sub-header {
-  font-size: incr(19px) !important;
-  font-weight: 800;
-}
-
-.gt2-settings-sub-header {
-  padding: 10px 15px;
-  line-height: 1.3135em;
-}
-
-.gt2-settings-seperator {
-  height: 10px;
-  background-color: var(--color-seperator);
-}
-
-
-.gt2-setting {
-  padding: 15px;
-
-  & > div {
-    display: flex;
-    justify-content: space-between;
-
-    .gt2-setting-toggle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 20px;
-
-      div {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-      }
-
-      // hover shadow
-      div:nth-child(1) {
-        transition: opacity 0.2s ease-in-out;
-        background-color: var(--color-gray);
-        opacity: 0;
-        border-radius: 9999px;
-        padding: 10px;
-      }
-
-      &:not(.gt2-disabled):hover div:nth-child(1) {
-        opacity: 0.1;
-      }
-
-      // checkbox
-      div:nth-child(2) {
-        border-radius: 4px;
-        border: 2px solid var(--color-gray);
-        box-sizing: border-box;
-
-        svg {
-          fill: white;
-          display: none;
-        }
-      }
-
-      &.gt2-active {
-        div:nth-child(2) {
-          background-color: var(--color-user);
-          border-color: var(--color-user);
-        }
-        svg {
-          display: block !important;
-        }
-      }
-
-      &.gt2-disabled {
-        cursor: not-allowed;
-
-        &.gt2-active {
-          div:nth-child(2) {
-            background-color: var(--color-gray-dark);
-            border-color: var(--color-gray-dark);
-          }
-        }
-      }
-    }
-  }
-
-  & > span {
-    display: block;
-    font-size: incr(13px);
-    padding-top: 10px;
-    color: var(--color-gray-light);
-  }
-}
-
+// gt2 sidebar notice
 .gt2-sidebar-notice {
   background-color: var(--color-elem);
   color: var(--color-text);
   border: 1px solid var(--color-gray-dark);
 
-  a:link, a:visited {
+  a,
+  a:link,
+  a:visited {
     color: var(--color-user);
+    text-decoration-line: none;
+    &:hover {
+      text-decoration-line: underline;
+    }
   }
+
   .gt2-sidebar-notice-header {
     font-size: incr(19px);
     font-weight: 800;
@@ -1358,7 +1574,20 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   & > div {
     padding: 10px 15px;
   }
+
+  &.gt2-update-notice {
+    .gt2-sidebar-notice-content svg {
+      fill: white;
+      border-radius: 9999px;
+      border: 3.5px solid green;
+      background-color: green;
+      height: 12px;
+      margin-right: 5px;
+      vertical-align: bottom;
+    }
+  }
 }
+
 
 
 // tweet analytics
@@ -1410,12 +1639,13 @@ body[data-payment-endpoint-path] {
 }
 
 .gt2-hidden {
-  display: none;
+  display: none !important;
 }
 
 // translate tweet
 .gt2-translate-tweet,
 .gt2-translated-tweet-info {
+  width: max-content;
   margin-top: 5px;
   color: var(--color-user);
   font-size: incr(13px);
@@ -1441,7 +1671,6 @@ body[data-payment-endpoint-path] {
   a:visited {
     color: var(--color-user);
     text-decoration-line: none;
-
     &:hover {
       text-decoration-line: underline;
     }
