@@ -10,7 +10,6 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc']";
-$accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div:nth-child(2)";
 
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
@@ -114,10 +113,6 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut
     #{$navbarDropdown} {
       right: space(1320px) !important;
     }
-    &#{$accSwitcherDropdown} {
-      left: space(1235px) !important;
-      right: unset !important;
-    }
 
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
@@ -181,10 +176,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut
     #{$navbarDropdown} {
       right: space(1200px) !important;
     }
-    &#{$accSwitcherDropdown} {
-      left: space(1235px) !important;
-      right: unset !important;
-    }
+
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         margin-left: 300px;
@@ -262,10 +254,6 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut
     }
   }
 
-  #{$accSwitcherDropdown} {
-    left: unset !important;
-    right: space(945px) !important;
-  }
 }
 
 
@@ -306,10 +294,6 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut
                    and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
-    &#{$accSwitcherDropdown} {
-      top: 195px !important;
-      right: space(902.5px) !important;
-    }
     &.gt2-page-settings {
       main {
         section:nth-last-child(2) {
@@ -330,10 +314,7 @@ $accSwitcherDropdown: ".gt2-acc-switcher-active #react-root div[data-at-shortcut
                    and (max-width: 1095px) {
   @include displayRightSmallSidebar;
   @include smallDashboardProfile;
-  #{$accSwitcherDropdown} {
-    top: 195px !important;
-    right: space(902.5px) !important;
-  }
+
   .gt2-page-settings {
     main {
       section:nth-last-child(2) {
@@ -654,16 +635,8 @@ body:not(.gt2-opt-sticky-sidebars) {
   .gt2-toggle-acc-switcher-dropdown {
     bottom: 82px !important;
   }
-  &#{$accSwitcherDropdown} {
-    top: 200px !important;
-  }
-  @include smallDashboardProfile;
-}
 
-body:not(.gt2-opt-small-sidebars) {
-  &#{$accSwitcherDropdown} {
-    top: 220px !important;
-  }
+  @include smallDashboardProfile;
 }
 
 
@@ -742,7 +715,7 @@ body:not(.gt2-opt-small-sidebars) {
 }
 
 .gt2-opt-hide-message-box {
-  #react-root > div > div > h2 + div {
+  div[data-testid=DMDrawer] {
     display: none;
   }
 }
@@ -769,8 +742,9 @@ body:not(.gt2-opt-small-sidebars) {
 }
 
 // acc switcher dropdown
-#{$accSwitcherDropdown} {
+.gt2-acc-switcher-active #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
   bottom: unset !important;
+  right: unset !important;
 
   & > div > div:nth-child(2) > div > div > div {
 

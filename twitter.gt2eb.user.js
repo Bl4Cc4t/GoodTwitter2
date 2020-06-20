@@ -778,9 +778,21 @@
 
 
   // acc switcher dropdown
-  $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", () => {
+  $("body").on("click", ".gt2-toggle-acc-switcher-dropdown", function() {
     $("body").addClass("gt2-acc-switcher-active")
     $("div[data-testid=SideNav_AccountSwitcher_Button]").click()
+
+    // change dropdown position
+    $(".gt2-style-acc-switcher-dropdown").remove()
+    let pos = $(".gt2-toggle-acc-switcher-dropdown").offset()
+    $("html").prepend(`
+      <style class="gt2-style-acc-switcher-dropdown">
+        #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
+          top: ${Math.round(pos.top) + 29}px !important;
+          left: ${Math.round(pos.left) - 274}px !important;
+        }
+      </style>
+    `)
   })
 
 
