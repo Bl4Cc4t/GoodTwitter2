@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.22.2
+- settings hotfix \# 2
+
+
 ## 0.0.22.1
 - settings hotfix
 

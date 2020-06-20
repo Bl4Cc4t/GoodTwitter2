@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.22.1
+// @version       0.0.22.2
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -271,7 +271,6 @@
     event.preventDefault()
     window.history.pushState({}, "", $(this).attr("href"))
     addSettings()
-    $("body").addClass("gt2-settings-active")
     changeSettingsTitle()
   })
 
@@ -279,7 +278,7 @@
   // disable settings display again when clicking on another menu item
   $("body").on("click", `main section:nth-last-child(2) div[role=tablist] a:not(.gt2-toggle-settings),
                          main section:nth-last-child(2) div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
-    $(".gt2-settings-active").removeClass("gt2-settings-active")
+    $(".gt2-page-settings-active").removeClass("gt2-page-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
 
@@ -1306,7 +1305,7 @@
 
       // settings
       if (path.split("/")[0] == "settings") {
-        addSettingsToggle()
+        waitForKeyElements("main section a[href='/settings/about']", addSettingsToggle)
         if (path.startsWith("settings/gt2")) {
           addSettings()
         }
@@ -1363,19 +1362,19 @@
 
     // settings
     if (path.split("/")[0] == "settings") {
-      addSettingsToggle()
       $("body").addClass("gt2-page-settings")
       if (path.startsWith("settings/gt2")) {
-        addSettings()
         $("body").addClass("gt2-page-settings-active")
       } else {
         if (window.innerWidth < 1005) {
           $("main section").remove()
         }
         $("body").removeClass("gt2-page-settings-active")
+        $(".gt2-settings-header, .gt2-settings").remove()
       }
     } else {
       $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
+      $(".gt2-settings-header, .gt2-settings").remove()
     }
 
 
