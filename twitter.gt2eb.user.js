@@ -413,6 +413,7 @@
         $(trends).first().addClass("gt2-trend-wrapped")
         let txt = $toWrap.text()
         let query = encodeURIComponent($toWrap.text())
+          .replace(/%/g, "%25")
           .replace(/'/g, "%27")
           .replace(/(^\"|\"$)/g, "")
 
