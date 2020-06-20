@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.22.1
+- settings hotfix
+
+
 ## [0.0.22](https://github.com/Bl4Cc4t/GoodTwitter2/pull/108)
 *released 2020-06-20*
 - trends fixed

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.22
+// @version       0.0.22.1
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -194,6 +194,217 @@
     Object.assign(out, additionalHeaders)
     return out
   }
+
+
+
+  // ###################
+  // #  GT2 settings   #
+  // ###################
+
+
+  // custom options and their default values
+  const opt_gt2 = {
+    disableAutoRefresh:       false,
+    forceLatest:              false,
+    keepTweetsInTL:           true,
+    smallSidebars:            false,
+    stickySidebars:           true,
+    leftTrends:               true,
+    squareAvatars:            false,
+    biggerPreviews:           false,
+    show10Trends:             false,
+    updateNotifications:      true,
+    hideTrends:               false,
+    hideWhoToFollow:          false,
+    hideTranslateTweetButton: false,
+    hideMessageBox:           true
+  }
+
+  // set default options
+  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
+
+  // add previously non existant options
+  if (JSON.stringify(Object.keys(GM_getValue("opt_gt2"))) != JSON.stringify(Object.keys(opt_gt2))) {
+    let old = GM_getValue("opt_gt2")
+
+    // remove default options that are modified
+    for (let k of Object.keys(opt_gt2)) {
+      if (Object.keys(old).includes(k)) delete opt_gt2[k]
+    }
+
+    // remove old options
+    for (let k of Object.keys(old))  {
+      if (Object.keys(opt_gt2).includes(k)) delete old[k]
+    }
+
+    Object.assign(old, opt_gt2)
+    console.log(old);
+    GM_setValue("opt_gt2", old)
+  }
+  console.log(GM_getValue("opt_gt2"));
+
+  // toggle opt_gt2 value
+  function toggleGt2Opt(key) {
+    let x = GM_getValue("opt_gt2")
+    x[key] = !x[key]
+    GM_setValue("opt_gt2", x)
+  }
+
+
+  // insert the menu item
+  function addSettingsToggle() {
+    if (!$(".gt2-toggle-settings").length) {
+      $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
+        <a class="gt2-toggle-settings" href="/settings/gt2">
+          <div>
+            <span>GoodTwitter2</span>
+            ${getSvg("caret")}
+          </div>
+        </a>
+      `)
+    }
+  }
+
+
+  // toggle settings display
+  $("body").on("click", ".gt2-toggle-settings", function(event) {
+    event.preventDefault()
+    window.history.pushState({}, "", $(this).attr("href"))
+    addSettings()
+    $("body").addClass("gt2-settings-active")
+    changeSettingsTitle()
+  })
+
+
+  // disable settings display again when clicking on another menu item
+  $("body").on("click", `main section:nth-last-child(2) div[role=tablist] a:not(.gt2-toggle-settings),
+                         main section:nth-last-child(2) div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
+    $(".gt2-settings-active").removeClass("gt2-settings-active")
+    $(".gt2-settings-header, .gt2-settings").remove()
+  })
+
+
+  // get html for a gt2 toggle (checkbox)
+  function getSettingTogglePart(name) {
+    let d = `${name}Desc`
+    return `
+      <div class="gt2-setting">
+        <div>
+          <span>${locStr(name)}</span>
+          <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
+            <div></div>
+            <div>
+              ${getSvg("tick")}
+            </div>
+          </div>
+        </div>
+        ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
+      </div>`
+  }
+
+
+  // add the settings to the display (does not yet work on screens smaller than 1050px)
+  function addSettings() {
+    if (!$(".gt2-settings").length) {
+      let elem = `
+        <div class="gt2-settings-header">
+          <div class="gt2-settings-back">
+            <div></div>
+            ${getSvg("arrow")}
+          </div>
+          GoodTwitter2 v${GM_info.script.version}
+        </div>
+        <div class="gt2-settings">
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
+          ${getSettingTogglePart("forceLatest")}
+          ${getSettingTogglePart("disableAutoRefresh")}
+          ${getSettingTogglePart("keepTweetsInTL")}
+          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
+          ${getSettingTogglePart("stickySidebars")}
+          ${getSettingTogglePart("smallSidebars")}
+          ${getSettingTogglePart("hideWhoToFollow")}
+          ${getSettingTogglePart("hideTrends")}
+          ${getSettingTogglePart("leftTrends")}
+          ${getSettingTogglePart("show10Trends")}
+          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
+          ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("biggerPreviews")}
+          ${getSettingTogglePart("updateNotifications")}
+          ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("hideMessageBox")}
+        </div>
+      `
+      if ($("main section").length) {
+        $("main section:nth-last-child(1)").prepend(elem)
+      } else {
+        $("main > div > div > div").append(`
+          <section>${elem}</section>
+        `)
+      }
+      disableTogglesIfNeeded()
+    }
+  }
+
+
+  // change the title to display GoodTwitter2
+  function changeSettingsTitle() {
+    let t = $("title").html()
+    $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
+  }
+
+
+  // observe title changes when on the gt2 page
+  let settingsTitleMut = new MutationObserver(mutations => {
+    mutations.forEach(m => {
+      if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
+        changeSettingsTitle()
+      }
+    })
+  })
+  settingsTitleMut.observe($("head")[0], {
+    subtree: true,
+    childList: true
+  })
+
+
+  // handler for the toggles
+  $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
+    $(this).toggleClass("gt2-active")
+    let name = $(this).attr("data-toggleid").trim()
+    toggleGt2Opt(name)
+    $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
+    disableTogglesIfNeeded()
+  })
+
+
+  function disableTogglesIfNeeded() {
+    // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
+    let $t = $("div[data-toggleid=keepTweetsInTL]")
+    if (GM_getValue("opt_gt2").disableAutoRefresh) {
+      if (!GM_getValue("opt_gt2").keepTweetsInTL) {
+        $t.click()
+      }
+      $t.addClass("gt2-disabled")
+    } else {
+      $t.removeClass("gt2-disabled")
+    }
+
+    // other trend related toggles are not needed when the trends are disabled
+    $t = $("div[data-toggleid=leftTrends], div[data-toggleid=show10Trends]")
+    if (GM_getValue("opt_gt2").hideTrends) {
+      $t.addClass("gt2-disabled")
+    } else {
+      $t.removeClass("gt2-disabled")
+    }
+
+  }
+
+
+  // click on the back button
+  $("body").on("click", ".gt2-settings-back", () => window.history.back())
+
 
 
   // #######################
@@ -838,216 +1049,6 @@
       GM_deleteValue("i18n_internal_rweb")
     }
   })
-
-
-
-  // ###################
-  // #  GT2 settings   #
-  // ###################
-
-
-  // custom options and their default values
-  const opt_gt2 = {
-    disableAutoRefresh:       false,
-    forceLatest:              false,
-    keepTweetsInTL:           true,
-    smallSidebars:            false,
-    stickySidebars:           true,
-    leftTrends:               true,
-    squareAvatars:            false,
-    biggerPreviews:           false,
-    show10Trends:             false,
-    updateNotifications:      true,
-    hideTrends:               false,
-    hideWhoToFollow:          false,
-    hideTranslateTweetButton: false,
-    hideMessageBox:           true
-  }
-
-  // set default options
-  if (GM_getValue("opt_gt2") == undefined) GM_setValue("opt_gt2", opt_gt2)
-
-  // add previously non existant options
-  if (JSON.stringify(Object.keys(GM_getValue("opt_gt2"))) != JSON.stringify(Object.keys(opt_gt2))) {
-    let old = GM_getValue("opt_gt2")
-
-    // remove default options that are modified
-    for (let k of Object.keys(opt_gt2)) {
-      if (Object.keys(old).includes(k)) delete opt_gt2[k]
-    }
-
-    // remove old options
-    for (let k of Object.keys(old))  {
-      if (Object.keys(opt_gt2).includes(k)) delete old[k]
-    }
-
-    Object.assign(old, opt_gt2)
-    console.log(old);
-    GM_setValue("opt_gt2", old)
-  }
-  console.log(GM_getValue("opt_gt2"));
-
-  // toggle opt_gt2 value
-  function toggleGt2Opt(key) {
-    let x = GM_getValue("opt_gt2")
-    x[key] = !x[key]
-    GM_setValue("opt_gt2", x)
-  }
-
-
-  // insert the menu item
-  function addSettingsToggle() {
-    if (!$(".gt2-toggle-settings").length) {
-      $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
-        <a class="gt2-toggle-settings" href="/settings/gt2">
-          <div>
-            <span>GoodTwitter2</span>
-            ${getSvg("caret")}
-          </div>
-        </a>
-      `)
-    }
-  }
-
-
-  // toggle settings display
-  $("body").on("click", ".gt2-toggle-settings", function(event) {
-    event.preventDefault()
-    window.history.pushState({}, "", $(this).attr("href"))
-    addSettings()
-    $("body").addClass("gt2-settings-active")
-    changeSettingsTitle()
-  })
-
-
-  // disable settings display again when clicking on another menu item
-  $("body").on("click", `main section:nth-last-child(2) div[role=tablist] a:not(.gt2-toggle-settings),
-                         main section:nth-last-child(2) div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
-    $(".gt2-settings-active").removeClass("gt2-settings-active")
-    $(".gt2-settings-header, .gt2-settings").remove()
-  })
-
-
-  // get html for a gt2 toggle (checkbox)
-  function getSettingTogglePart(name) {
-    let d = `${name}Desc`
-    return `
-      <div class="gt2-setting">
-        <div>
-          <span>${locStr(name)}</span>
-          <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
-            <div></div>
-            <div>
-              ${getSvg("tick")}
-            </div>
-          </div>
-        </div>
-        ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
-      </div>`
-  }
-
-
-  // add the settings to the display (does not yet work on screens smaller than 1050px)
-  function addSettings() {
-    if (!$(".gt2-settings").length) {
-      let elem = `
-        <div class="gt2-settings-header">
-          <div class="gt2-settings-back">
-            <div></div>
-            ${getSvg("arrow")}
-          </div>
-          GoodTwitter2 v${GM_info.script.version}
-        </div>
-        <div class="gt2-settings">
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
-          ${getSettingTogglePart("forceLatest")}
-          ${getSettingTogglePart("disableAutoRefresh")}
-          ${getSettingTogglePart("keepTweetsInTL")}
-          <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
-          ${getSettingTogglePart("stickySidebars")}
-          ${getSettingTogglePart("smallSidebars")}
-          ${getSettingTogglePart("hideWhoToFollow")}
-          ${getSettingTogglePart("hideTrends")}
-          ${getSettingTogglePart("leftTrends")}
-          ${getSettingTogglePart("show10Trends")}
-          <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
-          ${getSettingTogglePart("squareAvatars")}
-          ${getSettingTogglePart("biggerPreviews")}
-          ${getSettingTogglePart("updateNotifications")}
-          ${getSettingTogglePart("hideTranslateTweetButton")}
-          ${getSettingTogglePart("hideMessageBox")}
-        </div>
-      `
-      if ($("main section").length) {
-        $("main section:nth-last-child(1)").prepend(elem)
-      } else {
-        $("main > div > div > div").append(`
-          <section>${elem}</section>
-        `)
-      }
-      disableTogglesIfNeeded()
-    }
-  }
-
-
-  // change the title to display GoodTwitter2
-  function changeSettingsTitle() {
-    let t = $("title").html()
-    $("title").html(`${t.startsWith("(") ? `${t.split(" ")[0]} ` : ""}GoodTwitter2 / Twitter`)
-  }
-
-
-  // observe title changes when on the gt2 page
-  let settingsTitleMut = new MutationObserver(mutations => {
-    mutations.forEach(m => {
-      if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
-        changeSettingsTitle()
-      }
-    })
-  })
-  settingsTitleMut.observe($("head")[0], {
-    subtree: true,
-    childList: true
-  })
-
-
-  // handler for the toggles
-  $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
-    $(this).toggleClass("gt2-active")
-    let name = $(this).attr("data-toggleid").trim()
-    toggleGt2Opt(name)
-    $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
-    disableTogglesIfNeeded()
-  })
-
-
-  function disableTogglesIfNeeded() {
-    // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
-    let $t = $("div[data-toggleid=keepTweetsInTL]")
-    if (GM_getValue("opt_gt2").disableAutoRefresh) {
-      if (!GM_getValue("opt_gt2").keepTweetsInTL) {
-        $t.click()
-      }
-      $t.addClass("gt2-disabled")
-    } else {
-      $t.removeClass("gt2-disabled")
-    }
-
-    // other trend related toggles are not needed when the trends are disabled
-    $t = $("div[data-toggleid=leftTrends], div[data-toggleid=show10Trends]")
-    if (GM_getValue("opt_gt2").hideTrends) {
-      $t.addClass("gt2-disabled")
-    } else {
-      $t.removeClass("gt2-disabled")
-    }
-
-  }
-
-
-  // click on the back button
-  $("body").on("click", ".gt2-settings-back", () => window.history.back())
 
 
 
