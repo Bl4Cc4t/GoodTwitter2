@@ -1,7 +1,18 @@
 # Changelog
 
+## [0.0.22](https://github.com/Bl4Cc4t/GoodTwitter2/pull/108)
+*released 2020-06-20*
+- trends fixed
+- 404 page styling
+- options to hide trends and “who to follow”
+- settings and messages pages styled
+- Traditional Chinese translation added (Thanks [@roy4801](https://github.com/roy4801)!)
+- added option to hide the recently added message box ([#124](https://github.com/Bl4Cc4t/GoodTwitter2/issues/124))
+
+
 ## 0.0.21.1
 - inline translation cookie hotfix
+
 
 ## [0.0.21](https://github.com/Bl4Cc4t/GoodTwitter2/pull/92)
 *released 2020-06-12*
