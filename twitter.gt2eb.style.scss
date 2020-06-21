@@ -463,6 +463,18 @@ body:not(.gt2-not-logged-in) {
   }
 }
 
+// global background color
+body {
+  background-color: var(--color-bg) !important;
+}
+
+// minimalscrollbar
+html[data-minimalscrollbar] {
+  body {
+    margin-right: 0 !important;
+  }
+}
+
 
 main {
   align-items: center !important;
@@ -480,25 +492,46 @@ main {
       height: -webkit-fit-content;
       margin-bottom: 10px;
       border-bottom: 1px solid var(--color-gray-dark);
-      & > div > div:nth-child(2) > div > section > div > div {
-        padding-bottom: 0 !important;
-        & > div > div:not([class]) {
-          &:nth-last-child(2) > div {
-            border-bottom-width: 0;
-          }
+      & > div {
 
-          &:last-child > div {
-            height: fit-content;
-            height: -moz-fit-content;
-            height: -webkit-fit-content;
-            & > div {
-              height: calc(6.5625rem);
-              &:empty {
-                display: none;
+        // scroll behind nav bar
+        & > div:nth-child(1) {
+          position: relative;
+        }
+
+        // small compose tweet
+        & > div:nth-child(2):not(.gt2-compose-large) {
+          & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
+            display: none;
+          }
+        }
+
+        // put tweet images in foreground
+        div[data-testid=tweet] img {
+          z-index: 1;
+        }
+
+        & > div:nth-child(2) > div > section > div > div {
+          padding-bottom: 0 !important;
+          & > div > div:not([class]) {
+            &:nth-last-child(2) > div {
+              border-bottom-width: 0;
+            }
+
+            &:last-child > div {
+              height: fit-content;
+              height: -moz-fit-content;
+              height: -webkit-fit-content;
+              & > div {
+                height: calc(6.5625rem);
+                &:empty {
+                  display: none;
+                }
               }
             }
           }
         }
+
       }
     }
 
@@ -766,31 +799,6 @@ body:not(.gt2-opt-sticky-sidebars) {
 }
 
 
-// global background color
-body {
-  background-color: var(--color-bg) !important;
-}
-
-// minimalscrollbar
-html[data-minimalscrollbar] {
-  body {
-    margin-right: 0 !important;
-  }
-}
-
-div[data-testid=primaryColumn] > div {
-  // scroll behind nav bar
-  & > div:nth-child(1) {
-    position: relative;
-  }
-
-  // compose tweet
-  & > div:nth-child(2):not(.gt2-compose-large) {
-    & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
-      display: none;
-    }
-  }
-}
 
 
 // colorized buttons for image modals

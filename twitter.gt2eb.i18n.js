@@ -143,7 +143,22 @@ let i18n = {
   "statsFollowers": "hfa811da",
   "statsFollowing": "fd87318c",
   "statsTweets": "c4f8ac47",
-  "translateTweet": "gdf45ca0"
+  "translateTweet": "gdf45ca0",
+
+  "fallback": {
+    "composeNewTweet": "Tweet",
+    "navBookmarks": "Bookmarks",
+    "navDirectMessage": "Messages",
+    "navExplore": "Explore",
+    "navHome": "Home",
+    "navLists": "Lists",
+    "navNotifications": "Notifications",
+    "navProfile": "Profile",
+    "statsFollowers": "Followers",
+    "statsFollowing": "Following",
+    "statsTweets": "Tweets",
+    "translateTweet": "Translate Tweet"
+  }
 },
 "ja": {
   "showNewMulti": "新しいツイート$件を見る",

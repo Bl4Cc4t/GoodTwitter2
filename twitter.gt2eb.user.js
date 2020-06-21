@@ -5,7 +5,6 @@
 // @author        schwarzkatz
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
-// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
@@ -124,7 +123,7 @@
       type: "GET",
       url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src"),
       headers: {
-        referer: "https://twitter.com"
+        referer: window.location.href
       },
       onload: function(res) {
         GM_setValue("i18n_internal_rweb", res.responseText)
@@ -132,15 +131,18 @@
       }
     })
   }
-  if (GM_getValue("i18n_internal_rweb") == undefined) setI18nInternalRweb()
-
 
   // get localized version of a string.
   // defaults to english version.
   function locStr(key) {
     if (Object.keys(i18n.internal).includes(key)) {
       let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
-      return GM_getValue("i18n_internal_rweb").match(re)[1]
+      if (GM_getValue("i18n_internal_rweb") == undefined) {
+        setI18nInternalRweb()
+        return i18n.internal.fallback[key]
+      } else {
+        return GM_getValue("i18n_internal_rweb").match(re)[1]
+      }
     } else {
       let lang = $("html").attr("lang")
       lang = Object.keys(i18n).includes(lang) ? lang : "en"
@@ -660,7 +662,6 @@
 
           $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
         }
-
       })
     })
   }
