@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.22.3
+- temporary fix for ajax issues on VM / Waterfox ([#124](https://github.com/Bl4Cc4t/GoodTwitter2/issues/1135))
+
+
 ## 0.0.22.2
 - settings hotfix \# 2
 
