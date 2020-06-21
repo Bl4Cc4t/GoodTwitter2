@@ -617,19 +617,6 @@
 
     waitForKeyElements(trends, () => {
 
-      // wrap trends in anchors
-      let $toWrap = $(trends).first().find("> div > div:nth-child(2) > span")
-      if ($toWrap.length) {
-        $(trends).first().addClass("gt2-trend-wrapped")
-        let txt = $toWrap.text()
-        let query = encodeURIComponent($toWrap.text())
-          .replace(/%/g, "%25")
-          .replace(/'/g, "%27")
-          .replace(/(^\"|\"$)/g, "")
-
-        $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
-      }
-
       // actions for the whole container
       if (!$(trends).parents("section").hasClass("gt2-trends-handled")
         && $(trends).parents("div[data-testid=sidebarColumn]").length
@@ -660,6 +647,21 @@
           }
         }
       }
+
+      // wrap trends in anchors
+      $(trends).each(function() {
+        let $toWrap = $(this).find("> div > div:nth-child(2) > span")
+        if ($toWrap.length) {
+          $(this).addClass("gt2-trend-wrapped")
+          let txt = $toWrap.text()
+          let query = encodeURIComponent($toWrap.text().replace(/%/g, "%25"))
+          .replace(/'/g, "%27")
+          .replace(/(^\"|\"$)/g, "")
+
+          $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
+        }
+
+      })
     })
   }
 
