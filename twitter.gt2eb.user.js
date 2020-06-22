@@ -15,6 +15,7 @@
 // @connect       abs.twimg.com
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
+// @resource      emojiRegex https://raw.githubusercontent.com/mathiasbynens/emoji-regex/master/es2015/text.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
@@ -84,8 +85,12 @@
     return out
   }
 
+  String.prototype.replaceAt = function(index, length, text) {
+    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index + length)}`
+  }
+
   String.prototype.insertAt = function(index, text) {
-    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index)}`
+    return this.toString().replaceAt(index, 0, text)
   }
 
 
@@ -198,6 +203,90 @@
     Object.assign(out, additionalHeaders)
     return out
   }
+
+
+  function getRequestURL(base, param) {
+    let out = base
+    for (let [key, val] of Object.entries(param)) {
+      if (typeof val === "object") val = encodeURIComponent(JSON.stringify(val))
+      out += `&${key}=${val}`
+    }
+    return `${out.replace("&", "?")}`
+  }
+
+  // adds links from an entities object to a text
+  function populateTextWithEntities(text, entities) {
+    let out = text
+
+    let toReplace = []
+
+    // urls
+    for (let url of entities.urls) {
+      toReplace.push({
+        [url.indices[0]]: `<a href="`,
+        [url.indices[1]]: `" target="_blank">${url.display_url}</a> `
+      })
+    }
+
+    // users
+    for (let user of entities.user_mentions) {
+      toReplace.push({
+        [user.indices[0]]: `<a href="/${user.screen_name}">`,
+        [user.indices[1]]: `</a> `
+      })
+    }
+
+    // hashtags
+    for (let hashtag of entities.hashtags) {
+      toReplace.push({
+        [hashtag.indices[0]]: `<a href="/hashtag/${hashtag.text}">`,
+        [hashtag.indices[1]]: `</a> `
+      })
+    }
+
+    // sort array
+    toReplace.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0] ? -1 : 1)
+    console.log(toReplace);
+
+    // replace values
+    let offset = 0
+    for (let e of toReplace) {
+      for (let [index, value] of Object.entries(e)) {
+        console.log(out.insertAt(index + offset, value));
+        out = out.insertAt(parseInt(index) + offset, value)
+        offset += value.length
+      }
+    }
+
+    return out
+  }
+
+
+  function replaceEmojiInText(text) {
+    let out = text
+    let re = new RegExp(`(${GM_getResourceText("emojiRegex").match(/return \/(.*)\/gu/)[1]})`, "gu")
+    let match
+    let offset = 0
+    while ((match = re.exec(text)) != null) {
+      let e = match[1]
+      // get unicode of emoji
+      let uni = e.codePointAt(0).toString(16)
+      if (e.length == 4) {
+        uni += `-${e.codePointAt(2).toString(16)}`
+      }
+
+      console.log(match);
+
+      // replace with image
+      let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni}.svg" alt="${e}" class="gt2-emoji" />`
+      out = out.replaceAt(match.index + offset, e.length, img)
+
+      offset += img.length - e.length
+    }
+
+    return out
+  }
+  console.log(replaceEmojiInText("fr🇺🇸egekpo🇺🇸ht🇺🇸krop"))
 
 
 
@@ -752,36 +841,9 @@
           console.log(o);
           let out = o.translation
 
-
           // handle entities in tweet
-
           if (o.entities) {
-            // add to output helper function
-            let offset = 0
-            function addToOut(index, text) {
-              out = out.insertAt(index + offset, text)
-              offset += text.length
-            }
-
-            // urls
-            for (let url of o.entities.urls) {
-              addToOut(url.indices[0], `<a href="`)
-              addToOut(url.indices[1], `" target="_blank">${url.display_url}</a> `)
-            }
-
-            // users
-            for (let user of o.entities.user_mentions) {
-              addToOut(user.indices[0], `<a href="/${user.screen_name}">`)
-              addToOut(user.indices[1], `</a> `)
-            }
-
-            // hashtags
-            for (let hashtag of o.entities.hashtags) {
-              console.log(offset);
-              addToOut(hashtag.indices[0], `<a href="/hashtag/${hashtag.text}">`)
-              addToOut(hashtag.indices[1], `</a> `)
-            }
-
+            out = populateTextWithEntities(out, o.entities)
           }
 
           $(_this).addClass("gt2-hidden")
