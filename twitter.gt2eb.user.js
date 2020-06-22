@@ -15,7 +15,7 @@
 // @connect       abs.twimg.com
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      emojiRegex https://raw.githubusercontent.com/mathiasbynens/emoji-regex/master/es2015/text.js
+// @resource      emojiRegex https://raw.githubusercontent.com/mathiasbynens/emoji-regex/master/es2015/index.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
@@ -117,6 +117,12 @@
   }
 
 
+  // get current display language
+  function getLang() {
+    return $("html").attr("lang")
+  }
+
+
   // check if the user is logged in
   function isLoggedIn() {
     return document.cookie.match(/ twid=/)
@@ -150,7 +156,7 @@
         return GM_getValue("i18n_internal_rweb").match(re)[1]
       }
     } else {
-      let lang = $("html").attr("lang")
+      let lang = getLang()
       lang = Object.keys(i18n).includes(lang) ? lang : "en"
       if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
         return i18n[lang][key]
@@ -195,7 +201,7 @@
       authorization: `Bearer ${publicBearer}`,
       origin: "https://twitter.com",
       referer: window.location.href,
-      "x-twitter-client-language": $("html").attr("lang"),
+      "x-twitter-client-language": getLang(),
       "x-csrf-token": csrf,
       "x-twitter-active-user": "yes",
       "x-twitter-auth-type": "OAuth2Session"
@@ -215,44 +221,49 @@
   }
 
   // adds links from an entities object to a text
-  function populateTextWithEntities(text, entities) {
+  String.prototype.populateWithEntities = function(entities) {
+    let text = this.toString()
     let out = text
 
     let toReplace = []
 
     // urls
-    for (let url of entities.urls) {
-      toReplace.push({
-        [url.indices[0]]: `<a href="`,
-        [url.indices[1]]: `" target="_blank">${url.display_url}</a> `
-      })
+    if (entities.urls) {
+      for (let url of entities.urls) {
+        toReplace.push({
+          [url.indices[0]]: `<a href="`,
+          [url.indices[1]]: `" target="_blank">${url.display_url}</a> `
+        })
+      }
     }
 
     // users
-    for (let user of entities.user_mentions) {
-      toReplace.push({
-        [user.indices[0]]: `<a href="/${user.screen_name}">`,
-        [user.indices[1]]: `</a> `
-      })
+    if (entities.user_mentions) {
+      for (let user of entities.user_mentions) {
+        toReplace.push({
+          [user.indices[0]]: `<a href="/${user.screen_name}">`,
+          [user.indices[1]]: `</a> `
+        })
+      }
     }
 
     // hashtags
-    for (let hashtag of entities.hashtags) {
-      toReplace.push({
-        [hashtag.indices[0]]: `<a href="/hashtag/${hashtag.text}">`,
-        [hashtag.indices[1]]: `</a> `
-      })
+    if (entities.hashtags) {
+      for (let hashtag of entities.hashtags) {
+        toReplace.push({
+          [hashtag.indices[0]]: `<a href="/hashtag/${hashtag.text}">`,
+          [hashtag.indices[1]]: `</a> `
+        })
+      }
     }
 
     // sort array
     toReplace.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0] ? -1 : 1)
-    console.log(toReplace);
 
     // replace values
     let offset = 0
     for (let e of toReplace) {
       for (let [index, value] of Object.entries(e)) {
-        console.log(out.insertAt(index + offset, value));
         out = out.insertAt(parseInt(index) + offset, value)
         offset += value.length
       }
@@ -262,7 +273,10 @@
   }
 
 
-  function replaceEmojiInText(text) {
+  // replace emojis with the twitter svgs
+  String.prototype.replaceEmojis = function() {
+    let text = this.toString()
+
     let out = text
     let re = new RegExp(`(${GM_getResourceText("emojiRegex").match(/return \/(.*)\/gu/)[1]})`, "gu")
     let match
@@ -275,8 +289,6 @@
         uni += `-${e.codePointAt(2).toString(16)}`
       }
 
-      console.log(match);
-
       // replace with image
       let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni}.svg" alt="${e}" class="gt2-emoji" />`
       out = out.replaceAt(match.index + offset, e.length, img)
@@ -286,7 +298,6 @@
 
     return out
   }
-  console.log(replaceEmojiInText("fr🇺🇸egekpo🇺🇸ht🇺🇸krop"))
 
 
 
@@ -800,7 +811,7 @@
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
     waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
       let tweetLang = $(e).find("div[lang]").attr("lang")
-      let userLang  = $("html").attr("lang").trim()
+      let userLang  = getLang().trim()
           userLang  = userLang == "en-GB" ? "en" : userLang
       if (tweetLang != userLang && tweetLang != "und") {
         $(e).find("div[lang]").first().after(`
@@ -843,7 +854,7 @@
 
           // handle entities in tweet
           if (o.entities) {
-            out = populateTextWithEntities(out, o.entities)
+            out = out.populateWithEntities(o.entities)
           }
 
           $(_this).addClass("gt2-hidden")
@@ -904,7 +915,7 @@
     let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
 
     // exception for russian
-    if ($("html").attr("lang") == "ru") {
+    if (getLang() == "ru") {
       text = getRusShowNew(nr)
     }
 
