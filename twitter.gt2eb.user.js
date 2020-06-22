@@ -5,6 +5,7 @@
 // @author        schwarzkatz
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
+// @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
 // @grant         GM_getValue
@@ -120,15 +121,15 @@
   // save the contents of the internal i18n-rweb script in a variable
   function setI18nInternalRweb() {
     GM_xmlhttpRequest({
-      type: "GET",
-      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src"),
-      headers: {
-        referer: window.location.href
-      },
+      method: "GET",
+      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src")+"#",
       onload: function(res) {
-        GM_setValue("i18n_internal_rweb", res.responseText)
-        window.location.reload()
-      }
+        if (res.status == 200) {
+          GM_setValue("i18n_internal_rweb", res.responseText)
+          window.location.reload()
+        }
+      },
+      onerror: (e) => console.error(e)
     })
   }
 
@@ -188,6 +189,7 @@
     let out = {
       authorization: `Bearer ${publicBearer}`,
       origin: "https://twitter.com",
+      referer: window.location.href,
       "x-twitter-client-language": $("html").attr("lang"),
       "x-csrf-token": csrf,
       "x-twitter-active-user": "yes",
@@ -240,10 +242,8 @@
     }
 
     Object.assign(old, opt_gt2)
-    console.log(old);
     GM_setValue("opt_gt2", old)
   }
-  console.log(GM_getValue("opt_gt2"));
 
   // toggle opt_gt2 value
   function toggleGt2Opt(key) {
