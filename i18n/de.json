@@ -2,6 +2,11 @@
   "showNewMulti": "$ neue Tweets anzeigen",
   "showNewSingle": "Einen neuen Tweet anzeigen",
   "translatedTweetInfo": "Original ($lang$) übersetzt von $source$",
+  "bpFollowedBy0": "Gefolgt von niemandem, dem du folgst",
+  "bpFollowedBy1": "Gefolgt von $p1$",
+  "bpFollowedBy2": "Gefolgt von $p1$ und $p2$",
+  "bpFollowedBy3": "Gefolgt von $p1$, $p2$ und $p3$",
+  "bpFollowedBy4Plus": "Gefolgt von $p1$, $p2$ und $nr$ weiteren Personen, denen du folgst",
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Seitenleisten",
