@@ -2,7 +2,12 @@
   "showNewMulti": "Toon $ nieuwe Tweets",
   "showNewSingle": "Toon 1 nieuwe Tweet",
   "translatedTweetInfo": "Vertaald van $lang$ door $source$",
-
+  "bpFollowedBy0": "Niet gevolgd door iemand die je volgt",
+  "bpFollowedBy1": "Gevolgd door $p1$",
+  "bpFollowedBy2": "Gevolgd door $p1$ en $p2$",
+  "bpFollowedBy3": "Gevolgd door $p1$, $p2$ en $p3$",
+  "bpFollowedBy4Plus": "Gevolgd door $p1$, $p2$ en $nr$ anderen die je volgt",
+  
   "settingsHeaderTimeline": "Tijdlijn",
   "settingsHeaderSidebars": "Zijbalken",
   "settingsHeaderOther": "Diversen",
