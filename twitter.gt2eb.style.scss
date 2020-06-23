@@ -762,7 +762,8 @@ body:not(.gt2-opt-sticky-sidebars) {
 
 .gt2-opt-hide-message-box {
   div[data-testid=DMDrawer] {
-    bottom: -1000px;
+    height: 0;
+    z-index: -1
   }
 }
 
