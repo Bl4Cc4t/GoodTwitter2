@@ -149,7 +149,8 @@
   function locStr(key) {
     if (Object.keys(i18n.internal).includes(key)) {
       let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
-      if (GM_getValue("i18n_internal_rweb") == undefined) {
+      if (GM_getValue("i18n_internal_rweb") == undefined
+       || GM_getValue("i18n_internal_rweb").match(/xml version=/)) {
         setI18nInternalRweb()
         return i18n.internal.fallback[key]
       } else {
