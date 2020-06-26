@@ -148,7 +148,7 @@ $navbarDropdown: "div[role=menu][style^='max-height: calc']";
     &.gt2-not-logged-in {
       &.gt2-opt-sticky-sidebars {
         div[data-testid=sidebarColumn] {
-          margin-left: 370px;
+          margin-left: 10px;
         }
       }
       &:not(.gt2-opt-sticky-sidebars) {
@@ -211,7 +211,7 @@ $navbarDropdown: "div[role=menu][style^='max-height: calc']";
     &.gt2-not-logged-in {
       &.gt2-opt-sticky-sidebars {
         div[data-testid=sidebarColumn] {
-          margin-left: 310px;
+          margin-left: 10px;
         }
       }
       &:not(.gt2-opt-sticky-sidebars) {
