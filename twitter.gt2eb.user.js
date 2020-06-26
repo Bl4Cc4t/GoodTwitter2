@@ -555,6 +555,9 @@
         `)
       }
 
+      // highlight current location
+      $(`.gt2-nav a[href^='/${getPath().split("/")[0]}']`).addClass("active")
+
       // twitter logo
       $("h1 a[href='/home'] svg")
       .appendTo(".gt2-nav-center a")
@@ -1476,8 +1479,8 @@
 
 
   // stuff to do when url changes
-  function urlChange() {
-    let path  = getPath()
+  function urlChange(path) {
+    path = path || getPath()
     console.log(`Current path: ${path}`)
 
 
@@ -1496,7 +1499,7 @@
 
 
     let mainView = "main > div > div > div"
-    waitForKeyElements(mainView, function() {
+    waitForKeyElements(mainView, () => {
       // insert left sidebar
       if (!$(".gt2-left-sidebar").length) {
         $(mainView).prepend(`<div class="gt2-left-sidebar"></div>`)
@@ -1592,6 +1595,7 @@
       $("body").removeClass("gt2-page-messages")
     }
 
+
     // blocked profile page
     waitForKeyElements("div[data-testid=placementTracking] div[data-testid$='-unblock']", displayBlockedProfileData)
 
@@ -1601,6 +1605,7 @@
         (path.split("/")[0] == "home" || path.match(/^[^\/]+\/lists/)) ) {
       hideTweetsOnAutoRefresh()
     }
+
 
     // force latest
     if (GM_getValue("opt_gt2").forceLatest && path.split("/")[0] == "home") {
@@ -1620,13 +1625,13 @@
   const origPush = exportFunc(pageHistory.pushState, pageWindow)
   pageHistory.pushState = exportFunc(function () {
     origPush.apply(this, arguments)
-    urlChange()
+    urlChange(arguments[2].slice(1))
   }, pageWindow)
 
   const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
   pageHistory.replaceState = exportFunc(function () {
     origRepl.apply(this, arguments)
-    urlChange()
+    urlChange(arguments[2].slice(1))
   }, pageWindow)
 
   window.addEventListener("popstate", function() {
