@@ -9,6 +9,8 @@
   "navProfile": "b22ba8dc",
   "statsFollowers": "hfa811da",
   "statsFollowing": "fd87318c",
+  "statsLikes": "fbffbecb",
+  "statsMoments": "d183def2",
   "statsTweets": "c4f8ac47",
   "translateTweet": "gdf45ca0",
 
@@ -23,6 +25,8 @@
     "navProfile": "Profile",
     "statsFollowers": "Followers",
     "statsFollowing": "Following",
+    "statsLikes": "Likes",
+    "statsMoments": "Moments",
     "statsTweets": "Tweets",
     "translateTweet": "Translate Tweet"
   }

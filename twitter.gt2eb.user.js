@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.22.3
+// @version       0.0.23
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -325,7 +325,8 @@
     hideTrends:               false,
     hideWhoToFollow:          false,
     hideTranslateTweetButton: false,
-    hideMessageBox:           true
+    hideMessageBox:           true,
+    legacyProfile:            false,
   }
 
   // set default options
@@ -434,6 +435,7 @@
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
           <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
+          ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
           ${getSettingTogglePart("updateNotifications")}
@@ -592,6 +594,8 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
+    elements.push(`<div class="gt2-legacy-profile-info"></div>`)
+
     waitForKeyElements(`${insertAt}`, () => {
       for (let elem of elements) {
         if (insertAt.startsWith(".gt2")) {
@@ -680,14 +684,108 @@
 
 
   // recreate the legacy profile layout
-  function rebuildOldProfile() {
-    let banner = `a[href$='/header_photo'] img`
-    waitForKeyElements(banner, () => {
-      // insert banner
-      let bannerUrl = `${$(banner).attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500`
-      $("header").before(`
-        <img src="${bannerUrl}" class="gt2-profile-banner" />
-      `)
+  function rebuildLegacyProfile() {
+    waitForKeyElements("div[data-testid=userActions], a[href$='/photo'] img", () => {
+
+      let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
+
+      // elements
+      let e = {
+        $banner:      $("a[href$='/header_photo'] img"),
+        $description: $profile.find("div[data-testid=UserDescription]"),
+        $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
+        $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
+        $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
+        $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
+      }
+
+      // information (constant)
+      const i = {
+        avatarUrl:    `${$("a[href$='/photo'] img").attr("src").replace(/_(normal|\d+x\d+)/, "")}`,
+        screenName:   getPath().split("/")[0],
+        nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
+        joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
+        tweets:       parseInt($("div[data-testid=primaryColumn] > div > div:nth-child(1) h2 + div").text().replace(/[\.,]/g, "")),
+        following:    parseInt($profile.find(`a[href$="/following"]`).attr("title").replace(/[\.,]/g, "")),
+        followers:    parseInt($profile.find(`a[href$="/followers"]`).attr("title").replace(/[\.,]/g, "")),
+      }
+      console.log(i);
+
+      if (!$(".gt2-legacy-profile-banner").length) {
+        $("header").before(`
+          <div class="gt2-legacy-profile-banner">
+            ${e.$banner.length ? `<img src="${e.$banner.attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500" />` : ""}
+          </div>
+          <div class="gt2-legacy-profile-nav">
+            <div class="gt2-legacy-profile-nav-left">
+              <img src="${i.avatarUrl}" />
+              <div>
+                <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+                <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                  @<span>${i.screenName}</span>
+                </a>
+              </div>
+            </div>
+            <div class="gt2-legacy-profile-nav-center">
+              <a href="/${i.screenName}" title="${i.tweets.humanize()}">
+                <div>${locStr("statsTweets")}</div>
+                <div>${i.tweets.humanizeShort()}</div>
+              </a>
+              <a href="/${i.screenName}/following" title="${i.following.humanize()}">
+                <div>${locStr("statsFollowing")}</div>
+                <div>${i.following.humanizeShort()}</div>
+              </a>
+              <a href="/${i.screenName}/followers" title="${i.followers.humanize()}">
+                <div>${locStr("statsFollowers")}</div>
+                <div>${i.followers.humanizeShort()}</div>
+              </a>
+              <!--
+              <a href="/${i.screenName}/likes" title="${i.tweets.humanize()}">
+                <div>${locStr("statsLikes")}</div>
+                <div>${i.followers.humanizeShort()}</div>
+              </a>
+              <a href="/${i.screenName}/lists" title="${i.tweets.humanize()}">
+                <div>${locStr("navLists")}</div>
+                <div>${i.followers.humanizeShort()}</div>
+              </a>
+              <a href="/${i.screenName}/moments" title="${i.tweets.humanize()}">
+                <div>${locStr("statsMoments")}</div>
+                <div>${i.followers.humanizeShort()}</div>
+              </a>
+              -->
+            </div>
+            <div class="gt2-legacy-profile-nav-right"></div>
+          </div>
+        `)
+      }
+
+      // sidebar profile information
+      if (!$(".gt2-legacy-profile-info > div").length) {
+        $(".gt2-legacy-profile-info").append(`
+          <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+          <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+            @<span>${i.screenName}</span>
+          </a>
+          ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
+          ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
+          ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
+          ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
+          <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
+          ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
+        `)
+
+        // followers you know
+        waitForKeyElements("a[href$='/followers_you_follow']", e => {
+          $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
+        })
+      }
+
+
+      // buttons
+      if (!$(".gt2-legacy-profile-nav-right > div").length) {
+        $profile.find("> div:nth-child(1) > div").detach().appendTo(".gt2-legacy-profile-nav-right")
+      }
+
     })
   }
 
@@ -930,6 +1028,14 @@
       return fun.apply(this, arguments)
     }
   }(Element.prototype.removeChild))
+
+
+
+  $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
+    e.preventDefault()
+    console.log("test");
+    console.log(this);
+  })
 
 
 
@@ -1261,6 +1367,7 @@
   $("body").on("click", "div[data-testid=placementTracking] div[data-testid$='-unblock']", () => window.location.reload())
 
 
+
   // ########################
   // #   display settings   #
   // ########################
@@ -1460,6 +1567,8 @@
   // things to do when scrolling
   ;(function() {
     let prev = window.pageYOffset
+    let bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 80
+
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
       if (prev < curr) {
@@ -1468,6 +1577,14 @@
         $("body").removeClass("gt2-scrolled-down")
       }
       prev = curr
+
+      // legacy profile banner parallax
+      if (curr > bannerHeight) {
+        $("body").addClass("gt2-scrolled-down-banner")
+      } else {
+        $("body").removeClass("gt2-scrolled-down-banner")
+        $(".gt2-legacy-profile-banner img").css("transform", `translate3d(0px, ${curr / bannerHeight * 42}%, 0px)`)
+      }
     })
   }())
 
@@ -1596,10 +1713,39 @@
 
 
     // messages
-    if (path.split("/")[0] == "messages") {
+    if (onPage("messages")) {
       $("body").addClass("gt2-page-messages")
     } else {
       $("body").removeClass("gt2-page-messages")
+    }
+
+
+    // not profile
+    if (onPage(
+          "explore",
+          "home",
+          "i",
+          "messages",
+          "notifications",
+          "settings",
+        ) || onSubPage(null, ["status"])
+    ) {
+      console.log(onSubPage(null, ["status"]));
+      // if not on modal
+      if (!onSubPage("i", ["display"])
+          && !onSubPage("settings", ["trends", "profile"])
+      ) {
+        $("body").removeClass("gt2-page-profile")
+        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
+        $(".gt2-legacy-profile-info").empty()
+      }
+
+    // assume profile
+    } else {
+      $("body").addClass("gt2-page-profile")
+      if (GM_getValue("opt_gt2").legacyProfile) {
+        rebuildLegacyProfile()
+      }
     }
 
 
