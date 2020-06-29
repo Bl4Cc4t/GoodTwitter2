@@ -1484,9 +1484,16 @@
     console.log(`Current path: ${path}`)
 
 
+    // path helper functions
+    function onPage(...top) {
+      return top.some(e => e == path.split("/")[0])
+    }
+    function onSubPage(top, sub) {
+      return (top == null ? true : onPage(top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
+    }
+
     // do a reload on these pages
-    if (["login"].includes(path.split("/")[0])
-      || (!isLoggedIn() && [""].includes(path.split("/")[0]))) {
+    if (onPage("login") || (!isLoggedIn() && onPage(""))) {
       window.location.reload()
     }
 
@@ -1514,7 +1521,7 @@
       }
 
       // settings
-      if (path.split("/")[0] == "settings") {
+      if (onPage("settings")) {
         waitForKeyElements("main section a[href='/settings/about']", addSettingsToggle)
         if (path.startsWith("settings/gt2")) {
           addSettings()
@@ -1551,7 +1558,7 @@
 
 
       // hide/add search
-      if (["explore", "search"].some(e => e == path.split("/")[0])) {
+      if (onPage("search", "explore")) {
         $(".gt2-search").empty()
         $("body").removeClass("gt2-search-added")
         $("body").addClass("gt2-page-search")
@@ -1571,7 +1578,7 @@
 
 
     // settings
-    if (path.split("/")[0] == "settings") {
+    if (onPage("settings")) {
       $("body").addClass("gt2-page-settings")
       if (path.startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-settings-active")
