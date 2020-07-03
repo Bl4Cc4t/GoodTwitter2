@@ -7,7 +7,7 @@
   "bpFollowedBy2": "Gevolgd door $p1$ en $p2$",
   "bpFollowedBy3": "Gevolgd door $p1$, $p2$ en $p3$",
   "bpFollowedBy4Plus": "Gevolgd door $p1$, $p2$ en $nr$ anderen die je volgt",
-  
+
   "settingsHeaderTimeline": "Tijdlijn",
   "settingsHeaderSidebars": "Zijbalken",
   "settingsHeaderOther": "Diversen",
@@ -26,6 +26,7 @@
   "keepTweetsInTLDesc": "Weerhoudt de website automatisch de tweets te verwijderen zodra ze uit het zicht zijn.",
   "leftTrends": "Linker Zijbalk Trends",
   "leftTrendsDesc": "Toon de trends in de linker zijbalk.",
+  "legacyProfile": "*NEW* Legacy Profile Layout",
   "show10Trends": "Toon altijd 10 Trends",
   "stickySidebars": "Sticky Zijbalken",
   "smallSidebars": "Smalle Zijbalken",

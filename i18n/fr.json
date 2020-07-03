@@ -26,6 +26,7 @@
   "keepTweetsInTLDesc": "Empêche le site de retirer automatiquement les tweets une fois qu'ils ne sont plus affichés.",
   "leftTrends": "Barre des Tendances à gauche",
   "leftTrendsDesc": "Affiches les Tendances dans la barre de gauche.",
+  "legacyProfile": "*NEW* Legacy Profile Layout",
   "show10Trends": "Toujours afficher 10 Tendances",
   "stickySidebars": "Barres latérales fixes",
   "smallSidebars": "Petites barres latérales",

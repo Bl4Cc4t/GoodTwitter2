@@ -26,6 +26,7 @@
   "keepTweetsInTLDesc": "スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。",
   "leftTrends": "トレンドを左に表示する",
   "leftTrendsDesc": "トレンドを左サイドバーに表示します。",
+  "legacyProfile": "*NEW* Legacy Profile Layout",
   "show10Trends": "常に10個のトレンドを表示する",
   "stickySidebars": "サイドバーの固定",
   "smallSidebars": "小さいサイドバー",
