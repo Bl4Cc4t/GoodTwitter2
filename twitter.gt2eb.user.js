@@ -1326,6 +1326,9 @@
         $tmp.children().append(`<span>${locStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
       }
+
+      $hr.clone().appendTo(more)
+      $(`<a href="/logout" class="gt2-toggle-logout">Logout</a>`).appendTo(more)
     })
 
   })

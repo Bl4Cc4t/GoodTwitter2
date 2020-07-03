@@ -1215,6 +1215,15 @@ div[data-testid=caret] {
         }
       }
 
+      &.gt2-toggle-logout {
+        padding: 15px;
+        color: var(--color-text);
+        text-decoration-line: none;
+        &:link,
+        &:visited {
+          color: var(--color-text);
+        }
+      }
 
       span {
         font-size: incr(15px);
