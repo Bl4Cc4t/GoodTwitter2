@@ -1728,9 +1728,15 @@
           "messages",
           "notifications",
           "settings",
-        ) || onSubPage(null, ["status"])
+        ) || onSubPage(null, [
+          "followers",
+          "followers_you_follow",
+          "following",
+          "lists",
+          "moments",
+          "status",
+        ])
     ) {
-      console.log(onSubPage(null, ["status"]));
       // if not on modal
       if (!onSubPage("i", ["display"])
           && !onSubPage("settings", ["trends", "profile"])

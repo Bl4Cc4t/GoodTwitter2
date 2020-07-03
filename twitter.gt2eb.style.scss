@@ -628,7 +628,8 @@ main {
     div[data-testid=primaryColumn] > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
-        display: none;
+        opacity: 0;
+        height: 0;
       }
     }
   }
@@ -641,6 +642,7 @@ main {
   .gt2-legacy-profile-banner {
     background-color: var(--color-shadow);
     width: 100%;
+    height: calc((100vw - var(--scrollbar-width)) / 3);
     margin-top: 47px;
     display: flex;
     align-items: center;
@@ -751,6 +753,11 @@ main {
     .gt2-legacy-profile-fyk {
       margin-top: 5px;
       padding-right: 10px;
+      &:hover {
+        a {
+          text-decoration-color: var(--color-gray-light);
+        }
+      }
     }
   }
 
