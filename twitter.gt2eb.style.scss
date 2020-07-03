@@ -279,6 +279,12 @@ $notLegacyProfile: "
         }
       }
     }
+
+    .gt2-legacy-profile-nav {
+      .gt2-legacy-profile-nav-right {
+        padding-right: 360px;
+      }
+    }
   }
 
 }
@@ -315,6 +321,12 @@ $notLegacyProfile: "
   // smaller search
   .gt2-search > div {
     width: 270px !important;
+  }
+
+  .gt2-legacy-profile-nav {
+    .gt2-legacy-profile-nav-right {
+      padding-right: 300px;
+    }
   }
 }
 
@@ -367,8 +379,19 @@ $notLegacyProfile: "
   .gt2-left-sidebar {
     display: none;
   }
+
   .gt2-settings-back {
     display: none !important;
+  }
+
+  .gt2-legacy-profile-nav {
+    .gt2-legacy-profile-nav-left {
+      padding-left: 610px;
+    }
+    .gt2-legacy-profile-nav-center {
+      left: 0;
+      padding: unset;
+    }
   }
 }
 @media only screen and (max-width: 1350px)
@@ -628,8 +651,9 @@ main {
     div[data-testid=primaryColumn] > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
-        opacity: 0;
-        height: 0;
+        position: absolute;
+        top: 0;
+        left: -9999px;
       }
     }
   }
@@ -737,6 +761,9 @@ main {
     padding-bottom: 10px;
     @include standardLink;
 
+    border: unset;
+    background-color: unset;
+
     .gt2-legacy-profile-screen-name,
     .gt2-legacy-profile-item {
       color: var(--color-gray-light) !important;
@@ -776,8 +803,8 @@ main {
         img {
           width: 200px;
           height: 200px;
-          position: absolute;
-          bottom: -30px;
+          position: relative;
+          bottom: 50px;
           border: 5px solid var(--color-navbar);
         }
         .gt2-legacy-profile-name,
@@ -1826,6 +1853,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
     font-size: incr(19px);
     font-weight: 800;
     border-bottom: solid 1px var(--color-gray-dark);
+    position: relative;
     .gt2-sidebar-notice-close {
       right: 10px;
       top: 10px;
