@@ -627,7 +627,7 @@ main {
               }
 
               &:last-child {
-                margin-bottom: 0;
+                margin-bottom: 10px;
               }
             }
           }
@@ -673,7 +673,6 @@ main {
     overflow: hidden;
     img {
       width: inherit;
-      height: min-content;
     }
   }
 
@@ -885,7 +884,13 @@ body {
       .gt2-left-sidebar,
       div[data-testid=sidebarColumn] > div > div:nth-child(2) {
         position: fixed;
-        top: calc(47px + 80px + 60px + 10px);
+        top: calc(47px + 80px + 60px + 10px) !important;
+      }
+      
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        height: calc(100vh - (47px + 80px + 60px));
+      }
+      .gt2-left-sidebar {
         height: calc(100vh - (47px + 80px + 60px + 10px));
       }
     }
