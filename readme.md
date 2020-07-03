@@ -101,7 +101,7 @@ Open the following box to learn more.
 </details>
 
 ## Previews
-![](https://i.imgur.com/3xY7IIpr.png)
-![](https://i.imgur.com/gxg8CUEr.png)
-![](https://i.imgur.com/nBzwaOer.png)
-![](https://i.imgur.com/VR8Le4ur.png)
+![](https://i.imgur.com/3xY7IIp.png)
+![](https://i.imgur.com/gxg8CUE.png)
+![](https://i.imgur.com/nBzwaOe.png)
+![](https://i.imgur.com/VR8Le4u.png)
