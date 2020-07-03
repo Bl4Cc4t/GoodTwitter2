@@ -594,16 +594,18 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
-    elements.push(`<div class="gt2-legacy-profile-info"></div>`)
-
-    waitForKeyElements(`${insertAt}`, () => {
-      for (let elem of elements) {
-        if (insertAt.startsWith(".gt2")) {
-          $(insertAt).prepend(elem)
-        } else {
-          $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+    elements.unshift(`<div class="gt2-legacy-profile-info"></div>`)
+    waitForKeyElements(insertAt, () => {
+      if (!$(insertAt).find(".gt2-legacy-profile-info").length) {
+        for (let elem of elements.slice().reverse()) {
+          if (insertAt.startsWith(".gt2")) {
+            $(insertAt).prepend(elem)
+          } else {
+            $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+          }
         }
       }
+
     })
   }
 
@@ -705,11 +707,16 @@
         screenName:   getPath().split("/")[0],
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        tweets:       parseInt($("div[data-testid=primaryColumn] > div > div:nth-child(1) h2 + div").text().replace(/[\.,]/g, "")),
         following:    parseInt($profile.find(`a[href$="/following"]`).attr("title").replace(/[\.,]/g, "")),
         followers:    parseInt($profile.find(`a[href$="/followers"]`).attr("title").replace(/[\.,]/g, "")),
       }
-      console.log(i);
+
+      // remove previously added profile
+      if ($(".gt2-legacy-profile-nav").length && $(".gt2-legacy-profile-name").attr("href").slice(1).toLowerCase() != i.screenName.toLowerCase()) {
+        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
+        $(".gt2-legacy-profile-info").empty()
+      }
+
 
       if (!$(".gt2-legacy-profile-banner").length) {
         $("header").before(`
@@ -727,10 +734,6 @@
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
-              <a href="/${i.screenName}" title="${i.tweets.humanize()}">
-                <div>${locStr("statsTweets")}</div>
-                <div>${i.tweets.humanizeShort()}</div>
-              </a>
               <a href="/${i.screenName}/following" title="${i.following.humanize()}">
                 <div>${locStr("statsFollowing")}</div>
                 <div>${i.following.humanizeShort()}</div>
@@ -740,15 +743,11 @@
                 <div>${i.followers.humanizeShort()}</div>
               </a>
               <!--
-              <a href="/${i.screenName}/likes" title="${i.tweets.humanize()}">
-                <div>${locStr("statsLikes")}</div>
-                <div>${i.followers.humanizeShort()}</div>
-              </a>
-              <a href="/${i.screenName}/lists" title="${i.tweets.humanize()}">
+              <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
                 <div>${locStr("navLists")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
-              <a href="/${i.screenName}/moments" title="${i.tweets.humanize()}">
+              <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
                 <div>${locStr("statsMoments")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
@@ -759,26 +758,58 @@
         `)
       }
 
-      // sidebar profile information
-      if (!$(".gt2-legacy-profile-info > div").length) {
-        $(".gt2-legacy-profile-info").append(`
-          <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-          <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-            @<span>${i.screenName}</span>
-          </a>
-          ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-          ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
-          ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
-          ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-          <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
-          ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
-        `)
+      GM_xmlhttpRequest({
+        method: "GET",
+        url: getRequestURL("https://api.twitter.com/graphql/-xfUfZsnR_zqjFd-IfrN5A/UserByScreenName", {
+          variables: {
+            screen_name: i.screenName,
+            withHighlightedLabel: true
+          }
+        }),
+        headers: getRequestHeaders(),
+        onload: (res) => {
+          if (res.status == 200 && !$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
+            let profileData = JSON.parse(res.response).data.user.legacy
 
-        // followers you know
-        waitForKeyElements("a[href$='/followers_you_follow']", e => {
-          $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
-        })
-      }
+            $(".gt2-legacy-profile-nav-center").prepend(`
+              <a href="/${i.screenName}" title="${profileData.statuses_count.humanize()}">
+                <div>${locStr("statsTweets")}</div>
+                <div>${profileData.statuses_count.humanizeShort()}</div>
+              </a>
+            `)
+            $(".gt2-legacy-profile-nav-center").append(`
+              <a href="/${i.screenName}/likes" title="${profileData.favourites_count.humanize()}">
+                <div>${locStr("statsLikes")}</div>
+                <div>${profileData.favourites_count.humanizeShort()}</div>
+              </a>
+            `)
+          }
+        }
+      })
+
+
+      // sidebar profile information
+      waitForKeyElements(".gt2-legacy-profile-info", () => {
+        if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
+          $(".gt2-legacy-profile-info").append(`
+            <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+            <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+              @<span>${i.screenName}</span>
+            </a>
+            ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
+            ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
+            ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
+            ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
+            <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
+            ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
+          `)
+
+          // followers you know
+          waitForKeyElements("a[href$='/followers_you_follow']", e => {
+            $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
+          })
+        }
+      })
 
 
       // buttons
@@ -1650,14 +1681,18 @@
     // sidebar
     let sidebarContent = []
 
-    // insert dashboard profile on all pages for now
-    sidebarContent.push(getDashboardProfile())
     // update changelog
     if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
      && GM_getValue("opt_gt2").updateNotifications
     ) {
       sidebarContent.push(getUpdateNotice())
     }
+
+    // insert dashboard profile on all pages except for the own profile page
+    if (!(path.match(/[^\/]+\/?$/) && path.split("/")[0].toLowerCase() == getInfo().screenName.toLowerCase())) {
+      sidebarContent.push(getDashboardProfile())
+    }
+
     addToSidebar(sidebarContent)
 
 
