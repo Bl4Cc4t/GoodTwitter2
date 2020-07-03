@@ -1338,13 +1338,14 @@
 
     // change dropdown position
     $(".gt2-style-acc-switcher-dropdown").remove()
-    let pos = $(".gt2-toggle-acc-switcher-dropdown").offset()
+    let pos = $(".gt2-toggle-acc-switcher-dropdown")[0].getBoundingClientRect()
     $("html").prepend(`
       <style class="gt2-style-acc-switcher-dropdown">
         #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
-          top: ${Math.round(pos.top) + 29}px !important;
           left: ${Math.round(pos.left) - 274}px !important;
+          top: ${Math.round(pos.top) + 35}px !important;
         }
+
       </style>
     `)
   })
