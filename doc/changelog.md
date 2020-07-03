@@ -1,14 +1,21 @@
 # Changelog
 
-## 0.0.22.3
-- temporary fix for ajax issues on VM / Waterfox ([#124](https://github.com/Bl4Cc4t/GoodTwitter2/issues/1135))
+## [0.0.23](https://github.com/Bl4Cc4t/GoodTwitter2/pull/145)
+*released 2020-07-03*
+- Display profile information for blocked profiles
+- Option to show legacy profile layout ([#8](https://github.com/Bl4Cc4t/GoodTwitter2/issues/8))
+- Bugfixes
 
 
-## 0.0.22.2
+#### 0.0.22.3
+- temporary fix for ajax issues on VM / Waterfox ([#135](https://github.com/Bl4Cc4t/GoodTwitter2/issues/135))
+
+
+#### 0.0.22.2
 - settings hotfix \# 2
 
 
-## 0.0.22.1
+#### 0.0.22.1
 - settings hotfix
 
 
@@ -22,7 +29,7 @@
 - added option to hide the recently added message box ([#124](https://github.com/Bl4Cc4t/GoodTwitter2/issues/124))
 
 
-## 0.0.21.1
+#### 0.0.21.1
 - inline translation cookie hotfix
 
 

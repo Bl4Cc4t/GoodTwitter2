@@ -26,25 +26,15 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ## Features
-![](https://i.imgur.com/Q4Ss6vkr.png)
 - Legacy Navbar is back!
+![](https://i.imgur.com/Q4Ss6vkr.png)
+- Legacy Profile Layout Option!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
   - The default and dim theme use the color palette from legacy twitter
 - Added toggle for nightmode when not logged in
 - Translate tweets directly in your timeline!
-
-### Custom Settings
-#### Timeline
-- *Force Latest*: Forces the “You’re seeing latest tweets first” display option
-- *Disable Auto Refresh*: Hides newly loaded tweets and creates a button to show them. This feature is not stable.
-- *Keep Tweets in Timeline*: Tries to disable the automatic removal of tweets once they are out of viewing range. This does not yet work.
-#### Display
-- *Sticky Sidebars*: This lets the sidebars stick to the page, so you will see them even if you scroll down.
-- *Small Sidebars*: Don’t like sidebars taking up precious space? Decrease their width by 60px with this toggle.
-- *Left Sidebar Trends*: Shows Trends in the left sidebar, if there is one.
-- *Square Avatars*: pre-2017 square avatars.
-- *Bigger Image Previews*: Images that are tall get displayed in their full height.
+- Various custom settings, take a look at the [previews](#previews)
 
 ## Installation
 To use this script, you need a userscript manager.
@@ -73,6 +63,7 @@ If you want to help with coding, you can take a look at the issue tracker. There
 
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
+- Dutch (added by [@gvmelle](https://github.com/gvmelle))
 - French (added by [@Aridow](https://github.com/Aridow))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
@@ -98,7 +89,7 @@ Open the following box to learn more.
 ![](https://i.imgur.com/AarcTav.png)
 
     - Then, translate all strings and create a pull request.
-      - For all the strings up to `tweets`: Please use the official translations on twitter. (e.g. `composeNewTweet` refers to the big tweet button on the bottom left.)
+      - For all the strings in the first paragraph (before the first empty line): Please use the official translations on twitter if you can.
     - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
@@ -112,4 +103,5 @@ Open the following box to learn more.
 ## Previews
 ![](https://i.imgur.com/3xY7IIpr.png)
 ![](https://i.imgur.com/gxg8CUEr.png)
-![](https://i.imgur.com/aIHaT4or.png)
+![](https://i.imgur.com/nBzwaOer.png)
+![](https://i.imgur.com/VR8Le4ur.png)
