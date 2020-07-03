@@ -687,6 +687,14 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
+    let screenName = getPath().split("/")[0]
+
+    // remove previously added profile
+    if ($(".gt2-legacy-profile-nav").length && $(".gt2-legacy-profile-name").attr("href").slice(1).toLowerCase() != screenName.toLowerCase()) {
+      $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
+      $(".gt2-legacy-profile-info").empty()
+    }
+
     waitForKeyElements("div[data-testid=userActions], a[href$='/photo'] img", () => {
 
       let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
@@ -703,19 +711,15 @@
 
       // information (constant)
       const i = {
-        avatarUrl:    `${$("a[href$='/photo'] img").attr("src").replace(/_(normal|\d+x\d+)/, "")}`,
-        screenName:   getPath().split("/")[0],
+        avatarUrl:    `${$("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d+x\d+)/, "")}`,
+        screenName,
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
         following:    parseInt($profile.find(`a[href$="/following"]`).attr("title").replace(/[\.,]/g, "")),
         followers:    parseInt($profile.find(`a[href$="/followers"]`).attr("title").replace(/[\.,]/g, "")),
       }
 
-      // remove previously added profile
-      if ($(".gt2-legacy-profile-nav").length && $(".gt2-legacy-profile-name").attr("href").slice(1).toLowerCase() != i.screenName.toLowerCase()) {
-        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-        $(".gt2-legacy-profile-info").empty()
-      }
+
 
 
       if (!$(".gt2-legacy-profile-banner").length) {
@@ -789,27 +793,25 @@
 
 
       // sidebar profile information
-      waitForKeyElements(".gt2-legacy-profile-info", () => {
-        if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
-          $(".gt2-legacy-profile-info").append(`
-            <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-            <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-              @<span>${i.screenName}</span>
-            </a>
-            ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-            ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
-            ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
-            ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-            <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
-            ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
-          `)
+      if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
+        $(".gt2-legacy-profile-info").append(`
+          <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+          <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+            @<span>${i.screenName}</span>
+          </a>
+          ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
+          ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
+          ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
+          ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
+          <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
+          ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
+        `)
 
-          // followers you know
-          waitForKeyElements("a[href$='/followers_you_follow']", e => {
-            $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
-          })
-        }
-      })
+        // followers you know
+        waitForKeyElements("a[href$='/followers_you_follow']", e => {
+          $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
+        })
+      }
 
 
       // buttons
@@ -1007,7 +1009,6 @@
 
                 // followers you know
                 let fyk = JSON.parse(res.response)
-                console.log(fyk);
 
                 let fykText
                 if (fyk.total_count < 4) {
@@ -1630,6 +1631,12 @@
   // ################
 
 
+  function beforeUrlChange() {
+    // reattach buttons to original position
+    $(".gt2-legacy-profile-nav-right > div").detach().appendTo("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+  }
+
+
   // stuff to do when url changes
   function urlChange(path) {
     path = path || getPath()
@@ -1665,8 +1672,9 @@
       }
 
       // on error page
-      if ($(mainView).find("h1[data-testid=error-detail]").length
-       && !path.startsWith("settings/gt2")) {
+      if (($(mainView).find("h1[data-testid=error-detail]").length
+       && !path.startsWith("settings/gt2"))
+      || $(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span`).length) {
         $("body").addClass("gt2-page-error")
       } else {
         $("body").removeClass("gt2-page-error")
@@ -1779,10 +1787,12 @@
       // if not on modal
       if (!onSubPage("i", ["display"])
           && !onSubPage("settings", ["trends", "profile"])
+          && !path.match(/\/(photo|video)\/\d\/?$/)
       ) {
         $("body").removeClass("gt2-page-profile")
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-        $(".gt2-legacy-profile-info").empty()
+        $(".gt2-legacy-profile-info").remove()
+
       }
 
     // assume profile
@@ -1822,17 +1832,20 @@
 
   const origPush = exportFunc(pageHistory.pushState, pageWindow)
   pageHistory.pushState = exportFunc(function () {
+    beforeUrlChange()
     origPush.apply(this, arguments)
     urlChange(arguments[2].slice(1))
   }, pageWindow)
 
   const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
   pageHistory.replaceState = exportFunc(function () {
+    beforeUrlChange()
     origRepl.apply(this, arguments)
     urlChange(arguments[2].slice(1))
   }, pageWindow)
 
   window.addEventListener("popstate", function() {
+    beforeUrlChange()
     urlChange()
   })
 
