@@ -1746,6 +1746,13 @@
       $("body").removeClass("gt2-page-messages")
     }
 
+    // tweet
+    if (onSubPage(null, ["status"])) {
+      $("body").addClass("gt2-page-tweet")
+    } else {
+      $("body").removeClass("gt2-page-tweet")
+    }
+
 
     // sidebar
     let sidebarContent = []
