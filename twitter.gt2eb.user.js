@@ -971,7 +971,7 @@
                 let descr = p.description
                 .populateWithEntities(p.entities.description)
                 .replaceEmojis()
-                let matches = descr.match(/(@[0-9A-Za-z_]+)/g)
+                let matches = descr.match(/(@[0-9A-Za-z_]+)/g) || []
                 for (let m of matches) {
                   descr = descr.replace(m, `<a href="/${m.slice(1)}">${m}</a>`)
                 }
