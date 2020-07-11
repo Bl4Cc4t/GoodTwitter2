@@ -1057,7 +1057,7 @@ body:not(.gt2-opt-small-sidebars) {
 // }
 
 .gt2-hide-spark-opt {
-  #react-root h2 + div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) {
+  #react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
     display: none;
   }
 }
