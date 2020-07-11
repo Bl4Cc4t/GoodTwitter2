@@ -826,14 +826,14 @@ main {
     }
 
     .gt2-legacy-profile-banner {
-      height: 80px !important;
+      height: 15px !important;
       img {
         transform: unset !important;
       }
     }
 
     .gt2-legacy-profile-nav {
-      margin-top: calc(47px + 80px);
+      margin-top: calc(47px + 15px);
 
       img {
         width: 36px;
@@ -884,14 +884,14 @@ body {
       .gt2-left-sidebar,
       div[data-testid=sidebarColumn] > div > div:nth-child(2) {
         position: fixed;
-        top: calc(47px + 80px + 60px + 10px) !important;
+        top: calc(47px + 15px + 60px + 10px) !important;
       }
-      
+
       div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-        height: calc(100vh - (47px + 80px + 60px));
+        height: calc(100vh - (47px + 15px + 60px));
       }
       .gt2-left-sidebar {
-        height: calc(100vh - (47px + 80px + 60px + 10px));
+        height: calc(100vh - (47px + 15px + 60px + 10px));
       }
     }
   }

@@ -1603,7 +1603,7 @@
   // things to do when scrolling
   ;(function() {
     let prev = window.pageYOffset
-    let bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 80
+    let bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 15
 
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
