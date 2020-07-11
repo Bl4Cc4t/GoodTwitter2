@@ -1411,7 +1411,7 @@
 
   // display settings
   let displaySettings = "main > div > div > div > section:nth-last-child(1) > div:nth-child(2)"
-  let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
+  let displaySettingsModal = "div[aria-labelledby=modal-header] > div > div:nth-child(2) > div > div"
 
 
   // user color
@@ -1733,7 +1733,7 @@
         $("body").removeClass("gt2-page-settings-active")
         $(".gt2-settings-header, .gt2-settings").remove()
       }
-    } else {
+    } else if (path != "i/display") {
       $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
       $(".gt2-settings-header, .gt2-settings").remove()
     }
