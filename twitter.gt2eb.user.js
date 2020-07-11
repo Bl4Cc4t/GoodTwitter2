@@ -1639,7 +1639,7 @@
 
   // stuff to do when url changes
   function urlChange(changeType, path) {
-    path = path || getPath()
+    path = (path || getPath()).split("?")[0]
     console.log(`[${changeType}] ${path}`)
 
 
@@ -1772,6 +1772,7 @@
           "i",
           "messages",
           "notifications",
+          "search",
           "settings",
         ) || onSubPage(null, [
           "followers",
