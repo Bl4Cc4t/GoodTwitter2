@@ -1688,24 +1688,6 @@
     })
 
 
-    // sidebar
-    let sidebarContent = []
-
-    // update changelog
-    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
-     && GM_getValue("opt_gt2").updateNotifications
-    ) {
-      sidebarContent.push(getUpdateNotice())
-    }
-
-    // insert dashboard profile on all pages except for the own profile page
-    if (!(path.match(/[^\/]+\/?$/) && path.split("/")[0].toLowerCase() == getInfo().screenName.toLowerCase())) {
-      sidebarContent.push(getDashboardProfile())
-    }
-
-    addToSidebar(sidebarContent)
-
-
     if (isLoggedIn()) {
 
       // add navbar
@@ -1765,6 +1747,17 @@
     }
 
 
+    // sidebar
+    let sidebarContent = []
+
+    // update changelog
+    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
+     && GM_getValue("opt_gt2").updateNotifications
+    ) {
+      sidebarContent.push(getUpdateNotice())
+    }
+
+
     // not profile
     if (onPage(
           "explore",
@@ -1791,8 +1784,10 @@
         $("body").removeClass("gt2-page-profile")
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
         $(".gt2-legacy-profile-info").remove()
-
       }
+
+      // insert dashboard profile
+      sidebarContent.push(getDashboardProfile())
 
     // assume profile
     } else {
@@ -1805,6 +1800,10 @@
         rebuildLegacyProfile()
       }
     }
+
+
+    // add elements to sidebar
+    addToSidebar(sidebarContent)
 
 
     // blocked profile page
