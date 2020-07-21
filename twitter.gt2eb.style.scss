@@ -1156,6 +1156,13 @@ div[data-testid=caret] {
 }
 
 
+// make parts around toasts clickable
+div[data-testid=toast] {
+  position: absolute;
+  bottom: 0;
+}
+
+
 .gt2-svg {
   fill: var(--color-gray-light);
 }
