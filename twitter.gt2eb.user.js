@@ -1651,6 +1651,12 @@
       return (top == null ? true : onPage(top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
     }
 
+    // on modal
+    let isModal = onSubPage("i", ["display"])
+               || onSubPage("settings", ["trends", "profile"])
+               || onSubPage("compose", ["tweet"])
+               || path.match(/\/(photo|video)\/\d\/?$/)
+
     // do a reload on these pages
     if (onPage("login") || (!isLoggedIn() && onPage(""))) {
       window.location.reload()
@@ -1674,7 +1680,7 @@
       // on error page
       if ($(mainView).find("h1[data-testid=error-detail]").length && !path.startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-error")
-      } else {
+      } else if (!isModal) {
         $("body").removeClass("gt2-page-error")
       }
 
@@ -1706,7 +1712,7 @@
         $(".gt2-search").empty()
         $("body").removeClass("gt2-search-added")
         $("body").addClass("gt2-page-search")
-      } else {
+      } else if (!isModal) {
         $("body").removeClass("gt2-page-search")
         addSearch()
       }
@@ -1733,7 +1739,7 @@
         $("body").removeClass("gt2-page-settings-active")
         $(".gt2-settings-header, .gt2-settings").remove()
       }
-    } else if (path != "i/display") {
+    } else if (!isModal) {
       $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
       $(".gt2-settings-header, .gt2-settings").remove()
     }
@@ -1742,14 +1748,14 @@
     // messages
     if (onPage("messages")) {
       $("body").addClass("gt2-page-messages")
-    } else {
+    } else if (!isModal) {
       $("body").removeClass("gt2-page-messages")
     }
 
     // tweet
     if (onSubPage(null, ["status"])) {
       $("body").addClass("gt2-page-tweet")
-    } else {
+    } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }
 
@@ -1784,10 +1790,7 @@
         ])
     ) {
       // if not on modal
-      if (!onSubPage("i", ["display"])
-          && !onSubPage("settings", ["trends", "profile"])
-          && !path.match(/\/(photo|video)\/\d\/?$/)
-      ) {
+      if (!isModal) {
         $("body").removeClass("gt2-page-profile")
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
         $(".gt2-legacy-profile-info").remove()
