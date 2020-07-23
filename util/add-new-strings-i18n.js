@@ -10,7 +10,7 @@ fs.readdir(path.join(__dirname, "..", "i18n"), (err, files) => {
   if (err) console.error(err)
 
   for (let file of files) {
-    if (file.endsWith(".json") && !file.match(/^(en|internal)\.json/)) {
+    if (file.endsWith(".json") && !file.match(/^en\.json/)) {
       let foreign = fs.readFileSync(path.join(dir, file), "utf8")
       let out = []
       let enLines = en.split("\n")

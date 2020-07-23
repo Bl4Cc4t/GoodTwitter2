@@ -1,12 +1,29 @@
 {
+  "composeNewTweet": "推文",
+  "navBookmarks": "书签",
+  "navDirectMessage": "私信",
+  "navExplore": "探索",
+  "navHome": "主页",
+  "navLists": "列表",
+  "navNotifications": "通知",
+  "navProfile": "个人资料",
+  "statsFollowers": "关注者",
+  "statsFollowing": "正在关注",
+  "statsLikes": "喜欢",
+  "statsMoments": "瞬间",
+  "statsTweets": "推文",
+  "translateTweet": "翻译推文",
+
+  "followedBy0": "你关注的人中没有人关注",
+  "followedBy1": "$p1$ 关注了此账号",
+  "followedBy2": "$p1$ 和 $p2$ 关注了此账号",
+  "followedBy3": "$p1$、$p2$ 和 $p3$ 都已关注",
+  "followedBy4Plus": "$p1$、$p2$ 和你关注的另外 $nr$ 人关注了此账号",
+  "joinDate": "$date$ 加入",
   "showNewMulti": "显示 $ 条新推文",
   "showNewSingle": "显示 1 条新推文",
   "translatedTweetInfo": "由 $source$ 翻译自 $lang$ ",
-  "bpFollowedBy0": "你关注的人中没有人关注",
-  "bpFollowedBy1": "$p1$ 关注了此账号",
-  "bpFollowedBy2": "$p1$ 和 $p2$ 关注了此账号",
-  "bpFollowedBy3": "$p1$、$p2$ 和 $p3$ 都已关注",
-  "bpFollowedBy4Plus": "$p1$、$p2$ 和你关注的另外 $nr$ 人关注了此账号",
+
   "settingsHeaderTimeline": "时间线",
   "settingsHeaderSidebars": "侧边栏",
   "settingsHeaderOther": "其它",
@@ -32,6 +49,7 @@
   "smallSidebarsDesc": "侧边栏的宽度将从350px变为290px。",
   "squareAvatars": "正方形头像",
   "updateNotifications": "GoodTwitter 2 更新通知",
+
   "updatedInfo": "升级到 $version$!",
   "updatedInfoChangelog": "更新日志"
 }

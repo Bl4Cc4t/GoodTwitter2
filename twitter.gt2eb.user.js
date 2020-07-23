@@ -129,41 +129,15 @@
   }
 
 
-  // save the contents of the internal i18n-rweb script in a variable
-  function setI18nInternalRweb() {
-    GM_xmlhttpRequest({
-      method: "GET",
-      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src")+"#",
-      onload: function(res) {
-        if (res.status == 200) {
-          GM_setValue("i18n_internal_rweb", res.responseText)
-          window.location.reload()
-        }
-      },
-      onerror: (e) => console.error(e)
-    })
-  }
-
   // get localized version of a string.
   // defaults to english version.
-  function locStr(key) {
-    if (Object.keys(i18n.internal).includes(key)) {
-      let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
-      if (GM_getValue("i18n_internal_rweb") == undefined
-       || GM_getValue("i18n_internal_rweb").match(/xml version=/)) {
-        setI18nInternalRweb()
-        return i18n.internal.fallback[key]
-      } else {
-        return GM_getValue("i18n_internal_rweb").match(re)[1]
-      }
+  function getLocStr(key) {
+    let lang = getLang()
+    lang = Object.keys(i18n).includes(lang) ? lang : "en"
+    if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
+      return i18n[lang][key]
     } else {
-      let lang = getLang()
-      lang = Object.keys(i18n).includes(lang) ? lang : "en"
-      if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
-        return i18n[lang][key]
-      } else {
-        return i18n.en[key]
-      }
+      return i18n.en[key]
     }
   }
 
@@ -396,7 +370,7 @@
     return `
       <div class="gt2-setting">
         <div>
-          <span>${locStr(name)}</span>
+          <span>${getLocStr(name)}</span>
           <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
             <div></div>
             <div>
@@ -404,7 +378,7 @@
             </div>
           </div>
         </div>
-        ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
+        ${getLocStr(d) ? `<span>${getLocStr(d)}</span>` : ""}
       </div>`
   }
 
@@ -421,12 +395,12 @@
           GoodTwitter2 v${GM_info.script.version}
         </div>
         <div class="gt2-settings">
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("hideWhoToFollow")}
@@ -434,7 +408,7 @@
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
@@ -535,7 +509,7 @@
             <div class="gt2-toggle-navbar-dropdown">
               <img src="${getInfo().avatarUrl.replace("normal.", "bigger.")}" />
             </div>
-            <div class="gt2-compose">${locStr("composeNewTweet")}</div>
+            <div class="gt2-compose">${getLocStr("composeNewTweet")}</div>
           </div>
         </nav>
         <div class="gt2-search-overflow-hider"></div>
@@ -552,7 +526,7 @@
         $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
         .append(`
           <div class="gt2-nav-header">
-            ${locStr(`nav${e}`)}
+            ${getLocStr(`nav${e}`)}
           </div>
         `)
       }
@@ -636,19 +610,19 @@
             <ul>
               <li>
                 <a ${href}="/${i.screenName}">
-                  <span>${locStr("statsTweets")}</span>
+                  <span>${getLocStr("statsTweets")}</span>
                   <span>${i.stats.tweets.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/following">
-                  <span>${locStr("statsFollowing")}</span>
+                  <span>${getLocStr("statsFollowing")}</span>
                   <span>${i.stats.following.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/followers">
-                  <span>${locStr("statsFollowers")}</span>
+                  <span>${getLocStr("statsFollowers")}</span>
                   <span>${i.stats.followers.humanize()}</span>
                 </a>
               </li>
@@ -673,11 +647,11 @@
           </div>
         </div>
         <div class="gt2-sidebar-notice-content">
-          ${getSvg("tick")} ${locStr("updatedInfo").replace("$version$", `v${v}`)}<br />
+          ${getSvg("tick")} ${getLocStr("updatedInfo").replace("$version$", `v${v}`)}<br />
           <a
             href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
             target="_blank">
-            ${locStr("updatedInfoChangelog")}
+            ${getLocStr("updatedInfoChangelog")}
           </a>
         </div>
       </div>
@@ -737,20 +711,20 @@
             </div>
             <div class="gt2-legacy-profile-nav-center">
               <a href="/${i.screenName}/following" title="${i.following.humanize()}">
-                <div>${locStr("statsFollowing")}</div>
+                <div>${getLocStr("statsFollowing")}</div>
                 <div>${i.following.humanizeShort()}</div>
               </a>
               <a href="/${i.screenName}/followers" title="${i.followers.humanize()}">
-                <div>${locStr("statsFollowers")}</div>
+                <div>${getLocStr("statsFollowers")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
               <!--
               <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
-                <div>${locStr("navLists")}</div>
+                <div>${getLocStr("navLists")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
               <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
-                <div>${locStr("statsMoments")}</div>
+                <div>${getLocStr("statsMoments")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
               -->
@@ -775,13 +749,13 @@
 
             $(".gt2-legacy-profile-nav-center").prepend(`
               <a href="/${i.screenName}" title="${profileData.statuses_count.humanize()}">
-                <div>${locStr("statsTweets")}</div>
+                <div>${getLocStr("statsTweets")}</div>
                 <div>${profileData.statuses_count.humanizeShort()}</div>
               </a>
             `)
             $(".gt2-legacy-profile-nav-center").append(`
               <a href="/${i.screenName}/likes" title="${profileData.favourites_count.humanize()}">
-                <div>${locStr("statsLikes")}</div>
+                <div>${getLocStr("statsLikes")}</div>
                 <div>${profileData.favourites_count.humanizeShort()}</div>
               </a>
             `)
@@ -994,13 +968,9 @@
                     <div class="gt2-bp-user-joined-at">
                       ${getSvg("calendar")}
                       <span>
-                        ${GM_getValue("i18n_internal_rweb")
-                          .match(/\{return([^\}]*e\.joinDate[^\}]*)\}/)[1]
-                          .replace(/\"/g, "")
-                          .replace(
-                            /\+?e\.joinDate\+?/,
-                            `${joinDate.toLocaleDateString(getLang(), { month: "long" })} ${joinDate.getFullYear()}`
-                          )
+                        ${
+                          getLocStr("joinDate")
+                          .replace("$date$", `${joinDate.toLocaleDateString(getLang(), { month: "long" })} ${joinDate.getFullYear}`)
                         }
                       </span>
                     </div>
@@ -1012,12 +982,12 @@
 
                 let fykText
                 if (fyk.total_count < 4) {
-                  fykText = locStr(`bpFollowedBy${fyk.total_count}`)
+                  fykText = getLocStr(`followedBy${fyk.total_count}`)
                   .replace("$p1$", fyk.users.length > 0 ? fyk.users[0].name : "")
                   .replace("$p2$", fyk.users.length > 1 ? fyk.users[1].name : "")
                   .replace("$p3$", fyk.users.length > 2 ? fyk.users[2].name : "")
                 } else {
-                  fykText = locStr("bpFollowedBy4Plus")
+                  fykText = getLocStr("followedBy4Plus")
                   .replace("$p1$", fyk.users[0].name)
                   .replace("$p2$", fyk.users[1].name)
                   .replace("$nr$", fyk.total_count - 2)
@@ -1085,7 +1055,7 @@
       if (tweetLang != userLang && tweetLang != "und") {
         $(e).find("div[lang]").first().after(`
           <div class="gt2-translate-tweet">
-            ${locStr("translateTweet")}
+            ${getLocStr("translateTweet")}
           </div>
         `)
       }
@@ -1105,7 +1075,7 @@
     }
 
     let _this = this
-    GM_setValue("tmp_translatedTweetInfo", locStr("translatedTweetInfo"))
+    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
     let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
 
@@ -1181,7 +1151,7 @@
   // add counter for new tweets
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
-    let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
+    let text = nr == 1 ? getLocStr("showNewSingle") : getLocStr("showNewMulti").replace("$", nr)
 
     // exception for russian
     if (getLang() == "ru") {
@@ -1324,7 +1294,7 @@
       ]
       for (let e of toAttach) {
         let $tmp = $("header nav").find(e.sel).clone()
-        $tmp.children().append(`<span>${locStr(`nav${e.name}`)}</span>`)
+        $tmp.children().append(`<span>${getLocStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
       }
 
@@ -1388,14 +1358,6 @@
       GM_setValue(`sb_notice_ack_update_${GM_info.script.version}`, true)
     }
     $(this).parents(".gt2-sidebar-notice").remove()
-  })
-
-
-  // reload i18n_internal_rweb
-  $("body").on("click", "div[data-testid=settingsDetailSave]", function() {
-    if ($(this).parent().parent().find("div[data-testid=languageSelector]").length) {
-      GM_deleteValue("i18n_internal_rweb")
-    }
   })
 
 
