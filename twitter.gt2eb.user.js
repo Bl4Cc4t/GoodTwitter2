@@ -575,7 +575,7 @@
           if (insertAt.startsWith(".gt2")) {
             $(insertAt).prepend(elem)
           } else {
-            $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+            $(`${insertAt} > div:empty:not(.gt2-legacy-profile-info)`).after(elem)
           }
         }
       }
