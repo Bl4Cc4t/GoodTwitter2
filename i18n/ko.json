@@ -14,6 +14,8 @@
   "statsTweets": "트윗",
   "translateTweet": "트윗 번역하기",
 
+  "bornDate": "생일: $date$",
+  "bornYear": "출생년도: $year$",
   "followedBy0": "내가 팔로우하는 사용자 중에는 팔로워가 없습니다",
   "followedBy1": "$p1$ 님이 팔로우합니다",
   "followedBy2": "$p1$, $p2$ 님이 팔로우합니다",

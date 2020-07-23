@@ -648,6 +648,7 @@ main {
 .gt2-opt-legacy-profile.gt2-page-profile {
   main {
     margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
+    min-height: 880px;
     div[data-testid=primaryColumn] > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
@@ -768,6 +769,10 @@ main {
       color: var(--color-gray-light) !important;
     }
 
+    .gt2-legacy-profile-description {
+      color: var(--color-text);
+    }
+
     .gt2-legacy-profile-screen-name,
     .gt2-legacy-profile-description {
       margin-bottom: 12px;
@@ -784,6 +789,25 @@ main {
           text-decoration-color: var(--color-gray-light);
         }
       }
+    }
+
+
+    // blocked profile
+    .gt2-legacy-profile-item {
+      .gt2-blocked-profile-location,
+      .gt2-blocked-profile-url,
+      .gt2-blocked-profile-birthday,
+      .gt2-blocked-profile-joined-at {
+        display: inline-flex;
+        svg {
+          height: 1.25em;
+          margin-right: 5px;
+        }
+
+      }
+    }
+    .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
+      color: var(--color-gray-light);
     }
   }
 
@@ -2012,18 +2036,18 @@ body[data-payment-endpoint-path] {
 
 // blocked profile stuff
 
-.gt2-bp-user-description,
-.gt2-bp-user-items {
+.gt2-blocked-profile-description,
+.gt2-blocked-profile-items {
   margin-bottom: 10px;
   @include standardLink;
 }
 
-.gt2-bp-user-description {
+.gt2-blocked-profile-description {
   color: var(--color-text);
   white-space: pre-wrap;
 }
 
-.gt2-bp-user-items {
+.gt2-blocked-profile-items {
   display: inline;
   color: var(--color-gray-light);
 
@@ -2039,7 +2063,7 @@ body[data-payment-endpoint-path] {
   }
 }
 
-.gt2-bp-followers-you-know {
+.gt2-blocked-profile-followers-you-know {
   margin-top: 10px;
   font-size: incr(13px);
   display: flex;

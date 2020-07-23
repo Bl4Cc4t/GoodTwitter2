@@ -14,6 +14,8 @@
   "statsTweets": "Tweets",
   "translateTweet": "Tweet übersetzen",
 
+  "bornDate": "Geboren am $date$",
+  "bornYear": "Geboren $year$",
   "followedBy0": "Gefolgt von niemandem, dem du folgst",
   "followedBy1": "Gefolgt von $p1$",
   "followedBy2": "Gefolgt von $p1$ und $p2$",

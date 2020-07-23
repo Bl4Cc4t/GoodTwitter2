@@ -14,6 +14,8 @@
   "statsTweets": "Твиты",
   "translateTweet": "Перевести твит",
 
+  "bornDate": "Дата рождения: $date$",
+  "bornYear": "Год рождения: $year$",
   "followedBy0": "Нет в читаемых у пользователей, которых читаете вы",
   "followedBy1": "В читаемых у $p1$",
   "followedBy2": "В читаемых у $p1$ и $p2$",
