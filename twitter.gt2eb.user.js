@@ -676,18 +676,9 @@
 
       let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
 
-      // elements
-      let e = {
-        $banner:      $("a[href$='/header_photo'] img"),
-        $description: $profile.find("div[data-testid=UserDescription]"),
-        $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
-        $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
-        $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
-        $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
-      }
-
       // information (constant)
       const i = {
+        $banner:      $("a[href$='/header_photo'] img"),
         avatarUrl:    $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
         screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
@@ -700,7 +691,7 @@
       if (!$(".gt2-legacy-profile-banner").length) {
         $("header").before(`
           <div class="gt2-legacy-profile-banner">
-            ${e.$banner.length ? `<img src="${e.$banner.attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500" />` : ""}
+            ${i.$banner.length ? `<img src="${i.$banner.attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500" />` : ""}
           </div>
           <div class="gt2-legacy-profile-nav">
             <div class="gt2-legacy-profile-nav-left">
@@ -772,6 +763,20 @@
       waitForKeyElements(".gt2-legacy-profile-info", () => {
 
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
+
+          // elements
+          let e = {
+            $description: $profile.find("div[data-testid=UserDescription]"),
+            $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
+            $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
+            $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
+            $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
+          }
+          i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
+          i.nameHTML      = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
+          i.joinDateHTML  = $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html()
+
+
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
             <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
