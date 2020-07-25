@@ -1817,7 +1817,7 @@
       sidebarContent.push(getDashboardProfile())
 
     // assume profile
-    } else {
+  } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
         if (changeType == "pop") {

@@ -644,17 +644,27 @@ main {
   }
 }
 
+// options
+
 // old profile layout
 .gt2-opt-legacy-profile.gt2-page-profile {
   main {
     margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
     min-height: 880px;
+
+    & > div {
+      transition: margin-top .25s ease-in-out;
+    }
+
     div[data-testid=primaryColumn] > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
         left: -9999px;
+      }
+      & > div:nth-child(2) > div > div > div:nth-child(2) {
+        border-top-width: 0;
       }
     }
   }
@@ -844,6 +854,10 @@ main {
 
   // view when scrolled down
   &.gt2-scrolled-down-banner {
+    main > div {
+      margin-top: 50px;
+    }
+
     .gt2-legacy-profile-banner,
     .gt2-legacy-profile-nav {
       position: fixed;
@@ -880,9 +894,6 @@ body {
   }
 }
 
-
-
-// options
 
 .gt2-opt-sticky-sidebars {
   #{$notLegacyProfile} {
