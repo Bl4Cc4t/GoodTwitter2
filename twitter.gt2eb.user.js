@@ -1720,8 +1720,10 @@
 
 
       // highlight current location in left bar
-      $(`.gt2-nav-left > a`).removeClass("active")
-      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+      if (!isModal) {
+        $(`.gt2-nav-left > a`).removeClass("active")
+        $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+      }
 
 
       // hide/add search
