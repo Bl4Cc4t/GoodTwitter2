@@ -119,7 +119,7 @@
 
   // get current display language
   function getLang() {
-    return $("html").attr("lang")
+    return $("html").attr("lang").trim()
   }
 
 
@@ -1106,12 +1106,13 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
-      let tweetLang = $(e).find("div[lang]").attr("lang")
-      let userLang  = getLang().trim()
+    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href~='/status/']", function(e) {
+      let $e = $(e).parents("div[data-testid=tweet]")
+      let tweetLang = $e.find("div[lang]").attr("lang")
+      let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
       if (tweetLang != userLang && tweetLang != "und") {
-        $(e).find("div[lang]").first().after(`
+        $e.find("div[lang]").first().after(`
           <div class="gt2-translate-tweet">
             ${getLocStr("translateTweet")}
           </div>
