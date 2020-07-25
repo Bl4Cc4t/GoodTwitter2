@@ -1374,7 +1374,7 @@
     let pos = $(".gt2-toggle-acc-switcher-dropdown")[0].getBoundingClientRect()
     $("html").prepend(`
       <style class="gt2-style-acc-switcher-dropdown">
-        #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
+        #layers > div:nth-child(2) > div > div > div:nth-child(2) {
           left: ${Math.round(pos.left) - 274}px !important;
           top: ${Math.round(pos.top) + 35}px !important;
         }

@@ -1092,40 +1092,41 @@ body:not(.gt2-opt-small-sidebars) {
 // }
 
 .gt2-hide-spark-opt {
-  #react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
+  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
     display: none;
   }
 }
 
 // hide search when added to navbar
-.gt2-search-added div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
-  display: none;
+.gt2-search-added {
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+    display: none;
+  }
 }
-
+  
 // acc switcher dropdown
-.gt2-acc-switcher-active #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
-  bottom: unset !important;
-  right: unset !important;
+.gt2-acc-switcher-active {
+  #layers > div:nth-child(2) > div > div > div:nth-child(2) {
+    bottom: unset !important;
+    right: unset !important;
 
-  & > div > div:nth-child(2) > div > div > div {
-
-    & > svg {
-      position: absolute;
-      fill: var(--color-elem);
-      filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
-      transform: unset !important;
-      bottom: unset !important;
-      top: -11px !important;
-      right: 5px !important;
-      left: unset !important;
-    }
-    & > div > div {
-      padding: 0;
+    & > div > div:nth-child(2) > div > div > div {
+      & > svg {
+        position: absolute;
+        fill: var(--color-elem);
+        filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
+        transform: unset !important;
+        bottom: unset !important;
+        top: -11px !important;
+        right: 5px !important;
+        left: unset !important;
+      }
+      & > div > div {
+        padding: 0;
+      }
     }
   }
-
 }
-
 
 
 
