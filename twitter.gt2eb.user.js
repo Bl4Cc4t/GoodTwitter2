@@ -1624,6 +1624,13 @@
 
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
+
+      // prevent auto scroll to top
+      if (prev > 1500 && curr == 0) {
+        window.pageYOffset = prev
+        return
+      }
+
       if (prev < curr) {
         $("body").addClass("gt2-scrolled-down")
       } else {
