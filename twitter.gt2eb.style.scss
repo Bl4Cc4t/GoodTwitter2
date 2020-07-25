@@ -1751,9 +1751,9 @@ body[style*="overflow-y: hidden"] {
         }
       }
     }
-    & > section div:not([class]) > div:empty {
-      display: none;
-    }
+    // & > section div:not([class]) > div:empty {
+    //   display: none;
+    // }
   }
 }
 
