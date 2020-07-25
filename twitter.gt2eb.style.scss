@@ -1731,6 +1731,14 @@ body[style*="overflow-y: hidden"] {
 
       &:nth-last-child(2) {
         width: 40%;
+
+        // better indicator for active conversation
+        div[data-testid=conversation][aria-selected=true] {
+          background-color: var(--color-elem-sel);
+          & + div {
+            border-right-width: 4px;
+          }
+        }
       }
       &:nth-last-child(1) {
         width: 60%;
