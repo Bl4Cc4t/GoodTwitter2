@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.23
+// @version       0.0.24
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -119,7 +119,7 @@
 
   // get current display language
   function getLang() {
-    return $("html").attr("lang")
+    return $("html").attr("lang").trim()
   }
 
 
@@ -129,41 +129,15 @@
   }
 
 
-  // save the contents of the internal i18n-rweb script in a variable
-  function setI18nInternalRweb() {
-    GM_xmlhttpRequest({
-      method: "GET",
-      url: $("script[src^='https://abs.twimg.com/responsive-web/web/i18n-rweb/']").attr("src")+"#",
-      onload: function(res) {
-        if (res.status == 200) {
-          GM_setValue("i18n_internal_rweb", res.responseText)
-          window.location.reload()
-        }
-      },
-      onerror: (e) => console.error(e)
-    })
-  }
-
   // get localized version of a string.
   // defaults to english version.
-  function locStr(key) {
-    if (Object.keys(i18n.internal).includes(key)) {
-      let re = new RegExp(`\"${i18n.internal[key]}\","([^\"]+)\"`)
-      if (GM_getValue("i18n_internal_rweb") == undefined
-       || GM_getValue("i18n_internal_rweb").match(/xml version=/)) {
-        setI18nInternalRweb()
-        return i18n.internal.fallback[key]
-      } else {
-        return GM_getValue("i18n_internal_rweb").match(re)[1]
-      }
+  function getLocStr(key) {
+    let lang = getLang()
+    lang = Object.keys(i18n).includes(lang) ? lang : "en"
+    if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
+      return i18n[lang][key]
     } else {
-      let lang = getLang()
-      lang = Object.keys(i18n).includes(lang) ? lang : "en"
-      if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
-        return i18n[lang][key]
-      } else {
-        return i18n.en[key]
-      }
+      return i18n.en[key]
     }
   }
 
@@ -186,7 +160,8 @@
       arrow: `<g><path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z"></path></g>`,
       location: `<g><path d="M12 14.315c-2.088 0-3.787-1.698-3.787-3.786S9.913 6.74 12 6.74s3.787 1.7 3.787 3.787-1.7 3.785-3.787 3.785zm0-6.073c-1.26 0-2.287 1.026-2.287 2.287S10.74 12.814 12 12.814s2.287-1.025 2.287-2.286S13.26 8.24 12 8.24z"></path><path d="M20.692 10.69C20.692 5.9 16.792 2 12 2s-8.692 3.9-8.692 8.69c0 1.902.603 3.708 1.743 5.223l.003-.002.007.015c1.628 2.07 6.278 5.757 6.475 5.912.138.11.302.163.465.163.163 0 .327-.053.465-.162.197-.155 4.847-3.84 6.475-5.912l.007-.014.002.002c1.14-1.516 1.742-3.32 1.742-5.223zM12 20.29c-1.224-.99-4.52-3.715-5.756-5.285-.94-1.25-1.436-2.742-1.436-4.312C4.808 6.727 8.035 3.5 12 3.5s7.192 3.226 7.192 7.19c0 1.57-.497 3.062-1.436 4.313-1.236 1.57-4.532 4.294-5.756 5.285z"></path></g>`,
       url: `<g><path d="M11.96 14.945c-.067 0-.136-.01-.203-.027-1.13-.318-2.097-.986-2.795-1.932-.832-1.125-1.176-2.508-.968-3.893s.942-2.605 2.068-3.438l3.53-2.608c2.322-1.716 5.61-1.224 7.33 1.1.83 1.127 1.175 2.51.967 3.895s-.943 2.605-2.07 3.438l-1.48 1.094c-.333.246-.804.175-1.05-.158-.246-.334-.176-.804.158-1.05l1.48-1.095c.803-.592 1.327-1.463 1.476-2.45.148-.988-.098-1.975-.69-2.778-1.225-1.656-3.572-2.01-5.23-.784l-3.53 2.608c-.802.593-1.326 1.464-1.475 2.45-.15.99.097 1.975.69 2.778.498.675 1.187 1.15 1.992 1.377.4.114.633.528.52.928-.092.33-.394.547-.722.547z"></path><path d="M7.27 22.054c-1.61 0-3.197-.735-4.225-2.125-.832-1.127-1.176-2.51-.968-3.894s.943-2.605 2.07-3.438l1.478-1.094c.334-.245.805-.175 1.05.158s.177.804-.157 1.05l-1.48 1.095c-.803.593-1.326 1.464-1.475 2.45-.148.99.097 1.975.69 2.778 1.225 1.657 3.57 2.01 5.23.785l3.528-2.608c1.658-1.225 2.01-3.57.785-5.23-.498-.674-1.187-1.15-1.992-1.376-.4-.113-.633-.527-.52-.927.112-.4.528-.63.926-.522 1.13.318 2.096.986 2.794 1.932 1.717 2.324 1.224 5.612-1.1 7.33l-3.53 2.608c-.933.693-2.023 1.026-3.105 1.026z"></path></g>`,
-      calendar: `<g><path d="M19.708 2H4.292C3.028 2 2 3.028 2 4.292v15.416C2 20.972 3.028 22 4.292 22h15.416C20.972 22 22 20.972 22 19.708V4.292C22 3.028 20.972 2 19.708 2zm.792 17.708c0 .437-.355.792-.792.792H4.292c-.437 0-.792-.355-.792-.792V6.418c0-.437.354-.79.79-.792h15.42c.436 0 .79.355.79.79V19.71z"></path><circle cx="7.032" cy="8.75" r="1.285"></circle><circle cx="7.032" cy="13.156" r="1.285"></circle><circle cx="16.968" cy="8.75" r="1.285"></circle><circle cx="16.968" cy="13.156" r="1.285"></circle><circle cx="12" cy="8.75" r="1.285"></circle><circle cx="12" cy="13.156" r="1.285"></circle><circle cx="7.032" cy="17.486" r="1.285"></circle><circle cx="12" cy="17.486" r="1.285"></circle></g>`
+      calendar: `<g><path d="M19.708 2H4.292C3.028 2 2 3.028 2 4.292v15.416C2 20.972 3.028 22 4.292 22h15.416C20.972 22 22 20.972 22 19.708V4.292C22 3.028 20.972 2 19.708 2zm.792 17.708c0 .437-.355.792-.792.792H4.292c-.437 0-.792-.355-.792-.792V6.418c0-.437.354-.79.79-.792h15.42c.436 0 .79.355.79.79V19.71z"></path><circle cx="7.032" cy="8.75" r="1.285"></circle><circle cx="7.032" cy="13.156" r="1.285"></circle><circle cx="16.968" cy="8.75" r="1.285"></circle><circle cx="16.968" cy="13.156" r="1.285"></circle><circle cx="12" cy="8.75" r="1.285"></circle><circle cx="12" cy="13.156" r="1.285"></circle><circle cx="7.032" cy="17.486" r="1.285"></circle><circle cx="12" cy="17.486" r="1.285"></circle></g>`,
+      balloon: `<g><path d="M7.75 11.083c-.414 0-.75-.336-.75-.75C7 7.393 9.243 5 12 5c.414 0 .75.336.75.75s-.336.75-.75.75c-1.93 0-3.5 1.72-3.5 3.833 0 .414-.336.75-.75.75z"></path><path d="M20.75 10.333c0-5.01-3.925-9.083-8.75-9.083s-8.75 4.074-8.75 9.083c0 4.605 3.32 8.412 7.605 8.997l-1.7 1.83c-.137.145-.173.357-.093.54.08.182.26.3.46.3h4.957c.198 0 .378-.118.457-.3.08-.183.044-.395-.092-.54l-1.7-1.83c4.285-.585 7.605-4.392 7.605-8.997zM12 17.917c-3.998 0-7.25-3.402-7.25-7.584S8.002 2.75 12 2.75s7.25 3.4 7.25 7.583-3.252 7.584-7.25 7.584z"></path></g>`,
     }
     return `
       <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
@@ -327,6 +302,7 @@
     hideTranslateTweetButton: false,
     hideMessageBox:           true,
     legacyProfile:            false,
+    showNsfwMessageMedia:     false,
   }
 
   // set default options
@@ -396,7 +372,7 @@
     return `
       <div class="gt2-setting">
         <div>
-          <span>${locStr(name)}</span>
+          <span>${getLocStr(name)}</span>
           <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
             <div></div>
             <div>
@@ -404,7 +380,7 @@
             </div>
           </div>
         </div>
-        ${locStr(d) ? `<span>${locStr(d)}</span>` : ""}
+        ${getLocStr(d) ? `<span>${getLocStr(d)}</span>` : ""}
       </div>`
   }
 
@@ -421,12 +397,12 @@
           GoodTwitter2 v${GM_info.script.version}
         </div>
         <div class="gt2-settings">
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderTimeline")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderSidebars")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("hideWhoToFollow")}
@@ -434,13 +410,14 @@
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${locStr("settingsHeaderOther")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("hideMessageBox")}
+          ${getSettingTogglePart("showNsfwMessageMedia")}
         </div>
       `
       if ($("main section").length) {
@@ -535,7 +512,7 @@
             <div class="gt2-toggle-navbar-dropdown">
               <img src="${getInfo().avatarUrl.replace("normal.", "bigger.")}" />
             </div>
-            <div class="gt2-compose">${locStr("composeNewTweet")}</div>
+            <div class="gt2-compose">${getLocStr("composeNewTweet")}</div>
           </div>
         </nav>
         <div class="gt2-search-overflow-hider"></div>
@@ -552,7 +529,7 @@
         $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
         .append(`
           <div class="gt2-nav-header">
-            ${locStr(`nav${e}`)}
+            ${getLocStr(`nav${e}`)}
           </div>
         `)
       }
@@ -601,7 +578,7 @@
           if (insertAt.startsWith(".gt2")) {
             $(insertAt).prepend(elem)
           } else {
-            $(`${insertAt} > div:empty:nth-child(2)`).after(elem)
+            $(`${insertAt} > div:empty:not(.gt2-legacy-profile-info)`).after(elem)
           }
         }
       }
@@ -636,19 +613,19 @@
             <ul>
               <li>
                 <a ${href}="/${i.screenName}">
-                  <span>${locStr("statsTweets")}</span>
+                  <span>${getLocStr("statsTweets")}</span>
                   <span>${i.stats.tweets.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/following">
-                  <span>${locStr("statsFollowing")}</span>
+                  <span>${getLocStr("statsFollowing")}</span>
                   <span>${i.stats.following.humanize()}</span>
                 </a>
               </li>
               <li>
                 <a ${href}="/${i.screenName}/followers">
-                  <span>${locStr("statsFollowers")}</span>
+                  <span>${getLocStr("statsFollowers")}</span>
                   <span>${i.stats.followers.humanize()}</span>
                 </a>
               </li>
@@ -673,11 +650,11 @@
           </div>
         </div>
         <div class="gt2-sidebar-notice-content">
-          ${getSvg("tick")} ${locStr("updatedInfo").replace("$version$", `v${v}`)}<br />
+          ${getSvg("tick")} ${getLocStr("updatedInfo").replace("$version$", `v${v}`)}<br />
           <a
             href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
             target="_blank">
-            ${locStr("updatedInfoChangelog")}
+            ${getLocStr("updatedInfoChangelog")}
           </a>
         </div>
       </div>
@@ -699,19 +676,10 @@
 
       let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
 
-      // elements
-      let e = {
-        $banner:      $("a[href$='/header_photo'] img"),
-        $description: $profile.find("div[data-testid=UserDescription]"),
-        $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
-        $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
-        $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
-        $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
-      }
-
       // information (constant)
       const i = {
-        avatarUrl:    `${$("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d+x\d+)/, "")}`,
+        $banner:      $("a[href$='/header_photo'] img"),
+        avatarUrl:    $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
         screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
@@ -723,7 +691,7 @@
       if (!$(".gt2-legacy-profile-banner").length) {
         $("header").before(`
           <div class="gt2-legacy-profile-banner">
-            ${e.$banner.length ? `<img src="${e.$banner.attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500" />` : ""}
+            ${i.$banner.length ? `<img src="${i.$banner.attr("src").match(/(\S+)\/\d+x\d+/)[1]}/1500x500" />` : ""}
           </div>
           <div class="gt2-legacy-profile-nav">
             <div class="gt2-legacy-profile-nav-left">
@@ -737,22 +705,22 @@
             </div>
             <div class="gt2-legacy-profile-nav-center">
               <a href="/${i.screenName}/following" title="${i.following.humanize()}">
-                <div>${locStr("statsFollowing")}</div>
+                <div>${getLocStr("statsFollowing")}</div>
                 <div>${i.following.humanizeShort()}</div>
               </a>
               <a href="/${i.screenName}/followers" title="${i.followers.humanize()}">
-                <div>${locStr("statsFollowers")}</div>
+                <div>${getLocStr("statsFollowers")}</div>
                 <div>${i.followers.humanizeShort()}</div>
               </a>
               <!--
-              <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
-                <div>${locStr("navLists")}</div>
-                <div>${i.followers.humanizeShort()}</div>
-              </a>
-              <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
-                <div>${locStr("statsMoments")}</div>
-                <div>${i.followers.humanizeShort()}</div>
-              </a>
+                <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
+                  <div>${getLocStr("navLists")}</div>
+                  <div>${i.followers.humanizeShort()}</div>
+                </a>
+                <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
+                  <div>${getLocStr("statsMoments")}</div>
+                  <div>${i.followers.humanizeShort()}</div>
+                </a>
               -->
             </div>
             <div class="gt2-legacy-profile-nav-right"></div>
@@ -760,6 +728,7 @@
         `)
       }
 
+      // add like and tweet count
       GM_xmlhttpRequest({
         method: "GET",
         url: getRequestURL("https://api.twitter.com/graphql/-xfUfZsnR_zqjFd-IfrN5A/UserByScreenName", {
@@ -775,13 +744,13 @@
 
             $(".gt2-legacy-profile-nav-center").prepend(`
               <a href="/${i.screenName}" title="${profileData.statuses_count.humanize()}">
-                <div>${locStr("statsTweets")}</div>
+                <div>${getLocStr("statsTweets")}</div>
                 <div>${profileData.statuses_count.humanizeShort()}</div>
               </a>
             `)
             $(".gt2-legacy-profile-nav-center").append(`
               <a href="/${i.screenName}/likes" title="${profileData.favourites_count.humanize()}">
-                <div>${locStr("statsLikes")}</div>
+                <div>${getLocStr("statsLikes")}</div>
                 <div>${profileData.favourites_count.humanizeShort()}</div>
               </a>
             `)
@@ -794,6 +763,20 @@
       waitForKeyElements(".gt2-legacy-profile-info", () => {
 
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
+
+          // elements
+          let e = {
+            $description: $profile.find("div[data-testid=UserDescription]"),
+            $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
+            $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
+            $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
+            $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
+          }
+          i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
+          i.nameHTML      = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
+          i.joinDateHTML  = $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html()
+
+
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
             <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
@@ -803,16 +786,20 @@
             ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
             ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
             ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-            <div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>
+            ${i.joinDateHTML        ? `<div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>`                        : ""}
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
           `)
 
           // followers you know
+          GM_setValue("hasRun_InsertFYK", false)
           waitForKeyElements("a[href$='/followers_you_follow']", e => {
-            $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
+            if (!GM_getValue("hasRun_InsertFYK")) {
+              $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
+              GM_setValue("hasRun_InsertFYK", true)
+            }
           })
         }
-})
+      })
 
       // buttons
       if (!$(".gt2-legacy-profile-nav-right > div").length) {
@@ -826,7 +813,7 @@
   // force latest tweets view.
   function forceLatest() {
     let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"
-    let sparkOpt        = "#react-root > div > div > div:nth-of-type(1) > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(3) > div > div > div"
+    let sparkOpt        = "#react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3)"
 
     GM_setValue("hasRun_forceLatest", false)
     waitForKeyElements(sparkOptToggle, () => {
@@ -923,6 +910,118 @@
   }
 
 
+  // messages stuff
+  function handleNSFWTweetMessages() {
+    let tm = "div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/']"
+    waitForKeyElements(tm, e => {
+      if ($(e).find(".gt2-msg-nsfw-media").length) return
+      let statusID = $(e).attr("title").split("/")[5]
+      GM_xmlhttpRequest({
+        method: "GET",
+        url: getRequestURL("https://api.twitter.com/1.1/statuses/show.json", {
+          id: statusID,
+          tweet_mode: "extended",
+          trim_user: true
+        }),
+        headers: getRequestHeaders(),
+        onload: res => {
+          if (res.status == 200) {
+            let media = JSON.parse(res.response).extended_entities.media
+
+            // video
+            if (media[0].video_info) {
+              let previewUrl = media[0].media_url_https
+              let videoUrl = media[0].video_info.variants.length == 1
+                ? media[0].video_info.variants[0].url // gif
+                : media[0].video_info.variants.filter(v => v.bitrate).sort((v1, v2) => v1.bitrate > v2.bitrate).pop().url
+
+              $(e).parents("div[role=blockquote] > div").append(`
+                <div class="gt2-msg-nsfw-media">
+                  <video loop controls src="${videoUrl}" poster="${previewUrl}"></video>
+                </div>
+              `)
+
+            // photo(s)
+            } else {
+              let photoHTML = ""
+              for (let p in media) {
+                if (p % 2 == 0) photoHTML += "<div>"
+                photoHTML += `
+                  <a href="${media[p].expanded_url}">
+                    <img src="${media[p].media_url_https}" />
+                  </a>
+                `
+                if (p % 2 == 1 || p-1 == media.length) photoHTML += "</div>"
+              }
+              $(e).parents("div[role=blockquote] > div").append(`
+                <div class="gt2-msg-nsfw-media" data-photo-count="x${media.length}">
+                  ${photoHTML}
+                </div>
+              `)
+            }
+          }
+        }
+      })
+    })
+  }
+
+
+  function getFollowersYouKnowHTML(screenName, profileID, callback) {
+    GM_xmlhttpRequest({
+      method: "GET",
+      url: getRequestURL("https://api.twitter.com/1.1/friends/following/list.json", {
+        include_profile_interstitial_type: 1,
+        include_blocking: 1,
+        include_blocked_by: 1,
+        include_followed_by: 1,
+        include_want_retweets: 1,
+        include_mute_edge: 1,
+        include_can_dm: 1,
+        include_can_media_tag: 1,
+        skip_status: 1,
+        cursor: -1,
+        user_id: profileID,
+        count: 3,
+        with_total_count: true
+      }),
+      headers: getRequestHeaders(),
+      onload: res => {
+        if (res.status == 200) {
+
+          // followers you know
+          let fyk = JSON.parse(res.response)
+
+          let fykText
+          if (fyk.total_count < 4) {
+            fykText = getLocStr(`followedBy${fyk.total_count}`)
+            .replace("$p1$", fyk.users.length > 0 ? fyk.users[0].name : "")
+            .replace("$p2$", fyk.users.length > 1 ? fyk.users[1].name : "")
+            .replace("$p3$", fyk.users.length > 2 ? fyk.users[2].name : "")
+          } else {
+            fykText = getLocStr("followedBy4Plus")
+            .replace("$p1$", fyk.users[0].name)
+            .replace("$p2$", fyk.users[1].name)
+            .replace("$nr$", fyk.total_count - 2)
+          }
+
+          let fykImg = ""
+          for (let u of fyk.users) {
+            fykImg += `<img src="${u.profile_image_url_https}" alt="${u.name}" />`
+          }
+
+          callback(`
+            <a class="gt2-blocked-profile-followers-you-know" href="/${screenName}/followers_you_follow">
+              ${fykImg}
+              <span>
+                ${fykText.replaceEmojis()}
+              </span>
+            </a>
+          `)
+        }
+      }
+    })
+  }
+
   // display standard information for blocked profile
   function displayBlockedProfileData() {
     let screenName = getPath().split("/")[0]
@@ -941,105 +1040,97 @@
           let profileData = JSON.parse(res.response).data.user
 
           // get “x persons you follow follow this account” stuff
-          GM_xmlhttpRequest({
-            method: "GET",
-            url: getRequestURL("https://api.twitter.com/1.1/friends/following/list.json", {
-              include_profile_interstitial_type: 1,
-              include_blocking: 1,
-              include_blocked_by: 1,
-              include_followed_by: 1,
-              include_want_retweets: 1,
-              include_mute_edge: 1,
-              include_can_dm: 1,
-              include_can_media_tag: 1,
-              skip_status: 1,
-              cursor: -1,
-              user_id: profileData.rest_id,
-              count: 3,
-              with_total_count: true
-            }),
-            headers: getRequestHeaders(),
-            onload: (res) => {
-              if (res.status == 200) {
-                let p = profileData.legacy
-                // console.log(p);
+          getFollowersYouKnowHTML(screenName, profileData.rest_id, fykHTML => {
 
-                // join date
-                let joinDate = new Date(p.created_at)
+            let pleg = profileData.legacy
 
-                // description
-                let descr = p.description
-                .populateWithEntities(p.entities.description)
-                .replaceEmojis()
-                let matches = descr.match(/(@[0-9A-Za-z_]+)/g)
-                for (let m of matches) {
-                  descr = descr.replace(m, `<a href="/${m.slice(1)}">${m}</a>`)
-                }
+            // join date
+            let joinDate = new Date(pleg.created_at)
 
-                $("a[href$='/header_photo'] + div > div:nth-child(2)").after(`
-                  <div class="gt2-bp-user-description">${descr}</div>
-                  <div class="gt2-bp-user-items">
-                    ${p.location != "" ? `
-                      <div class="gt2-bp-user-location">
-                        ${getSvg("location")}
-                        <span>${p.location.replaceEmojis()}</span>
-                      </div>
-                    ` : ""}
-                    ${p.url ? `
-                      <a href="${p.entities.url.urls[0].url}" class="gt2-bp-user-url">
-                        ${getSvg("url")}
-                        <span>${p.entities.url.urls[0].display_url}</span>
-                      </a>
-                    ` : ""}
-                    <div class="gt2-bp-user-joined-at">
-                      ${getSvg("calendar")}
-                      <span>
-                        ${GM_getValue("i18n_internal_rweb")
-                          .match(/\{return([^\}]*e\.joinDate[^\}]*)\}/)[1]
-                          .replace(/\"/g, "")
-                          .replace(
-                            /\+?e\.joinDate\+?/,
-                            `${joinDate.toLocaleDateString(getLang(), { month: "long" })} ${joinDate.getFullYear()}`
-                          )
-                        }
-                      </span>
-                    </div>
-                  </div>
-                `)
+            let p = {
+              description:  pleg.description
+                            .populateWithEntities(pleg.entities.description)
+                            .replaceEmojis(),
+              location:     pleg.location != "" ? `
+                              <div class="gt2-blocked-profile-location">
+                                ${getSvg("location")}
+                                <span>${pleg.location.replaceEmojis()}</span>
+                              </div>` : null,
+              url:          pleg.url ? `
+                              <a href="${pleg.entities.url.urls[0].url}" class="gt2-blocked-profile-url">
+                                ${getSvg("url")}
+                                <span>${pleg.entities.url.urls[0].display_url}</span>
+                              </a>` : null,
+              joinDate:     `<div class="gt2-blocked-profile-joined-at">
+                              ${getSvg("calendar")}
+                              <span>
+                                ${
+                                  getLocStr("joinDate")
+                                  .replace("$date$", joinDate.toLocaleDateString(getLang(), { month: "long", year: "numeric" }))
+                                }
+                              </span>
+                            </div>`,
+              birthday:     profileData.legacy_extended_profile && profileData.legacy_extended_profile.birthdate ? (() => {
+                              let bd = profileData.legacy_extended_profile.birthdate
+                              let bdText
+                              let date = new Date(Date.UTC(bd.year || 1970, bd.month || 1, bd.day || 1))
+                              if (bd.year && !bd.month && !bd.day) {
+                                bdText = getLocStr("bornYear").replace("$year$", date.toLocaleDateString(getLang(), { year: "numeric"}))
+                              } else {
+                                let opt = {}
+                                if (bd.year)  opt.year = "numeric"
+                                if (bd.month) opt.month = "long"
+                                if (bd.day)   opt.day = "numeric"
+                                bdText = getLocStr("bornDate").replace("$date$", date.toLocaleDateString(getLang(), opt))
+                              }
 
-                // followers you know
-                let fyk = JSON.parse(res.response)
+                              return `
+                                <div class="gt2-blocked-profile-birthday">
+                                ${getSvg("balloon")}
+                                  <span>${bdText}</span>
+                                </div>`
+                            })() : null
 
-                let fykText
-                if (fyk.total_count < 4) {
-                  fykText = locStr(`bpFollowedBy${fyk.total_count}`)
-                  .replace("$p1$", fyk.users.length > 0 ? fyk.users[0].name : "")
-                  .replace("$p2$", fyk.users.length > 1 ? fyk.users[1].name : "")
-                  .replace("$p3$", fyk.users.length > 2 ? fyk.users[2].name : "")
-                } else {
-                  fykText = locStr("bpFollowedBy4Plus")
-                  .replace("$p1$", fyk.users[0].name)
-                  .replace("$p2$", fyk.users[1].name)
-                  .replace("$nr$", fyk.total_count - 2)
-                }
-
-                let fykImg = ""
-                for (let u of fyk.users) {
-                  fykImg += `<img src="${u.profile_image_url_https}" alt="${u.name}" />`
-                }
-
-                $(".gt2-bp-user-items + div").after(`
-                  <a class="gt2-bp-followers-you-know" href="/${screenName}/followers_you_follow">
-                    ${fykImg}
-                    <span>
-                      ${fykText.replaceEmojis()}
-                    </span>
-                  </a>
-                `)
-
-              }
             }
+
+            // description: add links for mentioned users
+            for (let m of p.description.match(/(@[0-9A-Za-z_]+)/g) || []) {
+              p.description = p.description.replace(m, `<a href="/${m.slice(1)}">${m}</a>`)
+            }
+
+            // add profile info
+            $("a[href$='/header_photo'] + div > div:nth-child(2)").after(`
+              <div class="gt2-blocked-profile-description">${p.description}</div>
+              <div class="gt2-blocked-profile-items">
+                ${p.location ? p.location : ""}
+                ${p.url      ? p.url      : ""}
+                ${p.birthday ? p.birthday : ""}
+                ${p.joinDate}
+              </div>
+            `)
+
+
+            $(".gt2-blocked-profile-items + div").after(fykHTML)
+
+
+
+            // add legacy sidebar profile information
+            waitForKeyElements(".gt2-legacy-profile-name", () => {
+              if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-fyk").length) {
+                $(".gt2-legacy-profile-info").append(`
+                  ${p.description ? `<div class="gt2-legacy-profile-description">${p.description}</div>` : ""}
+                  ${p.location    ? `<div class="gt2-legacy-profile-item">${p.location}</div>`           : ""}
+                  ${p.url         ? `<div class="gt2-legacy-profile-item">${p.url}</div>`                : ""}
+                  ${p.birthday    ? `<div class="gt2-legacy-profile-item">${p.birthday}</div>`           : ""}
+                  <div class="gt2-legacy-profile-item">${p.joinDate}</div>
+                  <div class="gt2-legacy-profile-fyk">${fykHTML}</div>
+                `)
+              }
+            })
+
+
           })
+
         }
       }
     })
@@ -1062,12 +1153,12 @@
   }(Element.prototype.removeChild))
 
 
-
-  $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
-    e.preventDefault()
-    console.log("test");
-    console.log(this);
-  })
+  //
+  // $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
+  //   e.preventDefault()
+  //   console.log("test");
+  //   console.log(this);
+  // })
 
 
 
@@ -1078,14 +1169,15 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet]", function(e) {
-      let tweetLang = $(e).find("div[lang]").attr("lang")
-      let userLang  = getLang().trim()
+    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/']", function(e) {
+      let $e = $(e).parents("div[data-testid=tweet]")
+      let tweetLang = $e.find("div[lang]").attr("lang")
+      let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
       if (tweetLang != userLang && tweetLang != "und") {
-        $(e).find("div[lang]").first().after(`
+        $e.find("div[lang]").first().after(`
           <div class="gt2-translate-tweet">
-            ${locStr("translateTweet")}
+            ${getLocStr("translateTweet")}
           </div>
         `)
       }
@@ -1105,7 +1197,7 @@
     }
 
     let _this = this
-    GM_setValue("tmp_translatedTweetInfo", locStr("translatedTweetInfo"))
+    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
     let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
 
@@ -1181,7 +1273,7 @@
   // add counter for new tweets
   function updateNewTweetDisplay() {
     let nr = $(".gt2-hidden-tweet").length
-    let text = nr == 1 ? locStr("showNewSingle") : locStr("showNewMulti").replace("$", nr)
+    let text = nr == 1 ? getLocStr("showNewSingle") : getLocStr("showNewMulti").replace("$", nr)
 
     // exception for russian
     if (getLang() == "ru") {
@@ -1324,7 +1416,7 @@
       ]
       for (let e of toAttach) {
         let $tmp = $("header nav").find(e.sel).clone()
-        $tmp.children().append(`<span>${locStr(`nav${e.name}`)}</span>`)
+        $tmp.children().append(`<span>${getLocStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
       }
 
@@ -1345,7 +1437,7 @@
     let pos = $(".gt2-toggle-acc-switcher-dropdown")[0].getBoundingClientRect()
     $("html").prepend(`
       <style class="gt2-style-acc-switcher-dropdown">
-        #react-root > div > div > h2 + div > div:nth-child(2) > div:nth-child(2) {
+        #layers > div:nth-child(2) > div > div > div:nth-child(2) {
           left: ${Math.round(pos.left) - 274}px !important;
           top: ${Math.round(pos.top) + 35}px !important;
         }
@@ -1391,18 +1483,6 @@
   })
 
 
-  // reload i18n_internal_rweb
-  $("body").on("click", "div[data-testid=settingsDetailSave]", function() {
-    if ($(this).parent().parent().find("div[data-testid=languageSelector]").length) {
-      GM_deleteValue("i18n_internal_rweb")
-    }
-  })
-
-
-  // reload on unblock
-  $("body").on("click", "div[data-testid=placementTracking] div[data-testid$='-unblock']", () => window.location.reload())
-
-
 
   // ########################
   // #   display settings   #
@@ -1411,7 +1491,7 @@
 
   // display settings
   let displaySettings = "main > div > div > div > section:nth-last-child(1) > div:nth-child(2)"
-  let displaySettingsModal = "#react-root > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) > div > div"
+  let displaySettingsModal = "div[aria-labelledby=modal-header] > div > div:nth-child(2) > div > div"
 
 
   // user color
@@ -1603,10 +1683,17 @@
   // things to do when scrolling
   ;(function() {
     let prev = window.pageYOffset
-    let bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 80
+    let bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 15
 
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
+
+      // prevent auto scroll to top
+      if (prev > 1500 && curr == 0) {
+        window.pageYOffset = prev
+        return
+      }
+
       if (prev < curr) {
         $("body").addClass("gt2-scrolled-down")
       } else {
@@ -1639,7 +1726,7 @@
 
   // stuff to do when url changes
   function urlChange(changeType, path) {
-    path = path || getPath()
+    path = (path || getPath()).split("?")[0]
     console.log(`[${changeType}] ${path}`)
 
 
@@ -1650,6 +1737,12 @@
     function onSubPage(top, sub) {
       return (top == null ? true : onPage(top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
     }
+
+    // on modal
+    let isModal = onSubPage("i", ["display"])
+               || onSubPage("settings", ["trends", "profile"])
+               || onSubPage("compose", ["tweet"])
+               || path.match(/\/(photo|video)\/\d\/?$/)
 
     // do a reload on these pages
     if (onPage("login") || (!isLoggedIn() && onPage(""))) {
@@ -1674,7 +1767,7 @@
       // on error page
       if ($(mainView).find("h1[data-testid=error-detail]").length && !path.startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-error")
-      } else {
+      } else if (!isModal) {
         $("body").removeClass("gt2-page-error")
       }
 
@@ -1688,24 +1781,6 @@
     })
 
 
-    // sidebar
-    let sidebarContent = []
-
-    // update changelog
-    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
-     && GM_getValue("opt_gt2").updateNotifications
-    ) {
-      sidebarContent.push(getUpdateNotice())
-    }
-
-    // insert dashboard profile on all pages except for the own profile page
-    if (!(path.match(/[^\/]+\/?$/) && path.split("/")[0].toLowerCase() == getInfo().screenName.toLowerCase())) {
-      sidebarContent.push(getDashboardProfile())
-    }
-
-    addToSidebar(sidebarContent)
-
-
     if (isLoggedIn()) {
 
       // add navbar
@@ -1715,8 +1790,10 @@
 
 
       // highlight current location in left bar
-      $(`.gt2-nav-left > a`).removeClass("active")
-      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+      if (!isModal) {
+        $(`.gt2-nav-left > a`).removeClass("active")
+        $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+      }
 
 
       // hide/add search
@@ -1724,7 +1801,7 @@
         $(".gt2-search").empty()
         $("body").removeClass("gt2-search-added")
         $("body").addClass("gt2-page-search")
-      } else {
+      } else if (!isModal) {
         $("body").removeClass("gt2-page-search")
         addSearch()
       }
@@ -1751,7 +1828,7 @@
         $("body").removeClass("gt2-page-settings-active")
         $(".gt2-settings-header, .gt2-settings").remove()
       }
-    } else {
+    } else if (!isModal) {
       $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
       $(".gt2-settings-header, .gt2-settings").remove()
     }
@@ -1760,8 +1837,30 @@
     // messages
     if (onPage("messages")) {
       $("body").addClass("gt2-page-messages")
-    } else {
+      if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
+        handleNSFWTweetMessages()
+      }
+
+    } else if (!isModal) {
       $("body").removeClass("gt2-page-messages")
+    }
+
+    // tweet
+    if (onSubPage(null, ["status"])) {
+      $("body").addClass("gt2-page-tweet")
+    } else if (!isModal) {
+      $("body").removeClass("gt2-page-tweet")
+    }
+
+
+    // sidebar
+    let sidebarContent = []
+
+    // update changelog
+    if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
+     && GM_getValue("opt_gt2").updateNotifications
+    ) {
+      sidebarContent.push(getUpdateNotice())
     }
 
 
@@ -1772,6 +1871,7 @@
           "i",
           "messages",
           "notifications",
+          "search",
           "settings",
         ) || onSubPage(null, [
           "followers",
@@ -1783,18 +1883,17 @@
         ])
     ) {
       // if not on modal
-      if (!onSubPage("i", ["display"])
-          && !onSubPage("settings", ["trends", "profile"])
-          && !path.match(/\/(photo|video)\/\d\/?$/)
-      ) {
+      if (!isModal) {
         $("body").removeClass("gt2-page-profile")
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
         $(".gt2-legacy-profile-info").remove()
-
       }
 
+      // insert dashboard profile
+      sidebarContent.push(getDashboardProfile())
+
     // assume profile
-    } else {
+  } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
         if (changeType == "pop") {
@@ -1804,6 +1903,10 @@
         rebuildLegacyProfile()
       }
     }
+
+
+    // add elements to sidebar
+    addToSidebar(sidebarContent)
 
 
     // blocked profile page
