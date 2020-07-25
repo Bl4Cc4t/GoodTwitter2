@@ -46,6 +46,7 @@
   "leftTrendsDesc": "Show the trends in the left sidebar.",
   "legacyProfile": "Legacy Profile Layout",
   "show10Trends": "Always Show 10 Trends",
+  "showNsfwMessageMedia": "Show NSFW Tweet Media in Messages",
   "stickySidebars": "Sticky Sidebars",
   "smallSidebars": "Small Sidebars",
   "smallSidebarsDesc": "290px instead of 350px wide sidebars.",

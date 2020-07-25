@@ -46,6 +46,7 @@
   "leftTrendsDesc": "在左侧的侧边栏显示趋势。",
   "legacyProfile": "以传统方式显示个人资料",
   "show10Trends": "固定显示10条趋势",
+  "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",
   "stickySidebars": "固定侧边栏",
   "smallSidebars": "更窄的侧边栏",
   "smallSidebarsDesc": "侧边栏的宽度将从350px变为290px。",

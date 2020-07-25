@@ -1084,6 +1084,67 @@ body:not(.gt2-opt-small-sidebars) {
 }
 
 
+// nsfw message media
+.gt2-opt-show-nsfw-message-media.gt2-page-messages {
+  div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/'] {
+    display: none;
+  }
+  .gt2-msg-nsfw-media {
+    max-height: 310px;
+    display: flex;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      &:nth-child(2) {
+        margin-left: 2px;
+      }
+      a {
+        display: inline-flex;
+        width: 100%;
+
+        &:nth-child(2) {
+          margin-top: 2px;
+        }
+
+        img {
+          object-fit: cover;
+          width: 100%;
+        }
+      }
+    }
+    video,
+    &[data-photo-count=x1] div {
+      width: 100%;
+    }
+    &:not([data-photo-count=x1]) div {
+      width: 50%;
+    }
+
+    // spacing
+    &:not([data-photo-count=x2]) {
+      div {
+        &:nth-child(2) {
+          margin-left: 2px;
+        }
+        a:nth-child(2) {
+          margin-top: 2px;
+        }
+      }
+    }
+
+    &[data-photo-count=x3] div:first-child,
+    &[data-photo-count=x4] div {
+      a {
+        height: 50%;
+      }
+    }
+
+  }
+}
+
+
 // .gt2-opt-keep-tweets-in-tl {
 //   div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
 //     padding-top: 0 !important;
@@ -1103,7 +1164,7 @@ body:not(.gt2-opt-small-sidebars) {
     display: none;
   }
 }
-  
+
 // acc switcher dropdown
 .gt2-acc-switcher-active {
   #layers > div:nth-child(2) > div > div > div:nth-child(2) {

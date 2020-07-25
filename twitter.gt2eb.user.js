@@ -302,6 +302,7 @@
     hideTranslateTweetButton: false,
     hideMessageBox:           true,
     legacyProfile:            false,
+    showNsfwMessageMedia:     false,
   }
 
   // set default options
@@ -416,6 +417,7 @@
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("hideMessageBox")}
+          ${getSettingTogglePart("showNsfwMessageMedia")}
         </div>
       `
       if ($("main section").length) {
@@ -903,6 +905,62 @@
   }
 
 
+  // messages stuff
+  function handleNSFWTweetMessages() {
+    let tm = "div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/']"
+    waitForKeyElements(tm, e => {
+      if ($(e).find(".gt2-msg-nsfw-media").length) return
+      let statusID = $(e).attr("title").split("/")[5]
+      GM_xmlhttpRequest({
+        method: "GET",
+        url: getRequestURL("https://api.twitter.com/1.1/statuses/show.json", {
+          id: statusID,
+          tweet_mode: "extended",
+          trim_user: true
+        }),
+        headers: getRequestHeaders(),
+        onload: res => {
+          if (res.status == 200) {
+            let media = JSON.parse(res.response).extended_entities.media
+
+            // video
+            if (media[0].video_info) {
+              let previewUrl = media[0].media_url_https
+              let videoUrl = media[0].video_info.variants.length == 1
+                ? media[0].video_info.variants[0].url // gif
+                : media[0].video_info.variants.filter(v => v.bitrate).sort((v1, v2) => v1.bitrate > v2.bitrate).pop().url
+
+              $(e).parents("div[role=blockquote] > div").append(`
+                <div class="gt2-msg-nsfw-media">
+                  <video loop controls src="${videoUrl}" poster="${previewUrl}"></video>
+                </div>
+              `)
+
+            // photo(s)
+            } else {
+              let photoHTML = ""
+              for (let p in media) {
+                if (p % 2 == 0) photoHTML += "<div>"
+                photoHTML += `
+                  <a href="${media[p].expanded_url}">
+                    <img src="${media[p].media_url_https}" />
+                  </a>
+                `
+                if (p % 2 == 1 || p-1 == media.length) photoHTML += "</div>"
+              }
+              $(e).parents("div[role=blockquote] > div").append(`
+                <div class="gt2-msg-nsfw-media" data-photo-count="x${media.length}">
+                  ${photoHTML}
+                </div>
+              `)
+            }
+          }
+        }
+      })
+    })
+  }
+
+
   function getFollowersYouKnowHTML(screenName, profileID, callback) {
     GM_xmlhttpRequest({
       method: "GET",
@@ -922,7 +980,7 @@
         with_total_count: true
       }),
       headers: getRequestHeaders(),
-      onload: (res) => {
+      onload: res => {
         if (res.status == 200) {
 
           // followers you know
@@ -1090,12 +1148,12 @@
   }(Element.prototype.removeChild))
 
 
-
-  $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
-    e.preventDefault()
-    console.log("test");
-    console.log(this);
-  })
+  //
+  // $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
+  //   e.preventDefault()
+  //   console.log("test");
+  //   console.log(this);
+  // })
 
 
 
@@ -1106,7 +1164,7 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href~='/status/']", function(e) {
+    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/']", function(e) {
       let $e = $(e).parents("div[data-testid=tweet]")
       let tweetLang = $e.find("div[lang]").attr("lang")
       let userLang  = getLang()
@@ -1774,6 +1832,10 @@
     // messages
     if (onPage("messages")) {
       $("body").addClass("gt2-page-messages")
+      if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
+        handleNSFWTweetMessages()
+      }
+
     } else if (!isModal) {
       $("body").removeClass("gt2-page-messages")
     }
