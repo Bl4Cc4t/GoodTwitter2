@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.24](https://github.com/Bl4Cc4t/GoodTwitter2/pull/161)
+*released 2020-07-25*
+- Simplified Chinese translation added (Thanks [@Hewasshushed](https://github.com/Hewasshushed)!)
+- many bug fixes
+- legacy profile layout adjusted
+- integration of blocked profiles in the legacy layout
+- fixed annoying auto scroll to top ([#164](https://github.com/Bl4Cc4t/GoodTwitter2/issues/148))
+- option to show NSFW media in messages ([#148](https://github.com/Bl4Cc4t/GoodTwitter2/issues/148))
+  - the view gets a bit wonky when scrolling fast.
+  - clicking on the image previews does not open a tweet modal, the tweet will be opened directly
+  - gif/video playback uses your browsers default player and should work normally.
+
+
 ## [0.0.23](https://github.com/Bl4Cc4t/GoodTwitter2/pull/145)
 *released 2020-07-03*
 - Display profile information for blocked profiles
