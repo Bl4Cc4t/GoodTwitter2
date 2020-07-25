@@ -1356,7 +1356,7 @@ a.gt2-trend {
 
     & > a.active,
     & > a:hover {
-      border-bottom: 3px solid var(--color-user);
+      border-bottom: .2em solid var(--color-user);
       .gt2-nav-header {
         color: var(--color-user);
       }
