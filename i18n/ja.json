@@ -46,7 +46,7 @@
   "leftTrendsDesc": "トレンドを左サイドバーに表示します。",
   "legacyProfile": "プロフィールページを旧UIのレイアウトに変更する",
   "show10Trends": "常に10個のトレンドを表示する",
-  "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",
+  "showNsfwMessageMedia": "メッセージにセンシティブなツイートメディアを表示する",
   "stickySidebars": "サイドバーの固定",
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
