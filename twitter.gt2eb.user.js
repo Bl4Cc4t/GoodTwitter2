@@ -1742,6 +1742,7 @@
     let isModal = onSubPage("i", ["display"])
                || onSubPage("settings", ["trends", "profile"])
                || onSubPage("compose", ["tweet"])
+               || onPage("search-advanced")
                || path.match(/\/(photo|video)\/\d\/?$/)
 
     // do a reload on these pages
@@ -1868,6 +1869,7 @@
     if (onPage(
           "explore",
           "home",
+          "hashtag",
           "i",
           "messages",
           "notifications",
