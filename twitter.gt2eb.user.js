@@ -683,8 +683,8 @@
         screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:    parseInt($profile.find(`a[href$="/following"]`).attr("title").replace(/[\.,]/g, "")),
-        followers:    parseInt($profile.find(`a[href$="/followers"]`).attr("title").replace(/[\.,]/g, "")),
+        following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]`).attr("title").replace(/[\.,]/g, "")),
+        followers:    parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]`).attr("title").replace(/[\.,]/g, "")),
       }
 
 
