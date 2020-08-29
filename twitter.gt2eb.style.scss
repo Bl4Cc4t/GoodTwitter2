@@ -711,6 +711,12 @@ main {
         display: flex;
         flex-direction: column;
         margin-left: 10px;
+
+        .gt2-legacy-profile-name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
       }
     }
 
@@ -988,6 +994,9 @@ body:not(.gt2-opt-sticky-sidebars) {
     bottom: 82px !important;
   }
 
+  .gt2-legacy-profile-nav-left > div {
+    width: calc(300px - 46px);
+  }
   .gt2-legacy-profile-nav-center {
     padding-left: 300px;
   }
@@ -995,6 +1004,9 @@ body:not(.gt2-opt-sticky-sidebars) {
   @include smallDashboardProfile;
 }
 body:not(.gt2-opt-small-sidebars) {
+  .gt2-legacy-profile-nav-left > div {
+    width: calc(360px - 46px);
+  }
   .gt2-legacy-profile-nav-center {
     padding-left: 360px;
   }
