@@ -780,8 +780,7 @@ main {
     border: unset;
     background-color: unset;
 
-    .gt2-legacy-profile-screen-name,
-    .gt2-legacy-profile-item {
+    .gt2-legacy-profile-screen-name{
       color: var(--color-gray-light) !important;
     }
 
@@ -794,9 +793,10 @@ main {
       margin-bottom: 12px;
     }
 
-    .gt2-legacy-profile-item:not(:last-of-type) {
+    .gt2-legacy-profile-items > *:not(:last-child) {
       margin-bottom: 4px;
     }
+
     .gt2-legacy-profile-fyk {
       margin-top: 5px;
       padding-right: 10px;

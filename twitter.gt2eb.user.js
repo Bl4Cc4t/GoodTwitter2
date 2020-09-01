@@ -683,8 +683,8 @@
         screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]`).attr("title").replace(/[\.,]/g, "")),
-        followers:    parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]`).attr("title").replace(/[\.,]/g, "")),
+        following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        followers:    parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
       }
 
 
@@ -770,6 +770,7 @@
             $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
             $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
             $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
+            $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
             $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
           }
           i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
@@ -783,13 +784,14 @@
               @<span>${i.screenName}</span>
             </a>
             ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-            ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
-            ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
-            ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-            ${i.joinDateHTML        ? `<div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>`                        : ""}
+            <div class="gt2-legacy-profile-items">${e.$items.html()}</div>
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
           `)
 
+          // ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
+          // ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
+          // ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
+          // ${i.joinDateHTML        ? `<div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>`                        : ""}
           // followers you know
           GM_setValue("hasRun_InsertFYK", false)
           waitForKeyElements("a[href$='/followers_you_follow']", e => {
