@@ -770,14 +770,18 @@
             $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
             $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
           }
-          i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
-          i.nameHTML      = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
+          i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
+          i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
+          i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
 
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-            <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+            <div class="gt2-legacy-profile-screen-name-wrap">
+              <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
               @<span>${i.screenName}</span>
-            </a>
+              </a>
+              ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
+            </div>
             ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
             <div class="gt2-legacy-profile-items">${e.$items.html()}</div>
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}

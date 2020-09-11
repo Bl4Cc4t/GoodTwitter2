@@ -796,7 +796,7 @@ main {
     border: unset;
     background-color: unset;
 
-    .gt2-legacy-profile-screen-name{
+    .gt2-legacy-profile-screen-name {
       color: var(--color-gray-light) !important;
     }
 
@@ -804,7 +804,7 @@ main {
       color: var(--color-text);
     }
 
-    .gt2-legacy-profile-screen-name,
+    .gt2-legacy-profile-screen-name-wrap,
     .gt2-legacy-profile-description {
       margin-bottom: 12px;
     }
@@ -815,8 +815,8 @@ main {
     }
 
     .gt2-legacy-profile-fyk {
-      margin-top: 5px;
-      padding-right: 12px;
+      margin-top: 12px;
+      padding-right: 10px;
       &:hover {
         a {
           text-decoration-color: var(--color-gray-light);
