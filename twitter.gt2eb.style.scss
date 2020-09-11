@@ -730,6 +730,9 @@ main {
 
         .gt2-legacy-profile-name {
           text-overflow: ellipsis;
+        }
+        .gt2-legacy-profile-name,
+        .gt2-legacy-profile-screen-name-wrap {
           white-space: nowrap;
           overflow: hidden;
         }
@@ -864,7 +867,7 @@ main {
           border: 5px solid var(--color-navbar);
         }
         .gt2-legacy-profile-name,
-        .gt2-legacy-profile-screen-name {
+        .gt2-legacy-profile-screen-name-wrap {
           display: none;
         }
       }
@@ -903,7 +906,7 @@ main {
     }
     .gt2-legacy-profile-info {
       .gt2-legacy-profile-name,
-      .gt2-legacy-profile-screen-name {
+      .gt2-legacy-profile-screen-name-wrap {
         display: none;
       }
     }

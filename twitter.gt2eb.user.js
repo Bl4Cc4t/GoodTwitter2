@@ -680,7 +680,8 @@
       const i = {
         $banner:      $("a[href$='/header_photo'] img"),
         avatarUrl:    $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
-        screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
+        screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
+        followsYou:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
         following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
@@ -698,9 +699,12 @@
               <img src="${i.avatarUrl}" />
               <div>
                 <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-                <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                <div class="gt2-legacy-profile-screen-name-wrap">
+                  <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
                   @<span>${i.screenName}</span>
-                </a>
+                  </a>
+                  ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
+                </div>
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
