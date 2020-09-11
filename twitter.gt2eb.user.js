@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.24
+// @version       0.0.25
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -1394,7 +1394,7 @@
     console.log("navbar toggled");
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
-    let more = "div[role=menu][style^='max-height: calc'] > div > div > div"
+    let more = "div[role=menu][style^='max-height: calc'].r-ipm5af > div > div > div"
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
