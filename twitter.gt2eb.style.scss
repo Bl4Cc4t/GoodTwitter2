@@ -135,6 +135,10 @@ $notLegacyProfile: "
       right: space(1320px) !important;
     }
 
+    .gt2-search-overflow-hider {
+      right: calc(50% - 300px);
+    }
+
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         margin-left: 360px;
@@ -201,6 +205,10 @@ $notLegacyProfile: "
       right: space(1200px) !important;
     }
 
+    .gt2-search-overflow-hider {
+      right: calc(50% - 300px);
+    }
+
     &.gt2-opt-sticky-sidebars {
       div[data-testid=primaryColumn] {
         margin-left: 300px;
@@ -263,6 +271,10 @@ $notLegacyProfile: "
       right: space(960px) !important;
     }
 
+    .gt2-search-overflow-hider {
+      right: calc(50% - 120px);
+    }
+
     // hide sidebar
     .gt2-left-sidebar {
       display: none;
@@ -316,6 +328,10 @@ $notLegacyProfile: "
   }
   #{$navbarDropdown} {
     right: space(900px) !important;
+  }
+
+  .gt2-search-overflow-hider {
+    right: calc(50% - 150px);
   }
 
   // smaller search
@@ -1550,7 +1566,6 @@ body[style*="overflow: hidden"] {
   width: 600px;
   height: 9px;
   top: 47px;
-  right: calc(50% - 300px);
   background-color: var(--color-bg);
   z-index: 1;
   display: none;
