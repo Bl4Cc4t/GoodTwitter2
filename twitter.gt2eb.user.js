@@ -767,16 +767,11 @@
           // elements
           let e = {
             $description: $profile.find("div[data-testid=UserDescription]"),
-            $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
-            $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
-            $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
             $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
             $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
           }
           i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
           i.nameHTML      = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
-          i.joinDateHTML  = $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html()
-
 
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
@@ -788,11 +783,6 @@
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
           `)
 
-          // ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
-          // ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
-          // ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-          // ${i.joinDateHTML        ? `<div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>`                        : ""}
-          // followers you know
           GM_setValue("hasRun_InsertFYK", false)
           waitForKeyElements("a[href$='/followers_you_follow']", e => {
             if (!GM_getValue("hasRun_InsertFYK")) {
