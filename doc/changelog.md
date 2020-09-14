@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.25](https://github.com/Bl4Cc4t/GoodTwitter2/pull/174)
+*released 2020-09-14*
+- various bug fixes for the Legacy Profile Layout and other small tweaks
+
+
 ## [0.0.24](https://github.com/Bl4Cc4t/GoodTwitter2/pull/161)
 *released 2020-07-25*
 - Simplified Chinese translation added (Thanks [@Hewasshushed](https://github.com/Hewasshushed)!)

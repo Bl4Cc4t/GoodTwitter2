@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.24
+// @version       0.0.25
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @match         https://twitter.com/*
@@ -183,7 +183,7 @@
       "x-twitter-client-language": getLang(),
       "x-csrf-token": csrf,
       "x-twitter-active-user": "yes",
-      "x-twitter-auth-type": "OAuth2Session"
+      // "x-twitter-auth-type": "OAuth2Session"
     }
     Object.assign(out, additionalHeaders)
     return out
@@ -498,7 +498,7 @@
 
   // add navbar
   function addNavbar() {
-    waitForKeyElements("nav > a[data-testid=AppTabBar_Home_Link]", () => {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
       if ($("body").hasClass("gt2-navbar-added")) return
 
       $("body").prepend(`
@@ -539,6 +539,52 @@
 
       // twitter logo
       $("h1 a[href='/home'] svg")
+      .appendTo(".gt2-nav-center a")
+
+      $("body").addClass("gt2-navbar-added")
+    })
+  }
+
+  // add navbar
+  function addNavbarLoggedOut() {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
+      if ($("body").hasClass("gt2-navbar-added")) return
+
+      $("body").prepend(`
+        <nav class="gt2-nav">
+          <div class="gt2-nav-left"></div>
+          <div class="gt2-nav-center">
+            <a href="/"></a>
+          </div>
+          <div class="gt2-nav-right">
+            <div class="gt2-search"></div>
+          </div>
+        </nav>
+        <div class="gt2-search-overflow-hider"></div>
+      `)
+
+      // explore and settings
+      $(`nav > a[data-testid=AppTabBar_Explore_Link],
+         nav > a[href="/settings"]`)
+      .appendTo(".gt2-nav-left")
+      $(`.gt2-nav a[data-testid=AppTabBar_Explore_Link] > div`)
+      .append(`
+        <div class="gt2-nav-header">
+          ${getLocStr(`navExplore`)}
+        </div>
+      `)
+      $(`.gt2-nav a[href="/settings"] > div`)
+      .append(`
+        <div class="gt2-nav-header">
+          ${$(`.gt2-nav a[href="/settings"]`).attr("aria-label")}
+        </div>
+      `)
+
+      // highlight current location
+      $(`.gt2-nav a[href^='/${getPath().split("/")[0]}']`).addClass("active")
+
+      // twitter logo
+      $("header h1 a[href='/'] svg")
       .appendTo(".gt2-nav-center a")
 
       $("body").addClass("gt2-navbar-added")
@@ -680,11 +726,12 @@
       const i = {
         $banner:      $("a[href$='/header_photo'] img"),
         avatarUrl:    $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
-        screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1),
+        screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
+        followsYou:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html(),
         joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:    parseInt($profile.find(`a[href$="/following"]`).attr("title").replace(/[\.,]/g, "")),
-        followers:    parseInt($profile.find(`a[href$="/followers"]`).attr("title").replace(/[\.,]/g, "")),
+        following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        followers:    parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
       }
 
 
@@ -698,9 +745,12 @@
               <img src="${i.avatarUrl}" />
               <div>
                 <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-                <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                <div class="gt2-legacy-profile-screen-name-wrap">
+                  <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
                   @<span>${i.screenName}</span>
-                </a>
+                  </a>
+                  ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
+                </div>
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
@@ -731,7 +781,7 @@
       // add like and tweet count
       GM_xmlhttpRequest({
         method: "GET",
-        url: getRequestURL("https://api.twitter.com/graphql/-xfUfZsnR_zqjFd-IfrN5A/UserByScreenName", {
+        url: getRequestURL(`https://api.twitter.com/graphql/${isLoggedIn() ? "-xfUfZsnR_zqjFd-IfrN5A" : "4S2ihIKfF3xhp-ENxvUAfQ"}/UserByScreenName`, {
           variables: {
             screen_name: i.screenName,
             withHighlightedLabel: true
@@ -754,7 +804,7 @@
                 <div>${profileData.favourites_count.humanizeShort()}</div>
               </a>
             `)
-          }
+          } else console.log(res);
         }
       })
 
@@ -767,30 +817,26 @@
           // elements
           let e = {
             $description: $profile.find("div[data-testid=UserDescription]"),
-            $location:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:first-child:not(:last-child)"),
-            $birthday:    $profile.find("div[data-testid=UserProfileHeader_Items] > span:nth-last-child(2)"),
-            $url:         $profile.find("div[data-testid=UserProfileHeader_Items] > a"),
+            $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
             $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
           }
-          i.screenName    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span").text().slice(1)
-          i.nameHTML      = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
-          i.joinDateHTML  = $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html()
-
+          i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
+          i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
+          i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div > span:nth-child(1)").html()
 
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
-            <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+            <div class="gt2-legacy-profile-screen-name-wrap">
+              <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
               @<span>${i.screenName}</span>
-            </a>
+              </a>
+              ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
+            </div>
             ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-            ${e.$location.length    ? `<div class="gt2-legacy-profile-item">${e.$location.html()}</div>`                    : ""}
-            ${e.$url.length         ? `<div class="gt2-legacy-profile-item">${e.$url.prop("outerHTML")}</div>`              : ""}
-            ${e.$birthday.length && e.$birthday.find("path[d^='M7.75']").length ? `<div class="gt2-legacy-profile-item">${e.$birthday.html()}</div>` : ""}
-            ${i.joinDateHTML        ? `<div class="gt2-legacy-profile-item">${i.joinDateHTML}</div>`                        : ""}
+            <div class="gt2-legacy-profile-items">${e.$items.html()}</div>
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
           `)
 
-          // followers you know
           GM_setValue("hasRun_InsertFYK", false)
           waitForKeyElements("a[href$='/followers_you_follow']", e => {
             if (!GM_getValue("hasRun_InsertFYK")) {
@@ -807,12 +853,58 @@
       }
 
     })
+
+    // profile suspended / not found
+    waitForKeyElements("[hidden] > [role=presentation]", () => {
+      let i = {
+        screenName: $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)").text().trim().slice(1),
+        avatarUrl: "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+      }
+      $("body").addClass("gt2-profile-not-found")
+      $("header").before(`
+        <div class="gt2-legacy-profile-banner">
+          <img />
+        </div>
+        <div class="gt2-legacy-profile-nav">
+          <div class="gt2-legacy-profile-nav-left">
+            <img src="${i.avatarUrl}" />
+            <div>
+              <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+            </div>
+          </div>
+          <div class="gt2-legacy-profile-nav-center">
+            <a href="/${i.screenName}">
+              <div>${getLocStr("statsTweets")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/following">
+              <div>${getLocStr("statsFollowing")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/followers">
+              <div>${getLocStr("statsFollowers")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/likes">
+              <div>${getLocStr("statsLikes")}</div>
+              <div>0</div>
+            </a>
+          </div>
+          <div class="gt2-legacy-profile-nav-right"></div>
+        </div>
+      `)
+      waitForKeyElements(".gt2-legacy-profile-info", () => {
+        $(".gt2-legacy-profile-info").append(`
+          <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+        `)
+      })
+    })
   }
 
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div[aria-haspopup=true]"
+    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup=true]"
     let sparkOpt        = "#react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3)"
 
     GM_setValue("hasRun_forceLatest", false)
@@ -1392,7 +1484,7 @@
     console.log("navbar toggled");
     let i = getInfo()
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
-    let more = "div[role=menu][style^='max-height: calc'] > div > div > div"
+    let more = "div[role=menu][style^='max-height: calc'].r-ipm5af > div > div > div"
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
@@ -1742,6 +1834,7 @@
     let isModal = onSubPage("i", ["display"])
                || onSubPage("settings", ["trends", "profile"])
                || onSubPage("compose", ["tweet"])
+               || onPage("search-advanced")
                || path.match(/\/(photo|video)\/\d\/?$/)
 
     // do a reload on these pages
@@ -1781,32 +1874,32 @@
     })
 
 
-    if (isLoggedIn()) {
-
-      // add navbar
-      if (!$("body").hasClass("gt2-navbar-added")) {
+    // add navbar
+    if (!$("body").hasClass("gt2-navbar-added")) {
+      if (isLoggedIn()) {
         addNavbar()
+      } else {
+        addNavbarLoggedOut()
       }
+    }
 
+    // highlight current location in left bar
+    if (!isModal) {
+      $(`.gt2-nav-left > a`).removeClass("active")
+      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+    }
 
-      // highlight current location in left bar
-      if (!isModal) {
-        $(`.gt2-nav-left > a`).removeClass("active")
-        $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
-      }
+    // hide/add search
+    if (onPage("search", "explore")) {
+      $(".gt2-search").empty()
+      $("body").removeClass("gt2-search-added")
+      $("body").addClass("gt2-page-search")
+    } else if (!isModal) {
+      $("body").removeClass("gt2-page-search")
+      addSearch()
+    }
 
-
-      // hide/add search
-      if (onPage("search", "explore")) {
-        $(".gt2-search").empty()
-        $("body").removeClass("gt2-search-added")
-        $("body").addClass("gt2-page-search")
-      } else if (!isModal) {
-        $("body").removeClass("gt2-page-search")
-        addSearch()
-      }
-
-    } else {
+    if (!isLoggedIn()) {
       $("body").addClass("gt2-not-logged-in")
     }
 
@@ -1868,6 +1961,7 @@
     if (onPage(
           "explore",
           "home",
+          "hashtag",
           "i",
           "messages",
           "notifications",
