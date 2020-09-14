@@ -807,6 +807,52 @@
       }
 
     })
+
+    // profile suspended / not found
+    waitForKeyElements("[hidden] > [role=presentation]", () => {
+      let i = {
+        screenName: $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)").text().trim().slice(1),
+        avatarUrl: "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+      }
+      $("body").addClass("gt2-profile-not-found")
+      $("header").before(`
+        <div class="gt2-legacy-profile-banner">
+          <img />
+        </div>
+        <div class="gt2-legacy-profile-nav">
+          <div class="gt2-legacy-profile-nav-left">
+            <img src="${i.avatarUrl}" />
+            <div>
+              <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+            </div>
+          </div>
+          <div class="gt2-legacy-profile-nav-center">
+            <a href="/${i.screenName}">
+              <div>${getLocStr("statsTweets")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/following">
+              <div>${getLocStr("statsFollowing")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/followers">
+              <div>${getLocStr("statsFollowers")}</div>
+              <div>0</div>
+            </a>
+            <a href="/${i.screenName}/likes">
+              <div>${getLocStr("statsLikes")}</div>
+              <div>0</div>
+            </a>
+          </div>
+          <div class="gt2-legacy-profile-nav-right"></div>
+        </div>
+      `)
+      waitForKeyElements(".gt2-legacy-profile-info", () => {
+        $(".gt2-legacy-profile-info").append(`
+          <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+        `)
+      })
+    })
   }
 
 

@@ -685,6 +685,20 @@ main {
     }
   }
 
+  &.gt2-profile-not-found {
+    main > div {
+      margin-top: unset !important;
+    }
+    .gt2-legacy-profile-nav a,
+    .gt2-legacy-profile-info a {
+      pointer-events: none;
+    }
+
+    &.gt2-scrolled-down-banner .gt2-legacy-profile-info {
+      display: none;
+    }
+  }
+
   .gt2-legacy-profile-banner,
   .gt2-legacy-profile-nav {
     z-index: 1;
@@ -709,7 +723,6 @@ main {
     background-color: var(--color-navbar);
     display: flex;
     @include standardLink;
-
 
     & > div {
       position: absolute;
