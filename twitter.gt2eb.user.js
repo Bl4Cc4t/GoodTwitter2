@@ -183,7 +183,7 @@
       "x-twitter-client-language": getLang(),
       "x-csrf-token": csrf,
       "x-twitter-active-user": "yes",
-      "x-twitter-auth-type": "OAuth2Session"
+      // "x-twitter-auth-type": "OAuth2Session"
     }
     Object.assign(out, additionalHeaders)
     return out
@@ -498,7 +498,7 @@
 
   // add navbar
   function addNavbar() {
-    waitForKeyElements("nav > a[data-testid=AppTabBar_Home_Link]", () => {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
       if ($("body").hasClass("gt2-navbar-added")) return
 
       $("body").prepend(`
@@ -539,6 +539,52 @@
 
       // twitter logo
       $("h1 a[href='/home'] svg")
+      .appendTo(".gt2-nav-center a")
+
+      $("body").addClass("gt2-navbar-added")
+    })
+  }
+
+  // add navbar
+  function addNavbarLoggedOut() {
+    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
+      if ($("body").hasClass("gt2-navbar-added")) return
+
+      $("body").prepend(`
+        <nav class="gt2-nav">
+          <div class="gt2-nav-left"></div>
+          <div class="gt2-nav-center">
+            <a href="/"></a>
+          </div>
+          <div class="gt2-nav-right">
+            <div class="gt2-search"></div>
+          </div>
+        </nav>
+        <div class="gt2-search-overflow-hider"></div>
+      `)
+
+      // explore and settings
+      $(`nav > a[data-testid=AppTabBar_Explore_Link],
+         nav > a[href="/settings"]`)
+      .appendTo(".gt2-nav-left")
+      $(`.gt2-nav a[data-testid=AppTabBar_Explore_Link] > div`)
+      .append(`
+        <div class="gt2-nav-header">
+          ${getLocStr(`navExplore`)}
+        </div>
+      `)
+      $(`.gt2-nav a[href="/settings"] > div`)
+      .append(`
+        <div class="gt2-nav-header">
+          ${$(`.gt2-nav a[href="/settings"]`).attr("aria-label")}
+        </div>
+      `)
+
+      // highlight current location
+      $(`.gt2-nav a[href^='/${getPath().split("/")[0]}']`).addClass("active")
+
+      // twitter logo
+      $("header h1 a[href='/'] svg")
       .appendTo(".gt2-nav-center a")
 
       $("body").addClass("gt2-navbar-added")
@@ -735,7 +781,7 @@
       // add like and tweet count
       GM_xmlhttpRequest({
         method: "GET",
-        url: getRequestURL("https://api.twitter.com/graphql/-xfUfZsnR_zqjFd-IfrN5A/UserByScreenName", {
+        url: getRequestURL(`https://api.twitter.com/graphql/${isLoggedIn() ? "-xfUfZsnR_zqjFd-IfrN5A" : "4S2ihIKfF3xhp-ENxvUAfQ"}/UserByScreenName`, {
           variables: {
             screen_name: i.screenName,
             withHighlightedLabel: true
@@ -758,7 +804,7 @@
                 <div>${profileData.favourites_count.humanizeShort()}</div>
               </a>
             `)
-          }
+          } else console.log(res);
         }
       })
 
@@ -1828,32 +1874,32 @@
     })
 
 
-    if (isLoggedIn()) {
-
-      // add navbar
-      if (!$("body").hasClass("gt2-navbar-added")) {
+    // add navbar
+    if (!$("body").hasClass("gt2-navbar-added")) {
+      if (isLoggedIn()) {
         addNavbar()
+      } else {
+        addNavbarLoggedOut()
       }
+    }
 
+    // highlight current location in left bar
+    if (!isModal) {
+      $(`.gt2-nav-left > a`).removeClass("active")
+      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+    }
 
-      // highlight current location in left bar
-      if (!isModal) {
-        $(`.gt2-nav-left > a`).removeClass("active")
-        $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
-      }
+    // hide/add search
+    if (onPage("search", "explore")) {
+      $(".gt2-search").empty()
+      $("body").removeClass("gt2-search-added")
+      $("body").addClass("gt2-page-search")
+    } else if (!isModal) {
+      $("body").removeClass("gt2-page-search")
+      addSearch()
+    }
 
-
-      // hide/add search
-      if (onPage("search", "explore")) {
-        $(".gt2-search").empty()
-        $("body").removeClass("gt2-search-added")
-        $("body").addClass("gt2-page-search")
-      } else if (!isModal) {
-        $("body").removeClass("gt2-page-search")
-        addSearch()
-      }
-
-    } else {
+    if (!isLoggedIn()) {
       $("body").addClass("gt2-not-logged-in")
     }
 
