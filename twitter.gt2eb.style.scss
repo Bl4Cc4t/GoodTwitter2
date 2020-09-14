@@ -494,6 +494,18 @@ $notLegacyProfile: "
   }
 }
 
+// not smallest screen
+@media only screen and (min-width: 1005px) {
+  .gt2-opt-sticky-sidebars {
+    #{$notLegacyProfile} {
+      .gt2-left-sidebar {
+        position: fixed !important;
+        height: calc(100vh - 57px);
+      }
+    }
+  }
+}
+
 body:not(.gt2-not-logged-in) {
   // hide header completely
   header {
@@ -936,10 +948,6 @@ body {
 
 .gt2-opt-sticky-sidebars {
   #{$notLegacyProfile} {
-    .gt2-left-sidebar {
-      position: fixed !important;
-      height: calc(100vh - 57px);
-    }
     div[data-testid=sidebarColumn] > div > div:nth-child(2) {
       position: fixed;
       top: 56px !important;
