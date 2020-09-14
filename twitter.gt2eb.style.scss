@@ -924,7 +924,7 @@ body {
 .gt2-opt-sticky-sidebars {
   #{$notLegacyProfile} {
     .gt2-left-sidebar {
-      position: fixed;
+      position: fixed !important;
       height: calc(100vh - 57px);
     }
     div[data-testid=sidebarColumn] > div > div:nth-child(2) {
@@ -1551,7 +1551,8 @@ a.gt2-trend {
 }
 
 // stuff to do on modal
-body[style*="overflow: hidden"] {
+body[style*="overflow: hidden"],
+body[style*="overflow-y: hidden"] {
   // hide navbar and other things
   .gt2-nav,
   .gt2-search-overflow-hider {
