@@ -69,6 +69,7 @@ Thanks to these awesome people, there are translations available for the followi
 - French (added by [@Aridow](https://github.com/Aridow))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
+- Portuguese (added by [@fr0r](https://github.com/fr0r))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))

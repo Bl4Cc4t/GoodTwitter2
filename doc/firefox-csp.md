@@ -16,6 +16,6 @@ Here is a guide on how to do that:
 
 ### End
 - Now you can restart your browser, that should remove any cached content.
-- Everything should work now, without being exposed!
+- Everything should work now, without you being exposed!
 
 Thank you for using GoodTwitter 2!
