@@ -1663,7 +1663,7 @@ body[style*="overflow-y: hidden"] {
   }
 
   &.gt2-page-settings-active {
-    main section:nth-last-child(2) > div:nth-child(2) > div {
+    main > div > div > div > section:nth-last-child(2) > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
         background-color: var(--color-elem);
