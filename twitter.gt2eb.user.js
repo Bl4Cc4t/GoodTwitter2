@@ -833,7 +833,7 @@
               ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
             </div>
             ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-            <div class="gt2-legacy-profile-items">${e.$items.html()}</div>
+            <div class="gt2-legacy-profile-items">${e.$items.length ? e.$items.html() : ""}</div>
             ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
           `)
 
@@ -1209,7 +1209,7 @@
             // add legacy sidebar profile information
             waitForKeyElements(".gt2-legacy-profile-name", () => {
               if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-fyk").length) {
-                $(".gt2-legacy-profile-info").append(`
+                $(".gt2-legacy-profile-info .gt2-legacy-profile-items").append(`
                   ${p.description ? `<div class="gt2-legacy-profile-description">${p.description}</div>` : ""}
                   ${p.location    ? `<div class="gt2-legacy-profile-item">${p.location}</div>`           : ""}
                   ${p.url         ? `<div class="gt2-legacy-profile-item">${p.url}</div>`                : ""}

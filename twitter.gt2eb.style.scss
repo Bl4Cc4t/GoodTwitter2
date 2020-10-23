@@ -842,7 +842,9 @@ main {
           height: 1.25em;
           margin-right: 5px;
         }
-
+        &:not(.gt2-blocked-profile-url) {
+          color: var(--color-gray-light);
+        }
       }
     }
     .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
