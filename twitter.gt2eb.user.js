@@ -1910,7 +1910,7 @@
 
 
     // settings
-    if (onPage("settings") && !onSubPage("settings", ["profile"])) {
+    if (onPage("settings") && !isModal) {
       $("body").addClass("gt2-page-settings")
       if (path.startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-settings-active")
