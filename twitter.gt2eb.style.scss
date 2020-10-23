@@ -661,7 +661,7 @@ main {
       transition: margin-top .25s ease-in-out;
     }
 
-    div[data-testid=primaryColumn] > div {
+    div[data-testid=primaryColumn] > div > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;

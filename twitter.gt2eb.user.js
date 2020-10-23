@@ -720,7 +720,7 @@
     waitForKeyElements("a[href$='/photo'] img", () => {
       console.log("rebuild");
 
-      let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
+      let $profile = $("div[data-testid=primaryColumn] > div > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
 
       // information (constant)
       const i = {
