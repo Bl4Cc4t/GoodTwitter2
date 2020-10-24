@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.26](https://github.com/Bl4Cc4t/GoodTwitter2/pull/174)
+*released 2020-10-24*
+- Portuguese translation added (Thanks [@fr0r](https://github.com/fr0r)!)
+- fixed tweet translation issues
+- Legacy profile layout
+  - works again! ([#212](https://github.com/Bl4Cc4t/GoodTwitter2/issues/212))
+  - added bio translation button ([#213](https://github.com/Bl4Cc4t/GoodTwitter2/issues/213))
+  - the verified icon now shows up ([#204](https://github.com/Bl4Cc4t/GoodTwitter2/issues/204))
+- fixed new US news trends not moving ([#210](https://github.com/Bl4Cc4t/GoodTwitter2/issues/210))
+- fixed NSFW media in messages not showing up ([#206](https://github.com/Bl4Cc4t/GoodTwitter2/issues/206))
+
+
 ## [0.0.25](https://github.com/Bl4Cc4t/GoodTwitter2/pull/174)
 *released 2020-09-14*
 - various bug fixes for the Legacy Profile Layout and other small tweaks

@@ -661,7 +661,7 @@ main {
       transition: margin-top .25s ease-in-out;
     }
 
-    div[data-testid=primaryColumn] > div {
+    div[data-testid=primaryColumn] > div > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
@@ -782,6 +782,7 @@ main {
     font-size: incr(18px);
     font-weight: bold;
     color: var(--color-text) !important;
+    font-weight: 800;
   }
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
@@ -842,7 +843,9 @@ main {
           height: 1.25em;
           margin-right: 5px;
         }
-
+        &:not(.gt2-blocked-profile-url) {
+          color: var(--color-gray-light);
+        }
       }
     }
     .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
@@ -1663,7 +1666,7 @@ body[style*="overflow-y: hidden"] {
   }
 
   &.gt2-page-settings-active {
-    main section:nth-last-child(2) > div:nth-child(2) > div {
+    main > div > div > div > section:nth-last-child(2) > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
         background-color: var(--color-elem);
@@ -2125,6 +2128,7 @@ body[data-payment-endpoint-path] {
 
   &:hover {
     text-decoration-line: underline;
+    cursor: pointer;
   }
 
   svg {
