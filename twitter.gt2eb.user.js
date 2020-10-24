@@ -724,14 +724,20 @@
 
       // information (constant)
       const i = {
-        $banner:      $("a[href$='/header_photo'] img"),
-        avatarUrl:    $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
-        screenName:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
-        followsYou:   $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
-        nameHTML:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
-        joinDateHTML: $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:    parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
-        followers:    parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        $banner:        $("a[href$='/header_photo'] img"),
+        avatarUrl:      $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
+        screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
+        followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
+        nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
+        joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
+        following:      parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        followers:      parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        screenNameOnly: false
+      }
+
+      if (i.screenName == "") {
+        i.screenNameOnly = true
+        i.screenName = $(i.nameHTML).text().trim()
       }
 
 
@@ -746,9 +752,11 @@
               <div>
                 <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
                 <div class="gt2-legacy-profile-screen-name-wrap">
-                  <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-                  @<span>${i.screenName}</span>
-                  </a>
+                  ${i.screenNameOnly ? "" : `
+                    <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                    @<span>${i.screenName}</span>
+                    </a>
+                  `}
                   ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
                 </div>
               </div>
@@ -823,13 +831,19 @@
           i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
           i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
           i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
+          if (i.screenName == "") {
+            i.screenNameOnly = true
+            i.screenName = $(i.nameHTML).text().trim()
+          }
 
           $(".gt2-legacy-profile-info").append(`
             <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
             <div class="gt2-legacy-profile-screen-name-wrap">
-              <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-              @<span>${i.screenName}</span>
-              </a>
+              ${i.screenNameOnly ? "" : `
+                <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                @<span>${i.screenName}</span>
+                </a>
+              `}
               ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
             </div>
             ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
