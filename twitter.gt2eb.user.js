@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.25
+// @version       0.0.26
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
+// @license       MIT
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
 // @grant         GM_deleteValue
@@ -12,8 +13,6 @@
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
-// @connect       abs.twimg.com
-// @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://raw.githubusercontent.com/mathiasbynens/emoji-regex/master/es2015/index.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
