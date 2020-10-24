@@ -737,7 +737,7 @@
 
       if (i.screenName == "") {
         i.screenNameOnly = true
-        i.screenName = $(i.nameHTML).text().trim()
+        i.screenName = $(i.nameHTML).text().trim().slice(1)
       }
 
 
@@ -833,7 +833,7 @@
           i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
           if (i.screenName == "") {
             i.screenNameOnly = true
-            i.screenName = $(i.nameHTML).text().trim()
+            i.screenName = $(i.nameHTML).text().trim().slice(1)
           }
 
           $(".gt2-legacy-profile-info").append(`
@@ -1123,6 +1123,8 @@
               </span>
             </a>
           `)
+        } else if (res.status == 401) {
+          callback("")
         }
       }
     })
