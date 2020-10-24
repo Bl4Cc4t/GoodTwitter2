@@ -946,7 +946,8 @@
   // handle trends (wrap, move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped)`
+    let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped),
+                  section[aria-labelledby^=accessible-list] a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
 
     waitForKeyElements(trends, () => {
 
