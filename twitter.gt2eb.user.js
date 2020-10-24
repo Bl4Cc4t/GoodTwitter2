@@ -1027,7 +1027,7 @@
 
   // messages stuff
   function handleNSFWTweetMessages() {
-    let tm = "div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/']"
+    let tm = "div[data-testid=messageEntry] div[role=link] span[title*='/status/']"
     waitForKeyElements(tm, e => {
       if ($(e).find(".gt2-msg-nsfw-media").length) return
       let statusID = $(e).attr("title").split("/")[5]
@@ -1050,7 +1050,7 @@
                 ? media[0].video_info.variants[0].url // gif
                 : media[0].video_info.variants.filter(v => v.bitrate).sort((v1, v2) => v1.bitrate > v2.bitrate).pop().url
 
-              $(e).parents("div[role=blockquote] > div").append(`
+              $(e).parents("div[role=link] > div").append(`
                 <div class="gt2-msg-nsfw-media">
                   <video loop controls src="${videoUrl}" poster="${previewUrl}"></video>
                 </div>
@@ -1062,13 +1062,13 @@
               for (let p in media) {
                 if (p % 2 == 0) photoHTML += "<div>"
                 photoHTML += `
-                  <a href="${media[p].expanded_url}">
+                  <a href="${media[p].expanded_url.slice(0, -1)}${(parseInt(p)+1)}">
                     <img src="${media[p].media_url_https}" />
                   </a>
                 `
                 if (p % 2 == 1 || p-1 == media.length) photoHTML += "</div>"
               }
-              $(e).parents("div[role=blockquote] > div").append(`
+              $(e).parents("div[role=link] > div").append(`
                 <div class="gt2-msg-nsfw-media" data-photo-count="x${media.length}">
                   ${photoHTML}
                 </div>
