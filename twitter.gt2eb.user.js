@@ -219,9 +219,10 @@
     // users
     if (entities.user_mentions) {
       for (let user of entities.user_mentions) {
+        let x = text.slice(user.indices[0], user.indices[0]+1) == "@" ? 0 : 1
         toReplace.push({
-          [user.indices[0]]: `<a href="/${user.screen_name}">`,
-          [user.indices[1]]: `</a> `
+          [user.indices[0]+x]: `<a href="/${user.screen_name}">`,
+          [user.indices[1]+x]: `</a> `
         })
       }
     }
@@ -229,15 +230,16 @@
     // hashtags
     if (entities.hashtags) {
       for (let hashtag of entities.hashtags) {
+        let x = text.slice(hashtag.indices[0], hashtag.indices[0]+1) == "#" ? 0 : 1
         toReplace.push({
-          [hashtag.indices[0]]: `<a href="/hashtag/${hashtag.text}">`,
-          [hashtag.indices[1]]: `</a> `
+          [hashtag.indices[0]+x]: `<a href="/hashtag/${hashtag.text}">`,
+          [hashtag.indices[1]+x]: `</a> `
         })
       }
     }
 
     // sort array
-    toReplace.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0] ? -1 : 1)
+    toReplace = toReplace.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0] ? 1 : -1)
 
     // replace values
     let offset = 0
@@ -797,22 +799,29 @@
         }),
         headers: getRequestHeaders(),
         onload: (res) => {
-          if (res.status == 200 && !$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
-            let profileData = JSON.parse(res.response).data.user.legacy
+          if (res.status == 200) {
+            let profileData = JSON.parse(res.response).data.user
+            let pleg = profileData.legacy
 
-            $(".gt2-legacy-profile-nav-center").prepend(`
-              <a href="/${i.screenName}" title="${profileData.statuses_count.humanize()}">
-                <div>${getLocStr("statsTweets")}</div>
-                <div>${profileData.statuses_count.humanizeShort()}</div>
-              </a>
-            `)
-            $(".gt2-legacy-profile-nav-center").append(`
-              <a href="/${i.screenName}/likes" title="${profileData.favourites_count.humanize()}">
-                <div>${getLocStr("statsLikes")}</div>
-                <div>${profileData.favourites_count.humanizeShort()}</div>
-              </a>
-            `)
-          } else console.log(res);
+            // profile id
+            $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
+
+            // add likes and stuff
+            if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
+              $(".gt2-legacy-profile-nav-center").prepend(`
+                <a href="/${i.screenName}" title="${pleg.statuses_count.humanize()}">
+                  <div>${getLocStr("statsTweets")}</div>
+                  <div>${pleg.statuses_count.humanizeShort()}</div>
+                </a>
+              `)
+              $(".gt2-legacy-profile-nav-center").append(`
+                <a href="/${i.screenName}/likes" title="${pleg.favourites_count.humanize()}">
+                  <div>${getLocStr("statsLikes")}</div>
+                  <div>${pleg.favourites_count.humanizeShort()}</div>
+                </a>
+              `)
+            }
+          } else console.log(res)
         }
       })
 
@@ -1237,7 +1246,8 @@
               }
             })
 
-
+            // profile id
+            $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
           })
 
         }
@@ -1294,8 +1304,8 @@
   }
 
 
-  // translate a tweet
-  $("body").on("click", ".gt2-translate-tweet", function(event) {
+  // translate a tweet or LPL bio
+  $("body").on("click", ".gt2-translate-tweet, .gt2-legacy-profile-info [data-testid=UserDescription] + [role=button]", function(event) {
     event.preventDefault()
 
     // already translated
@@ -1305,6 +1315,7 @@
       return
     }
 
+    let isTweet = $(this).is(".gt2-translate-tweet")
     let _this = this
     GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
@@ -1312,14 +1323,15 @@
 
     GM_xmlhttpRequest({
       method: "GET",
-      url:    `https://twitter.com/i/api/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
-      headers: getRequestHeaders({
+      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${statusUrl.split("/")[3]}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
+      headers: getRequestHeaders(isTweet ? {
         referer: statusUrl
-      }),
+      } : {}),
       onload: function(res) {
         if (res.status == "200") {
           let o = JSON.parse(res.response)
-          console.log(o);
+          if (!isTweet) o = o.profileTranslation
+          console.log(o)
           let out = o.translation
 
           // handle entities in tweet
@@ -1356,8 +1368,9 @@
     event.preventDefault()
 
     $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").addClass("gt2-hidden")
-    $(this).parent().find(".gt2-translate-tweet").removeClass("gt2-hidden")
+    $(this).prevAll(".gt2-translate-tweet, [role=button]").removeClass("gt2-hidden")
   })
+
 
 
 
