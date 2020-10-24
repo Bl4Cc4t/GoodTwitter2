@@ -789,7 +789,7 @@
       // add like and tweet count
       GM_xmlhttpRequest({
         method: "GET",
-        url: getRequestURL(`https://api.twitter.com/graphql/${isLoggedIn() ? "-xfUfZsnR_zqjFd-IfrN5A" : "4S2ihIKfF3xhp-ENxvUAfQ"}/UserByScreenName`, {
+        url: getRequestURL(`https://twitter.com/i/api/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName`, {
           variables: {
             screen_name: i.screenName,
             withHighlightedLabel: true
@@ -1024,7 +1024,7 @@
       let statusID = $(e).attr("title").split("/")[5]
       GM_xmlhttpRequest({
         method: "GET",
-        url: getRequestURL("https://api.twitter.com/1.1/statuses/show.json", {
+        url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
           id: statusID,
           tweet_mode: "extended",
           trim_user: true
@@ -1075,7 +1075,7 @@
   function getFollowersYouKnowHTML(screenName, profileID, callback) {
     GM_xmlhttpRequest({
       method: "GET",
-      url: getRequestURL("https://api.twitter.com/1.1/friends/following/list.json", {
+      url: getRequestURL("https://twitter.com/i/api/1.1/friends/following/list.json", {
         include_profile_interstitial_type: 1,
         include_blocking: 1,
         include_blocked_by: 1,
@@ -1134,7 +1134,7 @@
 
     GM_xmlhttpRequest({
       method: "GET",
-      url: getRequestURL("https://api.twitter.com/graphql/-xfUfZsnR_zqjFd-IfrN5A/UserByScreenName", {
+      url: getRequestURL("https://twitter.com/i/api/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName", {
         variables: {
           screen_name: screenName,
           withHighlightedLabel: true
@@ -1184,9 +1184,9 @@
                                 bdText = getLocStr("bornYear").replace("$year$", date.toLocaleDateString(getLang(), { year: "numeric"}))
                               } else {
                                 let opt = {}
-                                if (bd.year)  opt.year = "numeric"
+                                if (bd.year)  opt.year  = "numeric"
                                 if (bd.month) opt.month = "long"
-                                if (bd.day)   opt.day = "numeric"
+                                if (bd.day)   opt.day   = "numeric"
                                 bdText = getLocStr("bornDate").replace("$date$", date.toLocaleDateString(getLang(), opt))
                               }
 
@@ -1309,7 +1309,7 @@
 
     GM_xmlhttpRequest({
       method: "GET",
-      url:    `https://api.twitter.com/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
+      url:    `https://twitter.com/i/api/1.1/strato/column/None/tweetId=${statusUrl.split("/")[3]},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translateTweet`,
       headers: getRequestHeaders({
         referer: statusUrl
       }),
