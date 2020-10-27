@@ -1,5 +1,8 @@
 # Changelog
 
+#### 0.0.26.1
+- recompiled css
+
 ## [0.0.26](https://github.com/Bl4Cc4t/GoodTwitter2/pull/174)
 *released 2020-10-24*
 - Portuguese translation added (Thanks [@fr0r](https://github.com/fr0r)!)
