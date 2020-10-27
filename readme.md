@@ -18,7 +18,7 @@
 
 
 ## Background
-Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [stop working too](https://twitter.com/ZusorOW/status/1258885451055800320), I decided to create a somewhat fix for the site.
+Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [stopped working too](https://twitter.com/ZusorOW/status/1258885451055800320), I decided to create a somewhat fix for the site.
 
 ## Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
@@ -42,7 +42,7 @@ To use this script, you need a userscript manager.
 - Install [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/) (Greasemonkey is not supported at the moment)
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you should be good to go!
-- [Firefox] You do not need to disable CSP on anymore. If you disabled it previously, see [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md) on how to enable it again.
+- [Firefox] You do not need to disable CSP anymore. If you disabled it previously, see [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md) on how to enable it again.
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
