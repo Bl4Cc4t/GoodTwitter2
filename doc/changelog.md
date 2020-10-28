@@ -1,5 +1,8 @@
 # Changelog
 
+#### 0.0.26.2
+- reverted 488dff0 ([#215](https://github.com/Bl4Cc4t/GoodTwitter2/issues/215))
+
 #### 0.0.26.1
 - recompiled css
 

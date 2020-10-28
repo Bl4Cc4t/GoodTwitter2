@@ -556,7 +556,7 @@ main {
       height: -webkit-fit-content;
       margin-bottom: 10px;
       border-bottom: 1px solid var(--color-gray-dark);
-      & > div > div {
+      & > div {
 
         // scroll behind nav bar
         & > div:nth-child(1) {
@@ -661,7 +661,7 @@ main {
       transition: margin-top .25s ease-in-out;
     }
 
-    div[data-testid=primaryColumn] > div > div {
+    div[data-testid=primaryColumn] > div {
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
@@ -1040,9 +1040,9 @@ body:not(.gt2-opt-small-sidebars) {
 
 .gt2-opt-square-avatars {
   // /home new tweet
-  div[data-testid=primaryColumn] > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
   // profile
-  div[data-testid=primaryColumn] > div > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
   // tweet
   div[data-testid=tweet] > div:nth-child(1) > div > div,
   // sidebar (who to follow)
@@ -1183,7 +1183,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 // .gt2-opt-keep-tweets-in-tl {
-//   div[data-testid=primaryColumn] > div > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
+//   div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
 //     padding-top: 0 !important;
 //     padding-bottom: 0 !important;
 //   }
@@ -1589,7 +1589,7 @@ body[style*="overflow-y: hidden"] {
   }
   div[data-testid=primaryColumn] {
     border-top-width: 0 !important;
-    & > div > div > div:nth-child(1) {
+    & > div > div:nth-child(1) {
       position: sticky;
       top: 56px;
       border-top: 1px solid var(--color-gray-dark);
@@ -1597,7 +1597,7 @@ body[style*="overflow-y: hidden"] {
     }
   }
   &.gt2-scrolled-down {
-    div[data-testid=primaryColumn] > div > div > div:nth-child(1) {
+    div[data-testid=primaryColumn] > div > div:nth-child(1) {
       top: calc(56px - 107px);
     }
   }
