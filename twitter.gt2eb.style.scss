@@ -1610,7 +1610,7 @@ body[style*="overflow-y: hidden"] {
   }
   div[data-testid=primaryColumn] {
     border-top-width: 0 !important;
-    & > div > div > div:nth-child(1) {
+    & > div > div:nth-child(1) {
       top: 56px;
       position: sticky;
       border-top: 1px solid var(--color-gray-dark);

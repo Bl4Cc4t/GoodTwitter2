@@ -711,17 +711,29 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
+    let currentScreenName = getPath().split("/")[0]
+    console.log(`rebuild: ${currentScreenName}`)
 
-    // remove previously added profile
-    if ($(".gt2-legacy-profile-nav").length && $(".gt2-legacy-profile-name").attr("href").slice(1).toLowerCase() != getPath().split("/")[0].toLowerCase()) {
-      $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-      $(".gt2-legacy-profile-info").empty()
+
+    let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
+
+    // buttons
+    if (!$(".gt2-legacy-profile-nav-right > div").length) {
+      $(".gt2-legacy-profile-nav-right").empty()
+      console.log("b");
+      $(`${profileSel} > div:nth-child(1) > div`).detach().appendTo(".gt2-legacy-profile-nav-right")
     }
 
-    waitForKeyElements("a[href$='/photo'] img", () => {
-      console.log("rebuild");
+    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
+      console.log("rebuild inner");
+      // remove previously added profile
+      if ($(".gt2-legacy-profile-nav").length) {
+        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
+        $(".gt2-legacy-profile-info").empty()
+      }
 
-      let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
+
+      let $profile = $(profileSel)
 
       // information (constant)
       const i = {
@@ -826,8 +838,10 @@
 
 
       // sidebar profile information
-      waitForKeyElements(".gt2-legacy-profile-info", () => {
-
+      waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
+        $(".gt2-legacy-profile-info").data("alreadyFound", false)
+        waitForKeyElements(".gt2-legacy-profile-info", () => {
+          console.log("sideinfo");
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
 
           // elements
@@ -868,9 +882,11 @@
           })
         }
       })
+      })
 
       // buttons
       if (!$(".gt2-legacy-profile-nav-right > div").length) {
+        console.log("a");
         $profile.find("> div:nth-child(1) > div").detach().appendTo(".gt2-legacy-profile-nav-right")
       }
 
@@ -1841,7 +1857,10 @@
 
   function beforeUrlChange() {
     // reattach buttons to original position
-    $(".gt2-legacy-profile-nav-right > div").detach().appendTo("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+    let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+    if (!$b.find("> div").length) {
+      $(".gt2-legacy-profile-nav-right > div").detach().appendTo($b)
+    }
   }
 
 
@@ -2019,10 +2038,11 @@
   } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
-        if (changeType == "pop") {
+        if (GM_getValue("prev_page") != path.split("/")[0]) {
+          console.log("new profile");
           $("a[href$='/photo'] img").data("alreadyFound", false)
         }
-        $(".gt2-legacy-profile-info").data("alreadyFound", false)
+
         rebuildLegacyProfile()
       }
     }
@@ -2048,6 +2068,7 @@
       forceLatest()
     }
 
+    GM_setValue("prev_page", path.split("/")[0])
   }
   urlChange("init")
 
