@@ -893,7 +893,6 @@
 
       // buttons
       if (!$(".gt2-legacy-profile-nav-right > div").length) {
-        console.log("a");
         $profile.find("> div:nth-child(1) > div").detach().appendTo(".gt2-legacy-profile-nav-right")
       }
 
@@ -1015,7 +1014,7 @@
 
       // wrap trends in anchors
       $(trends).each(function() {
-        let $toWrap = $(this).find("> div > div:nth-child(2) > span")
+        let $toWrap = $(this).find("> div > div:nth-child(2) > span[dir]")
         if ($toWrap.length) {
           $(this).addClass("gt2-trend-wrapped")
           let txt = $toWrap.text()
@@ -1540,7 +1539,7 @@
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div").eq(-4)  // seperator line
+      let $hr = $(more).find("> div:empty") // seperator line
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -1886,7 +1885,7 @@
     }
 
     // on modal
-    let isModal = onSubPage("i", ["display"])
+    let isModal = onSubPage("i", ["display", "keyboard_shortcuts"])
                || onSubPage("settings", ["trends", "profile"])
                || onSubPage("compose", ["tweet"])
                || onPage("search-advanced")
