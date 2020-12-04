@@ -840,6 +840,9 @@
         }
       })
 
+      // scroll all the way up
+      window.scroll(0, 0)
+
 
       // sidebar profile information
       waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
@@ -1831,7 +1834,7 @@
 
       // prevent auto scroll to top
       if (prev > 1500 && curr == 0) {
-        window.pageYOffset = prev
+        window.scroll(0, prev)
         return
       }
 
