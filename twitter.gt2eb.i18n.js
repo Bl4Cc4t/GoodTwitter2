@@ -221,7 +221,7 @@ let i18n = {
   "leftTrendsDesc": "Affiche les Tendances dans la barre de gauche.",
   "legacyProfile": "Affichage du profil de l'ancien Twitter",
   "show10Trends": "Toujours afficher 10 Tendances",
-  "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",
+  "showNsfwMessageMedia": "Montrer les médias sensibles dans les messages",
   "stickySidebars": "Barres latérales fixes",
   "smallSidebars": "Petites barres latérales",
   "smallSidebarsDesc": "Barres latérales de 290px au lieu de 350px de large.",

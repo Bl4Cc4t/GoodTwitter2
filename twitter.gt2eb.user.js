@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.26.2
+// @version       0.0.27
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -711,17 +711,21 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
+    let currentScreenName = getPath().split("/")[0]
+    console.log(`rebuild: ${currentScreenName}`)
 
-    // remove previously added profile
-    if ($(".gt2-legacy-profile-nav").length && $(".gt2-legacy-profile-name").attr("href").slice(1).toLowerCase() != getPath().split("/")[0].toLowerCase()) {
-      $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-      $(".gt2-legacy-profile-info").empty()
-    }
 
-    waitForKeyElements("a[href$='/photo'] img", () => {
-      console.log("rebuild");
+    let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-      let $profile = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)")
+    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
+      // remove previously added profile
+      if ($(".gt2-legacy-profile-nav").length) {
+        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
+        $(".gt2-legacy-profile-info").empty()
+      }
+
+
+      let $profile = $(profileSel)
 
       // information (constant)
       const i = {
@@ -731,8 +735,8 @@
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:      parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
-        followers:      parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\.,]/g, "")),
+        followingRnd:   $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().text().trim(),
+        followersRnd:   $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().text().trim(),
         screenNameOnly: false
       }
 
@@ -763,22 +767,22 @@
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
-              <a href="/${i.screenName}/following" title="${i.following.humanize()}">
+              <a href="/${i.screenName}/following" title="">
                 <div>${getLocStr("statsFollowing")}</div>
-                <div>${i.following.humanizeShort()}</div>
+                <div>${i.followingRnd}</div>
               </a>
-              <a href="/${i.screenName}/followers" title="${i.followers.humanize()}">
+              <a href="/${i.screenName}/followers" title="">
                 <div>${getLocStr("statsFollowers")}</div>
-                <div>${i.followers.humanizeShort()}</div>
+                <div>${i.followersRnd}</div>
               </a>
               <!--
-                <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
+                <a href="/${i.screenName}/lists" title="">
                   <div>${getLocStr("navLists")}</div>
-                  <div>${i.followers.humanizeShort()}</div>
+                  <div></div>
                 </a>
-                <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
+                <a href="/${i.screenName}/moments" title="">
                   <div>${getLocStr("statsMoments")}</div>
-                  <div>${i.followers.humanizeShort()}</div>
+                  <div></div>
                 </a>
               -->
             </div>
@@ -805,6 +809,10 @@
             // profile id
             $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
 
+            // add followers and following
+            $(`.gt2-legacy-profile-nav-center a[href$="/following"]`).attr("title", pleg.friends_count.humanize())
+            $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`).attr("title", pleg.followers_count.humanize())
+
             // add likes and stuff
             if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
               $(".gt2-legacy-profile-nav-center").prepend(`
@@ -824,10 +832,16 @@
         }
       })
 
+      // scroll all the way up
+      window.scroll(0, 0)
+
 
       // sidebar profile information
-      waitForKeyElements(".gt2-legacy-profile-info", () => {
-
+      currentScreenName = getPath().split("/")[0]
+      waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
+        console.log(`sideinfo: ${currentScreenName}`);
+        $(".gt2-legacy-profile-info").data("alreadyFound", false)
+        waitForKeyElements(".gt2-legacy-profile-info", () => {
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
 
           // elements
@@ -867,6 +881,7 @@
             }
           })
         }
+      })
       })
 
       // buttons
@@ -992,7 +1007,7 @@
 
       // wrap trends in anchors
       $(trends).each(function() {
-        let $toWrap = $(this).find("> div > div:nth-child(2) > span")
+        let $toWrap = $(this).find("> div > div:nth-child(2) > span[dir]")
         if ($toWrap.length) {
           $(this).addClass("gt2-trend-wrapped")
           let txt = $toWrap.text()
@@ -1517,7 +1532,7 @@
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div").eq(-4)  // seperator line
+      let $hr = $(more).find("> div:empty") // seperator line
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -1811,7 +1826,7 @@
 
       // prevent auto scroll to top
       if (prev > 1500 && curr == 0) {
-        window.pageYOffset = prev
+        window.scroll(0, prev)
         return
       }
 
@@ -1839,9 +1854,12 @@
   // ################
 
 
-  function beforeUrlChange() {
+  function beforeUrlChange(path) {
     // reattach buttons to original position
-    $(".gt2-legacy-profile-nav-right > div").detach().appendTo("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+    let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+    if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
+      $(".gt2-legacy-profile-nav-right > div").appendTo($b)
+    }
   }
 
 
@@ -1860,7 +1878,7 @@
     }
 
     // on modal
-    let isModal = onSubPage("i", ["display"])
+    let isModal = onSubPage("i", ["display", "keyboard_shortcuts"])
                || onSubPage("settings", ["trends", "profile"])
                || onSubPage("compose", ["tweet"])
                || onPage("search-advanced")
@@ -2016,13 +2034,13 @@
       sidebarContent.push(getDashboardProfile())
 
     // assume profile
-  } else if (!isModal) {
+    } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
-        if (changeType == "pop") {
+        if ($("body").attr("data-gt2-prev-path") != path) {
+          console.log("new profile");
           $("a[href$='/photo'] img").data("alreadyFound", false)
         }
-        $(".gt2-legacy-profile-info").data("alreadyFound", false)
         rebuildLegacyProfile()
       }
     }
@@ -2048,6 +2066,8 @@
       forceLatest()
     }
 
+    $("body").attr("data-gt2-prev-path", path)
+    // GM_setValue("prev_page", path.split("/")[0])
   }
   urlChange("init")
 
@@ -2060,16 +2080,18 @@
 
   const origPush = exportFunc(pageHistory.pushState, pageWindow)
   pageHistory.pushState = exportFunc(function () {
-    beforeUrlChange()
+    let path = arguments[2].slice(1)
+    beforeUrlChange(path)
     origPush.apply(this, arguments)
-    urlChange("push", arguments[2].slice(1))
+    urlChange("push", path)
   }, pageWindow)
 
   const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
   pageHistory.replaceState = exportFunc(function () {
-    beforeUrlChange()
+    let path = arguments[2].slice(1)
+    beforeUrlChange(path)
     origRepl.apply(this, arguments)
-    urlChange("replace", arguments[2].slice(1))
+    urlChange("replace", path)
   }, pageWindow)
 
   window.addEventListener("popstate", function() {

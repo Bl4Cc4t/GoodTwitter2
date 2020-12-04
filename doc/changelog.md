@@ -1,5 +1,23 @@
 # Changelog
 
+
+## [0.0.27](https://github.com/Bl4Cc4t/GoodTwitter2/pull/221)
+*released 2020-12-04*
+- Lots of bugfixes
+  - [Legacy profile] No broken layout anymore ([#226](https://github.com/Bl4Cc4t/GoodTwitter2/issues/226))
+  - [Legacy profile] Buttons do not disappear anymore
+![image](https://user-images.githubusercontent.com/6740726/101200391-8623f680-3666-11eb-9684-bfc75574c4b7.png)
+  - [Legacy profile] It is less likely for wrong data to appear, but it still can happen (I'm not sure how to fix this)
+  - autoscroll on the search page now disabled again (when clicking the text input and then clicking on the page again, it scrolled all the way up again)
+- Twitter changed the way tooltips work. Since they are transparent now, they are not that great to read. I made them solid for now
+
+Layout | Image
+-|-
+Previous | ![image](https://user-images.githubusercontent.com/6740726/101198352-a0a8a080-3663-11eb-8c6e-e52d3f339d89.png)
+New | ![image](https://user-images.githubusercontent.com/6740726/101198184-5a534180-3663-11eb-8c36-25e750501399.png)
+Fixed | ![image](https://user-images.githubusercontent.com/6740726/101198394-b0c08000-3663-11eb-8fb2-acb4332dd750.png)
+
+
 #### 0.0.26.2
 - reverted 488dff0 ([#215](https://github.com/Bl4Cc4t/GoodTwitter2/issues/215))
 
