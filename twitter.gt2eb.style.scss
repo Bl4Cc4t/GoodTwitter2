@@ -1226,6 +1226,10 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// non transparent tooltips
+#layers [role=tooltip] {
+  background-color: rgb(110, 118, 125);
+}
 
 
 // colorized buttons for image modals
