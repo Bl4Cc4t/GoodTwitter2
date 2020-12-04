@@ -1854,10 +1854,10 @@
   // ################
 
 
-  function beforeUrlChange() {
+  function beforeUrlChange(path) {
     // reattach buttons to original position
     let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
-    if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != getPath()) {
+    if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
       $(".gt2-legacy-profile-nav-right > div").appendTo($b)
     }
   }
@@ -2080,16 +2080,18 @@
 
   const origPush = exportFunc(pageHistory.pushState, pageWindow)
   pageHistory.pushState = exportFunc(function () {
-    beforeUrlChange()
+    let path = arguments[2].slice(1)
+    beforeUrlChange(path)
     origPush.apply(this, arguments)
-    urlChange("push", arguments[2].slice(1))
+    urlChange("push", path)
   }, pageWindow)
 
   const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
   pageHistory.replaceState = exportFunc(function () {
-    beforeUrlChange()
+    let path = arguments[2].slice(1)
+    beforeUrlChange(path)
     origRepl.apply(this, arguments)
-    urlChange("replace", arguments[2].slice(1))
+    urlChange("replace", path)
   }, pageWindow)
 
   window.addEventListener("popstate", function() {
