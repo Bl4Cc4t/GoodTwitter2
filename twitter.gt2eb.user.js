@@ -717,15 +717,7 @@
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-    // buttons
-    if (!$(".gt2-legacy-profile-nav-right > div").length) {
-      $(".gt2-legacy-profile-nav-right").empty()
-      console.log("b");
-      $(`${profileSel} > div:nth-child(1) > div`).detach().appendTo(".gt2-legacy-profile-nav-right")
-    }
-
     waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
-      console.log("rebuild inner");
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -845,10 +837,11 @@
 
 
       // sidebar profile information
+      currentScreenName = getPath().split("/")[0]
       waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
+        console.log(`sideinfo: ${currentScreenName}`);
         $(".gt2-legacy-profile-info").data("alreadyFound", false)
         waitForKeyElements(".gt2-legacy-profile-info", () => {
-          console.log("sideinfo");
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
 
           // elements
@@ -1864,8 +1857,8 @@
   function beforeUrlChange() {
     // reattach buttons to original position
     let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
-    if (!$b.find("> div").length) {
-      $(".gt2-legacy-profile-nav-right > div").detach().appendTo($b)
+    if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != getPath()) {
+      $(".gt2-legacy-profile-nav-right > div").appendTo($b)
     }
   }
 
@@ -2041,14 +2034,13 @@
       sidebarContent.push(getDashboardProfile())
 
     // assume profile
-  } else if (!isModal) {
+    } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
-        if (GM_getValue("prev_page") != path.split("/")[0]) {
+        if ($("body").attr("data-gt2-prev-path") != path) {
           console.log("new profile");
           $("a[href$='/photo'] img").data("alreadyFound", false)
         }
-
         rebuildLegacyProfile()
       }
     }
@@ -2074,7 +2066,8 @@
       forceLatest()
     }
 
-    GM_setValue("prev_page", path.split("/")[0])
+    $("body").attr("data-gt2-prev-path", path)
+    // GM_setValue("prev_page", path.split("/")[0])
   }
   urlChange("init")
 
