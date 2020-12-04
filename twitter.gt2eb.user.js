@@ -743,8 +743,8 @@
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        following:      parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\., ]/g, "")),
-        followers:      parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().attr("title").replace(/[\., ]/g, "")),
+        followingRnd:   parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().text().trim()),
+        followersRnd:   parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().text().trim()),
         screenNameOnly: false
       }
 
@@ -775,22 +775,22 @@
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
-              <a href="/${i.screenName}/following" title="${i.following.humanize()}">
+              <a href="/${i.screenName}/following" title="">
                 <div>${getLocStr("statsFollowing")}</div>
-                <div>${i.following.humanizeShort()}</div>
+                <div>${i.followingRnd}</div>
               </a>
-              <a href="/${i.screenName}/followers" title="${i.followers.humanize()}">
+              <a href="/${i.screenName}/followers" title="">
                 <div>${getLocStr("statsFollowers")}</div>
-                <div>${i.followers.humanizeShort()}</div>
+                <div>${i.followersRnd}</div>
               </a>
               <!--
-                <a href="/${i.screenName}/lists" title="${i.following.humanize()}">
+                <a href="/${i.screenName}/lists" title="">
                   <div>${getLocStr("navLists")}</div>
-                  <div>${i.followers.humanizeShort()}</div>
+                  <div></div>
                 </a>
-                <a href="/${i.screenName}/moments" title="${i.following.humanize()}">
+                <a href="/${i.screenName}/moments" title="">
                   <div>${getLocStr("statsMoments")}</div>
-                  <div>${i.followers.humanizeShort()}</div>
+                  <div></div>
                 </a>
               -->
             </div>
@@ -816,6 +816,10 @@
 
             // profile id
             $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
+
+            // add followers and following
+            $(`.gt2-legacy-profile-nav-center a[href$="/following"]`).attr("title", pleg.friends_count)
+            $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`).attr("title", pleg.followers_count)
 
             // add likes and stuff
             if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
