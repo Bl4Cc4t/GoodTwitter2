@@ -743,8 +743,8 @@
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        followingRnd:   parseInt($profile.find(`a[href$="/following"], > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().text().trim()),
-        followersRnd:   parseInt($profile.find(`a[href$="/followers"], > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().text().trim()),
+        followingRnd:   $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().text().trim(),
+        followersRnd:   $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().text().trim(),
         screenNameOnly: false
       }
 
@@ -818,8 +818,8 @@
             $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
 
             // add followers and following
-            $(`.gt2-legacy-profile-nav-center a[href$="/following"]`).attr("title", pleg.friends_count)
-            $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`).attr("title", pleg.followers_count)
+            $(`.gt2-legacy-profile-nav-center a[href$="/following"]`).attr("title", pleg.friends_count.humanize())
+            $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`).attr("title", pleg.followers_count.humanize())
 
             // add likes and stuff
             if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
