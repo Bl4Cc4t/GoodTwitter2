@@ -147,11 +147,11 @@ $notLegacyProfile: "
 
     &.gt2-page-settings {
       main {
-        section:nth-last-child(2) {
+        section[aria-labelledby=root-header] {
           margin-left: 360px;
           width: 360px;
         }
-        section:nth-last-child(1) {
+        section[aria-labelledby=detail-header] {
           margin-left: 720px;
         }
       }
@@ -217,11 +217,11 @@ $notLegacyProfile: "
 
     &.gt2-page-settings {
       main {
-        section:nth-last-child(2) {
+        section[aria-labelledby=root-header] {
           margin-left: 300px;
           width: 300px;
         }
-        section:nth-last-child(1) {
+        section[aria-labelledby=detail-header] {
           margin-left: 600px;
         }
       }
@@ -282,11 +282,11 @@ $notLegacyProfile: "
 
     &.gt2-page-settings {
       main {
-        section:nth-last-child(2) {
+        section[aria-labelledby=root-header] {
           margin-left: 0;
           width: 360px;
         }
-        section:nth-last-child(1) {
+        section[aria-labelledby=detail-header] {
           margin-left: 360px;
         }
       }
@@ -354,11 +354,11 @@ $notLegacyProfile: "
     @include displayRightSmallSidebar;
     &.gt2-page-settings {
       main {
-        section:nth-last-child(2) {
+        section[aria-labelledby=root-header] {
           margin-left: 0;
           width: 300px;
         }
-        section:nth-last-child(1) {
+        section[aria-labelledby=detail-header] {
           margin-left: 300px;
         }
       }
@@ -375,11 +375,11 @@ $notLegacyProfile: "
 
   .gt2-page-settings {
     main {
-      section:nth-last-child(2) {
+      section[aria-labelledby=root-header] {
         margin-left: 0;
         width: 300px;
       }
-      section:nth-last-child(1) {
+      section[aria-labelledby=detail-header] {
         margin-left: 300px;
       }
     }
@@ -637,13 +637,6 @@ main {
             }
           }
         }
-      }
-    }
-    // settings
-    & > section:nth-last-child(1) {
-      & > div:nth-child(3),
-      & > div:nth-child(4) {
-        display: none;
       }
     }
   }
@@ -1624,28 +1617,61 @@ body[style*="overflow-y: hidden"] {
 
 .gt2-page-settings {
   main {
-    section div:nth-child(2) {
-      margin-bottom: 0;
-    }
-    section:nth-last-child(2) {
-      position: fixed;
-      border-right-width: 0;
-      border-bottom-width: 1px;
-      > div:nth-child(2) {
+    section[aria-labelledby=root-header],
+    section[aria-labelledby=detail-header] {
+      & > div:nth-child(2) {
         margin-bottom: 0;
       }
     }
-    section:nth-last-child(1) {
+    section[aria-labelledby=root-header] {
+      position: fixed;
+      border-right-width: 0;
+      border-bottom-width: 1px;
+      box-shadow: 1px 0 0 var(--color-gray-dark);
+    }
+    section[aria-labelledby=detail-header] {
       height: max-content;
       border-left-width: 1px;
       border-bottom-width: 1px;
       margin-bottom: 10px;
+
+      a[href="/settings/contacts"],
+      a[href="/settings/location_information"],
+      a:last-child {
+        border-bottom-width: 0;
+      }
+
+      // tablists nav background colors get glitched somehow, not sure why
+      [role=tablist] {
+        background-color: var(--color-elem);
+      }
+
+      & > nav + div > div {
+        &:first-child {
+          border-bottom-width: 0;
+        }
+        // compact list, makes the scrollbar glitchy
+        /*
+        section > div > div {
+          min-height: unset !important;
+          & > div {
+            position: relative !important;
+            transform: unset !important;
+            &:nth-last-child(2) > div {
+              border-bottom-width: 0;
+            }
+            &:last-child {
+              display: none;
+            }
+          }
+        }*/
+
+      }
     }
   }
 
   .gt2-toggle-settings {
     background-color: var(--color-elem);
-    border-top: 1px solid var(--color-gray-dark);
     box-sizing: border-box;
     font-size: incr(15px);
     color: var(--color-text);
@@ -1670,7 +1696,7 @@ body[style*="overflow-y: hidden"] {
   }
 
   &.gt2-page-settings-active {
-    main > div > div > div > section:nth-last-child(2) > div:nth-child(2) > div {
+    main section[aria-labelledby=root-header] > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
         background-color: var(--color-elem);
@@ -1684,22 +1710,22 @@ body[style*="overflow-y: hidden"] {
     .gt2-toggle-settings {
       background-color: var(--color-elem-sel);
       div {
-        border-width: 0 2px 0 0;
-        border-color: var(--color-user);
-        border-style: solid;
+        border-right: solid 2px var(--color-user);
       }
     }
   }
 
-
+  .gt2-settings {
+    & ~ * {
+      display: none;
+    }
+  }
   .gt2-settings-header,
   .gt2-settings-sub-header,
   .gt2-setting {
     color: var(--color-text);
     box-sizing: border-box;
-    border-width: 0 0 1px 0;
-    border-color: var(--color-gray-dark);
-    border-style: solid;
+    border-bottom: solid 1px var(--color-gray-dark);
     background-color: var(--color-elem);
   }
 
@@ -1710,6 +1736,7 @@ body[style*="overflow-y: hidden"] {
     height: 53px;
 
     .gt2-settings-back {
+      display: none !important;
       @include hoverableSvg;
       width: 39px;
       height: 39px;
@@ -1736,8 +1763,9 @@ body[style*="overflow-y: hidden"] {
   }
 
   .gt2-settings-seperator {
-    height: 10px;
-    background-color: var(--color-seperator);
+    height: 8px;
+    background-color: var(--color-elem-sel);
+    border-bottom: solid 1px var(--color-gray-dark);
   }
 
 
@@ -1853,9 +1881,6 @@ body[style*="overflow-y: hidden"] {
         }
       }
     }
-    // & > section div:not([class]) > div:empty {
-    //   display: none;
-    // }
   }
 }
 

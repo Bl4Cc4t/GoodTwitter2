@@ -338,7 +338,9 @@
   // insert the menu item
   function addSettingsToggle() {
     if (!$(".gt2-toggle-settings").length) {
-      $("main div[role=tablist], main div[data-testid=loggedOutPrivacySection]").append(`
+      $(`main section[aria-labelledby=root-header] div[role=tablist],
+         main > div > div > div > div:last-child > div[role=tablist],
+         main div[data-testid=loggedOutPrivacySection]`).append(`
         <a class="gt2-toggle-settings" href="/settings/gt2">
           <div>
             <span>GoodTwitter2</span>
@@ -360,8 +362,8 @@
 
 
   // disable settings display again when clicking on another menu item
-  $("body").on("click", `main section:nth-last-child(2) div[role=tablist] a:not(.gt2-toggle-settings),
-                         main section:nth-last-child(2) div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
+  $("body").on("click", `main section[aria-labelledby=root-header] div[role=tablist] a:not(.gt2-toggle-settings),
+                         main section[aria-labelledby=root-header] div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
     $(".gt2-page-settings-active").removeClass("gt2-page-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
@@ -421,8 +423,9 @@
           ${getSettingTogglePart("showNsfwMessageMedia")}
         </div>
       `
-      if ($("main section").length) {
-        $("main section:nth-last-child(1)").prepend(elem)
+      let $s = $("main section[aria-labelledby=detail-header]")
+      if ($s.length) {
+        $s.prepend(elem)
       } else {
         $("main > div > div > div").append(`
           <section>${elem}</section>
@@ -1626,7 +1629,7 @@
 
 
   // display settings
-  let displaySettings = "main > div > div > div > section:nth-last-child(1) > div:nth-child(2)"
+  let displaySettings = "main > div > div > div > section[aria-labelledby=detail-header] > div:nth-child(2)"
   let displaySettingsModal = "div[aria-labelledby=modal-header] > div > div:nth-child(2) > div > div"
 
 
@@ -1913,7 +1916,7 @@
 
       // settings
       if (onPage("settings")) {
-        waitForKeyElements("main section a[href='/settings/about']", addSettingsToggle)
+        waitForKeyElements(`main a[href="/settings/about"]`, addSettingsToggle)
         if (path.startsWith("settings/gt2")) {
           addSettings()
         }
