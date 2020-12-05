@@ -835,10 +835,6 @@
         }
       })
 
-      // scroll all the way up
-      window.scroll(0, 0)
-
-
       // sidebar profile information
       currentScreenName = getPath().split("/")[0]
       waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
