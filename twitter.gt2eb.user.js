@@ -735,8 +735,8 @@
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
-        followingRnd:   $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child`).first().text().trim(),
-        followersRnd:   $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child`).first().text().trim(),
+        followingRnd:   $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
+        followersRnd:   $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
         screenNameOnly: false
       }
 
