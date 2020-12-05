@@ -1849,6 +1849,11 @@ body[style*="overflow-y: hidden"] {
   }
 }
 
+.gt2-page-profile {
+  .gt2-dashboard-profile {
+    display: none;
+  }
+}
 
 .gt2-page-messages {
   .gt2-left-sidebar {

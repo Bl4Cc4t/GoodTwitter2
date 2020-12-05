@@ -836,9 +836,7 @@
       })
 
       // sidebar profile information
-      currentScreenName = getPath().split("/")[0]
-      waitForKeyElements(`[href="/${currentScreenName}/following" i]`, () => {
-        console.log(`sideinfo: ${currentScreenName}`);
+      waitForKeyElements(`[href="/${getPath().split("/")[0]}/following" i]`, () => {
         $(".gt2-legacy-profile-info").data("alreadyFound", false)
         waitForKeyElements(".gt2-legacy-profile-info", () => {
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
@@ -2001,6 +1999,7 @@
     ) {
       sidebarContent.push(getUpdateNotice())
     }
+    sidebarContent.push(getDashboardProfile())
 
 
     // not profile
@@ -2028,16 +2027,11 @@
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
         $(".gt2-legacy-profile-info").remove()
       }
-
-      // insert dashboard profile
-      sidebarContent.push(getDashboardProfile())
-
     // assume profile
     } else if (!isModal) {
       $("body").addClass("gt2-page-profile")
       if (GM_getValue("opt_gt2").legacyProfile) {
         if ($("body").attr("data-gt2-prev-path") != path) {
-          console.log("new profile");
           $("a[href$='/photo'] img").data("alreadyFound", false)
         }
         rebuildLegacyProfile()
