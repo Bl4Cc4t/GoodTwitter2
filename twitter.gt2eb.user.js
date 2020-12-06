@@ -143,7 +143,7 @@
 
   // current path
   function getPath() {
-    return window.location.href.slice(20).split("?")[0]
+    return window.location.href.replace(/.*?twitter\.com\//, "")
   }
 
 
@@ -1821,8 +1821,8 @@
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
 
-      // prevent auto scroll to top
-      if (prev > 1500 && curr == 0) {
+      // prevent auto scroll to top on /search and /explore
+      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore\/?$)/)) {
         window.scroll(0, prev)
         return
       }
