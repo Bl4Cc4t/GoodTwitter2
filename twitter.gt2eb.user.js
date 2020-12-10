@@ -291,6 +291,14 @@
       }
     }
 
+    if (GM_getValue("opt_gt2").expandTcoShortlinks) {
+      let re = /href="(https:\/\/t\.co\/[^"]+)"/
+      let match
+      while ((match = re.exec(out)) != null) {
+        out = out.replace(new RegExp(`href="${match[1]}"`), `href="${entities.urls.find(e => e.url == match[1]).expanded_url}"`)
+      }
+    }
+
     return out
   }
 
@@ -346,6 +354,7 @@
     hideMessageBox:           true,
     legacyProfile:            false,
     showNsfwMessageMedia:     false,
+    expandTcoShortlinks:      true
   }
 
   // set default options
@@ -463,6 +472,7 @@
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("hideMessageBox")}
           ${getSettingTogglePart("showNsfwMessageMedia")}
+          ${getSettingTogglePart("expandTcoShortlinks")}
         </div>
       `
       let $s = $("main section[aria-labelledby=detail-header]")
@@ -1171,7 +1181,7 @@
 
   // display standard information for blocked profile
   function displayBlockedProfileData() {
-    let screenName = getPath().split("/")[0]
+    let screenName = getPath().split("/")[0].split("?")[0]
 
     requestUser(screenName, res => {
       let profileData = res.data.user
@@ -1194,7 +1204,7 @@
                             <span>${pleg.location.replaceEmojis()}</span>
                           </div>` : null,
           url:          pleg.url ? `
-                          <a href="${pleg.entities.url.urls[0].url}" class="gt2-blocked-profile-url">
+                          <a href="${pleg.entities.url.urls[0][GM_getValue("opt_gt2").expandTcoShortlinks ? "url" : "expanded_url"]}" class="gt2-blocked-profile-url">
                             ${getSvg("url")}
                             <span>${pleg.entities.url.urls[0].display_url}</span>
                           </a>` : null,
@@ -1623,6 +1633,37 @@
 
   // remove blocked profile stuff on unblock
   $("body").on("click", `div[data-testid=placementTracking] div[data-testid$="-unblock"]`, () => $("[class^=gt2-blocked-profile]").remove())
+
+
+  // expand t.co shortlinks (tweets)
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded)`, function() {
+    let $tweet = $(this)
+    $tweet.addClass("gt2-tco-expanded")
+    // exit if tweet has no links
+    if (!$tweet.find(`a[href^="https://t.co"]`).length) return
+
+    requestTweet($tweet.find(`> div:nth-child(2) > div:nth-child(1) a[href*="/status/"]`).attr("href").split("/status/")[1], res => {
+      $tweet.find(`a[href^="https://t.co"]`).each(function() {
+        $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+      })
+    })
+  })
+
+
+  // expand t.co shortlinks (profile, not legacy)
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks.gt2-page-profile:not(.gt2-opt-legacy-profile) [data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1):not(.gt2-tco-expanded)`, function() {
+    let $profile = $(this)
+    $profile.addClass("gt2-tco-expanded")
+    // exit if profile has no links
+    if (!$profile.find(`a[href^="https://t.co"]`).length) return
+
+    requestUser(getPath().split("/")[0].split("?")[0], res => {
+      let urls = res.data.user.legacy.entities.description.urls.concat(res.data.user.legacy.entities.url.urls)
+      $profile.find(`a[href^="https://t.co"]`).each(function() {
+        $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+      })
+    })
+  })
 
 
 

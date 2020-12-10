@@ -13,7 +13,7 @@
     "statsMoments": "Moments",
     "statsTweets": "Tweets",
     "translateTweet": "Traduzir Tweet",
-  
+
     "bornDate": "Nascido(a) em $date$",
     "bornYear": "Nascido(a) em $year$",
     "followedBy0": "Não é seguido por ninguém que você segue",
@@ -25,7 +25,7 @@
     "showNewMulti": "Mostrar $ novos Tweets",
     "showNewSingle": "Mostrar 1 novo Tweet",
     "translatedTweetInfo": "Traduzido do $lang$ por $source$",
-  
+
     "settingsHeaderTimeline": "Timeline",
     "settingsHeaderSidebars": "Barras laterais",
     "settingsHeaderOther": "Outros",
@@ -33,6 +33,7 @@
     "biggerPreviewsDesc": "Imagens altas em tweets são mostradas em sua inteira altura.",
     "disableAutoRefresh": "Desativar Auto Refresh (experimental)",
     "disableAutoRefreshDesc": "Desativa a exibição ao vivo de tweets em sua timeline. <br/>Não espere grandes resultados, isto não funciona o tempo todo.",
+  "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
     "forceLatest": "Forçar Tweets mais recentes",
     "forceLatestDesc": "Habilitando o modo de tweets mais recentes não é mais permanente. Com esta opção ativada, o site automaticamente ativa a opção de tweets mais recntes.",
     "hideMessageBox": "Esconder caixa de mensagens diretas",
@@ -52,8 +53,7 @@
     "smallSidebarsDesc": "Barras laterais com 290 pixels de largura ao invés de 350px.",
     "squareAvatars": "Avatares Quadrados",
     "updateNotifications": "Notificações de atualização do GoodTwitter 2",
-  
+
     "updatedInfo": "Atualizado para á $version$!",
     "updatedInfoChangelog": "Changelog"
-  }
-  
+}

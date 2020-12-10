@@ -33,6 +33,7 @@
   "biggerPreviewsDesc": "Afbeeldingen in tweets worden volledig afgebeeld.",
   "disableAutoRefresh": "Uitschakelen automatisch verversen (experimenteel)",
   "disableAutoRefreshDesc": "Schakelt de live weergave van tweets uit in de tijdlijn. <br/>Verwacht geen al te beste resultaten: het werkt niet altijd.",
+  "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "forceLatest": "Forceer Nieuwste",
   "forceLatestDesc": "Inschakelen van de Nieuwste tweets modus is niet meer permanent. Met deze optie actief, schakelt de website automatisch terug naar de nieuwste tweets modus.",
   "hideMessageBox": "Verberg Berichtenbox",

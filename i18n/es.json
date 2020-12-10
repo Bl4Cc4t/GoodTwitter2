@@ -33,6 +33,7 @@
   "biggerPreviewsDesc": "Las imágenes más largas de algunos tweets se muestran en toda su longitud.",
   "disableAutoRefresh": "Desactivar Auto Refresco (experimental)",
   "disableAutoRefreshDesc": "Desactiva la representación en directo de tweets en tu cronología. <br />No espere grandes resultados, ya que no siempre funciona.",
+  "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "forceLatest": "Forzar \"Tweets más recientes\"",
   "forceLatestDesc": "Activar el modo de \"Tweets más recientes\" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de \"Tweets más recientes\".",
   "hideMessageBox": "Ocultar la bandeja de mensajes",
