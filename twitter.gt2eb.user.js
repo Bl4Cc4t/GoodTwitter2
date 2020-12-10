@@ -85,7 +85,7 @@
   }
 
   String.prototype.replaceAt = function(index, length, text) {
-    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index + length)}`
+    return `${[...this.toString()].slice(0, index).join("")}${text}${[...this.toString()].slice(index + length).join("")}`
   }
 
   String.prototype.insertAt = function(index, text) {
