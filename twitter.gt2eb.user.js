@@ -873,6 +873,14 @@
             </a>
           `)
         }
+
+        // expand t.co links
+        if (GM_getValue("opt_gt2").expandTcoShortlinks) {
+          let urls = pleg.entities.description.urls.concat(pleg.entities.url.urls)
+          $(`.gt2-legacy-profile-info a[href^="https://t.co"]`).each(function() {
+            $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+          })
+        }
       })
 
       // sidebar profile information
@@ -1204,7 +1212,7 @@
                             <span>${pleg.location.replaceEmojis()}</span>
                           </div>` : null,
           url:          pleg.url ? `
-                          <a href="${pleg.entities.url.urls[0][GM_getValue("opt_gt2").expandTcoShortlinks ? "url" : "expanded_url"]}" class="gt2-blocked-profile-url">
+                          <a href="${pleg.entities.url.urls[0][GM_getValue("opt_gt2").expandTcoShortlinks ? "expanded_url" : "url"]}" class="gt2-blocked-profile-url">
                             ${getSvg("url")}
                             <span>${pleg.entities.url.urls[0].display_url}</span>
                           </a>` : null,
