@@ -1514,9 +1514,9 @@
 
 
 
-  // #####################
-  // #  click handlers   #
-  // #####################
+  // ##########################
+  // #  misc event handlers   #
+  // ##########################
 
 
   // compose tweet button
@@ -1621,6 +1621,10 @@
   })
 
 
+  // remove blocked profile stuff on unblock
+  $("body").on("click", `div[data-testid=placementTracking] div[data-testid$="-unblock"]`, () => $("[class^=gt2-blocked-profile]").remove())
+
+
 
   // ########################
   // #   display settings   #
@@ -1646,7 +1650,6 @@
       let bgc = m.target[m.attributeName]["background-color"]
       if (m.oldValue && bgc != "" && bgc != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
         GM_setValue("opt_display_bgColor", bgc)
-        console.log(`New background-color: ${bgc}`)
         updateCSS()
       }
     })
@@ -1746,7 +1749,6 @@
         GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
         GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
         GM_setValue("opt_display_fontSize",   $("html").css("font-size"))
-
         GM_setValue("gt2_initialized",        true)
         window.location.reload()
       })
@@ -1765,10 +1767,11 @@
         $(".gt2-style").remove()
       }
 
-      // options to set if not logged in
       let opt_display_bgColor   = GM_getValue("opt_display_bgColor")
       let opt_display_fontSize  = GM_getValue("opt_display_fontSize")
       let opt_display_userColor = GM_getValue("opt_display_userColor")
+
+      // options to set if not logged in
       if (!isLoggedIn()) {
         // get bgColor from cookie
         opt_display_bgColor   = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
@@ -1982,7 +1985,6 @@
       if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
         handleNSFWTweetMessages()
       }
-
     } else if (!isModal) {
       $("body").removeClass("gt2-page-messages")
     }
@@ -2000,46 +2002,28 @@
 
     // update changelog
     if (!GM_getValue(`sb_notice_ack_update_${GM_info.script.version}`)
-     && GM_getValue("opt_gt2").updateNotifications
-    ) {
+      && GM_getValue("opt_gt2").updateNotifications) {
       sidebarContent.push(getUpdateNotice())
     }
     sidebarContent.push(getDashboardProfile())
 
 
-    // not profile
-    if (onPage(
-          "explore",
-          "home",
-          "hashtag",
-          "i",
-          "messages",
-          "notifications",
-          "search",
-          "settings",
-        ) || onSubPage(null, [
-          "followers",
-          "followers_you_follow",
-          "following",
-          "lists",
-          "moments",
-          "status",
-        ])
-    ) {
-      // if not on modal
-      if (!isModal) {
+    if (!isModal) {
+      if (!(onPage("explore", "home", "hashtag", "i", "messages", "notifications", "search", "settings")
+          || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status"]))) {
+        $("body").addClass("gt2-page-profile")
+        $("[class^=gt2-blocked-profile-]").remove()
+        $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
+        if (GM_getValue("opt_gt2").legacyProfile) {
+          if ($("body").attr("data-gt2-prev-path") != path) {
+            $("a[href$='/photo'] img").data("alreadyFound", false)
+          }
+          rebuildLegacyProfile()
+        }
+      } else {
         $("body").removeClass("gt2-page-profile")
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
         $(".gt2-legacy-profile-info").remove()
-      }
-    // assume profile
-    } else if (!isModal) {
-      $("body").addClass("gt2-page-profile")
-      if (GM_getValue("opt_gt2").legacyProfile) {
-        if ($("body").attr("data-gt2-prev-path") != path) {
-          $("a[href$='/photo'] img").data("alreadyFound", false)
-        }
-        rebuildLegacyProfile()
       }
     }
 
@@ -2049,7 +2033,7 @@
 
 
     // blocked profile page
-    waitForKeyElements("div[data-testid=placementTracking] div[data-testid$='-unblock']", displayBlockedProfileData)
+    waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"]`, displayBlockedProfileData)
 
 
     // disableAutoRefresh
@@ -2065,7 +2049,6 @@
     }
 
     $("body").attr("data-gt2-prev-path", path)
-    // GM_setValue("prev_page", path.split("/")[0])
   }
   urlChange("init")
 
