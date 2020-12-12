@@ -1727,6 +1727,16 @@
   })
 
 
+  // minimize DMDrawer on hiding
+  let dmdCollapse = `[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`
+  waitForKeyElements(dmdCollapse, () => {
+    if (GM_getValue("opt_gt2").hideMessageBox) {
+      console.log("Minimized DMDrawer");
+      $(dmdCollapse).parents("[role=button]").click()
+    }
+  })
+
+
 
   // ################
   // #  Update CSS  #
