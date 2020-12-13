@@ -280,7 +280,7 @@
     }
 
     // sort array
-    toReplace = toReplace.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0] ? 1 : -1)
+    toReplace = toReplace.sort((a, b) => parseInt(Object.keys(a)[0]) - parseInt(Object.keys(b)[0]))
 
     // replace values
     let offset = 0
