@@ -876,7 +876,7 @@
 
         // expand t.co links
         if (GM_getValue("opt_gt2").expandTcoShortlinks) {
-          let urls = pleg.entities.description.urls.concat(pleg.entities.url.urls)
+          let urls = pleg.entities.description.urls.concat(pleg.entities.url ? pleg.entities.url.urls : [])
           $(`.gt2-legacy-profile-info a[href^="https://t.co"]`).each(function() {
             $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
           })
@@ -936,11 +936,13 @@
 
     })
 
-    // profile suspended / not found
+    // profile suspended / not found / temporarily restricted (first view)
     waitForKeyElements("[hidden] > [role=presentation]", () => {
+      let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
-        screenName: $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)").text().trim().slice(1),
-        avatarUrl: "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+        screenName: $tmp.find("> div:nth-last-child(1)").text().trim().slice(1),
+        nameHTML:   $tmp.find("> div").length > 1 ? $tmp.find("> div:nth-child(1)").html() : null,
+        avatarUrl:  "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
       }
       $("body").addClass("gt2-profile-not-found")
       $("header").before(`
@@ -951,7 +953,14 @@
           <div class="gt2-legacy-profile-nav-left">
             <img src="${i.avatarUrl}" />
             <div>
-              <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+              <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML ? i.nameHTML : `@${i.screenName}`}</a>
+              ${i.nameHTML ? `
+                <div class="gt2-legacy-profile-screen-name-wrap">
+                  <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+                  @<span>${i.screenName}</span>
+                  </a>
+                </div>
+              ` : ""}
             </div>
           </div>
           <div class="gt2-legacy-profile-nav-center">
@@ -977,7 +986,14 @@
       `)
       waitForKeyElements(".gt2-legacy-profile-info", () => {
         $(".gt2-legacy-profile-info").append(`
-          <a href="/${i.screenName}" class="gt2-legacy-profile-name">@${i.screenName}</a>
+          <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML ? i.nameHTML : `@${i.screenName}`}</a>
+          ${i.nameHTML ? `
+            <div class="gt2-legacy-profile-screen-name-wrap">
+              <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
+              @<span>${i.screenName}</span>
+              </a>
+            </div>
+          ` : ""}
         `)
       })
     })
@@ -1643,6 +1659,10 @@
   $("body").on("click", `div[data-testid=placementTracking] div[data-testid$="-unblock"]`, () => $("[class^=gt2-blocked-profile]").remove())
 
 
+  // [LPL] unusual activity button: make elements clickable again
+  $(document).on("click", `.gt2-profile-not-found [data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(2) > div[role=button]`, () => $("body").removeClass("gt2-profile-not-found"))
+
+
   // expand t.co shortlinks (tweets)
   $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded)`, function() {
     let $tweet = $(this)
@@ -1727,14 +1747,14 @@
   })
 
 
-  // minimize DMDrawer on hiding
+  // minimize DMDrawer if hideMessageBox is set
   let dmdCollapse = `[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`
-  waitForKeyElements(dmdCollapse, () => {
-    if (GM_getValue("opt_gt2").hideMessageBox) {
+  if (GM_getValue("opt_gt2").hideMessageBox) {
+    waitForKeyElements(dmdCollapse, () => {
       console.log("Minimized DMDrawer");
       $(dmdCollapse).parents("[role=button]").click()
-    }
-  })
+    })
+  }
 
 
 
