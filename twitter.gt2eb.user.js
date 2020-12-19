@@ -702,7 +702,7 @@
             <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
           </a>
           <div class="gt2-user">
-            <a ${href}="/${i.screenName}" class="gt2-name">${i.name}</a>
+            <a ${href}="/${i.screenName}" class="gt2-name">${i.name.replaceEmojis()}</a>
             <a ${href}="/${i.screenName}" class="gt2-screenname">
               @<span >${i.screenName}</span>
             </a>
