@@ -1553,8 +1553,8 @@ a.gt2-trend {
 }
 
 // stuff to do on modal
-body[style*="overflow: hidden"],
-body[style*="overflow-y: hidden"] {
+html[style*="overflow: hidden"],
+html[style*="overflow-y: hidden"] {
   // hide navbar and other things
   .gt2-nav,
   .gt2-search-overflow-hider {
