@@ -2075,6 +2075,13 @@
       $("body").removeClass("gt2-page-tweet")
     }
 
+    // compose tweet
+    if (onSubPage("compose", ["tweet"])) {
+      $("body").addClass("gt2-page-compose-tweet")
+    } else {
+      $("body").removeClass("gt2-page-compose-tweet")
+    }
+
 
     // sidebar
     let sidebarContent = []

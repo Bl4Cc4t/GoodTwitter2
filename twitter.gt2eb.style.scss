@@ -506,6 +506,21 @@ $notLegacyProfile: "
   }
 }
 
+// even smaller screen
+@media only screen and (max-width: 705px) {
+  .gt2-page-compose-tweet {
+    main {
+      margin-top: 0 !important;
+      & > div {
+        width: 100% !important;
+      }
+    }
+    .gt2-nav {
+      display: none;
+    }
+  }
+}
+
 .gt2-page-error {
   main > div > div > div {
     display: inline;
@@ -914,7 +929,7 @@ main {
 body {
   #{$notLegacyProfile} {
     main {
-      margin-top: 56px !important;
+      margin-top: 56px;
     }
     .gt2-legacy-profile-info {
       display: none;
