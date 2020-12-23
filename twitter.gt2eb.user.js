@@ -13,6 +13,7 @@
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
+// @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://raw.githubusercontent.com/mathiasbynens/emoji-regex/master/es2015/index.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
@@ -232,6 +233,25 @@
       onload: function(res) {
         if (res.status == "200") {
           cb(JSON.parse(res.response))
+        } else {
+          console.warn(res)
+        }
+      }
+    })
+  }
+
+
+  function blockUser(user_id, block, cb) {
+    GM_xmlhttpRequest({
+      method: "POST",
+      url: getRequestURL(`https://api.twitter.com/1.1/blocks/${block ? "create" : "destroy"}.json`, {
+        user_id,
+        skip_status: true
+      }),
+      headers: getRequestHeaders(),
+      onload: function(res) {
+        if (res.status == "200") {
+          cb()
         } else {
           console.warn(res)
         }
@@ -1696,6 +1716,47 @@
         $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
     })
+  })
+
+
+  // block/unblock account on holding follow button for 3 seconds
+  let qbOffer
+  $("body").on("mouseover", `[data-testid$="-follow"]:not([data-gt2-qb-state])`, e => {
+    let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+    $b.attr("data-gt2-qb-state", "offer-pending")
+    qbOffer = setTimeout(() => {
+      $b.attr("data-gt2-qb-state", "offer")
+      $b.find("> div > span").append(`
+        <span class="gt2-qb-block">${getLocStr("qbBlock")}</span>
+        <span class="gt2-qb-blocked">${getLocStr("qbBlocked")}</span>
+        <span class="gt2-qb-unblock">${getLocStr("qbUnblock")}</span>
+      `)
+    }, 3e3)
+  })
+  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=offer]`, e => {
+    e.stopImmediatePropagation()
+    let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+    let user_id = $b.attr("data-testid").slice(0, -7)
+    blockUser(user_id, true, () => {
+      console.log(`quickblock: ${user_id}`)
+      $b.attr("data-gt2-qb-state", "blocked")
+    })
+  })
+  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=blocked]`, e => {
+    e.stopImmediatePropagation()
+    let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+    let user_id = $b.attr("data-testid").slice(0, -7)
+    blockUser(user_id, false, () => {
+      console.log(`quickunblock: ${user_id}`)
+      $b.removeAttr("data-gt2-qb-state")
+      $b.find("[class^=gt2-qb]").remove()
+    })
+  })
+  $("body").on("mouseleave", `[data-testid$="-follow"][data-gt2-qb-state^=offer]`, e => {
+    let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+    $b.removeAttr("data-gt2-qb-state")
+    $b.find("[class^=gt2-qb]").remove()
+    clearTimeout(qbOffer)
   })
 
 
