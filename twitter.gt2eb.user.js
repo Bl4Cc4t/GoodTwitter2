@@ -1734,7 +1734,8 @@
   let globalFontSizeObserver = new MutationObserver(mut => {
     mut.forEach(m => {
       let fs = m.target[m.attributeName]["font-size"]
-      if (m.oldValue && fs != "" && fs != m.oldValue.match(/font-size: (\d+px);/)[1]) {
+      let fsOld = m.oldValue.match(/font-size: (\d+px);/)
+      if (fsOld && fs != "" && fs != fsOld[1]) {
         GM_setValue("opt_display_fontSize", fs)
         updateCSS()
       }
@@ -1948,17 +1949,17 @@
 
 
   // stuff to do when url changes
-  function urlChange(changeType, path) {
-    path = (path || getPath()).split("?")[0]
-    console.log(`[${changeType}] ${path}`)
+  function urlChange(changeType, changePath) {
+    let path = () => (changePath || getPath()).split("?")[0]
+    console.log(`[${changeType}] ${path()}`)
 
 
     // path helper functions
     function onPage(...top) {
-      return top.some(e => e == path.split("/")[0])
+      return top.some(e => e == path().split("/")[0])
     }
     function onSubPage(top, sub) {
-      return (top == null ? true : onPage(top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
+      return (top == null ? true : onPage(top)) && path().includes("/") && sub.some(e => e == path().split("/")[1])
     }
 
     // on modal
@@ -1966,7 +1967,7 @@
                || onSubPage("settings", ["trends", "profile"])
                || onSubPage("compose", ["tweet"])
                || onPage("search-advanced")
-               || path.match(/\/(photo|video)\/\d\/?$/)
+               || path().match(/\/(photo|video)\/\d\/?$/)
 
     // do a reload on these pages
     if (onPage("login") || (!isLoggedIn() && onPage(""))) {
@@ -1989,16 +1990,15 @@
       }
 
       // on error page
-      if ($(mainView).find("h1[data-testid=error-detail]").length && !path.startsWith("settings/gt2")) {
+      if ($(mainView).find("h1[data-testid=error-detail]").length && !path().startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-error")
       } else if (!isModal) {
         $("body").removeClass("gt2-page-error")
       }
 
-      // settings
       if (onPage("settings")) {
         waitForKeyElements(`main a[href="/settings/about"]`, addSettingsToggle)
-        if (path.startsWith("settings/gt2")) {
+        if (path().startsWith("settings/gt2")) {
           addSettings()
         }
       }
@@ -2017,7 +2017,7 @@
     // highlight current location in left bar
     if (!isModal) {
       $(`.gt2-nav-left > a`).removeClass("active")
-      $(`.gt2-nav-left > a[href^='/${path.split("/")[0]}']`).addClass("active")
+      $(`.gt2-nav-left > a[href^='/${path().split("/")[0]}']`).addClass("active")
     }
 
     // hide/add search
@@ -2043,7 +2043,7 @@
     // settings
     if (onPage("settings") && !isModal) {
       $("body").addClass("gt2-page-settings")
-      if (path.startsWith("settings/gt2")) {
+      if (path().startsWith("settings/gt2")) {
         $("body").addClass("gt2-page-settings-active")
       } else {
         if (window.innerWidth < 1005) {
@@ -2124,13 +2124,13 @@
 
     // disableAutoRefresh
     if (GM_getValue("opt_gt2").disableAutoRefresh &&
-        (path.split("/")[0] == "home" || path.match(/^[^\/]+\/lists/)) ) {
+        (path().split("/")[0] == "home" || path().match(/^[^\/]+\/lists/)) ) {
       hideTweetsOnAutoRefresh()
     }
 
 
     // force latest
-    if (GM_getValue("opt_gt2").forceLatest && path.split("/")[0] == "home") {
+    if (GM_getValue("opt_gt2").forceLatest && path().split("/")[0] == "home") {
       forceLatest()
     }
 
