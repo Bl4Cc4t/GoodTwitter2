@@ -577,7 +577,8 @@
       for (let e of [
         "Home",
         "Notifications",
-        "DirectMessage"
+        "DirectMessage",
+        "Explore"
       ]) {
         $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
         .appendTo(".gt2-nav-left")

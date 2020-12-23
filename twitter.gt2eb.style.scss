@@ -508,6 +508,9 @@ $notLegacyProfile: "
       }
     }
   }
+  .gt2-nav-left > a[href="/explore"] {
+    display: none !important;
+  }
 }
 
 // even smaller screen
