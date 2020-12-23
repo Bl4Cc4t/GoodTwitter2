@@ -76,25 +76,26 @@ $notLegacyProfile: "
 // small dashboard profile
 @mixin smallDashboardProfile {
   .gt2-dashboard-profile {
-    width: 290px;
+    width: 290px !important;
     .gt2-banner {
-      height: 96px;
+      height: 96px !important;
     }
 
-    .gt2-avatar img {
-      width: 72px;
-      height: 72px;
+    .gt2-avatar {
+      width: 72px !important;
+      height: 72px !important;
     }
 
-    .gt2-toggle-lo-nightmode {
-      bottom: calc(83px + (var(--font-increment) + 2px) / 2);
+    .gt2-toggle-lo-nightmode,
+    .gt2-toggle-acc-switcher-dropdown {
+      bottom: calc(83px + (var(--font-increment) + 2px) / 2) !important;
     }
 
     .gt2-user {
-      top: 103px;
-      left: 90px;
+      top: 103px !important;
+      left: 90px !important;
       .gt2-name {
-        width: 160px;
+        width: 160px !important;
       }
     }
   }

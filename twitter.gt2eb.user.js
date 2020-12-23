@@ -673,7 +673,7 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
-    elements.unshift(`<div class="gt2-legacy-profile-info"></div>`)
+    elements.push(`<div class="gt2-legacy-profile-info"></div>`)
     waitForKeyElements(insertAt, () => {
       if (!$(insertAt).find(".gt2-legacy-profile-info").length) {
         for (let elem of elements.slice().reverse()) {
@@ -683,6 +683,9 @@
             $(`${insertAt} > div:empty:not(.gt2-legacy-profile-info)`).after(elem)
           }
         }
+      }
+      if ($(".gt2-dashboard-profile").length > 1) {
+        $(".gt2-dashboard-profile").last().remove()
       }
 
     })
@@ -1307,6 +1310,7 @@
 
 
   // removeChild interception
+  /*
   Element.prototype.removeChild = (function(fun) {
     return function(child) {
       // if ([
@@ -1320,6 +1324,7 @@
       return fun.apply(this, arguments)
     }
   }(Element.prototype.removeChild))
+  */
 
 
   //
