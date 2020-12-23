@@ -1752,7 +1752,8 @@
       $b.find("[class^=gt2-qb]").remove()
     })
   })
-  $("body").on("mouseleave", `[data-testid$="-follow"][data-gt2-qb-state^=offer]`, e => {
+  $("body").on("mouseleave", `[data-testid$="-follow"][data-gt2-qb-state^=offer],
+                              [data-testid$="-unfollow"][data-gt2-qb-state^=offer]`, e => {
     let $b = $(e.target).parents(`[data-testid$="-follow"]`)
     $b.removeAttr("data-gt2-qb-state")
     $b.find("[class^=gt2-qb]").remove()

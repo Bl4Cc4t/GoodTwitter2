@@ -2322,3 +2322,8 @@ body[data-payment-endpoint-path] {
     }
   }
 }
+[data-testid$="-unfollow"] {
+  [class^=gt2-qb] {
+    display: none;
+  }
+}
