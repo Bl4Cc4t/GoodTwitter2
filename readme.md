@@ -15,6 +15,7 @@
 - [FAQ](#faq)
 - [Translations](#translations)
 - [Previews](#previews)
+- [Similar projects](#similar-projects)
 
 
 ## Background
@@ -107,3 +108,6 @@ Open the following box to learn more.
 ![](https://i.imgur.com/gxg8CUE.png)
 ![](https://i.imgur.com/nBzwaOe.png)
 ![](https://i.imgur.com/VR8Le4u.png)
+
+## Similar projects
+- [userscripts-public](https://github.com/Bl4Cc4t/userscripts-public) (other very small userscripts)

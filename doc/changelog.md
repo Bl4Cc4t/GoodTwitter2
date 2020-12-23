@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [0.0.28](https://github.com/Bl4Cc4t/GoodTwitter2/pull/233)
+*released 2020-12-23*
+- **[New Option]** automatic `t.co` shortlinks expansion (enabled by default)
+- Clicking on the "home" button on`/home` returns to top again (scrolling issue, [#229](https://github.com/Bl4Cc4t/GoodTwitter2/issues/229))
+- some emoji fixes/unification (small sidebar profile now uses the twemojis)
+- fixed the navbar header showing up on modals, e.g. when viewing pictures ([#235](https://github.com/Bl4Cc4t/GoodTwitter2/issues/235))
+- **[New Feature]** you can now quickblock people by hovering over the "Follow" button until it turns into "Block" ([#132](https://github.com/Bl4Cc4t/GoodTwitter2/issues/132))
+
+
 ## [0.0.27](https://github.com/Bl4Cc4t/GoodTwitter2/pull/221)
 *released 2020-12-04*
 - Lots of bugfixes
