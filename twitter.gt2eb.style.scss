@@ -145,7 +145,7 @@ $notLegacyProfile: "
       }
     }
 
-    &.gt2-page-settings {
+    &[data-gt2-path^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 360px;
@@ -171,7 +171,7 @@ $notLegacyProfile: "
           margin-left: 0;
         }
       }
-      &.gt2-page-settings {
+      &[data-gt2-path^="settings"] {
         main > div > div > div {
           max-width: 1310px;
         }
@@ -215,7 +215,7 @@ $notLegacyProfile: "
       }
     }
 
-    &.gt2-page-settings {
+    &[data-gt2-path^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 300px;
@@ -280,7 +280,7 @@ $notLegacyProfile: "
       display: none;
     }
 
-    &.gt2-page-settings {
+    &[data-gt2-path^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -352,7 +352,7 @@ $notLegacyProfile: "
                    and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
-    &.gt2-page-settings {
+    &[data-gt2-path^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -373,7 +373,7 @@ $notLegacyProfile: "
   @include displayRightSmallSidebar;
   @include smallDashboardProfile;
 
-  .gt2-page-settings {
+  body[data-gt2-path^="settings"] {
     main {
       section[aria-labelledby=root-header] {
         margin-left: 0;
@@ -463,7 +463,7 @@ $notLegacyProfile: "
     display: none;
   }
 
-  .gt2-page-settings {
+  body[data-gt2-path^="settings"] {
     main > div > div > div {
       section {
         margin-bottom: 0 !important;
@@ -476,7 +476,7 @@ $notLegacyProfile: "
         margin-bottom: 0;
       }
     }
-    &.gt2-page-settings-active {
+    &[data-gt2-path^="settings/gt2"] {
       main > div > div > div > div:not(.gt2-left-sidebar) {
         display: none;
       }
@@ -484,6 +484,10 @@ $notLegacyProfile: "
     .gt2-settings-back {
       display: flex !important;
     }
+  }
+
+  .gt2-search-overflow-hider {
+    width: 100% !important;
   }
 
 
@@ -508,7 +512,7 @@ $notLegacyProfile: "
 
 // even smaller screen
 @media only screen and (max-width: 705px) {
-  .gt2-page-compose-tweet {
+  body[data-gt2-path^="compose/tweet"] {
     main {
       margin-top: 0 !important;
       & > div {
@@ -517,6 +521,16 @@ $notLegacyProfile: "
     }
     .gt2-nav {
       display: none;
+    }
+  }
+  body[data-gt2-path^="messages"] {
+    main > div > div > div > div:nth-last-child(2) {
+      top: 56px;
+      position: sticky;
+      border-top: 1px solid var(--color-gray-dark);
+    }
+    .gt2-search-overflow-hider {
+      display: block;
     }
   }
 }
@@ -1130,7 +1144,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 // nsfw message media
-.gt2-opt-show-nsfw-message-media.gt2-page-messages {
+.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages"] {
   div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/'] {
     display: none;
   }
@@ -1595,7 +1609,8 @@ html[style*="overflow-y: hidden"] {
 
 
 // /search overflow, let search box stay on top
-.gt2-page-search {
+body[data-gt2-path^="search"],
+body[data-gt2-path^="explore"] {
   .gt2-search-overflow-hider {
     display: block;
   }
@@ -1608,12 +1623,18 @@ html[style*="overflow-y: hidden"] {
       transition: top .2s ease-in-out;
     }
   }
-  &.gt2-scrolled-down {
-    div[data-testid=primaryColumn] > div > div:nth-child(1) {
-      top: calc(56px - 107px);
-    }
+}
+body[data-gt2-path^="search"].gt2-scrolled-down {
+  div[data-testid=primaryColumn] > div > div:nth-child(1) {
+    top: calc(56px - 107px);
   }
 }
+body[data-gt2-path^="explore"].gt2-scrolled-down {
+  div[data-testid=primaryColumn] > div > div:nth-child(1) {
+    top: calc(56px - 54px);
+  }
+}
+
 
 // sticky header with back button
 .gt2-page-tweet {
@@ -1630,7 +1651,7 @@ html[style*="overflow-y: hidden"] {
   }
 }
 
-.gt2-page-settings {
+body[data-gt2-path^="settings"] {
   main {
     section[aria-labelledby=root-header],
     section[aria-labelledby=detail-header] {
@@ -1710,7 +1731,7 @@ html[style*="overflow-y: hidden"] {
     }
   }
 
-  &.gt2-page-settings-active {
+  &[data-gt2-path^="search/"] {
     main section[aria-labelledby=root-header] > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
@@ -1870,7 +1891,7 @@ html[style*="overflow-y: hidden"] {
   }
 }
 
-.gt2-page-messages {
+body[data-gt2-path^="messages"] {
   .gt2-left-sidebar {
     display: none;
   }

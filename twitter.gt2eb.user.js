@@ -415,7 +415,6 @@
   // disable settings display again when clicking on another menu item
   $("body").on("click", `main section[aria-labelledby=root-header] div[role=tablist] a:not(.gt2-toggle-settings),
                          main section[aria-labelledby=root-header] div[data-testid=loggedOutPrivacySection] a:not(.gt2-toggle-settings)`, () => {
-    $(".gt2-page-settings-active").removeClass("gt2-page-settings-active")
     $(".gt2-settings-header, .gt2-settings").remove()
   })
 
@@ -1952,6 +1951,7 @@
   function urlChange(changeType, changePath) {
     let path = () => (changePath || getPath()).split("?")[0]
     console.log(`[${changeType}] ${path()}`)
+    $("body").attr("data-gt2-path", path())
 
 
     // path helper functions
@@ -2024,9 +2024,7 @@
     if (onPage("search", "explore")) {
       $(".gt2-search").empty()
       $("body").removeClass("gt2-search-added")
-      $("body").addClass("gt2-page-search")
     } else if (!isModal) {
-      $("body").removeClass("gt2-page-search")
       addSearch()
     }
 
@@ -2042,30 +2040,23 @@
 
     // settings
     if (onPage("settings") && !isModal) {
-      $("body").addClass("gt2-page-settings")
       if (path().startsWith("settings/gt2")) {
-        $("body").addClass("gt2-page-settings-active")
       } else {
         if (window.innerWidth < 1005) {
           $("main section").remove()
         }
-        $("body").removeClass("gt2-page-settings-active")
         $(".gt2-settings-header, .gt2-settings").remove()
       }
     } else if (!isModal) {
-      $("body").removeClass(["gt2-page-settings", "gt2-page-settings-active"])
       $(".gt2-settings-header, .gt2-settings").remove()
     }
 
 
     // messages
     if (onPage("messages")) {
-      $("body").addClass("gt2-page-messages")
       if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
         handleNSFWTweetMessages()
       }
-    } else if (!isModal) {
-      $("body").removeClass("gt2-page-messages")
     }
 
     // tweet
@@ -2073,13 +2064,6 @@
       $("body").addClass("gt2-page-tweet")
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
-    }
-
-    // compose tweet
-    if (onSubPage("compose", ["tweet"])) {
-      $("body").addClass("gt2-page-compose-tweet")
-    } else {
-      $("body").removeClass("gt2-page-compose-tweet")
     }
 
 
@@ -2134,7 +2118,7 @@
       forceLatest()
     }
 
-    $("body").attr("data-gt2-prev-path", path)
+    $("body").attr("data-gt2-prev-path", path())
   }
   urlChange("init")
 
