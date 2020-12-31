@@ -27,19 +27,10 @@
   "use strict"
 
   // do not execute on these pages
-  if (["login"].includes(getPath().split("/")[0])
-    || (!isLoggedIn() && [""].includes(getPath().split("/")[0]))) {
+  if (getPath().match(/^login(\?.*)?$/) || (!isLoggedIn() && getPath().match(/^(\?.*)?$/))) {
     return
   }
 
-
-  // window.setInterval(() => {
-  //   console.log("test");
-  //   window.scroll(0, 700)
-  //   window.setTimeout(() => {
-  //     window.scroll(0, 0)
-  //   }, 100)
-  // }, 5000)
 
 
   // ###########################
@@ -2147,7 +2138,7 @@
 
 
     if (!isModal) {
-      if (!(onPage("explore", "home", "hashtag", "i", "messages", "notifications", "search", "settings")
+      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "search", "settings")
           || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status"]))) {
         $("body").addClass("gt2-page-profile")
         $("[class^=gt2-blocked-profile-]").remove()
