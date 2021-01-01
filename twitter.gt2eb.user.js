@@ -1680,13 +1680,18 @@
 
 
   // expand t.co shortlinks (tweets)
-  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded)`, function() {
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded),
+  .gt2-opt-expand-tco-shortlinks.gt2-page-tweet [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) article:not(.gt2-tco-expanded)`, function() {
     let $tweet = $(this)
     $tweet.addClass("gt2-tco-expanded")
+    let id = $tweet.is("article")
+      ? getPath().split("/")[2].split("?")[0]
+      : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
+
     // exit if tweet has no links
     if (!$tweet.find(`a[href^="https://t.co"]`).length) return
 
-    requestTweet($tweet.find(`> div:nth-child(2) > div:nth-child(1) a[href*="/status/"]`).attr("href").split("/status/")[1], res => {
+    requestTweet(id, res => {
       $tweet.find(`a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
