@@ -1686,14 +1686,14 @@
     $tweet.addClass("gt2-tco-expanded")
 
     // exit if tweet has no links
-    if (!$tweet.find(`a[href^="https://t.co"]`).length) return
+    if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).length) return
 
     let id = $tweet.is("article")
       ? getPath().split("/")[2].split("?")[0]
       : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
     requestTweet(id, res => {
-      $tweet.find(`a[href^="https://t.co"]`).each(function() {
+      $tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
     })
@@ -1705,7 +1705,7 @@
     let $profile = $(this)
     $profile.addClass("gt2-tco-expanded")
     // exit if profile has no links
-    if (!$profile.find(`a[href^="https://t.co"]`).length) return
+    if (!$profile.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).length) return
 
     let screenName = $profile.is("[data-testid=UserCell]")
       ? $profile.find("> div > div:nth-child(2) > div:nth-child(1) a").attr("href").slice(1)
@@ -1713,7 +1713,7 @@
 
     requestUser(screenName, res => {
       let urls = res.data.user.legacy.entities.description.urls.concat(res.data.user.legacy.entities.url.urls)
-      $profile.find(`a[href^="https://t.co"]`).each(function() {
+      $profile.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
     })
