@@ -1684,12 +1684,13 @@
   .gt2-opt-expand-tco-shortlinks.gt2-page-tweet [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) article:not(.gt2-tco-expanded)`, function() {
     let $tweet = $(this)
     $tweet.addClass("gt2-tco-expanded")
-    let id = $tweet.is("article")
-      ? getPath().split("/")[2].split("?")[0]
-      : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
     // exit if tweet has no links
     if (!$tweet.find(`a[href^="https://t.co"]`).length) return
+
+    let id = $tweet.is("article")
+      ? getPath().split("/")[2].split("?")[0]
+      : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
     requestTweet(id, res => {
       $tweet.find(`a[href^="https://t.co"]`).each(function() {
@@ -1700,13 +1701,17 @@
 
 
   // expand t.co shortlinks (profile, not legacy)
-  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks.gt2-page-profile:not(.gt2-opt-legacy-profile) [data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1):not(.gt2-tco-expanded)`, function() {
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks.gt2-page-profile:not(.gt2-opt-legacy-profile) [data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1):not(.gt2-tco-expanded), .gt2-opt-expand-tco-shortlinks [data-testid=UserCell]`, function() {
     let $profile = $(this)
     $profile.addClass("gt2-tco-expanded")
     // exit if profile has no links
     if (!$profile.find(`a[href^="https://t.co"]`).length) return
 
-    requestUser(getPath().split("/")[0].split("?")[0], res => {
+    let screenName = $profile.is("[data-testid=UserCell]")
+      ? $profile.find("> div > div:nth-child(2) > div:nth-child(1) a").attr("href").slice(1)
+      : getPath().split("/")[0].split("?")[0]
+
+    requestUser(screenName, res => {
       let urls = res.data.user.legacy.entities.description.urls.concat(res.data.user.legacy.entities.url.urls)
       $profile.find(`a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
