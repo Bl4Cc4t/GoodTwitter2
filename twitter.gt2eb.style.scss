@@ -529,7 +529,8 @@ $notLegacyProfile: "
       display: none;
     }
   }
-  body[data-gt2-path^="messages"] {
+  body[data-gt2-path="messages"],
+  body[data-gt2-path^="messages/"] {
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
@@ -1150,7 +1151,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 // nsfw message media
-.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages"] {
+.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages/"] {
   div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/'] {
     display: none;
   }
@@ -1615,8 +1616,8 @@ html[style*="overflow-y: hidden"] {
 
 
 // /search overflow, let search box stay on top
-body[data-gt2-path^="search"],
-body[data-gt2-path^="explore"] {
+body[data-gt2-path="search"],
+body[data-gt2-path="explore"] {
   .gt2-search-overflow-hider {
     display: block;
   }
@@ -1630,12 +1631,12 @@ body[data-gt2-path^="explore"] {
     }
   }
 }
-body[data-gt2-path^="search"].gt2-scrolled-down {
+body[data-gt2-path="search"].gt2-scrolled-down {
   div[data-testid=primaryColumn] > div > div:nth-child(1) {
     top: calc(56px - 107px);
   }
 }
-body[data-gt2-path^="explore"].gt2-scrolled-down {
+body[data-gt2-path="explore"].gt2-scrolled-down {
   div[data-testid=primaryColumn] > div > div:nth-child(1) {
     top: calc(56px - 54px);
   }
@@ -1657,7 +1658,7 @@ body[data-gt2-path^="explore"].gt2-scrolled-down {
   }
 }
 
-body[data-gt2-path^="settings"] {
+body[data-gt2-path^="settings/"] {
   main {
     section[aria-labelledby=root-header],
     section[aria-labelledby=detail-header] {
@@ -1737,7 +1738,7 @@ body[data-gt2-path^="settings"] {
     }
   }
 
-  &[data-gt2-path^="search/"] {
+  &[data-gt2-path="settings/gt2"] {
     main section[aria-labelledby=root-header] > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
@@ -1897,7 +1898,8 @@ body[data-gt2-path^="settings"] {
   }
 }
 
-body[data-gt2-path^="messages"] {
+body[data-gt2-path="messages"],
+body[data-gt2-path^="messages/"] {
   .gt2-left-sidebar {
     display: none;
   }
