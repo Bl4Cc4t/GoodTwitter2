@@ -511,6 +511,13 @@ $notLegacyProfile: "
       }
     }
   }
+  body:not(.gt2-opt-sticky-sidebars)[data-gt2-path^="settings/"] {
+    .gt2-left-sidebar {
+      position: fixed !important;
+      height: calc(100vh - 57px);
+    }
+  }
+
   .gt2-nav-left > a[href="/explore"] {
     display: none !important;
   }

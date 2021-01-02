@@ -505,18 +505,18 @@
   }
 
 
-  // observe title changes when on the gt2 page
-  let settingsTitleMut = new MutationObserver(mutations => {
-    mutations.forEach(m => {
-      if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
-        changeSettingsTitle()
-      }
-    })
-  })
-  settingsTitleMut.observe($("head")[0], {
-    subtree: true,
-    childList: true
-  })
+  // // observe title changes when on the gt2 page
+  // let settingsTitleMut = new MutationObserver(mutations => {
+  //   mutations.forEach(m => {
+  //     if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
+  //       changeSettingsTitle()
+  //     }
+  //   })
+  // })
+  // settingsTitleMut.observe($("head")[0], {
+  //   subtree: true,
+  //   childList: true
+  // })
 
 
   // handler for the toggles
@@ -2069,6 +2069,7 @@
         waitForKeyElements(`main a[href="/settings/about"]`, addSettingsToggle)
         if (path().startsWith("settings/gt2")) {
           addSettings()
+          changeSettingsTitle()
         }
       }
     })
