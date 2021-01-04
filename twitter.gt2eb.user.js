@@ -85,6 +85,9 @@
   }
 
 
+  const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+
+
   // get account information
   function getInfo() {
     let sel = "#react-root ~ script"
@@ -95,7 +98,7 @@
     }
     return {
       bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
-      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"),
+      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, defaultAvatarUrl),
       screenName: x(/screen_name\":\"(.+?)\",/, "youarenotloggedin"),
       name:       x(/name\":\"(.+?)\",/, "Anonymous"),
       id:         x(/id_str\":\"(\d+)\"/, "0"),
@@ -505,20 +508,6 @@
   }
 
 
-  // // observe title changes when on the gt2 page
-  // let settingsTitleMut = new MutationObserver(mutations => {
-  //   mutations.forEach(m => {
-  //     if (getPath().startsWith("settings/gt2") && $(m.addedNodes[0]).prop("tagName") == "META") {
-  //       changeSettingsTitle()
-  //     }
-  //   })
-  // })
-  // settingsTitleMut.observe($("head")[0], {
-  //   subtree: true,
-  //   childList: true
-  // })
-
-
   // handler for the toggles
   $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
@@ -786,7 +775,7 @@
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
+    waitForKeyElements(`a[href='/${currentScreenName}/photo' i]`, () => {
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -799,7 +788,7 @@
       // information (constant)
       const i = {
         $banner:        $("a[href$='/header_photo'] img"),
-        avatarUrl:      $("a[href$='/photo'] img").attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400"),
+        avatarUrl:      $("a[href$='/photo'] img"),
         screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
@@ -822,7 +811,7 @@
           </div>
           <div class="gt2-legacy-profile-nav">
             <div class="gt2-legacy-profile-nav-left">
-              <img src="${i.avatarUrl}" />
+              <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
               <div>
                 <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
                 <div class="gt2-legacy-profile-screen-name-wrap">
@@ -956,7 +945,7 @@
       let i = {
         screenName: $tmp.find("> div:nth-last-child(1)").text().trim().slice(1),
         nameHTML:   $tmp.find("> div").length > 1 ? $tmp.find("> div:nth-child(1)").html() : null,
-        avatarUrl:  "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+        avatarUrl:  defaultAvatarUrl
       }
       $("body").addClass("gt2-profile-not-found")
       $("header").before(`
