@@ -819,7 +819,11 @@ main {
     font-weight: bold;
     color: var(--color-text) !important;
     font-weight: 800;
+    width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
   }
+
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
     &:hover {
@@ -855,6 +859,9 @@ main {
     .gt2-legacy-profile-items > *:not(:last-child) {
       display: block;
       margin-bottom: 4px;
+      width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
     }
 
     .gt2-legacy-profile-fyk {
