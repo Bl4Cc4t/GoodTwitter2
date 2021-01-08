@@ -372,7 +372,7 @@
     hideWhoToFollow:          false,
     hideTranslateTweetButton: false,
     hideMessageBox:           true,
-    enableQuickBlock:         true,
+    enableQuickBlock:         false,
     legacyProfile:            false,
     showNsfwMessageMedia:     false,
     expandTcoShortlinks:      true
