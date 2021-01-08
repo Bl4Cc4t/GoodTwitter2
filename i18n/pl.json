@@ -48,6 +48,7 @@
   "keepTweetsInTLDesc": "Niech strona nie usuwa automatycznie tweetów spoza widoku.",
   "leftTrends": "Trendy na pasku po lewej",
   "leftTrendsDesc": "Pokazuj trendy na pasku po lewej.",
+  "enableQuickBlock": "Włącz szybkie blokowanie.",
   "legacyProfile": "Stary układ profilu",
   "show10Trends": "Zawsze pokazuj 10 trendów",
   "showNsfwMessageMedia": "Pokazuj media NSFW z tweetów w wiadomościach",
