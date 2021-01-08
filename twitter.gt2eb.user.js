@@ -485,7 +485,7 @@
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
-		  ${getSettingTogglePart("enableQuickBlock")}
+          ${getSettingTogglePart("enableQuickBlock")}
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("biggerPreviews")}
