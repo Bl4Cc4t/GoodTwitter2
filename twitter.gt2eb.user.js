@@ -1757,30 +1757,32 @@
   // ########################
 
 
-  // display settings
-  let displaySettings = "main > div > div > div > section[aria-labelledby=detail-header] > div:nth-child(2)"
-  let displaySettingsModal = "div[aria-labelledby=modal-header] > div > div:nth-child(2) > div > div"
-
-
-  // user color
-  $("body").on("click", `${displaySettings} > div:nth-child(8) > div > div[role=radiogroup] > div > label,
-                         ${displaySettingsModal} > div:nth-child(6) > div > div[role=radiogroup] > div > label`, function() {
-    GM_setValue("opt_display_userColor", $(this).find("svg").css("color"))
+  // high contrast
+  $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) > label > div:nth-child(2)`, function() {
+    GM_setValue("opt_display_highContrast", !$(this).find("input").is("[checked]"))
     updateCSS()
   })
 
 
+  // user color
+  waitForKeyElements(`h2 > a[href="/i/keyboard_shortcuts"]`, e => {
+    let userColor = $(e).css("color")
+    if (userColor != GM_getValue("opt_display_userColor")) {
+      GM_setValue("opt_display_userColor", userColor)
+      updateCSS()
+    }
+  })
+
   // background color
-  let bgColorObserver = new MutationObserver(mut => {
+  new MutationObserver(mut => {
     mut.forEach(m => {
-      let bgc = m.target[m.attributeName]["background-color"]
-      if (m.oldValue && bgc != "" && bgc != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
-        GM_setValue("opt_display_bgColor", bgc)
+      let bgColor = m.target[m.attributeName]["background-color"]
+      if (m.oldValue && bgColor != "" && bgColor != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
+        GM_setValue("opt_display_bgColor", bgColor)
         updateCSS()
       }
     })
-  })
-  bgColorObserver.observe($("body")[0], {
+  }).observe($("body")[0], {
     attributes: true,
     attributeOldValue: true,
     attributeFilter: ["style"]
@@ -1788,7 +1790,7 @@
 
 
   // font increment
-  let globalFontSizeObserver = new MutationObserver(mut => {
+  new MutationObserver(mut => {
     mut.forEach(m => {
       let fs = m.target[m.attributeName]["font-size"]
       let fsOld = m.oldValue.match(/font-size: (\d+px);/)
@@ -1797,8 +1799,7 @@
         updateCSS()
       }
     })
-  })
-  globalFontSizeObserver.observe($("html")[0], {
+  }).observe($("html")[0], {
     attributes: true,
     attributeOldValue: true,
     attributeFilter: ["style"]
@@ -1852,8 +1853,8 @@
          --color-gray-light:  rgb(101, 119, 134);
          --color-navbar:      #ffffff;
          --color-text:        rgb(20, 23, 26);
-         --color-shadow:      rgb(204, 214, 221);
-         --color-seperator:   rgb(230, 236, 240);`,
+         --color-text-2:      white;
+         --color-shadow:      rgba(101, 119, 134, 0.15);`,
       // dim
       "rgb(21, 32, 43)":
         `--color-bg:          #10171e;
@@ -1864,8 +1865,8 @@
          --color-gray-light:  rgb(136, 153, 166);
          --color-navbar:      #1c2938;
          --color-text:        rgb(255, 255, 255);
-         --color-shadow:      rgb(61, 84, 102);
-         --color-seperator:   rgb(37, 51, 65);`,
+         --color-text-2:      white;
+         --color-shadow:      rgba(136, 153, 166, 0.15);`,
       // lightsOut
       "rgb(0, 0, 0)":
         `--color-bg:          #000000;
@@ -1874,17 +1875,58 @@
          --color-gray:        #657786;
          --color-gray-dark:   #38444d;
          --color-gray-light:  rgb(110, 118, 125);
-         --color-navbar:      #15181c;
+         --color-navbar:      rgb(21, 24, 28);
          --color-text:        rgb(217, 217, 217);
-         --color-shadow:      rgb(47, 51, 54);
-         --color-seperator:   rgb(32, 35, 39);`
+         --color-text-2:      white;
+         --color-shadow:      rgba(255, 255, 255, 0.15);`
+    }
+
+    // high contrast colors
+    let bgColorsHC = {
+      // default (white)
+      "rgb(255, 255, 255)":
+        `--color-bg:          #e6ecf0;
+         --color-elem:        rgb(255, 255, 255);
+         --color-elem-sel:    rgb(247, 249, 250);
+         --color-gray:        rgb(59, 76, 92);
+         --color-gray-dark:   rgb(170, 184, 194);
+         --color-gray-light:  rgb(59, 76, 92);
+         --color-navbar:      #ffffff;
+         --color-text:        rgb(20, 29, 38);
+         --color-text-2:      white;
+         --color-shadow:      rgba(101, 119, 134, 0.15);`,
+      // dim
+      "rgb(21, 32, 43)":
+        `--color-bg:          #10171e;
+         --color-elem:        rgb(21, 32, 43);
+         --color-elem-sel:    rgb(24, 36, 48);
+         --color-gray:        rgb(184, 203, 217);
+         --color-gray-dark:   rgb(56, 68, 88);
+         --color-gray-light:  rgb(184, 203, 217);
+         --color-navbar:      #1c2938;
+         --color-text:        rgb(255, 255, 255);
+         --color-text-2:      rgb(15, 20, 25);
+         --color-shadow:      rgba(136, 153, 166, 0.15);`,
+      // lightsOut
+      "rgb(5, 5, 5)":
+        `--color-bg:          rgb(5, 5, 5);
+         --color-elem:        rgb(5, 5, 5);
+         --color-elem-sel:    rgb(14, 16, 18);
+         --color-gray:        rgb(146, 156, 166);
+         --color-gray-dark:   rgb(61, 65, 69);
+         --color-gray-light:  rgb(146, 156, 166);
+         --color-navbar:      rgb(21, 24, 28);
+         --color-text:        rgb(255, 255, 255);
+         --color-text-2:      rgb(15, 20, 25);
+         --color-shadow:      rgba(255, 255, 255, 0.15);`
     }
 
     // initialize with the current settings
     if (GM_getValue("gt2_initialized") == undefined && isLoggedIn()) {
-      waitForKeyElements("a[href='/i/keyboard_shortcuts']", () => {
+      waitForKeyElements("h2 > a[href='/i/keyboard_shortcuts'] span", () => {
         GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
         GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
+        GM_setValue("opt_display_highContrast", false)
         GM_setValue("opt_display_fontSize",   $("html").css("font-size"))
         GM_setValue("gt2_initialized",        true)
         window.location.reload()
@@ -1904,23 +1946,25 @@
         $(".gt2-style").remove()
       }
 
-      let opt_display_bgColor   = GM_getValue("opt_display_bgColor")
-      let opt_display_fontSize  = GM_getValue("opt_display_fontSize")
-      let opt_display_userColor = GM_getValue("opt_display_userColor")
+      let opt_display_bgColor      = GM_getValue("opt_display_bgColor")
+      let opt_display_highContrast = GM_getValue("opt_display_highContrast")
+      let opt_display_fontSize     = GM_getValue("opt_display_fontSize")
+      let opt_display_userColor    = GM_getValue("opt_display_userColor")
 
       // options to set if not logged in
       if (!isLoggedIn()) {
         // get bgColor from cookie
-        opt_display_bgColor   = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
-        opt_display_fontSize  = "15px"
-        opt_display_userColor = "rgb(29, 161, 242)"
+        opt_display_bgColor      = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
+        opt_display_highContrast = false
+        opt_display_fontSize     = "15px"
+        opt_display_userColor    = "rgb(29, 161, 242)"
       }
 
       // insert new stylesheet
       $("html").prepend(`
         <style class="gt2-style">
           ${GM_getResourceText("css")
-          .replace("--bgColors:$;",   bgColors[opt_display_bgColor])
+          .replace("--bgColors:$;",   opt_display_highContrast ? bgColorsHC[opt_display_bgColor] : bgColors[opt_display_bgColor])
           .replace("$userColor",      opt_display_userColor)
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}

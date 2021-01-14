@@ -730,7 +730,7 @@ main {
   }
 
   .gt2-legacy-profile-banner {
-    background-color: var(--color-shadow);
+    background-color: var(--color-gray-dark);
     width: 100%;
     height: calc((100vw - var(--scrollbar-width)) / 3);
     margin-top: 47px;
@@ -819,9 +819,6 @@ main {
     font-weight: bold;
     color: var(--color-text) !important;
     font-weight: 800;
-    width: fit-content;
-    width: -moz-fit-content;
-    width: -webkit-fit-content;
   }
 
   .gt2-legacy-profile-screen-name {
@@ -847,24 +844,28 @@ main {
       color: var(--color-gray-light) !important;
     }
 
-    .gt2-legacy-profile-description {
+    .gt2-legacy-profile-description:not(:empty) {
       color: var(--color-text);
     }
 
     .gt2-legacy-profile-screen-name-wrap,
-    .gt2-legacy-profile-description {
+    .gt2-legacy-profile-description:not(:empty) {
       margin-bottom: 12px;
     }
 
     .gt2-legacy-profile-items > *:not(:last-child) {
       display: block;
       margin-bottom: 4px;
+    }
+
+    .gt2-legacy-profile-name,
+    .gt2-legacy-profile-items > *:not(:last-child) {
       width: fit-content;
       width: -moz-fit-content;
       width: -webkit-fit-content;
     }
 
-    .gt2-legacy-profile-fyk {
+    .gt2-legacy-profile-fyk:not(:empty) {
       margin-top: 12px;
       padding-right: 10px;
       &:hover {
@@ -1255,7 +1256,7 @@ body:not(.gt2-opt-small-sidebars) {
       & > svg {
         position: absolute;
         fill: var(--color-elem);
-        filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
+        filter: drop-shadow(var(--color-shadow) 0.25px -2px 1px);
         transform: unset !important;
         bottom: unset !important;
         top: -11px !important;
@@ -1485,6 +1486,7 @@ a.gt2-trend {
         & > div:nth-child(1) > div {
           background-color: var(--color-user);
           border-color: var(--color-elem);
+          color: var(--color-text-2);
           font-size: calc(11px + var(--font-increment) * 0.75);
         }
         & > div:not(:first-child):not(.gt2-nav-header) {
@@ -1591,7 +1593,7 @@ a.gt2-trend {
       font-weight: 700;
       min-height: 34px;
       background-color: var(--color-user);
-      color: white;
+      color: var(--color-text-2);
       padding: 0 16px;
       border-radius: 9999px;
 
@@ -2176,7 +2178,7 @@ body[data-promote-url^="/i/tfb/v1/quick_promote"] {
   // seperators
   .ep-Campaign,
   .ep-DetailedEngagementsSection {
-    border-color: var(--color-shadow);
+    border-color: var(--color-gray-dark);
   }
 
   // text
