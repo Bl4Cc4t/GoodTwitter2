@@ -775,7 +775,7 @@
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-    waitForKeyElements(`a[href='/${currentScreenName}/photo' i]`, () => {
+    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -1407,7 +1407,7 @@
               }
             </div>
             <div class="gt2-translated-tweet">
-              ${out}
+              ${out.replaceEmojis()}
             </div>
           `)
         } else {
