@@ -48,6 +48,7 @@
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",
   "leftTrendsDesc": "Show the trends in the left sidebar.",
+  "enableQuickBlock": "Enable Quickblock.",
   "legacyProfile": "Legacy Profile Layout",
   "show10Trends": "Always Show 10 Trends",
   "showNsfwMessageMedia": "Show NSFW Tweet Media in Messages",
