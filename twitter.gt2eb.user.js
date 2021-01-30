@@ -815,12 +815,12 @@
             <div class="gt2-legacy-profile-nav-left">
               <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
               <div>
-                <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+                <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
                 <div class="gt2-legacy-profile-screen-name-wrap">
                   ${i.screenNameOnly ? "" : `
-                    <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-                    @<span>${i.screenName}</span>
-                    </a>
+                    <div class="gt2-legacy-profile-screen-name">
+                      @<span>${i.screenName}</span>
+                    </div>
                   `}
                   ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
                 </div>
@@ -909,12 +909,12 @@
           }
 
           $(".gt2-legacy-profile-info").append(`
-            <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML}</a>
+            <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
             <div class="gt2-legacy-profile-screen-name-wrap">
               ${i.screenNameOnly ? "" : `
-                <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-                @<span>${i.screenName}</span>
-                </a>
+                <div class="gt2-legacy-profile-screen-name">
+                  @<span>${i.screenName}</span>
+                </div>
               `}
               ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
             </div>

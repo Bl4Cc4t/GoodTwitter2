@@ -823,12 +823,6 @@ main {
 
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
-    &:hover {
-      text-decoration-line: none !important;
-      span {
-        text-decoration-line: underline;
-      }
-    }
   }
 
   .gt2-legacy-profile-info {
