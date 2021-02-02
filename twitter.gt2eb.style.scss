@@ -517,9 +517,11 @@ $notLegacyProfile: "
       height: calc(100vh - 57px);
     }
   }
-
-  .gt2-nav-left > a[href="/explore"] {
-    display: none !important;
+  
+  body:not(.gt2-not-logged-in) {
+    .gt2-nav-left > a[href="/explore"] {
+      display: none !important;
+    }
   }
 }
 
