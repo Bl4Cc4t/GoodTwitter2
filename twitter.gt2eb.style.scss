@@ -517,7 +517,7 @@ $notLegacyProfile: "
       height: calc(100vh - 57px);
     }
   }
-  
+
   body:not(.gt2-not-logged-in) {
     .gt2-nav-left > a[href="/explore"] {
       display: none !important;
@@ -1684,6 +1684,9 @@ body[data-gt2-path^="settings/"] {
       border-right-width: 0;
       border-bottom-width: 1px;
       box-shadow: 1px 0 0 var(--color-gray-dark);
+      a[href="/settings/about"] {
+        border-bottom: 1px solid var(--color-gray-dark);
+      }
     }
     section[aria-labelledby=detail-header] {
       height: max-content;
