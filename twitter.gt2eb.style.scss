@@ -843,6 +843,12 @@ main {
 
     .gt2-legacy-profile-description:not(:empty) {
       color: var(--color-text);
+      [data-testid=UserDescription] + div {
+        width: max-content;  
+        &:hover {
+          text-decoration-line: underline;
+        }
+      }
     }
 
     .gt2-legacy-profile-screen-name-wrap,
@@ -2048,7 +2054,7 @@ body[data-gt2-path^="messages/"] {
       }
       .gt2-screenname {
         font-size: incr(14px);
-        color: var(--color-gray);
+        color: var(--color-gray-light);
         &:hover span {
           text-decoration: underline;
         }
