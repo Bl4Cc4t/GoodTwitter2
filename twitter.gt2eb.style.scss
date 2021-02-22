@@ -1,3 +1,35 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Volcanorupt 
+Volcanorupt
+/
+GoodTwitter2
+forked from Bl4Cc4t/GoodTwitter2
+0
+035
+Code
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+GoodTwitter2/twitter.gt2eb.style.scss
+@Volcanorupt
+Volcanorupt Update twitter.gt2eb.style.scss
+Latest commit 2ee82b9 1 minute ago
+ History
+ 4 contributors
+@Bl4Cc4t@Volcanorupt@KevSlashNull@BrandtnerKPW
+2329 lines (2024 sloc)  46.7 KB
+  
 :root {
   --bgColors:$;
   --color-user:       $userColor;
@@ -41,7 +73,7 @@ $notLegacyProfile: "
     transition: opacity .2s ease-in-out;
     background-color: var(--color-user);
     opacity: 0;
-    border-radius: 9999px;
+    border-radius: 10px;
     position: absolute;
     height: 39px;
     width: 39px;
@@ -653,7 +685,7 @@ main {
 
             // apply theme to sidebar elements
             & > div {
-              border-radius: 0;
+              border-radius: 10;
               border: 1px solid var(--color-gray-dark);
               background-color: var(--color-elem);
               margin-bottom: 10px;
@@ -694,7 +726,7 @@ main {
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
-        left: -9999px;
+        left: 0px;
       }
       & > div:nth-child(2) > div > div > div:nth-child(2) {
         border-top-width: 0;
@@ -752,7 +784,7 @@ main {
       align-items: center;
       // avatar
       img {
-        border-radius: 9999px;
+        border-radius: 10px;
       }
       & > div {
         display: flex;
@@ -1558,7 +1590,7 @@ a.gt2-trend {
       width: 34px;
 
       img {
-        border-radius: 9999px;
+        border-radius: 10px;
         height: 100%;
         width: 100%;
         @include grayscaleHover;
@@ -1578,7 +1610,7 @@ a.gt2-trend {
       background-color: var(--color-user);
       color: white;
       padding: 0 16px;
-      border-radius: 9999px;
+      border-radius: 10px;
 
       &:hover {
         cursor: pointer;
@@ -1835,7 +1867,7 @@ body[data-gt2-path^="settings"] {
           transition: opacity 0.2s ease-in-out;
           background-color: var(--color-gray);
           opacity: 0;
-          border-radius: 9999px;
+          border-radius: 10px;
           padding: 10px;
         }
 
@@ -1993,7 +2025,7 @@ body[data-gt2-path^="messages"] {
       height: 82px;
       margin: -30px 0 0 8px;
       background-color: var(--color-elem);
-      border-radius: 9999px;
+      border-radius: 10px;
       align-items: center;
       justify-content: center;
 
@@ -2130,7 +2162,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   &.gt2-update-notice {
     .gt2-sidebar-notice-content svg {
       fill: white;
-      border-radius: 9999px;
+      border-radius: 10px;
       border: 3.5px solid green;
       background-color: green;
       height: 12px;
@@ -2273,7 +2305,7 @@ body[data-payment-endpoint-path] {
     width: 20px;
     height: 20px;
     border: solid 1px var(--color-bg);
-    border-radius: 9999px;
+    border-radius: 10px;
     position: relative;
 
     &:nth-child(1) {
