@@ -71,8 +71,7 @@
   String.prototype.toKebab = function() {
     let out = ""
     for (let e of this.toString().split("")) {
-      if (e == e.toUpperCase()) out += `-${e.toLowerCase()}`
-      else out += e
+      out += e == e.toUpperCase() ? `-${e.toLowerCase()}` : e
     }
     return out
   }
@@ -557,7 +556,7 @@
   // add navbar
   function addNavbar() {
     waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
-      if ($("body").hasClass("gt2-navbar-added")) return
+      if ($(".gt2-nav").length) return
 
       $("main").before(`
         <nav class="gt2-nav">
@@ -599,15 +598,13 @@
       // twitter logo
       $("h1 a[href='/home'] svg")
       .appendTo(".gt2-nav-center a")
-
-      $("body").addClass("gt2-navbar-added")
     })
   }
 
   // add navbar
   function addNavbarLoggedOut() {
     waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
-      if ($("body").hasClass("gt2-navbar-added")) return
+      if ($(".gt2-nav").length) return
 
       $("body").prepend(`
         <nav class="gt2-nav">
@@ -645,8 +642,6 @@
       // twitter logo
       $("header h1 a[href='/'] svg")
       .appendTo(".gt2-nav-center a")
-
-      $("body").addClass("gt2-navbar-added")
     })
   }
 
@@ -1769,6 +1764,7 @@
   $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) > label > div:nth-child(2)`, function() {
     GM_setValue("opt_display_highContrast", !$(this).find("input").is("[checked]"))
     updateCSS()
+
   })
 
 
@@ -1998,6 +1994,15 @@
         </style>`
       )
     }
+
+    // add navbar
+    if (!$("gt2-nav").length) {
+      if (isLoggedIn()) {
+        addNavbar()
+      } else {
+        addNavbarLoggedOut()
+      }
+    }
   }
 
 
@@ -2147,7 +2152,7 @@
 
 
     // add navbar
-    if (!$("body").hasClass("gt2-navbar-added")) {
+    if (!$(".gt2-nav").length) {
       if (isLoggedIn()) {
         addNavbar()
       } else {
