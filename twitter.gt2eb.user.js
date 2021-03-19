@@ -1706,8 +1706,8 @@
     requestUser(screenName, res => {
       let ent = res.data.user.legacy.entities
       let urls = []
-      if (ent.description.urls) urls.concat(ent.description.urls)
-      if (ent.url.urls)         urls.concat(ent.url.urls)
+      if (ent.description) urls.push(...ent.description.urls)
+      if (ent.url)         urls.push(...ent.url.urls)
       $profile.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
@@ -2076,6 +2076,7 @@
     return _onSubPage(path, "i", ["display", "keyboard_shortcuts"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
+        || _onSubPage(path, "account", ["add"])
         || _onPage(path, "search-advanced")
         || path.match(/\/(photo|video)\/\d\/?$/)
   }
@@ -2245,7 +2246,7 @@
       forceLatest()
     }
 
-    $("body").attr("data-gt2-prev-path", path())
+    if (!isModal) $("body").attr("data-gt2-prev-path", path())
   }
   urlChange("init")
 
