@@ -671,7 +671,7 @@
       insertAt = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div"
     }
 
-    elements.push(`<div class="gt2-legacy-profile-info"></div>`)
+    elements.unshift(`<div class="gt2-legacy-profile-info"></div>`)
     waitForKeyElements(insertAt, () => {
       if (!$(insertAt).find(".gt2-legacy-profile-info").length) {
         for (let elem of elements.slice().reverse()) {
@@ -938,7 +938,8 @@
     })
 
     // profile suspended / not found / temporarily restricted (first view)
-    waitForKeyElements("[hidden] > [role=presentation]", () => {
+    waitForKeyElements(`[data-testid=emptyState],
+                        [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`, () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
         screenName: $tmp.find("> div:nth-last-child(1)").text().trim().slice(1),
