@@ -1858,7 +1858,8 @@
          --color-navbar:      #ffffff;
          --color-text:        rgb(20, 23, 26);
          --color-text-2:      white;
-         --color-shadow:      rgba(101, 119, 134, 0.15);`,
+         --color-shadow:      rgba(101, 119, 134, 0.15);
+         --color-backdrop:    rgba(0, 0, 0, 0.4);`,
       // dim
       "rgb(21, 32, 43)":
         `--color-bg:          #10171e;
@@ -1870,7 +1871,8 @@
          --color-navbar:      #1c2938;
          --color-text:        rgb(255, 255, 255);
          --color-text-2:      white;
-         --color-shadow:      rgba(136, 153, 166, 0.15);`,
+         --color-shadow:      rgba(136, 153, 166, 0.15);
+         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
       // lightsOut
       "rgb(0, 0, 0)":
         `--color-bg:          #000000;
@@ -1882,7 +1884,8 @@
          --color-navbar:      rgb(21, 24, 28);
          --color-text:        rgb(217, 217, 217);
          --color-text-2:      white;
-         --color-shadow:      rgba(255, 255, 255, 0.15);`
+         --color-shadow:      rgba(255, 255, 255, 0.15);
+         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
     }
 
     // high contrast colors
@@ -1898,7 +1901,8 @@
          --color-navbar:      #ffffff;
          --color-text:        rgb(20, 29, 38);
          --color-text-2:      white;
-         --color-shadow:      rgba(101, 119, 134, 0.15);`,
+         --color-shadow:      rgba(101, 119, 134, 0.15);
+         --color-backdrop:    rgba(0, 0, 0, 0.4);`,
       // dim
       "rgb(21, 32, 43)":
         `--color-bg:          #10171e;
@@ -1910,7 +1914,8 @@
          --color-navbar:      #1c2938;
          --color-text:        rgb(255, 255, 255);
          --color-text-2:      rgb(15, 20, 25);
-         --color-shadow:      rgba(136, 153, 166, 0.15);`,
+         --color-shadow:      rgba(136, 153, 166, 0.15);
+         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
       // lightsOut
       "rgb(5, 5, 5)":
         `--color-bg:          rgb(5, 5, 5);
@@ -1922,7 +1927,8 @@
          --color-navbar:      rgb(21, 24, 28);
          --color-text:        rgb(255, 255, 255);
          --color-text-2:      rgb(15, 20, 25);
-         --color-shadow:      rgba(255, 255, 255, 0.15);`
+         --color-shadow:      rgba(255, 255, 255, 0.15);
+         --color-backdrop:    rgba(91, 112, 131, 0.4);`
     }
 
     // initialize with the current settings

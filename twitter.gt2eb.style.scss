@@ -1495,6 +1495,16 @@ a.gt2-trend {
   z-index: 1;
   display: flex;
 
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-backdrop);
+    position: absolute;
+    z-index: 2;
+    display: none;
+  }
+
   .gt2-nav-left {
 
     & > a {
@@ -1636,7 +1646,12 @@ a.gt2-trend {
 html[style*="overflow: hidden"],
 html[style*="overflow-y: hidden"] {
   // hide navbar and other things
-  .gt2-nav,
+  .gt2-nav {
+    pointer-events: none;
+    &::after {
+      display: block;
+    }
+  }
   .gt2-search-overflow-hider {
     z-index: -1 !important;
   }
