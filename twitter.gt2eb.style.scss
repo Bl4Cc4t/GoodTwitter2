@@ -1635,31 +1635,11 @@ a.gt2-trend {
     }
   }
 }
-.gt2-nav,
-.gt2-search-overflow-hider {
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-backdrop);
-    position: absolute;
-    z-index: 2;
-    display: none;
-  }
-}
 
 
 // stuff to do on modal
 html[style*="overflow: hidden"],
 html[style*="overflow-y: hidden"] {
-  // hide navbar and other things
-  .gt2-nav,
-  .gt2-search-overflow-hider {
-    pointer-events: none;
-    &::after {
-      display: block;
-    }
-  }
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }

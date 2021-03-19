@@ -559,7 +559,7 @@
     waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
       if ($("body").hasClass("gt2-navbar-added")) return
 
-      $("body").prepend(`
+      $("main").before(`
         <nav class="gt2-nav">
           <div class="gt2-nav-left"></div>
           <div class="gt2-nav-center">
