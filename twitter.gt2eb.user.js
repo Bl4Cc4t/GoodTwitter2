@@ -1703,7 +1703,10 @@
       : getPath().split("/")[0].split("?")[0]
 
     requestUser(screenName, res => {
-      let urls = res.data.user.legacy.entities.description.urls.concat(res.data.user.legacy.entities.url.urls)
+      let ent = res.data.user.legacy.entities
+      let urls = []
+      if (ent.description.urls) urls.concat(ent.description.urls)
+      if (ent.url.urls)         urls.concat(ent.url.urls)
       $profile.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
