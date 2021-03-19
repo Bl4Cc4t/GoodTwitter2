@@ -1852,87 +1852,77 @@
     // bgColor schemes
     let bgColors = {
       // default (white)
-      "rgb(255, 255, 255)":
-        `--color-bg:          #e6ecf0;
-         --color-elem:        #ffffff;
-         --color-elem-sel:    rgb(247, 249, 250);
-         --color-gray:        #8899a6;
-         --color-gray-dark:   #e6ecf0;
-         --color-gray-light:  rgb(101, 119, 134);
-         --color-navbar:      #ffffff;
-         --color-text:        rgb(20, 23, 26);
-         --color-text-2:      white;
-         --color-shadow:      rgba(101, 119, 134, 0.15);
-         --color-backdrop:    rgba(0, 0, 0, 0.4);`,
+      "rgb(255, 255, 255)": {
+        bg:           "#e6ecf0",
+        elem:         "rgb(255, 255, 255)",
+        elemSel:      "rgb(247, 249, 250)",
+        gray:         "#8899a6",
+        grayDark:     "#e6ecf0",
+        grayLight:    "rgb(101, 119, 134)",
+        navbar:       "#ffffff",
+        text:         "rgb(20, 23, 26)",
+        text2:        "white",
+        shadow:       "rgba(101, 119, 134, 0.15)",
+        backdrop:     "rgba(0, 0, 0, 0.4)"
+      },
       // dim
-      "rgb(21, 32, 43)":
-        `--color-bg:          #10171e;
-         --color-elem:        rgb(21, 32, 43);
-         --color-elem-sel:    rgb(25, 39, 52);
-         --color-gray:        rgb(101, 119, 134);
-         --color-gray-dark:   #38444d;
-         --color-gray-light:  rgb(136, 153, 166);
-         --color-navbar:      #1c2938;
-         --color-text:        rgb(255, 255, 255);
-         --color-text-2:      white;
-         --color-shadow:      rgba(136, 153, 166, 0.15);
-         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
+      "rgb(21, 32, 43)": {
+        bg:           "#10171e",
+        elem:         "rgb(21, 32, 43)",
+        elemSel:      "rgb(25, 39, 52)",
+        gray:         "rgb(101, 119, 134)",
+        grayDark:     "#38444d",
+        grayLight:    "rgb(136, 153, 166)",
+        navbar:       "#1c2938",
+        text:         "rgb(255, 255, 255)",
+        text2:        "white",
+        shadow:       "rgba(136, 153, 166, 0.15)",
+        backdrop:     "rgba(91, 112, 131, 0.4)"
+      },
       // lightsOut
-      "rgb(0, 0, 0)":
-        `--color-bg:          #000000;
-         --color-elem:        #000000;
-         --color-elem-sel:    rgb(21, 24, 28);
-         --color-gray:        #657786;
-         --color-gray-dark:   #38444d;
-         --color-gray-light:  rgb(110, 118, 125);
-         --color-navbar:      rgb(21, 24, 28);
-         --color-text:        rgb(217, 217, 217);
-         --color-text-2:      white;
-         --color-shadow:      rgba(255, 255, 255, 0.15);
-         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
+      "rgb(0, 0, 0)": {
+        bg:           "#000000",
+        elem:         "#000000",
+        elemSel:      "rgb(21, 24, 28)",
+        gray:         "#657786",
+        grayDark:     "#38444d",
+        grayLight:    "rgb(110, 118, 125)",
+        navbar:       "rgb(21, 24, 28)",
+        text:         "rgb(217, 217, 217)",
+        text2:        "white",
+        shadow:       "rgba(255, 255, 255, 0.15)",
+        backdrop:     "rgba(91, 112, 131, 0.4)"
+      }
     }
 
-    // high contrast colors
+    // high contrast color overrides
     let bgColorsHC = {
       // default (white)
-      "rgb(255, 255, 255)":
-        `--color-bg:          #e6ecf0;
-         --color-elem:        rgb(255, 255, 255);
-         --color-elem-sel:    rgb(247, 249, 250);
-         --color-gray:        rgb(59, 76, 92);
-         --color-gray-dark:   rgb(170, 184, 194);
-         --color-gray-light:  rgb(59, 76, 92);
-         --color-navbar:      #ffffff;
-         --color-text:        rgb(20, 29, 38);
-         --color-text-2:      white;
-         --color-shadow:      rgba(101, 119, 134, 0.15);
-         --color-backdrop:    rgba(0, 0, 0, 0.4);`,
+      "rgb(255, 255, 255)": {
+        gray:         "rgb(59, 76, 92)",
+        grayDark:     "rgb(170, 184, 194)",
+        grayLight:    "rgb(59, 76, 92)",
+        text:         "rgb(20, 29, 38)"
+      },
       // dim
-      "rgb(21, 32, 43)":
-        `--color-bg:          #10171e;
-         --color-elem:        rgb(21, 32, 43);
-         --color-elem-sel:    rgb(24, 36, 48);
-         --color-gray:        rgb(184, 203, 217);
-         --color-gray-dark:   rgb(56, 68, 88);
-         --color-gray-light:  rgb(184, 203, 217);
-         --color-navbar:      #1c2938;
-         --color-text:        rgb(255, 255, 255);
-         --color-text-2:      rgb(15, 20, 25);
-         --color-shadow:      rgba(136, 153, 166, 0.15);
-         --color-backdrop:    rgba(91, 112, 131, 0.4);`,
+      "rgb(21, 32, 43)": {
+        elemSel:      "rgb(24, 36, 48)",
+        gray:         "rgb(184, 203, 217)",
+        grayDark:     "rgb(56, 68, 88)",
+        grayLight:    "rgb(184, 203, 217)",
+        text2:        "rgb(15, 20, 25)"
+      },
       // lightsOut
-      "rgb(5, 5, 5)":
-        `--color-bg:          rgb(5, 5, 5);
-         --color-elem:        rgb(5, 5, 5);
-         --color-elem-sel:    rgb(14, 16, 18);
-         --color-gray:        rgb(146, 156, 166);
-         --color-gray-dark:   rgb(61, 65, 69);
-         --color-gray-light:  rgb(146, 156, 166);
-         --color-navbar:      rgb(21, 24, 28);
-         --color-text:        rgb(255, 255, 255);
-         --color-text-2:      rgb(15, 20, 25);
-         --color-shadow:      rgba(255, 255, 255, 0.15);
-         --color-backdrop:    rgba(91, 112, 131, 0.4);`
+      "rgb(0, 0, 0)": {
+        bg:           "rgb(5, 5, 5)",
+        elem:         "rgb(5, 5, 5)",
+        elemSel:      "rgb(14, 16, 18)",
+        gray:         "rgb(146, 156, 166)",
+        grayDark:     "rgb(61, 65, 69)",
+        grayLight:    "rgb(146, 156, 166)",
+        text:         "rgb(255, 255, 255)",
+        text2:        "rgb(15, 20, 25)"
+      }
     }
 
     // initialize with the current settings
@@ -1974,11 +1964,20 @@
         opt_display_userColor    = "rgb(29, 161, 242)"
       }
 
+      // highContrast lightsOut
+      if (opt_display_bgColor == "rgb(5, 5, 5)") opt_display_bgColor = "rgb(0, 0, 0)"
+
       // insert new stylesheet
       $("html").prepend(`
         <style class="gt2-style">
           ${GM_getResourceText("css")
-          .replace("--bgColors:$;",   opt_display_highContrast ? bgColorsHC[opt_display_bgColor] : bgColors[opt_display_bgColor])
+          .replace("--bgColors:$;",
+            Object.entries(Object.assign(
+              {},
+              bgColors[opt_display_bgColor],
+              opt_display_highContrast ? bgColorsHC[opt_display_bgColor] : {}
+            )).map(e => `--color-${e[0].toKebab()}: ${e[1]};`).join(" ")
+          )
           .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
