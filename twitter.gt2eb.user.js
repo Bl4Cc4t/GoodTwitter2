@@ -1781,7 +1781,7 @@
   new MutationObserver(mut => {
     mut.forEach(m => {
       let bgColor = m.target[m.attributeName]["background-color"]
-      if (m.oldValue && bgColor != "" && bgColor != m.oldValue.match(/background-color: (rgb\([\d, ]+\));/)[1]) {
+      if (m.oldValue && bgColor != "") {
         GM_setValue("opt_display_bgColor", bgColor)
         updateCSS()
       }
@@ -1851,7 +1851,7 @@
       "rgb(255, 255, 255)":
         `--color-bg:          #e6ecf0;
          --color-elem:        #ffffff;
-         --color-elem-sel:    rgb(245, 248, 255);
+         --color-elem-sel:    rgb(247, 249, 250);
          --color-gray:        #8899a6;
          --color-gray-dark:   #e6ecf0;
          --color-gray-light:  rgb(101, 119, 134);
