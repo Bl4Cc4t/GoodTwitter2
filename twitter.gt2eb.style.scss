@@ -1366,6 +1366,9 @@ div[data-testid$=-follow] {
 div[data-testid$=-unfollow]:not(:hover) {
   border-color: var(--color-user);
   background-color: var(--color-user);
+  & > div {
+    color: var(--color-text-2);
+  }
 }
 
 
