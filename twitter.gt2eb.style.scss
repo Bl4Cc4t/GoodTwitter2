@@ -1,10 +1,11 @@
 :root {
   --bgColors:$;
-  --color-user:       $userColor;
+  --color-user-raw:   $userColor;
   --scrollbar-width:  $scrollbarWidth;
   --global-font-size: $globalFontSize;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
+  --color-user:       rgb(var(--color-user-raw));
   --color-red:        rgb(224, 36, 94);
   --color-red-dark:   rgb(202, 32, 85);
 
@@ -1338,6 +1339,26 @@ div[data-testid=caret] {
     fill: var(--color-gray-light);
     pointer-events: none;
   }
+}
+
+
+// color several ui elements with the user color (2021-03-19 change)
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid$=-follow] {
+  border-color: var(--color-user);
+  & > div,
+  svg {
+    color: var(--color-user);
+  }
+  &:hover {
+    background-color: rgba(var(--color-user-raw), .1);
+  }
+}
+div[data-testid$=-unfollow]:not(:hover) {
+  border-color: var(--color-user);
+  background-color: var(--color-user);
 }
 
 

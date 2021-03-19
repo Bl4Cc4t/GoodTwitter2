@@ -1969,7 +1969,7 @@
         <style class="gt2-style">
           ${GM_getResourceText("css")
           .replace("--bgColors:$;",   opt_display_highContrast ? bgColorsHC[opt_display_bgColor] : bgColors[opt_display_bgColor])
-          .replace("$userColor",      opt_display_userColor)
+          .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
         </style>`
