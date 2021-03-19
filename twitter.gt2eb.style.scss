@@ -615,6 +615,10 @@ main {
             display: none;
           }
         }
+        // compose tweet hide scrollbar
+        .DraftEditor-root {
+          overflow: unset;
+        }
 
         // put tweet images in foreground
         div[data-testid=tweet] img {
