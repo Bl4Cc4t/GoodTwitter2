@@ -1925,6 +1925,14 @@
       }
     }
 
+    let baseColors = {
+      //        normal            highContrast
+      blue:     ["29, 161, 242",  "112, 200, 255"],
+      green:    ["23, 191, 99",   "102, 211, 151"],
+      red:      ["224, 36, 94",   "240, 152, 179"],
+      redDark:  ["202, 32, 85",   "216, 137, 161"]
+    }
+
     // initialize with the current settings
     if (GM_getValue("gt2_initialized") == undefined && isLoggedIn()) {
       waitForKeyElements("h2 > a[href='/i/keyboard_shortcuts'] span", () => {
@@ -1977,6 +1985,12 @@
               bgColors[opt_display_bgColor],
               opt_display_highContrast ? bgColorsHC[opt_display_bgColor] : {}
             )).map(e => `--color-${e[0].toKebab()}: ${e[1]};`).join(" ")
+          )
+          .replace("--baseColors:$;",
+            Object.entries(baseColors)
+            .map(e => [e[0].toKebab(), e[1][opt_display_highContrast ? 1 : 0]])
+            .map(e => `--color-raw-${e[0]}: ${e[1]}; --color-${e[0]}: rgb(${e[1]});`)
+            .join(" ")
           )
           .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)

@@ -1,13 +1,12 @@
 :root {
   --bgColors:$;
-  --color-user-raw:   $userColor;
+  --baseColors:$;
+  --color-raw-user:   $userColor;
   --scrollbar-width:  $scrollbarWidth;
   --global-font-size: $globalFontSize;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --color-user:       rgb(var(--color-user-raw));
-  --color-red:        rgb(224, 36, 94);
-  --color-red-dark:   rgb(202, 32, 85);
+  --color-user:       rgb(var(--color-raw-user));
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
@@ -1294,23 +1293,23 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   div[data-testid=reply]:hover,
   div[role=button]:not([data-testid]):hover {
     & > div > div > div {
-      background-color: rgba(29, 161, 242, 0.1);
+      background-color: rgba(var(--color-raw-blue), 0.1);
     }
     svg {
-      fill: #1da1f2;
+      fill: var(--color-blue);
     }
   }
   // retweets
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet]:hover {
     & > div > div > div {
-      background-color: rgba(23, 191, 99, 0.1);
+      background-color: rgba(var(--color-raw-green), 0.1);
     }
   }
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet] {
     svg {
-      fill: #17bf63;
+      fill: var(--color-green);
     }
   }
 
@@ -1318,13 +1317,13 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   div[data-testid=like]:hover,
   div[data-testid=unlike]:hover {
     & > div > div > div {
-      background-color: rgba(224, 36, 94, 0.1);
+      background-color: rgba(var(--color-raw-red), 0.1);
     }
   }
   div[data-testid=like]:hover,
   div[data-testid=unlike] {
     svg {
-      fill: #e0245e;
+      fill: var(--color-red);
     }
   }
 }
@@ -1361,7 +1360,7 @@ div[data-testid$=-follow] {
     color: var(--color-user);
   }
   &:hover {
-    background-color: rgba(var(--color-user-raw), .1);
+    background-color: rgba(var(--color-raw-user), .1);
   }
 }
 div[data-testid$=-unfollow]:not(:hover) {
