@@ -1499,16 +1499,6 @@ a.gt2-trend {
   z-index: 1;
   display: flex;
 
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-backdrop);
-    position: absolute;
-    z-index: 2;
-    display: none;
-  }
-
   .gt2-nav-left {
 
     & > a {
@@ -1645,19 +1635,30 @@ a.gt2-trend {
     }
   }
 }
+.gt2-nav,
+.gt2-search-overflow-hider {
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-backdrop);
+    position: absolute;
+    z-index: 2;
+    display: none;
+  }
+}
+
 
 // stuff to do on modal
 html[style*="overflow: hidden"],
 html[style*="overflow-y: hidden"] {
   // hide navbar and other things
-  .gt2-nav {
+  .gt2-nav,
+  .gt2-search-overflow-hider {
     pointer-events: none;
     &::after {
       display: block;
     }
-  }
-  .gt2-search-overflow-hider {
-    z-index: -1 !important;
   }
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
@@ -1669,7 +1670,7 @@ html[style*="overflow-y: hidden"] {
 
 .gt2-search-overflow-hider {
   position: fixed;
-  width: 600px;
+  width: calc(600px + var(--scrollbar-width));
   height: 9px;
   top: 47px;
   background-color: var(--color-bg);
