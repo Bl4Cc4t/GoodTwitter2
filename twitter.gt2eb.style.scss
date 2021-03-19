@@ -528,7 +528,7 @@ $notLegacyProfile: "
 
 // even smaller screen
 @media only screen and (max-width: 705px) {
-  body[data-gt2-path^="compose/tweet"] {
+  body[data-gt2-path-modal^="compose/tweet"] {
     main {
       margin-top: 0 !important;
       & > div {

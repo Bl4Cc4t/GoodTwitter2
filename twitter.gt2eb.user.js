@@ -2024,7 +2024,7 @@
       let curr = window.pageYOffset
 
       // prevent auto scroll to top on /search and /explore
-      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore\/?$)/)) {
+      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore|compose\/tweet\/?$)/)) {
         window.scroll(0, prev)
         return
       }
@@ -2054,35 +2054,45 @@
 
 
   function beforeUrlChange(path) {
-    // reattach buttons to original position
-    let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
-    if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
-      $(".gt2-legacy-profile-nav-right > div").appendTo($b)
+    // [LPL] reattach buttons to original position
+    if (!_isModal(path)) {
+      let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
+      if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
+        $(".gt2-legacy-profile-nav-right > div").appendTo($b)
+      }
     }
+  }
+
+
+  // path helper functions
+  function _onPage(path, ...top) {
+    return top.some(e => e == path.split("/")[0])
+  }
+  function _onSubPage(path, top, sub) {
+    return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
+  }
+  function _isModal(path) {
+    return _onSubPage(path, "i", ["display", "keyboard_shortcuts"])
+        || _onSubPage(path, "settings", ["trends", "profile"])
+        || _onSubPage(path, "compose", ["tweet"])
+        || _onPage(path, "search-advanced")
+        || path.match(/\/(photo|video)\/\d\/?$/)
   }
 
 
   // stuff to do when url changes
   function urlChange(changeType, changePath) {
-    let path = () => (changePath || getPath()).split("?")[0]
-    console.log(`[${changeType}] ${path()}`)
-    $("body").attr("data-gt2-path", path())
+    let path      = ()          => (changePath || getPath()).split("?")[0]
+    let onPage    = (...top)       => _onPage(path(), ...top)
+    let onSubPage = (top, sub)  => _onSubPage(path(), top, sub)
+    let isModal = _isModal(path())
+
+    console.log(`[${changeType}]${isModal ? " [modal]" : ""} ${path()}`)
 
 
-    // path helper functions
-    function onPage(...top) {
-      return top.some(e => e == path().split("/")[0])
-    }
-    function onSubPage(top, sub) {
-      return (top == null ? true : onPage(top)) && path().includes("/") && sub.some(e => e == path().split("/")[1])
-    }
-
-    // on modal
-    let isModal = onSubPage("i", ["display", "keyboard_shortcuts"])
-               || onSubPage("settings", ["trends", "profile"])
-               || onSubPage("compose", ["tweet"])
-               || onPage("search-advanced")
-               || path().match(/\/(photo|video)\/\d\/?$/)
+    $("body").attr(`data-gt2-path${isModal ? "-modal" : ""}`, path())
+    let $realPath = $("link[hreflang=default][data-rh=true]")
+    if ($realPath.length) $("body").attr("data-gt2-path", $realPath.attr("href"))
 
     // do a reload on these pages
     if (onPage("login") || (!isLoggedIn() && onPage(""))) {
@@ -2201,7 +2211,7 @@
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
         if (GM_getValue("opt_gt2").legacyProfile) {
-          if ($("body").attr("data-gt2-prev-path") != path) {
+          if ($("body").attr("data-gt2-prev-path") != path()) {
             $("a[href$='/photo'] img").data("alreadyFound", false)
           }
           rebuildLegacyProfile()
@@ -2262,8 +2272,8 @@
   }, pageWindow)
 
   window.addEventListener("popstate", function() {
-    beforeUrlChange()
-    urlChange("pop")
+    beforeUrlChange(getPath())
+    urlChange("pop", getPath())
   })
 
 })(jQuery, waitForKeyElements)
