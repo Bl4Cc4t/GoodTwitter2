@@ -38,7 +38,7 @@
   "disableAutoRefreshDesc": "Schakelt de live weergave van tweets uit in de tijdlijn. <br/>Verwacht geen al te beste resultaten: het werkt niet altijd.",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
-  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",
   "forceLatest": "Forceer Nieuwste",
   "forceLatestDesc": "Inschakelen van de Nieuwste tweets modus is niet meer permanent. Met deze optie actief, schakelt de website automatisch terug naar de nieuwste tweets modus.",
   "hideMessageBox": "Verberg Berichtenbox",

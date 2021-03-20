@@ -38,7 +38,7 @@
   "disableAutoRefreshDesc": "禁止自动刷新你的时间线。 <br/>不要抱有过高的期待, 这个功能并非时时起效。",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
-  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",
   "forceLatest": "强制使用最近推文模式",
   "forceLatestDesc": "推特已经无法永久启用最近推文模式；当启用此选项时，GoodTwitter 2 会帮你自动切换回最近推文模式。",
   "hideMessageBox": "隐藏消息框",

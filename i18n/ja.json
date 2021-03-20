@@ -38,7 +38,7 @@
   "disableAutoRefreshDesc": "タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。",
   "expandTcoShortlinks": "*新機能* t.co リンクを自動的に展開",
   "fontOverride": "*NEW* Use Custom Font",
-  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",
   "forceLatest": "最新ツイート表示を強制する",
   "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。",
   "hideMessageBox": "メッセージボックスを非表示にする",
