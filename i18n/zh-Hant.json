@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "當貼文離開可視區時使網站不自動移除它",
   "leftTrends": "側邊欄流行趨勢",
   "leftTrendsDesc": "在左側邊欄顯示流行趨勢",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "*NEW* Legacy Profile Layout",
   "show10Trends": "總是顯示 10 個流行趨勢",
   "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",

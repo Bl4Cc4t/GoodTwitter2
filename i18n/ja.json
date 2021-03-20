@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。",
   "leftTrends": "トレンドを左に表示する",
   "leftTrendsDesc": "トレンドを左サイドバーに表示します。",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "プロフィールページを旧UIのレイアウトに変更する",
   "show10Trends": "常に10個のトレンドを表示する",
   "showNsfwMessageMedia": "メッセージにセンシティブなツイートメディアを表示する",

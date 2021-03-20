@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "网站不会在推文离开可视区域后移除它。",
   "leftTrends": "侧边栏趋势",
   "leftTrendsDesc": "在左侧的侧边栏显示趋势。",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "以传统方式显示个人资料",
   "show10Trends": "固定显示10条趋势",
   "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",

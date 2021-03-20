@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "Behält die Tweets auf der Seite, auch wenn man weiterscrollt.",
   "leftTrends": "Trends in der linken Seitenleiste",
   "leftTrendsDesc": "Verschiebt die Trends in die linke Seitenleiste.",
+  "enableQuickBlock": "Quickblock aktivieren",
+  "enableQuickBlockDesc": "Halte den Mauszeiger für 3 Sekunden über einen Folgen-Knopf, um das Profil zu blockieren",
   "legacyProfile": "Altes Profil-Layout",
   "show10Trends": "Zeige immer 10 Trends",
   "showNsfwMessageMedia": "NSFW-Bilder & -Videos von Tweets in Nachrichten anzeigen",

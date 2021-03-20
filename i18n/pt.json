@@ -48,6 +48,8 @@
     "keepTweetsInTLDesc": "Impede que o site de remover automaticamente tweets uma vez que eles estejam fora de vista.",
     "leftTrends": "Barra lateral esquerdo de Trends",
     "leftTrendsDesc": "Mostre os trends na barra lateral esquerdo.",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
     "legacyProfile": "Layout de Perfil Legado",
     "show10Trends": "Apenas Mostrar 10 Trends",
     "showNsfwMessageMedia": "Mostrar Mídia NSFW do Tweet em Mensagens",

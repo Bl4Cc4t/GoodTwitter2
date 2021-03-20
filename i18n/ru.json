@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "Сохранять твиты на странице, даже если вы продолжаете прокручивать.",
   "leftTrends": "Актуальные темы слева",
   "leftTrendsDesc": "Отображать актуальные темы в левой боковой панели.",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "Старый дизайн профиля",
   "show10Trends": "Всегда показывать 10 актуальных тем",
   "showNsfwMessageMedia": "Показывать медиафайлы, содержащие материалы деликатного характера",

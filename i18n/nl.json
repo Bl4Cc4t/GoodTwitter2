@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "Weerhoudt de website automatisch de tweets te verwijderen zodra ze uit het zicht zijn.",
   "leftTrends": "Linker Zijbalk Trends",
   "leftTrendsDesc": "Toon de trends in de linker zijbalk.",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "*NEW* Legacy Profile Layout",
   "show10Trends": "Toon altijd 10 Trends",
   "showNsfwMessageMedia": "*NEW* Show NSFW Tweet Media in Messages",

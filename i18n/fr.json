@@ -48,6 +48,8 @@
   "keepTweetsInTLDesc": "Empêche le site de retirer automatiquement les tweets une fois qu'ils ne sont plus affichés.",
   "leftTrends": "Barre des Tendances à gauche",
   "leftTrendsDesc": "Affiche les Tendances dans la barre de gauche.",
+  "enableQuickBlock": "*NEW* Enable Quickblock",
+  "enableQuickBlockDesc": "*NEW* Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "Affichage du profil de l'ancien Twitter",
   "show10Trends": "Toujours afficher 10 Tendances",
   "showNsfwMessageMedia": "Montrer les médias sensibles dans les messages",
