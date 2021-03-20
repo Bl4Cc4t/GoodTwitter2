@@ -37,6 +37,8 @@
     "disableAutoRefresh": "Desativar Auto Refresh (experimental)",
     "disableAutoRefreshDesc": "Desativa a exibição ao vivo de tweets em sua timeline. <br/>Não espere grandes resultados, isto não funciona o tempo todo.",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
+  "fontOverride": "*NEW* Use Custom Font",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
     "forceLatest": "Forçar Tweets mais recentes",
     "forceLatestDesc": "Habilitando o modo de tweets mais recentes não é mais permanente. Com esta opção ativada, o site automaticamente ativa a opção de tweets mais recntes.",
     "hideMessageBox": "Esconder caixa de mensagens diretas",

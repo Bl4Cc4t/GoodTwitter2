@@ -8,7 +8,10 @@
   --font-increment:   calc(var(--global-font-size) - 15px);
   --color-user:       rgb(var(--color-raw-user));
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-override:    $fontOverride;
+  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-global:      var(--font-override), var(--font-default);
+  font-family:        var(--font-default);
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -1136,6 +1139,16 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// font global override
+.gt2-opt-font-override {
+  font-family: var(--font-global);
+  .r-1qd0xha,
+  .r-1tl8opc {
+    font-family: var(--font-global);
+  }
+}
+
+
 .gt2-opt-bigger-previews {
   div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
     & > div:nth-child(1) {
@@ -1867,64 +1880,86 @@ body[data-gt2-path^="settings/"] {
     & > div {
       display: flex;
       justify-content: space-between;
+    }
 
-      .gt2-setting-toggle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .gt2-setting-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+
+      div {
+        position: absolute;
         width: 20px;
+        height: 20px;
+      }
 
-        div {
-          position: absolute;
-          width: 20px;
-          height: 20px;
+      // hover shadow
+      div:nth-child(1) {
+        transition: opacity 0.2s ease-in-out;
+        background-color: var(--color-gray);
+        opacity: 0;
+        border-radius: 9999px;
+        padding: 10px;
+      }
+
+      &:not(.gt2-disabled):hover div:nth-child(1) {
+        opacity: 0.1;
+      }
+
+      // checkbox
+      div:nth-child(2) {
+        border-radius: 4px;
+        border: 2px solid var(--color-gray);
+        box-sizing: border-box;
+
+        svg {
+          fill: white;
+          display: none;
         }
+      }
 
-        // hover shadow
-        div:nth-child(1) {
-          transition: opacity 0.2s ease-in-out;
-          background-color: var(--color-gray);
-          opacity: 0;
-          border-radius: 9999px;
-          padding: 10px;
-        }
-
-        &:not(.gt2-disabled):hover div:nth-child(1) {
-          opacity: 0.1;
-        }
-
-        // checkbox
+      &.gt2-active {
         div:nth-child(2) {
-          border-radius: 4px;
-          border: 2px solid var(--color-gray);
-          box-sizing: border-box;
-
-          svg {
-            fill: white;
-            display: none;
-          }
+          background-color: var(--color-user);
+          border-color: var(--color-user);
         }
+        svg {
+          display: block !important;
+        }
+      }
+
+      &.gt2-disabled {
+        cursor: not-allowed;
 
         &.gt2-active {
           div:nth-child(2) {
-            background-color: var(--color-user);
-            border-color: var(--color-user);
-          }
-          svg {
-            display: block !important;
+            background-color: var(--color-gray-dark);
+            border-color: var(--color-gray-dark);
           }
         }
+      }
+    }
 
-        &.gt2-disabled {
-          cursor: not-allowed;
-
-          &.gt2-active {
-            div:nth-child(2) {
-              background-color: var(--color-gray-dark);
-              border-color: var(--color-gray-dark);
-            }
-          }
-        }
+    .gt2-setting-input {
+      margin-top: 10px;
+      padding: 4px;
+      border: solid 1px var(--color-gray-dark-2);
+      border-radius: 4px;
+      -webkit-backface-visibility: hidden;
+      &:focus-within {
+        box-shadow: var(--color-user) 0 0 0 1px;
+        border-color: var(--color-user);
+      }
+      input {
+        appearance: none;
+        outline-style: none;
+        border: unset;
+        background: transparent;
+        width: 100%;
+        font-size: incr(20px);
+        font-family: inherit;
+        color: var(--color-text);
       }
     }
 
@@ -2281,7 +2316,6 @@ body[data-payment-endpoint-path] {
 
 
 // blocked profile stuff
-
 .gt2-blocked-profile-description,
 .gt2-blocked-profile-items {
   margin-bottom: 10px;

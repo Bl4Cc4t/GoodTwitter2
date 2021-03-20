@@ -369,7 +369,9 @@
     enableQuickBlock:         false,
     legacyProfile:            false,
     showNsfwMessageMedia:     false,
-    expandTcoShortlinks:      true
+    expandTcoShortlinks:      true,
+    fontOverride:             false,
+    fontOverrideValue:        "Arial"
   }
 
   // set default options
@@ -435,19 +437,20 @@
 
 
   // get html for a gt2 toggle (checkbox)
-  function getSettingTogglePart(name) {
+  function getSettingTogglePart(name, additionalHTML="") {
     let d = `${name}Desc`
     return `
       <div class="gt2-setting">
         <div>
           <span>${getLocStr(name)}</span>
-          <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-toggleid="${name}">
+          <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-setting-name="${name}">
             <div></div>
             <div>
               ${getSvg("tick")}
             </div>
           </div>
         </div>
+        ${additionalHTML}
         ${getLocStr(d) ? `<span>${getLocStr(d)}</span>` : ""}
       </div>`
   }
@@ -482,6 +485,11 @@
           ${getSettingTogglePart("enableQuickBlock")}
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("fontOverride", `
+            <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
+              <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
+            </div>
+          `)}
           ${getSettingTogglePart("biggerPreviews")}
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("hideTranslateTweetButton")}
@@ -513,16 +521,23 @@
   // handler for the toggles
   $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
-    let name = $(this).attr("data-toggleid").trim()
+    let name = $(this).attr("data-setting-name").trim()
     toggleGt2Opt(name)
     $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
     disableTogglesIfNeeded()
   })
 
+  $("body").on("keyup", ".gt2-setting-input input", function() {
+    let name = $(this).parent().attr("data-setting-name").trim()
+    let val = $(this).val()
+    GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { [name]: val}))
+    document.documentElement.style.setProperty(`--${name.replace("Value", "").toKebab()}`, val)
+  })
+
 
   function disableTogglesIfNeeded() {
     // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
-    let $t = $("div[data-toggleid=keepTweetsInTL]")
+    let $t = $("div[data-setting-name=keepTweetsInTL]")
     if (GM_getValue("opt_gt2").disableAutoRefresh) {
       if (!GM_getValue("opt_gt2").keepTweetsInTL) {
         $t.click()
@@ -533,13 +548,20 @@
     }
 
     // other trend related toggles are not needed when the trends are disabled
-    $t = $("div[data-toggleid=leftTrends], div[data-toggleid=show10Trends]")
+    $t = $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
     if (GM_getValue("opt_gt2").hideTrends) {
       $t.addClass("gt2-disabled")
     } else {
       $t.removeClass("gt2-disabled")
     }
 
+    // hide font input if fontOverride is disabled
+    $t = $("[data-setting-name=fontOverrideValue]")
+    if (GM_getValue("opt_gt2").fontOverride) {
+      $t.removeClass("gt2-hidden")
+    } else {
+      $t.addClass("gt2-hidden")
+    }
   }
 
 
@@ -1855,6 +1877,7 @@
         elemSel:      "rgb(247, 249, 250)",
         gray:         "#8899a6",
         grayDark:     "#e6ecf0",
+        grayDark2:    "rgb(196, 207, 214)",
         grayLight:    "rgb(101, 119, 134)",
         navbar:       "#ffffff",
         text:         "rgb(20, 23, 26)",
@@ -1869,6 +1892,7 @@
         elemSel:      "rgb(25, 39, 52)",
         gray:         "rgb(101, 119, 134)",
         grayDark:     "#38444d",
+        grayDark2:    "rgb(61, 84, 102)",
         grayLight:    "rgb(136, 153, 166)",
         navbar:       "#1c2938",
         text:         "rgb(255, 255, 255)",
@@ -1883,6 +1907,7 @@
         elemSel:      "rgb(21, 24, 28)",
         gray:         "#657786",
         grayDark:     "#38444d",
+        grayDark2:    "rgb(47, 51, 54)",
         grayLight:    "rgb(110, 118, 125)",
         navbar:       "rgb(21, 24, 28)",
         text:         "rgb(217, 217, 217)",
@@ -1991,6 +2016,7 @@
           )
           .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)
+          .replace("$fontOverride",   GM_getValue("opt_gt2").fontOverrideValue)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
         </style>`
       )

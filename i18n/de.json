@@ -37,6 +37,8 @@
   "disableAutoRefresh": "Auto Refresh deaktivieren (experimentell)",
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
   "expandTcoShortlinks": "t.co-Links auflösen",
+  "fontOverride": "Andere Schriftart benutzen",
+  "fontOverrideDesc": "Schriftart, die anstelle des Systemstandards benutzt wird.<br/> Funktioniert nur, wenn die Schriftart auch installiert ist.",
   "forceLatest": "Immer die neusten Tweets",
   "forceLatestDesc": "Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.",
   "hideMessageBox": "Nachrichten-Box verstecken",

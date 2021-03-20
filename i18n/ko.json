@@ -37,6 +37,8 @@
   "disableAutoRefresh": "자동 새로고침 비활성화 (실험적 기능)",
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
   "expandTcoShortlinks": "t.co 주소 확장하기",
+  "fontOverride": "*NEW* Use Custom Font",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
   "forceLatest": "항상 최신 트윗 보기",
   "forceLatestDesc": "최신 트윗 보기 모드는 더이상 저장되지 않습니다. 이 설정을 활성화하면 항상 자동으로 최신 트윗 보기 모드로 전환합니다.",
   "hideMessageBox": "메세지 상자 숨기기",

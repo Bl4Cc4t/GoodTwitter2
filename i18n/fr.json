@@ -37,6 +37,8 @@
   "disableAutoRefresh": "Désactiver le rafraîchissement automatique (expérimental)",
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
   "expandTcoShortlinks": "*NEW* Agrandir les liens raccourcis t.co",
+  "fontOverride": "*NEW* Use Custom Font",
+  "fontOverrideDesc": "*NEW* Set a custom font to override the default one.<br/>This works only if you have the font installed.",
   "forceLatest": "Forcer les tout derniers Tweets",
   "forceLatestDesc": "Activer le mode « tout derniers Tweets » n'est plus permanent. En activant cette option, le site revient automatiquement à ce mode.",
   "hideMessageBox": "Cacher la boîte de Messages",
