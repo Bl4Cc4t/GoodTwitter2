@@ -1368,7 +1368,7 @@ div[data-testid=sendDMFromProfile],
 div[data-testid=userActions] ~ div:not([class]) > div,
 div[data-testid$=-follow] {
   border-color: var(--color-user);
-  & > div,
+  & > *,
   svg {
     color: var(--color-user);
   }
@@ -1379,7 +1379,7 @@ div[data-testid$=-follow] {
 div[data-testid$=-unfollow]:not(:hover) {
   border-color: var(--color-user);
   background-color: var(--color-user);
-  & > div {
+  & > * {
     color: var(--color-text-2);
   }
 }
