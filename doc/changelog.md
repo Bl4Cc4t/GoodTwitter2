@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [0.0.29](https://github.com/Bl4Cc4t/GoodTwitter2/pull/244)
+*released 2021-03-24*
+- **[Translation]** Polish added (thanks [@mkljczk](https://github.com/mkljczk)!)
+- **[New Feature]** Ability to change the font on the site ([#264](https://github.com/Bl4Cc4t/GoodTwitter2/issues/264))
+- made the quickblock feature optional and disabled it by default
+- reverted latest color changes on the follow buttons
+- many bugfixes
+
+
 ## [0.0.28](https://github.com/Bl4Cc4t/GoodTwitter2/pull/233)
 *released 2020-12-23*
 - **[New Option]** automatic `t.co` shortlinks expansion (enabled by default)
