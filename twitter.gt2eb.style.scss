@@ -1,14 +1,17 @@
 :root {
   --bgColors:$;
-  --color-user:       $userColor;
+  --baseColors:$;
+  --color-raw-user:   $userColor;
   --scrollbar-width:  $scrollbarWidth;
   --global-font-size: $globalFontSize;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --color-red:        rgb(224, 36, 94);
-  --color-red-dark:   rgb(202, 32, 85);
+  --color-user:       rgb(var(--color-raw-user));
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-override:    $fontOverride;
+  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-global:      var(--font-override), var(--font-default);
+  font-family:        var(--font-default);
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -511,14 +514,23 @@ $notLegacyProfile: "
       }
     }
   }
-  .gt2-nav-left > a[href="/explore"] {
-    display: none !important;
+  body:not(.gt2-opt-sticky-sidebars)[data-gt2-path^="settings/"] {
+    .gt2-left-sidebar {
+      position: fixed !important;
+      height: calc(100vh - 57px);
+    }
+  }
+
+  body:not(.gt2-not-logged-in) {
+    .gt2-nav-left > a[href="/explore"] {
+      display: none !important;
+    }
   }
 }
 
 // even smaller screen
 @media only screen and (max-width: 705px) {
-  body[data-gt2-path^="compose/tweet"] {
+  body[data-gt2-path-modal^="compose/tweet"] {
     main {
       margin-top: 0 !important;
       & > div {
@@ -529,7 +541,8 @@ $notLegacyProfile: "
       display: none;
     }
   }
-  body[data-gt2-path^="messages"] {
+  body[data-gt2-path="messages"],
+  body[data-gt2-path^="messages/"] {
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
@@ -603,6 +616,10 @@ main {
           & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
             display: none;
           }
+        }
+        // compose tweet hide scrollbar
+        .DraftEditor-root {
+          overflow: unset;
         }
 
         // put tweet images in foreground
@@ -722,7 +739,7 @@ main {
   }
 
   .gt2-legacy-profile-banner {
-    background-color: var(--color-shadow);
+    background-color: var(--color-gray-dark);
     width: 100%;
     height: calc((100vw - var(--scrollbar-width)) / 3);
     margin-top: 47px;
@@ -812,14 +829,14 @@ main {
     color: var(--color-text) !important;
     font-weight: 800;
   }
+
+  .gt2-legacy-profile-screen-name-wrap {
+    display: flex;
+  }
+
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
-    &:hover {
-      text-decoration-line: none !important;
-      span {
-        text-decoration-line: underline;
-      }
-    }
+    color: var(--color-text);
   }
 
   .gt2-legacy-profile-info {
@@ -835,13 +852,19 @@ main {
       color: var(--color-gray-light) !important;
     }
 
-    .gt2-legacy-profile-description {
+    .gt2-legacy-profile-description:not(:empty) {
       color: var(--color-text);
+      [data-testid=UserDescription] + div {
+        width: max-content;
+        &:hover {
+          text-decoration-line: underline;
+        }
+      }
     }
 
     .gt2-legacy-profile-screen-name-wrap,
-    .gt2-legacy-profile-description {
-      margin-bottom: 12px;
+    .gt2-legacy-profile-description:not(:empty) {
+      margin-bottom: 12px !important;
     }
 
     .gt2-legacy-profile-items > *:not(:last-child) {
@@ -849,7 +872,14 @@ main {
       margin-bottom: 4px;
     }
 
-    .gt2-legacy-profile-fyk {
+    .gt2-legacy-profile-name,
+    .gt2-legacy-profile-items > *:not(:last-child) {
+      width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
+    }
+
+    .gt2-legacy-profile-fyk:not(:empty) {
       margin-top: 12px;
       padding-right: 10px;
       &:hover {
@@ -1109,6 +1139,16 @@ body:not(.gt2-opt-small-sidebars) {
   }
 }
 
+// font global override
+.gt2-opt-font-override {
+  font-family: var(--font-global);
+  .r-1qd0xha,
+  .r-1tl8opc {
+    font-family: var(--font-global);
+  }
+}
+
+
 .gt2-opt-bigger-previews {
   div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
     & > div:nth-child(1) {
@@ -1150,7 +1190,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 // nsfw message media
-.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages"] {
+.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages/"] {
   div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/'] {
     display: none;
   }
@@ -1240,7 +1280,7 @@ body:not(.gt2-opt-small-sidebars) {
       & > svg {
         position: absolute;
         fill: var(--color-elem);
-        filter: drop-shadow(var(--color-shadow) 0.25px -1px 1px);
+        filter: drop-shadow(var(--color-shadow) 0.25px -2px 1px);
         transform: unset !important;
         bottom: unset !important;
         top: -11px !important;
@@ -1266,23 +1306,23 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   div[data-testid=reply]:hover,
   div[role=button]:not([data-testid]):hover {
     & > div > div > div {
-      background-color: rgba(29, 161, 242, 0.1);
+      background-color: rgba(var(--color-raw-blue), 0.1);
     }
     svg {
-      fill: #1da1f2;
+      fill: var(--color-blue);
     }
   }
   // retweets
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet]:hover {
     & > div > div > div {
-      background-color: rgba(23, 191, 99, 0.1);
+      background-color: rgba(var(--color-raw-green), 0.1);
     }
   }
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet] {
     svg {
-      fill: #17bf63;
+      fill: var(--color-green);
     }
   }
 
@@ -1290,13 +1330,13 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   div[data-testid=like]:hover,
   div[data-testid=unlike]:hover {
     & > div > div > div {
-      background-color: rgba(224, 36, 94, 0.1);
+      background-color: rgba(var(--color-raw-red), 0.1);
     }
   }
   div[data-testid=like]:hover,
   div[data-testid=unlike] {
     svg {
-      fill: #e0245e;
+      fill: var(--color-red);
     }
   }
 }
@@ -1318,6 +1358,38 @@ div[data-testid=caret] {
   svg {
     fill: var(--color-gray-light);
     pointer-events: none;
+  }
+}
+
+
+// color several ui elements with the user color (2021-03-19 change)
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid$=-cancel],
+div[data-testid$=-follow] {
+  border-color: var(--color-user);
+  & > *,
+  svg {
+    color: var(--color-user);
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1);
+  }
+}
+div[data-testid$=-unfollow] {
+  &:hover:not(.r-1ucxkr8) {
+    border-color: var(--color-user);
+    & > * {
+      color: var(--color-user);
+    }
+  }
+  &:not(:hover) {
+    border-color: var(--color-user);
+    background-color: var(--color-user);
+    & > * {
+      color: var(--color-text-2);
+    }
   }
 }
 
@@ -1470,6 +1542,7 @@ a.gt2-trend {
         & > div:nth-child(1) > div {
           background-color: var(--color-user);
           border-color: var(--color-elem);
+          color: var(--color-text-2);
           font-size: calc(11px + var(--font-increment) * 0.75);
         }
         & > div:not(:first-child):not(.gt2-nav-header) {
@@ -1576,7 +1649,7 @@ a.gt2-trend {
       font-weight: 700;
       min-height: 34px;
       background-color: var(--color-user);
-      color: white;
+      color: var(--color-text-2);
       padding: 0 16px;
       border-radius: 9999px;
 
@@ -1587,14 +1660,10 @@ a.gt2-trend {
   }
 }
 
+
 // stuff to do on modal
 html[style*="overflow: hidden"],
 html[style*="overflow-y: hidden"] {
-  // hide navbar and other things
-  .gt2-nav,
-  .gt2-search-overflow-hider {
-    z-index: -1 !important;
-  }
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }
@@ -1605,7 +1674,7 @@ html[style*="overflow-y: hidden"] {
 
 .gt2-search-overflow-hider {
   position: fixed;
-  width: 600px;
+  width: calc(600px + var(--scrollbar-width));
   height: 9px;
   top: 47px;
   background-color: var(--color-bg);
@@ -1615,8 +1684,8 @@ html[style*="overflow-y: hidden"] {
 
 
 // /search overflow, let search box stay on top
-body[data-gt2-path^="search"],
-body[data-gt2-path^="explore"] {
+body[data-gt2-path="search"],
+body[data-gt2-path="explore"] {
   .gt2-search-overflow-hider {
     display: block;
   }
@@ -1630,12 +1699,12 @@ body[data-gt2-path^="explore"] {
     }
   }
 }
-body[data-gt2-path^="search"].gt2-scrolled-down {
+body[data-gt2-path="search"].gt2-scrolled-down {
   div[data-testid=primaryColumn] > div > div:nth-child(1) {
     top: calc(56px - 107px);
   }
 }
-body[data-gt2-path^="explore"].gt2-scrolled-down {
+body[data-gt2-path="explore"].gt2-scrolled-down {
   div[data-testid=primaryColumn] > div > div:nth-child(1) {
     top: calc(56px - 54px);
   }
@@ -1657,7 +1726,7 @@ body[data-gt2-path^="explore"].gt2-scrolled-down {
   }
 }
 
-body[data-gt2-path^="settings"] {
+body[data-gt2-path^="settings/"] {
   main {
     section[aria-labelledby=root-header],
     section[aria-labelledby=detail-header] {
@@ -1670,6 +1739,9 @@ body[data-gt2-path^="settings"] {
       border-right-width: 0;
       border-bottom-width: 1px;
       box-shadow: 1px 0 0 var(--color-gray-dark);
+      a[href="/settings/about"] {
+        border-bottom: 1px solid var(--color-gray-dark);
+      }
     }
     section[aria-labelledby=detail-header] {
       height: max-content;
@@ -1737,7 +1809,7 @@ body[data-gt2-path^="settings"] {
     }
   }
 
-  &[data-gt2-path^="search/"] {
+  &[data-gt2-path="settings/gt2"] {
     main section[aria-labelledby=root-header] > div:nth-child(2) > div {
       & > div:not(:empty),
       & > div:not(:empty) > div:not(:empty) {
@@ -1817,64 +1889,86 @@ body[data-gt2-path^="settings"] {
     & > div {
       display: flex;
       justify-content: space-between;
+    }
 
-      .gt2-setting-toggle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .gt2-setting-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+
+      div {
+        position: absolute;
         width: 20px;
+        height: 20px;
+      }
 
-        div {
-          position: absolute;
-          width: 20px;
-          height: 20px;
+      // hover shadow
+      div:nth-child(1) {
+        transition: opacity 0.2s ease-in-out;
+        background-color: var(--color-gray);
+        opacity: 0;
+        border-radius: 9999px;
+        padding: 10px;
+      }
+
+      &:not(.gt2-disabled):hover div:nth-child(1) {
+        opacity: 0.1;
+      }
+
+      // checkbox
+      div:nth-child(2) {
+        border-radius: 4px;
+        border: 2px solid var(--color-gray);
+        box-sizing: border-box;
+
+        svg {
+          fill: white;
+          display: none;
         }
+      }
 
-        // hover shadow
-        div:nth-child(1) {
-          transition: opacity 0.2s ease-in-out;
-          background-color: var(--color-gray);
-          opacity: 0;
-          border-radius: 9999px;
-          padding: 10px;
-        }
-
-        &:not(.gt2-disabled):hover div:nth-child(1) {
-          opacity: 0.1;
-        }
-
-        // checkbox
+      &.gt2-active {
         div:nth-child(2) {
-          border-radius: 4px;
-          border: 2px solid var(--color-gray);
-          box-sizing: border-box;
-
-          svg {
-            fill: white;
-            display: none;
-          }
+          background-color: var(--color-user);
+          border-color: var(--color-user);
         }
+        svg {
+          display: block !important;
+        }
+      }
+
+      &.gt2-disabled {
+        cursor: not-allowed;
 
         &.gt2-active {
           div:nth-child(2) {
-            background-color: var(--color-user);
-            border-color: var(--color-user);
-          }
-          svg {
-            display: block !important;
+            background-color: var(--color-gray-dark);
+            border-color: var(--color-gray-dark);
           }
         }
+      }
+    }
 
-        &.gt2-disabled {
-          cursor: not-allowed;
-
-          &.gt2-active {
-            div:nth-child(2) {
-              background-color: var(--color-gray-dark);
-              border-color: var(--color-gray-dark);
-            }
-          }
-        }
+    .gt2-setting-input {
+      margin-top: 10px;
+      padding: 4px;
+      border: solid 1px var(--color-gray-dark-2);
+      border-radius: 4px;
+      -webkit-backface-visibility: hidden;
+      &:focus-within {
+        box-shadow: var(--color-user) 0 0 0 1px;
+        border-color: var(--color-user);
+      }
+      input {
+        appearance: none;
+        outline-style: none;
+        border: unset;
+        background: transparent;
+        width: 100%;
+        font-size: incr(20px);
+        font-family: inherit;
+        color: var(--color-text);
       }
     }
 
@@ -1897,7 +1991,8 @@ body[data-gt2-path^="settings"] {
   }
 }
 
-body[data-gt2-path^="messages"] {
+body[data-gt2-path="messages"],
+body[data-gt2-path^="messages/"] {
   .gt2-left-sidebar {
     display: none;
   }
@@ -2030,7 +2125,7 @@ body[data-gt2-path^="messages"] {
       }
       .gt2-screenname {
         font-size: incr(14px);
-        color: var(--color-gray);
+        color: var(--color-gray-light);
         &:hover span {
           text-decoration: underline;
         }
@@ -2160,7 +2255,7 @@ body[data-promote-url^="/i/tfb/v1/quick_promote"] {
   // seperators
   .ep-Campaign,
   .ep-DetailedEngagementsSection {
-    border-color: var(--color-shadow);
+    border-color: var(--color-gray-dark);
   }
 
   // text
@@ -2230,7 +2325,6 @@ body[data-payment-endpoint-path] {
 
 
 // blocked profile stuff
-
 .gt2-blocked-profile-description,
 .gt2-blocked-profile-items {
   margin-bottom: 10px;
@@ -2255,6 +2349,19 @@ body[data-payment-endpoint-path] {
   svg {
     height: 1.25em;
     margin-right: 5px;
+  }
+}
+
+.gt2-blocked-profile-ff {
+  a {
+    pointer-events: none;
+    color: var(--color-gray-light);
+    text-decoration: none;
+    margin-right: 20px;
+    span {
+      color: var(--color-text);
+      font-weight: 700;
+    }
   }
 }
 
@@ -2290,8 +2397,8 @@ body[data-payment-endpoint-path] {
       margin-right: 10px;
     }
   }
-
 }
+
 
 // quick block buttons
 [data-testid$="-follow"] {
