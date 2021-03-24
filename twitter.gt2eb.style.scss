@@ -864,7 +864,7 @@ main {
 
     .gt2-legacy-profile-screen-name-wrap,
     .gt2-legacy-profile-description:not(:empty) {
-      margin-bottom: 12px;
+      margin-bottom: 12px !important;
     }
 
     .gt2-legacy-profile-items > *:not(:last-child) {
@@ -2351,6 +2351,19 @@ body[data-payment-endpoint-path] {
   }
 }
 
+.gt2-blocked-profile-ff {
+  a {
+    pointer-events: none;
+    color: var(--color-gray-light);
+    text-decoration: none;
+    margin-right: 20px;
+    span {
+      color: var(--color-text);
+      font-weight: 700;
+    }
+  }
+}
+
 .gt2-blocked-profile-followers-you-know {
   margin-top: 10px;
   font-size: incr(13px);
@@ -2383,8 +2396,8 @@ body[data-payment-endpoint-path] {
       margin-right: 10px;
     }
   }
-
 }
+
 
 // quick block buttons
 [data-testid$="-follow"] {

@@ -878,8 +878,13 @@
         $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
 
         // add followers and following
-        $(`.gt2-legacy-profile-nav-center a[href$="/following"]`).attr("title", pleg.friends_count.humanize())
-        $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`).attr("title", pleg.followers_count.humanize())
+
+        $(`.gt2-legacy-profile-nav-center a[href$="/following"]`)
+        .attr("title", pleg.friends_count.humanize())
+        .find("div:nth-child(2):empty").html(pleg.friends_count.humanizeShort())
+        $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`)
+        .attr("title", pleg.followers_count.humanize())
+        .find("div:nth-child(2):empty").html(pleg.followers_count.humanizeShort())
 
         // add likes and stuff
         if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
@@ -910,46 +915,45 @@
       waitForKeyElements(`[href="/${getPath().split("/")[0].split("?")[0].split("#")[0]}/following" i]`, () => {
         $(".gt2-legacy-profile-info").data("alreadyFound", false)
         waitForKeyElements(".gt2-legacy-profile-info", () => {
-        if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
-
-          // elements
-          let e = {
-            $description: $profile.find("div[data-testid=UserDescription]"),
-            $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
-            $fyk:         $profile.find("> div:last-child > div:last-child:first-child")
-          }
-          i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
-          i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
-          i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
-          if (i.screenName == "") {
-            i.screenNameOnly = true
-            i.screenName = $(i.nameHTML).text().trim().slice(1)
-          }
-
-          $(".gt2-legacy-profile-info").append(`
-            <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
-            <div class="gt2-legacy-profile-screen-name-wrap">
-              ${i.screenNameOnly ? "" : `
-                <div class="gt2-legacy-profile-screen-name">
-                  @<span>${i.screenName}</span>
-                </div>
-              `}
-              ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
-            </div>
-            ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
-            <div class="gt2-legacy-profile-items">${e.$items.length ? e.$items.html() : ""}</div>
-            ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
-          `)
-
-          GM_setValue("hasRun_InsertFYK", false)
-          waitForKeyElements("a[href$='/followers_you_follow']", e => {
-            if (!GM_getValue("hasRun_InsertFYK")) {
-              $(".gt2-legacy-profile-fyk").html($(e).prop("outerHTML"))
-              GM_setValue("hasRun_InsertFYK", true)
+          if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
+            // elements
+            let e = {
+              $description: $profile.find("div[data-testid=UserDescription]"),
+              $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
+              $fyk:         $profile.find("> div:last-child:not(:nth-child(2)) > div:last-child:first-child")
             }
-          })
-        }
-      })
+            i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
+            i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
+            i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
+            if (i.screenName == "") {
+              i.screenNameOnly = true
+              i.screenName = $(i.nameHTML).text().trim().slice(1)
+            }
+
+            $(".gt2-legacy-profile-info").append(`
+              <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
+              <div class="gt2-legacy-profile-screen-name-wrap">
+                ${i.screenNameOnly ? "" : `
+                  <div class="gt2-legacy-profile-screen-name">
+                    @<span>${i.screenName}</span>
+                  </div>
+                `}
+                ${i.followsYou.length ? i.followsYou.prop("outerHTML") : ""}
+              </div>
+              ${e.$description.length ? `<div class="gt2-legacy-profile-description">${e.$description.parent().html()}</div>` : ""}
+              <div class="gt2-legacy-profile-items">${e.$items.length ? e.$items.html() : ""}</div>
+              ${e.$fyk.length         ? `<div class="gt2-legacy-profile-fyk">${e.$fyk.prop("outerHTML")}</div>`               : ""}
+            `)
+
+            GM_setValue("hasRun_InsertFYK", false)
+            waitForKeyElements(`a[href$="/followers_you_follow"] img`, e => {
+              if (!GM_getValue("hasRun_InsertFYK")) {
+                $(".gt2-legacy-profile-fyk").html($(e).parents(`a[href$="/followers_you_follow"]`).prop("outerHTML"))
+                GM_setValue("hasRun_InsertFYK", true)
+              }
+            })
+          }
+        })
       })
 
       // buttons
@@ -960,8 +964,11 @@
     })
 
     // profile suspended / not found / temporarily restricted (first view)
-    waitForKeyElements(`[data-testid=emptyState],
-                        [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`, () => {
+    waitForKeyElements([
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`,         // suspended
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`,      // withheld in country
+      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
+    ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
         screenName: $tmp.find("> div:nth-last-child(1)").text().trim().slice(1),
@@ -1304,9 +1311,22 @@
           </div>
         `)
 
+        // add followers/following count
+        if (!$(`.gt2-blocked-profile-items + div [href$="/following"]`).length) {
+          $(".gt2-blocked-profile-items").after(`
+            <div class="gt2-blocked-profile-ff">
+              <a href="/${screenName}/following">
+                <span>${pleg.friends_count.humanizeShort()}</span> ${getLocStr("statsFollowing")}
+              </a>
+              <a href="/${screenName}/followers">
+                <span>${pleg.followers_count.humanizeShort()}</span> ${getLocStr("statsFollowers")}
+              </a>
+            </div>
+          `)
+        }
 
+        // followersYouKnow
         $(".gt2-blocked-profile-items + div").after(fykHTML)
-
 
 
         // add legacy sidebar profile information
@@ -2276,7 +2296,8 @@
 
 
     // blocked profile page
-    waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"]`, displayBlockedProfileData)
+    waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"],
+                        [data-testid=emptyState] [href="https://support.twitter.com/articles/20172060"]`, displayBlockedProfileData)
 
 
     // disableAutoRefresh
