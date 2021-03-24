@@ -2271,8 +2271,9 @@
     sidebarContent.push(getDashboardProfile())
 
 
+    // assume profile page
     if (!isModal) {
-      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "search", "settings")
+      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
           || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status"]))) {
         $("body").addClass("gt2-page-profile")
         $("[class^=gt2-blocked-profile-]").remove()
