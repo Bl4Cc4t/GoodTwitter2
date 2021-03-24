@@ -789,7 +789,7 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
-    let currentScreenName = getPath().split("/")[0].split("?")[0]
+    let currentScreenName = getPath().split("/")[0].split("?")[0].split("#")[0]
     console.log(`rebuild: ${currentScreenName}`)
 
 
@@ -907,7 +907,7 @@
       })
 
       // sidebar profile information
-      waitForKeyElements(`[href="/${getPath().split("/")[0].split("?")[0]}/following" i]`, () => {
+      waitForKeyElements(`[href="/${getPath().split("/")[0].split("?")[0].split("#")[0]}/following" i]`, () => {
         $(".gt2-legacy-profile-info").data("alreadyFound", false)
         waitForKeyElements(".gt2-legacy-profile-info", () => {
         if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
@@ -1229,7 +1229,7 @@
 
   // display standard information for blocked profile
   function displayBlockedProfileData() {
-    let screenName = getPath().split("/")[0].split("?")[0]
+    let screenName = getPath().split("/")[0].split("?")[0].split("#")[0]
 
     requestUser(screenName, res => {
       let profileData = res.data.user
@@ -1699,7 +1699,7 @@
     if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).length) return
 
     let id = $tweet.is("article")
-      ? getPath().split("/")[2].split("?")[0]
+      ? getPath().split("/")[2].split("?")[0].split("#")[0]
       : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
     requestTweet(id, res => {
@@ -1719,7 +1719,7 @@
 
     let screenName = $profile.is("[data-testid=UserCell]")
       ? $profile.find("> div > div:nth-child(2) > div:nth-child(1) a").attr("href").slice(1)
-      : getPath().split("/")[0].split("?")[0]
+      : getPath().split("/")[0].split("?")[0].split("#")[0]
 
     requestUser(screenName, res => {
       let ent = res.data.user.legacy.entities
@@ -1727,7 +1727,7 @@
       if (ent.description) urls.push(...ent.description.urls)
       if (ent.url)         urls.push(...ent.url.urls)
       $profile.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
-        $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+        $(this).attr("href", urls.find(e => e.url == $(this).attr("href").split("?")[0].split("#")[0]).expanded_url)
       })
     })
   })
@@ -2129,7 +2129,7 @@
 
   // stuff to do when url changes
   function urlChange(changeType, changePath) {
-    let path      = ()          => (changePath || getPath()).split("?")[0]
+    let path      = ()          => (changePath || getPath()).split("?")[0].split("#")[0]
     let onPage    = (...top)       => _onPage(path(), ...top)
     let onSubPage = (top, sub)  => _onSubPage(path(), top, sub)
     let isModal = _isModal(path())
