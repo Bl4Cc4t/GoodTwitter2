@@ -1376,11 +1376,19 @@ div[data-testid$=-follow] {
     background-color: rgba(var(--color-raw-user), .1);
   }
 }
-div[data-testid$=-unfollow]:not(:hover) {
-  border-color: var(--color-user);
-  background-color: var(--color-user);
-  & > * {
-    color: var(--color-text-2);
+div[data-testid$=-unfollow] {
+  &:hover:not(.r-1ucxkr8) {
+    border-color: var(--color-user);
+    & > * {
+      color: var(--color-user);
+    }
+  }
+  &:not(:hover) {
+    border-color: var(--color-user);
+    background-color: var(--color-user);
+    & > * {
+      color: var(--color-text-2);
+    }
   }
 }
 
