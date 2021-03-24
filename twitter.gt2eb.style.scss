@@ -1366,6 +1366,7 @@ div[data-testid=caret] {
 div[data-testid=userActions],
 div[data-testid=sendDMFromProfile],
 div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid$=-cancel],
 div[data-testid$=-follow] {
   border-color: var(--color-user);
   & > *,
