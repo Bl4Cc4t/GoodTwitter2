@@ -45,7 +45,7 @@
   "hideMessageBoxDesc": "Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "Hide Translate Tweet Button",
   "hideTrends": "Hide Trends",
-  "hideWhoToFollow": "Hide Who To Follow",
+  "hideFollowSuggestions": "Hide Follow Suggestions (Topics & Users)",
   "keepTweetsInTL": "Keep Tweets (this does not work atm)",
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",

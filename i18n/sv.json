@@ -45,7 +45,7 @@
   "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
-  "hideWhoToFollow": "*NEW* Hide Who To Follow",
+  "hideFollowSuggestions": "*NEW* Hide Who To Follow",
   "keepTweetsInTL": "Behåll Tweets (Det är fungerar inte för nuvarande)",
   "keepTweetsInTLDesc": "Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.",
   "leftTrends": "Trender i Vänster Sidofält",

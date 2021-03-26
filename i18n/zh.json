@@ -45,7 +45,7 @@
   "hideMessageBoxDesc": "隐藏总是在右下角出现的消息框。",
   "hideTranslateTweetButton": "隐藏翻译推文按钮",
   "hideTrends": "隐藏趋势",
-  "hideWhoToFollow": "隐藏推荐关注",
+  "hideFollowSuggestions": "隐藏推荐关注",
   "keepTweetsInTL": "保留推文（目前不起效）",
   "keepTweetsInTLDesc": "网站不会在推文离开可视区域后移除它。",
   "leftTrends": "侧边栏趋势",

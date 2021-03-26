@@ -45,7 +45,7 @@
   "hideMessageBoxDesc": "右下の隅に常に表示される新しいメッセージボックスを非表示にします。",
   "hideTranslateTweetButton": "ツイートを翻訳ボタンを非表示にする",
   "hideTrends": "トレンドを非表示にする",
-  "hideWhoToFollow": "おすすめユーザーを非表示にする",
+  "hideFollowSuggestions": "おすすめユーザーを非表示にする",
   "keepTweetsInTL": "ツイートを保持する (現在動作しません)",
   "keepTweetsInTLDesc": "スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。",
   "leftTrends": "トレンドを左に表示する",

@@ -45,7 +45,7 @@
   "hideMessageBoxDesc": "Cache la nouvelle boîte de Messages constante dans le coin inférieur droit.",
   "hideTranslateTweetButton": "Cacher le bouton Traduire le Tweet",
   "hideTrends": "Cacher les Tendances",
-  "hideWhoToFollow": "Cacher Suggestions et Vous pourriez aimer",
+  "hideFollowSuggestions": "Cacher Suggestions et Vous pourriez aimer",
   "keepTweetsInTL": "Conserver les Tweets (ne fonctionne pas tout le temps)",
   "keepTweetsInTLDesc": "Empêche le site de retirer automatiquement les tweets une fois qu'ils ne sont plus affichés.",
   "leftTrends": "Barre des Tendances à gauche",

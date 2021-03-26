@@ -363,7 +363,7 @@
     show10Trends:             false,
     updateNotifications:      true,
     hideTrends:               false,
-    hideWhoToFollow:          false,
+    hideFollowSuggestions:    false,
     hideTranslateTweetButton: false,
     hideMessageBox:           true,
     enableQuickBlock:         false,
@@ -394,6 +394,7 @@
     Object.assign(old, opt_gt2)
     GM_setValue("opt_gt2", old)
   }
+
 
   // toggle opt_gt2 value
   function toggleGt2Opt(key) {
@@ -476,7 +477,7 @@
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
-          ${getSettingTogglePart("hideWhoToFollow")}
+          ${getSettingTogglePart("hideFollowSuggestions")}
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
@@ -1110,24 +1111,6 @@
           $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
         }
       })
-    })
-  }
-
-
-  // handle who to follow (hide)
-  function handleWhoToFollow() {
-    let wtf = "div[data-testid=sidebarColumn] div[data-testid=UserCell]"
-
-    waitForKeyElements(wtf, () => {
-      // actions for the whole container
-      if (!$(wtf).parents("aside").hasClass("gt2-wtf-handled")) {
-        $(wtf).parents("aside").addClass("gt2-wtf-handled")
-
-        // hide who to follow
-        if (GM_getValue("opt_gt2").hideWhoToFollow) {
-          $(wtf).parents("aside").parent().remove()
-        }
-      }
     })
   }
 
@@ -2228,7 +2211,13 @@
 
     // handle stuff in sidebars
     handleTrends()
-    handleWhoToFollow()
+    if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+      // user suggestions (Who to follow, You might like)
+      waitForKeyElements(`div[data-testid=sidebarColumn] aside [href^="/i/connect_people"]`, e => $(e).parents("aside").parent().remove())
+
+      // topic suggestions
+      waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
+    }
 
 
     // settings
