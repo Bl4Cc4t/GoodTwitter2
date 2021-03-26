@@ -1367,8 +1367,11 @@ div[data-testid=userActions],
 div[data-testid=sendDMFromProfile],
 div[data-testid=userActions] ~ div:not([class]) > div,
 div[data-testid$=-cancel],
-div[data-testid$=-follow] {
+div[data-testid$=-follow],
+a[href="/settings/profile"],
+div[id^=topic-follow-button] {
   border-color: var(--color-user);
+  background-color: transparent;
   & > *,
   svg {
     color: var(--color-user);
