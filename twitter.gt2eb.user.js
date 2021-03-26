@@ -603,8 +603,9 @@
         "Home",
         "Notifications",
         "DirectMessage",
-        "Explore"
+        window.innerWidth < 1005 ? "Explore" : null
       ]) {
+        if (!e) continue
         $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
         .appendTo(".gt2-nav-left")
         $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
