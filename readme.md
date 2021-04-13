@@ -72,6 +72,7 @@ Thanks to these awesome people, there are translations available for the followi
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
 - Polish (added by [@mkljczk](https://github.com/mkljczk))
 - Portuguese (added by [@fr0r](https://github.com/fr0r))
+- Romanian (added by [@Andy9001](https://github.com/Andy9001))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
