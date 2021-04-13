@@ -1796,8 +1796,8 @@
 
 
   // user color
-  waitForKeyElements(`h2 > a[href="/i/keyboard_shortcuts"]`, e => {
-    let userColor = $(e).css("color")
+  waitForKeyElements(`[data-testid=SideNav_NewTweet_Button]`, e => {
+    let userColor = $(e).css("background-color")
     if (userColor != GM_getValue("opt_display_userColor")) {
       GM_setValue("opt_display_userColor", userColor)
       updateCSS()
@@ -1850,7 +1850,7 @@
   // notifications bell background
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`,     e => $(e).parents("svg").parent().parent().css("background-color", "var(--color-user)"))
   waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => $(e).parents("svg").parent().parent().css("background-color", ""))
-  
+
 
 
   // ################
