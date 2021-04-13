@@ -1847,6 +1847,11 @@
   }
 
 
+  // notifications bell background
+  waitForKeyElements(`path[d^="M23.61.15c-.375"]`,     e => $(e).parents("svg").parent().parent().css("background-color", "var(--color-user)"))
+  waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => $(e).parents("svg").parent().parent().css("background-color", ""))
+  
+
 
   // ################
   // #  Update CSS  #

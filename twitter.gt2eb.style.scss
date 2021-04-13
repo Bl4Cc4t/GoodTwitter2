@@ -1373,7 +1373,8 @@ div[id^=topic-follow-button] {
   border-color: var(--color-user);
   background-color: transparent;
   & > *,
-  svg {
+  // all but notifications bell turned on
+  svg g > *:not([d^="M23.61.15c-.375"]) {
     color: var(--color-user);
   }
   &:hover {
