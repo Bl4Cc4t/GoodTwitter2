@@ -358,6 +358,7 @@
     biggerPreviews:           false,
 
     hideTranslateTweetButton: false,
+    tweetIconsPullLeft:       false,
 
     stickySidebars:           true,
     smallSidebars:            false,
@@ -482,6 +483,7 @@
 
           <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
           ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("tweetIconsPullLeft")}
           <div class="gt2-settings-seperator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
