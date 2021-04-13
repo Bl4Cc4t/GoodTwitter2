@@ -368,7 +368,6 @@
     hideMessageBox:           true,
     enableQuickBlock:         false,
     legacyProfile:            false,
-    showNsfwMessageMedia:     false,
     expandTcoShortlinks:      true,
     fontOverride:             false,
     fontOverrideValue:        "Arial"
@@ -495,7 +494,6 @@
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("hideMessageBox")}
-          ${getSettingTogglePart("showNsfwMessageMedia")}
           ${getSettingTogglePart("expandTcoShortlinks")}
         </div>
       `
@@ -1110,50 +1108,6 @@
           .replace(/(^\"|\"$)/g, "")
 
           $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
-        }
-      })
-    })
-  }
-
-
-  // messages stuff
-  function handleNSFWTweetMessages() {
-    let tm = "div[data-testid=messageEntry] div[role=link] span[title*='/status/']"
-    waitForKeyElements(tm, e => {
-      if ($(e).find(".gt2-msg-nsfw-media").length) return
-      requestTweet($(e).attr("title").split("/")[5], res => {
-        let media = res.extended_entities.media
-
-        // video
-        if (media[0].video_info) {
-          let previewUrl = media[0].media_url_https
-          let videoUrl = media[0].video_info.variants.length == 1
-            ? media[0].video_info.variants[0].url // gif
-            : media[0].video_info.variants.filter(v => v.bitrate).sort((v1, v2) => v1.bitrate > v2.bitrate).pop().url
-
-          $(e).parents("div[role=link] > div").append(`
-            <div class="gt2-msg-nsfw-media">
-              <video loop controls src="${videoUrl}" poster="${previewUrl}"></video>
-            </div>
-          `)
-
-        // photo(s)
-        } else {
-          let photoHTML = ""
-          for (let p in media) {
-            if (p % 2 == 0) photoHTML += "<div>"
-            photoHTML += `
-              <a href="${media[p].expanded_url.slice(0, -1)}${(parseInt(p)+1)}">
-                <img src="${media[p].media_url_https}" />
-              </a>
-            `
-            if (p % 2 == 1 || p-1 == media.length) photoHTML += "</div>"
-          }
-          $(e).parents("div[role=link] > div").append(`
-            <div class="gt2-msg-nsfw-media" data-photo-count="x${media.length}">
-              ${photoHTML}
-            </div>
-          `)
         }
       })
     })
@@ -2239,13 +2193,6 @@
       $(".gt2-settings-header, .gt2-settings").remove()
     }
 
-
-    // messages
-    if (onPage("messages")) {
-      if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
-        handleNSFWTweetMessages()
-      }
-    }
 
     // tweet
     if (onSubPage(null, ["status"])) {
