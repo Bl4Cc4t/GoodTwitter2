@@ -352,25 +352,30 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    disableAutoRefresh:       false,
     forceLatest:              false,
+    disableAutoRefresh:       false,
     keepTweetsInTL:           true,
-    smallSidebars:            false,
-    stickySidebars:           true,
-    leftTrends:               true,
-    squareAvatars:            false,
     biggerPreviews:           false,
-    show10Trends:             false,
-    updateNotifications:      true,
-    hideTrends:               false,
-    hideFollowSuggestions:    false,
+
     hideTranslateTweetButton: false,
-    hideMessageBox:           true,
-    enableQuickBlock:         false,
+
+    stickySidebars:           true,
+    smallSidebars:            false,
+    hideTrends:               false,
+    leftTrends:               true,
+    show10Trends:             false,
+
     legacyProfile:            false,
-    expandTcoShortlinks:      true,
+    squareAvatars:            false,
+    enableQuickBlock:         false,
+
+    hideFollowSuggestions:    false,
     fontOverride:             false,
-    fontOverrideValue:        "Arial"
+    fontOverrideValue:        "Arial",
+    hideMessageBox:           true,
+
+    updateNotifications:      true,
+    expandTcoShortlinks:      true,
   }
 
   // set default options
@@ -472,28 +477,39 @@
           ${getSettingTogglePart("forceLatest")}
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
+          ${getSettingTogglePart("biggerPreviews")}
           <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
+          ${getSettingTogglePart("hideTranslateTweetButton")}
+          <div class="gt2-settings-seperator"></div>
+
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
-          ${getSettingTogglePart("hideFollowSuggestions")}
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
-          ${getSettingTogglePart("enableQuickBlock")}
+
+          <div class="gt2-settings-sub-header">${getLocStr("navProfile")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("enableQuickBlock")}
+          <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalStyling")}</div>
+          ${getSettingTogglePart("hideFollowSuggestions")}
           ${getSettingTogglePart("fontOverride", `
             <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
               <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
             </div>
           `)}
-          ${getSettingTogglePart("biggerPreviews")}
-          ${getSettingTogglePart("updateNotifications")}
-          ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("hideMessageBox")}
+          <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
+          ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("expandTcoShortlinks")}
         </div>
       `
