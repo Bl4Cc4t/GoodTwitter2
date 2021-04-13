@@ -2078,8 +2078,8 @@
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
 
-      // prevent auto scroll to top on /search and /explore
-      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore|compose\/tweet\/?$)/)) {
+      // prevent scroll to top
+      if (prev > 1500 && curr == 0) {
         window.scroll(0, prev)
         return
       }
