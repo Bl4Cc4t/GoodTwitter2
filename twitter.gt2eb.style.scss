@@ -1319,7 +1319,7 @@ div[data-testid=userActions] ~ div:not([class]) > div,
 div[data-testid$=-cancel],
 div[data-testid$=-follow],
 a[href="/settings/profile"],
-div[id^=topic-follow-button] {
+div[id^=topic-follow-button]:not(.r-1ucxkr8) {
   border-color: var(--color-user);
   background-color: transparent;
   & > *,
@@ -1332,7 +1332,9 @@ div[id^=topic-follow-button] {
   }
 }
 div[data-testid$=-unfollow] {
-  &:hover:not(.r-1ucxkr8) {
+  transition-property: border-color, background-color, box-shadow;
+  // red unfollow, WTF white following hover, WTF red unfollow
+  &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
     border-color: var(--color-user);
     & > * {
       color: var(--color-user);
