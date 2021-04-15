@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "時間軸",
   "settingsHeaderSidebars": "側邊欄",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "其他",
   "biggerPreviews": "更大的圖片預覽",
   "biggerPreviewsDesc": "長的圖片在推文內顯示完整的高度",
@@ -58,6 +59,7 @@
   "smallSidebars": "小的側邊欄",
   "smallSidebarsDesc": "使用 290px 的側邊欄 (預設 350px) ",
   "squareAvatars": "正方形的頭像",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "GoodTwitter 2 更新通知",
 
   "updatedInfo": "更新了 $version$!",

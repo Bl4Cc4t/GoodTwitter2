@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "Timeline",
   "settingsHeaderSidebars": "Barras laterais",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "Outros",
   "biggerPreviews": "Pré-visualização de imagens grandes",
   "biggerPreviewsDesc": "Imagens altas em tweets são mostradas em sua inteira altura.",
@@ -58,6 +59,7 @@
   "smallSidebars": "Pequenas Barras laterais",
   "smallSidebarsDesc": "Barras laterais com 290 pixels de largura ao invés de 350px.",
   "squareAvatars": "Avatares Quadrados",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "Notificações de atualização do GoodTwitter 2",
 
   "updatedInfo": "Atualizado para á $version$!",

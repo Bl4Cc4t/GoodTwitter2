@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "Лента",
   "settingsHeaderSidebars": "Боковые панели",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "Другое",
   "biggerPreviews": "Большие превью изображения",
   "biggerPreviewsDesc": "Показывать превью высоких изображений в твитах во всю высоту.",
@@ -58,6 +59,7 @@
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
   "squareAvatars": "Квадратные аватары",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
 
   "updatedInfo": "Обновлено до $version$!",

@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "*NEW* Timeline",
   "settingsHeaderSidebars": "*NEW* Sidebars",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "*NEW* Other",
   "biggerPreviews": "Större Bildförhandsvisningar",
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
@@ -58,6 +59,7 @@
   "smallSidebars": "Små Sidofält",
   "smallSidebarsDesc": "290px istället för 350px breda sidofält.",
   "squareAvatars": "Fyrkantiga Visningsbilder",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "*NEW* GoodTwitter 2 update notifications",
 
   "updatedInfo": "*NEW* Updated to $version$!",

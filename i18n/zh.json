@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "时间线",
   "settingsHeaderSidebars": "侧边栏",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "其它",
   "biggerPreviews": "预览更大尺寸的图片",
   "biggerPreviewsDesc": "推文中的长图会以其原始长度来显示",
@@ -58,6 +59,7 @@
   "smallSidebars": "更窄的侧边栏",
   "smallSidebarsDesc": "侧边栏的宽度将从350px变为290px。",
   "squareAvatars": "正方形头像",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "GoodTwitter 2 更新通知",
 
   "updatedInfo": "升级到 $version$!",

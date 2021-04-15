@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "타임라인",
   "settingsHeaderSidebars": "사이드바",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "기타",
   "biggerPreviews": "큰 이미지 미리보기",
   "biggerPreviewsDesc": "길이가 긴 이미지도 미리보기에서 크게 보이게 합니다.",
@@ -58,6 +59,7 @@
   "smallSidebars": "작은 사이드바",
   "smallSidebarsDesc": "사이드바 크기를 350px에서 290px로 조정.",
   "squareAvatars": "사각형 프로필 사진",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "GoodTwitter 2 업데이트 알림",
 
   "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",

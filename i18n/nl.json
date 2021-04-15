@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "Tijdlijn",
   "settingsHeaderSidebars": "Zijbalken",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "Diversen",
   "biggerPreviews": "Grotere Voorbeelden",
   "biggerPreviewsDesc": "Afbeeldingen in tweets worden volledig afgebeeld.",
@@ -58,6 +59,7 @@
   "smallSidebars": "Smalle Zijbalken",
   "smallSidebarsDesc": "290px in plaats van 350px wijde zijbalken.",
   "squareAvatars": "Vierkante Avatars",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "GoodTwitter 2 Update Notificaties",
 
   "updatedInfo": "Ge-update naar $version$!",

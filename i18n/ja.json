@@ -31,6 +31,7 @@
 
   "settingsHeaderTimeline": "タイムライン",
   "settingsHeaderSidebars": "サイドバー",
+  "settingsHeaderGlobalStyling": "*NEW* Global Styling",
   "settingsHeaderOther": "その他",
   "biggerPreviews": "プレビュー画像の表示を拡張する",
   "biggerPreviewsDesc": "ツイート内のプレビュー画像を完全表示します。",
@@ -58,6 +59,7 @@
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
   "squareAvatars": "四角いアイコン表示",
+  "tweetIconsPullLeft": "*NEW* Pull tweet icons to the left",
   "updateNotifications": "GoodTwitter2の更新通知",
 
   "updatedInfo": "バージョン$version$に更新完了しました！",
