@@ -500,7 +500,7 @@
           ${getSettingTogglePart("enableQuickBlock")}
           <div class="gt2-settings-seperator"></div>
 
-          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalStyling")}</div>
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
           ${getSettingTogglePart("hideFollowSuggestions")}
           ${getSettingTogglePart("fontOverride", `
             <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
