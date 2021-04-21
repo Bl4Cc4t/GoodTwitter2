@@ -1713,42 +1713,42 @@
   if (GM_getValue("opt_gt2").enableQuickBlock) {
 	  let qbOffer
 	  $("body").on("mouseover", `[data-testid$="-follow"]:not([data-gt2-qb-state])`, e => {
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		$b.attr("data-gt2-qb-state", "offer-pending")
-		qbOffer = setTimeout(() => {
-		  $b.attr("data-gt2-qb-state", "offer")
-		  $b.find("> div > span").append(`
-			<span class="gt2-qb-block">${getLocStr("qbBlock")}</span>
-			<span class="gt2-qb-blocked">${getLocStr("qbBlocked")}</span>
-			<span class="gt2-qb-unblock">${getLocStr("qbUnblock")}</span>
-		  `)
-		}, 3e3)
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		$b.attr("data-gt2-qb-state", "offer-pending")
+  		qbOffer = setTimeout(() => {
+  		  $b.attr("data-gt2-qb-state", "offer")
+  		  $b.find("> div > span").append(`
+    			<span class="gt2-qb-block">${getLocStr("qbBlock")}</span>
+    			<span class="gt2-qb-blocked">${getLocStr("qbBlocked")}</span>
+    			<span class="gt2-qb-unblock">${getLocStr("qbUnblock")}</span>
+  		  `)
+  		}, 3e3)
 	  })
 	  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=offer]`, e => {
-		e.stopImmediatePropagation()
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		let user_id = $b.attr("data-testid").slice(0, -7)
-		blockUser(user_id, true, () => {
-		  console.log(`quickblock: ${user_id}`)
-		  $b.attr("data-gt2-qb-state", "blocked")
-		})
+  		e.stopImmediatePropagation()
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		let user_id = $b.attr("data-testid").slice(0, -7)
+  		blockUser(user_id, true, () => {
+  		  console.log(`quickblock: ${user_id}`)
+  		  $b.attr("data-gt2-qb-state", "blocked")
+  		})
 	  })
 	  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=blocked]`, e => {
-		e.stopImmediatePropagation()
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		let user_id = $b.attr("data-testid").slice(0, -7)
-		blockUser(user_id, false, () => {
-		  console.log(`quickunblock: ${user_id}`)
-		  $b.removeAttr("data-gt2-qb-state")
-		  $b.find("[class^=gt2-qb]").remove()
-		})
+  		e.stopImmediatePropagation()
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		let user_id = $b.attr("data-testid").slice(0, -7)
+  		blockUser(user_id, false, () => {
+  		  console.log(`quickunblock: ${user_id}`)
+  		  $b.removeAttr("data-gt2-qb-state")
+  		  $b.find("[class^=gt2-qb]").remove()
+  		})
 	  })
 	  $("body").on("mouseleave", `[data-testid$="-follow"][data-gt2-qb-state^=offer],
 								  [data-testid$="-unfollow"][data-gt2-qb-state^=offer]`, e => {
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		$b.removeAttr("data-gt2-qb-state")
-		$b.find("[class^=gt2-qb]").remove()
-		clearTimeout(qbOffer)
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		$b.removeAttr("data-gt2-qb-state")
+  		$b.find("[class^=gt2-qb]").remove()
+  		clearTimeout(qbOffer)
 	  })
   }
 
@@ -1810,11 +1810,10 @@
 
 
   // minimize DMDrawer if hideMessageBox is set
-  let dmdCollapse = `[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`
   if (GM_getValue("opt_gt2").hideMessageBox) {
-    waitForKeyElements(dmdCollapse, () => {
-      console.log("Minimized DMDrawer");
-      $(dmdCollapse).parents("[role=button]").click()
+    waitForKeyElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
+      console.log("Minimized DMDrawer")
+      $(e).parents("[role=button]").click()
     })
   }
 
@@ -1822,6 +1821,20 @@
   // notifications bell background
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`,     e => $(e).parents("svg").parent().parent().css("background-color", "var(--color-user)"))
   waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => $(e).parents("svg").parent().parent().css("background-color", ""))
+
+
+  // hide timeline follow suggestions
+  if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+    waitForKeyElements(`[data-testid=primaryColumn] section [href^="/i/connect_people"],
+                        [data-testid=primaryColumn] section [href^="/i/topics/picker"]`, e => {
+      let $p = $(e).parent().parent()
+      while (!$p.find("> div > div:empty").length) {
+        $p.addClass("gt2-hidden")
+        $p = $p.prev()
+      }
+      $p.addClass("gt2-hidden")
+    })
+  }
 
 
 
