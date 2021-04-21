@@ -96,6 +96,7 @@ Open the following box to learn more.
     - Then, translate all strings and create a pull request.
       - For all the strings in the first paragraph (before the first empty line): Please use the official translations on twitter if you can.
     - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
+    - New strings will be added sometimes (e.g. for new settings). These newly added ones begin with `*NEW*`. Please remove this part when you're translating these strings.
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
 
