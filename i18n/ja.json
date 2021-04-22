@@ -51,7 +51,7 @@
   "keepTweetsInTLDesc": "スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。",
   "leftTrends": "トレンドを左に表示する",
   "leftTrendsDesc": "トレンドを左サイドバーに表示します。",
-  "enableQuickBlock": "*新機能* クイックブロックを有効化",
+  "enableQuickBlock": "クイックブロックを有効化",
   "enableQuickBlockDesc": "フォローボタンの上に3秒間カーソルを置くとブロックすることができます。",
   "legacyProfile": "プロフィールページを旧UIのレイアウトに変更する",
   "show10Trends": "常に10個のトレンドを表示する",
