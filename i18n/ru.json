@@ -59,7 +59,7 @@
   "smallSidebars": "Уменьшенные боковые панели",
   "smallSidebarsDesc": "Боковые панели шириной 290px вместо 350px.",
   "squareAvatars": "Квадратные аватары",
-  "tweetIconsPullLeft": "Выровнять значки твитов слева",
+  "tweetIconsPullLeft": "Сгруппировать кнопки взаимодействия с твитами слева",
   "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
 
   "updatedInfo": "Обновлено до $version$!",
