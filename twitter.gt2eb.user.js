@@ -1825,14 +1825,28 @@
 
   // hide timeline follow suggestions
   if (GM_getValue("opt_gt2").hideFollowSuggestions) {
-    waitForKeyElements(`[data-testid=primaryColumn] section [href^="/i/connect_people"],
-                        [data-testid=primaryColumn] section [href^="/i/topics/picker"]`, e => {
-      let $p = $(e).parent().parent()
-      while (!$p.find("> div > div:empty").length) {
-        $p.addClass("gt2-hidden")
+    function hideTLFS($p) {
+      if (!$p) return $p
+      if ($p.prev().length) {
         $p = $p.prev()
+        if ($p.find("article").length) return
+        $p.addClass("gt2-hidden")
+      } else {
+        if (window.scrollY < 500) return
+        setTimeout(() => {
+          $p = hideTLFS($p)
+          console.log("tmp");
+        }, 100)
       }
-      $p.addClass("gt2-hidden")
+      return $p
+    }
+    waitForKeyElements(`[data-testid=primaryColumn] section [href^="/i/connect_people"],
+                        [data-testid=primaryColumn] section [href^="/i/topics/picker"],
+                        [data-testid=primaryColumn] section [href^="/i/lists/suggested"]`, e => {
+      let $p = $(e).parent().parent().next().addClass("gt2-hidden")
+      for (let i=0; i < 6; i++) {
+        $p = hideTLFS($p)
+      }
     })
   }
 
