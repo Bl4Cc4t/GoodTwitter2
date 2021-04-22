@@ -1835,7 +1835,6 @@
         if (window.scrollY < 500) return
         setTimeout(() => {
           $p = hideTLFS($p)
-          console.log("tmp");
         }, 100)
       }
       return $p
