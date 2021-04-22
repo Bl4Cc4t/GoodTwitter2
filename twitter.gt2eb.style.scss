@@ -817,7 +817,8 @@ main {
       align-items: center;
 
       [role=button],
-      div[data-testid=placementTracking] > div {
+      div[data-testid=placementTracking] > div,
+      [href="/settings/profile"] {
         margin-bottom: 0;
       }
     }
