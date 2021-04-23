@@ -1842,7 +1842,8 @@
     waitForKeyElements(`[data-testid=primaryColumn] section [href^="/i/connect_people"],
                         [data-testid=primaryColumn] section [href^="/i/topics/picker"],
                         [data-testid=primaryColumn] section [href^="/i/lists/suggested"]`, e => {
-      let $p = $(e).parent().parent().next().addClass("gt2-hidden")
+      let $p = $(e).parent().parent().addClass("gt2-hidden")
+      if ($p.next().length) $p.next().addClass("gt2-hidden")
       for (let i=0; i < 6; i++) {
         $p = hideTLFS($p)
       }
@@ -2242,9 +2243,24 @@
     if (onSubPage(null, ["status"])) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
-      waitForKeyElements("[data-testid=tweet]", () => window.pageYOffset - 56.79999923706055 < 0.01 ? window.scroll(0, 0) : null)
+      waitForKeyElements("[data-testid=tweet] + div [href$=source-labels]", () => window.scroll(0, window.pageYOffset - 56.79999923706055))
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
+    }
+
+
+    // notifications
+    if (onPage("notifications")) {
+      $("body").on("auxclick", `[data-testid=primaryColumn] section > div > div > div:not(.gt2-handled)`, function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        console.log(this);
+      })
+      $("body").on("mouseover", `[data-testid=primaryColumn] section > div > div > div`, function(e) {
+        console.log("a");
+        $(e).addClass("gt2-handled")
+        $(e).off("mousedown")
+      })
     }
 
 
