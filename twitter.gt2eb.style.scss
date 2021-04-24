@@ -1363,6 +1363,12 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 
+// smaller padding next to the trends cog
+.gt2-trends-handled > div > div > div > div > div:nth-child(1) {
+  padding-right: 5px;
+}
+
+
 // make parts around toasts clickable
 div[data-testid=toast] {
   position: absolute;
