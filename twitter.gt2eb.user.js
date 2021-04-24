@@ -983,6 +983,7 @@
 
     // profile suspended / not found / temporarily restricted (first view)
     waitForKeyElements([
+      `[data-testid=emptyState] > div:nth-child(2) > *:not(a)`,                               // not found
       `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`,         // suspended
       `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`,      // withheld in country
       `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
