@@ -1302,6 +1302,7 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
 
 
 // color carets with the user color
+// make carets look like carets again (instead of 3 dots)
 div[data-testid=caret] {
   & > div > div > div {
     transition: all .2s ease-in-out;
@@ -1310,13 +1311,18 @@ div[data-testid=caret] {
     &:hover {
       opacity: .1;
       & + svg {
-        fill: var(--color-user);
+        background-color: var(--color-user);
       }
     }
   }
   svg {
-    fill: var(--color-gray-light);
+    background-color: var(--color-gray-light);
     pointer-events: none;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    g {
+      display: none;
+    }
   }
 }
 
@@ -1693,10 +1699,16 @@ body[data-gt2-path="explore"].gt2-scrolled-down {
   }
   div[data-testid=primaryColumn] {
     border-top-width: 0 !important;
-    & > div > div:nth-child(1) {
-      top: 56px;
-      position: sticky;
-      border-top: 1px solid var(--color-gray-dark);
+    & > div > div {
+      &:nth-child(1) {
+        top: 56px;
+        position: sticky;
+        border-top: 1px solid var(--color-gray-dark);
+      }
+      &:nth-child(2) {
+        top: 0;
+        position: relative;
+      }
     }
   }
 }
@@ -2109,15 +2121,17 @@ body[data-gt2-path^="messages/"] {
 
     .gt2-toggle-acc-switcher-dropdown,
     .gt2-toggle-lo-nightmode {
-      right: 7.5px;
-      bottom: calc(93px + (var(--font-increment) + 2px) / 2);
+      right: 14px;
+      bottom: calc(89px + (var(--font-increment) + 2px) / 2);
       @include hoverableSvg;
       div {
-        width: 27px;
-        height: 27px;
+        width: 34.75px;
+        height: 34.75px;
       }
       svg {
-        fill: var(--color-gray);
+        fill: var(--color-gray-light);
+        width: 18.75px;
+        height: 18.75px;
       }
     }
 
