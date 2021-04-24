@@ -1367,17 +1367,30 @@
       return
     }
 
-    let isTweet = $(this).is(".gt2-translate-tweet")
-    let _this = this
-    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
+    let id = $(this).parents("div[data-testid=tweet]").length
+      ? $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href").split("/")[3]
+      : null
 
-    let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
+    // embedded tweet
+    if ($(this).parents("[role=link]").parents("[data-testid=tweet]").length) {
+      requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
+
+    // normal tweet or bio
+    } else {
+      translateTweet(this, id)
+    }
+  })
+
+
+  function translateTweet(e, id) {
+    let isTweet = $(e).is(".gt2-translate-tweet")
+    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
     GM_xmlhttpRequest({
       method: "GET",
-      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${statusUrl.split("/")[3]}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
+      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${id}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
       headers: getRequestHeaders(isTweet ? {
-        referer: statusUrl
+        referer: `https://twitter.com/i/status/${id}`
       } : {}),
       onload: function(res) {
         if (res.status == "200") {
@@ -1391,8 +1404,8 @@
             out = out.populateWithEntities(o.entities)
           }
 
-          $(_this).addClass("gt2-hidden")
-          $(_this).after(`
+          $(e).addClass("gt2-hidden")
+          $(e).after(`
             <div class="gt2-translated-tweet-info">
               ${GM_getValue("tmp_translatedTweetInfo")
                 .replace("$lang$", o.localizedSourceLanguage)
@@ -1409,10 +1422,11 @@
           `)
         } else {
           console.error("Error occurred while translating.")
+          console.error(res)
         }
       }
     })
-  })
+  }
 
 
   // hide translation
@@ -2250,18 +2264,18 @@
 
 
     // notifications
-    if (onPage("notifications")) {
-      $("body").on("auxclick", `[data-testid=primaryColumn] section > div > div > div:not(.gt2-handled)`, function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-        console.log(this);
-      })
-      $("body").on("mouseover", `[data-testid=primaryColumn] section > div > div > div`, function(e) {
-        console.log("a");
-        $(e).addClass("gt2-handled")
-        $(e).off("mousedown")
-      })
-    }
+    // if (onPage("notifications")) {
+    //   $("body").on("auxclick", `[data-testid=primaryColumn] section > div > div > div:not(.gt2-handled)`, function(e) {
+    //     e.preventDefault()
+    //     e.stopImmediatePropagation()
+    //     console.log(this);
+    //   })
+    //   $("body").on("mouseover", `[data-testid=primaryColumn] section > div > div > div`, function(e) {
+    //     console.log("a");
+    //     $(e).addClass("gt2-handled")
+    //     $(e).off("mousedown")
+    //   })
+    // }
 
 
     // sidebar
