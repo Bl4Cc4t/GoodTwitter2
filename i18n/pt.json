@@ -12,7 +12,9 @@
   "statsLikes": "Curtidas",
   "statsMoments": "Moments",
   "statsTweets": "Tweets",
+  "topics": "Tópicos",
   "translateTweet": "Traduzir Tweet",
+  "users": "Usuários",
 
   "bornDate": "Nascido(a) em $date$",
   "bornYear": "Nascido(a) em $year$",

@@ -12,7 +12,9 @@
   "statsLikes": "喜歡的內容",
   "statsMoments": "新聞",
   "statsTweets": "推文",
+  "topics": "主題",
   "translateTweet": "翻譯推文",
+  "users": "使用者",
 
   "bornDate": "出生於 $date$",
   "bornYear": "出生於 $year$",

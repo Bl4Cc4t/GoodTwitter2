@@ -12,7 +12,9 @@
   "statsLikes": "마음에 들어요",
   "statsMoments": "모멘트",
   "statsTweets": "트윗",
+  "topics": "토픽",
   "translateTweet": "트윗 번역하기",
+  "users": "사용자",
 
   "bornDate": "생일: $date$",
   "bornYear": "출생년도: $year$",

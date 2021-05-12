@@ -12,7 +12,9 @@
   "statsLikes": "Polubienia",
   "statsMoments": "Moments",
   "statsTweets": "Chwile",
+  "topics": "Tematy",
   "translateTweet": "Przetłumacz Tweeta",
+  "users": "Użytkowników",
 
   "bornDate": "Data urodzenia: $date$",
   "bornYear": "Data urodzenia: $year$",

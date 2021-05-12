@@ -12,7 +12,9 @@
   "statsLikes": "Aprecieri",
   "statsMoments": "Momente",
   "statsTweets": "Tweeturi",
+  "topics": "Subiectele",
   "translateTweet": "Tradu Tweetul",
+  "users": "Utilizatori",
 
   "bornDate": "S-a născut în data de $date$",
   "bornYear": "S-a născut în anul $year$",

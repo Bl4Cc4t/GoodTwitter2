@@ -12,7 +12,9 @@
   "statsLikes": "いいね",
   "statsMoments": "モーメント",
   "statsTweets": "ツイート",
+  "topics": "トピック",
   "translateTweet": "ツイートを翻訳",
+  "users": "アカウント",
 
   "bornDate": "誕生日: $date$",
   "bornYear": "誕生年: $year$",

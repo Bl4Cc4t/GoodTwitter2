@@ -12,7 +12,9 @@
   "statsLikes": "Gefällt mir",
   "statsMoments": "Moments",
   "statsTweets": "Tweets",
+  "topics": "Themen",
   "translateTweet": "Tweet übersetzen",
+  "users": "Nutzer",
 
   "bornDate": "Geboren am $date$",
   "bornYear": "Geboren $year$",
