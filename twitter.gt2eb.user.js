@@ -1,11 +1,14 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.29
+// @version       0.0.30
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
+// @exclude       https://twitter.com/i/release_notes
+// @exclude       https://twitter.com/*/privacy
+// @exclude       https://twitter.com/*/tos
 // @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
@@ -371,6 +374,7 @@
     enableQuickBlock:         false,
 
     hideFollowSuggestions:    false,
+    hideFollowSuggestionsSel: 7,
     fontOverride:             false,
     fontOverrideValue:        "Arial",
     hideMessageBox:           true,
@@ -2182,7 +2186,7 @@
     return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
   }
   function _isModal(path) {
-    return _onSubPage(path, "i", ["display", "keyboard_shortcuts"])
+    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
         || _onSubPage(path, "account", ["add"])
@@ -2274,7 +2278,7 @@
     handleTrends()
     if (GM_getValue("opt_gt2").hideFollowSuggestions) {
       let sel = GM_getValue("opt_gt2").hideFollowSuggestionsSel
-      
+
       // topic suggestions
       if ((sel & 1) == 1) waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
 
