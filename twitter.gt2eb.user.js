@@ -501,7 +501,20 @@
           <div class="gt2-settings-seperator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
-          ${getSettingTogglePart("hideFollowSuggestions")}
+          ${getSettingTogglePart("hideFollowSuggestions", `
+            <div class="${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}" data-setting-name="hideFollowSuggestionsSel">
+              ${["topics", "users", "navLists"].map((e, i) => {
+                let x = Math.pow(2, i)
+                return `<div>
+                  <span>${getLocStr(e)}</span>
+                  <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-hfs-type="${x}">
+                    <div></div>
+                    <div>${getSvg("tick")}</div>
+                  </div>
+                </div>
+              `}).join("")}
+            </div>
+          `)}
           ${getSettingTogglePart("fontOverride", `
             <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
               <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
@@ -538,12 +551,24 @@
   // handler for the toggles
   $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
-    let name = $(this).attr("data-setting-name").trim()
-    toggleGt2Opt(name)
-    $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
+    if ($(this).is("[data-setting-name]")) {
+      let name = $(this).attr("data-setting-name").trim()
+      toggleGt2Opt(name)
+      $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
+    }
+
+    // hide follow suggestions
+    if ($(this).is("[data-hfs-type]")) {
+      let opt = GM_getValue("opt_gt2")
+      console.log(opt.hideFollowSuggestionsSel);
+      console.log(parseInt($(this).attr("data-hfs-type")));
+      console.log(opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")));
+      GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsSel"]: opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")) }))
+    }
     disableTogglesIfNeeded()
   })
 
+  // handler for inputs
   $("body").on("keyup", ".gt2-setting-input input", function() {
     let name = $(this).parent().attr("data-setting-name").trim()
     let val = $(this).val()
@@ -575,6 +600,14 @@
     // hide font input if fontOverride is disabled
     $t = $("[data-setting-name=fontOverrideValue]")
     if (GM_getValue("opt_gt2").fontOverride) {
+      $t.removeClass("gt2-hidden")
+    } else {
+      $t.addClass("gt2-hidden")
+    }
+
+    // hide follow suggestions
+    $t = $("[data-setting-name=hideFollowSuggestionsSel]")
+    if (GM_getValue("opt_gt2").hideFollowSuggestions) {
       $t.removeClass("gt2-hidden")
     } else {
       $t.addClass("gt2-hidden")
@@ -1854,11 +1887,19 @@
       }
       return $p
     }
-    waitForKeyElements(`[data-testid=primaryColumn] section [href^="/i/connect_people"],
-                        [data-testid=primaryColumn] section [href^="/i/topics/picker"],
-                        [data-testid=primaryColumn] section [href^="/i/lists/suggested"]`, e => {
+    // small follow topic above tweets
+    waitForKeyElements(`[data-gt2-path=home] [data-testid=primaryColumn] section article > div > div > div > div:not([data-testid=tweet]) > div > div > div`, e => $(e).addClass("gt2-hidden"))
+
+    // big follow boxes
+    waitForKeyElements(
+      ["topics/picker", "connect_people", "lists/suggested"]
+      .filter((e, i) => (GM_getValue("opt_gt2").hideFollowSuggestionsSel & Math.pow(2, i)) == Math.pow(2, i))
+      .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
+      .join(", "), e => {
+
       let $p = $(e).parent().parent().addClass("gt2-hidden")
       if ($p.next().length) $p.next().addClass("gt2-hidden")
+      if ($p.next().next().find("div > div:empty").length) $p.next().next().addClass("gt2-hidden")
       for (let i=0; i < 6; i++) {
         $p = hideTLFS($p)
       }
@@ -2232,11 +2273,13 @@
     // handle stuff in sidebars
     handleTrends()
     if (GM_getValue("opt_gt2").hideFollowSuggestions) {
-      // user suggestions (Who to follow, You might like)
-      waitForKeyElements(`div[data-testid=sidebarColumn] aside [href^="/i/connect_people"]`, e => $(e).parents("aside").parent().remove())
-
+      let sel = GM_getValue("opt_gt2").hideFollowSuggestionsSel
+      
       // topic suggestions
-      waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
+      if ((sel & 1) == 1) waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
+
+      // user suggestions (Who to follow, You might like)
+      if ((sel & 2) == 2) waitForKeyElements(`div[data-testid=sidebarColumn] aside [href^="/i/connect_people"]`, e => $(e).parents("aside").parent().remove())
     }
 
 

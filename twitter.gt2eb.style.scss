@@ -1945,6 +1945,17 @@ body[data-gt2-path^="settings/"] {
     &:last-child {
       border-bottom: unset;
     }
+
+    [data-setting-name=hideFollowSuggestionsSel] {
+      margin-top: 12.5px;
+      & > div {
+        display: flex;
+        & > span {
+          margin-right: 10px;
+          font-size: var()
+        }
+      }
+    }
   }
 }
 
