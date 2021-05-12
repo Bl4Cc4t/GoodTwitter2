@@ -1338,48 +1338,6 @@ div[data-testid=caret] {
 }
 
 
-// color several ui elements with the user color (2021-03-19 change)
-div[data-testid=userActions],
-div[data-testid=sendDMFromProfile],
-div[data-testid=userActions] ~ div:not([class]) > div,
-div[data-testid$=-cancel],
-div[data-testid$=-follow],
-a[href="/settings/profile"],
-div[id^=topic-follow-button]:not(.r-1ucxkr8),
-div[data-testid=listCell] div[role=button],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
-  border-color: var(--color-user);
-  background-color: transparent;
-  & > *,
-  // all but notifications bell turned on
-  svg g > *:not([d^="M23.61.15c-.375"]) {
-    color: var(--color-user);
-  }
-  &:hover {
-    background-color: rgba(var(--color-raw-user), .1);
-  }
-}
-
-div[data-testid$=-unfollow],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
-  transition-property: border-color, background-color, box-shadow;
-  // red unfollow, WTF white following hover
-  &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
-    border-color: var(--color-user);
-    & > * {
-      color: var(--color-user);
-    }
-  }
-  &:not(:hover) {
-    border-color: var(--color-user);
-    background-color: var(--color-user);
-    & > * {
-      color: var(--color-text-2);
-    }
-  }
-}
-
-
 .gt2-trends-handled > div > div > div > div > div {
   // smaller padding next to the trends cog
   &:nth-child(1) {
