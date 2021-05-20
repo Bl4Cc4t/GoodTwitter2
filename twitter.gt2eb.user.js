@@ -9,6 +9,7 @@
 // @exclude       https://twitter.com/i/release_notes
 // @exclude       https://twitter.com/*/privacy
 // @exclude       https://twitter.com/*/tos
+// @exclude       https://twitter.com/account/access
 // @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
@@ -1378,13 +1379,13 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/']", function(e) {
-      let $e = $(e).parents("div[data-testid=tweet]")
-      let tweetLang = $e.find("div[lang]").attr("lang")
+    waitForKeyElements("[data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
+      let $e = $(e)
+      let tweetLang = $e.attr("lang")
       let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
       if (tweetLang != userLang && tweetLang != "und") {
-        $e.find("div[lang]").first().after(`
+        $e.first().after(`
           <div class="gt2-translate-tweet">
             ${getLocStr("translateTweet")}
           </div>
@@ -1405,13 +1406,19 @@
       return
     }
 
-    let id = $(this).parents("div[data-testid=tweet]").length
-      ? $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href").split("/")[3]
+    let id = $(this).parents("article").find("div[data-testid=tweet]").length
+      ? $(this).parents("article").find(`div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
+                                         div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
     // embedded tweet
-    if ($(this).parents("[role=link]").parents("[data-testid=tweet]").length) {
+    if ($(this).parents("[role=link]").parents("article").find("[data-testid=tweet]").length) {
       requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
+
+    // normal tweet with embedded one
+    } else if ($(this).parents("article").find("[data-testid=tweet] [role=link] [lang]").length) {
+      console.log("aaa");
+      requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
 
     // normal tweet or bio
     } else {
@@ -1420,7 +1427,7 @@
   })
 
 
-  function translateTweet(e, id) {
+  function translateTweet(e, id, quoteId) {
     let isTweet = $(e).is(".gt2-translate-tweet")
     GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
@@ -1439,6 +1446,14 @@
 
           // handle entities in tweet
           if (o.entities) {
+            // remove embedded url if applicable (https://twitter.com/ella_hollywood/status/1395290916303212544)
+            if (quoteId && o.entities.urls) {
+              let tco = o.entities.urls.find(x => x.expanded_url.endsWith(quoteId))
+              if (tco) {
+                out = out.replace(` ${tco.url}`, "")
+                o.entities.urls = o.entities.urls.filter(x => !x.expanded_url.endsWith(quoteId))
+              }
+            }
             out = out.populateWithEntities(o.entities)
           }
 
