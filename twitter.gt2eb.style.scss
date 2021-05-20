@@ -787,7 +787,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav-left {
       align-items: center;
       // avatar
-      img {
+      & > img {
         border-radius: 9999px;
       }
       & > div {
@@ -943,7 +943,7 @@ body[data-gt2-path=explore] {
 
       .gt2-legacy-profile-nav-left {
         // avatar
-        img {
+        & > img {
           width: 200px;
           height: 200px;
           position: relative;
@@ -983,7 +983,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav {
       margin-top: calc(47px + 15px);
 
-      img {
+      .gt2-legacy-profile-nav-left > img {
         width: 36px;
         height: 36px;
       }
