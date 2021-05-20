@@ -373,6 +373,7 @@
     legacyProfile:            false,
     squareAvatars:            false,
     enableQuickBlock:         false,
+    leftMedia:                false,
 
     hideFollowSuggestions:    false,
     hideFollowSuggestionsSel: 7,
@@ -503,6 +504,7 @@
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("enableQuickBlock")}
+          ${getSettingTogglePart("leftMedia")}
           <div class="gt2-settings-seperator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
@@ -2364,6 +2366,18 @@
             $("a[href$='/photo'] img").data("alreadyFound", false)
           }
           rebuildLegacyProfile()
+        }
+        if (GM_getValue("opt_gt2").leftMedia
+          && ((!GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1350)
+            || (GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1230))) {
+
+          waitForKeyElements("[data-testid=sidebarColumn] a:nth-child(1) [data-testid=tweetPhoto]", e => {
+            if ($(".gt2-profile-media").length) $(".gt2-profile-media").remove()
+            $(e).parents("a[role=link]").parent().parent().parent().parent().parent().parent()
+            .detach().addClass("gt2-profile-media")
+            .appendTo(".gt2-left-sidebar")
+          })
+
         }
       } else {
         $("body").removeClass("gt2-page-profile")

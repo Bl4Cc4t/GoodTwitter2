@@ -11,7 +11,7 @@
   --font-override:    $fontOverride;
   --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   --font-global:      var(--font-override), var(--font-default) !important;
-  font-family:        var(--font-global);
+  font-family:        var(--font-default);
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -2026,7 +2026,8 @@ body[data-gt2-path^="messages/"] {
   }
 
   // moved trends
-  .gt2-trends {
+  .gt2-trends,
+  .gt2-profile-media {
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;
     background-color: var(--color-elem);
