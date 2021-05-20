@@ -10,8 +10,8 @@
 
   --font-override:    $fontOverride;
   --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  --font-global:      var(--font-override), var(--font-default);
-  font-family:        var(--font-default);
+  --font-global:      var(--font-override), var(--font-default) !important;
+  font-family:        var(--font-global);
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -1163,7 +1163,8 @@ body:not(.gt2-opt-small-sidebars) {
 .gt2-opt-font-override {
   font-family: var(--font-global);
   .r-1qd0xha,
-  .r-1tl8opc {
+  .r-1tl8opc,
+  .r-37j5jr {
     font-family: var(--font-global);
   }
 }
