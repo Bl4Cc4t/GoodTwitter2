@@ -1875,7 +1875,7 @@
 
   // minimize DMDrawer if hideMessageBox is set
   if (GM_getValue("opt_gt2").hideMessageBox) {
-    waitForKeyElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
+    waitForKeyElements(`.gt2-opt-hide-message-box [data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
       console.log("Minimized DMDrawer")
       $(e).parents("[role=button]").click()
     })
