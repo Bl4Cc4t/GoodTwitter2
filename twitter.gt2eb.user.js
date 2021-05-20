@@ -903,6 +903,10 @@
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
+              <a href="/${i.screenName}" title="">
+                <div>${getLocStr("statsTweets")}</div>
+                <div>0</div>
+              </a>
               <a href="/${i.screenName}/following" title="">
                 <div>${getLocStr("statsFollowing")}</div>
                 <div>${i.followingRnd}</div>
@@ -910,6 +914,10 @@
               <a href="/${i.screenName}/followers" title="">
                 <div>${getLocStr("statsFollowers")}</div>
                 <div>${i.followersRnd}</div>
+              </a>
+              <a href="/${i.screenName}/likes" title="">
+                <div>${getLocStr("statsLikes")}</div>
+                <div>0</div>
               </a>
               <!--
                 <a href="/${i.screenName}/lists" title="">
@@ -935,29 +943,16 @@
         // profile id
         $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
 
-        // add followers and following
-
-        $(`.gt2-legacy-profile-nav-center a[href$="/following"]`)
-        .attr("title", pleg.friends_count.humanize())
-        .find("div:nth-child(2):empty").html(pleg.friends_count.humanizeShort())
-        $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`)
-        .attr("title", pleg.followers_count.humanize())
-        .find("div:nth-child(2):empty").html(pleg.followers_count.humanizeShort())
-
-        // add likes and stuff
-        if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
-          $(".gt2-legacy-profile-nav-center").prepend(`
-            <a href="/${i.screenName}" title="${pleg.statuses_count.humanize()}">
-              <div>${getLocStr("statsTweets")}</div>
-              <div>${pleg.statuses_count.humanizeShort()}</div>
-            </a>
-          `)
-          $(".gt2-legacy-profile-nav-center").append(`
-            <a href="/${i.screenName}/likes" title="${pleg.favourites_count.humanize()}">
-              <div>${getLocStr("statsLikes")}</div>
-              <div>${pleg.favourites_count.humanizeShort()}</div>
-            </a>
-          `)
+        // change stats
+        for (let tmp of [
+          [i.screenName, "statuses_count"],
+          ["following", "friends_count"],
+          ["followers", "followers_count"],
+          ["likes", "favourites_count"]
+        ]) {
+          $(`.gt2-legacy-profile-nav-center a[href$="/${tmp[0]}"]`)
+          .attr("title", pleg[tmp[1]].humanize())
+          .find("div:nth-child(2)").html(pleg[tmp[1]].humanizeShort())
         }
 
         // expand t.co links
