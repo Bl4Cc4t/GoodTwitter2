@@ -2300,7 +2300,7 @@
       if ((sel & 1) == 1) waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
 
       // user suggestions (Who to follow, You might like)
-      if ((sel & 2) == 2) waitForKeyElements(`div[data-testid=sidebarColumn] aside [href^="/i/connect_people"]`, e => $(e).parents("aside").parent().remove())
+      if ((sel & 2) == 2) waitForKeyElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => $(e).parents("aside").parent().remove())
     }
 
 
