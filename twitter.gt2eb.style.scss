@@ -1964,20 +1964,20 @@ body[data-gt2-path^="settings/"] {
   .gt2-dashboard-profile {
     display: none;
   }
+}
 
-  // make line under selected tab full width
-  nav [role=tablist] [aria-selected=true] {
-    & > div > div {
-      display: none;
-    }
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      background-color: var(--color-user);
-      height: 4px;
-      width: 100%;
-    }
+// make line under selected tab full width
+nav [role=tablist] [aria-selected=true] {
+  & > div > div {
+    display: none;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    background-color: var(--color-user);
+    height: 4px;
+    width: 100%;
   }
 }
 
