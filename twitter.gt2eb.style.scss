@@ -1625,8 +1625,15 @@ html[style*="overflow-y: hidden"] {
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }
-  .gt2-nav-right {
+  .gt2-nav-right,
+  .gt2-legacy-profile-nav-right {
     padding-right: var(--scrollbar-width);
+  }
+}
+html[style*=margin-right] {
+  margin-right: unset !important;
+  main {
+    margin-right: var(--scrollbar-width);
   }
 }
 
