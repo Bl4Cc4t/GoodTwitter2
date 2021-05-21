@@ -1953,7 +1953,7 @@ body[data-gt2-path^="settings/"] {
         display: flex;
         & > span {
           margin-right: 10px;
-          font-size: var()
+          font-size: incr(13px);
         }
       }
     }
