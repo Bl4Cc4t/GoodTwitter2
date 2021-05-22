@@ -204,7 +204,8 @@
       url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
         id,
         tweet_mode: "extended",
-        trim_user: true
+        trim_user: true,
+        include_cards: 1
       }),
       headers: getRequestHeaders(),
       onload: function(res) {
@@ -1736,7 +1737,7 @@
     $tweet.addClass("gt2-tco-expanded")
 
     // exit if tweet has no links
-    if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).length) return
+    if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"], [data-testid="card.wrapper"]`).length) return
 
     let id = $tweet.is("article")
       ? getPath().split("/")[2].split("?")[0].split("#")[0]
@@ -1745,6 +1746,10 @@
     requestTweet(id, res => {
       $tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+      })
+      $tweet.find(`[data-testid="card.layoutSmall.media"]`).each(function() {
+        console.log(res);
+        $(this).next().wrap(`<a href="${res.entities.urls.find(e => e.url == res.cards.players.find(p => Object.values(p.images)[0].image_url.match($(this).find("img[src*=card_img]").attr("src").match(/card_img\/(\d+)/)[1])).url).expanded_url}"></a>`)
       })
     })
   })

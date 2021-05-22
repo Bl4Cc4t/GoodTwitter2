@@ -2024,6 +2024,19 @@ body[data-gt2-path^="messages/"] {
 }
 
 
+// embed card links
+[data-testid="card.layoutSmall.media"] + a {
+  display: flex;
+  justify-content: center;
+  &,
+  &:link,
+  &:visited {
+    color: var(--color-user);
+    text-decoration-line: none;
+  }
+}
+
+
 // left sidebar
 .gt2-left-sidebar {
   margin-top: -10px;
