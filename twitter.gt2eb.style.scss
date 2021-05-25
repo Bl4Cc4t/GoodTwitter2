@@ -872,11 +872,13 @@ body[data-gt2-path=explore] {
     }
 
     .gt2-legacy-profile-description:not(:empty) {
-      color: var(--color-text);
-      [data-testid=UserDescription] + div {
-        width: max-content;
-        &:hover {
-          text-decoration-line: underline;
+      [data-testid=UserDescription] {
+        color: var(--color-text);
+        & + div {
+          width: max-content;
+          &:hover {
+            text-decoration-line: underline;
+          }
         }
       }
     }
@@ -897,8 +899,16 @@ body[data-gt2-path=explore] {
       width: -moz-fit-content;
       width: -webkit-fit-content;
     }
+    .gt2-legacy-profile-items {
+      span, svg {
+        color: var(--color-gray-light);
+      }
+    }
 
     .gt2-legacy-profile-fyk:not(:empty) {
+      span, div {
+        color: var(--color-gray-light);
+      }
       margin-top: 12px;
       padding-right: 10px;
       &:hover {

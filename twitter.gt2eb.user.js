@@ -568,9 +568,6 @@
     // hide follow suggestions
     if ($(this).is("[data-hfs-type]")) {
       let opt = GM_getValue("opt_gt2")
-      console.log(opt.hideFollowSuggestionsSel);
-      console.log(parseInt($(this).attr("data-hfs-type")));
-      console.log(opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")));
       GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsSel"]: opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")) }))
     }
     disableTogglesIfNeeded()
@@ -598,28 +595,16 @@
     }
 
     // other trend related toggles are not needed when the trends are disabled
-    $t = $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
-    if (GM_getValue("opt_gt2").hideTrends) {
-      $t.addClass("gt2-disabled")
-    } else {
-      $t.removeClass("gt2-disabled")
-    }
+    $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
+    [GM_getValue("opt_gt2").hideTrends ? "addClass" : "removeClass"]("gt2-disabled")
 
     // hide font input if fontOverride is disabled
-    $t = $("[data-setting-name=fontOverrideValue]")
-    if (GM_getValue("opt_gt2").fontOverride) {
-      $t.removeClass("gt2-hidden")
-    } else {
-      $t.addClass("gt2-hidden")
-    }
+    $("[data-setting-name=fontOverrideValue]")
+    [GM_getValue("opt_gt2").fontOverride ? "removeClass" : "addClass"]("gt2-hidden")
 
     // hide follow suggestions
-    $t = $("[data-setting-name=hideFollowSuggestionsSel]")
-    if (GM_getValue("opt_gt2").hideFollowSuggestions) {
-      $t.removeClass("gt2-hidden")
-    } else {
-      $t.addClass("gt2-hidden")
-    }
+    $("[data-setting-name=hideFollowSuggestionsSel]")
+    [GM_getValue("opt_gt2").hideFollowSuggestions ? "removeClass" : "addClass"]("gt2-hidden")
   }
 
 
@@ -1886,11 +1871,6 @@
       $(e).parents("[role=button]").click()
     })
   }
-
-
-  // notifications bell background
-  waitForKeyElements(`path[d^="M23.61.15c-.375"]`,     e => $(e).parents("svg").parent().parent().css("background-color", "var(--color-user)"))
-  waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => $(e).parents("svg").parent().parent().css("background-color", ""))
 
 
   // hide timeline follow suggestions
