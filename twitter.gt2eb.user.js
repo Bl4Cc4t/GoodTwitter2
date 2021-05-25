@@ -1848,7 +1848,7 @@
 
 
   // user color
-  waitForKeyElements(`[data-testid=SideNav_NewTweet_Button]`, e => {
+  waitForKeyElements(`body:not(.gt2-opt-color-override) [data-testid=SideNav_NewTweet_Button]`, e => {
     let userColor = $(e).css("background-color")
     if (userColor != GM_getValue("opt_display_userColor")) {
       GM_setValue("opt_display_userColor", userColor)
