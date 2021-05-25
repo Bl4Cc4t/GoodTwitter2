@@ -1232,10 +1232,14 @@ body:not(.gt2-opt-font-override) {
 
 // tweet icons pull right
 .gt2-opt-tweet-icons-pull-left {
-  [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
+  [data-testid=primaryColumn] [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
     justify-content: unset;
-    & > * {
-      width: 80px;
+    & > *:not(:nth-child(4)) {
+      max-width: 80px;
+      margin-right: 20px;
+    }
+  }
+}
     }
   }
 }
