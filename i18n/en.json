@@ -1,7 +1,7 @@
 {
   "composeNewTweet": "Tweet",
   "navBookmarks": "Bookmarks",
-  "navDirectMessage": "Messages",
+  "navMessages": "Messages",
   "navExplore": "Explore",
   "navHome": "Home",
   "navLists": "Lists",
@@ -53,6 +53,8 @@
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",
   "leftTrendsDesc": "Show the trends in the left sidebar.",
+  "leftMedia": "Left Sidebar Media",
+  "leftMediaDesc": "Show the media container on profile pages in the left sidebar.",
   "enableQuickBlock": "Enable Quickblock",
   "enableQuickBlockDesc": "Hover over the follow button for 3 seconds to block a profile.",
   "legacyProfile": "Legacy Profile Layout",
@@ -63,6 +65,11 @@
   "squareAvatars": "Square Avatars",
   "tweetIconsPullLeft": "Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "GoodTwitter 2 Update Notifications",
+  "rosettaIcons": "Rosetta Icons",
+  "rosettaIconsDesc": "Use the pre 2017 Rosetta icon font",
+  "favorite": "Favorite",
+  "favorites": "Favorites",
+  "favoriteLikes": "Replace Likes with Favorites",
 
   "updatedInfo": "Updated to $version$!",
   "updatedInfoChangelog": "Changelog"
