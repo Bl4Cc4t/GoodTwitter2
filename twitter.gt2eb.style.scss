@@ -2446,7 +2446,8 @@ body[data-payment-endpoint-path] {
 // quick block buttons
 [data-testid$="-follow"] {
   &[data-gt2-qb-state=offer] {
-    border-color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background-color: rgba(var(--color-raw-red), 0.1) !important;
     & > div > span > span {
       color: var(--color-red);
       &:not(.gt2-qb-block) {
@@ -2455,14 +2456,14 @@ body[data-payment-endpoint-path] {
     }
   }
   &[data-gt2-qb-state=blocked] {
-    border-color: var(--color-red);
-    background-color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background-color: var(--color-red) !important;
     & > div > span > span {
       color: white;
     }
     &:hover {
-      border-color: var(--color-red-dark);
-      background-color: var(--color-red-dark);
+      border-color: var(--color-red-dark) !important;
+      background-color: var(--color-red-dark) !important;
       & > div > span > span:not(.gt2-qb-unblock) {
         display: none;
       }

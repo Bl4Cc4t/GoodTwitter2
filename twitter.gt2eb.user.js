@@ -1815,10 +1815,9 @@
 
 
   // high contrast
-  $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) > label > div:nth-child(2)`, function() {
+  $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) label [aria-labelledby]`, function() {
     GM_setValue("opt_display_highContrast", !$(this).find("input").is("[checked]"))
     updateCSS()
-
   })
 
 
@@ -1941,7 +1940,7 @@
         bg:           "#e6ecf0",
         elem:         "rgb(255, 255, 255)",
         elemSel:      "rgb(247, 249, 250)",
-        gray:         "#8899a6",
+        gray:         "rgb(91, 112, 131)",
         grayDark:     "#e6ecf0",
         grayDark2:    "rgb(196, 207, 214)",
         grayLight:    "rgb(101, 119, 134)",
@@ -2014,11 +2013,11 @@
     }
 
     let baseColors = {
-      //        normal            highContrast
-      blue:     ["29, 161, 242",  "112, 200, 255"],
-      green:    ["23, 191, 99",   "102, 211, 151"],
-      red:      ["224, 36, 94",   "240, 152, 179"],
-      redDark:  ["202, 32, 85",   "216, 137, 161"]
+      //        normal            white hc          // dim/lo hc
+      blue:     ["29, 161, 242",  "38, 74, 157",    "112, 200, 255"],
+      green:    ["23, 191, 99",   "9, 102, 51",     "102, 211, 151"],
+      red:      ["224, 36, 94",   "159, 12, 58",    "240, 152, 179"],
+      redDark:  ["202, 32, 85",   "169, 36, 78",    "216, 137, 161"],
     }
 
     // initialize with the current settings
@@ -2076,7 +2075,7 @@
           )
           .replace("--baseColors:$;",
             Object.entries(baseColors)
-            .map(e => [e[0].toKebab(), e[1][opt_display_highContrast ? 1 : 0]])
+            .map(e => [e[0].toKebab(), e[1][opt_display_highContrast ? opt_display_bgColor == "rgb(255, 255, 255)" ? 1 : 2 : 0]])
             .map(e => `--color-raw-${e[0]}: ${e[1]}; --color-${e[0]}: rgb(${e[1]});`)
             .join(" ")
           )
