@@ -88,6 +88,11 @@
     return this.toString().replaceAt(index, 0, text)
   }
 
+  String.prototype.hexToRgb = function() {
+    let tmp = parseInt(this.toString().replace(/^([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => `${r}${r}${g}${g}${b}${b}`), 16)
+    return [tmp >> 16 & 255, tmp >> 8 & 255, tmp & 255].join()
+  }
+
 
   const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
 
@@ -380,6 +385,8 @@
     hideFollowSuggestionsSel: 7,
     fontOverride:             false,
     fontOverrideValue:        "Arial",
+    colorOverride:            false,
+    colorOverrideValue:       "#556644",
     hideMessageBox:           true,
 
     updateNotifications:      true,
@@ -528,6 +535,11 @@
               <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
             </div>
           `)}
+          ${getSettingTogglePart("colorOverride", `
+            <div class="gt2-setting-input" data-setting-name="colorOverrideValue">
+              <input type="text" value="${GM_getValue("opt_gt2").colorOverrideValue}">
+            </div>
+          `)}
           ${getSettingTogglePart("hideMessageBox")}
           <div class="gt2-settings-seperator"></div>
 
@@ -576,7 +588,16 @@
   // handler for inputs
   $("body").on("keyup", ".gt2-setting-input input", function() {
     let name = $(this).parent().attr("data-setting-name").trim()
-    let val = $(this).val()
+    let val = $(this).val().trim()
+    // color correction
+    if (name == "colorOverrideValue") {
+      // check if valid color code
+      let r255 = "(([0-9])|([1-9][0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5]))"
+      // convert hex to rgb
+      if (val.match(/^#([\da-f]{3}|[\da-f]{6})$/i)) val = val.slice(1).hexToRgb()
+      else if (!val.match(new RegExp(`^(${r255},\\s*${r255},\\s*${r255})$`))) return
+    }
+
     GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { [name]: val}))
     document.documentElement.style.setProperty(`--${name.replace("Value", "").toKebab()}`, val)
   })
@@ -601,6 +622,10 @@
     // hide font input if fontOverride is disabled
     $("[data-setting-name=fontOverrideValue]")
     [GM_getValue("opt_gt2").fontOverride ? "removeClass" : "addClass"]("gt2-hidden")
+
+    // hide color input if colorOverride is disabled
+    $("[data-setting-name=colorOverrideValue]")
+    [GM_getValue("opt_gt2").colorOverride ? "removeClass" : "addClass"]("gt2-hidden")
 
     // hide follow suggestions
     $("[data-setting-name=hideFollowSuggestionsSel]")
@@ -657,6 +682,7 @@
             ${getLocStr(`nav${e}`)}
           </div>
         `)
+        .attr("data-gt2-color-override-ignore", "")
       }
 
       // highlight current location
@@ -1908,6 +1934,16 @@
   }
 
 
+  // do not colorOverride these elements (reply/like/retweet/share on tweets and verified badge)
+  waitForKeyElements(`[data-testid=tweet] [role=group]`, e => $(e).find("[role=button] *").attr("data-gt2-color-override-ignore", ""))
+  waitForKeyElements(`path[d^="M22.5 12.5c0-1.58-.875"]`, e => $(e).parents("svg").attr("data-gt2-color-override-ignore", ""))
+  waitForKeyElements(`[data-gt2-path-modal="i/display"] div:nth-last-child(2) > div > [role=radiogroup],
+                      [data-gt2-path="settings/display"] div:nth-last-child(2) > div > [role=radiogroup]`, e => {
+    let $e = $(e).parents("[aria-labelledby]")
+    $e.find("[name*=COLOR_PICKER]").parents("label").parent().find("*").attr("data-gt2-color-override-ignore", "")
+    $e.find("[dir]:nth-child(3) + div:not([dir]) > div > div > div[dir] + div *").attr("data-gt2-color-override-ignore", "")
+  })
+
 
   // ################
   // #  Update CSS  #
@@ -2022,8 +2058,8 @@
 
     // initialize with the current settings
     if (GM_getValue("gt2_initialized") == undefined && isLoggedIn()) {
-      waitForKeyElements("h2 > a[href='/i/keyboard_shortcuts'] span", () => {
-        GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
+      waitForKeyElements(`h2 > a[href="/i/keyboard_shortcuts"] span`, () => {
+        GM_setValue("opt_display_userColor",  $(`a[href="/i/keyboard_shortcuts"]`).css("color"))
         GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
         GM_setValue("opt_display_highContrast", false)
         GM_setValue("opt_display_fontSize",   $("html").css("font-size"))
@@ -2082,6 +2118,7 @@
           .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$fontOverride",   GM_getValue("opt_gt2").fontOverrideValue)
+          .replace("$colorOverride",  GM_getValue("opt_gt2").colorOverrideValue)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
         </style>`
       )

@@ -1,14 +1,13 @@
 :root {
   --bgColors:$;
   --baseColors:$;
-  --color-raw-user:   $userColor;
   --scrollbar-width:  $scrollbarWidth;
   --global-font-size: $globalFontSize;
+  --font-override:    $fontOverride;
+  --color-normal:     $userColor;
+  --color-override:   $colorOverride;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --color-user:       rgb(var(--color-raw-user));
-
-  --font-override:    $fontOverride;
   --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
@@ -855,7 +854,7 @@ body[data-gt2-path=explore] {
 
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
-    color: var(--color-text);
+    color: var(--color-gray-light);
   }
 
   .gt2-legacy-profile-info {
@@ -1186,7 +1185,78 @@ body:not(.gt2-opt-font-override) {
   }
 }
 
+
+// color global override
+.gt2-opt-color-override {
+  --color-raw-user: var(--color-override);
+  --color-user: rgb(var(--color-override));
+  // normal color
+  *:not(#placeholder) {
+    // blue         yellow         red             purple          orange          green
+    & > .r-13gxpu9, & > .r-61mi1v, & > .r-daml9f,  & > .r-xfsgu1,  & > .r-1qkqhnw, & > .r-nw8l94,  // normal
+    & > .r-xyrcl7,  & > .r-iogyil, & > .r-dyo1pg,  & > .r-1u5vp33, & > .r-ucruu0,  & > .r-58mm23, // white hc
+    & > .r-6743kw,  & > .r-mjbqy8, & > .r-1e0i1xg, & > .r-2o3veo,  & > .r-pxzkq4,  & > .r-mhzhfq, // dim/lo hc
+    & > .r-1n1174f // blue (link?)
+    {
+      &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
+        color: var(--color-user) !important;
+      }
+    }
   }
+
+  // border
+  // blue     yellow      red         purple      orange      green
+  .r-p1n3y5,  .r-v6khid,  .r-1iofnty, .r-11mmphe, .r-1xl5njo, .r-5ctkeg,  // normal
+  .r-yness5,  .r-9h97i0,  .r-1y0ydr9, .r-1v3952k, .r-57jueo,  .r-2a99tl,  // white hc
+  .r-141ztgp, .r-dbkiaw,  .r-161anm9, .r-1mqg5jq, .r-15zavzp, .r-16uoikt, // dim/lo hc
+  // border-right-color
+  .r-4rwt92,  .r-o1b8s3,  .r-l7fug5,  .r-ukm9ly,  .r-as53oi,  .r-1oux8jo, // normal
+  .r-d5u5q4,  .r-19xls35, .r-1kbil5v, .r-s9itga,  .r-bym8x3,  .r-1yd53u3, // white hc
+  .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
+  [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
+    &:not([data-gt2-color-override-ignore]) {
+      border-color: var(--color-user) !important;
+    }
+  }
+
+  // background-color
+  // blue     yellow      red         purple      orange      green
+  .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
+  .r-uc097p,  .r-xw9v2f,  .r-evx7rm   .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
+  .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: var(--color-user) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-zv2cs0,  .r-75i7r9,  .r-wcu338,  .r-va2hk5,  .r-1vxd3ld, .r-1up5ays, // normal
+  .r-1bek5y6, .r-1ho5ue4, .r-vrom3q,  .r-ri3bjg,  .r-bnzbsy,  .r-1q8d70v, // white hc
+  .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: rgba(var(--color-raw-user), 0.1) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-1q3imqu, .r-1kplyi6, .r-1ucxkr8, .r-njt2r9,  .r-l779s2,  .r-zx61xx, // normal
+  .r-1urml5z, .r-1qhlxry, .r-1vitrf9, .r-pg0o0i,  .r-z5urpw,  .r-xsbikc, // white hc
+  .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
+      background-color: rgba(var(--color-raw-user), 0.7) !important;
+    }
+  }
+
+
+  // compose tweet length indicator
+  [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
+    stroke: var(--color-user) !important;
+  }
+}
+body:not(.gt2-opt-color-override) {
+  --color-raw-user: var(--color-normal);
+  --color-user: rgb(var(--color-normal));
 }
 
 
@@ -1303,8 +1373,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
     & > div > div > div {
       background-color: rgba(var(--color-raw-blue), 0.1);
     }
-    svg {
-      fill: var(--color-blue);
+    & > div {
+      color: var(--color-blue);
     }
   }
   // retweets
@@ -1316,8 +1386,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   }
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet] {
-    svg {
-      fill: var(--color-green);
+    & > div {
+      color: var(--color-green);
     }
   }
 
@@ -1330,8 +1400,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   }
   div[data-testid=like]:hover,
   div[data-testid=unlike] {
-    svg {
-      fill: var(--color-red);
+    & > div {
+      color: var(--color-red);
     }
   }
 }
@@ -1567,7 +1637,7 @@ a.gt2-trend {
     right: calc(50% - 12px);
     width: incr(24px);
     margin-top: calc(8px - var(--font-increment));
-    & svg {
+    svg path {
       color: #1da1f2;
     }
   }
