@@ -635,7 +635,7 @@
 
   // add navbar
   function addNavbar() {
-    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
+    waitForKeyElements(`nav > a[href="/home"]`, () => {
       if ($(".gt2-nav").length) return
 
       $("main").before(`
@@ -659,13 +659,14 @@
       for (let e of [
         "Home",
         "Notifications",
-        "DirectMessage",
+        "Messages",
         window.innerWidth < 1005 ? "Explore" : null
       ]) {
         if (!e) continue
-        $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
-        .appendTo(".gt2-nav-left")
-        $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
+        let $e = $(`nav > a[href="/${e.toLowerCase()}"]`)
+        if (!e.length) continue
+        $e.appendTo(".gt2-nav-left")
+        $(`.gt2-nav a[href="/${e.toLowerCase()}"] > div`)
         .append(`
           <div class="gt2-nav-header">
             ${getLocStr(`nav${e}`)}
@@ -2264,6 +2265,7 @@
 
 
     // add navbar
+    if ($("body").attr("data-gt2-prev-path") == "i/moment_maker") $(".gt2-nav").remove()
     if (!$(".gt2-nav").length) {
       if (isLoggedIn()) {
         addNavbar()

@@ -540,7 +540,8 @@ $notLegacyProfile: "
     }
   }
   body[data-gt2-path="messages"],
-  body[data-gt2-path^="messages/"] {
+  body[data-gt2-path^="messages/"],
+  body[data-gt2-path="i/moment_maker"] {
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
@@ -1998,7 +1999,8 @@ nav [role=tablist] [aria-selected=true] {
 }
 
 body[data-gt2-path="messages"],
-body[data-gt2-path^="messages/"] {
+body[data-gt2-path^="messages/"],
+body[data-gt2-path="i/moment_maker"] {
   .gt2-left-sidebar {
     display: none;
   }
@@ -2029,6 +2031,11 @@ body[data-gt2-path^="messages/"] {
         }
       }
     }
+  }
+}
+body[data-gt2-path="i/moment_maker"] {
+  section:nth-of-type(1) > div:nth-child(2) {
+    background-color: var(--color-elem);
   }
 }
 
