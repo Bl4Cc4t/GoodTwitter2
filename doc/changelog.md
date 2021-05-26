@@ -1,6 +1,38 @@
 # Changelog
 
 
+## [0.0.30](https://github.com/Bl4Cc4t/GoodTwitter2/pull/274)
+*released 2021-05-26*
+#### New
+- **[Translation]** Romanian added (thanks [Andy9001](https://github.com/Andy9001)!)
+- **[New Option]** Move media tab to the left side sidebar (#179)
+- **[New Option]** Use custom accent color (#58)
+   <img src="https://user-images.githubusercontent.com/6740726/119689673-556c8f00-be49-11eb-99dc-bf0087255349.png" width="500px" />
+
+- **[New Option]** Bunch up Tweet Interaction Buttons to the Left (#278)
+  <img src="https://user-images.githubusercontent.com/6740726/119239851-340b5a80-bb4c-11eb-9b3e-962ebab2ceea.png" width="500px" />
+
+- Made "Show more tweets" more noticable (#271)
+- Reintroduced full-width indicators under the current tablist navigation element
+
+   Before | After
+   ----|-----
+   ![image](https://user-images.githubusercontent.com/6740726/119239648-cad71780-bb4a-11eb-879d-332858ef617b.png) | ![image](https://user-images.githubusercontent.com/6740726/119239604-7d5aaa80-bb4a-11eb-9948-855afa6c4fd0.png)
+
+#### Changes
+- Ordered the settings page and made it easier to find what you're looking for
+- *Hide Who To Follow* now is *Hide Follow Suggestions*.
+   You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
+  <img src="https://user-images.githubusercontent.com/6740726/119239367-d88b9d80-bb48-11eb-80f0-e3713017f3d8.png" width="500px" />
+- ~~some more white follow buttons (lists and topics) changed back to the colored variant (#266, #272)~~
+  This was reverted by Twitter itself after 2 months.
+- Card embeds in tweets now also expand with *Expand t.co shortlinks* activated
+- Like usual, many bugfixes
+
+#### Removed
+- *Show NSFW Media in Messages* sadly no longer works/isn't possible to do anymore, so I removed it.
+
+
 ## [0.0.29](https://github.com/Bl4Cc4t/GoodTwitter2/pull/244)
 *released 2021-03-24*
 - **[Translation]** Polish added (thanks [@mkljczk](https://github.com/mkljczk)!)
