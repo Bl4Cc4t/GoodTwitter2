@@ -14,8 +14,9 @@
 - [Installation](#installation)
 - [FAQ](#faq)
 - [Translations](#translations)
-- [Previews](#previews)
 - [Similar projects](#similar-projects)
+- [Credits](#credits)
+- [Previews](#previews)
 
 
 ## Background
@@ -106,11 +107,22 @@ Open the following box to learn more.
   ````
 </details>
 
-## Previews
-![](https://i.imgur.com/3xY7IIp.png)
-![](https://i.imgur.com/gxg8CUE.png)
-![](https://i.imgur.com/nBzwaOe.png)
-![](https://i.imgur.com/VR8Le4u.png)
-
 ## Similar projects
 - [userscripts-public](https://github.com/Bl4Cc4t/userscripts-public) (other very small userscripts)
+
+## Credits
+This project uses the following libraries:
+- [pickr](https://github.com/Simonwep/pickr) to select colors
+- [emoji-regex](https://github.com/mathiasbynens/emoji-regex) to display the twitter emojis at various places
+- [jQuery](https://jquery.com)
+- [waitForKeyElements.js](https://gist.github.com/BrockA/2625891)
+- some polyfills from MDN
+
+## Previews
+![](doc/img/home-1.png)
+![](doc/img/profile-1.png)
+![](doc/img/profile-2.png)
+![](doc/img/tweet.png)
+![](doc/img/home-2.png)
+![](doc/img/settings-1.png)
+![](doc/img/settings-2.png)
