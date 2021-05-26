@@ -1222,7 +1222,7 @@ body:not(.gt2-opt-font-override) {
   // background-color
   // blue     yellow      red         purple      orange      green
   .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
-  .r-uc097p,  .r-xw9v2f,  .r-evx7rm   .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
+  .r-uc097p,  .r-xw9v2f,  .r-evx7rm,  .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
   .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
   {
     &:not([data-gt2-color-override-ignore]) {
@@ -1248,6 +1248,16 @@ body:not(.gt2-opt-font-override) {
     }
   }
 
+  // box-shadow
+  // blue     yellow      red         purple      orange      green
+  .r-1bih22f, .r-cdj8wb,  .r-jd07pc,  .r-hy56xe,  .r-b8m25f,  .r-1cqwhho, // normal
+  .r-yab67o,  .r-1wzm90r, .r-1cstf6x, .r-13g0htx, .r-fne7zz,  .r-nlrx61,  // white hc
+  .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      box-shadow: var(--color-user) 0px 0px 0px 1px !important;
+    }
+  }
 
   // compose tweet length indicator
   [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
@@ -2056,6 +2066,28 @@ body[data-gt2-path^="settings/"] {
           margin-right: 10px;
           font-size: incr(13px);
         }
+      }
+    }
+
+    // color pickr
+    .gt2-color-override-pickr {
+      opacity: 1;
+      visibility: visible;
+      margin-top: 12.5px;
+      width: auto;
+      &,
+      input {
+        font-family: inherit;
+        background-color: transparent;
+        border: 1px solid var(--color-gray-dark-2);
+        border-radius: 4px;
+        box-shadow: unset;
+        font-size: calc(15px + var(--font-increment));
+        color: var(--color-text);
+      }
+      .pcr-type.active {
+        background-color: var(--color-user);
+        color: var(--color-text-2);
       }
     }
   }

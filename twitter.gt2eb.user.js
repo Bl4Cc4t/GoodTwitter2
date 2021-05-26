@@ -20,10 +20,12 @@
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://github.com/mathiasbynens/emoji-regex/raw/main/es2015/index.js
+// @resource      pickrCss https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
+// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
+// @require       https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
@@ -87,12 +89,6 @@
   String.prototype.insertAt = function(index, text) {
     return this.toString().replaceAt(index, 0, text)
   }
-
-  String.prototype.hexToRgb = function() {
-    let tmp = parseInt(this.toString().replace(/^([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => `${r}${r}${g}${g}${b}${b}`), 16)
-    return [tmp >> 16 & 255, tmp >> 8 & 255, tmp & 255].join()
-  }
-
 
   const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
 
@@ -386,7 +382,7 @@
     fontOverride:             false,
     fontOverrideValue:        "Arial",
     colorOverride:            false,
-    colorOverrideValue:       "#556644",
+    colorOverrideValue:       "85, 102, 68",
     hideMessageBox:           true,
 
     updateNotifications:      true,
@@ -535,11 +531,7 @@
               <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
             </div>
           `)}
-          ${getSettingTogglePart("colorOverride", `
-            <div class="gt2-setting-input" data-setting-name="colorOverrideValue">
-              <input type="text" value="${GM_getValue("opt_gt2").colorOverrideValue}">
-            </div>
-          `)}
+          ${getSettingTogglePart("colorOverride", `<div class="gt2-pickr"></div>`)}
           ${getSettingTogglePart("hideMessageBox")}
           <div class="gt2-settings-seperator"></div>
 
@@ -556,6 +548,33 @@
           <section>${elem}</section>
         `)
       }
+      // add color pickr
+      Pickr.create({
+        el: ".gt2-pickr",
+        theme: "classic",
+        lockOpacity: true,
+        useAsButton: true,
+        appClass: "gt2-color-override-pickr",
+        inline: true,
+        default: `rgb(${GM_getValue("opt_gt2").colorOverrideValue})`,
+        components: {
+          preview: true,
+          hue: true,
+          interaction: {
+            hex: true,
+            rgba: true,
+            hsla: true,
+            hsva: true,
+            cmyk: true,
+            input: true
+          }
+        }
+      })
+      .on("change", e => {
+        let val = e.toRGBA().toString(0).slice(5, -4)
+        GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { colorOverrideValue: val}))
+        document.documentElement.style.setProperty("--color-override", val)
+      })
       disableTogglesIfNeeded()
     }
   }
@@ -589,14 +608,6 @@
   $("body").on("keyup", ".gt2-setting-input input", function() {
     let name = $(this).parent().attr("data-setting-name").trim()
     let val = $(this).val().trim()
-    // color correction
-    if (name == "colorOverrideValue") {
-      // check if valid color code
-      let r255 = "(([0-9])|([1-9][0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5]))"
-      // convert hex to rgb
-      if (val.match(/^#([\da-f]{3}|[\da-f]{6})$/i)) val = val.slice(1).hexToRgb()
-      else if (!val.match(new RegExp(`^(${r255},\\s*${r255},\\s*${r255})$`))) return
-    }
 
     GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { [name]: val}))
     document.documentElement.style.setProperty(`--${name.replace("Value", "").toKebab()}`, val)
@@ -624,7 +635,7 @@
     [GM_getValue("opt_gt2").fontOverride ? "removeClass" : "addClass"]("gt2-hidden")
 
     // hide color input if colorOverride is disabled
-    $("[data-setting-name=colorOverrideValue]")
+    $(".gt2-color-override-pickr")
     [GM_getValue("opt_gt2").colorOverride ? "removeClass" : "addClass"]("gt2-hidden")
 
     // hide follow suggestions
@@ -2120,7 +2131,8 @@
           .replace("$fontOverride",   GM_getValue("opt_gt2").fontOverrideValue)
           .replace("$colorOverride",  GM_getValue("opt_gt2").colorOverrideValue)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
-        </style>`
+        </style>
+        <style class="gt2-style-pickr">${GM_getResourceText("pickrCss")}</style>`
       )
     }
 
