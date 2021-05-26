@@ -7,9 +7,11 @@
 - **[Translation]** Romanian added (thanks [Andy9001](https://github.com/Andy9001)!)
 - **[New Option]** Move media tab to the left side sidebar (#179)
 - **[New Option]** Use custom accent color (#58)
-   <img src="https://user-images.githubusercontent.com/6740726/119689673-556c8f00-be49-11eb-99dc-bf0087255349.png" width="500px" />
+
+  <img src="https://user-images.githubusercontent.com/6740726/119689673-556c8f00-be49-11eb-99dc-bf0087255349.png" width="500px" />
 
 - **[New Option]** Bunch up Tweet Interaction Buttons to the Left (#278)
+
   <img src="https://user-images.githubusercontent.com/6740726/119239851-340b5a80-bb4c-11eb-9b3e-962ebab2ceea.png" width="500px" />
 
 - Made "Show more tweets" more noticable (#271)
@@ -22,7 +24,9 @@
 #### Changes
 - Ordered the settings page and made it easier to find what you're looking for
 - *Hide Who To Follow* now is *Hide Follow Suggestions*.
-   You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
+
+  You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
+
   <img src="https://user-images.githubusercontent.com/6740726/119239367-d88b9d80-bb48-11eb-80f0-e3713017f3d8.png" width="500px" />
 - ~~some more white follow buttons (lists and topics) changed back to the colored variant (#266, #272)~~
   This was reverted by Twitter itself after 2 months.
