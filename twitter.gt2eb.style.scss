@@ -611,7 +611,7 @@ main {
 
         // small compose tweet
         & > div:nth-child(2):not(.gt2-compose-large) {
-          & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
+          [data-testid=toolBar] {
             display: none;
           }
         }
