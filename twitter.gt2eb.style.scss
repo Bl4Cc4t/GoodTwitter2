@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 :root {
   --bgColors:$;
   --baseColors:$;
@@ -26,6 +28,18 @@ $notLegacyProfile: "
 // returns val with --font-increment added
 @function incr($val) {
   @return calc(#{$val} + var(--font-increment));
+}
+
+// 2014-02 ~ 2017-06
+@font-face {
+  font-family: Rosetta;
+  src: url(https://abs.twimg.com/a/1496201771/font/rosetta-icons-Regular.woff);
+}
+
+// 2017-06 ~ 2019-07
+@font-face {
+  font-family: Edge;
+  src: url(https://abs.twimg.com/a/1569889127/font/edge-icons-Regular.woff);
 }
 
 
@@ -1320,8 +1334,76 @@ body:not(.gt2-opt-color-override) {
     }
   }
 }
+
+// rosetta/edge icons
+@mixin iconReplace($font, $glyph, $size, $pad) {
+  > div {
+    &:nth-child(1) {
+      position: relative;
+      &:before {
+        font-family: $font;
+        content: unquote("\"\\#{$glyph}\"");
+        font-size: $size;
+        padding: $pad;
+      }
+    }
+    &:not(:nth-child(1)) {
+      display: none;
     }
   }
+  > svg {
+    display: none;
+  }
+}
+
+@mixin rosetta($glyph, $size, $pad) {
+  @include iconReplace(Rosetta, $glyph, $size, $pad);
+}
+@mixin edge($glyph, $size, $pad) {
+  @include iconReplace(Edge, $glyph, $size, $pad);
+}
+
+// small: 34.75
+// big:   38.5
+
+.gt2-opt-favorite-likes {
+  [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 19px, 7px 8.82px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+     [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 25px, 8.5px 8px 10px); }
+  }
+  [data-testid$=like]:hover > div:nth-child(1) > div:nth-child(1) > div {
+    background-color: rgba(var(--color-raw-yellow), 0.1) !important;
+  }
+  [data-testid=like]:hover > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+  [data-testid=unlike] > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+}
+
+.gt2-opt-rosetta-icons {
+  // like, reply, retweet
+  &:not(.gt2-opt-favorite-likes) {
+    [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 19px, 7px 9.18px 7.75px); }
+    [data-testid=tweet] + div,
+    [aria-modal] > div > div:nth-child(1) {
+      [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 24px, 8.5px 8.9px 10px); }
+    }
+  }
+  [data-testid=tweet] [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 16.5px, 7px 9.16px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 20px, 8.5px 9.3px 10px); }
+  }
+  [data-testid=tweet] [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 16.5px, 7px 7.12px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 20px, 8.5px 6.8px 10px); }
+  }
+
+  [data-testid$=caret] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f196', 16.5px, 7px 9.7px 7.75px); }
 }
 
 
@@ -1419,25 +1501,27 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
 
 // color carets with the user color
 // make carets look like carets again (instead of 3 dots)
-div[data-testid=caret] {
-  & > div > div > div {
-    transition: all .2s ease-in-out;
-    background-color: var(--color-user);
-    opacity: 0;
-    &:hover {
-      opacity: .1;
-      & + svg {
-        background-color: var(--color-user);
+body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
+  div[data-testid=caret] {
+    & > div > div > div {
+      transition: all .2s ease-in-out;
+      background-color: var(--color-user);
+      opacity: 0;
+      &:hover {
+        opacity: .1;
+        & + svg {
+          background-color: var(--color-user);
+        }
       }
     }
-  }
-  svg {
-    background-color: var(--color-gray-light);
-    pointer-events: none;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    g {
-      display: none;
+    svg {
+      background-color: var(--color-gray-light);
+      pointer-events: none;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      g {
+        display: none;
+      }
     }
   }
 }
