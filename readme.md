@@ -29,7 +29,7 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 
 ## Features
 - Legacy Navbar is back!
-![](https://i.imgur.com/Q4Ss6vk.png)
+  ![](doc/img/navbar.png)
 - Legacy Profile Layout Option!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
@@ -124,5 +124,8 @@ This project uses the following libraries:
 ![](doc/img/profile-2.png)
 ![](doc/img/tweet.png)
 ![](doc/img/home-2.png)
-![](doc/img/settings-1.png)
-![](doc/img/settings-2.png)
+
+### Settings
+Page 1 | Page 2
+-|-
+![](doc/img/settings-1.png) | ![](doc/img/settings-2.png)
