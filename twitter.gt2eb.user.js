@@ -1,11 +1,15 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.29
+// @version       0.0.30
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
+// @exclude       https://twitter.com/i/release_notes
+// @exclude       https://twitter.com/*/privacy
+// @exclude       https://twitter.com/*/tos
+// @exclude       https://twitter.com/account/access
 // @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
@@ -16,10 +20,12 @@
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://github.com/mathiasbynens/emoji-regex/raw/main/es2015/index.js
+// @resource      pickrCss https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
+// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
+// @require       https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
@@ -83,7 +89,6 @@
   String.prototype.insertAt = function(index, text) {
     return this.toString().replaceAt(index, 0, text)
   }
-
 
   const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
 
@@ -200,7 +205,8 @@
       url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
         id,
         tweet_mode: "extended",
-        trim_user: true
+        trim_user: true,
+        include_cards: 1
       }),
       headers: getRequestHeaders(),
       onload: function(res) {
@@ -352,26 +358,35 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    disableAutoRefresh:       false,
     forceLatest:              false,
+    disableAutoRefresh:       false,
     keepTweetsInTL:           true,
-    smallSidebars:            false,
-    stickySidebars:           true,
-    leftTrends:               true,
-    squareAvatars:            false,
     biggerPreviews:           false,
-    show10Trends:             false,
-    updateNotifications:      true,
-    hideTrends:               false,
-    hideWhoToFollow:          false,
+
     hideTranslateTweetButton: false,
-    hideMessageBox:           true,
-    enableQuickBlock:         false,
+    tweetIconsPullLeft:       false,
+
+    stickySidebars:           true,
+    smallSidebars:            false,
+    hideTrends:               false,
+    leftTrends:               true,
+    show10Trends:             false,
+
     legacyProfile:            false,
-    showNsfwMessageMedia:     false,
-    expandTcoShortlinks:      true,
+    squareAvatars:            false,
+    enableQuickBlock:         false,
+    leftMedia:                false,
+
+    hideFollowSuggestions:    false,
+    hideFollowSuggestionsSel: 7,
     fontOverride:             false,
-    fontOverrideValue:        "Arial"
+    fontOverrideValue:        "Arial",
+    colorOverride:            false,
+    colorOverrideValue:       "85, 102, 68",
+    hideMessageBox:           true,
+
+    updateNotifications:      true,
+    expandTcoShortlinks:      true,
   }
 
   // set default options
@@ -394,6 +409,7 @@
     Object.assign(old, opt_gt2)
     GM_setValue("opt_gt2", old)
   }
+
 
   // toggle opt_gt2 value
   function toggleGt2Opt(key) {
@@ -472,29 +488,55 @@
           ${getSettingTogglePart("forceLatest")}
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
+          ${getSettingTogglePart("biggerPreviews")}
           <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
+          ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("tweetIconsPullLeft")}
+          <div class="gt2-settings-seperator"></div>
+
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
           ${getSettingTogglePart("smallSidebars")}
-          ${getSettingTogglePart("hideWhoToFollow")}
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
           <div class="gt2-settings-seperator"></div>
-          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
-          ${getSettingTogglePart("enableQuickBlock")}
+
+          <div class="gt2-settings-sub-header">${getLocStr("navProfile")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("enableQuickBlock")}
+          ${getSettingTogglePart("leftMedia")}
+          <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
+          ${getSettingTogglePart("hideFollowSuggestions", `
+            <div class="${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}" data-setting-name="hideFollowSuggestionsSel">
+              ${["topics", "users", "navLists"].map((e, i) => {
+                let x = Math.pow(2, i)
+                return `<div>
+                  <span>${getLocStr(e)}</span>
+                  <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-hfs-type="${x}">
+                    <div></div>
+                    <div>${getSvg("tick")}</div>
+                  </div>
+                </div>
+              `}).join("")}
+            </div>
+          `)}
           ${getSettingTogglePart("fontOverride", `
             <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
               <input type="text" value="${GM_getValue("opt_gt2").fontOverrideValue}">
             </div>
           `)}
-          ${getSettingTogglePart("biggerPreviews")}
-          ${getSettingTogglePart("updateNotifications")}
-          ${getSettingTogglePart("hideTranslateTweetButton")}
+          ${getSettingTogglePart("colorOverride", `<div class="gt2-pickr"></div>`)}
           ${getSettingTogglePart("hideMessageBox")}
-          ${getSettingTogglePart("showNsfwMessageMedia")}
+          <div class="gt2-settings-seperator"></div>
+
+          <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
+          ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("expandTcoShortlinks")}
         </div>
       `
@@ -506,6 +548,33 @@
           <section>${elem}</section>
         `)
       }
+      // add color pickr
+      Pickr.create({
+        el: ".gt2-pickr",
+        theme: "classic",
+        lockOpacity: true,
+        useAsButton: true,
+        appClass: "gt2-color-override-pickr",
+        inline: true,
+        default: `rgb(${GM_getValue("opt_gt2").colorOverrideValue})`,
+        components: {
+          preview: true,
+          hue: true,
+          interaction: {
+            hex: true,
+            rgba: true,
+            hsla: true,
+            hsva: true,
+            cmyk: true,
+            input: true
+          }
+        }
+      })
+      .on("change", e => {
+        let val = e.toRGBA().toString(0).slice(5, -4)
+        GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { colorOverrideValue: val}))
+        document.documentElement.style.setProperty("--color-override", val)
+      })
       disableTogglesIfNeeded()
     }
   }
@@ -521,15 +590,25 @@
   // handler for the toggles
   $("body").on("click", ".gt2-setting-toggle:not(.gt2-disabled)", function() {
     $(this).toggleClass("gt2-active")
-    let name = $(this).attr("data-setting-name").trim()
-    toggleGt2Opt(name)
-    $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
+    if ($(this).is("[data-setting-name]")) {
+      let name = $(this).attr("data-setting-name").trim()
+      toggleGt2Opt(name)
+      $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
+    }
+
+    // hide follow suggestions
+    if ($(this).is("[data-hfs-type]")) {
+      let opt = GM_getValue("opt_gt2")
+      GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsSel"]: opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")) }))
+    }
     disableTogglesIfNeeded()
   })
 
+  // handler for inputs
   $("body").on("keyup", ".gt2-setting-input input", function() {
     let name = $(this).parent().attr("data-setting-name").trim()
-    let val = $(this).val()
+    let val = $(this).val().trim()
+
     GM_setValue("opt_gt2", Object.assign(GM_getValue("opt_gt2"), { [name]: val}))
     document.documentElement.style.setProperty(`--${name.replace("Value", "").toKebab()}`, val)
   })
@@ -548,20 +627,20 @@
     }
 
     // other trend related toggles are not needed when the trends are disabled
-    $t = $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
-    if (GM_getValue("opt_gt2").hideTrends) {
-      $t.addClass("gt2-disabled")
-    } else {
-      $t.removeClass("gt2-disabled")
-    }
+    $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
+    [GM_getValue("opt_gt2").hideTrends ? "addClass" : "removeClass"]("gt2-disabled")
 
     // hide font input if fontOverride is disabled
-    $t = $("[data-setting-name=fontOverrideValue]")
-    if (GM_getValue("opt_gt2").fontOverride) {
-      $t.removeClass("gt2-hidden")
-    } else {
-      $t.addClass("gt2-hidden")
-    }
+    $("[data-setting-name=fontOverrideValue]")
+    [GM_getValue("opt_gt2").fontOverride ? "removeClass" : "addClass"]("gt2-hidden")
+
+    // hide color input if colorOverride is disabled
+    $(".gt2-color-override-pickr")
+    [GM_getValue("opt_gt2").colorOverride ? "removeClass" : "addClass"]("gt2-hidden")
+
+    // hide follow suggestions
+    $("[data-setting-name=hideFollowSuggestionsSel]")
+    [GM_getValue("opt_gt2").hideFollowSuggestions ? "removeClass" : "addClass"]("gt2-hidden")
   }
 
 
@@ -577,7 +656,7 @@
 
   // add navbar
   function addNavbar() {
-    waitForKeyElements("nav > a[data-testid=AppTabBar_Explore_Link]", () => {
+    waitForKeyElements(`nav > a[href="/home"]`, () => {
       if ($(".gt2-nav").length) return
 
       $("main").before(`
@@ -601,17 +680,20 @@
       for (let e of [
         "Home",
         "Notifications",
-        "DirectMessage",
-        "Explore"
+        "Messages",
+        window.innerWidth < 1005 ? "Explore" : null
       ]) {
-        $(`nav > a[data-testid=AppTabBar_${e}_Link]`)
-        .appendTo(".gt2-nav-left")
-        $(`.gt2-nav a[data-testid=AppTabBar_${e}_Link] > div`)
+        if (!e) continue
+        let $e = $(`nav > a[href="/${e.toLowerCase()}"]`)
+        if (!e.length) continue
+        $e.appendTo(".gt2-nav-left")
+        $(`.gt2-nav a[href="/${e.toLowerCase()}"] > div`)
         .append(`
           <div class="gt2-nav-header">
             ${getLocStr(`nav${e}`)}
           </div>
         `)
+        .attr("data-gt2-color-override-ignore", "")
       }
 
       // highlight current location
@@ -845,6 +927,10 @@
               </div>
             </div>
             <div class="gt2-legacy-profile-nav-center">
+              <a href="/${i.screenName}" title="">
+                <div>${getLocStr("statsTweets")}</div>
+                <div>0</div>
+              </a>
               <a href="/${i.screenName}/following" title="">
                 <div>${getLocStr("statsFollowing")}</div>
                 <div>${i.followingRnd}</div>
@@ -852,6 +938,10 @@
               <a href="/${i.screenName}/followers" title="">
                 <div>${getLocStr("statsFollowers")}</div>
                 <div>${i.followersRnd}</div>
+              </a>
+              <a href="/${i.screenName}/likes" title="">
+                <div>${getLocStr("statsLikes")}</div>
+                <div>0</div>
               </a>
               <!--
                 <a href="/${i.screenName}/lists" title="">
@@ -877,29 +967,16 @@
         // profile id
         $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
 
-        // add followers and following
-
-        $(`.gt2-legacy-profile-nav-center a[href$="/following"]`)
-        .attr("title", pleg.friends_count.humanize())
-        .find("div:nth-child(2):empty").html(pleg.friends_count.humanizeShort())
-        $(`.gt2-legacy-profile-nav-center a[href$="/followers"]`)
-        .attr("title", pleg.followers_count.humanize())
-        .find("div:nth-child(2):empty").html(pleg.followers_count.humanizeShort())
-
-        // add likes and stuff
-        if (!$(".gt2-legacy-profile-nav-center a[href$='/likes']").length) {
-          $(".gt2-legacy-profile-nav-center").prepend(`
-            <a href="/${i.screenName}" title="${pleg.statuses_count.humanize()}">
-              <div>${getLocStr("statsTweets")}</div>
-              <div>${pleg.statuses_count.humanizeShort()}</div>
-            </a>
-          `)
-          $(".gt2-legacy-profile-nav-center").append(`
-            <a href="/${i.screenName}/likes" title="${pleg.favourites_count.humanize()}">
-              <div>${getLocStr("statsLikes")}</div>
-              <div>${pleg.favourites_count.humanizeShort()}</div>
-            </a>
-          `)
+        // change stats
+        for (let tmp of [
+          [i.screenName, "statuses_count"],
+          ["following", "friends_count"],
+          ["followers", "followers_count"],
+          ["likes", "favourites_count"]
+        ]) {
+          $(`.gt2-legacy-profile-nav-center a[href$="/${tmp[0]}"]`)
+          .attr("title", pleg[tmp[1]].humanize())
+          .find("div:nth-child(2)").html(pleg[tmp[1]].humanizeShort())
         }
 
         // expand t.co links
@@ -965,6 +1042,7 @@
 
     // profile suspended / not found / temporarily restricted (first view)
     waitForKeyElements([
+      `[data-testid=emptyState] > div:nth-child(2) > *:not(a)`,                               // not found
       `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`,         // suspended
       `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`,      // withheld in country
       `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
@@ -1108,68 +1186,6 @@
           .replace(/(^\"|\"$)/g, "")
 
           $toWrap.html(`<a class="gt2-trend" href="/search?q=${txt.includes("#") ? query : `%22${query}%22` }">${txt}</a>`)
-        }
-      })
-    })
-  }
-
-
-  // handle who to follow (hide)
-  function handleWhoToFollow() {
-    let wtf = "div[data-testid=sidebarColumn] div[data-testid=UserCell]"
-
-    waitForKeyElements(wtf, () => {
-      // actions for the whole container
-      if (!$(wtf).parents("aside").hasClass("gt2-wtf-handled")) {
-        $(wtf).parents("aside").addClass("gt2-wtf-handled")
-
-        // hide who to follow
-        if (GM_getValue("opt_gt2").hideWhoToFollow) {
-          $(wtf).parents("aside").parent().remove()
-        }
-      }
-    })
-  }
-
-
-  // messages stuff
-  function handleNSFWTweetMessages() {
-    let tm = "div[data-testid=messageEntry] div[role=link] span[title*='/status/']"
-    waitForKeyElements(tm, e => {
-      if ($(e).find(".gt2-msg-nsfw-media").length) return
-      requestTweet($(e).attr("title").split("/")[5], res => {
-        let media = res.extended_entities.media
-
-        // video
-        if (media[0].video_info) {
-          let previewUrl = media[0].media_url_https
-          let videoUrl = media[0].video_info.variants.length == 1
-            ? media[0].video_info.variants[0].url // gif
-            : media[0].video_info.variants.filter(v => v.bitrate).sort((v1, v2) => v1.bitrate > v2.bitrate).pop().url
-
-          $(e).parents("div[role=link] > div").append(`
-            <div class="gt2-msg-nsfw-media">
-              <video loop controls src="${videoUrl}" poster="${previewUrl}"></video>
-            </div>
-          `)
-
-        // photo(s)
-        } else {
-          let photoHTML = ""
-          for (let p in media) {
-            if (p % 2 == 0) photoHTML += "<div>"
-            photoHTML += `
-              <a href="${media[p].expanded_url.slice(0, -1)}${(parseInt(p)+1)}">
-                <img src="${media[p].media_url_https}" />
-              </a>
-            `
-            if (p % 2 == 1 || p-1 == media.length) photoHTML += "</div>"
-          }
-          $(e).parents("div[role=link] > div").append(`
-            <div class="gt2-msg-nsfw-media" data-photo-count="x${media.length}">
-              ${photoHTML}
-            </div>
-          `)
         }
       })
     })
@@ -1384,13 +1400,13 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("div:not([data-testid=placementTracking]) > div > div > div > article div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/']", function(e) {
-      let $e = $(e).parents("div[data-testid=tweet]")
-      let tweetLang = $e.find("div[lang]").attr("lang")
+    waitForKeyElements("[data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
+      let $e = $(e)
+      let tweetLang = $e.attr("lang")
       let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
       if (tweetLang != userLang && tweetLang != "und") {
-        $e.find("div[lang]").first().after(`
+        $e.first().after(`
           <div class="gt2-translate-tweet">
             ${getLocStr("translateTweet")}
           </div>
@@ -1411,17 +1427,36 @@
       return
     }
 
-    let isTweet = $(this).is(".gt2-translate-tweet")
-    let _this = this
-    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
+    let id = $(this).parents("article").find("div[data-testid=tweet]").length
+      ? $(this).parents("article").find(`div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
+                                         div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
+      : null
 
-    let statusUrl = $(this).parents("div[data-testid=tweet]").find("> div:nth-child(2) > div:nth-child(1) a[href*='/status/']").attr("href")
+    // embedded tweet
+    if ($(this).parents("[role=link]").parents("article").find("[data-testid=tweet]").length) {
+      requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
+
+    // normal tweet with embedded one
+    } else if ($(this).parents("article").find("[data-testid=tweet] [role=link] [lang]").length) {
+      console.log("aaa");
+      requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
+
+    // normal tweet or bio
+    } else {
+      translateTweet(this, id)
+    }
+  })
+
+
+  function translateTweet(e, id, quoteId) {
+    let isTweet = $(e).is(".gt2-translate-tweet")
+    GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
 
     GM_xmlhttpRequest({
       method: "GET",
-      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${statusUrl.split("/")[3]}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
+      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${id}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
       headers: getRequestHeaders(isTweet ? {
-        referer: statusUrl
+        referer: `https://twitter.com/i/status/${id}`
       } : {}),
       onload: function(res) {
         if (res.status == "200") {
@@ -1432,11 +1467,19 @@
 
           // handle entities in tweet
           if (o.entities) {
+            // remove embedded url if applicable (https://twitter.com/ella_hollywood/status/1395290916303212544)
+            if (quoteId && o.entities.urls) {
+              let tco = o.entities.urls.find(x => x.expanded_url.endsWith(quoteId))
+              if (tco) {
+                out = out.replace(` ${tco.url}`, "")
+                o.entities.urls = o.entities.urls.filter(x => !x.expanded_url.endsWith(quoteId))
+              }
+            }
             out = out.populateWithEntities(o.entities)
           }
 
-          $(_this).addClass("gt2-hidden")
-          $(_this).after(`
+          $(e).addClass("gt2-hidden")
+          $(e).after(`
             <div class="gt2-translated-tweet-info">
               ${GM_getValue("tmp_translatedTweetInfo")
                 .replace("$lang$", o.localizedSourceLanguage)
@@ -1453,10 +1496,11 @@
           `)
         } else {
           console.error("Error occurred while translating.")
+          console.error(res)
         }
       }
     })
-  })
+  }
 
 
   // hide translation
@@ -1716,7 +1760,7 @@
     $tweet.addClass("gt2-tco-expanded")
 
     // exit if tweet has no links
-    if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).length) return
+    if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"], [data-testid="card.wrapper"]`).length) return
 
     let id = $tweet.is("article")
       ? getPath().split("/")[2].split("?")[0].split("#")[0]
@@ -1725,6 +1769,10 @@
     requestTweet(id, res => {
       $tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"]`).each(function() {
         $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
+      })
+      $tweet.find(`[data-testid="card.layoutSmall.media"]`).each(function() {
+        console.log(res);
+        $(this).next().wrap(`<a href="${res.entities.urls.find(e => e.url == res.cards.players.find(p => Object.values(p.images)[0].image_url.match($(this).find("img[src*=card_img]").attr("src").match(/card_img\/(\d+)/)[1])).url).expanded_url}"></a>`)
       })
     })
   })
@@ -1757,42 +1805,42 @@
   if (GM_getValue("opt_gt2").enableQuickBlock) {
 	  let qbOffer
 	  $("body").on("mouseover", `[data-testid$="-follow"]:not([data-gt2-qb-state])`, e => {
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		$b.attr("data-gt2-qb-state", "offer-pending")
-		qbOffer = setTimeout(() => {
-		  $b.attr("data-gt2-qb-state", "offer")
-		  $b.find("> div > span").append(`
-			<span class="gt2-qb-block">${getLocStr("qbBlock")}</span>
-			<span class="gt2-qb-blocked">${getLocStr("qbBlocked")}</span>
-			<span class="gt2-qb-unblock">${getLocStr("qbUnblock")}</span>
-		  `)
-		}, 3e3)
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		$b.attr("data-gt2-qb-state", "offer-pending")
+  		qbOffer = setTimeout(() => {
+  		  $b.attr("data-gt2-qb-state", "offer")
+  		  $b.find("> div > span").append(`
+    			<span class="gt2-qb-block">${getLocStr("qbBlock")}</span>
+    			<span class="gt2-qb-blocked">${getLocStr("qbBlocked")}</span>
+    			<span class="gt2-qb-unblock">${getLocStr("qbUnblock")}</span>
+  		  `)
+  		}, 3e3)
 	  })
 	  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=offer]`, e => {
-		e.stopImmediatePropagation()
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		let user_id = $b.attr("data-testid").slice(0, -7)
-		blockUser(user_id, true, () => {
-		  console.log(`quickblock: ${user_id}`)
-		  $b.attr("data-gt2-qb-state", "blocked")
-		})
+  		e.stopImmediatePropagation()
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		let user_id = $b.attr("data-testid").slice(0, -7)
+  		blockUser(user_id, true, () => {
+  		  console.log(`quickblock: ${user_id}`)
+  		  $b.attr("data-gt2-qb-state", "blocked")
+  		})
 	  })
 	  $("body").on("click", `[data-testid$="-follow"][data-gt2-qb-state=blocked]`, e => {
-		e.stopImmediatePropagation()
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		let user_id = $b.attr("data-testid").slice(0, -7)
-		blockUser(user_id, false, () => {
-		  console.log(`quickunblock: ${user_id}`)
-		  $b.removeAttr("data-gt2-qb-state")
-		  $b.find("[class^=gt2-qb]").remove()
-		})
+  		e.stopImmediatePropagation()
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		let user_id = $b.attr("data-testid").slice(0, -7)
+  		blockUser(user_id, false, () => {
+  		  console.log(`quickunblock: ${user_id}`)
+  		  $b.removeAttr("data-gt2-qb-state")
+  		  $b.find("[class^=gt2-qb]").remove()
+  		})
 	  })
 	  $("body").on("mouseleave", `[data-testid$="-follow"][data-gt2-qb-state^=offer],
 								  [data-testid$="-unfollow"][data-gt2-qb-state^=offer]`, e => {
-		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
-		$b.removeAttr("data-gt2-qb-state")
-		$b.find("[class^=gt2-qb]").remove()
-		clearTimeout(qbOffer)
+  		let $b = $(e.target).parents(`[data-testid$="-follow"]`)
+  		$b.removeAttr("data-gt2-qb-state")
+  		$b.find("[class^=gt2-qb]").remove()
+  		clearTimeout(qbOffer)
 	  })
   }
 
@@ -1804,16 +1852,15 @@
 
 
   // high contrast
-  $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) > label > div:nth-child(2)`, function() {
+  $("body").on("click", `[data-testid="accessibilityScreen"] > div:nth-child(3) label [aria-labelledby]`, function() {
     GM_setValue("opt_display_highContrast", !$(this).find("input").is("[checked]"))
     updateCSS()
-
   })
 
 
   // user color
-  waitForKeyElements(`h2 > a[href="/i/keyboard_shortcuts"]`, e => {
-    let userColor = $(e).css("color")
+  waitForKeyElements(`body:not(.gt2-opt-color-override) [data-testid=SideNav_NewTweet_Button]`, e => {
+    let userColor = $(e).css("background-color")
     if (userColor != GM_getValue("opt_display_userColor")) {
       GM_setValue("opt_display_userColor", userColor)
       updateCSS()
@@ -1854,14 +1901,59 @@
 
 
   // minimize DMDrawer if hideMessageBox is set
-  let dmdCollapse = `[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`
   if (GM_getValue("opt_gt2").hideMessageBox) {
-    waitForKeyElements(dmdCollapse, () => {
-      console.log("Minimized DMDrawer");
-      $(dmdCollapse).parents("[role=button]").click()
+    waitForKeyElements(`.gt2-opt-hide-message-box [data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
+      console.log("Minimized DMDrawer")
+      $(e).parents("[role=button]").click()
     })
   }
 
+
+  // hide timeline follow suggestions
+  if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+    function hideTLFS($p) {
+      if (!$p) return $p
+      if ($p.prev().length) {
+        $p = $p.prev()
+        if ($p.find("article").length) return
+        $p.addClass("gt2-hidden")
+      } else {
+        if (window.scrollY < 500) return
+        setTimeout(() => {
+          $p = hideTLFS($p)
+        }, 100)
+      }
+      return $p
+    }
+    // small follow topic above tweets
+    waitForKeyElements(`[data-gt2-path=home] [data-testid=primaryColumn] section article > div > div > div > div:not([data-testid=tweet]) > div > div > div`, e => $(e).addClass("gt2-hidden"))
+
+    // big follow boxes
+    waitForKeyElements(
+      ["topics/picker", "connect_people", "lists/suggested"]
+      .filter((e, i) => (GM_getValue("opt_gt2").hideFollowSuggestionsSel & Math.pow(2, i)) == Math.pow(2, i))
+      .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
+      .join(", "), e => {
+
+      let $p = $(e).parent().parent().addClass("gt2-hidden")
+      if ($p.next().length) $p.next().addClass("gt2-hidden")
+      if ($p.next().next().find("div > div:empty").length) $p.next().next().addClass("gt2-hidden")
+      for (let i=0; i < 6; i++) {
+        $p = hideTLFS($p)
+      }
+    })
+  }
+
+
+  // do not colorOverride these elements (reply/like/retweet/share on tweets and verified badge)
+  waitForKeyElements(`[data-testid=tweet] [role=group]`, e => $(e).find("[role=button] *").attr("data-gt2-color-override-ignore", ""))
+  waitForKeyElements(`path[d^="M22.5 12.5c0-1.58-.875"]`, e => $(e).parents("svg").attr("data-gt2-color-override-ignore", ""))
+  waitForKeyElements(`[data-gt2-path-modal="i/display"] div:nth-last-child(2) > div > [role=radiogroup],
+                      [data-gt2-path="settings/display"] div:nth-last-child(2) > div > [role=radiogroup]`, e => {
+    let $e = $(e).parents("[aria-labelledby]")
+    $e.find("[name*=COLOR_PICKER]").parents("label").parent().find("*").attr("data-gt2-color-override-ignore", "")
+    $e.find("[dir]:nth-child(3) + div:not([dir]) > div > div > div[dir] + div *").attr("data-gt2-color-override-ignore", "")
+  })
 
 
   // ################
@@ -1895,7 +1987,7 @@
         bg:           "#e6ecf0",
         elem:         "rgb(255, 255, 255)",
         elemSel:      "rgb(247, 249, 250)",
-        gray:         "#8899a6",
+        gray:         "rgb(91, 112, 131)",
         grayDark:     "#e6ecf0",
         grayDark2:    "rgb(196, 207, 214)",
         grayLight:    "rgb(101, 119, 134)",
@@ -1968,17 +2060,17 @@
     }
 
     let baseColors = {
-      //        normal            highContrast
-      blue:     ["29, 161, 242",  "112, 200, 255"],
-      green:    ["23, 191, 99",   "102, 211, 151"],
-      red:      ["224, 36, 94",   "240, 152, 179"],
-      redDark:  ["202, 32, 85",   "216, 137, 161"]
+      //        normal            white hc          // dim/lo hc
+      blue:     ["29, 161, 242",  "38, 74, 157",    "112, 200, 255"],
+      green:    ["23, 191, 99",   "9, 102, 51",     "102, 211, 151"],
+      red:      ["224, 36, 94",   "159, 12, 58",    "240, 152, 179"],
+      redDark:  ["202, 32, 85",   "169, 36, 78",    "216, 137, 161"],
     }
 
     // initialize with the current settings
     if (GM_getValue("gt2_initialized") == undefined && isLoggedIn()) {
-      waitForKeyElements("h2 > a[href='/i/keyboard_shortcuts'] span", () => {
-        GM_setValue("opt_display_userColor",  $("a[href='/i/keyboard_shortcuts']").css("color"))
+      waitForKeyElements(`h2 > a[href="/i/keyboard_shortcuts"] span`, () => {
+        GM_setValue("opt_display_userColor",  $(`a[href="/i/keyboard_shortcuts"]`).css("color"))
         GM_setValue("opt_display_bgColor",    $("body").css("background-color"))
         GM_setValue("opt_display_highContrast", false)
         GM_setValue("opt_display_fontSize",   $("html").css("font-size"))
@@ -2030,15 +2122,17 @@
           )
           .replace("--baseColors:$;",
             Object.entries(baseColors)
-            .map(e => [e[0].toKebab(), e[1][opt_display_highContrast ? 1 : 0]])
+            .map(e => [e[0].toKebab(), e[1][opt_display_highContrast ? opt_display_bgColor == "rgb(255, 255, 255)" ? 1 : 2 : 0]])
             .map(e => `--color-raw-${e[0]}: ${e[1]}; --color-${e[0]}: rgb(${e[1]});`)
             .join(" ")
           )
           .replace("$userColor",      opt_display_userColor.slice(4, -1))
           .replace("$globalFontSize", opt_display_fontSize)
           .replace("$fontOverride",   GM_getValue("opt_gt2").fontOverrideValue)
+          .replace("$colorOverride",  GM_getValue("opt_gt2").colorOverrideValue)
           .replace("$scrollbarWidth", `${getScrollbarWidth()}px`)}
-        </style>`
+        </style>
+        <style class="gt2-style-pickr">${GM_getResourceText("pickrCss")}</style>`
       )
     }
 
@@ -2089,8 +2183,8 @@
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
 
-      // prevent auto scroll to top on /search and /explore
-      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore|compose\/tweet\/?$)/)) {
+      // prevent scroll to top
+      if (prev > 1500 && curr == 0) {
         window.scroll(0, prev)
         return
       }
@@ -2138,7 +2232,7 @@
     return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
   }
   function _isModal(path) {
-    return _onSubPage(path, "i", ["display", "keyboard_shortcuts"])
+    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
         || _onSubPage(path, "account", ["add"])
@@ -2199,6 +2293,7 @@
 
 
     // add navbar
+    if ($("body").attr("data-gt2-prev-path") == "i/moment_maker") $(".gt2-nav").remove()
     if (!$(".gt2-nav").length) {
       if (isLoggedIn()) {
         addNavbar()
@@ -2228,7 +2323,15 @@
 
     // handle stuff in sidebars
     handleTrends()
-    handleWhoToFollow()
+    if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+      let sel = GM_getValue("opt_gt2").hideFollowSuggestionsSel
+
+      // topic suggestions
+      if ((sel & 1) == 1) waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => $(e).parents("section").parent().parent().remove())
+
+      // user suggestions (Who to follow, You might like)
+      if ((sel & 2) == 2) waitForKeyElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => $(e).parents("aside").parent().remove())
+    }
 
 
     // settings
@@ -2245,19 +2348,29 @@
     }
 
 
-    // messages
-    if (onPage("messages")) {
-      if (GM_getValue("opt_gt2").showNsfwMessageMedia) {
-        handleNSFWTweetMessages()
-      }
-    }
-
     // tweet
     if (onSubPage(null, ["status"])) {
       $("body").addClass("gt2-page-tweet")
+      // scroll up on load
+      waitForKeyElements("[data-testid=tweet] + div [href$=source-labels]", () => window.scroll(0, window.pageYOffset - 56.79999923706055))
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }
+
+
+    // notifications
+    // if (onPage("notifications")) {
+    //   $("body").on("auxclick", `[data-testid=primaryColumn] section > div > div > div:not(.gt2-handled)`, function(e) {
+    //     e.preventDefault()
+    //     e.stopImmediatePropagation()
+    //     console.log(this);
+    //   })
+    //   $("body").on("mouseover", `[data-testid=primaryColumn] section > div > div > div`, function(e) {
+    //     console.log("a");
+    //     $(e).addClass("gt2-handled")
+    //     $(e).off("mousedown")
+    //   })
+    // }
 
 
     // sidebar
@@ -2274,7 +2387,7 @@
     // assume profile page
     if (!isModal) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
-          || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status"]))) {
+          || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))) {
         $("body").addClass("gt2-page-profile")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
@@ -2283,6 +2396,18 @@
             $("a[href$='/photo'] img").data("alreadyFound", false)
           }
           rebuildLegacyProfile()
+        }
+        if (GM_getValue("opt_gt2").leftMedia
+          && ((!GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1350)
+            || (GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1230))) {
+
+          waitForKeyElements("[data-testid=sidebarColumn] a:nth-child(1) [data-testid=tweetPhoto]", e => {
+            if ($(".gt2-profile-media").length) $(".gt2-profile-media").remove()
+            $(e).parents("a[role=link]").parent().parent().parent().parent().parent().parent()
+            .detach().addClass("gt2-profile-media")
+            .appendTo(".gt2-left-sidebar")
+          })
+
         }
       } else {
         $("body").removeClass("gt2-page-profile")

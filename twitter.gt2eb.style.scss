@@ -1,17 +1,16 @@
+@charset "UTF-8";
+
 :root {
   --bgColors:$;
   --baseColors:$;
-  --color-raw-user:   $userColor;
   --scrollbar-width:  $scrollbarWidth;
   --global-font-size: $globalFontSize;
+  --font-override:    $fontOverride;
+  --color-normal:     $userColor;
+  --color-override:   $colorOverride;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --color-user:       rgb(var(--color-raw-user));
-
-  --font-override:    $fontOverride;
   --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  --font-global:      var(--font-override), var(--font-default);
-  font-family:        var(--font-default);
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -29,6 +28,18 @@ $notLegacyProfile: "
 // returns val with --font-increment added
 @function incr($val) {
   @return calc(#{$val} + var(--font-increment));
+}
+
+// 2014-02 ~ 2017-06
+@font-face {
+  font-family: Rosetta;
+  src: url(https://abs.twimg.com/a/1496201771/font/rosetta-icons-Regular.woff);
+}
+
+// 2017-06 ~ 2019-07
+@font-face {
+  font-family: Edge;
+  src: url(https://abs.twimg.com/a/1569889127/font/edge-icons-Regular.woff);
 }
 
 
@@ -542,7 +553,8 @@ $notLegacyProfile: "
     }
   }
   body[data-gt2-path="messages"],
-  body[data-gt2-path^="messages/"] {
+  body[data-gt2-path^="messages/"],
+  body[data-gt2-path="i/moment_maker"] {
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
@@ -613,7 +625,7 @@ main {
 
         // small compose tweet
         & > div:nth-child(2):not(.gt2-compose-large) {
-          & > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div:nth-child(2) {
+          [data-testid=toolBar] {
             display: none;
           }
         }
@@ -626,6 +638,7 @@ main {
         div[data-testid=tweet] img {
           z-index: 1;
         }
+
 
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;
@@ -686,6 +699,10 @@ main {
               &:last-child {
                 margin-bottom: 10px;
               }
+
+              a[href^="/i/connect_people"] {
+                border-radius: unset;
+              }
             }
           }
         }
@@ -693,6 +710,20 @@ main {
     }
   }
 }
+
+
+// make show more tweets more noticable
+body[data-gt2-path=home],
+body[data-gt2-path=search],
+body[data-gt2-path=explore] {
+  div[data-testid=primaryColumn] section > h1 + div > div > div:not([class]) > div:first-child:last-child > div[role=button]:first-child:last-child > div:first-child:last-child > div[dir]:first-child:last-child {
+    padding: 30px 0;
+    & > span {
+      font-weight: bold;
+    }
+  }
+}
+
 
 // options
 
@@ -768,7 +799,7 @@ main {
     .gt2-legacy-profile-nav-left {
       align-items: center;
       // avatar
-      img {
+      & > img {
         border-radius: 9999px;
       }
       & > div {
@@ -817,7 +848,8 @@ main {
       align-items: center;
 
       [role=button],
-      div[data-testid=placementTracking] > div {
+      div[data-testid=placementTracking] > div,
+      [href="/settings/profile"] {
         margin-bottom: 0;
       }
     }
@@ -836,7 +868,7 @@ main {
 
   .gt2-legacy-profile-screen-name {
     font-size: incr(14px);
-    color: var(--color-text);
+    color: var(--color-gray-light);
   }
 
   .gt2-legacy-profile-info {
@@ -853,11 +885,13 @@ main {
     }
 
     .gt2-legacy-profile-description:not(:empty) {
-      color: var(--color-text);
-      [data-testid=UserDescription] + div {
-        width: max-content;
-        &:hover {
-          text-decoration-line: underline;
+      [data-testid=UserDescription] {
+        color: var(--color-text);
+        & + div {
+          width: max-content;
+          &:hover {
+            text-decoration-line: underline;
+          }
         }
       }
     }
@@ -878,8 +912,16 @@ main {
       width: -moz-fit-content;
       width: -webkit-fit-content;
     }
+    .gt2-legacy-profile-items {
+      span, svg {
+        color: var(--color-gray-light);
+      }
+    }
 
     .gt2-legacy-profile-fyk:not(:empty) {
+      span, div {
+        color: var(--color-gray-light);
+      }
       margin-top: 12px;
       padding-right: 10px;
       &:hover {
@@ -923,7 +965,7 @@ main {
 
       .gt2-legacy-profile-nav-left {
         // avatar
-        img {
+        & > img {
           width: 200px;
           height: 200px;
           position: relative;
@@ -963,7 +1005,7 @@ main {
     .gt2-legacy-profile-nav {
       margin-top: calc(47px + 15px);
 
-      img {
+      .gt2-legacy-profile-nav-left > img {
         width: 36px;
         height: 36px;
       }
@@ -1141,11 +1183,104 @@ body:not(.gt2-opt-small-sidebars) {
 
 // font global override
 .gt2-opt-font-override {
-  font-family: var(--font-global);
+  &,
   .r-1qd0xha,
-  .r-1tl8opc {
-    font-family: var(--font-global);
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-override), var(--font-default) !important;
   }
+}
+body:not(.gt2-opt-font-override) {
+  &,
+  .r-1qd0xha,
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-default) !important;
+  }
+}
+
+
+// color global override
+.gt2-opt-color-override {
+  --color-raw-user: var(--color-override);
+  --color-user: rgb(var(--color-override));
+  // normal color
+  *:not(#placeholder) {
+    // blue         yellow         red             purple          orange          green
+    & > .r-13gxpu9, & > .r-61mi1v, & > .r-daml9f,  & > .r-xfsgu1,  & > .r-1qkqhnw, & > .r-nw8l94,  // normal
+    & > .r-xyrcl7,  & > .r-iogyil, & > .r-dyo1pg,  & > .r-1u5vp33, & > .r-ucruu0,  & > .r-58mm23, // white hc
+    & > .r-6743kw,  & > .r-mjbqy8, & > .r-1e0i1xg, & > .r-2o3veo,  & > .r-pxzkq4,  & > .r-mhzhfq, // dim/lo hc
+    & > .r-1n1174f // blue (link?)
+    {
+      &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
+        color: var(--color-user) !important;
+      }
+    }
+  }
+
+  // border
+  // blue     yellow      red         purple      orange      green
+  .r-p1n3y5,  .r-v6khid,  .r-1iofnty, .r-11mmphe, .r-1xl5njo, .r-5ctkeg,  // normal
+  .r-yness5,  .r-9h97i0,  .r-1y0ydr9, .r-1v3952k, .r-57jueo,  .r-2a99tl,  // white hc
+  .r-141ztgp, .r-dbkiaw,  .r-161anm9, .r-1mqg5jq, .r-15zavzp, .r-16uoikt, // dim/lo hc
+  // border-right-color
+  .r-4rwt92,  .r-o1b8s3,  .r-l7fug5,  .r-ukm9ly,  .r-as53oi,  .r-1oux8jo, // normal
+  .r-d5u5q4,  .r-19xls35, .r-1kbil5v, .r-s9itga,  .r-bym8x3,  .r-1yd53u3, // white hc
+  .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
+  [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
+    &:not([data-gt2-color-override-ignore]) {
+      border-color: var(--color-user) !important;
+    }
+  }
+
+  // background-color
+  // blue     yellow      red         purple      orange      green
+  .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
+  .r-uc097p,  .r-xw9v2f,  .r-evx7rm,  .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
+  .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: var(--color-user) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-zv2cs0,  .r-75i7r9,  .r-wcu338,  .r-va2hk5,  .r-1vxd3ld, .r-1up5ays, // normal
+  .r-1bek5y6, .r-1ho5ue4, .r-vrom3q,  .r-ri3bjg,  .r-bnzbsy,  .r-1q8d70v, // white hc
+  .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: rgba(var(--color-raw-user), 0.1) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-1q3imqu, .r-1kplyi6, .r-1ucxkr8, .r-njt2r9,  .r-l779s2,  .r-zx61xx, // normal
+  .r-1urml5z, .r-1qhlxry, .r-1vitrf9, .r-pg0o0i,  .r-z5urpw,  .r-xsbikc, // white hc
+  .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
+      background-color: rgba(var(--color-raw-user), 0.7) !important;
+    }
+  }
+
+  // box-shadow
+  // blue     yellow      red         purple      orange      green
+  .r-1bih22f, .r-cdj8wb,  .r-jd07pc,  .r-hy56xe,  .r-b8m25f,  .r-1cqwhho, // normal
+  .r-yab67o,  .r-1wzm90r, .r-1cstf6x, .r-13g0htx, .r-fne7zz,  .r-nlrx61,  // white hc
+  .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      box-shadow: var(--color-user) 0px 0px 0px 1px !important;
+    }
+  }
+
+  // compose tweet length indicator
+  [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
+    stroke: var(--color-user) !important;
+  }
+}
+body:not(.gt2-opt-color-override) {
+  --color-raw-user: var(--color-normal);
+  --color-user: rgb(var(--color-normal));
 }
 
 
@@ -1189,64 +1324,86 @@ body:not(.gt2-opt-small-sidebars) {
 }
 
 
-// nsfw message media
-.gt2-opt-show-nsfw-message-media[data-gt2-path^="messages/"] {
-  div[data-testid=messageEntry] div[role=blockquote] span[title*='/status/'] {
+// tweet icons pull right
+.gt2-opt-tweet-icons-pull-left {
+  [data-testid=primaryColumn] [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
+    justify-content: unset;
+    & > *:not(:nth-child(4)) {
+      max-width: 80px;
+      margin-right: 20px;
+    }
+  }
+}
+
+// rosetta/edge icons
+@mixin iconReplace($font, $glyph, $size, $pad) {
+  > div {
+    &:nth-child(1) {
+      position: relative;
+      &:before {
+        font-family: $font;
+        content: unquote("\"\\#{$glyph}\"");
+        font-size: $size;
+        padding: $pad;
+      }
+    }
+    &:not(:nth-child(1)) {
+      display: none;
+    }
+  }
+  > svg {
     display: none;
   }
-  .gt2-msg-nsfw-media {
-    max-height: 310px;
-    display: flex;
+}
 
-    div {
-      display: flex;
-      flex-direction: column;
+@mixin rosetta($glyph, $size, $pad) {
+  @include iconReplace(Rosetta, $glyph, $size, $pad);
+}
+@mixin edge($glyph, $size, $pad) {
+  @include iconReplace(Edge, $glyph, $size, $pad);
+}
 
-      &:nth-child(2) {
-        margin-left: 2px;
-      }
-      a {
-        display: inline-flex;
-        width: 100%;
+// small: 34.75
+// big:   38.5
 
-        &:nth-child(2) {
-          margin-top: 2px;
-        }
-
-        img {
-          object-fit: cover;
-          width: 100%;
-        }
-      }
-    }
-    video,
-    &[data-photo-count=x1] div {
-      width: 100%;
-    }
-    &:not([data-photo-count=x1]) div {
-      width: 50%;
-    }
-
-    // spacing
-    &:not([data-photo-count=x2]) {
-      div {
-        &:nth-child(2) {
-          margin-left: 2px;
-        }
-        a:nth-child(2) {
-          margin-top: 2px;
-        }
-      }
-    }
-
-    &[data-photo-count=x3] div:first-child,
-    &[data-photo-count=x4] div {
-      a {
-        height: 50%;
-      }
-    }
-
+.gt2-opt-favorite-likes {
+  [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 19px, 7px 8.82px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+     [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 25px, 8.5px 8px 10px); }
   }
+  [data-testid$=like]:hover > div:nth-child(1) > div:nth-child(1) > div {
+    background-color: rgba(var(--color-raw-yellow), 0.1) !important;
+  }
+  [data-testid=like]:hover > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+  [data-testid=unlike] > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+}
+
+.gt2-opt-rosetta-icons {
+  // like, reply, retweet
+  &:not(.gt2-opt-favorite-likes) {
+    [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 19px, 7px 9.18px 7.75px); }
+    [data-testid=tweet] + div,
+    [aria-modal] > div > div:nth-child(1) {
+      [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 24px, 8.5px 8.9px 10px); }
+    }
+  }
+  [data-testid=tweet] [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 16.5px, 7px 9.16px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 20px, 8.5px 9.3px 10px); }
+  }
+  [data-testid=tweet] [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 16.5px, 7px 7.12px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 20px, 8.5px 6.8px 10px); }
+  }
+
+  [data-testid$=caret] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f196', 16.5px, 7px 9.7px 7.75px); }
 }
 
 
@@ -1308,8 +1465,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
     & > div > div > div {
       background-color: rgba(var(--color-raw-blue), 0.1);
     }
-    svg {
-      fill: var(--color-blue);
+    & > div {
+      color: var(--color-blue);
     }
   }
   // retweets
@@ -1321,8 +1478,8 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   }
   div[data-testid=retweet]:hover,
   div[data-testid=unretweet] {
-    svg {
-      fill: var(--color-green);
+    & > div {
+      color: var(--color-green);
     }
   }
 
@@ -1335,62 +1492,51 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
   }
   div[data-testid=like]:hover,
   div[data-testid=unlike] {
-    svg {
-      fill: var(--color-red);
+    & > div {
+      color: var(--color-red);
     }
   }
 }
 
 
 // color carets with the user color
-div[data-testid=caret] {
-  & > div > div > div {
-    transition: all .2s ease-in-out;
-    background-color: var(--color-user);
-    opacity: 0;
-    &:hover {
-      opacity: .1;
-      & + svg {
-        fill: var(--color-user);
+// make carets look like carets again (instead of 3 dots)
+body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
+  div[data-testid=caret] {
+    & > div > div > div {
+      transition: all .2s ease-in-out;
+      background-color: var(--color-user);
+      opacity: 0;
+      &:hover {
+        opacity: .1;
+        & + svg {
+          background-color: var(--color-user);
+        }
+      }
+    }
+    svg {
+      background-color: var(--color-gray-light);
+      pointer-events: none;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      g {
+        display: none;
       }
     }
   }
-  svg {
-    fill: var(--color-gray-light);
-    pointer-events: none;
-  }
 }
 
 
-// color several ui elements with the user color (2021-03-19 change)
-div[data-testid=userActions],
-div[data-testid=sendDMFromProfile],
-div[data-testid=userActions] ~ div:not([class]) > div,
-div[data-testid$=-cancel],
-div[data-testid$=-follow] {
-  border-color: var(--color-user);
-  & > *,
-  svg {
-    color: var(--color-user);
+.gt2-trends-handled > div > div > div > div > div {
+  // smaller padding next to the trends cog
+  &:nth-child(1) {
+    padding-right: 5px;
   }
-  &:hover {
-    background-color: rgba(var(--color-raw-user), .1);
+
+  &[role=button] {
+    border-radius: unset;
   }
-}
-div[data-testid$=-unfollow] {
-  &:hover:not(.r-1ucxkr8) {
-    border-color: var(--color-user);
-    & > * {
-      color: var(--color-user);
-    }
-  }
-  &:not(:hover) {
-    border-color: var(--color-user);
-    background-color: var(--color-user);
-    & > * {
-      color: var(--color-text-2);
-    }
-  }
+
 }
 
 
@@ -1585,7 +1731,7 @@ a.gt2-trend {
     right: calc(50% - 12px);
     width: incr(24px);
     margin-top: calc(8px - var(--font-increment));
-    & svg {
+    svg path {
       color: #1da1f2;
     }
   }
@@ -1667,8 +1813,15 @@ html[style*="overflow-y: hidden"] {
   .gt2-nav-center {
     margin-right: calc(var(--scrollbar-width) / 2);
   }
-  .gt2-nav-right {
+  .gt2-nav-right,
+  .gt2-legacy-profile-nav-right {
     padding-right: var(--scrollbar-width);
+  }
+}
+html[style*=margin-right] {
+  margin-right: unset !important;
+  main {
+    margin-right: var(--scrollbar-width);
   }
 }
 
@@ -1718,10 +1871,16 @@ body[data-gt2-path="explore"].gt2-scrolled-down {
   }
   div[data-testid=primaryColumn] {
     border-top-width: 0 !important;
-    & > div > div:nth-child(1) {
-      top: 56px;
-      position: sticky;
-      border-top: 1px solid var(--color-gray-dark);
+    & > div > div {
+      &:nth-child(1) {
+        top: 56px;
+        position: sticky;
+        border-top: 1px solid var(--color-gray-dark);
+      }
+      &:nth-child(2) {
+        top: 0;
+        position: relative;
+      }
     }
   }
 }
@@ -1982,6 +2141,39 @@ body[data-gt2-path^="settings/"] {
     &:last-child {
       border-bottom: unset;
     }
+
+    [data-setting-name=hideFollowSuggestionsSel] {
+      margin-top: 12.5px;
+      & > div {
+        display: flex;
+        & > span {
+          margin-right: 10px;
+          font-size: incr(13px);
+        }
+      }
+    }
+
+    // color pickr
+    .gt2-color-override-pickr {
+      opacity: 1;
+      visibility: visible;
+      margin-top: 12.5px;
+      width: auto;
+      &,
+      input {
+        font-family: inherit;
+        background-color: transparent;
+        border: 1px solid var(--color-gray-dark-2);
+        border-radius: 4px;
+        box-shadow: unset;
+        font-size: calc(15px + var(--font-increment));
+        color: var(--color-text);
+      }
+      .pcr-type.active {
+        background-color: var(--color-user);
+        color: var(--color-text-2);
+      }
+    }
   }
 }
 
@@ -1991,8 +2183,24 @@ body[data-gt2-path^="settings/"] {
   }
 }
 
+// make line under selected tab full width
+nav [role=tablist] [aria-selected=true] {
+  & > div > div {
+    display: none;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    background-color: var(--color-user);
+    height: 4px;
+    width: 100%;
+  }
+}
+
 body[data-gt2-path="messages"],
-body[data-gt2-path^="messages/"] {
+body[data-gt2-path^="messages/"],
+body[data-gt2-path="i/moment_maker"] {
   .gt2-left-sidebar {
     display: none;
   }
@@ -2025,6 +2233,24 @@ body[data-gt2-path^="messages/"] {
     }
   }
 }
+body[data-gt2-path="i/moment_maker"] {
+  section:nth-of-type(1) > div:nth-child(2) {
+    background-color: var(--color-elem);
+  }
+}
+
+
+// embed card links
+[data-testid="card.layoutSmall.media"] + a {
+  display: flex;
+  justify-content: center;
+  &,
+  &:link,
+  &:visited {
+    color: var(--color-user);
+    text-decoration-line: none;
+  }
+}
 
 
 // left sidebar
@@ -2051,7 +2277,8 @@ body[data-gt2-path^="messages/"] {
   }
 
   // moved trends
-  .gt2-trends {
+  .gt2-trends,
+  .gt2-profile-media {
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;
     background-color: var(--color-elem);
@@ -2134,15 +2361,17 @@ body[data-gt2-path^="messages/"] {
 
     .gt2-toggle-acc-switcher-dropdown,
     .gt2-toggle-lo-nightmode {
-      right: 7.5px;
-      bottom: calc(93px + (var(--font-increment) + 2px) / 2);
+      right: 14px;
+      bottom: calc(89px + (var(--font-increment) + 2px) / 2);
       @include hoverableSvg;
       div {
-        width: 27px;
-        height: 27px;
+        width: 34.75px;
+        height: 34.75px;
       }
       svg {
-        fill: var(--color-gray);
+        fill: var(--color-gray-light);
+        width: 18.75px;
+        height: 18.75px;
       }
     }
 
@@ -2403,7 +2632,8 @@ body[data-payment-endpoint-path] {
 // quick block buttons
 [data-testid$="-follow"] {
   &[data-gt2-qb-state=offer] {
-    border-color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background-color: rgba(var(--color-raw-red), 0.1) !important;
     & > div > span > span {
       color: var(--color-red);
       &:not(.gt2-qb-block) {
@@ -2412,14 +2642,14 @@ body[data-payment-endpoint-path] {
     }
   }
   &[data-gt2-qb-state=blocked] {
-    border-color: var(--color-red);
-    background-color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background-color: var(--color-red) !important;
     & > div > span > span {
       color: white;
     }
     &:hover {
-      border-color: var(--color-red-dark);
-      background-color: var(--color-red-dark);
+      border-color: var(--color-red-dark) !important;
+      background-color: var(--color-red-dark) !important;
       & > div > span > span:not(.gt2-qb-unblock) {
         display: none;
       }

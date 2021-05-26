@@ -14,8 +14,9 @@
 - [Installation](#installation)
 - [FAQ](#faq)
 - [Translations](#translations)
-- [Previews](#previews)
 - [Similar projects](#similar-projects)
+- [Credits](#credits)
+- [Previews](#previews)
 
 
 ## Background
@@ -28,7 +29,7 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
 
 ## Features
 - Legacy Navbar is back!
-![](https://i.imgur.com/Q4Ss6vk.png)
+  ![](doc/img/navbar.png)
 - Legacy Profile Layout Option!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
@@ -70,7 +71,9 @@ Thanks to these awesome people, there are translations available for the followi
 - French (added by [@Aridow](https://github.com/Aridow))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
+- Polish (added by [@mkljczk](https://github.com/mkljczk))
 - Portuguese (added by [@fr0r](https://github.com/fr0r))
+- Romanian (added by [@Andy9001](https://github.com/Andy9001))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
@@ -94,6 +97,7 @@ Open the following box to learn more.
     - Then, translate all strings and create a pull request.
       - For all the strings in the first paragraph (before the first empty line): Please use the official translations on twitter if you can.
     - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
+    - New strings will be added sometimes (e.g. for new settings). These newly added ones begin with `*NEW*`. Please remove this part when you're translating these strings.
 
   No idea how git works and too proud to learn it? You can also create an new issue with your translation.
 
@@ -103,11 +107,26 @@ Open the following box to learn more.
   ````
 </details>
 
-## Previews
-![](https://i.imgur.com/3xY7IIp.png)
-![](https://i.imgur.com/gxg8CUE.png)
-![](https://i.imgur.com/nBzwaOe.png)
-![](https://i.imgur.com/VR8Le4u.png)
-
 ## Similar projects
 - [userscripts-public](https://github.com/Bl4Cc4t/userscripts-public) (other very small userscripts)
+
+## Credits
+This project uses the following libraries:
+- [pickr](https://github.com/Simonwep/pickr) to select colors
+- [emoji-regex](https://github.com/mathiasbynens/emoji-regex) to display the twitter emojis at various places
+- [jQuery](https://jquery.com)
+- [waitForKeyElements.js](https://gist.github.com/BrockA/2625891)
+- some polyfills from MDN
+
+## Previews
+[![](doc/img/home-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-1.png)
+[![](doc/img/profile-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-1.png)
+[![](doc/img/profile-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-2.png)
+[![](doc/img/tweet.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/tweet.png)
+[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
+[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
+
+### Settings
+Page 1 | Page 2
+-|-
+[![](doc/img/settings-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-1.png) | [![](doc/img/settings-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-2.png)
