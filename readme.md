@@ -119,13 +119,14 @@ This project uses the following libraries:
 - some polyfills from MDN
 
 ## Previews
-![](doc/img/home-1.png)
-![](doc/img/profile-1.png)
-![](doc/img/profile-2.png)
-![](doc/img/tweet.png)
-![](doc/img/home-2.png)
+[![](doc/img/home-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-1.png)
+[![](doc/img/profile-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-1.png)
+[![](doc/img/profile-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-2.png)
+[![](doc/img/tweet.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/tweet.png)
+[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
+[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
 
 ### Settings
 Page 1 | Page 2
 -|-
-![](doc/img/settings-1.png) | ![](doc/img/settings-2.png)
+[![](doc/img/settings-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-1.png) | [![](doc/img/settings-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-2.png)
