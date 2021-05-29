@@ -27,6 +27,7 @@
 
   You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
 
+
   <img src="https://user-images.githubusercontent.com/6740726/119239367-d88b9d80-bb48-11eb-80f0-e3713017f3d8.png" width="500px" />
 - ~~some more white follow buttons (lists and topics) changed back to the colored variant (#266, #272)~~
   This was reverted by Twitter itself after 2 months.
