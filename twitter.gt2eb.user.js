@@ -2403,8 +2403,9 @@
 
           waitForKeyElements("[data-testid=sidebarColumn] a:nth-child(1) [data-testid=tweetPhoto]", e => {
             if ($(".gt2-profile-media").length) $(".gt2-profile-media").remove()
-            $(e).parents("a[role=link]").parent().parent().parent().parent().parent().parent()
-            .detach().addClass("gt2-profile-media")
+            let $mediaContainer = $(e).parents("a[role=link]").parent().parent().parent().parent().parent()
+            if ($mediaContainer.parent().children().length == 1) $mediaContainer = $mediaContainer.parent()
+            $mediaContainer.detach().addClass("gt2-profile-media")
             .appendTo(".gt2-left-sidebar")
           })
 
