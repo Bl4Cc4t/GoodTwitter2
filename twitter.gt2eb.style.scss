@@ -1579,6 +1579,10 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   }
 }
 
+[data-gt2-bell-full-color] {
+  background-color: var(--color-user) !important;
+}
+
 div[data-testid$=-unfollow],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
   transition-property: border-color, background-color, box-shadow;
