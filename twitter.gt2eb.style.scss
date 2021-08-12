@@ -639,6 +639,14 @@ main {
           z-index: 1;
         }
 
+        // ChirpUpdate: readd vertical dividers
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"] > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+          border-bottom: 1px solid var(--color-gray-dark);
+          & > div:empty {
+            height: 0 !important;
+          }
+        }
+
 
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;
@@ -702,6 +710,15 @@ main {
 
               a[href^="/i/connect_people"] {
                 border-radius: unset;
+              }
+
+              // ChirpUpdate: readd vertical dividers
+              // who to follow / you might like
+              aside {
+                & > div > div,
+                & > a[href*="i/connect_people"] {
+                  border-top: 1px solid var(--color-gray-dark);
+                }
               }
             }
           }
@@ -1577,19 +1594,25 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   }
 }
 
+// trends
+.gt2-trends-handled > div > div > div > div {
+  & > div {
+    // smaller padding next to the trends cog
+    &:nth-child(1) {
+      padding-right: 5px;
+    }
 
-.gt2-trends-handled > div > div > div > div > div {
-  // smaller padding next to the trends cog
-  &:nth-child(1) {
-    padding-right: 5px;
+    &[role=button] {
+      border-radius: unset;
+    }
   }
 
-  &[role=button] {
-    border-radius: unset;
+  // ChirpUpdate: readd vertical dividers
+  a[href="/i/trends"],
+  & > div:not(:first-child) {
+    border-top: 1px solid var(--color-gray-dark);
   }
-
 }
-
 
 // make parts around toasts clickable
 div[data-testid=toast] {
@@ -1637,6 +1660,21 @@ div[data-testid=toast] {
   &:hover {
     cursor: pointer;
     background-color: var(--color-elem-sel);
+  }
+}
+
+
+// headings decrop
+h2 {
+  line-height: normal !important;
+  & > div {
+    &:nth-child(2) {
+      line-height: normal !important;
+    }
+    // icon
+    &:nth-child(3) {
+      align-self: center;
+    }
   }
 }
 
@@ -1952,7 +1990,8 @@ body[data-gt2-path^="settings/"] {
       border-right-width: 0;
       border-bottom-width: 1px;
       box-shadow: 1px 0 0 var(--color-gray-dark);
-      a[href="/settings/about"] {
+      // ChirpUpdate: readd vertical dividers
+      [role=tablist] > div > a {
         border-bottom: 1px solid var(--color-gray-dark);
       }
     }
@@ -1966,6 +2005,26 @@ body[data-gt2-path^="settings/"] {
       a[href="/settings/location_information"],
       a:last-child {
         border-bottom-width: 0;
+      }
+      // ChirpUpdate: readd vertical dividers
+      & > div:nth-child(2):not(.gt2-settings) {
+        & > *,
+        & > div:not([class*=" "]) > * {
+          &:not(:first-child) {
+            border-top: 1px solid var(--color-gray-dark);
+            &:empty {
+              height: 8px;
+              margin: unset !important;
+              background-color: var(--color-elem-sel);
+            }
+          }
+          &:first-child:empty {
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+
+        }
       }
 
       // tablists nav background colors get glitched somehow, not sure why

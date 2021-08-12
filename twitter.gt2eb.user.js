@@ -1111,7 +1111,7 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup=true]"
+    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup]"
     let sparkOpt        = "#react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3)"
 
     GM_setValue("hasRun_forceLatest", false)
@@ -1954,6 +1954,9 @@
     $e.find("[name*=COLOR_PICKER]").parents("label").parent().find("*").attr("data-gt2-color-override-ignore", "")
     $e.find("[dir]:nth-child(3) + div:not([dir]) > div > div > div[dir] + div *").attr("data-gt2-color-override-ignore", "")
   })
+
+  // do not add dividers to tweet inline threads
+  waitForKeyElements(`[data-testid=tweet] > div:nth-child(1) > div:nth-child(2):empty`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
 
 
   // ################
