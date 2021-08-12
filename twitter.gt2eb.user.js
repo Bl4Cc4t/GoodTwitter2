@@ -25,7 +25,7 @@
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require       https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js
+// @require       https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.es5.min.js
 // @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
@@ -2065,6 +2065,7 @@
       green:    ["23, 191, 99",   "9, 102, 51",     "102, 211, 151"],
       red:      ["224, 36, 94",   "159, 12, 58",    "240, 152, 179"],
       redDark:  ["202, 32, 85",   "169, 36, 78",    "216, 137, 161"],
+      yellow:   ["255, 173, 31",  "121, 80, 11",    "255, 203, 112"]
     }
 
     // initialize with the current settings
@@ -2235,7 +2236,7 @@
     return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
-        || _onSubPage(path, "account", ["add"])
+        || _onSubPage(path, "account", ["add", "switch"])
         || _onPage(path, "search-advanced")
         || path.match(/\/(photo|video)\/\d\/?$/)
   }
@@ -2388,7 +2389,7 @@
     if (!isModal) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
           || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))) {
-        $("body").addClass("gt2-page-profile")
+        $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
         if (GM_getValue("opt_gt2").legacyProfile) {

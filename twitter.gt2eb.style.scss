@@ -1542,6 +1542,9 @@ div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
   border-color: var(--color-user);
   background-color: transparent;
+  span {
+    line-height: unset !important;
+  }
   & > *,
   // all but notifications bell turned on
   svg g > *:not([d^="M23.61.15c-.375"]) {
@@ -1555,6 +1558,9 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 div[data-testid$=-unfollow],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
   transition-property: border-color, background-color, box-shadow;
+  span {
+    line-height: unset !important;
+  }
   // red unfollow, WTF white following hover
   // &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
   //   border-color: var(--color-user);
@@ -1860,6 +1866,9 @@ html[style*="overflow-y: hidden"] {
   }
   .gt2-nav-right,
   .gt2-legacy-profile-nav-right {
+    padding-right: var(--scrollbar-width);
+  }
+  .gt2-legacy-profile-banner img {
     padding-right: var(--scrollbar-width);
   }
 }
