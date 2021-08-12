@@ -628,6 +628,13 @@ main {
           [data-testid=toolBar] {
             display: none;
           }
+          & > div,
+          & > div > div:nth-child(2) {
+            padding-bottom: 0 !important;
+            & > div > div > div > div > div:nth-child(2) {
+              padding-top: 0 !important;
+            }
+          }
         }
         // compose tweet hide scrollbar
         .DraftEditor-root {
@@ -637,6 +644,14 @@ main {
         // put tweet images in foreground
         div[data-testid=tweet] img {
           z-index: 1;
+        }
+
+        // ChirpUpdate: readd vertical dividers
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"] > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+          border-bottom: 1px solid var(--color-gray-dark);
+          & > div:empty {
+            height: 0 !important;
+          }
         }
 
 
@@ -702,6 +717,15 @@ main {
 
               a[href^="/i/connect_people"] {
                 border-radius: unset;
+              }
+
+              // ChirpUpdate: readd vertical dividers
+              // who to follow / you might like
+              aside {
+                & > div > div,
+                & > a[href*="i/connect_people"] {
+                  border-top: 1px solid var(--color-gray-dark);
+                }
               }
             }
           }
@@ -1527,18 +1551,79 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
 }
 
 
-.gt2-trends-handled > div > div > div > div > div {
-  // smaller padding next to the trends cog
-  &:nth-child(1) {
-    padding-right: 5px;
+// color several ui elements with the user color
+// 2021-03-19 introduced for some users
+// 2021-05-12 reverted again
+// 2021-08-11 readded with ChirpUpdate
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid$=-cancel],
+div[data-testid$=-follow],
+a[href="/settings/profile"],
+div[id^=topic-follow-button]:not(.r-1ucxkr8),
+div[data-testid=listCell] div[role=button],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
+  border-color: var(--color-user);
+  background-color: transparent;
+  span {
+    line-height: unset !important;
   }
-
-  &[role=button] {
-    border-radius: unset;
+  & > *,
+  // all but notifications bell turned on
+  svg g > *:not([d^="M23.61.15c-.375"]) {
+    color: var(--color-user);
   }
-
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1);
+  }
 }
 
+[data-gt2-bell-full-color] {
+  background-color: var(--color-user) !important;
+}
+
+div[data-testid$=-unfollow],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
+  transition-property: border-color, background-color, box-shadow;
+  span {
+    line-height: unset !important;
+  }
+  // red unfollow, WTF white following hover
+  // &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
+  //   border-color: var(--color-user);
+  //   & > * {
+  //     color: var(--color-user);
+  //   }
+  // }
+  &:not(:hover) {
+    border-color: var(--color-user);
+    background-color: var(--color-user);
+    & > * {
+      color: var(--color-text-2);
+    }
+  }
+}
+
+// trends
+.gt2-trends-handled > div > div > div > div {
+  & > div {
+    // smaller padding next to the trends cog
+    &:nth-child(1) {
+      padding-right: 5px;
+    }
+
+    &[role=button] {
+      border-radius: unset;
+    }
+  }
+
+  // ChirpUpdate: readd vertical dividers
+  a[href="/i/trends"],
+  & > div:not(:first-child) {
+    border-top: 1px solid var(--color-gray-dark);
+  }
+}
 
 // make parts around toasts clickable
 div[data-testid=toast] {
@@ -1569,6 +1654,25 @@ div[data-testid=toast] {
   }
 }
 
+// ChirpUpdate: icon recolors
+/* spark icon */          div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+/* trends cog */          a[href*="/settings/trends"],
+/* explore cog */         a[href*="/settings/explore"],
+/* /search back & more */ body[data-gt2-path^="search"] div[data-testid=primaryColumn] > div > div:nth-child(1) [role=button],
+/* settings back */       body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
+  svg {
+    color: var(--color-user);
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), 0.1) !important;
+  }
+}
+
+// remove invisible overlay on tab navigation
+[data-testid^=ScrollSnap-].r-orgf3d {
+  display: none;
+}
+
 // spark settings
 .gt2-spark-toggle {
   padding: 15px;
@@ -1586,6 +1690,21 @@ div[data-testid=toast] {
   &:hover {
     cursor: pointer;
     background-color: var(--color-elem-sel);
+  }
+}
+
+
+// headings decrop
+h2 {
+  line-height: normal !important;
+  & > div {
+    &:nth-child(2) {
+      line-height: normal !important;
+    }
+    // icon
+    &:nth-child(3) {
+      align-self: center;
+    }
   }
 }
 
@@ -1817,6 +1936,9 @@ html[style*="overflow-y: hidden"] {
   .gt2-legacy-profile-nav-right {
     padding-right: var(--scrollbar-width);
   }
+  .gt2-legacy-profile-banner img {
+    padding-right: var(--scrollbar-width);
+  }
 }
 html[style*=margin-right] {
   margin-right: unset !important;
@@ -1898,7 +2020,8 @@ body[data-gt2-path^="settings/"] {
       border-right-width: 0;
       border-bottom-width: 1px;
       box-shadow: 1px 0 0 var(--color-gray-dark);
-      a[href="/settings/about"] {
+      // ChirpUpdate: readd vertical dividers
+      [role=tablist] > div > a {
         border-bottom: 1px solid var(--color-gray-dark);
       }
     }
@@ -1912,6 +2035,26 @@ body[data-gt2-path^="settings/"] {
       a[href="/settings/location_information"],
       a:last-child {
         border-bottom-width: 0;
+      }
+      // ChirpUpdate: readd vertical dividers
+      & > div:nth-child(2):not(.gt2-settings) {
+        & > *,
+        & > div:not([class*=" "]) > * {
+          &:not(:first-child) {
+            border-top: 1px solid var(--color-gray-dark);
+            &:empty {
+              height: 8px;
+              margin: unset !important;
+              background-color: var(--color-elem-sel);
+            }
+          }
+          &:first-child:empty {
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+
+        }
       }
 
       // tablists nav background colors get glitched somehow, not sure why
