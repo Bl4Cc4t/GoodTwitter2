@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.30
+// @version       0.0.31
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -384,6 +384,8 @@
     colorOverride:            false,
     colorOverrideValue:       "85, 102, 68",
     hideMessageBox:           true,
+    rosettaIcons:             false,
+    favoriteLikes:            false,
 
     updateNotifications:      true,
     expandTcoShortlinks:      true,
@@ -533,6 +535,8 @@
           `)}
           ${getSettingTogglePart("colorOverride", `<div class="gt2-pickr"></div>`)}
           ${getSettingTogglePart("hideMessageBox")}
+          ${getSettingTogglePart("rosettaIcons")}
+          ${getSettingTogglePart("favoriteLikes")}
           <div class="gt2-settings-seperator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
@@ -876,6 +880,18 @@
 
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
+
+    waitForKeyElements(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1)`, () => {
+      // observe changes
+      let lplMut = new MutationObserver(mut => {
+        mut.forEach(m => {
+          console.log(m.target)
+        })
+      }).observe($(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1)`)[0], {
+        childList: true,
+        subtree: true
+      })
+    })
 
     waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
       // remove previously added profile
