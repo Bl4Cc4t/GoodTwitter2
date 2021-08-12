@@ -1643,16 +1643,23 @@ div[data-testid=toast] {
   }
 }
 
-// ChirpUpdate: icon recolors (spark icon, trends cog)
-div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
-.gt2-trends-handled > div > div > div > div > div:nth-child(1) a[href*=trends],
-body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
+// ChirpUpdate: icon recolors
+/* spark icon */          div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+/* trends cog */          a[href*="/settings/trends"],
+/* explore cog */         a[href*="/settings/explore"],
+/* /search back & more */ body[data-gt2-path^="search"] div[data-testid=primaryColumn] > div > div:nth-child(1) [role=button],
+/* settings back */       body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
   svg {
     color: var(--color-user);
   }
   &:hover {
     background-color: rgba(var(--color-raw-user), 0.1) !important;
   }
+}
+
+// remove invisible overlay on tab navigation
+[data-testid^=ScrollSnap-].r-orgf3d {
+  display: none;
 }
 
 // spark settings
