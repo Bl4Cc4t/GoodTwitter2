@@ -1643,6 +1643,18 @@ div[data-testid=toast] {
   }
 }
 
+// ChirpUpdate: icon recolors (spark icon, trends cog)
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+.gt2-trends-handled > div > div > div > div > div:nth-child(1) a[href*=trends],
+body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
+  svg {
+    color: var(--color-user);
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), 0.1) !important;
+  }
+}
+
 // spark settings
 .gt2-spark-toggle {
   padding: 15px;
