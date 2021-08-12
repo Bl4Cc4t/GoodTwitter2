@@ -628,6 +628,13 @@ main {
           [data-testid=toolBar] {
             display: none;
           }
+          & > div,
+          & > div > div:nth-child(2) {
+            padding-bottom: 0 !important;
+            & > div > div > div > div > div:nth-child(2) {
+              padding-top: 0 !important;
+            }
+          }
         }
         // compose tweet hide scrollbar
         .DraftEditor-root {
