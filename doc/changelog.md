@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.31.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/328)
+*released 2021-08-13*
+#### Changes
+- reverted follow buttons recolor on white themes ([#327](https://github.com/Bl4Cc4t/GoodTwitter2/issues/327))
+- fixed "XY retweeted/liked" not showing up in the timeline when having "Hide Follow Suggestions" enabled ([#315](https://github.com/Bl4Cc4t/GoodTwitter2/issues/315), [#320](https://github.com/Bl4Cc4t/GoodTwitter2/issues/320))
+- changed h2 headings back to their pre-update, thicker display
+- added space above media in tweets back
+
+#### Information
+This is a small fix for the last update.
+
+I know I said I won't release another update this month, but it didn't took that long to make.
+
+Unless I missed something again, I'll really be gone for about a month :)
 
 
 ## [0.0.31](https://github.com/Bl4Cc4t/GoodTwitter2/pull/326)
