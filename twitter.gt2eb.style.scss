@@ -1708,6 +1708,7 @@ div[data-testid=toast] {
 
 // headings decrop
 h2 {
+  font-weight: 800 !important;
   line-height: normal !important;
   & > div {
     &:nth-child(2) {
