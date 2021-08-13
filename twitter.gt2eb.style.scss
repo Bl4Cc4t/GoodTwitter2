@@ -641,16 +641,28 @@ main {
           overflow: unset;
         }
 
-        // put tweet images in foreground
-        div[data-testid=tweet] img {
-          z-index: 1;
+        div[data-testid=tweet] {
+          // put tweet images in foreground
+          img {
+            z-index: 1;
+          }
+
+          // space above media
+          & > div:nth-child(2) > div:nth-child(2) > div:nth-child(2):not(:empty) {
+            margin-top: 5px;
+          }
         }
 
         // ChirpUpdate: readd vertical dividers
-        section[aria-labelledby*=accessible-list] div[style*="position: absolute"] > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
           border-bottom: 1px solid var(--color-gray-dark);
           & > div:empty {
-            height: 0 !important;
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+          [data-testid=placementTracking] {
+            border-top: 1px solid var(--color-gray-dark);
           }
         }
 
@@ -1565,7 +1577,7 @@ div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
   border-color: var(--color-user);
-  background-color: transparent;
+  background-color: transparent !important;
   span {
     line-height: unset !important;
   }
@@ -1575,7 +1587,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
     color: var(--color-user);
   }
   &:hover {
-    background-color: rgba(var(--color-raw-user), .1);
+    background-color: rgba(var(--color-raw-user), .1) !important;
   }
 }
 
@@ -1696,6 +1708,7 @@ div[data-testid=toast] {
 
 // headings decrop
 h2 {
+  font-weight: 800 !important;
   line-height: normal !important;
   & > div {
     &:nth-child(2) {
@@ -2328,8 +2341,11 @@ body[data-gt2-path^="settings/"] {
 
 // make line under selected tab full width
 nav [role=tablist] [aria-selected=true] {
-  & > div > div {
-    display: none;
+  & > div {
+    color: var(--color-user);
+    div {
+      display: none;
+    }
   }
   &:after {
     content: "";

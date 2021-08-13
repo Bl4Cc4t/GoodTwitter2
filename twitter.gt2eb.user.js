@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.31
+// @version       0.0.31.1
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -1941,8 +1941,11 @@
       }
       return $p
     }
+
     // small follow topic above tweets
-    waitForKeyElements(`[data-gt2-path=home] [data-testid=primaryColumn] section article > div > div > div > div:not([data-testid=tweet]) > div > div > div`, e => $(e).addClass("gt2-hidden"))
+    // if ((GM_getValue("opt_gt2").hideFollowSuggestionsSel & 1) == 1) {
+    //   waitForKeyElements(`[data-gt2-path=home] [data-testid=primaryColumn] section article > div > div > div > div:not([data-testid=tweet]) > div > div > div`, e => $(e).addClass("gt2-hidden"))
+    // }
 
     // big follow boxes
     waitForKeyElements(
