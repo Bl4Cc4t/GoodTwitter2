@@ -1565,7 +1565,7 @@ div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
   border-color: var(--color-user);
-  background-color: transparent;
+  background-color: transparent !important;
   span {
     line-height: unset !important;
   }
@@ -1575,7 +1575,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
     color: var(--color-user);
   }
   &:hover {
-    background-color: rgba(var(--color-raw-user), .1);
+    background-color: rgba(var(--color-raw-user), .1) !important;
   }
 }
 
