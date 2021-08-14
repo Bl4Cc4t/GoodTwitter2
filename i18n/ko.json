@@ -67,6 +67,11 @@
   "squareAvatars": "사각형 프로필 사진",
   "tweetIconsPullLeft": "트윗 아이콘을 왼쪽으로 옮기기",
   "updateNotifications": "GoodTwitter 2 업데이트 알림",
+  "rosettaIcons": "로제타 아이콘",
+  "rosettaIconsDesc": "2017년 이전 로제타 아이콘 폰트 사용하기",
+  "favorite": "관심글",
+  "favorites": "관심글",
+  "favoriteLikes": "좋아요를 관심글로 바꾸기",
 
   "updatedInfo": "$version$ 버전으로 업데이트되었습니다!",
   "updatedInfoChangelog": "변경 기록"
