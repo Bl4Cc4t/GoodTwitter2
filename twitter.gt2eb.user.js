@@ -13,12 +13,12 @@
 // @grant         GM_xmlhttpRequest
 // @connect       abs.twimg.com
 // @connect       api.twitter.com
-// @resource      css https://github.com/geyerbri/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @require       https://github.com/geyerbri/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
+// @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
+// @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://code.jquery.com/jquery-3.5.1.min.js
 // @require       https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @updateURL     https://github.com/geyerbri/GoodTwitter2/raw/master/twitter.gt2eb.user.js
-// @downloadURL   https://github.com/geyerbri/GoodTwitter2/raw/master/twitter.gt2eb.user.js
+// @updateURL     https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
+// @downloadURL   https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js
 // ==/UserScript==
 
 (function($, waitForKeyElements) {
@@ -562,7 +562,7 @@
         <div class="gt2-sidebar-notice-content">
           ${getSvg("tick")} ${locStr("updatedInfo").replace("$version$", `v${v}`)}<br />
           <a
-            href="https://github.com/geyerbri/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
+            href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${v.replace(/\./g, "")}"
             target="_blank">
             ${locStr("updatedInfoChangelog")}
           </a>
