@@ -71,7 +71,7 @@
   "rosettaIconsDesc": "2017年以前のロゼッタアイコン（ツイート下部のアイコン群）を使用します。",
   "favorite": "お気に入り",
   "favorites": "お気に入り",
-  "favoriteLikes": "いいね！をお気に入りに置き換えます。",
+  "favoriteLikes": "いいね！をお気に入りに置き換える",
 
   "updatedInfo": "バージョン$version$に更新完了しました！",
   "updatedInfoChangelog": "更新履歴"
