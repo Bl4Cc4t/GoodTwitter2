@@ -653,6 +653,18 @@ main {
           }
         }
 
+        // ChirpUpdate: readd vertical dividers
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+          border-bottom: 1px solid var(--color-gray-dark);
+          & > div:empty {
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+          [data-testid=placementTracking] {
+            border-top: 1px solid var(--color-gray-dark);
+          }
+        }
 
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;

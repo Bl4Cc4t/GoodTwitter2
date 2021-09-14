@@ -1974,6 +1974,9 @@
     $e.find("[dir]:nth-child(3) + div:not([dir]) > div > div > div[dir] + div *").attr("data-gt2-color-override-ignore", "")
   })
 
+  // do not add dividers to tweet inline threads
+  waitForKeyElements(`[data-testid=tweet]`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
+
   // color notifications bell
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`, e => $(e).parents("[role=button]").attr("data-gt2-bell-full-color", ""))
   waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => $(e).parents("[role=button]").removeAttr("data-gt2-bell-full-color", ""))
