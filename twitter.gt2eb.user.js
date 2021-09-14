@@ -1416,7 +1416,7 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("[data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
+    waitForKeyElements("body:not(.gt2-page-tweet) [data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
       let $e = $(e)
       let tweetLang = $e.attr("lang")
       let userLang  = getLang()
@@ -1444,7 +1444,7 @@
     }
 
     let id = $(this).parents("article[data-testid=tweet]").length
-      ? $(this).parents("article").find(`> div > div > div > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
+      ? $(this).parents("article[data-testid=tweet]").find(`> div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
                                          div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
@@ -1772,7 +1772,6 @@
   // expand t.co shortlinks (tweets)
   $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article[data-testid=tweet]:not(.gt2-tco-expanded),
   .gt2-opt-expand-tco-shortlinks.gt2-page-tweet [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) article:not(.gt2-tco-expanded)`, function() {
-    console.log(this);
     let $tweet = $(this)
     $tweet.addClass("gt2-tco-expanded")
 
