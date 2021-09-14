@@ -1443,17 +1443,17 @@
       return
     }
 
-    let id = $(this).parents("article").find("div[data-testid=tweet]").length
-      ? $(this).parents("article").find(`div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
+    let id = $(this).parents("article[data-testid=tweet]").length
+      ? $(this).parents("article").find(`> div > div > div > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
                                          div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
     // embedded tweet
-    if ($(this).parents("[role=link]").parents("article").find("[data-testid=tweet]").length) {
+    if ($(this).parents("[role=link]").parents("article[data-testid=tweet]").length) {
       requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
 
     // normal tweet with embedded one
-    } else if ($(this).parents("article").find("[data-testid=tweet] [role=link] [lang]").length) {
+    } else if ($(this).parents("article[data-testid=tweet]").find("[role=link] [lang]").length) {
       console.log("aaa");
       requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
 
@@ -1643,7 +1643,7 @@
     let o = Element.prototype.removeChild
     Element.prototype.removeChild = function(child) {
       // check if element is a tweet
-      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article > div > div[data-testid=tweet]").length) {
+      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article[data-testid=tweet]").length) {
         console.log($(child)[0])
         return child
       } else {
@@ -1770,15 +1770,16 @@
 
 
   // expand t.co shortlinks (tweets)
-  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded),
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article[data-testid=tweet]:not(.gt2-tco-expanded),
   .gt2-opt-expand-tco-shortlinks.gt2-page-tweet [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) article:not(.gt2-tco-expanded)`, function() {
+    console.log(this);
     let $tweet = $(this)
     $tweet.addClass("gt2-tco-expanded")
 
     // exit if tweet has no links
     if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"], [data-testid="card.wrapper"]`).length) return
 
-    let id = $tweet.is("article")
+    let id = $("body").is(".gt2-page-tweet")
       ? getPath().split("/")[2].split("?")[0].split("#")[0]
       : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
