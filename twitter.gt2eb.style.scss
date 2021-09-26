@@ -1346,7 +1346,7 @@ body:not(.gt2-opt-color-override) {
 
 // hide translated tweets
 .gt2-opt-hide-translate-tweet-button {
-  div[data-testid=tweet] + div div[lang] + div[role=button] {
+  [data-testid=tweet] div[lang] + div[role=button] {
     display: none;
   }
 }
