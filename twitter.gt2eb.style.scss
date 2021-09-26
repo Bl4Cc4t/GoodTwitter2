@@ -10,7 +10,7 @@
   --color-override:   $colorOverride;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
