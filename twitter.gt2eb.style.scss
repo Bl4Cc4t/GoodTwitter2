@@ -1569,7 +1569,7 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
 // 2021-08-11 readded with ChirpUpdate
 div[data-testid=userActions],
 div[data-testid=sendDMFromProfile],
-div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
 div[data-testid$=-cancel],
 div[data-testid$=-follow],
 a[href="/settings/profile"],
@@ -1592,7 +1592,11 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 [data-gt2-bell-full-color] {
+  border-color: var(--color-user) !important;
   background-color: var(--color-user) !important;
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
 }
 
 div[data-testid$=-unfollow],
