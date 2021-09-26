@@ -1446,8 +1446,10 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("body:not(.gt2-page-tweet) [data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
+    waitForKeyElements(`[data-testid=tweet] [lang],
+                        [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]`, function(e) {
       let $e = $(e)
+      if ($e.siblings().length) return
       let tweetLang = $e.attr("lang")
       let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
