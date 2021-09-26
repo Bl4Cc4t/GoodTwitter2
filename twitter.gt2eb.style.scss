@@ -1321,7 +1321,7 @@ body:not(.gt2-opt-color-override) {
 
 
 .gt2-opt-bigger-previews {
-  div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
+  [data-testid=tweet] a[href^="/"][href*="/photo/"] > div {
     & > div:nth-child(1) {
       padding-bottom: 0 !important;
     }
