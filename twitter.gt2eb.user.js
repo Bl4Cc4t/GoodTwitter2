@@ -2006,7 +2006,8 @@
   })
 
   // do not add dividers to tweet inline threads
-  waitForKeyElements(`[data-testid=tweet]`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
+  waitForKeyElements(`[style*="position: absolute"] > div > div > a[href^="/i/status/"],
+                      [style*="position: absolute"] > div > div > article`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
 
   // color notifications bell
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`, e => $(e).parents("[role=button]").attr("data-gt2-bell-full-color", ""))
