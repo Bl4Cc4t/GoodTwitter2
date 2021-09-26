@@ -641,15 +641,13 @@ main {
           overflow: unset;
         }
 
-        div[data-testid=tweet] {
+        [data-testid=tweet] {
           // put tweet images in foreground
           img {
             z-index: 1;
           }
-
-          // space above media
-          & > div:nth-child(2) > div:nth-child(2) > div:nth-child(2):not(:empty) {
-            margin-top: 5px;
+          & > div > div > div > div:nth-child(3) > div > div:empty {
+            margin: unset;
           }
         }
 
