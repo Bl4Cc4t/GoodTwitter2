@@ -113,7 +113,7 @@ Open the following box to learn more.
 ## Credits
 This project uses the following libraries:
 - [pickr](https://github.com/Simonwep/pickr) to select colors
-- [emoji-regex](https://github.com/mathiasbynens/emoji-regex) to display the twitter emojis at various places
+- [emoji-regex](https://github.com/mathiasbynens/emoji-regex) (modified es2015/index.js) to display the twitter emojis at various places
 - [jQuery](https://jquery.com)
 - [waitForKeyElements.js](https://gist.github.com/BrockA/2625891)
 - some polyfills from MDN

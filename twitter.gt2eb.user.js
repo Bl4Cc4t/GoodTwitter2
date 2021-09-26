@@ -19,7 +19,7 @@
 // @grant         GM_xmlhttpRequest
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      emojiRegex https://github.com/mathiasbynens/emoji-regex/raw/main/es2015/index.js
+// @resource      emojiRegex https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/data/emoji-regex.txt
 // @resource      pickrCss https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
@@ -83,7 +83,7 @@
   }
 
   String.prototype.replaceAt = function(index, length, text) {
-    return `${[...this.toString()].slice(0, index).join("")}${text}${[...this.toString()].slice(index + length).join("")}`
+    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index + length)}`
   }
 
   String.prototype.insertAt = function(index, text) {
@@ -91,6 +91,7 @@
   }
 
   const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+  const emojiRegexp = new RegExp(`(${GM_getResourceText("emojiRegex")})`, "gu")
 
 
   // get account information
@@ -299,6 +300,28 @@
       }
     }
 
+    // change indices if emoji(s) appear before the entity
+    // reason: multiple > 0xFFFF codepoint emojis are counted wrong: all but the first emoji have their length reduced by 1.
+    // also, if any emoji > 0xFFFF precedes a url, the indices of the url are misaligned by -1.
+    let match
+    let counter = 0
+    while ((match = emojiRegexp.exec(text)) != null) {
+      let e = match[1]
+      if (e.codePointAt(0) < 0xFFFF) continue
+      counter++
+      for (let i in toReplace) {
+        let tmp = Object.entries(toReplace[i])
+        // skip if not url and first element
+        if (tmp[0][1] != `<a href="` && counter == 1) continue
+        if (tmp[0][0] >= match.index) {
+          toReplace[i] = {
+            [parseInt(tmp[0][0]) + 1]: tmp[0][1],
+            [parseInt(tmp[1][0]) + 1]: tmp[1][1]
+          }
+        }
+      }
+    }
+
     // sort array
     toReplace = toReplace.sort((a, b) => parseInt(Object.keys(a)[0]) - parseInt(Object.keys(b)[0]))
 
@@ -326,21 +349,28 @@
   // replace emojis with the twitter svgs
   String.prototype.replaceEmojis = function() {
     let text = this.toString()
+    .replace(/([\*#0-9])\s\u20E3/ug, "$1\u20E3")
+    .replace(/([\*#0-9])\uFE0F/ug, "$1")
 
     let out = text
-    let re = new RegExp(`(${GM_getResourceText("emojiRegex").match(/return \/(.*)\/gu/)[1]})`, "gu")
     let match
     let offset = 0
-    while ((match = re.exec(text)) != null) {
+    while ((match = emojiRegexp.exec(text)) != null) {
       let e = match[1]
       // get unicode of emoji
-      let uni = e.codePointAt(0).toString(16)
-      if (e.length == 4) {
-        uni += `-${e.codePointAt(2).toString(16)}`
+      let uni = []
+      for (let i = 0; i < e.length; i++) {
+        uni.push(e.codePointAt(i).toString(16))
+        if (e.codePointAt(i) > 0xFFFF) i++
       }
 
+      // remove fe0f from non joined emojis
+      if (uni.length > 1 && uni[1].match(/^FE0F$/i)) uni.pop()
+
       // replace with image
-      let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni}.svg" alt="${e}" class="gt2-emoji" />`
+      // https://abs-0.twimg.com/emoji/v2/svg/1f647.svg
+      // https://abs-0.twimg.com/emoji/v2/svg/1f647-200d-2640-fe0f.svg
+      let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni.join("-")}.svg" alt="${e}" class="gt2-emoji" />`
       out = out.replaceAt(match.index + offset, e.length, img)
 
       offset += img.length - e.length
