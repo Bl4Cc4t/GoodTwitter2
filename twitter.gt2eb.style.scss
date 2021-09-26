@@ -1358,9 +1358,9 @@ body:not(.gt2-opt-color-override) {
 }
 
 
-// tweet icons pull right
+// bunch up tweet interactions
 .gt2-opt-tweet-icons-pull-left {
-  [data-testid=primaryColumn] [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
+  [data-testid=primaryColumn] [data-testid=tweet] div > div > div > div:last-child > div:last-child:not(:nth-child(5)) > div[role=group] {
     justify-content: unset;
     & > *:not(:nth-child(4)) {
       max-width: 80px;
