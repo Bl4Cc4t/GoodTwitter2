@@ -1749,7 +1749,6 @@
           left: ${Math.round(pos.left) - 274}px !important;
           top: ${Math.round(pos.top) + 35}px !important;
         }
-
       </style>
     `)
   })
@@ -1758,7 +1757,7 @@
   // remove class on next click
   $("body").on("click", ":not(.gt2-toggle-acc-switcher-dropdown), :not(div[data-testid=SideNav_AccountSwitcher_Button])", function() {
     setTimeout(function () {
-      if (!$("a[href='/account/add']").length) {
+      if (!$("a[href='/i/flow/login']").length) {
         $("body").removeClass("gt2-acc-switcher-active")
       }
     }, 2000)
