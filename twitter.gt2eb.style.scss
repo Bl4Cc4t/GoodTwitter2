@@ -1619,6 +1619,13 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
       color: var(--color-text-2);
     }
   }
+  &:hover {
+    border-color: var(--color-red-dark);
+    background-color: var(--color-red-dark);
+    & > * {
+      color: var(--color-text-2);
+    }
+  }
 }
 
 // trends
@@ -2825,5 +2832,15 @@ body[data-payment-endpoint-path] {
 [data-testid$="-unfollow"] {
   [class^=gt2-qb] {
     display: none;
+  }
+}
+
+[data-testid=confirmationSheetConfirm] {
+  background-color: var(--color-user) !important;
+  & > * {
+    color: var(--color-text-2) !important;
+  }
+  &:hover {
+    filter: brightness(0.9);
   }
 }
