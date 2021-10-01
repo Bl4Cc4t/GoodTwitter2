@@ -1088,10 +1088,10 @@
 
     // profile suspended / not found / temporarily restricted (first view)
     waitForKeyElements([
-      `[data-testid=emptyState] > div:nth-child(2) > *:not(a)`,                               // not found
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`,         // suspended
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`,      // withheld in country
-      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
+      `body:not([data-gt2-path^="messages"]) [data-testid=emptyState] > div:nth-child(2) > *:not(a)`, // not found
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`, // suspended
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
+      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]` // temporarily unavailable (Media Policy Violation)
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
@@ -2471,8 +2471,9 @@
         }
       } else {
         $("body").removeClass("gt2-page-profile")
-        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-        $(".gt2-legacy-profile-info").remove()
+        $(`.gt2-legacy-profile-banner,
+           .gt2-legacy-profile-nav,
+           .gt2-legacy-profile-info`).remove()
       }
     }
 
