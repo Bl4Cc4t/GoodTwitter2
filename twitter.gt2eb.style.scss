@@ -1232,6 +1232,9 @@ body:not(.gt2-opt-small-sidebars) {
       border-radius: 10%;
     }
   }
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left > img {
+    border-radius: 10%;
+  }
 }
 
 // font global override
@@ -2451,10 +2454,16 @@ body[data-gt2-path="messages/settings"] {
   }
 }
 body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
-  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div:nth-child(2) {
-    border-bottom: solid 1px var(--color-gray-dark);
-    & > div:nth-child(1) {
-      margin: unset;
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      & > :empty {
+        margin: unset;
+      }
+      & > :not(:empty) {
+        border-bottom: solid 1px var(--color-gray-dark);
+      }
     }
   }
 }
