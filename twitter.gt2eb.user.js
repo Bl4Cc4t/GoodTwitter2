@@ -2411,7 +2411,9 @@
     if (onSubPage(null, ["status"])) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
-      waitForKeyElements("[data-testid=tweet] + div [href$=source-labels]", () => window.scroll(0, window.pageYOffset - 56.79999923706055))
+      waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () => {
+        if (window.pageYOffset < 75) window.scroll(0, 0)
+      })
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }
