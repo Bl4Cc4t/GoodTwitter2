@@ -600,6 +600,15 @@ header {
   display: none !important;
 }
 
+a {
+  &:hover {
+    text-decoration-thickness: 1px;
+  }
+  &:not(:hover) {
+    text-decoration-line: unset;
+  }
+}
+
 main {
   align-items: center !important;
 
@@ -712,8 +721,18 @@ main {
               background-color: var(--color-elem);
               margin-bottom: 10px;
 
+              // tos/privacy policy/etc. nav
               &:nth-last-child(1) nav {
                 padding: 15px;
+                // more button
+                & > :nth-last-child(2) > div {
+                  &:hover {
+                    text-decoration-thickness: 1px;
+                  }
+                  &:not(:hover) {
+                    text-decoration-line: unset;
+                  }
+                }
               }
 
               &:empty {
