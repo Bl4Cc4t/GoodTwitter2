@@ -1697,11 +1697,23 @@ div[data-testid=toast] {
 }
 
 // ChirpUpdate: icon recolors
-/* spark icon */          div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
-/* trends cog */          a[href*="/settings/trends"],
-/* explore cog */         a[href*="/settings/explore"],
-/* /search back & more */ body[data-gt2-path^="search"] div[data-testid=primaryColumn] > div > div:nth-child(1) [role=button],
-/* settings back */       body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
+// spark icon
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+// various cogs
+a[href*="/settings/trends"],
+a[href*="/settings/explore"],
+a[href*="/settings/notifications"],
+// messages
+a[href*="/messages/settings"],
+a[href*="/messages/compose"],
+a[href^="/messages/"][href*="/info"],
+a[href*="/settings/direct_messages"],
+// generic back button
+[data-testid="app-bar-back"],
+// generic close button
+[data-testid="app-bar-close"],
+// /search dot button
+[data-testid="searchBoxOverflowButton"] {
   svg {
     color: var(--color-user);
   }
@@ -1790,7 +1802,7 @@ h2 {
         color: var(--color-text);
       }
       svg {
-        color: var(--color-gray-light);
+        // color: var(--color-gray-light);
         margin-right: 10px;
         height: 1.25em;
       }
