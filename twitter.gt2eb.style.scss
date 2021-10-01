@@ -2346,6 +2346,20 @@ body[data-gt2-path^="settings/"] {
   .gt2-dashboard-profile {
     display: none;
   }
+  &.gt2-profile-not-found {
+    [data-testid=emptyState] {
+      margin: unset;
+      max-width: unset;
+      & > div {
+        text-align: center;
+        &:nth-child(1) {
+          line-height: unset;
+          font-weight: 700;
+          font-size: calc(22px + var(--font-increment));
+        }
+      }
+    }
+  }
 }
 
 // make line under selected tab full width
