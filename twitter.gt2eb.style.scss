@@ -2382,22 +2382,42 @@ body[data-gt2-path="i/moment_maker"] {
         width: 40%;
 
         // better indicator for active conversation
-        div[data-testid=conversation][aria-selected=true] {
-          background-color: var(--color-elem-sel);
-          & + div {
-            border-right-width: 4px;
+        div[data-testid=conversation] {
+          border-bottom: solid 1px var(--color-gray-dark);
+          &[aria-selected=true] {
+            background-color: var(--color-elem-sel);
+            & + div {
+              border-right-width: 4px;
+            }
           }
         }
       }
       &:nth-last-child(1) {
         width: 60%;
         & > div:nth-child(1),
+        & > div:nth-child(1) > div > div > div > div,
         & > div:nth-child(2) > div > div,
         & > div:nth-child(2) > div > div > div > div > div > div > div {
           max-width: unset;
           margin: unset;
         }
+        & > div:nth-child(2) > div {
+          background-color: var(--color-elem);
+        }
       }
+    }
+  }
+}
+body[data-gt2-path="messages/settings"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
+    border-bottom: solid 1px var(--color-gray-dark);
+  }
+}
+body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div:nth-child(2) {
+    border-bottom: solid 1px var(--color-gray-dark);
+    & > div:nth-child(1) {
+      margin: unset;
     }
   }
 }
