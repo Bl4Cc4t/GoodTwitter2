@@ -2349,20 +2349,25 @@ body[data-gt2-path^="settings/"] {
 }
 
 // make line under selected tab full width
-nav [role=tablist] [aria-selected=true] {
+nav [role=tablist] [role=tab] {
   & > div {
-    color: var(--color-user);
-    div {
-      display: none;
-    }
+    font-weight: 700;
   }
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    background-color: var(--color-user);
-    height: 4px;
-    width: 100%;
+  &[aria-selected=true] {
+    & > div {
+      color: var(--color-user);
+      div {
+        display: none;
+      }
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      background-color: var(--color-user);
+      height: 4px;
+      width: 100%;
+    }
   }
 }
 
