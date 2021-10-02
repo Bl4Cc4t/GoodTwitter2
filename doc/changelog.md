@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.32](https://github.com/Bl4Cc4t/GoodTwitter2/pull/350)
+*released 2021-10-02*
+#### Changes
+- lots of visual fixes (you can see more details if you click on the version number above)
+- twemojis should be more stable now
+
+#### Information
+- color issues will probably adressed in the next update
+- I accidentally already put out the option to switch to older icon sets like Rosetta & use favorites instead of likes...
+  this feature is not yet complete, I'm not sure when I have it ready.
+
+
 ## [0.0.31.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/328)
 *released 2021-08-13*
 #### Changes
