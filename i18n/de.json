@@ -67,6 +67,11 @@
   "squareAvatars": "Eckige Avatare",
   "tweetIconsPullLeft": "Linksbündige Tweet-Interaktions-Knöpfe",
   "updateNotifications": "GoodTwitter-2-Update-Benachrichtigungen",
+  "rosettaIcons": "Rosetta Icons",
+  "rosettaIconsDesc": "Ersetzt manche Icons mit denen der Rosetta-Schriftart von vor 2017",
+  "favorite": "Favorit",
+  "favorites": "Favoriten",
+  "favoriteLikes": "Ersetzt „Gefällt mir“-Angaben durch Favoriten",
 
   "updatedInfo": "Aktualisiert auf $version$!",
   "updatedInfoChangelog": "Changelog"

@@ -10,7 +10,7 @@
   --color-override:   $colorOverride;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -600,6 +600,15 @@ header {
   display: none !important;
 }
 
+a {
+  &:hover {
+    text-decoration-thickness: 1px;
+  }
+  &:not(:hover) {
+    text-decoration-line: unset;
+  }
+}
+
 main {
   align-items: center !important;
 
@@ -641,15 +650,13 @@ main {
           overflow: unset;
         }
 
-        div[data-testid=tweet] {
+        [data-testid=tweet] {
           // put tweet images in foreground
           img {
             z-index: 1;
           }
-
-          // space above media
-          & > div:nth-child(2) > div:nth-child(2) > div:nth-child(2):not(:empty) {
-            margin-top: 5px;
+          & > div > div > div > div:nth-child(3) > div > div:empty {
+            margin: unset;
           }
         }
 
@@ -665,7 +672,6 @@ main {
             border-top: 1px solid var(--color-gray-dark);
           }
         }
-
 
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;
@@ -715,8 +721,18 @@ main {
               background-color: var(--color-elem);
               margin-bottom: 10px;
 
+              // tos/privacy policy/etc. nav
               &:nth-last-child(1) nav {
                 padding: 15px;
+                // more button
+                & > :nth-last-child(2) > div {
+                  &:hover {
+                    text-decoration-thickness: 1px;
+                  }
+                  &:not(:hover) {
+                    text-decoration-line: unset;
+                  }
+                }
               }
 
               &:empty {
@@ -1180,14 +1196,15 @@ body:not(.gt2-opt-small-sidebars) {
   // profile
   div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
   // tweet
-  div[data-testid=tweet] > div:nth-child(1) > div > div,
+  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
-  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div {
     & > a,
+    & > a > div,
     & > a > div:nth-child(1) > div:nth-child(2) > div {
       border-radius: 10%;
     }
@@ -1214,6 +1231,9 @@ body:not(.gt2-opt-small-sidebars) {
     img {
       border-radius: 10%;
     }
+  }
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left > img {
+    border-radius: 10%;
   }
 }
 
@@ -1321,13 +1341,12 @@ body:not(.gt2-opt-color-override) {
 
 
 .gt2-opt-bigger-previews {
-  div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
+  [data-testid=tweet] a[href^="/"][href*="/photo/"] > div {
     & > div:nth-child(1) {
       padding-bottom: 0 !important;
     }
     & > div:nth-child(2) {
       position: relative;
-      display: table;
 
       & > div {
         display: contents;
@@ -1346,7 +1365,7 @@ body:not(.gt2-opt-color-override) {
 
 // hide translated tweets
 .gt2-opt-hide-translate-tweet-button {
-  div[data-testid=tweet] + div div[lang] + div[role=button] {
+  [data-testid=tweet] div[lang] + div[role=button] {
     display: none;
   }
 }
@@ -1360,11 +1379,11 @@ body:not(.gt2-opt-color-override) {
 }
 
 
-// tweet icons pull right
+// bunch up tweet interactions
 .gt2-opt-tweet-icons-pull-left {
-  [data-testid=primaryColumn] [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
+  [data-testid=primaryColumn] [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(2) > div:last-child > div:last-child > div[role=group] {
     justify-content: unset;
-    & > *:not(:nth-child(4)) {
+    & > *:not(:last-child) {
       max-width: 80px;
       margin-right: 20px;
     }
@@ -1569,7 +1588,7 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
 // 2021-08-11 readded with ChirpUpdate
 div[data-testid=userActions],
 div[data-testid=sendDMFromProfile],
-div[data-testid=userActions] ~ div:not([class]) > div,
+div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
 div[data-testid$=-cancel],
 div[data-testid$=-follow],
 a[href="/settings/profile"],
@@ -1592,7 +1611,11 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 [data-gt2-bell-full-color] {
+  border-color: var(--color-user) !important;
   background-color: var(--color-user) !important;
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
 }
 
 div[data-testid$=-unfollow],
@@ -1611,6 +1634,13 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   &:not(:hover) {
     border-color: var(--color-user);
     background-color: var(--color-user);
+    & > * {
+      color: var(--color-text-2);
+    }
+  }
+  &:hover {
+    border-color: var(--color-red-dark);
+    background-color: var(--color-red-dark);
     & > * {
       color: var(--color-text-2);
     }
@@ -1667,11 +1697,23 @@ div[data-testid=toast] {
 }
 
 // ChirpUpdate: icon recolors
-/* spark icon */          div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
-/* trends cog */          a[href*="/settings/trends"],
-/* explore cog */         a[href*="/settings/explore"],
-/* /search back & more */ body[data-gt2-path^="search"] div[data-testid=primaryColumn] > div > div:nth-child(1) [role=button],
-/* settings back */       body[data-gt2-path^="settings/"] [aria-labelledby=detail-header] > :first-child [role=button] {
+// spark icon
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+// various cogs
+a[href*="/settings/trends"],
+a[href*="/settings/explore"],
+a[href*="/settings/notifications"],
+// messages
+a[href*="/messages/settings"],
+a[href*="/messages/compose"],
+a[href^="/messages/"][href*="/info"],
+a[href*="/settings/direct_messages"],
+// generic back button
+[data-testid="app-bar-back"],
+// generic close button
+[data-testid="app-bar-close"],
+// /search dot button
+[data-testid="searchBoxOverflowButton"] {
   svg {
     color: var(--color-user);
   }
@@ -1760,7 +1802,7 @@ h2 {
         color: var(--color-text);
       }
       svg {
-        color: var(--color-gray-light);
+        // color: var(--color-gray-light);
         margin-right: 10px;
         height: 1.25em;
       }
@@ -2337,23 +2379,42 @@ body[data-gt2-path^="settings/"] {
   .gt2-dashboard-profile {
     display: none;
   }
+  &.gt2-profile-not-found {
+    [data-testid=emptyState] {
+      margin: unset;
+      max-width: unset;
+      & > div {
+        text-align: center;
+        &:nth-child(1) {
+          line-height: unset;
+          font-weight: 700;
+          font-size: calc(22px + var(--font-increment));
+        }
+      }
+    }
+  }
 }
 
 // make line under selected tab full width
-nav [role=tablist] [aria-selected=true] {
+nav [role=tablist] [role=tab] {
   & > div {
-    color: var(--color-user);
-    div {
-      display: none;
-    }
+    font-weight: 700;
   }
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    background-color: var(--color-user);
-    height: 4px;
-    width: 100%;
+  &[aria-selected=true] {
+    & > div {
+      color: var(--color-user);
+      div {
+        display: none;
+      }
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      background-color: var(--color-user);
+      height: 4px;
+      width: 100%;
+    }
   }
 }
 
@@ -2373,21 +2434,47 @@ body[data-gt2-path="i/moment_maker"] {
         width: 40%;
 
         // better indicator for active conversation
-        div[data-testid=conversation][aria-selected=true] {
-          background-color: var(--color-elem-sel);
-          & + div {
-            border-right-width: 4px;
+        div[data-testid=conversation] {
+          border-bottom: solid 1px var(--color-gray-dark);
+          &[aria-selected=true] {
+            background-color: var(--color-elem-sel);
+            & + div {
+              border-right-width: 4px;
+            }
           }
         }
       }
       &:nth-last-child(1) {
         width: 60%;
         & > div:nth-child(1),
+        & > div:nth-child(1) > div > div > div > div,
         & > div:nth-child(2) > div > div,
         & > div:nth-child(2) > div > div > div > div > div > div > div {
           max-width: unset;
           margin: unset;
         }
+        & > div:nth-child(2) > div {
+          background-color: var(--color-elem);
+        }
+      }
+    }
+  }
+}
+body[data-gt2-path="messages/settings"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
+    border-bottom: solid 1px var(--color-gray-dark);
+  }
+}
+body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      & > :empty {
+        margin: unset;
+      }
+      & > :not(:empty) {
+        border-bottom: solid 1px var(--color-gray-dark);
       }
     }
   }
@@ -2821,5 +2908,15 @@ body[data-payment-endpoint-path] {
 [data-testid$="-unfollow"] {
   [class^=gt2-qb] {
     display: none;
+  }
+}
+
+[data-testid=confirmationSheetConfirm] {
+  background-color: var(--color-user) !important;
+  & > * {
+    color: var(--color-text-2) !important;
+  }
+  &:hover {
+    filter: brightness(0.9);
   }
 }

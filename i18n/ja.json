@@ -43,7 +43,7 @@
   "fontOverride": "カスタムフォントを使用する",
   "fontOverrideDesc": "デフォルトのフォントを設定したカスタムフォントに変更します。この機能は設定したフォントがインストールされている場合にのみ機能します。",
   "colorOverride": "カスタムカラーを使用する",
-  "colorOverrideDesc": "デフォルトの色を上書きするカスタムカラーを設定します。",
+  "colorOverrideDesc": "デフォルトのカラーを設定したカスタムカラーで上書きします。",
   "forceLatest": "最新ツイート表示を強制する",
   "forceLatestDesc": "本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。",
   "hideMessageBox": "メッセージボックスを非表示にする",
@@ -65,8 +65,13 @@
   "smallSidebars": "小さいサイドバー",
   "smallSidebarsDesc": "350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。",
   "squareAvatars": "四角いアイコン表示",
-  "tweetIconsPullLeft": "ツイートアイコンを左に寄せる",
+  "tweetIconsPullLeft": "ツイート下部のアイコンを左に寄せる",
   "updateNotifications": "GoodTwitter2の更新通知",
+  "rosettaIcons": "ロゼッタアイコンの変更",
+  "rosettaIconsDesc": "2017年以前のロゼッタアイコン（ツイート下部のアイコン群）を使用します。",
+  "favorite": "お気に入り",
+  "favorites": "お気に入り",
+  "favoriteLikes": "いいね！をお気に入りに置き換える",
 
   "updatedInfo": "バージョン$version$に更新完了しました！",
   "updatedInfoChangelog": "更新履歴"

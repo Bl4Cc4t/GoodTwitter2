@@ -67,6 +67,11 @@
   "squareAvatars": "Fyrkantiga Visningsbilder",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "*NEW* GoodTwitter 2 update notifications",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "*NEW* Updated to $version$!",
   "updatedInfoChangelog": "*NEW* Changelog"

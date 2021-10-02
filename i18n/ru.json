@@ -67,6 +67,11 @@
   "squareAvatars": "Квадратные аватары",
   "tweetIconsPullLeft": "Сгруппировать кнопки взаимодействия с твитами слева",
   "updateNotifications": "Уведомления об обновлениях GoodTwitter 2",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "Обновлено до $version$!",
   "updatedInfoChangelog": "Список изменений"

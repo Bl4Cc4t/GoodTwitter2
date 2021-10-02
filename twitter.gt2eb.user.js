@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.31.1
+// @version       0.0.32
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -19,7 +19,7 @@
 // @grant         GM_xmlhttpRequest
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
-// @resource      emojiRegex https://github.com/mathiasbynens/emoji-regex/raw/main/es2015/index.js
+// @resource      emojiRegex https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/data/emoji-regex.txt
 // @resource      pickrCss https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js
 // @require       https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.polyfills.js
@@ -83,7 +83,7 @@
   }
 
   String.prototype.replaceAt = function(index, length, text) {
-    return `${[...this.toString()].slice(0, index).join("")}${text}${[...this.toString()].slice(index + length).join("")}`
+    return `${this.toString().slice(0, index)}${text}${this.toString().slice(index + length)}`
   }
 
   String.prototype.insertAt = function(index, text) {
@@ -91,6 +91,7 @@
   }
 
   const defaultAvatarUrl = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
+  const emojiRegexp = new RegExp(`(${GM_getResourceText("emojiRegex")})`, "gu")
 
 
   // get account information
@@ -299,6 +300,28 @@
       }
     }
 
+    // change indices if emoji(s) appear before the entity
+    // reason: multiple > 0xFFFF codepoint emojis are counted wrong: all but the first emoji have their length reduced by 1.
+    // also, if any emoji > 0xFFFF precedes a url, the indices of the url are misaligned by -1.
+    let match
+    let counter = 0
+    while ((match = emojiRegexp.exec(text)) != null) {
+      let e = match[1]
+      if (e.codePointAt(0) < 0xFFFF) continue
+      counter++
+      for (let i in toReplace) {
+        let tmp = Object.entries(toReplace[i])
+        // skip if not url and first element
+        if (tmp[0][1] != `<a href="` && counter == 1) continue
+        if (tmp[0][0] >= match.index) {
+          toReplace[i] = {
+            [parseInt(tmp[0][0]) + 1]: tmp[0][1],
+            [parseInt(tmp[1][0]) + 1]: tmp[1][1]
+          }
+        }
+      }
+    }
+
     // sort array
     toReplace = toReplace.sort((a, b) => parseInt(Object.keys(a)[0]) - parseInt(Object.keys(b)[0]))
 
@@ -326,21 +349,28 @@
   // replace emojis with the twitter svgs
   String.prototype.replaceEmojis = function() {
     let text = this.toString()
+    .replace(/([\*#0-9])\s\u20E3/ug, "$1\u20E3")
+    .replace(/([\*#0-9])\uFE0F/ug, "$1")
 
     let out = text
-    let re = new RegExp(`(${GM_getResourceText("emojiRegex").match(/return \/(.*)\/gu/)[1]})`, "gu")
     let match
     let offset = 0
-    while ((match = re.exec(text)) != null) {
+    while ((match = emojiRegexp.exec(text)) != null) {
       let e = match[1]
       // get unicode of emoji
-      let uni = e.codePointAt(0).toString(16)
-      if (e.length == 4) {
-        uni += `-${e.codePointAt(2).toString(16)}`
+      let uni = []
+      for (let i = 0; i < e.length; i++) {
+        uni.push(e.codePointAt(i).toString(16))
+        if (e.codePointAt(i) > 0xFFFF) i++
       }
 
+      // remove fe0f from non joined emojis
+      if (uni.length > 1 && uni[1].match(/^FE0F$/i)) uni.pop()
+
       // replace with image
-      let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni}.svg" alt="${e}" class="gt2-emoji" />`
+      // https://abs-0.twimg.com/emoji/v2/svg/1f647.svg
+      // https://abs-0.twimg.com/emoji/v2/svg/1f647-200d-2640-fe0f.svg
+      let img = `<img src="https://abs-0.twimg.com/emoji/v2/svg/${uni.join("-")}.svg" alt="${e}" class="gt2-emoji" />`
       out = out.replaceAt(match.index + offset, e.length, img)
 
       offset += img.length - e.length
@@ -1058,10 +1088,10 @@
 
     // profile suspended / not found / temporarily restricted (first view)
     waitForKeyElements([
-      `[data-testid=emptyState] > div:nth-child(2) > *:not(a)`,                               // not found
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`,         // suspended
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`,      // withheld in country
-      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
+      `body:not([data-gt2-path^="messages"]) [data-testid=emptyState] > div:nth-child(2) > *:not(a)`, // not found
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`, // suspended
+      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
+      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]` // temporarily unavailable (Media Policy Violation)
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
@@ -1416,8 +1446,10 @@
 
   // add translate button
   if (!GM_getValue("opt_gt2").hideTranslateTweetButton) {
-    waitForKeyElements("[data-testid=tweet] [lang], [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]", function(e) {
+    waitForKeyElements(`[data-testid=tweet] [lang],
+                        [data-testid=tweet] + div > div:nth-child(2) [role=link] [lang]`, function(e) {
       let $e = $(e)
+      if ($e.siblings().length) return
       let tweetLang = $e.attr("lang")
       let userLang  = getLang()
           userLang  = userLang == "en-GB" ? "en" : userLang
@@ -1443,17 +1475,17 @@
       return
     }
 
-    let id = $(this).parents("article").find("div[data-testid=tweet]").length
-      ? $(this).parents("article").find(`div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) a[href*='/status/'],
+    let id = $(this).parents("article[data-testid=tweet]").length
+      ? $(this).parents("article[data-testid=tweet]").find(`> div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
                                          div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
     // embedded tweet
-    if ($(this).parents("[role=link]").parents("article").find("[data-testid=tweet]").length) {
+    if ($(this).parents("[role=link]").parents("article[data-testid=tweet]").length) {
       requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
 
     // normal tweet with embedded one
-    } else if ($(this).parents("article").find("[data-testid=tweet] [role=link] [lang]").length) {
+    } else if ($(this).parents("article[data-testid=tweet]").find("[role=link] [lang]").length) {
       console.log("aaa");
       requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
 
@@ -1643,7 +1675,7 @@
     let o = Element.prototype.removeChild
     Element.prototype.removeChild = function(child) {
       // check if element is a tweet
-      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article > div > div[data-testid=tweet]").length) {
+      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article[data-testid=tweet]").length) {
         console.log($(child)[0])
         return child
       } else {
@@ -1719,7 +1751,6 @@
           left: ${Math.round(pos.left) - 274}px !important;
           top: ${Math.round(pos.top) + 35}px !important;
         }
-
       </style>
     `)
   })
@@ -1728,7 +1759,7 @@
   // remove class on next click
   $("body").on("click", ":not(.gt2-toggle-acc-switcher-dropdown), :not(div[data-testid=SideNav_AccountSwitcher_Button])", function() {
     setTimeout(function () {
-      if (!$("a[href='/account/add']").length) {
+      if (!$("a[href='/i/flow/login']").length) {
         $("body").removeClass("gt2-acc-switcher-active")
       }
     }, 2000)
@@ -1770,7 +1801,7 @@
 
 
   // expand t.co shortlinks (tweets)
-  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article [data-testid=tweet]:not(.gt2-tco-expanded),
+  $(document).on("mouseover", `.gt2-opt-expand-tco-shortlinks div:not([data-testid=placementTracking]) > div > article[data-testid=tweet]:not(.gt2-tco-expanded),
   .gt2-opt-expand-tco-shortlinks.gt2-page-tweet [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) article:not(.gt2-tco-expanded)`, function() {
     let $tweet = $(this)
     $tweet.addClass("gt2-tco-expanded")
@@ -1778,7 +1809,7 @@
     // exit if tweet has no links
     if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"], [data-testid="card.wrapper"]`).length) return
 
-    let id = $tweet.is("article")
+    let id = $("body").is(".gt2-page-tweet")
       ? getPath().split("/")[2].split("?")[0].split("#")[0]
       : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
@@ -1975,7 +2006,8 @@
   })
 
   // do not add dividers to tweet inline threads
-  waitForKeyElements(`[data-testid=tweet] > div:nth-child(1) > div:nth-child(2):empty`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
+  waitForKeyElements(`[style*="position: absolute"] > div > div > a[href^="/i/status/"],
+                      [style*="position: absolute"] > div > div > article`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
 
   // color notifications bell
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`, e => $(e).parents("[role=button]").attr("data-gt2-bell-full-color", ""))
@@ -2210,8 +2242,8 @@
     $(window).on("scroll", () => {
       let curr = window.pageYOffset
 
-      // prevent scroll to top
-      if (prev > 1500 && curr == 0) {
+      // prevent auto scroll to top on /search and /explore
+      if (prev > 1500 && curr == 0 && getPath().match(/^(?:search\?|explore\/?$)/)) {
         window.scroll(0, prev)
         return
       }
@@ -2379,7 +2411,7 @@
     if (onSubPage(null, ["status"])) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
-      waitForKeyElements("[data-testid=tweet] + div [href$=source-labels]", () => window.scroll(0, window.pageYOffset - 56.79999923706055))
+      waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }
@@ -2439,8 +2471,9 @@
         }
       } else {
         $("body").removeClass("gt2-page-profile")
-        $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
-        $(".gt2-legacy-profile-info").remove()
+        $(`.gt2-legacy-profile-banner,
+           .gt2-legacy-profile-nav,
+           .gt2-legacy-profile-info`).remove()
       }
     }
 

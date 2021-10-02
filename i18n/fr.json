@@ -67,6 +67,11 @@
   "squareAvatars": "Avatars Carrés",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "Notification de mise à jour de GoodTwitter 2",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "Mis à jour à la version $version$ !",
   "updatedInfoChangelog": "Journal des modifications"
