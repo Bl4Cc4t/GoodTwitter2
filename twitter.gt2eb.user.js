@@ -2299,6 +2299,7 @@
 
 
   function beforeUrlChange(path) {
+    path = path.split("?")[0].split("#")[0]
     // [LPL] reattach buttons to original position
     if (!_isModal(path)) {
       let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
