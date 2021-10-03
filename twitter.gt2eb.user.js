@@ -409,6 +409,7 @@
 
     hideFollowSuggestions:    false,
     hideFollowSuggestionsSel: 7,
+    hideFollowSuggestionsLocSel: 3,
     fontOverride:             false,
     fontOverrideValue:        "Arial",
     colorOverride:            false,
@@ -545,17 +546,34 @@
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
           ${getSettingTogglePart("hideFollowSuggestions", `
-            <div class="${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}" data-setting-name="hideFollowSuggestionsSel">
-              ${["topics", "users", "navLists"].map((e, i) => {
-                let x = Math.pow(2, i)
-                return `<div>
-                  <span>${getLocStr(e)}</span>
-                  <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-hfs-type="${x}">
-                    <div></div>
-                    <div>${getSvg("tick")}</div>
-                  </div>
+            <div data-setting-name="hideFollowSuggestionsBox" class="${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}">
+              ${getLocStr("hideFollowSuggestionsBox").replace("$type$", `
+                <div data-setting-name="hideFollowSuggestionsSel">
+                  ${["topics", "users", "navLists"].map((e, i) => {
+                    let x = Math.pow(2, i)
+                    return `<div>
+                      <span>${getLocStr(e)}</span>
+                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-hfs-type="${x}">
+                        <div></div>
+                        <div>${getSvg("tick")}</div>
+                      </div>
+                    </div>
+                  `}).join("")}
                 </div>
-              `}).join("")}
+              `).replace("$location$", `
+                <div data-setting-name="hideFollowSuggestionsLocSel">
+                  ${["Timeline", "Sidebars"].map((e, i) => {
+                    let x = Math.pow(2, i)
+                    return `<div>
+                      <span>${getLocStr(`settingsHeader${e}`)}</span>
+                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & x) == x ? "gt2-active" : ""}" data-hfs-loc="${x}">
+                        <div></div>
+                        <div>${getSvg("tick")}</div>
+                      </div>
+                    </div>
+                  `}).join("")}
+                </div>
+              `)}
             </div>
           `)}
           ${getSettingTogglePart("fontOverride", `
@@ -635,6 +653,10 @@
       let opt = GM_getValue("opt_gt2")
       GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsSel"]: opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")) }))
     }
+    if ($(this).is("[data-hfs-loc]")) {
+      let opt = GM_getValue("opt_gt2")
+      GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsLocSel"]: opt.hideFollowSuggestionsLocSel ^ parseInt($(this).attr("data-hfs-loc")) }))
+    }
     disableTogglesIfNeeded()
   })
 
@@ -673,7 +695,7 @@
     [GM_getValue("opt_gt2").colorOverride ? "removeClass" : "addClass"]("gt2-hidden")
 
     // hide follow suggestions
-    $("[data-setting-name=hideFollowSuggestionsSel]")
+    $("[data-setting-name=hideFollowSuggestionsBox]")
     [GM_getValue("opt_gt2").hideFollowSuggestions ? "removeClass" : "addClass"]("gt2-hidden")
   }
 
@@ -1957,7 +1979,7 @@
 
 
   // hide timeline follow suggestions
-  if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+  if (GM_getValue("opt_gt2").hideFollowSuggestions && (GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & 1) == 1) {
     function hideTLFS($p) {
       if (!$p) return $p
       if ($p.prev().length) {
@@ -2161,7 +2183,7 @@
         // get bgColor from cookie
         opt_display_bgColor      = document.cookie.match(/night_mode=1/)
                                    ? "rgb(21, 32, 43)"
-                                   : document.cookie.match(/night_mode=2/) 
+                                   : document.cookie.match(/night_mode=2/)
                                      ? "rgb(0, 0, 0)"
                                      : "rgb(255, 255, 255)"
         opt_display_highContrast = false
@@ -2386,7 +2408,7 @@
 
     // handle stuff in sidebars
     handleTrends()
-    if (GM_getValue("opt_gt2").hideFollowSuggestions) {
+    if (GM_getValue("opt_gt2").hideFollowSuggestions && (GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & 2) == 2) {
       let sel = GM_getValue("opt_gt2").hideFollowSuggestionsSel
 
       // topic suggestions
