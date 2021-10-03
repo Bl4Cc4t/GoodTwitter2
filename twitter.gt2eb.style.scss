@@ -1197,6 +1197,8 @@ body:not(.gt2-opt-small-sidebars) {
   div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
   // tweet
   [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
