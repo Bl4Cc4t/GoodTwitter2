@@ -2159,7 +2159,11 @@
       // options to set if not logged in
       if (!isLoggedIn()) {
         // get bgColor from cookie
-        opt_display_bgColor      = document.cookie.match(/night_mode=1/) ? "rgb(21, 32, 43)" : "rgb(255, 255, 255)"
+        opt_display_bgColor      = document.cookie.match(/night_mode=1/)
+                                   ? "rgb(21, 32, 43)"
+                                   : document.cookie.match(/night_mode=2/) 
+                                     ? "rgb(0, 0, 0)"
+                                     : "rgb(255, 255, 255)"
         opt_display_highContrast = false
         opt_display_fontSize     = "15px"
         opt_display_userColor    = "rgb(29, 161, 242)"
