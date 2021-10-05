@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Tweet übersetzen verstecken",
   "hideTrends": "Trends verstecken",
   "hideFollowSuggestions": "Folgen-Vorschläge verstecken (Themen, Nutzer & Listen)",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Keep Tweets (funktioniert aktuell nich)",
   "keepTweetsInTLDesc": "Behält die Tweets auf der Seite, auch wenn man weiterscrollt.",
   "leftTrends": "Trends in der linken Seitenleiste",

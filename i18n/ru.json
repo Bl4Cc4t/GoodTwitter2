@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Скрыть кнопку «Перевести твит»",
   "hideTrends": "Скрыть «Актуальные темы»",
   "hideFollowSuggestions": "Скрыть «Кого читать»",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Хранить твиты (сейчас эта функция не работает)",
   "keepTweetsInTLDesc": "Сохранять твиты на странице, даже если вы продолжаете прокручивать.",
   "leftTrends": "Актуальные темы слева",

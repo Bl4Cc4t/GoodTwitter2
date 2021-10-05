@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Verberg de Vertaal Tweet knop",
   "hideTrends": "Verberg Trends",
   "hideFollowSuggestions": "Verberg Wie te volgen",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Bewaar Tweets (dit werk niet altijd)",
   "keepTweetsInTLDesc": "Weerhoudt de website automatisch de tweets te verwijderen zodra ze uit het zicht zijn.",
   "leftTrends": "Linker Zijbalk Trends",
