@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Ascunde butonul de tradus Tweetul",
   "hideTrends": "Ascunde Tendințele",
   "hideFollowSuggestions": "Ascunde sugestii de urmărit (Subiecte și Utilizatori)",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Păstrează tweeturile (nu funcționează în acest moment)",
   "keepTweetsInTLDesc": "Împiedică eliminarea automată a Tweeturilor când sunt în afara vederii.",
   "leftTrends": "Bara laterală de Tendințe în stânga",

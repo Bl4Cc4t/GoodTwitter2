@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "트윗 번역 버튼 숨기기",
   "hideTrends": "트렌드 숨기기",
   "hideFollowSuggestions": "팔로우 추천 숨기기",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "트윗 유지하기 (지금은 동작하지 않습니다)",
   "keepTweetsInTLDesc": "스크롤 등으로 트윗이 화면 밖으로 나갔을 때 삭제되는 것을 방지합니다.",
   "leftTrends": "왼쪽 사이드바 트렌드",

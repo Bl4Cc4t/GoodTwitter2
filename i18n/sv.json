@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideFollowSuggestions": "*NEW* Hide Who To Follow",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Behåll Tweets (Det är fungerar inte för nuvarande)",
   "keepTweetsInTLDesc": "Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.",
   "leftTrends": "Trender i Vänster Sidofält",

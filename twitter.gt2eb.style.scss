@@ -1197,6 +1197,8 @@ body:not(.gt2-opt-small-sidebars) {
   div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
   // tweet
   [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
@@ -1341,7 +1343,7 @@ body:not(.gt2-opt-color-override) {
 
 
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] a[href^="/"][href*="/photo/"] > div {
+  [data-testid=tweet] div:not([role=link]) > div > div > div > div > div > div > a[href^="/"][href*="/photo/"] > div {
     & > div:nth-child(1) {
       padding-bottom: 0 !important;
     }
@@ -2340,13 +2342,21 @@ body[data-gt2-path^="settings/"] {
       border-bottom: unset;
     }
 
-    [data-setting-name=hideFollowSuggestionsSel] {
+    [data-setting-name=hideFollowSuggestionsBox] {
       margin-top: 12.5px;
+      font-size: incr(13px);
       & > div {
         display: flex;
-        & > span {
-          margin-right: 10px;
-          font-size: incr(13px);
+        flex-direction: column;
+        & > div {
+          display: flex;
+          margin-left: auto;
+          &:not(:last-child) {
+            margin-bottom: 12.5px;
+          }
+          & > span {
+            margin-right: 10px;
+          }
         }
       }
     }

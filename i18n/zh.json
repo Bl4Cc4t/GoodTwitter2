@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "隐藏翻译推文按钮",
   "hideTrends": "隐藏趋势",
   "hideFollowSuggestions": "隐藏推荐关注",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "保留推文（目前不起效）",
   "keepTweetsInTLDesc": "网站不会在推文离开可视区域后移除它。",
   "leftTrends": "侧边栏趋势",
