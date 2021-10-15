@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.32.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/360)
+*released 2021-10-15*
+
+Not many this time. And there are still many things to fix :/
+
+#### Changes
+- option to choose where to hide follow suggestions (timeline and/or sidebar) ([#354](https://github.com/Bl4Cc4t/GoodTwitter2/issues/354))
+- fixed some silly bugs causing the site to think you're not logged in
+- added squared avatars I forgot in the "tweet your reply" box
+
+
 ## [0.0.32](https://github.com/Bl4Cc4t/GoodTwitter2/pull/350)
 *released 2021-10-02*
 #### Changes
