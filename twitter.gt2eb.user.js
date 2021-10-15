@@ -125,7 +125,7 @@
 
   // check if the user is logged in
   function isLoggedIn() {
-    return document.cookie.match(/ twid=/)
+    return document.cookie.match(/twid=u/)
   }
 
 
