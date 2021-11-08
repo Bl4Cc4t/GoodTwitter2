@@ -1605,7 +1605,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   & > *,
   // all but notifications bell turned on
   svg g > *:not([d^="M23.61.15c-.375"]) {
-    color: var(--color-user);
+    color: var(--color-user) !important;
   }
   &:hover {
     background-color: rgba(var(--color-raw-user), .1) !important;
@@ -1637,14 +1637,14 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
     border-color: var(--color-user);
     background-color: var(--color-user);
     & > * {
-      color: var(--color-text-2);
+      color: var(--color-text-2) !important;
     }
   }
   &:hover {
     border-color: var(--color-red-dark);
     background-color: var(--color-red-dark);
     & > * {
-      color: var(--color-text-2);
+      color: var(--color-text-2) !important;
     }
   }
 }
