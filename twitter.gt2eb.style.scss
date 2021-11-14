@@ -2482,6 +2482,16 @@ body[data-gt2-path="i/moment_maker"] {
         & > div:nth-child(2) > div {
           background-color: var(--color-elem);
         }
+
+        // larger avatar in top bar with the name
+        & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+          flex-basis: unset;
+          & > div:nth-child(1),
+          a > div > div {
+            width: 40px;
+            height: 40px;
+          }
+        }
       }
     }
   }
