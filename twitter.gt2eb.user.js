@@ -106,7 +106,7 @@
       bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
       avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, defaultAvatarUrl),
       screenName: x(/screen_name\":\"(.+?)\",/, "youarenotloggedin"),
-      name:       x(/name\":\"(.+?)\",/, "Anonymous"),
+      name:       x(/(?:true|false),\"name\":\"(.+?)\",/, x(/screen_name\":\"(.+?)\",/, "Anonymous")),
       id:         x(/id_str\":\"(\d+)\"/, "0"),
       stats: {
         tweets:    parseInt(x(/statuses_count\":(\d+),/, "0")),
