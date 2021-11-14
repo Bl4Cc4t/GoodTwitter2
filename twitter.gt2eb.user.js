@@ -724,7 +724,7 @@
           <div class="gt2-nav-right">
             <div class="gt2-search"></div>
             <div class="gt2-toggle-navbar-dropdown">
-              <img src="${getInfo().avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "bigger")}" />
+              <img src="${getInfo().avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")}" />
             </div>
             <div class="gt2-compose">${getLocStr("composeNewTweet")}</div>
           </div>
@@ -860,7 +860,7 @@
         <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
         <div>
           <a ${href}="/${i.screenName}" class="gt2-avatar">
-            <img src="${i.avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "bigger")}"/>
+            <img src="${i.avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")}"/>
           </a>
           <div class="gt2-user">
             <a ${href}="/${i.screenName}" class="gt2-name">${i.name.replaceEmojis()}</a>
