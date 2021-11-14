@@ -1613,7 +1613,7 @@ a[href="/settings/profile"],
 div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
-  border-color: var(--color-user);
+  border-color: var(--color-user) !important;
   background-color: transparent !important;
   span {
     line-height: unset !important;
@@ -1650,15 +1650,15 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   //   }
   // }
   &:not(:hover) {
-    border-color: var(--color-user);
-    background-color: var(--color-user);
+    border-color: var(--color-user) !important;
+    background-color: var(--color-user) !important;
     & > * {
       color: var(--color-text-2) !important;
     }
   }
   &:hover {
-    border-color: var(--color-red-dark);
-    background-color: var(--color-red-dark);
+    border-color: var(--color-red-dark) !important;
+    background-color: var(--color-red-dark) !important;
     & > * {
       color: var(--color-text-2) !important;
     }
@@ -1718,14 +1718,14 @@ div[data-testid=toast] {
 // spark icon
 div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
 // various cogs
-a[href*="/settings/trends"],
-a[href*="/settings/explore"],
-a[href*="/settings/notifications"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
 // messages
 a[href*="/messages/settings"],
 a[href*="/messages/compose"],
 a[href^="/messages/"][href*="/info"],
-a[href*="/settings/direct_messages"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 // generic back button
 [data-testid="app-bar-back"],
 // generic close button
@@ -1733,7 +1733,7 @@ a[href*="/settings/direct_messages"],
 // /search dot button
 [data-testid="searchBoxOverflowButton"] {
   svg {
-    color: var(--color-user);
+    color: var(--color-user) !important;
   }
   &:hover {
     background-color: rgba(var(--color-raw-user), 0.1) !important;
