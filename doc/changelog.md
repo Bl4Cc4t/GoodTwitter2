@@ -1,8 +1,14 @@
 # Changelog
 
+## [0.0.33](https://github.com/Bl4Cc4t/GoodTwitter2/pull/373)
+*released 2021-11-16*
+#### Changes
+- coloring fixes of some elements
+- fixed the square icons again
+
+
 ## [0.0.32.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/360)
 *released 2021-10-15*
-
 Not many this time. And there are still many things to fix :/
 
 #### Changes
