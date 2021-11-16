@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideFollowSuggestions": "*NEW* Hide Who To Follow",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Behåll Tweets (Det är fungerar inte för nuvarande)",
   "keepTweetsInTLDesc": "Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.",
   "leftTrends": "Trender i Vänster Sidofält",
@@ -67,6 +68,11 @@
   "squareAvatars": "Fyrkantiga Visningsbilder",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "*NEW* GoodTwitter 2 update notifications",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "*NEW* Updated to $version$!",
   "updatedInfoChangelog": "*NEW* Changelog"

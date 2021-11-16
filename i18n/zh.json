@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "隐藏翻译推文按钮",
   "hideTrends": "隐藏趋势",
   "hideFollowSuggestions": "隐藏推荐关注",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "保留推文（目前不起效）",
   "keepTweetsInTLDesc": "网站不会在推文离开可视区域后移除它。",
   "leftTrends": "侧边栏趋势",
@@ -67,6 +68,11 @@
   "squareAvatars": "正方形头像",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "GoodTwitter 2 更新通知",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "升级到 $version$!",
   "updatedInfoChangelog": "更新日志"

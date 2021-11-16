@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Hide Translate Tweet Button",
   "hideTrends": "Hide Trends",
   "hideFollowSuggestions": "Hide Follow Suggestions (Topics, Users & Lists)",
+  "hideFollowSuggestionsBox": "Hide $type$ from $location$",
   "keepTweetsInTL": "Keep Tweets (this does not work atm)",
   "keepTweetsInTLDesc": "Keep the site from automatically removing tweets once they are out of view.",
   "leftTrends": "Left Sidebar Trends",

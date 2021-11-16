@@ -1,5 +1,59 @@
 # Changelog
 
+## [0.0.32.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/360)
+*released 2021-10-15*
+
+Not many this time. And there are still many things to fix :/
+
+#### Changes
+- option to choose where to hide follow suggestions (timeline and/or sidebar) ([#354](https://github.com/Bl4Cc4t/GoodTwitter2/issues/354))
+- fixed some silly bugs causing the site to think you're not logged in
+- added squared avatars I forgot in the "tweet your reply" box
+
+
+## [0.0.32](https://github.com/Bl4Cc4t/GoodTwitter2/pull/350)
+*released 2021-10-02*
+#### Changes
+- lots of visual fixes (you can see more details if you click on the version number above)
+- twemojis should be more stable now
+
+#### Information
+- color issues will probably adressed in the next update
+- I accidentally already put out the option to switch to older icon sets like Rosetta & use favorites instead of likes...
+  this feature is not yet complete, I'm not sure when I have it ready.
+
+
+## [0.0.31.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/328)
+*released 2021-08-13*
+#### Changes
+- reverted follow buttons recolor on white themes ([#327](https://github.com/Bl4Cc4t/GoodTwitter2/issues/327))
+- fixed "XY retweeted/liked" not showing up in the timeline when having "Hide Follow Suggestions" enabled ([#315](https://github.com/Bl4Cc4t/GoodTwitter2/issues/315), [#320](https://github.com/Bl4Cc4t/GoodTwitter2/issues/320))
+- changed h2 headings back to their pre-update, thicker display
+- added space above media in tweets back
+
+#### Information
+This is a small fix for the last update.
+
+I know I said I won't release another update this month, but it didn't took that long to make.
+
+Unless I missed something again, I'll really be gone for about a month :)
+
+
+## [0.0.31](https://github.com/Bl4Cc4t/GoodTwitter2/pull/326)
+*released 2021-08-12*
+#### Changes
+- adjusted layout to revert several of the [UI changes from 2021-08-11 ("ChirpUpdate")](https://twitter.com/TwitterDesign/status/1425505308563099650) ([#325](https://github.com/Bl4Cc4t/GoodTwitter2/issues/325))
+  - reverted follow buttons recolor
+  - reverted some icon recolors
+  - re-added vertical dividers
+- fixed forceLatest mode
+
+#### Important information
+This project is currently paused until start/mid of September, you can expect more updates/fixes then!
+See [#325](https://github.com/Bl4Cc4t/GoodTwitter2/issues/321) for more information.
+These somewhat drastic UI changes required me to release a quick update though.
+See you in about a month!
+
 
 ## [0.0.30](https://github.com/Bl4Cc4t/GoodTwitter2/pull/274)
 *released 2021-05-26*
@@ -7,9 +61,11 @@
 - **[Translation]** Romanian added (thanks [Andy9001](https://github.com/Andy9001)!)
 - **[New Option]** Move media tab to the left side sidebar (#179)
 - **[New Option]** Use custom accent color (#58)
-   <img src="https://user-images.githubusercontent.com/6740726/119689673-556c8f00-be49-11eb-99dc-bf0087255349.png" width="500px" />
+
+  <img src="https://user-images.githubusercontent.com/6740726/119689673-556c8f00-be49-11eb-99dc-bf0087255349.png" width="500px" />
 
 - **[New Option]** Bunch up Tweet Interaction Buttons to the Left (#278)
+
   <img src="https://user-images.githubusercontent.com/6740726/119239851-340b5a80-bb4c-11eb-9b3e-962ebab2ceea.png" width="500px" />
 
 - Made "Show more tweets" more noticable (#271)
@@ -22,7 +78,9 @@
 #### Changes
 - Ordered the settings page and made it easier to find what you're looking for
 - *Hide Who To Follow* now is *Hide Follow Suggestions*.
-   You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
+
+  You can choose what to hide: users, topics and/or lists (in the sidebar and the timeline).
+
   <img src="https://user-images.githubusercontent.com/6740726/119239367-d88b9d80-bb48-11eb-80f0-e3713017f3d8.png" width="500px" />
 - ~~some more white follow buttons (lists and topics) changed back to the colored variant (#266, #272)~~
   This was reverted by Twitter itself after 2 months.

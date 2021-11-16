@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Verberg de Vertaal Tweet knop",
   "hideTrends": "Verberg Trends",
   "hideFollowSuggestions": "Verberg Wie te volgen",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Bewaar Tweets (dit werk niet altijd)",
   "keepTweetsInTLDesc": "Weerhoudt de website automatisch de tweets te verwijderen zodra ze uit het zicht zijn.",
   "leftTrends": "Linker Zijbalk Trends",
@@ -67,6 +68,11 @@
   "squareAvatars": "Vierkante Avatars",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "GoodTwitter 2 Update Notificaties",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "Ge-update naar $version$!",
   "updatedInfoChangelog": "Changelog"

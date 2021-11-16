@@ -51,6 +51,7 @@
   "hideTranslateTweetButton": "Ukryj przycisk tłumaczenia tweetów",
   "hideTrends": "Ukryj trendy",
   "hideFollowSuggestions": "Ukryj Może Ci się spodobać",
+  "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
   "keepTweetsInTL": "Zachowuj tweety (to obecnie nie działa)",
   "keepTweetsInTLDesc": "Niech strona nie usuwa automatycznie tweetów spoza widoku.",
   "leftTrends": "Trendy na pasku po lewej",
@@ -67,6 +68,11 @@
   "squareAvatars": "Kwadratowe awatary",
   "tweetIconsPullLeft": "*NEW* Bunch up Tweet Interaction Buttons to the Left",
   "updateNotifications": "Powiadomienia o aktualizacjach GoodTwitter 2",
+  "rosettaIcons": "*NEW* Rosetta Icons",
+  "rosettaIconsDesc": "*NEW* Use the pre 2017 Rosetta icon font",
+  "favorite": "*NEW* Favorite",
+  "favorites": "*NEW* Favorites",
+  "favoriteLikes": "*NEW* Replace Likes with Favorites",
 
   "updatedInfo": "Zaktualizowano do $version$!",
   "updatedInfoChangelog": "Lista zmian"

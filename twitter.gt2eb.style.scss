@@ -10,7 +10,7 @@
   --color-override:   $colorOverride;
 
   --font-increment:   calc(var(--global-font-size) - 15px);
-  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -600,6 +600,15 @@ header {
   display: none !important;
 }
 
+a {
+  &:hover {
+    text-decoration-thickness: 1px;
+  }
+  &:not(:hover) {
+    text-decoration-line: unset;
+  }
+}
+
 main {
   align-items: center !important;
 
@@ -628,17 +637,41 @@ main {
           [data-testid=toolBar] {
             display: none;
           }
+          & > div,
+          & > div > div:nth-child(2) {
+            padding-bottom: 0 !important;
+            & > div > div > div > div > div:nth-child(2) {
+              padding-top: 0 !important;
+            }
+          }
         }
         // compose tweet hide scrollbar
         .DraftEditor-root {
           overflow: unset;
         }
 
-        // put tweet images in foreground
-        div[data-testid=tweet] img {
-          z-index: 1;
+        [data-testid=tweet] {
+          // put tweet images in foreground
+          img {
+            z-index: 1;
+          }
+          & > div > div > div > div:nth-child(3) > div > div:empty {
+            margin: unset;
+          }
         }
 
+        // ChirpUpdate: readd vertical dividers
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+          border-bottom: 1px solid var(--color-gray-dark);
+          & > div:empty {
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+          [data-testid=placementTracking] {
+            border-top: 1px solid var(--color-gray-dark);
+          }
+        }
 
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;
@@ -688,8 +721,18 @@ main {
               background-color: var(--color-elem);
               margin-bottom: 10px;
 
+              // tos/privacy policy/etc. nav
               &:nth-last-child(1) nav {
                 padding: 15px;
+                // more button
+                & > :nth-last-child(2) > div {
+                  &:hover {
+                    text-decoration-thickness: 1px;
+                  }
+                  &:not(:hover) {
+                    text-decoration-line: unset;
+                  }
+                }
               }
 
               &:empty {
@@ -702,6 +745,15 @@ main {
 
               a[href^="/i/connect_people"] {
                 border-radius: unset;
+              }
+
+              // ChirpUpdate: readd vertical dividers
+              // who to follow / you might like
+              aside {
+                & > div > div,
+                & > a[href*="i/connect_people"] {
+                  border-top: 1px solid var(--color-gray-dark);
+                }
               }
             }
           }
@@ -1144,24 +1196,38 @@ body:not(.gt2-opt-small-sidebars) {
   // profile
   div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
   // tweet
-  div[data-testid=tweet] > div:nth-child(1) > div > div,
+  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
-  #react-root div[data-at-shortcut-keys] > div:nth-child(2) > div > div > div > div > div > div > div:nth-child(1),
+  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
   // notifications
-  article > div > div:nth-child(2) > div:nth-child(1) > div > div {
-    & > a,
-    & > a > div:nth-child(1) > div:nth-child(2) > div {
-      border-radius: 10%;
-    }
-    & > a > div:nth-child(2) {
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) div,
+  // /messages message
+  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
+    & > a:not([href$="/photo"]),
+    & > a div {
       border-width: 0;
-      border-radius: 10%;
+      border-radius: 10% !important;
     }
     & > a[href$="/photo"] {
-      border-radius: 11.5%
+      border-radius: 11.5% !important;
     }
+  }
+
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) > div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
+  // edit tweet recipients (replying to)
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+    border-radius: 10% !important;
   }
 
   // tweet (show this thread)
@@ -1178,6 +1244,9 @@ body:not(.gt2-opt-small-sidebars) {
     img {
       border-radius: 10%;
     }
+  }
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left > img {
+    border-radius: 10%;
   }
 }
 
@@ -1285,23 +1354,27 @@ body:not(.gt2-opt-color-override) {
 
 
 .gt2-opt-bigger-previews {
-  div[data-testid=tweet] > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > div > div > div > a[href*="/photo/"] > div {
-    & > div:nth-child(1) {
-      padding-bottom: 0 !important;
-    }
-    & > div:nth-child(2) {
-      position: relative;
-      display: table;
-
-      & > div {
-        display: contents;
+  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+    align-self: unset !important;
+    & > div > div > a[href^="/"][href*="/photo/"] > div {
+      height: unset !important;
+      width: unset !important;
+      & > div:nth-child(1) {
+        padding-bottom: 0 !important;
+      }
+      & > div:nth-child(2) {
         position: relative;
+
         & > div {
-          display: none;
-        }
-        & > img {
+          display: contents;
           position: relative;
-          opacity: 1;
+          & > div {
+            display: none;
+          }
+          & > img {
+            position: relative;
+            opacity: 1;
+          }
         }
       }
     }
@@ -1310,7 +1383,7 @@ body:not(.gt2-opt-color-override) {
 
 // hide translated tweets
 .gt2-opt-hide-translate-tweet-button {
-  div[data-testid=tweet] + div div[lang] + div[role=button] {
+  [data-testid=tweet] div[lang] + div[role=button] {
     display: none;
   }
 }
@@ -1324,11 +1397,11 @@ body:not(.gt2-opt-color-override) {
 }
 
 
-// tweet icons pull right
+// bunch up tweet interactions
 .gt2-opt-tweet-icons-pull-left {
-  [data-testid=primaryColumn] [data-testid=tweet] > div:last-child > div:last-child > div[role=group] {
+  [data-testid=primaryColumn] [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(2) > div:last-child > div:last-child > div[role=group] {
     justify-content: unset;
-    & > *:not(:nth-child(4)) {
+    & > *:not(:last-child) {
       max-width: 80px;
       margin-right: 20px;
     }
@@ -1527,18 +1600,90 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
 }
 
 
-.gt2-trends-handled > div > div > div > div > div {
-  // smaller padding next to the trends cog
-  &:nth-child(1) {
-    padding-right: 5px;
+// color several ui elements with the user color
+// 2021-03-19 introduced for some users
+// 2021-05-12 reverted again
+// 2021-08-11 readded with ChirpUpdate
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
+div[data-testid$=-cancel],
+div[data-testid$=-follow],
+a[href="/settings/profile"],
+div[id^=topic-follow-button]:not(.r-1ucxkr8),
+div[data-testid=listCell] div[role=button],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
+  border-color: var(--color-user) !important;
+  background-color: transparent !important;
+  span {
+    line-height: unset !important;
   }
-
-  &[role=button] {
-    border-radius: unset;
+  & > *,
+  // all but notifications bell turned on
+  svg g > *:not([d^="M23.61.15c-.375"]) {
+    color: var(--color-user) !important;
   }
-
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
 }
 
+[data-gt2-bell-full-color] {
+  border-color: var(--color-user) !important;
+  background-color: var(--color-user) !important;
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+div[data-testid$=-unfollow],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
+  transition-property: border-color, background-color, box-shadow;
+  span {
+    line-height: unset !important;
+  }
+  // red unfollow, WTF white following hover
+  // &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
+  //   border-color: var(--color-user);
+  //   & > * {
+  //     color: var(--color-user);
+  //   }
+  // }
+  &:not(:hover) {
+    border-color: var(--color-user) !important;
+    background-color: var(--color-user) !important;
+    & > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+  &:hover {
+    border-color: var(--color-red-dark) !important;
+    background-color: var(--color-red-dark) !important;
+    & > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+}
+
+// trends
+.gt2-trends-handled > div > div > div > div {
+  & > div {
+    // smaller padding next to the trends cog
+    &:nth-child(1) {
+      padding-right: 5px;
+    }
+
+    &[role=button] {
+      border-radius: unset;
+    }
+  }
+
+  // ChirpUpdate: readd vertical dividers
+  a[href="/i/trends"],
+  & > div:not(:first-child) {
+    border-top: 1px solid var(--color-gray-dark);
+  }
+}
 
 // make parts around toasts clickable
 div[data-testid=toast] {
@@ -1569,6 +1714,37 @@ div[data-testid=toast] {
   }
 }
 
+// ChirpUpdate: icon recolors
+// spark icon
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+// various cogs
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
+// messages
+a[href*="/messages/settings"],
+a[href*="/messages/compose"],
+a[href^="/messages/"][href*="/info"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
+// generic back button
+[data-testid="app-bar-back"],
+// generic close button
+[data-testid="app-bar-close"],
+// /search dot button
+[data-testid="searchBoxOverflowButton"] {
+  svg {
+    color: var(--color-user) !important;
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), 0.1) !important;
+  }
+}
+
+// remove invisible overlay on tab navigation
+[data-testid^=ScrollSnap-].r-orgf3d {
+  display: none;
+}
+
 // spark settings
 .gt2-spark-toggle {
   padding: 15px;
@@ -1586,6 +1762,22 @@ div[data-testid=toast] {
   &:hover {
     cursor: pointer;
     background-color: var(--color-elem-sel);
+  }
+}
+
+
+// headings decrop
+h2 {
+  font-weight: 800 !important;
+  line-height: normal !important;
+  & > div {
+    &:nth-child(2) {
+      line-height: normal !important;
+    }
+    // icon
+    &:nth-child(3) {
+      align-self: center;
+    }
   }
 }
 
@@ -1628,7 +1820,7 @@ div[data-testid=toast] {
         color: var(--color-text);
       }
       svg {
-        color: var(--color-gray-light);
+        // color: var(--color-gray-light);
         margin-right: 10px;
         height: 1.25em;
       }
@@ -1817,6 +2009,9 @@ html[style*="overflow-y: hidden"] {
   .gt2-legacy-profile-nav-right {
     padding-right: var(--scrollbar-width);
   }
+  .gt2-legacy-profile-banner img {
+    padding-right: var(--scrollbar-width);
+  }
 }
 html[style*=margin-right] {
   margin-right: unset !important;
@@ -1898,7 +2093,8 @@ body[data-gt2-path^="settings/"] {
       border-right-width: 0;
       border-bottom-width: 1px;
       box-shadow: 1px 0 0 var(--color-gray-dark);
-      a[href="/settings/about"] {
+      // ChirpUpdate: readd vertical dividers
+      [role=tablist] > div > a {
         border-bottom: 1px solid var(--color-gray-dark);
       }
     }
@@ -1912,6 +2108,26 @@ body[data-gt2-path^="settings/"] {
       a[href="/settings/location_information"],
       a:last-child {
         border-bottom-width: 0;
+      }
+      // ChirpUpdate: readd vertical dividers
+      & > div:nth-child(2):not(.gt2-settings) {
+        & > *,
+        & > div:not([class*=" "]) > * {
+          &:not(:first-child) {
+            border-top: 1px solid var(--color-gray-dark);
+            &:empty {
+              height: 8px;
+              margin: unset !important;
+              background-color: var(--color-elem-sel);
+            }
+          }
+          &:first-child:empty {
+            height: 8px;
+            margin: unset !important;
+            background-color: var(--color-elem-sel);
+          }
+
+        }
       }
 
       // tablists nav background colors get glitched somehow, not sure why
@@ -2142,13 +2358,21 @@ body[data-gt2-path^="settings/"] {
       border-bottom: unset;
     }
 
-    [data-setting-name=hideFollowSuggestionsSel] {
+    [data-setting-name=hideFollowSuggestionsBox] {
       margin-top: 12.5px;
+      font-size: incr(13px);
       & > div {
         display: flex;
-        & > span {
-          margin-right: 10px;
-          font-size: incr(13px);
+        flex-direction: column;
+        & > div {
+          display: flex;
+          margin-left: auto;
+          &:not(:last-child) {
+            margin-bottom: 12.5px;
+          }
+          & > span {
+            margin-right: 10px;
+          }
         }
       }
     }
@@ -2181,20 +2405,42 @@ body[data-gt2-path^="settings/"] {
   .gt2-dashboard-profile {
     display: none;
   }
+  &.gt2-profile-not-found {
+    [data-testid=emptyState] {
+      margin: unset;
+      max-width: unset;
+      & > div {
+        text-align: center;
+        &:nth-child(1) {
+          line-height: unset;
+          font-weight: 700;
+          font-size: calc(22px + var(--font-increment));
+        }
+      }
+    }
+  }
 }
 
 // make line under selected tab full width
-nav [role=tablist] [aria-selected=true] {
-  & > div > div {
-    display: none;
+nav [role=tablist] [role=tab] {
+  & > div {
+    font-weight: 700;
   }
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    background-color: var(--color-user);
-    height: 4px;
-    width: 100%;
+  &[aria-selected=true] {
+    & > div {
+      color: var(--color-user);
+      div {
+        display: none;
+      }
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      background-color: var(--color-user);
+      height: 4px;
+      width: 100%;
+    }
   }
 }
 
@@ -2214,21 +2460,57 @@ body[data-gt2-path="i/moment_maker"] {
         width: 40%;
 
         // better indicator for active conversation
-        div[data-testid=conversation][aria-selected=true] {
-          background-color: var(--color-elem-sel);
-          & + div {
-            border-right-width: 4px;
+        div[data-testid=conversation] {
+          border-bottom: solid 1px var(--color-gray-dark);
+          &[aria-selected=true] {
+            background-color: var(--color-elem-sel);
+            & + div {
+              border-right-width: 4px;
+            }
           }
         }
       }
       &:nth-last-child(1) {
         width: 60%;
         & > div:nth-child(1),
+        & > div:nth-child(1) > div > div > div > div,
         & > div:nth-child(2) > div > div,
         & > div:nth-child(2) > div > div > div > div > div > div > div {
           max-width: unset;
           margin: unset;
         }
+        & > div:nth-child(2) > div {
+          background-color: var(--color-elem);
+        }
+
+        // larger avatar in top bar with the name
+        // & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+        //   flex-basis: unset;
+        //   & > div:nth-child(1),
+        //   a > div > div {
+        //     width: 40px;
+        //     height: 40px;
+        //   }
+        // }
+      }
+    }
+  }
+}
+body[data-gt2-path="messages/settings"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
+    border-bottom: solid 1px var(--color-gray-dark);
+  }
+}
+body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      & > :empty {
+        margin: unset;
+      }
+      & > :not(:empty) {
+        border-bottom: solid 1px var(--color-gray-dark);
       }
     }
   }
@@ -2662,5 +2944,15 @@ body[data-payment-endpoint-path] {
 [data-testid$="-unfollow"] {
   [class^=gt2-qb] {
     display: none;
+  }
+}
+
+[data-testid=confirmationSheetConfirm] {
+  background-color: var(--color-user) !important;
+  & > * {
+    color: var(--color-text-2) !important;
+  }
+  &:hover {
+    filter: brightness(0.9);
   }
 }
