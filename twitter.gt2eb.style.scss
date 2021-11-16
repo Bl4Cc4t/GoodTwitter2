@@ -1204,19 +1204,30 @@ body:not(.gt2-opt-small-sidebars) {
   // small profile modals
   #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
   // notifications
-  article > div > div:nth-child(2) > div:nth-child(1) > div > div {
-    & > a,
-    & > a > div,
-    & > a > div:nth-child(1) > div:nth-child(2) > div {
-      border-radius: 10%;
-    }
-    & > a > div:nth-child(2) {
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) div,
+  // /messages message
+  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
+    & > a:not([href$="/photo"]),
+    & > a div {
       border-width: 0;
-      border-radius: 10%;
+      border-radius: 10% !important;
     }
     & > a[href$="/photo"] {
-      border-radius: 11.5%
+      border-radius: 11.5% !important;
     }
+  }
+
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) > div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
+  // edit tweet recipients (replying to)
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+    border-radius: 10% !important;
   }
 
   // tweet (show this thread)
@@ -1343,22 +1354,27 @@ body:not(.gt2-opt-color-override) {
 
 
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] div:not([role=link]) > div > div > div > div > div > div > a[href^="/"][href*="/photo/"] > div {
-    & > div:nth-child(1) {
-      padding-bottom: 0 !important;
-    }
-    & > div:nth-child(2) {
-      position: relative;
-
-      & > div {
-        display: contents;
+  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+    align-self: unset !important;
+    & > div > div > a[href^="/"][href*="/photo/"] > div {
+      height: unset !important;
+      width: unset !important;
+      & > div:nth-child(1) {
+        padding-bottom: 0 !important;
+      }
+      & > div:nth-child(2) {
         position: relative;
+
         & > div {
-          display: none;
-        }
-        & > img {
+          display: contents;
           position: relative;
-          opacity: 1;
+          & > div {
+            display: none;
+          }
+          & > img {
+            position: relative;
+            opacity: 1;
+          }
         }
       }
     }
@@ -1597,7 +1613,7 @@ a[href="/settings/profile"],
 div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
-  border-color: var(--color-user);
+  border-color: var(--color-user) !important;
   background-color: transparent !important;
   span {
     line-height: unset !important;
@@ -1605,7 +1621,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   & > *,
   // all but notifications bell turned on
   svg g > *:not([d^="M23.61.15c-.375"]) {
-    color: var(--color-user);
+    color: var(--color-user) !important;
   }
   &:hover {
     background-color: rgba(var(--color-raw-user), .1) !important;
@@ -1634,17 +1650,17 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   //   }
   // }
   &:not(:hover) {
-    border-color: var(--color-user);
-    background-color: var(--color-user);
+    border-color: var(--color-user) !important;
+    background-color: var(--color-user) !important;
     & > * {
-      color: var(--color-text-2);
+      color: var(--color-text-2) !important;
     }
   }
   &:hover {
-    border-color: var(--color-red-dark);
-    background-color: var(--color-red-dark);
+    border-color: var(--color-red-dark) !important;
+    background-color: var(--color-red-dark) !important;
     & > * {
-      color: var(--color-text-2);
+      color: var(--color-text-2) !important;
     }
   }
 }
@@ -1702,14 +1718,14 @@ div[data-testid=toast] {
 // spark icon
 div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
 // various cogs
-a[href*="/settings/trends"],
-a[href*="/settings/explore"],
-a[href*="/settings/notifications"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
 // messages
 a[href*="/messages/settings"],
 a[href*="/messages/compose"],
 a[href^="/messages/"][href*="/info"],
-a[href*="/settings/direct_messages"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 // generic back button
 [data-testid="app-bar-back"],
 // generic close button
@@ -1717,7 +1733,7 @@ a[href*="/settings/direct_messages"],
 // /search dot button
 [data-testid="searchBoxOverflowButton"] {
   svg {
-    color: var(--color-user);
+    color: var(--color-user) !important;
   }
   &:hover {
     background-color: rgba(var(--color-raw-user), 0.1) !important;
@@ -2466,6 +2482,16 @@ body[data-gt2-path="i/moment_maker"] {
         & > div:nth-child(2) > div {
           background-color: var(--color-elem);
         }
+
+        // larger avatar in top bar with the name
+        // & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+        //   flex-basis: unset;
+        //   & > div:nth-child(1),
+        //   a > div > div {
+        //     width: 40px;
+        //     height: 40px;
+        //   }
+        // }
       }
     }
   }

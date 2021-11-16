@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.32.1
+// @version       0.0.33
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -106,7 +106,7 @@
       bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
       avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, defaultAvatarUrl),
       screenName: x(/screen_name\":\"(.+?)\",/, "youarenotloggedin"),
-      name:       x(/name\":\"(.+?)\",/, "Anonymous"),
+      name:       x(/(?:true|false),\"name\":\"(.+?)\",/, x(/screen_name\":\"(.+?)\",/, "Anonymous")),
       id:         x(/id_str\":\"(\d+)\"/, "0"),
       stats: {
         tweets:    parseInt(x(/statuses_count\":(\d+),/, "0")),
@@ -724,7 +724,7 @@
           <div class="gt2-nav-right">
             <div class="gt2-search"></div>
             <div class="gt2-toggle-navbar-dropdown">
-              <img src="${getInfo().avatarUrl.replace("normal.", "bigger.")}" />
+              <img src="${getInfo().avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")}" />
             </div>
             <div class="gt2-compose">${getLocStr("composeNewTweet")}</div>
           </div>
@@ -740,10 +740,10 @@
         window.innerWidth < 1005 ? "Explore" : null
       ]) {
         if (!e) continue
-        let $e = $(`nav > a[href="/${e.toLowerCase()}"]`)
+        let $e = $(`nav > a[href^="/${e.toLowerCase()}"]:not([data-testid=AppTabBar_Profile_Link]):not([href$="/lists"])`)
         if (!e.length) continue
         $e.appendTo(".gt2-nav-left")
-        $(`.gt2-nav a[href="/${e.toLowerCase()}"] > div`)
+        $(`.gt2-nav a[href^="/${e.toLowerCase()}"] > div`)
         .append(`
           <div class="gt2-nav-header">
             ${getLocStr(`nav${e}`)}
@@ -860,7 +860,7 @@
         <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
         <div>
           <a ${href}="/${i.screenName}" class="gt2-avatar">
-            <img src="${i.avatarUrl.replace("normal.", "bigger.")}"/>
+            <img src="${i.avatarUrl.replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")}"/>
           </a>
           <div class="gt2-user">
             <a ${href}="/${i.screenName}" class="gt2-name">${i.name.replaceEmojis()}</a>
@@ -981,7 +981,7 @@
           </div>
           <div class="gt2-legacy-profile-nav">
             <div class="gt2-legacy-profile-nav-left">
-              <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
+              <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
               <div>
                 <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
                 <div class="gt2-legacy-profile-screen-name-wrap">
@@ -2170,7 +2170,7 @@
 
       // delete old stylesheet
       if ($(".gt2-style").length) {
-        $(".gt2-style").remove()
+        $(".gt2-style, .gt2-style-pickr").remove()
       }
 
       let opt_display_bgColor      = GM_getValue("opt_display_bgColor")
