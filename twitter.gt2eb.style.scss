@@ -2484,14 +2484,14 @@ body[data-gt2-path="i/moment_maker"] {
         }
 
         // larger avatar in top bar with the name
-        & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
-          flex-basis: unset;
-          & > div:nth-child(1),
-          a > div > div {
-            width: 40px;
-            height: 40px;
-          }
-        }
+        // & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+        //   flex-basis: unset;
+        //   & > div:nth-child(1),
+        //   a > div > div {
+        //     width: 40px;
+        //     height: 40px;
+        //   }
+        // }
       }
     }
   }
