@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.32.1
+// @version       0.0.33
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -2170,7 +2170,7 @@
 
       // delete old stylesheet
       if ($(".gt2-style").length) {
-        $(".gt2-style").remove()
+        $(".gt2-style, .gt2-style-pickr").remove()
       }
 
       let opt_display_bgColor      = GM_getValue("opt_display_bgColor")
