@@ -2526,6 +2526,7 @@ body[data-gt2-path="i/moment_maker"] {
 [data-testid="card.layoutSmall.media"] + a {
   display: flex;
   justify-content: center;
+  width: 100%;
   &,
   &:link,
   &:visited {
