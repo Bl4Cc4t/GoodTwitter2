@@ -49,6 +49,7 @@
   "hideMessageBox": "*NEW* Hide Message Box",
   "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "*NEW* Hide Translate Tweet Button",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "*NEW* Hide Trends",
   "hideFollowSuggestions": "*NEW* Hide Who To Follow",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

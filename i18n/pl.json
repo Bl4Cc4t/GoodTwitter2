@@ -49,6 +49,7 @@
   "hideMessageBox": "Ukryj pole wiadomości",
   "hideMessageBoxDesc": "Ukrywa nowy ekran wiadomości, widoczny stale w prawym dolnym rogu.",
   "hideTranslateTweetButton": "Ukryj przycisk tłumaczenia tweetów",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Ukryj trendy",
   "hideFollowSuggestions": "Ukryj Może Ci się spodobać",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

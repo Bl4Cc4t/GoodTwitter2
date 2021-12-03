@@ -49,6 +49,7 @@
   "hideMessageBox": "Ocultar la bandeja de mensajes",
   "hideMessageBoxDesc": "Oculta la nueva bandeja de mensajes que está siempre presente en la esquina inferior derecha.",
   "hideTranslateTweetButton": "Ocultar botón de Traducir Tweet",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Ocultar \"Tendencias\"",
   "hideFollowSuggestions": "Ocultar \"A quién seguir\"",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

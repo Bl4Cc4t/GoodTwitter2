@@ -49,6 +49,7 @@
   "hideMessageBox": "*NEW* Hide Message Box",
   "hideMessageBoxDesc": "*NEW* Hides the new, all time present message box in the bottom right corner.",
   "hideTranslateTweetButton": "隱藏翻譯此推文按鈕",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "隱藏流行趨勢",
   "hideFollowSuggestions": "隱藏跟隨誰",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

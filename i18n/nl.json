@@ -49,6 +49,7 @@
   "hideMessageBox": "Verberg Berichtenbox",
   "hideMessageBoxDesc": "Verbergt de nieuwe, altijd aanwezige berichtenbox in de rechterbenedenhoek.",
   "hideTranslateTweetButton": "Verberg de Vertaal Tweet knop",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Verberg Trends",
   "hideFollowSuggestions": "Verberg Wie te volgen",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",
