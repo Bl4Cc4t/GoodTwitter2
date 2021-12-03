@@ -49,6 +49,7 @@
   "hideMessageBox": "Nachrichten-Box verstecken",
   "hideMessageBoxDesc": "Versteckt die neue, immer präsente Box unten rechts.",
   "hideTranslateTweetButton": "Tweet übersetzen verstecken",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Trends verstecken",
   "hideFollowSuggestions": "Folgen-Vorschläge verstecken (Themen, Nutzer & Listen)",
   "hideFollowSuggestionsBox": "Verstecke $type$ in $location$",

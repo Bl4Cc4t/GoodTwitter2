@@ -395,6 +395,7 @@
 
     hideTranslateTweetButton: false,
     tweetIconsPullLeft:       false,
+    hidePromoteTweetButton:   false,
 
     stickySidebars:           true,
     smallSidebars:            false,
@@ -527,6 +528,7 @@
           <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("tweetIconsPullLeft")}
+          ${getSettingTogglePart("hidePromoteTweetButton")}
           <div class="gt2-settings-seperator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>

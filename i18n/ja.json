@@ -49,6 +49,7 @@
   "hideMessageBox": "メッセージボックスを非表示にする",
   "hideMessageBoxDesc": "右下の隅に常に表示される新しいメッセージボックスを非表示にします。",
   "hideTranslateTweetButton": "ツイートを翻訳ボタンを非表示にする",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "トレンドを非表示にする",
   "hideFollowSuggestions": "おすすめユーザーを非表示にする",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

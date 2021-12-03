@@ -49,6 +49,7 @@
   "hideMessageBox": "隐藏消息框",
   "hideMessageBoxDesc": "隐藏总是在右下角出现的消息框。",
   "hideTranslateTweetButton": "隐藏翻译推文按钮",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "隐藏趋势",
   "hideFollowSuggestions": "隐藏推荐关注",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

@@ -49,6 +49,7 @@
   "hideMessageBox": "Ascunde Caseta de Mesaje",
   "hideMessageBoxDesc": "Ascunde cel nou, prezent tot timpul, caseta de mesaje în colțul de dreapta-jos.",
   "hideTranslateTweetButton": "Ascunde butonul de tradus Tweetul",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Ascunde Tendințele",
   "hideFollowSuggestions": "Ascunde sugestii de urmărit (Subiecte și Utilizatori)",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

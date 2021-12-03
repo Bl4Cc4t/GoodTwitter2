@@ -49,6 +49,7 @@
   "hideMessageBox": "메세지 상자 숨기기",
   "hideMessageBoxDesc": "우측 하단에 항상 떠있는 메세지 상자를 숨깁니다.",
   "hideTranslateTweetButton": "트윗 번역 버튼 숨기기",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "트렌드 숨기기",
   "hideFollowSuggestions": "팔로우 추천 숨기기",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

@@ -49,6 +49,7 @@
   "hideMessageBox": "Cacher la boîte de Messages",
   "hideMessageBoxDesc": "Cache la nouvelle boîte de Messages constante dans le coin inférieur droit.",
   "hideTranslateTweetButton": "Cacher le bouton Traduire le Tweet",
+  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
   "hideTrends": "Cacher les Tendances",
   "hideFollowSuggestions": "Cacher Suggestions et Vous pourriez aimer",
   "hideFollowSuggestionsBox": "*NEW* Hide $type$ from $location$",

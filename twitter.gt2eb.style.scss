@@ -968,6 +968,9 @@ body[data-gt2-path=explore] {
       span, svg {
         color: var(--color-gray-light);
       }
+      a:hover {
+        text-decoration-color: var(--color-gray-light);
+      }
     }
 
     .gt2-legacy-profile-fyk:not(:empty) {
@@ -1384,6 +1387,13 @@ body:not(.gt2-opt-color-override) {
 // hide translated tweets
 .gt2-opt-hide-translate-tweet-button {
   [data-testid=tweet] div[lang] + div[role=button] {
+    display: none;
+  }
+}
+
+// hide promote tweet button
+.gt2-opt-hide-promote-tweet-button {
+  [data-testid=tweet] a[href*="/quick_promote_web/"] {
     display: none;
   }
 }
