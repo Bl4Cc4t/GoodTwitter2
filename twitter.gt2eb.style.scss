@@ -2485,7 +2485,8 @@ body[data-gt2-path="i/moment_maker"] {
         & > div:nth-child(1),
         & > div:nth-child(1) > div > div > div > div,
         & > div:nth-child(2) > div > div,
-        & > div:nth-child(2) > div > div > div > div > div > div > div {
+        & > div:nth-child(2) > div > div > div > div > div > div > div,
+        & > div:nth-child(2) > div > div > div > div > div > div > div > div {
           max-width: unset;
           margin: unset;
         }
