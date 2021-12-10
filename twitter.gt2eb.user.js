@@ -2196,6 +2196,11 @@
       // highContrast lightsOut
       if (opt_display_bgColor == "rgb(5, 5, 5)") opt_display_bgColor = "rgb(0, 0, 0)"
 
+      // squareAvatars
+      if (GM_getValue("opt_gt2").squareAvatars) {
+        waitForKeyElements("#circle-hw-shapeclip-clipconfig circle", e => $(e).parent().html(`<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`))
+      }
+
       // insert new stylesheet
       $("html").prepend(`
         <style class="gt2-style">
