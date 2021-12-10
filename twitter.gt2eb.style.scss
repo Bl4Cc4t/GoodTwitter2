@@ -1194,53 +1194,6 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 .gt2-opt-square-avatars {
-  // /home new tweet
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
-  // profile
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
-  // tweet
-  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
-  // tweet your reply
-  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
-  // sidebar (who to follow)
-  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
-  // small profile modals
-  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
-  // notifications
-  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) div,
-  // /messages top left avatar
-  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) div,
-  // /messages message
-  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
-    & > a:not([href$="/photo"]),
-    & > a div {
-      border-width: 0;
-      border-radius: 10% !important;
-    }
-    & > a[href$="/photo"] {
-      border-radius: 11.5% !important;
-    }
-  }
-
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) > div,
-  // /messages top left avatar
-  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
-  // edit tweet recipients (replying to)
-  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
-    border-radius: 10% !important;
-  }
-
-  // tweet (show this thread)
-  article + a[href*="/status/"] {
-    div[role=presentation],
-    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
-      border-radius: 10%;
-    }
-  }
-
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
     border-radius: 11.5%;
