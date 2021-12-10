@@ -1105,7 +1105,7 @@
 
       // buttons
       if (!$(".gt2-legacy-profile-nav-right > div").length) {
-        $profile.find("> div:nth-child(1) > div").detach().appendTo(".gt2-legacy-profile-nav-right")
+        $profile.find("> div:nth-child(1) > div:last-child > div").detach().appendTo(".gt2-legacy-profile-nav-right")
       }
 
     })
