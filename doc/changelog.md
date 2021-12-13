@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.34](https://github.com/Bl4Cc4t/GoodTwitter2/pull/382)
+*released 2021-12-13*
+#### Changes
+- fixed the square icons yet again :/
+- fixed small avatar appearing in the legacy profile layout ([#380](https://github.com/Bl4Cc4t/GoodTwitter2/issues/380))
+- added option to hide the "promote tweet button" some users can have ([#377](https://github.com/Bl4Cc4t/GoodTwitter2/issues/377))
+- updated russian translation (thanks [BrandtnerKPW](https://github.com/BrandtnerKPW)!)
+
+#### Another note:
+Tampermonkey BETA currently does not work properly with the script, but the standard version works.
+I hope it gets fixed soon.
+
+
 ## [0.0.33](https://github.com/Bl4Cc4t/GoodTwitter2/pull/373)
 *released 2021-11-16*
 #### Changes
