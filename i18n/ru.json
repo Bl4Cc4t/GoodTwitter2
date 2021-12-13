@@ -49,7 +49,7 @@
   "hideMessageBox": "Скрыть меню «Сообщения»",
   "hideMessageBoxDesc": "Скрыть новое меню «Сообщения», постоянно отображающееся в правом нижнем углу.",
   "hideTranslateTweetButton": "Скрыть кнопку «Перевести твит»",
-  "hidePromoteTweetButton": "*NEW* Hide Promote Tweet Button",
+  "hidePromoteTweetButton": "Скрыть кнопку «Продвигайте свой твит»",
   "hideTrends": "Скрыть «Актуальные темы»",
   "hideFollowSuggestions": "Скрыть «Кого читать»",
   "hideFollowSuggestionsBox": "Скрыть $type$ в $location$",
