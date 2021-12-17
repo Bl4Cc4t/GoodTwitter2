@@ -2310,7 +2310,7 @@
     // [LPL] reattach buttons to original position
     if (!_isModal(path)) {
       let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
-      if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
+      if (!$b.find("> div:last-child:not(:first-child)").length && $("body").attr("data-gt2-prev-path") != path) {
         $(".gt2-legacy-profile-nav-right > div").appendTo($b)
       }
     }
