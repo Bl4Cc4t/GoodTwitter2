@@ -565,7 +565,7 @@ $notLegacyProfile: "
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
-      border-top: 1px solid var(--color-gray-dark);
+      @include separatorTop;
     }
     .gt2-search-overflow-hider {
       display: block;
@@ -676,7 +676,7 @@ main {
             background-color: var(--color-elem-sel);
           }
           [data-testid=placementTracking] {
-            border-top: 1px solid var(--color-gray-dark);
+            @include separatorTop;
           }
         }
 
@@ -765,7 +765,7 @@ main {
               aside {
                 & > div > div,
                 & > a[href*="i/connect_people"] {
-                  border-top: 1px solid var(--color-gray-dark);
+                  @include separatorTop;
                 }
               }
             }
@@ -1642,8 +1642,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 // trends
-.gt2-trends,
-.gt2-trends-handled {
+.gt2-trends section {
   & > div > div > div > div {
     & > div {
       // smaller padding next to the trends cog
@@ -1659,7 +1658,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
     // ChirpUpdate: readd vertical dividers
     a[href="/i/trends"],
     & > div:not(:first-child) {
-      border-top: 1px solid var(--color-gray-dark);
+      @include separatorTop;
     }
   }
 }
@@ -2021,7 +2020,7 @@ body[data-gt2-path="explore"] {
     & > div > div:nth-child(1) {
       position: sticky;
       top: 56px;
-      border-top: 1px solid var(--color-gray-dark);
+      @include separatorTop;
       transition: top .2s ease-in-out;
       background-color: var(--color-elem);
     }
@@ -2050,7 +2049,7 @@ body[data-gt2-path="explore"].gt2-scrolled-down {
       &:nth-child(1) {
         top: 56px;
         position: sticky;
-        border-top: 1px solid var(--color-gray-dark);
+        @include separatorTop;
       }
       &:nth-child(2) {
         top: 0;
@@ -2094,7 +2093,7 @@ body[data-gt2-path^="settings/"] {
         & > *,
         & > div:not([class*=" "]) > * {
           &:not(:first-child) {
-            border-top: 1px solid var(--color-gray-dark);
+            @include separatorTop;
             &:empty {
               height: 8px;
               margin: unset !important;
