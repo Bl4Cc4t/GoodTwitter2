@@ -523,13 +523,13 @@
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
           ${getSettingTogglePart("biggerPreviews")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("tweetIconsPullLeft")}
           ${getSettingTogglePart("hidePromoteTweetButton")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
@@ -537,14 +537,14 @@
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("navProfile")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
           ${getSettingTogglePart("enableQuickBlock")}
           ${getSettingTogglePart("leftMedia")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
           ${getSettingTogglePart("hideFollowSuggestions", `
@@ -587,7 +587,7 @@
           ${getSettingTogglePart("hideMessageBox")}
           ${getSettingTogglePart("rosettaIcons")}
           ${getSettingTogglePart("favoriteLikes")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("updateNotifications")}
@@ -1730,7 +1730,7 @@
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div:empty") // seperator line
+      let $hr = $(more).find("> div:empty") // separator line
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
