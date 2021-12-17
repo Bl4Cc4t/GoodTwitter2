@@ -2437,18 +2437,17 @@ body[data-gt2-path="i/moment_maker"] {
           }
         }
       }
+
+      // right section
       &:nth-last-child(1) {
         width: 60%;
-        & > div:nth-child(1),
-        & > div:nth-child(1) > div > div > div > div,
-        & > div:nth-child(2) > div > div,
-        & > div:nth-child(2) > div > div > div > div > div > div > div,
-        & > div:nth-child(2) > div > div > div > div > div > div > div > div {
-          max-width: unset;
-          margin: unset;
-        }
-        & > div:nth-child(2) > div {
-          background-color: var(--color-elem);
+        & > div > div > div {
+          &,
+          &:nth-child(1) > div > div > div > div,
+          &:nth-child(2) > div > div > div > div > div > div {
+            max-width: unset;
+            margin: unset;
+          }
         }
 
         // larger avatar in top bar with the name
