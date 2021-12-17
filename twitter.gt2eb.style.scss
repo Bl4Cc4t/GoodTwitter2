@@ -1629,22 +1629,25 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 // trends
-.gt2-trends-handled > div > div > div > div {
-  & > div {
-    // smaller padding next to the trends cog
-    &:nth-child(1) {
-      padding-right: 5px;
+.gt2-trends,
+.gt2-trends-handled {
+  & > div > div > div > div {
+    & > div {
+      // smaller padding next to the trends cog
+      &:nth-child(1) {
+        padding-right: 5px;
+      }
+
+      &[role=button] {
+        border-radius: unset;
+      }
     }
 
-    &[role=button] {
-      border-radius: unset;
+    // ChirpUpdate: readd vertical dividers
+    a[href="/i/trends"],
+    & > div:not(:first-child) {
+      border-top: 1px solid var(--color-gray-dark);
     }
-  }
-
-  // ChirpUpdate: readd vertical dividers
-  a[href="/i/trends"],
-  & > div:not(:first-child) {
-    border-top: 1px solid var(--color-gray-dark);
   }
 }
 
