@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.34
+// @version       0.0.35
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -405,6 +405,7 @@
 
     legacyProfile:            false,
     squareAvatars:            false,
+    disableHexagonAvatars:    false,
     enableQuickBlock:         false,
     leftMedia:                false,
 
@@ -523,13 +524,13 @@
           ${getSettingTogglePart("disableAutoRefresh")}
           ${getSettingTogglePart("keepTweetsInTL")}
           ${getSettingTogglePart("biggerPreviews")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("statsTweets")}</div>
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("tweetIconsPullLeft")}
           ${getSettingTogglePart("hidePromoteTweetButton")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
           ${getSettingTogglePart("stickySidebars")}
@@ -537,14 +538,15 @@
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
           ${getSettingTogglePart("show10Trends")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("navProfile")}</div>
           ${getSettingTogglePart("legacyProfile")}
           ${getSettingTogglePart("squareAvatars")}
+          ${getSettingTogglePart("disableHexagonAvatars")}
           ${getSettingTogglePart("enableQuickBlock")}
           ${getSettingTogglePart("leftMedia")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
           ${getSettingTogglePart("hideFollowSuggestions", `
@@ -587,7 +589,7 @@
           ${getSettingTogglePart("hideMessageBox")}
           ${getSettingTogglePart("rosettaIcons")}
           ${getSettingTogglePart("favoriteLikes")}
-          <div class="gt2-settings-seperator"></div>
+          <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("updateNotifications")}
@@ -947,7 +949,8 @@
       })
     })
 
-    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img`, () => {
+    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img,
+                        a[href='/${currentScreenName}/nft' i] img`, () => {
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -960,14 +963,15 @@
       // information (constant)
       const i = {
         $banner:        $("a[href$='/header_photo'] img"),
-        avatarUrl:      $("a[href$='/photo'] img"),
+        avatarUrl:      $profile.find("a[href$='/photo'] img, a[href$='/nft'] img").first(),
         screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
         followingRnd:   $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
         followersRnd:   $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
-        screenNameOnly: false
+        screenNameOnly: false,
+        avatarHex:      $profile.find("a[href$='/nft']").length > 0
       }
 
       if (i.screenName == "") {
@@ -983,7 +987,9 @@
           </div>
           <div class="gt2-legacy-profile-nav">
             <div class="gt2-legacy-profile-nav-left">
-              <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
+              <div class="gt2-legacy-profile-nav-avatar ${i.avatarHex ? "gt2-avatar-hex" : ""}">
+                <img src="${i.avatarUrl.length ? i.avatarUrl.attr("src").replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
+              </div>
               <div>
                 <div class="gt2-legacy-profile-name">${i.nameHTML}</div>
                 <div class="gt2-legacy-profile-screen-name-wrap">
@@ -1130,7 +1136,9 @@
         </div>
         <div class="gt2-legacy-profile-nav">
           <div class="gt2-legacy-profile-nav-left">
-            <img src="${i.avatarUrl}" />
+            <div class="gt2-legacy-profile-nav-avatar">
+              <img src="${i.avatarUrl}" />
+            </div>
             <div>
               <a href="/${i.screenName}" class="gt2-legacy-profile-name">${i.nameHTML ? i.nameHTML : `@${i.screenName}`}</a>
               ${i.nameHTML ? `
@@ -1730,7 +1738,7 @@
 
     waitForKeyElements(`${more} `, () => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div:empty") // seperator line
+      let $hr = $(more).find("> div:empty") // separator line
       $hr.clone().prependTo(more)
       // items from left menu to attach
       let toAttach = [
@@ -2197,8 +2205,12 @@
       if (opt_display_bgColor == "rgb(5, 5, 5)") opt_display_bgColor = "rgb(0, 0, 0)"
 
       // squareAvatars
-      if (GM_getValue("opt_gt2").squareAvatars) {
-        waitForKeyElements("#circle-hw-shapeclip-clipconfig circle", e => $(e).parent().html(`<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`))
+      if (GM_getValue("opt_gt2").disableHexagonAvatars) {
+        waitForKeyElements("#hex-hw-shapeclip-clipconfig path", e => $(e).parent().html(
+          GM_getValue("opt_gt2").squareAvatars
+          ? `<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`
+          : `<circle cx="100" cy="100" r="100" />`
+        ).attr("transform", "scale(0.005 0.005)"))
       }
 
       // insert new stylesheet
@@ -2310,7 +2322,7 @@
     // [LPL] reattach buttons to original position
     if (!_isModal(path)) {
       let $b = $("div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)")
-      if (!$b.find("> div").length && $("body").attr("data-gt2-prev-path") != path) {
+      if (!$b.find("> div:last-child:not(:first-child)").length && $("body").attr("data-gt2-prev-path") != path) {
         $(".gt2-legacy-profile-nav-right > div").appendTo($b)
       }
     }

@@ -30,6 +30,18 @@ $notLegacyProfile: "
   @return calc(#{$val} + var(--font-increment));
 }
 
+@function dropborder($width, $color) {
+  @return drop-shadow(#{$width} 0px 0px #{$color})
+          drop-shadow(-#{$width} 0px 0px #{$color})
+          drop-shadow(0px #{$width} 0px #{$color})
+          drop-shadow(0px -#{$width} 0px #{$color})
+          drop-shadow(#{$width} #{$width} 0px #{$color})
+          drop-shadow(-#{$width} -#{$width} 0px #{$color})
+          drop-shadow(-#{$width} #{$width} 0px #{$color})
+          drop-shadow(#{$width} -#{$width} 0px #{$color});
+}
+
+
 // 2014-02 ~ 2017-06
 @font-face {
   font-family: Rosetta;
@@ -128,6 +140,13 @@ $notLegacyProfile: "
       text-decoration-line: underline;
     }
   }
+}
+
+@mixin separatorTop {
+  border-top: 1px solid var(--color-gray-dark) !important;
+}
+@mixin separatorBottom {
+  border-bottom: 1px solid var(--color-gray-dark) !important;
 }
 
 
@@ -558,7 +577,7 @@ $notLegacyProfile: "
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
-      border-top: 1px solid var(--color-gray-dark);
+      @include separatorTop;
     }
     .gt2-search-overflow-hider {
       display: block;
@@ -624,7 +643,7 @@ main {
       height: -moz-fit-content;
       height: -webkit-fit-content;
       margin-bottom: 10px;
-      border-bottom: 1px solid var(--color-gray-dark);
+      @include separatorBottom;
       & > div {
 
         // scroll behind nav bar
@@ -662,14 +681,14 @@ main {
 
         // ChirpUpdate: readd vertical dividers
         section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
-          border-bottom: 1px solid var(--color-gray-dark);
+          @include separatorBottom;
           & > div:empty {
             height: 8px;
             margin: unset !important;
             background-color: var(--color-elem-sel);
           }
           [data-testid=placementTracking] {
-            border-top: 1px solid var(--color-gray-dark);
+            @include separatorTop;
           }
         }
 
@@ -693,13 +712,19 @@ main {
             }
           }
         }
-
       }
     }
 
-    div[data-testid=primaryColumn],
+    // separators
+    div[data-testid=primaryColumn] > div > div:nth-child(1),
     & > section {
-      border-top-width: 1px !important;
+      @include separatorTop;
+      @include separatorBottom;
+    }
+
+    // section title separator
+    & > section > div:nth-child(1) > div:not([data-testid=emptyState]) > div:nth-child(1) {
+      @include separatorBottom;
     }
 
     div[data-testid=sidebarColumn] {
@@ -752,7 +777,7 @@ main {
               aside {
                 & > div > div,
                 & > a[href*="i/connect_people"] {
-                  border-top: 1px solid var(--color-gray-dark);
+                  @include separatorTop;
                 }
               }
             }
@@ -851,7 +876,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav-left {
       align-items: center;
       // avatar
-      & > img {
+      .gt2-legacy-profile-nav-avatar img {
         border-radius: 9999px;
       }
       & > div {
@@ -1020,12 +1045,14 @@ body[data-gt2-path=explore] {
 
       .gt2-legacy-profile-nav-left {
         // avatar
-        & > img {
-          width: 200px;
-          height: 200px;
-          position: relative;
-          bottom: 50px;
-          border: 5px solid var(--color-navbar);
+        .gt2-legacy-profile-nav-avatar {
+          filter: dropborder(2.5px, var(--color-navbar));
+          img {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            bottom: 50px;
+          }
         }
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-screen-name-wrap {
@@ -1060,7 +1087,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav {
       margin-top: calc(47px + 15px);
 
-      .gt2-legacy-profile-nav-left > img {
+      .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
         width: 36px;
         height: 36px;
       }
@@ -1081,6 +1108,13 @@ body {
     .gt2-legacy-profile-info {
       display: none;
     }
+  }
+}
+
+// disable hexagonal avatars OFF
+body:not(.gt2-opt-disable-hexagon-avatars) {
+  .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
+    clip-path: url("#hex-hw-shapeclip-clipconfig");
   }
 }
 
@@ -1174,7 +1208,7 @@ body:not(.gt2-opt-sticky-sidebars) {
     bottom: 82px !important;
   }
 
-  .gt2-legacy-profile-nav-left > div {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
     width: calc(300px - 46px);
   }
   .gt2-legacy-profile-nav-center {
@@ -1184,7 +1218,7 @@ body:not(.gt2-opt-sticky-sidebars) {
   @include smallDashboardProfile;
 }
 body:not(.gt2-opt-small-sidebars) {
-  .gt2-legacy-profile-nav-left > div {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
     width: calc(360px - 46px);
   }
   .gt2-legacy-profile-nav-center {
@@ -1194,6 +1228,55 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 .gt2-opt-square-avatars {
+  // /home new tweet
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
+  // profile
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
+  // tweet
+  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
+  // sidebar (who to follow)
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
+  // small profile modals
+  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
+  // notifications
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) div,
+  // /messages top left avatar
+  // &[data-gt2-path^="messages/"] section:nth-last-child(1) > div > div > div:nth-child(1) > div > div > div > div,
+  // /messages message
+  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
+    & > div > div > div > div {
+      & > div,
+      & > div > a:not([href$="/photo"]),
+      & > div > a > div {
+        border-width: 0;
+        border-radius: 10% !important;
+      }
+      & > div > a[href$="/photo"] {
+        border-radius: 11.5% !important;
+      }
+    }
+  }
+
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) > div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
+  // edit tweet recipients (replying to)
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+    border-radius: 10% !important;
+  }
+
+  // tweet (show this thread)
+  article + a[href*="/status/"] {
+    div[role=presentation],
+    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
+  }
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
     border-radius: 11.5%;
@@ -1201,7 +1284,7 @@ body:not(.gt2-opt-small-sidebars) {
       border-radius: 10%;
     }
   }
-  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left > img {
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
     border-radius: 10%;
   }
 }
@@ -1629,22 +1712,24 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 }
 
 // trends
-.gt2-trends-handled > div > div > div > div {
-  & > div {
-    // smaller padding next to the trends cog
-    &:nth-child(1) {
-      padding-right: 5px;
+.gt2-trends section {
+  & > div > div > div > div {
+    & > div {
+      // smaller padding next to the trends cog
+      &:nth-child(1) {
+        padding-right: 5px;
+      }
+
+      &[role=button] {
+        border-radius: unset;
+      }
     }
 
-    &[role=button] {
-      border-radius: unset;
+    // ChirpUpdate: readd vertical dividers
+    a[href="/i/trends"],
+    & > div:not(:first-child) {
+      @include separatorTop;
     }
-  }
-
-  // ChirpUpdate: readd vertical dividers
-  a[href="/i/trends"],
-  & > div:not(:first-child) {
-    border-top: 1px solid var(--color-gray-dark);
   }
 }
 
@@ -2005,8 +2090,9 @@ body[data-gt2-path="explore"] {
     & > div > div:nth-child(1) {
       position: sticky;
       top: 56px;
-      border-top: 1px solid var(--color-gray-dark);
+      @include separatorTop;
       transition: top .2s ease-in-out;
+      background-color: var(--color-elem);
     }
   }
 }
@@ -2033,7 +2119,7 @@ body[data-gt2-path="explore"].gt2-scrolled-down {
       &:nth-child(1) {
         top: 56px;
         position: sticky;
-        border-top: 1px solid var(--color-gray-dark);
+        @include separatorTop;
       }
       &:nth-child(2) {
         top: 0;
@@ -2058,7 +2144,7 @@ body[data-gt2-path^="settings/"] {
       box-shadow: 1px 0 0 var(--color-gray-dark);
       // ChirpUpdate: readd vertical dividers
       [role=tablist] > div > a {
-        border-bottom: 1px solid var(--color-gray-dark);
+        @include separatorBottom;
       }
     }
     section[aria-labelledby=detail-header] {
@@ -2077,7 +2163,7 @@ body[data-gt2-path^="settings/"] {
         & > *,
         & > div:not([class*=" "]) > * {
           &:not(:first-child) {
-            border-top: 1px solid var(--color-gray-dark);
+            @include separatorTop;
             &:empty {
               height: 8px;
               margin: unset !important;
@@ -2177,7 +2263,7 @@ body[data-gt2-path^="settings/"] {
   .gt2-setting {
     color: var(--color-text);
     box-sizing: border-box;
-    border-bottom: solid 1px var(--color-gray-dark);
+    @include separatorBottom;
     background-color: var(--color-elem);
   }
 
@@ -2214,10 +2300,10 @@ body[data-gt2-path^="settings/"] {
     line-height: 1.3135em;
   }
 
-  .gt2-settings-seperator {
+  .gt2-settings-separator {
     height: 8px;
     background-color: var(--color-elem-sel);
-    border-bottom: solid 1px var(--color-gray-dark);
+    @include separatorBottom;
   }
 
 
@@ -2424,7 +2510,7 @@ body[data-gt2-path="i/moment_maker"] {
 
         // better indicator for active conversation
         div[data-testid=conversation] {
-          border-bottom: solid 1px var(--color-gray-dark);
+          @include separatorBottom;
           &[aria-selected=true] {
             background-color: var(--color-elem-sel);
             & + div {
@@ -2433,18 +2519,24 @@ body[data-gt2-path="i/moment_maker"] {
           }
         }
       }
+
+      // right section
       &:nth-last-child(1) {
         width: 60%;
-        & > div:nth-child(1),
-        & > div:nth-child(1) > div > div > div > div,
-        & > div:nth-child(2) > div > div,
-        & > div:nth-child(2) > div > div > div > div > div > div > div,
-        & > div:nth-child(2) > div > div > div > div > div > div > div > div {
-          max-width: unset;
-          margin: unset;
-        }
-        & > div:nth-child(2) > div {
-          background-color: var(--color-elem);
+        & > div {
+          &,
+          & > div > div,
+          & > div > div:nth-child(1) > div > div > div > div,
+          & > div > div:nth-child(2) > div > div > div > div > div > div {
+            max-width: unset;
+            margin: unset;
+          }
+          & > div > div:nth-child(2) > div > div > div > div > div > div {
+            padding: unset;
+            div:not([class]):not([style]):not(:first-child) {
+              padding: 0 16px;
+            }
+          }
         }
 
         // larger avatar in top bar with the name
@@ -2462,7 +2554,7 @@ body[data-gt2-path="i/moment_maker"] {
 }
 body[data-gt2-path="messages/settings"] {
   main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
-    border-bottom: solid 1px var(--color-gray-dark);
+    @include separatorBottom;
   }
 }
 body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
@@ -2474,7 +2566,7 @@ body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
         margin: unset;
       }
       & > :not(:empty) {
-        border-bottom: solid 1px var(--color-gray-dark);
+        @include separatorBottom;
       }
     }
   }
@@ -2683,7 +2775,7 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   .gt2-sidebar-notice-header {
     font-size: incr(19px);
     font-weight: 800;
-    border-bottom: solid 1px var(--color-gray-dark);
+    @include separatorBottom;
     position: relative;
     .gt2-sidebar-notice-close {
       right: 10px;
@@ -2728,7 +2820,7 @@ body[data-promote-url^="/i/tfb/v1/quick_promote"] {
     background-color: #55acee !important;
   }
 
-  // seperators
+  // separators
   .ep-Campaign,
   .ep-DetailedEngagementsSection {
     border-color: var(--color-gray-dark);

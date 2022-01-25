@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "長的圖片在推文內顯示完整的高度",
   "disableAutoRefresh": "禁用自動刷新 (實驗性功能)",
   "disableAutoRefreshDesc": "禁用時間軸自動貼文刷新 <br/>實驗性功能，結果可能會不正常",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",

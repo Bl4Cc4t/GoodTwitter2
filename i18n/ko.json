@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "길이가 긴 이미지도 미리보기에서 크게 보이게 합니다.",
   "disableAutoRefresh": "자동 새로고침 비활성화 (실험적 기능)",
   "disableAutoRefreshDesc": "자동 새로고침을 비활성화합니다. <br/>실험적 기능으로 레이아웃이 깨질 수 있습니다.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "t.co 주소 확장하기",
   "fontOverride": "사용자 폰트 사용",
   "fontOverrideDesc": "기본 폰트 대신 사용할 폰트를 지정합니다. 설치된 폰트를 지정해야 동작합니다.",

@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Långa bilder i tweets visas i sin fulla längd.",
   "disableAutoRefresh": "Inaktivera Automatisk Uppdatering (experimentell)",
   "disableAutoRefreshDesc": "Inaktivera livevisning av tweets på din tidslinje. <br/>Förvänta dig inte fantastiska resultat, det här fungerar inte alltid.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",
