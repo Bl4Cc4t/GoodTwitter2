@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Imagini mai lungi în tweeturi sunt afișate la înălțimea maximă.",
   "disableAutoRefresh": "Dezactivează Reîmprospătarea Automată (experimental)",
   "disableAutoRefreshDesc": "Dezactivează afișarea în direct a tweeturilor în cronologia ta. <br/>Nu vă așteptați rezultate bune, ăsta nu merge tot timpul.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "Extinde link-uri scurte t.co",
   "fontOverride": "Folosește un font personalizat",
   "fontOverrideDesc": "Setează un font personalizat pentru a înlocui fontul implicit. Asta merge doar când ai fontul instalat.",

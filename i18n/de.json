@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Bildervorschauen in Tweets werden komplett angezeigt.",
   "disableAutoRefresh": "Auto Refresh deaktivieren (experimentell)",
   "disableAutoRefreshDesc": "Tweets werden nicht mehr automatisch in der Timeline angezeigt. <br/>Bitte keine all zu hohen Erwartungen haben, dieses Feature funktioniert nicht immer.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "t.co-Links auflösen",
   "fontOverride": "Schriftart",
   "fontOverrideDesc": "Schriftart, die anstelle des Systemstandards benutzt wird. Funktioniert nur, wenn die Schriftart auch installiert ist.",

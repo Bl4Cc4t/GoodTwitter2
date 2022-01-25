@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Afbeeldingen in tweets worden volledig afgebeeld.",
   "disableAutoRefresh": "Uitschakelen automatisch verversen (experimenteel)",
   "disableAutoRefreshDesc": "Schakelt de live weergave van tweets uit in de tijdlijn. <br/>Verwacht geen al te beste resultaten: het werkt niet altijd.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",

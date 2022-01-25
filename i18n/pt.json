@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Imagens altas em Tweets são exibidas em sua altura original.",
   "disableAutoRefresh": "Desativar Auto Refresh (experimental)",
   "disableAutoRefreshDesc": "Desativa a exibição ao vivo de Tweets em sua timeline.<br/>Não espere grandes resultados, isto não funciona o tempo todo.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "Expandir Links Curtos t.co",
   "fontOverride": "Usar Fonte Personalizada",
   "fontOverrideDesc": "Definir uma fonte personalizada para substituir a padrão. Apenas funciona se você tiver a fonte instalada.",

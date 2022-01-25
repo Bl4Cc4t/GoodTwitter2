@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "推文中的长图会以其原始长度来显示",
   "disableAutoRefresh": "禁用自动刷新（实验性功能）",
   "disableAutoRefreshDesc": "禁止自动刷新你的时间线。 <br/>不要抱有过高的期待, 这个功能并非时时起效。",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "*NEW* Expand t.co shortlinks",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",

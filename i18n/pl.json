@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Wysokie obrazki będą zawsze wyświetlane w ich pełnej wysokości.",
   "disableAutoRefresh": "Wyłącz automatyczne odświeżanie (eksperymentalne)",
   "disableAutoRefreshDesc": "Wyłącza pokazywanie tweetów w osi czasu na żywo. <br/>Nie oczekuj świetnych wyników, to nie zawsze działa.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "Rozwijaj skrócone linki t.co ",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",

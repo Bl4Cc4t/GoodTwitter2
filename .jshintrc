@@ -1,7 +1,0 @@
-{
-  "asi" : true,
-  "esversion": 8,
-  "-W014": true,
-  "-W082": true,
-  "-W083": true
-}

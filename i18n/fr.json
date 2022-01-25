@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Les grandes images dans les tweets sont affichées entièrement.",
   "disableAutoRefresh": "Désactiver le rafraîchissement automatique (expérimental)",
   "disableAutoRefreshDesc": "Désactive l'affichage en temps réel des tweets dans votre fil d'actualités. <br/>Ne vous attendez pas à grand-chose, cela ne fonctionne pas tout le temps.",
+  "disableHexagonAvatars": "*NEW* Disable Hexagon Avatars",
   "expandTcoShortlinks": "*NEW* Agrandir les liens raccourcis t.co",
   "fontOverride": "*NEW* Use Custom Font",
   "fontOverrideDesc": "*NEW* Set a custom font to override the default one. This works only if you have the font installed.",

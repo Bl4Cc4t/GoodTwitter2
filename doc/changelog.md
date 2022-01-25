@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.35](https://github.com/Bl4Cc4t/GoodTwitter2/pull/390)
+*released 2021-01-25*
+#### Changes
+- fixed the square icons (yes, again. the site changed right a day after the last version got released.) ([#383](https://github.com/Bl4Cc4t/GoodTwitter2/issues/383))
+- added support for hexagonal avatars and a toggle to disable them ([#391](https://github.com/Bl4Cc4t/GoodTwitter2/issues/391), [#392](https://github.com/Bl4Cc4t/GoodTwitter2/issues/392))
+
+#### Notes
+- Tampermonkey BETA was fixed a few days after the last update, it should work again now. ([tampermonkey#1385](https://github.com/Tampermonkey/tampermonkey/issues/1385))
+
+
 ## [0.0.34](https://github.com/Bl4Cc4t/GoodTwitter2/pull/382)
 *released 2021-12-13*
 #### Changes
