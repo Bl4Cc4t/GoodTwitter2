@@ -39,6 +39,7 @@
   "biggerPreviewsDesc": "Tall images in tweets are shown in their full height.",
   "disableAutoRefresh": "Disable Auto Refresh (experimental)",
   "disableAutoRefreshDesc": "Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.",
+  "disableHexagonAvatars": "Disable Hexagon Avatars",
   "expandTcoShortlinks": "Expand t.co shortlinks",
   "fontOverride": "Use Custom Font",
   "fontOverrideDesc": "Set a custom font to override the default one. This works only if you have the font installed.",

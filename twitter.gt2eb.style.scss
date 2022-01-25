@@ -30,6 +30,18 @@ $notLegacyProfile: "
   @return calc(#{$val} + var(--font-increment));
 }
 
+@function dropborder($width, $color) {
+  @return drop-shadow(#{$width} 0px 0px #{$color})
+          drop-shadow(-#{$width} 0px 0px #{$color})
+          drop-shadow(0px #{$width} 0px #{$color})
+          drop-shadow(0px -#{$width} 0px #{$color})
+          drop-shadow(#{$width} #{$width} 0px #{$color})
+          drop-shadow(-#{$width} -#{$width} 0px #{$color})
+          drop-shadow(-#{$width} #{$width} 0px #{$color})
+          drop-shadow(#{$width} -#{$width} 0px #{$color});
+}
+
+
 // 2014-02 ~ 2017-06
 @font-face {
   font-family: Rosetta;
@@ -864,7 +876,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav-left {
       align-items: center;
       // avatar
-      & > img {
+      .gt2-legacy-profile-nav-avatar img {
         border-radius: 9999px;
       }
       & > div {
@@ -1033,12 +1045,14 @@ body[data-gt2-path=explore] {
 
       .gt2-legacy-profile-nav-left {
         // avatar
-        & > img {
-          width: 200px;
-          height: 200px;
-          position: relative;
-          bottom: 50px;
-          border: 5px solid var(--color-navbar);
+        .gt2-legacy-profile-nav-avatar {
+          filter: dropborder(2.5px, var(--color-navbar));
+          img {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            bottom: 50px;
+          }
         }
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-screen-name-wrap {
@@ -1073,7 +1087,7 @@ body[data-gt2-path=explore] {
     .gt2-legacy-profile-nav {
       margin-top: calc(47px + 15px);
 
-      .gt2-legacy-profile-nav-left > img {
+      .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
         width: 36px;
         height: 36px;
       }
@@ -1094,6 +1108,13 @@ body {
     .gt2-legacy-profile-info {
       display: none;
     }
+  }
+}
+
+// disable hexagonal avatars OFF
+body:not(.gt2-opt-disable-hexagon-avatars) {
+  .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
+    clip-path: url("#hex-hw-shapeclip-clipconfig");
   }
 }
 
@@ -1187,7 +1208,7 @@ body:not(.gt2-opt-sticky-sidebars) {
     bottom: 82px !important;
   }
 
-  .gt2-legacy-profile-nav-left > div {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
     width: calc(300px - 46px);
   }
   .gt2-legacy-profile-nav-center {
@@ -1197,7 +1218,7 @@ body:not(.gt2-opt-sticky-sidebars) {
   @include smallDashboardProfile;
 }
 body:not(.gt2-opt-small-sidebars) {
-  .gt2-legacy-profile-nav-left > div {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
     width: calc(360px - 46px);
   }
   .gt2-legacy-profile-nav-center {
@@ -1207,6 +1228,55 @@ body:not(.gt2-opt-small-sidebars) {
 
 
 .gt2-opt-square-avatars {
+  // /home new tweet
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
+  // profile
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
+  // tweet
+  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
+  // sidebar (who to follow)
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
+  // small profile modals
+  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
+  // notifications
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) div,
+  // /messages top left avatar
+  // &[data-gt2-path^="messages/"] section:nth-last-child(1) > div > div > div:nth-child(1) > div > div > div > div,
+  // /messages message
+  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
+    & > div > div > div > div {
+      & > div,
+      & > div > a:not([href$="/photo"]),
+      & > div > a > div {
+        border-width: 0;
+        border-radius: 10% !important;
+      }
+      & > div > a[href$="/photo"] {
+        border-radius: 11.5% !important;
+      }
+    }
+  }
+
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) > div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
+  // edit tweet recipients (replying to)
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+    border-radius: 10% !important;
+  }
+
+  // tweet (show this thread)
+  article + a[href*="/status/"] {
+    div[role=presentation],
+    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
+  }
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
     border-radius: 11.5%;
@@ -1214,7 +1284,7 @@ body:not(.gt2-opt-small-sidebars) {
       border-radius: 10%;
     }
   }
-  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left > img {
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
     border-radius: 10%;
   }
 }
