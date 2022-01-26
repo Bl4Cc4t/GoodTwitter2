@@ -134,11 +134,7 @@
   function getLocStr(key) {
     let lang = getLang()
     lang = Object.keys(i18n).includes(lang) ? lang : "en"
-    if (Object.keys(i18n[lang]).includes(key) && !i18n[lang][key].startsWith("*NEW*")) {
-      return i18n[lang][key]
-    } else {
-      return i18n.en[key]
-    }
+    return i18n[Object.keys(i18n[lang]).includes(key) ? lang : "en"][key]
   }
 
 

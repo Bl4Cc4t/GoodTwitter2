@@ -1,0 +1,99 @@
+# polish language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweet
+  joinDate: Dołączył/a $date$
+  navBookmarks: Zakładki
+  navMessages: Wiadomości
+  navExplore: Przeglądaj
+  navHome: Główna
+  navLists: Listy
+  navNotifications: Powiadomienia
+  navProfile: Profil
+  statsFollowers: Obserwujący
+  statsFollowing: Obserwowani
+  statsLikes: Polubienia
+  statsMoments: Moments
+  statsTweets: Chwile
+  topics: Tematy
+  translateTweet: Przetłumacz Tweeta
+  users: Użytkowników
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: "Data urodzenia: $date$"
+  bornYear: "Data urodzenia: $year$"
+  favorite: Favorite # TODO translation missing!
+  favorites: Favorites # TODO translation missing!
+  followedBy0: Nie jest obserwowany przez żadnego z użytkowników, których obserwujesz
+  followedBy1: Obserwowany przez $p1$
+  followedBy2: Obserwowany przez $p1$ and $p2$
+  followedBy3: Obserwowany przez $p1$, $p2$ i $p3$
+  followedBy4Plus: Obserwowany przez $p1$, $p2$ i $nr$ innych użytkowników, których obserwujesz
+  showNewMulti: Pokaż $ nowe Tweety
+  showNewSingle: Pokaż 1 nowy Tweet
+  translatedTweetInfo: Przetłumaczono z $lang$ przez $source$
+  qbBlock: Zablokuj
+  qbBlocked: Zablokowano
+  qbUnblock: Odblokuj
+  updatedInfo: Zaktualizowano do $version$!
+  updatedInfoChangelog: Lista zmian
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Oś czasu
+    settingsHeaderSidebars: Paski boczne
+    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderOther: Inne
+
+  timeline:
+    forceLatest: Wymuś najnowsze
+    forceLatestDesc: Wymuszanie trybu najnowszych wpisów nie jest już trwałe. Gdy włączysz tę opcję, strona będzie automatycznie przywracała opcję wyświetlania najnowszych tweetów.
+    disableAutoRefresh: Wyłącz automatyczne odświeżanie (eksperymentalne)
+    disableAutoRefreshDesc: Wyłącza pokazywanie tweetów w osi czasu na żywo. <br/>Nie oczekuj świetnych wyników, to nie zawsze działa.
+    keepTweetsInTL: Zachowuj tweety (to obecnie nie działa)
+    keepTweetsInTLDesc: Niech strona nie usuwa automatycznie tweetów spoza widoku.
+    biggerPreviews: Większy podgląd obrazków
+    biggerPreviewsDesc: Wysokie obrazki będą zawsze wyświetlane w ich pełnej wysokości.
+
+  tweets:
+    hideTranslateTweetButton: Ukryj przycisk tłumaczenia tweetów
+    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
+    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Przylepne paski boczne
+    smallSidebars: Węższe paski boczne
+    smallSidebarsDesc: Paski boczne o szerokości 290px zamiast 350px.
+    hideTrends: Ukryj trendy
+    leftTrends: Trendy na pasku po lewej
+    leftTrendsDesc: Pokazuj trendy na pasku po lewej.
+    show10Trends: Zawsze pokazuj 10 trendów
+
+  profile:
+    legacyProfile: Stary układ profilu
+    squareAvatars: Kwadratowe awatary
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: Włącz szybkie blokowanie.
+    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
+    leftMedia: Left sidebar media # TODO translation missing!
+    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
+
+  global-look:
+    hideFollowSuggestions: Ukryj Może Ci się spodobać
+    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    fontOverride: Use custom font # TODO translation missing!
+    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
+    colorOverride: Use custom color # TODO translation missing!
+    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideMessageBox: Ukryj pole wiadomości
+    hideMessageBoxDesc: Ukrywa nowy ekran wiadomości, widoczny stale w prawym dolnym rogu.
+    rosettaIcons: Rosetta icons # TODO translation missing!
+    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
+    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+
+  other:
+    updateNotifications: Powiadomienia o aktualizacjach GoodTwitter 2
+    expandTcoShortlinks: Rozwijaj skrócone linki t.co

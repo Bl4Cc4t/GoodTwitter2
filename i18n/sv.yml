@@ -1,0 +1,99 @@
+# swedish language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweeta
+  joinDate: Gick med $date$
+  navBookmarks: Bokmärken
+  navMessages: Meddelanden
+  navExplore: Utforska
+  navHome: Hem
+  navLists: Listor
+  navNotifications: Notiser
+  navProfile: Profil
+  statsFollowers: Följare
+  statsFollowing: Följer
+  statsLikes: Gillamarkeringar
+  statsMoments: Ögonblick
+  statsTweets: Tweets
+  topics: Ämnen
+  translateTweet: Översätt tweeten
+  users: Användare
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Född $date$
+  bornYear: Född $year$
+  favorite: Favorite # TODO translation missing!
+  favorites: Favorites # TODO translation missing!
+  followedBy0: Not followed by anyone you’re following # TODO translation missing!
+  followedBy1: Followed by $p1$ # TODO translation missing!
+  followedBy2: Followed by $p1$ and $p2$ # TODO translation missing!
+  followedBy3: Followed by $p1$, $p2$ and $p3$ # TODO translation missing!
+  followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow # TODO translation missing!
+  showNewMulti: Visa $ nya Tweets
+  showNewSingle: Visa 1 nytt Tweet
+  translatedTweetInfo: Översatt från $lang$ av $source$
+  qbBlock: Blockera
+  qbBlocked: Blockerad
+  qbUnblock: Häv blockering
+  updatedInfo: Updated to $version$! # TODO translation missing!
+  updatedInfoChangelog: Changelog # TODO translation missing!
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Timeline # TODO translation missing!
+    settingsHeaderSidebars: Sidebars # TODO translation missing!
+    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderOther: null # TODO translation missing!
+
+  timeline:
+    forceLatest: Tvinga senaste
+    forceLatestDesc: Att aktivera läget för senaste tweets är inte längre permanent. Med den här inställningen aktiv kommer sidan automatiskt byta tillbaka till läget Senaste Tweets.
+    disableAutoRefresh: Inaktivera Automatisk Uppdatering (experimentell)
+    disableAutoRefreshDesc: Inaktivera livevisning av tweets på din tidslinje. <br/>Förvänta dig inte fantastiska resultat, det här fungerar inte alltid.
+    keepTweetsInTL: Behåll Tweets (Det är fungerar inte för nuvarande)
+    keepTweetsInTLDesc: Hindrar sidan från att automatiskt ta bort tweets när de inte längre är synliga.
+    biggerPreviews: Större Bildförhandsvisningar
+    biggerPreviewsDesc: Långa bilder i tweets visas i sin fulla längd.
+
+  tweets:
+    hideTranslateTweetButton: Hide “Translate Tweet” button # TODO translation missing!
+    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
+    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Orörliga Sidofält
+    smallSidebars: Små Sidofält
+    smallSidebarsDesc: 290px istället för 350px breda sidofält.
+    hideTrends: Hide trends # TODO translation missing!
+    leftTrends: Trender i Vänster Sidofält
+    leftTrendsDesc: Visar trender i vänster sidofält.
+    show10Trends: Always show 10 trends # TODO translation missing!
+
+  profile:
+    legacyProfile: Legacy profile layout # TODO translation missing!
+    squareAvatars: Fyrkantiga Visningsbilder
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: Enable Quickblock # TODO translation missing!
+    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
+    leftMedia: Left sidebar media # TODO translation missing!
+    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
+
+  global-look:
+    hideFollowSuggestions: Hide follow suggestions (Topics, Users & Lists) # TODO translation missing!
+    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    fontOverride: Use custom font # TODO translation missing!
+    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
+    colorOverride: Use custom color # TODO translation missing!
+    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideMessageBox: Hide message box # TODO translation missing!
+    hideMessageBoxDesc: Hides the new, all time present message box in the bottom right corner. # TODO translation missing!
+    rosettaIcons: Rosetta icons # TODO translation missing!
+    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
+    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+
+  other:
+    updateNotifications: GoodTwitter 2 update notifications # TODO translation missing!
+    expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!

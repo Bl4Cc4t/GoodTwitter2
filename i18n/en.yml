@@ -1,0 +1,106 @@
+# english language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweet
+  joinDate: Joined $date$
+  navBookmarks: Bookmarks
+  navMessages: Messages
+  navExplore: Explore
+  navHome: Home
+  navLists: Lists
+  navNotifications: Notifications
+  navProfile: Profile
+  statsFollowers: Followers
+  statsFollowing: Following
+  statsLikes: Likes
+  statsMoments: Moments
+  statsTweets: Tweets
+  topics: Topics
+  translateTweet: Translate Tweet
+  users: Users
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Born $date$
+  bornYear: Born $year$
+  favorite: Favorite
+  favorites: Favorites
+  followedBy0: Not followed by anyone you’re following
+  followedBy1: Followed by $p1$
+  followedBy2: Followed by $p1$ and $p2$
+  followedBy3: Followed by $p1$, $p2$ and $p3$
+  followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow
+  showNewMulti: Show $ new Tweets
+  showNewSingle: Show 1 new Tweet
+  translatedTweetInfo: Translated from $lang$ by $source$
+  qbBlock: Block
+  qbBlocked: Blocked
+  qbUnblock: Unblock
+  updatedInfo: Updated to $version$!
+  updatedInfoChangelog: Changelog
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Timeline
+    settingsHeaderSidebars: Sidebars
+    settingsHeaderGlobalLook: Global Look
+    settingsHeaderOther: null
+
+  timeline:
+    forceLatest: Force “Latest Tweets First” mode
+    forceLatestDesc: Enabling the latest tweets mode is not permanent anymore. With this setting active, the site automatically switches back to the “Latest Tweets” mode.
+    disableAutoRefresh: Disable auto refresh (experimental)
+    disableAutoRefreshDesc: Disables live display of tweets in your timeline. <br/>Do not expect great results, this does not work all the time.
+    keepTweetsInTL: Keep tweets in timeline (this does not work atm)
+    keepTweetsInTLDesc: Keep the site from automatically removing tweets once they are out of view.
+    biggerPreviews: Bigger image previews
+    biggerPreviewsDesc: Tall images in tweets are shown in their full height.
+
+  tweets:
+    hideTranslateTweetButton: Hide “Translate Tweet” button
+    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left
+    hidePromoteTweetButton: Hide “Promote Tweet” button
+
+  sidebars:
+    stickySidebars: Sticky sidebars
+    smallSidebars: Small sidebars
+    smallSidebarsDesc: 290px instead of 350px wide sidebars.
+    hideTrends: Hide trends
+    leftTrends: Left sidebar trends
+    leftTrendsDesc: Show the trends in the left sidebar.
+    show10Trends: Always show 10 trends
+
+  profile:
+    legacyProfile: Legacy profile layout
+    squareAvatars: Square avatars
+    disableHexagonAvatars: Disable hexagon avatars
+    enableQuickBlock: Enable Quickblock
+    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile.
+    leftMedia: Left sidebar media
+    leftMediaDesc: Show the media container on profile pages in the left sidebar.
+
+  global-look:
+    hideFollowSuggestions: Hide follow suggestions (Topics, Users & Lists)
+    hideFollowSuggestionsBox: Hide $type$ from $location$
+    fontOverride: Use custom font
+    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed.
+    colorOverride: Use custom color
+    colorOverrideDesc: Set a custom color to override the default one.
+    hideMessageBox: Hide message box
+    hideMessageBoxDesc: Hides the new, all time present message box in the bottom right corner.
+    rosettaIcons: Rosetta icons
+    rosettaIconsDesc: Use the pre 2017 Rosetta icon font
+    favoriteLikes: Replace likes with favorites (only icons for now)
+
+  other:
+    updateNotifications: GoodTwitter 2 update notifications
+    expandTcoShortlinks: Expand t.co shortlinks
