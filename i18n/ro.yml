@@ -54,10 +54,6 @@ settings:
   timeline:
     forceLatest: Forțează „Cele mai recente Tweeturi”
     forceLatestDesc: Activarea modului „Cele mai recente Tweeturi” nu mai este permanent. Cu acest setare activat, site-ul se schimbă automat înapoi la modul „Cele mai recente Tweeturi”.
-    disableAutoRefresh: Dezactivează Reîmprospătarea Automată (experimental)
-    disableAutoRefreshDesc: Dezactivează afișarea în direct a tweeturilor în cronologia ta. <br/>Nu vă așteptați rezultate bune, ăsta nu merge tot timpul.
-    keepTweetsInTL: Păstrează tweeturile (nu funcționează în acest moment)
-    keepTweetsInTLDesc: Împiedică eliminarea automată a Tweeturilor când sunt în afara vederii.
     biggerPreviews: Previzualizări de imagini mai mari
     biggerPreviewsDesc: Imagini mai lungi în tweeturi sunt afișate la înălțimea maximă.
 

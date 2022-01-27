@@ -54,10 +54,6 @@ settings:
   timeline:
     forceLatest: Forçar Tweets Mais Recentes
     forceLatestDesc: Habilitando o modo de Tweets mais recentes não é mais permanente. Com esta opção ativada, o site automaticamente ativa a opção de Tweets mais recentes.
-    disableAutoRefresh: Desativar Auto Refresh (experimental)
-    disableAutoRefreshDesc: Desativa a exibição ao vivo de Tweets em sua timeline.<br/>Não espere grandes resultados, isto não funciona o tempo todo.
-    keepTweetsInTL: Manter Tweets (isto não funciona no momento)
-    keepTweetsInTLDesc: Impede que o site remova automaticamente Tweets quando eles estiverem fora de vista.
     biggerPreviews: Pré-visualização de Imagens Grandes
     biggerPreviewsDesc: Imagens altas em Tweets são exibidas em sua altura original.
 

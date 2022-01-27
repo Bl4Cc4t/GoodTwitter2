@@ -54,10 +54,6 @@ settings:
   timeline:
     forceLatest: Wymuś najnowsze
     forceLatestDesc: Wymuszanie trybu najnowszych wpisów nie jest już trwałe. Gdy włączysz tę opcję, strona będzie automatycznie przywracała opcję wyświetlania najnowszych tweetów.
-    disableAutoRefresh: Wyłącz automatyczne odświeżanie (eksperymentalne)
-    disableAutoRefreshDesc: Wyłącza pokazywanie tweetów w osi czasu na żywo. <br/>Nie oczekuj świetnych wyników, to nie zawsze działa.
-    keepTweetsInTL: Zachowuj tweety (to obecnie nie działa)
-    keepTweetsInTLDesc: Niech strona nie usuwa automatycznie tweetów spoza widoku.
     biggerPreviews: Większy podgląd obrazków
     biggerPreviewsDesc: Wysokie obrazki będą zawsze wyświetlane w ich pełnej wysokości.
 

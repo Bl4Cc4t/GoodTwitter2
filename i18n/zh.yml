@@ -54,10 +54,6 @@ settings:
   timeline:
     forceLatest: 强制使用最近推文模式
     forceLatestDesc: 推特已经无法永久启用最近推文模式；当启用此选项时，GoodTwitter 2 会帮你自动切换回最近推文模式。
-    disableAutoRefresh: 禁用自动刷新（实验性功能）
-    disableAutoRefreshDesc: 禁止自动刷新你的时间线。 <br/>不要抱有过高的期待, 这个功能并非时时起效。
-    keepTweetsInTL: 保留推文（目前不起效）
-    keepTweetsInTLDesc: 网站不会在推文离开可视区域后移除它。
     biggerPreviews: 预览更大尺寸的图片
     biggerPreviewsDesc: 推文中的长图会以其原始长度来显示
 

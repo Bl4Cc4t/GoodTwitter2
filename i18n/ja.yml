@@ -54,10 +54,6 @@ settings:
   timeline:
     forceLatest: 最新ツイート表示を強制する
     forceLatestDesc: 本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。
-    disableAutoRefresh: 自動更新を無効にする（実験的）
-    disableAutoRefreshDesc: タイムラインでのツイートのライブ表示を無効にします。<br/>いい結果を期待しないでください。これは常に動作するわけではありません。
-    keepTweetsInTL: ツイートを保持する (現在動作しません)
-    keepTweetsInTLDesc: スクロール等でツイートが表示されなくなった時にツイートが自動的に削除されるのを防止します。
     biggerPreviews: プレビュー画像の表示を拡張する
     biggerPreviewsDesc: ツイート内のプレビュー画像を完全表示します。
 
