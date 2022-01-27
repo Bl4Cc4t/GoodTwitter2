@@ -1788,6 +1788,11 @@
   }
 
 
+  // fix coloring on clicking the follow button
+  $("body").on("click", `[data-testid$="-follow"]`, e => $(e.target).parents(`[data-testid$="-follow"]`).attr("data-gt2-just-clicked-follow", 1))
+  $("body").on("mouseleave", `[data-testid$="-unfollow"][data-gt2-just-clicked-follow]`, e => $(e.target).parents(`[data-testid$="-unfollow"]`).removeAttr("data-gt2-just-clicked-follow"))
+
+
 
   // ########################
   // #        tweets        #
