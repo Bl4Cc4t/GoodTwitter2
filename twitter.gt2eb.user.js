@@ -973,23 +973,13 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
-    let currentScreenName = getPath().split("/")[0].split("?")[0].split("#")[0]
+    let currentScreenName = getPath().match(/^intent\/user/)
+      ? getPath().match(/screen_name=(\w+)/)[1]
+      : getPath().split("/")[0].split("?")[0].split("#")[0]
     console.log(`rebuild: ${currentScreenName}`)
 
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
-
-    waitForKeyElements(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1)`, () => {
-      // observe changes
-      let lplMut = new MutationObserver(mut => {
-        mut.forEach(m => {
-          console.log(m.target)
-        })
-      }).observe($(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1)`)[0], {
-        childList: true,
-        subtree: true
-      })
-    })
 
     waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img,
                         a[href='/${currentScreenName}/nft' i] img`, () => {
@@ -1107,7 +1097,11 @@
       })
 
       // sidebar profile information
-      waitForKeyElements(`[href="/${getPath().split("/")[0].split("?")[0].split("#")[0]}/following" i]`, () => {
+      waitForKeyElements(`[href="/${
+        getPath().match(/^intent\/user/)
+          ? getPath().match(/screen_name=(\w+)/)[1]
+          : getPath().split("/")[0].split("?")[0].split("#")[0]
+        }/following" i]`, () => {
         $(".gt2-legacy-profile-info").data("alreadyFound", false)
         waitForKeyElements(".gt2-legacy-profile-info", () => {
           if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
@@ -2281,6 +2275,7 @@
         || _onSubPage(path, "compose", ["tweet"])
         || _onSubPage(path, "account", ["add", "switch"])
         || _onPage(path, "search-advanced")
+        || _onPage(path, "intent")
         || path.match(/\/(photo|video)\/\d\/?$/)
   }
 
@@ -2429,9 +2424,11 @@
 
 
     // assume profile page
-    if (!isModal) {
+    if (!isModal || onSubPage("intent", ["user"])) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
-          || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))) {
+            || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
+          || onSubPage("intent", ["user"])) {
+
         $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
