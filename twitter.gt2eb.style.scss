@@ -415,6 +415,7 @@ $notLegacyProfile: "
                    and (max-width: 1230px) {
   .gt2-opt-small-sidebars {
     @include displayRightSmallSidebar;
+
     &[data-gt2-path^="settings"] {
       main {
         section[aria-labelledby=root-header] {
@@ -487,6 +488,7 @@ $notLegacyProfile: "
   .gt2-opt-small-sidebars {
     @media only screen and (max-width: 1230px) {
       @include someRightSidebar;
+
       &.gt2-not-logged-in {
         div[data-testid=sidebarColumn] {
           margin-left: 10px;
@@ -695,6 +697,7 @@ main {
       height: -webkit-fit-content;
       margin-bottom: 10px;
       @include separatorBottom;
+
       & > div {
 
         // scroll behind nav bar
@@ -733,6 +736,7 @@ main {
         // ChirpUpdate: readd vertical dividers
         section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
           @include separatorBottom;
+
           & > div:empty {
             height: 8px;
             margin: unset !important;
@@ -889,6 +893,7 @@ body[data-gt2-path="i/moment_maker"] {
         // better indicator for active conversation
         div[data-testid=conversation] {
           @include separatorBottom;
+
           &[aria-selected=true] {
             background-color: var(--color-elem-sel);
             & + div {
@@ -993,6 +998,7 @@ body[data-gt2-path^="settings/"] {
         & > div:not([class*=" "]) > * {
           &:not(:first-child) {
             @include separatorTop;
+
             &:empty {
               height: 8px;
               margin: unset !important;
@@ -1470,6 +1476,7 @@ body[data-payment-endpoint-path] {
 
     div[data-testid=primaryColumn] > div {
       @include separatorTop;
+
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
@@ -2935,6 +2942,7 @@ a.gt2-trend {
       right: 14px;
       bottom: calc(89px + (var(--font-increment) + 2px) / 2);
       @include hoverableSvg;
+
       div {
         width: 34.75px;
         height: 34.75px;
@@ -3002,9 +3010,10 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   @include standardLink;
 
   .gt2-sidebar-notice-header {
+    @include separatorBottom;
+
     font-size: incr(19px);
     font-weight: 800;
-    @include separatorBottom;
     position: relative;
     .gt2-sidebar-notice-close {
       right: 10px;
