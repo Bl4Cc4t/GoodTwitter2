@@ -90,18 +90,18 @@ Open the following box to learn more.
   - Go to the i18n folder.
   - If a translation does not yet exist for your language:
     - Fork the repo
-    - Duplicate the `en.json` file and change the file name accordingly (i.e. `ja.json` or `nl.json`).
+    - Duplicate the `en.yml` file and change the file name accordingly (i.e. `ja.yml` or `nl.yml`).
       - You can get the language id by pressing <kbd>Ctrl</kbd>+<kbd>U</kbd> on the twitter page and looking at the second line:
 ![](https://i.imgur.com/AarcTav.png)
 
     - Then, translate all strings and create a pull request.
-      - For all the strings in the first paragraph (before the first empty line): Please use the official translations on twitter if you can.
+      - For all the strings in the first paragraph: Please use the official translations on twitter if you can.
     - You can also of course search for potential spelling mistakes or the likes and correct them for existing translations!
-    - New strings will be added sometimes (e.g. for new settings). These newly added ones begin with `*NEW*`. Please remove this part when you're translating these strings.
+    - New strings will be added sometimes (e.g. for new settings). They will end with a `TODO` comment so you can spot them easier!
 
-  No idea how git works and too proud to learn it? You can also create an new issue with your translation.
+  If you don't know how to use git, you can also create an new issue with your translation.
 
-  Be sure to wrap the contents in backticks, like this:
+  If you do so, please make sure to wrap the content of your file in backticks, like this:
   ````
   ```content```
   ````
