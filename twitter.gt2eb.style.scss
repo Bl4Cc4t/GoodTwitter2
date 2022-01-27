@@ -815,6 +815,7 @@ body[data-gt2-path=explore] {
     }
 
     div[data-testid=primaryColumn] > div {
+      @include separatorTop;
       & > div:nth-child(1),
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
@@ -2511,6 +2512,12 @@ nav [role=tablist] [role=tab] {
       height: 4px;
       width: 100%;
     }
+  }
+}
+
+body[data-gt2-path="home"] {
+  [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
+    border-bottom-width: 0;
   }
 }
 
