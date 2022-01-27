@@ -1345,6 +1345,7 @@
   // display standard information for blocked profile
   function displayBlockedProfileData() {
     let screenName = getPath().split("/")[0].split("?")[0].split("#")[0]
+    $("body").addClass("gt2-page-profile-youre-blocked")
 
     requestUser(screenName, res => {
       let profileData = res.data.user
@@ -2394,7 +2395,7 @@
     if (!isModal) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
           || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))) {
-        $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found")
+        $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
         if (GM_getValue("opt_gt2").legacyProfile) {
@@ -2429,7 +2430,7 @@
     addToSidebar(sidebarContent)
 
 
-    // blocked profile page
+    // own account is blocked by profile page
     waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"],
                         [data-testid=emptyState] [href="https://support.twitter.com/articles/20172060"]`, displayBlockedProfileData)
 

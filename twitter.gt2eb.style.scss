@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+// ########################
+// #    root/variables    #
+// ########################
+
 :root {
   --bgColors:$;
   --baseColors:$;
@@ -14,33 +19,16 @@
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
-
 $notLegacyProfile: "
   &.gt2-opt-legacy-profile:not(.gt2-page-profile),
   &:not(.gt2-opt-legacy-profile).gt2-page-profile,
   &:not(.gt2-opt-legacy-profile):not(.gt2-page-profile)";
 
-// returns calc function for evenly spacing the navbar/other parts
-@function space($val) {
-  @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
-}
 
-// returns val with --font-increment added
-@function incr($val) {
-  @return calc(#{$val} + var(--font-increment));
-}
 
-@function dropborder($width, $color) {
-  @return drop-shadow(#{$width} 0px 0px #{$color})
-          drop-shadow(-#{$width} 0px 0px #{$color})
-          drop-shadow(0px #{$width} 0px #{$color})
-          drop-shadow(0px -#{$width} 0px #{$color})
-          drop-shadow(#{$width} #{$width} 0px #{$color})
-          drop-shadow(-#{$width} -#{$width} 0px #{$color})
-          drop-shadow(-#{$width} #{$width} 0px #{$color})
-          drop-shadow(#{$width} -#{$width} 0px #{$color});
-}
-
+// ########################
+// #         fonts        #
+// ########################
 
 // 2014-02 ~ 2017-06
 @font-face {
@@ -55,6 +43,40 @@ $notLegacyProfile: "
 }
 
 
+
+// ########################
+// #       functions      #
+// ########################
+
+// returns calc function for evenly spacing the navbar/other parts
+@function space($val) {
+  @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
+}
+
+// returns val with --font-increment added
+@function incr($val) {
+  @return calc(#{$val} + var(--font-increment));
+}
+
+// returns a dynamic border that can be used with clip-paths
+@function dropborder($width, $color) {
+  @return drop-shadow(#{$width} 0px 0px #{$color})
+          drop-shadow(-#{$width} 0px 0px #{$color})
+          drop-shadow(0px #{$width} 0px #{$color})
+          drop-shadow(0px -#{$width} 0px #{$color})
+          drop-shadow(#{$width} #{$width} 0px #{$color})
+          drop-shadow(-#{$width} -#{$width} 0px #{$color})
+          drop-shadow(-#{$width} #{$width} 0px #{$color})
+          drop-shadow(#{$width} -#{$width} 0px #{$color});
+}
+
+
+
+// ########################
+// #        mixins        #
+// ########################
+
+// style for parents with hoverable icons
 @mixin hoverableSvg {
   display: flex;
   align-items: center;
@@ -90,6 +112,7 @@ $notLegacyProfile: "
   }
 }
 
+// turn area gray on hover
 @mixin grayscaleHover {
   transition: filter .2s ease-in-out;
   backface-visibility: hidden;
@@ -99,7 +122,6 @@ $notLegacyProfile: "
     -webkit-filter: brightness(87.5%);
   }
 }
-
 
 // small dashboard profile
 @mixin smallDashboardProfile {
@@ -129,7 +151,7 @@ $notLegacyProfile: "
   }
 }
 
-
+// default link styling
 @mixin standardLink {
   a,
   a:link,
@@ -142,6 +164,7 @@ $notLegacyProfile: "
   }
 }
 
+// default border styling
 @mixin separatorTop {
   border-top: 1px solid var(--color-gray-dark) !important;
 }
@@ -149,6 +172,11 @@ $notLegacyProfile: "
   border-bottom: 1px solid var(--color-gray-dark) !important;
 }
 
+
+
+// ########################
+// #   responsive styles  #
+// ########################
 
 // normal display
 @media only screen and (min-width: 1350px) {
@@ -334,7 +362,6 @@ $notLegacyProfile: "
       }
     }
   }
-
 }
 
 
@@ -534,6 +561,7 @@ $notLegacyProfile: "
   }
 }
 
+
 // not smallest screen
 @media only screen and (min-width: 1005px) {
   .gt2-opt-sticky-sidebars {
@@ -557,6 +585,7 @@ $notLegacyProfile: "
     }
   }
 }
+
 
 // even smaller screen
 @media only screen and (max-width: 705px) {
@@ -585,22 +614,11 @@ $notLegacyProfile: "
   }
 }
 
-.gt2-page-error {
-  main > div > div > div {
-    display: inline;
-    .gt2-left-sidebar {
-      float: left;
-      position: relative !important;
 
-      & + div {
-        width: 600px;
-        background-color: var(--color-elem);
-        float: left;
-        margin: 0 10px;
-      }
-    }
-  }
-}
+
+// ########################
+// #    global styling    #
+// ########################
 
 // global background color
 body {
@@ -619,6 +637,7 @@ header {
   display: none !important;
 }
 
+// remove anchor decorations
 a {
   &:hover {
     text-decoration-thickness: 1px;
@@ -628,6 +647,38 @@ a {
   }
 }
 
+// non transparent tooltips
+#layers [role=tooltip] {
+  background-color: rgb(110, 118, 125);
+}
+
+// remove invisible overlay on tab navigation
+[data-testid^=ScrollSnap-].r-orgf3d {
+  display: none;
+}
+
+// make parts around toasts clickable
+div[data-testid=toast] {
+  position: absolute;
+  bottom: 0;
+}
+
+// headings decrop
+h2 {
+  font-weight: 800 !important;
+  line-height: normal !important;
+  & > div {
+    &:nth-child(2) {
+      line-height: normal !important;
+    }
+    // icon
+    &:nth-child(3) {
+      align-self: center;
+    }
+  }
+}
+
+// main component
 main {
   align-items: center !important;
 
@@ -789,6 +840,111 @@ main {
 }
 
 
+
+// ########################
+// #     page specific    #
+// ########################
+
+// error page
+.gt2-page-error {
+  main > div > div > div {
+    display: inline;
+    .gt2-left-sidebar {
+      float: left;
+      position: relative !important;
+
+      & + div {
+        width: 600px;
+        background-color: var(--color-elem);
+        float: left;
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+// home page
+body[data-gt2-path="home"] {
+  [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
+    border-bottom-width: 0;
+  }
+}
+
+// messages page
+body[data-gt2-path="messages"],
+body[data-gt2-path^="messages/"],
+body[data-gt2-path="i/moment_maker"] {
+  .gt2-left-sidebar {
+    display: none;
+  }
+  main > div > div > div {
+    & > section {
+      max-width: unset;
+      border-bottom-width: 1px;
+      margin-bottom: 10px;
+
+      &:nth-last-child(2) {
+        width: 40%;
+
+        // better indicator for active conversation
+        div[data-testid=conversation] {
+          @include separatorBottom;
+          &[aria-selected=true] {
+            background-color: var(--color-elem-sel);
+            & + div {
+              border-right-width: 4px;
+            }
+          }
+        }
+      }
+
+      // right section
+      &:nth-last-child(1) {
+        width: 60%;
+        & > div {
+          &,
+          & > div > div,
+          & > div > div:nth-child(1) > div > div > div > div,
+          & > div > div:nth-child(2) > div > div > div > div > div > div {
+            max-width: unset;
+            margin: unset;
+          }
+          & > div > div:nth-child(2) > div > div > div > div > div > div {
+            padding: unset;
+            div:not([class]):not([style]):not(:first-child) {
+              padding: 0 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+body[data-gt2-path="messages/settings"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
+    @include separatorBottom;
+  }
+}
+body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
+  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      & > :empty {
+        margin: unset;
+      }
+      & > :not(:empty) {
+        @include separatorBottom;
+      }
+    }
+  }
+}
+body[data-gt2-path="i/moment_maker"] {
+  section:nth-of-type(1) > div:nth-child(2) {
+    background-color: var(--color-elem);
+  }
+}
+
 // make show more tweets more noticable
 body[data-gt2-path=home],
 body[data-gt2-path=search],
@@ -801,1352 +957,7 @@ body[data-gt2-path=explore] {
   }
 }
 
-
-// options
-
-// old profile layout
-.gt2-opt-legacy-profile.gt2-page-profile {
-  main {
-    margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
-    min-height: 880px;
-
-    & > div {
-      transition: margin-top .25s ease-in-out;
-    }
-
-    div[data-testid=primaryColumn] > div {
-      @include separatorTop;
-      & > div:nth-child(1),
-      & > div:nth-child(2) > div > div > div:nth-child(1) {
-        position: absolute;
-        top: 0;
-        left: -9999px;
-      }
-      & > div:nth-child(2) > div > div > div:nth-child(2) {
-        border-top-width: 0;
-      }
-    }
-  }
-
-  &.gt2-profile-not-found {
-    main > div {
-      margin-top: unset !important;
-    }
-    .gt2-legacy-profile-nav a,
-    .gt2-legacy-profile-info a {
-      pointer-events: none;
-    }
-
-    &.gt2-scrolled-down-banner .gt2-legacy-profile-info {
-      display: none;
-    }
-  }
-
-  .gt2-legacy-profile-banner,
-  .gt2-legacy-profile-nav {
-    z-index: 1;
-  }
-
-  .gt2-legacy-profile-banner {
-    background-color: var(--color-gray-dark);
-    width: 100%;
-    height: calc((100vw - var(--scrollbar-width)) / 3);
-    margin-top: 47px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    img {
-      width: inherit;
-    }
-  }
-
-  .gt2-legacy-profile-nav {
-    height: 60px;
-    width: 100%;
-    background-color: var(--color-navbar);
-    display: flex;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
-    @include standardLink;
-
-    & > div {
-      position: absolute;
-      height: inherit;
-      display: flex;
-    }
-
-    .gt2-legacy-profile-nav-left {
-      align-items: center;
-      // avatar
-      .gt2-legacy-profile-nav-avatar img {
-        border-radius: 9999px;
-      }
-      & > div {
-        display: flex;
-        flex-direction: column;
-        margin-left: 10px;
-
-        .gt2-legacy-profile-name {
-          text-overflow: ellipsis;
-        }
-        .gt2-legacy-profile-name,
-        .gt2-legacy-profile-screen-name-wrap {
-          white-space: nowrap;
-          overflow: hidden;
-        }
-      }
-    }
-
-    .gt2-legacy-profile-nav-center {
-      a {
-        text-decoration-line: none !important;
-        padding: 10px 15px;
-        text-align: center;
-        div {
-          color: var(--color-gray-light) !important;
-          font-weight: bold;
-
-          &:nth-child(1) {
-            font-size: incr(12px);
-          }
-          &:nth-child(2) {
-            font-size: incr(18px);
-          }
-        }
-        &:hover {
-          border-bottom: 3px solid var(--color-user);
-          div:nth-child(2) {
-            color: var(--color-user) !important;
-          }
-        }
-      }
-    }
-
-    .gt2-legacy-profile-nav-right {
-      right: 0;
-      align-items: center;
-
-      [role=button],
-      div[data-testid=placementTracking] > div,
-      [href="/settings/profile"] {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  .gt2-legacy-profile-name {
-    font-size: incr(18px);
-    font-weight: bold;
-    color: var(--color-text) !important;
-    font-weight: 800;
-  }
-
-  .gt2-legacy-profile-screen-name-wrap {
-    display: flex;
-  }
-
-  .gt2-legacy-profile-screen-name {
-    font-size: incr(14px);
-    color: var(--color-gray-light);
-  }
-
-  .gt2-legacy-profile-info {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 10px;
-    @include standardLink;
-
-    border: unset;
-    background-color: unset;
-
-    .gt2-legacy-profile-screen-name {
-      color: var(--color-gray-light) !important;
-    }
-
-    .gt2-legacy-profile-description:not(:empty) {
-      [data-testid=UserDescription] {
-        color: var(--color-text);
-        & + div {
-          width: max-content;
-          &:hover {
-            text-decoration-line: underline;
-          }
-        }
-      }
-    }
-
-    .gt2-legacy-profile-screen-name-wrap,
-    .gt2-legacy-profile-description:not(:empty) {
-      margin-bottom: 12px !important;
-    }
-
-    .gt2-legacy-profile-items > *:not(:last-child) {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .gt2-legacy-profile-name,
-    .gt2-legacy-profile-items > *:not(:last-child) {
-      width: fit-content;
-      width: -moz-fit-content;
-      width: -webkit-fit-content;
-    }
-    .gt2-legacy-profile-items {
-      span, svg {
-        color: var(--color-gray-light);
-      }
-      a:hover {
-        text-decoration-color: var(--color-gray-light);
-      }
-    }
-
-    .gt2-legacy-profile-fyk:not(:empty) {
-      span, div {
-        color: var(--color-gray-light);
-      }
-      margin-top: 12px;
-      padding-right: 10px;
-      &:hover {
-        a {
-          text-decoration-color: var(--color-gray-light);
-        }
-      }
-    }
-
-
-    // blocked profile
-    .gt2-legacy-profile-item {
-      .gt2-blocked-profile-location,
-      .gt2-blocked-profile-url,
-      .gt2-blocked-profile-birthday,
-      .gt2-blocked-profile-joined-at {
-        display: inline-flex;
-        svg {
-          height: 1.25em;
-          margin-right: 5px;
-        }
-        &:not(.gt2-blocked-profile-url) {
-          color: var(--color-gray-light);
-        }
-      }
-    }
-    .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
-      color: var(--color-gray-light);
-    }
-  }
-
-  // normal view with big banner
-  &:not(.gt2-scrolled-down-banner)  {
-    .gt2-legacy-profile-banner,
-    .gt2-legacy-profile-nav {
-      position: absolute;
-    }
-
-    .gt2-legacy-profile-nav {
-      margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px);
-
-      .gt2-legacy-profile-nav-left {
-        // avatar
-        .gt2-legacy-profile-nav-avatar {
-          filter: dropborder(2.5px, var(--color-navbar));
-          img {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            bottom: 50px;
-          }
-        }
-        .gt2-legacy-profile-name,
-        .gt2-legacy-profile-screen-name-wrap {
-          display: none;
-        }
-      }
-    }
-
-    .gt2-legacy-profile-info {
-      padding-top: 30px;
-    }
-  }
-
-  // view when scrolled down
-  &.gt2-scrolled-down-banner {
-    main > div {
-      margin-top: 50px;
-    }
-
-    .gt2-legacy-profile-banner,
-    .gt2-legacy-profile-nav {
-      position: fixed;
-    }
-
-    .gt2-legacy-profile-banner {
-      height: 15px !important;
-      img {
-        transform: unset !important;
-      }
-    }
-
-    .gt2-legacy-profile-nav {
-      margin-top: calc(47px + 15px);
-
-      .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
-        width: 36px;
-        height: 36px;
-      }
-    }
-    .gt2-legacy-profile-info {
-      .gt2-legacy-profile-name,
-      .gt2-legacy-profile-screen-name-wrap {
-        display: none;
-      }
-    }
-  }
-}
-body {
-  #{$notLegacyProfile} {
-    main {
-      margin-top: 56px;
-    }
-    .gt2-legacy-profile-info {
-      display: none;
-    }
-  }
-}
-
-// disable hexagonal avatars OFF
-body:not(.gt2-opt-disable-hexagon-avatars) {
-  .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
-    clip-path: url("#hex-hw-shapeclip-clipconfig");
-  }
-}
-
-
-.gt2-opt-sticky-sidebars {
-  #{$notLegacyProfile} {
-    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-      position: fixed;
-      top: 56px !important;
-      height: calc(100vh - 47px);
-    }
-  }
-  &.gt2-page-profile.gt2-opt-legacy-profile {
-    &:not(.gt2-scrolled-down-banner) {
-      .gt2-left-sidebar,
-      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-        position: absolute;
-        top: 0 !important;
-      }
-    }
-    &.gt2-scrolled-down-banner {
-      .gt2-left-sidebar,
-      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-        position: fixed;
-        top: calc(47px + 15px + 60px + 10px) !important;
-      }
-
-      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-        height: calc(100vh - (47px + 15px + 60px));
-      }
-      .gt2-left-sidebar {
-        height: calc(100vh - (47px + 15px + 60px + 10px));
-      }
-    }
-  }
-
-
-  // indepentently scrollable right sidebar
-  div[data-testid=sidebarColumn] > div {
-
-    & > div:nth-child(1) {
-      margin-top: 0 !important;
-    }
-
-    > div:nth-child(2) {
-      bottom: unset !important;
-      padding-top: 10px;
-      margin-top: -10px;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-  }
-
-  // bigger native navbar
-  &.gt2-not-logged-in {
-    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
-      height: calc(100vh - 64px);
-      top: 64px !important;
-    }
-  }
-}
-
-body:not(.gt2-opt-sticky-sidebars) {
-  min-height: unset !important;
-  div[data-testid=sidebarColumn] > div {
-    & > div:nth-child(1) {
-      margin-top: 0 !important;
-    }
-    & > div:nth-child(2) {
-      top: 0 !important;
-      bottom: unset !important;
-      position: absolute;
-    }
-  }
-}
-
-.gt2-opt-small-sidebars {
-  .gt2-left-sidebar,
-  div[data-testid=sidebarColumn],
-  div[data-testid=sidebarColumn] > div > div:nth-child(2),
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
-    width: 290px;
-  }
-  .gt2-toggle-acc-switcher-dropdown {
-    bottom: 82px !important;
-  }
-
-  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
-    width: calc(300px - 46px);
-  }
-  .gt2-legacy-profile-nav-center {
-    padding-left: 300px;
-  }
-
-  @include smallDashboardProfile;
-}
-body:not(.gt2-opt-small-sidebars) {
-  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
-    width: calc(360px - 46px);
-  }
-  .gt2-legacy-profile-nav-center {
-    padding-left: 360px;
-  }
-}
-
-
-.gt2-opt-square-avatars {
-  // /home new tweet
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
-  // profile
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
-  // tweet
-  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
-  // tweet your reply
-  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
-  // sidebar (who to follow)
-  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
-  // small profile modals
-  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
-  // notifications
-  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) div,
-  // /messages top left avatar
-  // &[data-gt2-path^="messages/"] section:nth-last-child(1) > div > div > div:nth-child(1) > div > div > div > div,
-  // /messages message
-  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
-    & > div > div > div > div {
-      & > div,
-      & > div > a:not([href$="/photo"]),
-      & > div > a > div {
-        border-width: 0;
-        border-radius: 10% !important;
-      }
-      & > div > a[href$="/photo"] {
-        border-radius: 11.5% !important;
-      }
-    }
-  }
-
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) > div,
-  // /messages top left avatar
-  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
-  // edit tweet recipients (replying to)
-  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
-    border-radius: 10% !important;
-  }
-
-  // tweet (show this thread)
-  article + a[href*="/status/"] {
-    div[role=presentation],
-    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
-      border-radius: 10%;
-    }
-  }
-  // dashboard profile
-  .gt2-dashboard-profile .gt2-avatar {
-    border-radius: 11.5%;
-    img {
-      border-radius: 10%;
-    }
-  }
-  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
-    border-radius: 10%;
-  }
-}
-
-// font global override
-.gt2-opt-font-override {
-  &,
-  .r-1qd0xha,
-  .r-1tl8opc,
-  .r-37j5jr {
-    font-family: var(--font-override), var(--font-default) !important;
-  }
-}
-body:not(.gt2-opt-font-override) {
-  &,
-  .r-1qd0xha,
-  .r-1tl8opc,
-  .r-37j5jr {
-    font-family: var(--font-default) !important;
-  }
-}
-
-
-// color global override
-.gt2-opt-color-override {
-  --color-raw-user: var(--color-override);
-  --color-user: rgb(var(--color-override));
-  // normal color
-  *:not(#placeholder) {
-    // blue         yellow         red             purple          orange          green
-    & > .r-13gxpu9, & > .r-61mi1v, & > .r-daml9f,  & > .r-xfsgu1,  & > .r-1qkqhnw, & > .r-nw8l94,  // normal
-    & > .r-xyrcl7,  & > .r-iogyil, & > .r-dyo1pg,  & > .r-1u5vp33, & > .r-ucruu0,  & > .r-58mm23, // white hc
-    & > .r-6743kw,  & > .r-mjbqy8, & > .r-1e0i1xg, & > .r-2o3veo,  & > .r-pxzkq4,  & > .r-mhzhfq, // dim/lo hc
-    & > .r-1n1174f // blue (link?)
-    {
-      &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
-        color: var(--color-user) !important;
-      }
-    }
-  }
-
-  // border
-  // blue     yellow      red         purple      orange      green
-  .r-p1n3y5,  .r-v6khid,  .r-1iofnty, .r-11mmphe, .r-1xl5njo, .r-5ctkeg,  // normal
-  .r-yness5,  .r-9h97i0,  .r-1y0ydr9, .r-1v3952k, .r-57jueo,  .r-2a99tl,  // white hc
-  .r-141ztgp, .r-dbkiaw,  .r-161anm9, .r-1mqg5jq, .r-15zavzp, .r-16uoikt, // dim/lo hc
-  // border-right-color
-  .r-4rwt92,  .r-o1b8s3,  .r-l7fug5,  .r-ukm9ly,  .r-as53oi,  .r-1oux8jo, // normal
-  .r-d5u5q4,  .r-19xls35, .r-1kbil5v, .r-s9itga,  .r-bym8x3,  .r-1yd53u3, // white hc
-  .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
-  [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
-    &:not([data-gt2-color-override-ignore]) {
-      border-color: var(--color-user) !important;
-    }
-  }
-
-  // background-color
-  // blue     yellow      red         purple      orange      green
-  .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
-  .r-uc097p,  .r-xw9v2f,  .r-evx7rm,  .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
-  .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
-  {
-    &:not([data-gt2-color-override-ignore]) {
-      background-color: var(--color-user) !important;
-    }
-  }
-  // blue     yellow      red         purple      orange      green
-  .r-zv2cs0,  .r-75i7r9,  .r-wcu338,  .r-va2hk5,  .r-1vxd3ld, .r-1up5ays, // normal
-  .r-1bek5y6, .r-1ho5ue4, .r-vrom3q,  .r-ri3bjg,  .r-bnzbsy,  .r-1q8d70v, // white hc
-  .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
-  {
-    &:not([data-gt2-color-override-ignore]) {
-      background-color: rgba(var(--color-raw-user), 0.1) !important;
-    }
-  }
-  // blue     yellow      red         purple      orange      green
-  .r-1q3imqu, .r-1kplyi6, .r-1ucxkr8, .r-njt2r9,  .r-l779s2,  .r-zx61xx, // normal
-  .r-1urml5z, .r-1qhlxry, .r-1vitrf9, .r-pg0o0i,  .r-z5urpw,  .r-xsbikc, // white hc
-  .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
-  {
-    &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
-      background-color: rgba(var(--color-raw-user), 0.7) !important;
-    }
-  }
-
-  // box-shadow
-  // blue     yellow      red         purple      orange      green
-  .r-1bih22f, .r-cdj8wb,  .r-jd07pc,  .r-hy56xe,  .r-b8m25f,  .r-1cqwhho, // normal
-  .r-yab67o,  .r-1wzm90r, .r-1cstf6x, .r-13g0htx, .r-fne7zz,  .r-nlrx61,  // white hc
-  .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
-  {
-    &:not([data-gt2-color-override-ignore]) {
-      box-shadow: var(--color-user) 0px 0px 0px 1px !important;
-    }
-  }
-
-  // compose tweet length indicator
-  [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
-    stroke: var(--color-user) !important;
-  }
-}
-body:not(.gt2-opt-color-override) {
-  --color-raw-user: var(--color-normal);
-  --color-user: rgb(var(--color-normal));
-}
-
-
-.gt2-opt-bigger-previews {
-  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
-    align-self: unset !important;
-    a[href^="/"][href*="/photo/"] > div {
-      height: unset !important;
-      width: unset !important;
-      & > div:nth-child(1) {
-        padding-bottom: 0 !important;
-      }
-      & > div:nth-child(2) {
-        position: relative;
-
-        & > div {
-          display: contents;
-          position: relative;
-          & > div {
-            display: none;
-          }
-          & > img {
-            position: relative;
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
-}
-
-// showMediaWithContentWarnings
-.gt2-opt-show-media-with-content-warnings {
-  [data-testid=tweet].gt2-show-media,
-  &.gt2-opt-show-media-with-content-warnings-sel-7 [data-testid=tweet] {
-    [aria-labelledby] > div > div > div {
-      &:nth-child(1) {
-        filter: unset;
-      }
-
-      &:nth-child(2) {
-        display: none;
-      }
-    }
-  }
-}
-
-// hide translated tweets
-.gt2-opt-hide-translate-tweet-button {
-  [data-testid=tweet] div[lang] + div[role=button] {
-    display: none;
-  }
-}
-
-// hide promote tweet button
-.gt2-opt-hide-promote-tweet-button {
-  [data-testid=tweet] a[href*="/quick_promote_web/"] {
-    display: none;
-  }
-}
-
-.gt2-opt-hide-message-box {
-  div[data-testid=DMDrawer] {
-    height: 0;
-    z-index: -1;
-    border-width: 0;
-  }
-}
-
-
-// bunch up tweet interactions
-.gt2-opt-tweet-icons-pull-left {
-  [data-testid=primaryColumn] [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(2) > div:last-child > div:last-child > div[role=group] {
-    justify-content: unset;
-    & > *:not(:last-child) {
-      max-width: 80px;
-      margin-right: 20px;
-    }
-  }
-}
-
-// rosetta/edge icons
-@mixin iconReplace($font, $glyph, $size, $pad) {
-  > div {
-    &:nth-child(1) {
-      position: relative;
-      &:before {
-        font-family: $font;
-        content: unquote("\"\\#{$glyph}\"");
-        font-size: $size;
-        padding: $pad;
-      }
-    }
-    &:not(:nth-child(1)) {
-      display: none;
-    }
-  }
-  > svg {
-    display: none;
-  }
-}
-
-@mixin rosetta($glyph, $size, $pad) {
-  @include iconReplace(Rosetta, $glyph, $size, $pad);
-}
-@mixin edge($glyph, $size, $pad) {
-  @include iconReplace(Edge, $glyph, $size, $pad);
-}
-
-// small: 34.75
-// big:   38.5
-
-.gt2-opt-favorite-likes {
-  [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 19px, 7px 8.82px 7.75px); }
-  [data-testid=tweet] + div,
-  [aria-modal] > div > div:nth-child(1) {
-     [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 25px, 8.5px 8px 10px); }
-  }
-  [data-testid$=like]:hover > div:nth-child(1) > div:nth-child(1) > div {
-    background-color: rgba(var(--color-raw-yellow), 0.1) !important;
-  }
-  [data-testid=like]:hover > div:nth-child(1) {
-    color: var(--color-yellow) !important;
-  }
-  [data-testid=unlike] > div:nth-child(1) {
-    color: var(--color-yellow) !important;
-  }
-}
-
-.gt2-opt-rosetta-icons {
-  // like, reply, retweet
-  &:not(.gt2-opt-favorite-likes) {
-    [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 19px, 7px 9.18px 7.75px); }
-    [data-testid=tweet] + div,
-    [aria-modal] > div > div:nth-child(1) {
-      [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 24px, 8.5px 8.9px 10px); }
-    }
-  }
-  [data-testid=tweet] [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 16.5px, 7px 9.16px 7.75px); }
-  [data-testid=tweet] + div,
-  [aria-modal] > div > div:nth-child(1) {
-    [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 20px, 8.5px 9.3px 10px); }
-  }
-  [data-testid=tweet] [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 16.5px, 7px 7.12px 7.75px); }
-  [data-testid=tweet] + div,
-  [aria-modal] > div > div:nth-child(1) {
-    [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 20px, 8.5px 6.8px 10px); }
-  }
-
-  [data-testid$=caret] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f196', 16.5px, 7px 9.7px 7.75px); }
-}
-
-
-// .gt2-opt-keep-tweets-in-tl {
-//   div[data-testid=primaryColumn] > div > div:nth-child(4) > div > div > section > div:nth-child(2) > div > div {
-//     padding-top: 0 !important;
-//     padding-bottom: 0 !important;
-//   }
-// }
-
-.gt2-hide-spark-opt {
-  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
-    display: none;
-  }
-}
-
-// hide search when added to navbar
-.gt2-search-added {
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
-    display: none;
-  }
-}
-
-// acc switcher dropdown
-.gt2-acc-switcher-active {
-  #layers > div:nth-child(2) > div > div > div:nth-child(2) {
-    bottom: unset !important;
-    right: unset !important;
-
-    & > div > div:nth-child(2) > div > div > div {
-      & > svg {
-        position: absolute;
-        fill: var(--color-elem);
-        filter: drop-shadow(var(--color-shadow) 0.25px -2px 1px);
-        transform: unset !important;
-        bottom: unset !important;
-        top: -11px !important;
-        right: 5px !important;
-        left: unset !important;
-      }
-      & > div > div {
-        padding: 0;
-      }
-    }
-  }
-}
-
-// non transparent tooltips
-#layers [role=tooltip] {
-  background-color: rgb(110, 118, 125);
-}
-
-
-// colorized buttons for image modals
-div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
-  // comments
-  div[data-testid=reply]:hover,
-  div[role=button]:not([data-testid]):hover {
-    & > div > div > div {
-      background-color: rgba(var(--color-raw-blue), 0.1);
-    }
-    & > div {
-      color: var(--color-blue);
-    }
-  }
-  // retweets
-  div[data-testid=retweet]:hover,
-  div[data-testid=unretweet]:hover {
-    & > div > div > div {
-      background-color: rgba(var(--color-raw-green), 0.1);
-    }
-  }
-  div[data-testid=retweet]:hover,
-  div[data-testid=unretweet] {
-    & > div {
-      color: var(--color-green);
-    }
-  }
-
-  // likes
-  div[data-testid=like]:hover,
-  div[data-testid=unlike]:hover {
-    & > div > div > div {
-      background-color: rgba(var(--color-raw-red), 0.1);
-    }
-  }
-  div[data-testid=like]:hover,
-  div[data-testid=unlike] {
-    & > div {
-      color: var(--color-red);
-    }
-  }
-}
-
-
-// color carets with the user color
-// make carets look like carets again (instead of 3 dots)
-body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
-  div[data-testid=caret] {
-    & > div > div > div {
-      transition: all .2s ease-in-out;
-      background-color: var(--color-user);
-      opacity: 0;
-      &:hover {
-        opacity: .1;
-        & + svg {
-          background-color: var(--color-user);
-        }
-      }
-    }
-    svg {
-      background-color: var(--color-gray-light);
-      pointer-events: none;
-      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-      g {
-        display: none;
-      }
-    }
-  }
-}
-
-
-// color several ui elements with the user color
-// 2021-03-19 introduced for some users
-// 2021-05-12 reverted again
-// 2021-08-11 readded with ChirpUpdate
-div[data-testid=userActions],
-div[data-testid=sendDMFromProfile],
-div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
-div[data-testid$=-cancel],
-div[data-testid$=-follow],
-a[href="/settings/profile"],
-div[id^=topic-follow-button]:not(.r-1ucxkr8),
-div[data-testid=listCell] div[role=button],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
-  border-color: var(--color-user) !important;
-  background-color: transparent !important;
-  span {
-    line-height: unset !important;
-  }
-  & > *,
-  // all but notifications bell turned on
-  svg g > *:not([d^="M23.61.15c-.375"]) {
-    color: var(--color-user) !important;
-  }
-  &:hover {
-    background-color: rgba(var(--color-raw-user), .1) !important;
-  }
-}
-
-[data-gt2-bell-full-color] {
-  border-color: var(--color-user) !important;
-  background-color: var(--color-user) !important;
-  &:hover {
-    background-color: rgba(var(--color-raw-user), .1) !important;
-  }
-}
-
-div[data-testid$=-unfollow],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
-  transition-property: border-color, background-color, box-shadow;
-  span {
-    line-height: unset !important;
-  }
-  // red unfollow, WTF white following hover
-  // &:hover:not(.r-1ucxkr8):not(.r-1gg85qh) {
-  //   border-color: var(--color-user);
-  //   & > * {
-  //     color: var(--color-user);
-  //   }
-  // }
-  &:not(:hover),
-  &:hover[data-gt2-just-clicked-follow] {
-    border-color: var(--color-user) !important;
-    background-color: var(--color-user) !important;
-    & > * {
-      color: var(--color-text-2) !important;
-    }
-  }
-  &:hover:not([data-gt2-just-clicked-follow]) {
-    border-color: var(--color-red-dark) !important;
-    background-color: var(--color-red-dark) !important;
-    & > * {
-      color: var(--color-text-2) !important;
-    }
-  }
-}
-
-// trends
-.gt2-trends section {
-  & > div > div > div > div {
-    & > div {
-      // smaller padding next to the trends cog
-      &:nth-child(1) {
-        padding-right: 5px;
-      }
-
-      &[role=button] {
-        border-radius: unset;
-      }
-    }
-
-    // ChirpUpdate: readd vertical dividers
-    a[href="/i/trends"],
-    & > div:not(:first-child) {
-      @include separatorTop;
-    }
-  }
-}
-
-// make parts around toasts clickable
-div[data-testid=toast] {
-  position: absolute;
-  bottom: 0;
-}
-
-
-.gt2-svg {
-  fill: var(--color-gray-light);
-}
-
-// hidden tweets (autoRefresh)
-.gt2-hidden-tweet,
-.gt2-hidden-tweet-part {
-  display: none;
-}
-
-
-.gt2-show-hidden-tweets {
-  color: var(--color-text);
-  height: auto !important;
-  padding: 10px !important;
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-// ChirpUpdate: icon recolors
-// spark icon
-div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
-// various cogs
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
-// messages
-a[href*="/messages/settings"],
-a[href*="/messages/compose"],
-a[href^="/messages/"][href*="/info"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
-// generic back button
-[data-testid="app-bar-back"],
-// generic close button
-[data-testid="app-bar-close"],
-// /search dot button
-[data-testid="searchBoxOverflowButton"] {
-  svg {
-    color: var(--color-user) !important;
-  }
-  &:hover {
-    background-color: rgba(var(--color-raw-user), 0.1) !important;
-  }
-}
-
-// remove invisible overlay on tab navigation
-[data-testid^=ScrollSnap-].r-orgf3d {
-  display: none;
-}
-
-// spark settings
-.gt2-spark-toggle {
-  padding: 15px;
-  display: inline-flex;
-
-  svg {
-    height: 1.25em;
-    margin-right: 10px;
-  }
-
-  div {
-    color: var(--color-text);
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--color-elem-sel);
-  }
-}
-
-
-// headings decrop
-h2 {
-  font-weight: 800 !important;
-  line-height: normal !important;
-  & > div {
-    &:nth-child(2) {
-      line-height: normal !important;
-    }
-    // icon
-    &:nth-child(3) {
-      align-self: center;
-    }
-  }
-}
-
-
-// navbar dropdown
-#{$navbarDropdown} {
-  top: 54px;
-
-  & > div > div > div {
-    display: flex;
-    // existing elements
-    & > div > a {
-      transition-duration: 0s;
-    }
-
-    // inserted elements
-    & > a {
-      padding: 0;
-      & > div {
-        padding: incr(15px);
-        & > div:nth-child(2) {
-          display: none;
-        }
-      }
-
-      &.gt2-toggle-logout {
-        padding: 15px;
-        color: var(--color-text);
-        text-decoration-line: none;
-        &:link,
-        &:visited {
-          color: var(--color-text);
-        }
-      }
-
-      span {
-        font-size: incr(15px);
-        font-weight: 400;
-        margin-left: 0;
-        color: var(--color-text);
-      }
-      svg {
-        // color: var(--color-gray-light);
-        margin-right: 10px;
-        height: 1.25em;
-      }
-    }
-
-    // color changes on hover
-    // & > div > a:hover,
-    & > a:hover {
-      background-color: var(--color-elem-sel);
-      // svg,
-      // span {
-      //   color: white;
-      // }
-    }
-  }
-}
-
-// link stuff
-.gt2-dashboard-profile a,
-a.gt2-trend {
-  text-decoration: none;
-  &:visited {
-    color: unset;
-  }
-  &:link {
-    color: unset;
-  }
-}
-
-
-// navbar
-.gt2-nav {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  height: 46px;
-  position: fixed;
-  width: 100%;
-  background-color: var(--color-navbar);
-  z-index: 1;
-  display: flex;
-
-  .gt2-nav-left {
-
-    & > a {
-      padding: 0;
-      width: fit-content;
-      width: -moz-fit-content;
-      width: -webkit-fit-content;
-      display: inline-flex;
-      height: 100%;
-      transition: all .15s ease-in-out;
-
-      & > div {
-        background-color: unset !important;
-        margin-top: calc(var(--font-increment) * -1.25);
-        padding: 10px 15px;
-
-        & > div:nth-child(1) > div {
-          background-color: var(--color-user);
-          border-color: var(--color-elem);
-          color: var(--color-text-2);
-          font-size: calc(11px + var(--font-increment) * 0.75);
-        }
-        & > div:not(:first-child):not(.gt2-nav-header) {
-          display: none;
-        }
-        .gt2-nav-header {
-          color: var(--color-gray);
-          font-size: incr(13px);
-          margin-left: incr(3px);
-          margin-right: 3px;
-          font-weight: bold;
-        }
-      }
-    }
-
-    & > a.active,
-    & > a:hover {
-      border-bottom: .2em solid var(--color-user);
-      .gt2-nav-header {
-        color: var(--color-user);
-      }
-    }
-
-    & > a svg {
-      color: var(--color-gray-light);
-      width: incr(23px);
-    }
-
-    & > a.active > div > div:nth-child(2),
-    & > a.active svg,
-    & > a:hover > div > div:nth-child(2),
-    & > a:hover svg {
-      color: var(--color-user);
-    }
-  }
-
-  // twitter logo
-  .gt2-nav-center {
-    position: absolute;
-    right: calc(50% - 12px);
-    width: incr(24px);
-    margin-top: calc(8px - var(--font-increment));
-    svg path {
-      color: #1da1f2;
-    }
-  }
-
-  // nav right
-  .gt2-nav-right {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: 0px;
-    height: 100%;
-
-    .gt2-search > div {
-      height: auto;
-      width: 300px;
-      right: 10px;
-      background: unset;
-      position: relative;
-      margin-bottom: 0;
-      border: 1px solid var(--color-gray-dark);
-      border-radius: 21px;
-      transition: all .2s ease-in-out;
-      & input {
-        font-size: 14px;
-        padding: 8px;
-        height: 32px;
-        color: var(--color-text);
-      }
-      &:focus-within {
-        border: 2px solid var(--color-user);
-      }
-
-      form > div:nth-child(1) > div {
-        border: none;
-        background-color: var(--color-elem);
-      }
-    }
-
-    .gt2-toggle-navbar-dropdown {
-      margin-left: 5px;
-      margin-right: 15px;
-      height: 34px;
-      width: 34px;
-
-      img {
-        border-radius: 9999px;
-        height: 100%;
-        width: 100%;
-        @include grayscaleHover;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .gt2-compose {
-      display: inline-flex;
-      align-items: center;
-      font-size: var(--global-font-size);
-      font-weight: 700;
-      min-height: 34px;
-      background-color: var(--color-user);
-      color: var(--color-text-2);
-      padding: 0 16px;
-      border-radius: 9999px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-
-// stuff to do on modal
-html[style*="overflow: hidden"],
-html[style*="overflow-y: hidden"] {
-  .gt2-nav-center {
-    margin-right: calc(var(--scrollbar-width) / 2);
-  }
-  .gt2-nav-right,
-  .gt2-legacy-profile-nav-right {
-    padding-right: var(--scrollbar-width);
-  }
-  .gt2-legacy-profile-banner img {
-    padding-right: var(--scrollbar-width);
-  }
-}
-html[style*=margin-right] {
-  margin-right: unset !important;
-  main {
-    margin-right: var(--scrollbar-width);
-  }
-}
-
-.gt2-search-overflow-hider {
-  position: fixed;
-  width: calc(600px + var(--scrollbar-width));
-  height: 9px;
-  top: 47px;
-  background-color: var(--color-bg);
-  z-index: 1;
-  display: none;
-}
-
-
-// /search overflow, let search box stay on top
-body[data-gt2-path="search"],
-body[data-gt2-path="explore"] {
-  .gt2-search-overflow-hider {
-    display: block;
-  }
-  div[data-testid=primaryColumn] {
-    border-top-width: 0 !important;
-    & > div > div:nth-child(1) {
-      position: sticky;
-      top: 56px;
-      @include separatorTop;
-      transition: top .2s ease-in-out;
-      background-color: var(--color-elem);
-    }
-  }
-}
-body[data-gt2-path="search"].gt2-scrolled-down {
-  div[data-testid=primaryColumn] > div > div:nth-child(1) {
-    top: calc(56px - 107px);
-  }
-}
-body[data-gt2-path="explore"].gt2-scrolled-down {
-  div[data-testid=primaryColumn] > div > div:nth-child(1) {
-    top: calc(56px - 54px);
-  }
-}
-
-
-// sticky header with back button
-.gt2-page-tweet {
-  .gt2-search-overflow-hider {
-    display: block;
-  }
-  div[data-testid=primaryColumn] {
-    border-top-width: 0 !important;
-    & > div > div {
-      &:nth-child(1) {
-        top: 56px;
-        position: sticky;
-        @include separatorTop;
-      }
-      &:nth-child(2) {
-        top: 0;
-        position: relative;
-      }
-    }
-  }
-}
-
+// settings page
 body[data-gt2-path^="settings/"] {
   main {
     section[aria-labelledby=root-header],
@@ -2473,6 +1284,7 @@ body[data-gt2-path^="settings/"] {
   }
 }
 
+// profile page
 .gt2-page-profile {
   .gt2-dashboard-profile {
     display: none;
@@ -2491,6 +1303,1226 @@ body[data-gt2-path^="settings/"] {
       }
     }
   }
+}
+
+// blocked profile page
+.gt2-page-profile-youre-blocked {
+  .gt2-blocked-profile-description,
+  .gt2-blocked-profile-items {
+    margin-bottom: 10px;
+    @include standardLink;
+  }
+
+  .gt2-blocked-profile-description {
+    color: var(--color-text);
+    white-space: pre-wrap;
+  }
+
+  .gt2-blocked-profile-items {
+    display: inline;
+    color: var(--color-gray-light);
+
+    & > * {
+      margin-right: 10px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 1.25em;
+      margin-right: 5px;
+    }
+  }
+
+  .gt2-blocked-profile-ff {
+    a {
+      pointer-events: none;
+      color: var(--color-gray-light);
+      text-decoration: none;
+      margin-right: 20px;
+      span {
+        color: var(--color-text);
+        font-weight: 700;
+      }
+    }
+  }
+
+  .gt2-blocked-profile-followers-you-know {
+    margin-top: 10px;
+    font-size: incr(13px);
+    display: flex;
+    color: var(--color-gray-light);
+    text-decoration-line: none;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+
+    & > img {
+      width: 20px;
+      height: 20px;
+      border: solid 1px var(--color-bg);
+      border-radius: 9999px;
+      position: relative;
+
+      &:nth-child(1) {
+        z-index: 2;
+      }
+      &:nth-child(2) {
+        z-index: 1;
+        margin-left: -10px;
+      }
+      &:nth-child(3) {
+        margin-left: -10px;
+      }
+      &:nth-last-of-type(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+// tweet page
+.gt2-page-tweet {
+  // sticky header with back button
+  .gt2-search-overflow-hider {
+    display: block;
+  }
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+    & > div > div {
+      &:nth-child(1) {
+        top: 56px;
+        position: sticky;
+        @include separatorTop;
+      }
+      &:nth-child(2) {
+        top: 0;
+        position: relative;
+      }
+    }
+  }
+}
+
+// tweet analytics
+body[data-promote-url^="/i/tfb/v1/quick_promote"] {
+  background-color: var(--color-elem) !important;
+
+  .QuoteTweet {
+    border-color: var(--color-gray);
+  }
+
+  // buttons
+  .ep-ViewAllEngagementsButton,
+  .ep-InlineSignupButton {
+    color: white !important;
+    background-color: #55acee !important;
+  }
+
+  // separators
+  .ep-Campaign,
+  .ep-DetailedEngagementsSection {
+    border-color: var(--color-gray-dark);
+  }
+
+  // text
+  .ProfileTweet-originalAuthor b,
+  .QuoteTweet-text,
+  .QuoteTweet-text b,
+  .QuoteTweet-text s,
+  .QuoteTweet-text span,
+  .ep-MetricName,
+  .ep-MetricValue span,
+  .ep-SectionTitle {
+    color: var(--color-text) !important;
+  }
+}
+
+// signup for tweet promoting
+body[data-payment-endpoint-path] {
+  background-color: var(--color-elem) !important;
+
+  .as-Label,
+  .as-SelectContainer {
+    color: var(--color-text);
+
+    option {
+      background-color: var(--color-elem);
+    }
+  }
+}
+
+
+
+// ########################
+// #      GT2 options     #
+// ########################
+
+// old profile layout
+.gt2-opt-legacy-profile.gt2-page-profile {
+  main {
+    margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
+    min-height: 880px;
+
+    & > div {
+      transition: margin-top .25s ease-in-out;
+    }
+
+    div[data-testid=primaryColumn] > div {
+      @include separatorTop;
+      & > div:nth-child(1),
+      & > div:nth-child(2) > div > div > div:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: -9999px;
+      }
+      & > div:nth-child(2) > div > div > div:nth-child(2) {
+        border-top-width: 0;
+      }
+    }
+  }
+
+  &.gt2-profile-not-found {
+    main > div {
+      margin-top: unset !important;
+    }
+    .gt2-legacy-profile-nav a,
+    .gt2-legacy-profile-info a {
+      pointer-events: none;
+    }
+
+    &.gt2-scrolled-down-banner .gt2-legacy-profile-info {
+      display: none;
+    }
+  }
+
+  .gt2-legacy-profile-banner,
+  .gt2-legacy-profile-nav {
+    z-index: 1;
+  }
+
+  .gt2-legacy-profile-banner {
+    background-color: var(--color-gray-dark);
+    width: 100%;
+    height: calc((100vw - var(--scrollbar-width)) / 3);
+    margin-top: 47px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    img {
+      width: inherit;
+    }
+  }
+
+  .gt2-legacy-profile-nav {
+    height: 60px;
+    width: 100%;
+    background-color: var(--color-navbar);
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    @include standardLink;
+
+    & > div {
+      position: absolute;
+      height: inherit;
+      display: flex;
+    }
+
+    .gt2-legacy-profile-nav-left {
+      align-items: center;
+      // avatar
+      .gt2-legacy-profile-nav-avatar img {
+        border-radius: 9999px;
+      }
+      & > div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+
+        .gt2-legacy-profile-name {
+          text-overflow: ellipsis;
+        }
+        .gt2-legacy-profile-name,
+        .gt2-legacy-profile-screen-name-wrap {
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .gt2-legacy-profile-nav-center {
+      a {
+        text-decoration-line: none !important;
+        padding: 10px 15px;
+        text-align: center;
+        div {
+          color: var(--color-gray-light) !important;
+          font-weight: bold;
+
+          &:nth-child(1) {
+            font-size: incr(12px);
+          }
+          &:nth-child(2) {
+            font-size: incr(18px);
+          }
+        }
+        &:hover {
+          border-bottom: 3px solid var(--color-user);
+          div:nth-child(2) {
+            color: var(--color-user) !important;
+          }
+        }
+      }
+    }
+
+    .gt2-legacy-profile-nav-right {
+      right: 0;
+      align-items: center;
+
+      [role=button],
+      div[data-testid=placementTracking] > div,
+      [href="/settings/profile"] {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .gt2-legacy-profile-name {
+    font-size: incr(18px);
+    font-weight: bold;
+    color: var(--color-text) !important;
+    font-weight: 800;
+  }
+
+  .gt2-legacy-profile-screen-name-wrap {
+    display: flex;
+  }
+
+  .gt2-legacy-profile-screen-name {
+    font-size: incr(14px);
+    color: var(--color-gray-light);
+  }
+
+  .gt2-legacy-profile-info {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    @include standardLink;
+
+    border: unset;
+    background-color: unset;
+
+    .gt2-legacy-profile-screen-name {
+      color: var(--color-gray-light) !important;
+    }
+
+    .gt2-legacy-profile-description:not(:empty) {
+      [data-testid=UserDescription] {
+        color: var(--color-text);
+        & + div {
+          width: max-content;
+          &:hover {
+            text-decoration-line: underline;
+          }
+        }
+      }
+    }
+
+    .gt2-legacy-profile-screen-name-wrap,
+    .gt2-legacy-profile-description:not(:empty) {
+      margin-bottom: 12px !important;
+    }
+
+    .gt2-legacy-profile-items > *:not(:last-child) {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gt2-legacy-profile-name,
+    .gt2-legacy-profile-items > *:not(:last-child) {
+      width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
+    }
+    .gt2-legacy-profile-items {
+      span, svg {
+        color: var(--color-gray-light);
+      }
+      a:hover {
+        text-decoration-color: var(--color-gray-light);
+      }
+    }
+
+    .gt2-legacy-profile-fyk:not(:empty) {
+      span, div {
+        color: var(--color-gray-light);
+      }
+      margin-top: 12px;
+      padding-right: 10px;
+      &:hover {
+        a {
+          text-decoration-color: var(--color-gray-light);
+        }
+      }
+    }
+
+
+    // blocked profile
+    .gt2-legacy-profile-item {
+      .gt2-blocked-profile-location,
+      .gt2-blocked-profile-url,
+      .gt2-blocked-profile-birthday,
+      .gt2-blocked-profile-joined-at {
+        display: inline-flex;
+        svg {
+          height: 1.25em;
+          margin-right: 5px;
+        }
+        &:not(.gt2-blocked-profile-url) {
+          color: var(--color-gray-light);
+        }
+      }
+    }
+    .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
+      color: var(--color-gray-light);
+    }
+  }
+
+  // normal view with big banner
+  &:not(.gt2-scrolled-down-banner)  {
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav {
+      position: absolute;
+    }
+
+    .gt2-legacy-profile-nav {
+      margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px);
+
+      .gt2-legacy-profile-nav-left {
+        // avatar
+        .gt2-legacy-profile-nav-avatar {
+          filter: dropborder(2.5px, var(--color-navbar));
+          img {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            bottom: 50px;
+          }
+        }
+        .gt2-legacy-profile-name,
+        .gt2-legacy-profile-screen-name-wrap {
+          display: none;
+        }
+      }
+    }
+
+    .gt2-legacy-profile-info {
+      padding-top: 30px;
+    }
+  }
+
+  // view when scrolled down
+  &.gt2-scrolled-down-banner {
+    main > div {
+      margin-top: 50px;
+    }
+
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav {
+      position: fixed;
+    }
+
+    .gt2-legacy-profile-banner {
+      height: 15px !important;
+      img {
+        transform: unset !important;
+      }
+    }
+
+    .gt2-legacy-profile-nav {
+      margin-top: calc(47px + 15px);
+
+      .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+    .gt2-legacy-profile-info {
+      .gt2-legacy-profile-name,
+      .gt2-legacy-profile-screen-name-wrap {
+        display: none;
+      }
+    }
+  }
+}
+body {
+  #{$notLegacyProfile} {
+    main {
+      margin-top: 56px;
+    }
+    .gt2-legacy-profile-info {
+      display: none;
+    }
+  }
+}
+
+// sticky sidebars
+.gt2-opt-sticky-sidebars {
+  #{$notLegacyProfile} {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      position: fixed;
+      top: 56px !important;
+      height: calc(100vh - 47px);
+    }
+  }
+  &.gt2-page-profile.gt2-opt-legacy-profile {
+    &:not(.gt2-scrolled-down-banner) {
+      .gt2-left-sidebar,
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        position: absolute;
+        top: 0 !important;
+      }
+    }
+    &.gt2-scrolled-down-banner {
+      .gt2-left-sidebar,
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        position: fixed;
+        top: calc(47px + 15px + 60px + 10px) !important;
+      }
+
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        height: calc(100vh - (47px + 15px + 60px));
+      }
+      .gt2-left-sidebar {
+        height: calc(100vh - (47px + 15px + 60px + 10px));
+      }
+    }
+  }
+
+  // indepentently scrollable right sidebar
+  div[data-testid=sidebarColumn] > div {
+
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+
+    > div:nth-child(2) {
+      bottom: unset !important;
+      padding-top: 10px;
+      margin-top: -10px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  // bigger native navbar
+  &.gt2-not-logged-in {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      height: calc(100vh - 64px);
+      top: 64px !important;
+    }
+  }
+}
+body:not(.gt2-opt-sticky-sidebars) {
+  min-height: unset !important;
+  div[data-testid=sidebarColumn] > div {
+    & > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+    & > div:nth-child(2) {
+      top: 0 !important;
+      bottom: unset !important;
+      position: absolute;
+    }
+  }
+}
+
+// small sidebars
+.gt2-opt-small-sidebars {
+  .gt2-left-sidebar,
+  div[data-testid=sidebarColumn],
+  div[data-testid=sidebarColumn] > div > div:nth-child(2),
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
+    width: 290px;
+  }
+  .gt2-toggle-acc-switcher-dropdown {
+    bottom: 82px !important;
+  }
+
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
+    width: calc(300px - 46px);
+  }
+  .gt2-legacy-profile-nav-center {
+    padding-left: 300px;
+  }
+
+  @include smallDashboardProfile;
+}
+body:not(.gt2-opt-small-sidebars) {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
+    width: calc(360px - 46px);
+  }
+  .gt2-legacy-profile-nav-center {
+    padding-left: 360px;
+  }
+}
+
+// square avatars
+.gt2-opt-square-avatars {
+  // /home new tweet
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
+  // profile
+  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
+  // tweet
+  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
+  // tweet your reply
+  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
+  // sidebar (who to follow)
+  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
+  // small profile modals
+  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
+  // notifications
+  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) div,
+  // /messages top left avatar
+  // &[data-gt2-path^="messages/"] section:nth-last-child(1) > div > div > div:nth-child(1) > div > div > div > div,
+  // /messages message
+  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
+    & > div > div > div > div {
+      & > div,
+      & > div > a:not([href$="/photo"]),
+      & > div > a > div {
+        border-width: 0;
+        border-radius: 10% !important;
+      }
+      & > div > a[href$="/photo"] {
+        border-radius: 11.5% !important;
+      }
+    }
+  }
+
+  // /messages conversation selector (left)
+  [data-testid=conversation] > div > div:nth-child(1) > div,
+  // /messages top left avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
+  // edit tweet recipients (replying to)
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+    border-radius: 10% !important;
+  }
+
+  // tweet (show this thread)
+  article + a[href*="/status/"] {
+    div[role=presentation],
+    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
+      border-radius: 10%;
+    }
+  }
+  // dashboard profile
+  .gt2-dashboard-profile .gt2-avatar {
+    border-radius: 11.5%;
+    img {
+      border-radius: 10%;
+    }
+  }
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
+    border-radius: 10%;
+  }
+}
+
+// disable hexagonal avatars OFF
+body:not(.gt2-opt-disable-hexagon-avatars) {
+  .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
+    clip-path: url("#hex-hw-shapeclip-clipconfig");
+  }
+}
+
+// font global override
+.gt2-opt-font-override {
+  &,
+  .r-1qd0xha,
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-override), var(--font-default) !important;
+  }
+}
+body:not(.gt2-opt-font-override) {
+  &,
+  .r-1qd0xha,
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-default) !important;
+  }
+}
+
+// color global override TODO
+.gt2-opt-color-override {
+  --color-raw-user: var(--color-override);
+  --color-user: rgb(var(--color-override));
+  // normal color
+  *:not(#placeholder) {
+    // blue         yellow         red             purple          orange          green
+    & > .r-13gxpu9, & > .r-61mi1v, & > .r-daml9f,  & > .r-xfsgu1,  & > .r-1qkqhnw, & > .r-nw8l94,  // normal
+    & > .r-xyrcl7,  & > .r-iogyil, & > .r-dyo1pg,  & > .r-1u5vp33, & > .r-ucruu0,  & > .r-58mm23, // white hc
+    & > .r-6743kw,  & > .r-mjbqy8, & > .r-1e0i1xg, & > .r-2o3veo,  & > .r-pxzkq4,  & > .r-mhzhfq, // dim/lo hc
+    & > .r-1n1174f // blue (link?)
+    {
+      &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
+        color: var(--color-user) !important;
+      }
+    }
+  }
+
+  // border
+  // blue     yellow      red         purple      orange      green
+  .r-p1n3y5,  .r-v6khid,  .r-1iofnty, .r-11mmphe, .r-1xl5njo, .r-5ctkeg,  // normal
+  .r-yness5,  .r-9h97i0,  .r-1y0ydr9, .r-1v3952k, .r-57jueo,  .r-2a99tl,  // white hc
+  .r-141ztgp, .r-dbkiaw,  .r-161anm9, .r-1mqg5jq, .r-15zavzp, .r-16uoikt, // dim/lo hc
+  // border-right-color
+  .r-4rwt92,  .r-o1b8s3,  .r-l7fug5,  .r-ukm9ly,  .r-as53oi,  .r-1oux8jo, // normal
+  .r-d5u5q4,  .r-19xls35, .r-1kbil5v, .r-s9itga,  .r-bym8x3,  .r-1yd53u3, // white hc
+  .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
+  [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
+    &:not([data-gt2-color-override-ignore]) {
+      border-color: var(--color-user) !important;
+    }
+  }
+
+  // background-color
+  // blue     yellow      red         purple      orange      green
+  .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
+  .r-uc097p,  .r-xw9v2f,  .r-evx7rm,  .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
+  .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: var(--color-user) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-zv2cs0,  .r-75i7r9,  .r-wcu338,  .r-va2hk5,  .r-1vxd3ld, .r-1up5ays, // normal
+  .r-1bek5y6, .r-1ho5ue4, .r-vrom3q,  .r-ri3bjg,  .r-bnzbsy,  .r-1q8d70v, // white hc
+  .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: rgba(var(--color-raw-user), 0.1) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-1q3imqu, .r-1kplyi6, .r-1ucxkr8, .r-njt2r9,  .r-l779s2,  .r-zx61xx, // normal
+  .r-1urml5z, .r-1qhlxry, .r-1vitrf9, .r-pg0o0i,  .r-z5urpw,  .r-xsbikc, // white hc
+  .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
+      background-color: rgba(var(--color-raw-user), 0.7) !important;
+    }
+  }
+
+  // box-shadow
+  // blue     yellow      red         purple      orange      green
+  .r-1bih22f, .r-cdj8wb,  .r-jd07pc,  .r-hy56xe,  .r-b8m25f,  .r-1cqwhho, // normal
+  .r-yab67o,  .r-1wzm90r, .r-1cstf6x, .r-13g0htx, .r-fne7zz,  .r-nlrx61,  // white hc
+  .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      box-shadow: var(--color-user) 0px 0px 0px 1px !important;
+    }
+  }
+
+  // compose tweet length indicator
+  [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
+    stroke: var(--color-user) !important;
+  }
+}
+body:not(.gt2-opt-color-override) {
+  --color-raw-user: var(--color-normal);
+  --color-user: rgb(var(--color-normal));
+}
+
+// bigger image previews
+.gt2-opt-bigger-previews {
+  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+    align-self: unset !important;
+    a[href^="/"][href*="/photo/"] > div {
+      height: unset !important;
+      width: unset !important;
+      & > div:nth-child(1) {
+        padding-bottom: 0 !important;
+      }
+      & > div:nth-child(2) {
+        position: relative;
+
+        & > div {
+          display: contents;
+          position: relative;
+          & > div {
+            display: none;
+          }
+          & > img {
+            position: relative;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+// showMediaWithContentWarnings
+.gt2-opt-show-media-with-content-warnings {
+  [data-testid=tweet].gt2-show-media,
+  &.gt2-opt-show-media-with-content-warnings-sel-7 [data-testid=tweet] {
+    [aria-labelledby] > div > div > div {
+      &:nth-child(1) {
+        filter: unset;
+      }
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}
+
+// hide translated tweets
+.gt2-opt-hide-translate-tweet-button {
+  [data-testid=tweet] div[lang] + div[role=button] {
+    display: none;
+  }
+}
+
+// hide promote tweet button
+.gt2-opt-hide-promote-tweet-button {
+  [data-testid=tweet] a[href*="/quick_promote_web/"] {
+    display: none;
+  }
+}
+
+// hide message box (bottom right)
+.gt2-opt-hide-message-box {
+  div[data-testid=DMDrawer] {
+    height: 0;
+    z-index: -1;
+    border-width: 0;
+  }
+}
+
+// bunch up tweet interactions
+.gt2-opt-tweet-icons-pull-left {
+  [data-testid=primaryColumn] [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(2) > div:last-child > div:last-child > div[role=group] {
+    justify-content: unset;
+    & > *:not(:last-child) {
+      max-width: 80px;
+      margin-right: 20px;
+    }
+  }
+}
+
+// rosetta/edge icons TODO
+@mixin iconReplace($font, $glyph, $size, $pad) {
+  // small: 34.75
+  // big:   38.5
+  > div {
+    &:nth-child(1) {
+      position: relative;
+      &:before {
+        font-family: $font;
+        content: unquote("\"\\#{$glyph}\"");
+        font-size: $size;
+        padding: $pad;
+      }
+    }
+    &:not(:nth-child(1)) {
+      display: none;
+    }
+  }
+  > svg {
+    display: none;
+  }
+}
+@mixin rosetta($glyph, $size, $pad) {
+  @include iconReplace(Rosetta, $glyph, $size, $pad);
+}
+@mixin edge($glyph, $size, $pad) {
+  @include iconReplace(Edge, $glyph, $size, $pad);
+}
+
+// replace likes with favorites
+.gt2-opt-favorite-likes {
+  [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 19px, 7px 8.82px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+     [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f147', 25px, 8.5px 8px 10px); }
+  }
+  [data-testid$=like]:hover > div:nth-child(1) > div:nth-child(1) > div {
+    background-color: rgba(var(--color-raw-yellow), 0.1) !important;
+  }
+  [data-testid=like]:hover > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+  [data-testid=unlike] > div:nth-child(1) {
+    color: var(--color-yellow) !important;
+  }
+}
+
+// use rosetta icons
+.gt2-opt-rosetta-icons {
+  // like, reply, retweet
+  &:not(.gt2-opt-favorite-likes) {
+    [data-testid=tweet] [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 19px, 7px 9.18px 7.75px); }
+    [data-testid=tweet] + div,
+    [aria-modal] > div > div:nth-child(1) {
+      [data-testid$=like] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f148', 24px, 8.5px 8.9px 10px); }
+    }
+  }
+  [data-testid=tweet] [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 16.5px, 7px 9.16px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid=reply] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f151', 20px, 8.5px 9.3px 10px); }
+  }
+  [data-testid=tweet] [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 16.5px, 7px 7.12px 7.75px); }
+  [data-testid=tweet] + div,
+  [aria-modal] > div > div:nth-child(1) {
+    [data-testid$=retweet] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f152', 20px, 8.5px 6.8px 10px); }
+  }
+
+  [data-testid$=caret] > div:nth-child(1) > div:nth-child(1) { @include rosetta('f196', 16.5px, 7px 9.7px 7.75px); }
+}
+
+// quick block buttons
+.gt2-opt-enable-quick-block {
+  [data-testid$="-follow"] {
+    &[data-gt2-qb-state=offer] {
+      border-color: var(--color-red) !important;
+      background-color: rgba(var(--color-raw-red), 0.1) !important;
+      & > div > span > span {
+        color: var(--color-red);
+        &:not(.gt2-qb-block) {
+          display: none;
+        }
+      }
+    }
+    &[data-gt2-qb-state=blocked] {
+      border-color: var(--color-red) !important;
+      background-color: var(--color-red) !important;
+      & > div > span > span {
+        color: white;
+      }
+      &:hover {
+        border-color: var(--color-red-dark) !important;
+        background-color: var(--color-red-dark) !important;
+        & > div > span > span:not(.gt2-qb-unblock) {
+          display: none;
+        }
+      }
+      &:not(:hover) > div > span > span:not(.gt2-qb-blocked) {
+        display: none;
+      }
+    }
+  }
+  [data-testid$="-unfollow"] {
+    [class^=gt2-qb] {
+      display: none;
+    }
+  }
+
+  [data-testid=confirmationSheetConfirm] {
+    background-color: var(--color-user) !important;
+    & > * {
+      color: var(--color-text-2) !important;
+    }
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+}
+
+
+
+// ########################
+// #      recoloring      #
+// ########################
+
+// colorized buttons for image modals
+div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
+  // comments
+  div[data-testid=reply]:hover,
+  div[role=button]:not([data-testid]):hover {
+    & > div > div > div {
+      background-color: rgba(var(--color-raw-blue), 0.1);
+    }
+    & > div {
+      color: var(--color-blue);
+    }
+  }
+  // retweets
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet]:hover {
+    & > div > div > div {
+      background-color: rgba(var(--color-raw-green), 0.1);
+    }
+  }
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet] {
+    & > div {
+      color: var(--color-green);
+    }
+  }
+
+  // likes
+  div[data-testid=like]:hover,
+  div[data-testid=unlike]:hover {
+    & > div > div > div {
+      background-color: rgba(var(--color-raw-red), 0.1);
+    }
+  }
+  div[data-testid=like]:hover,
+  div[data-testid=unlike] {
+    & > div {
+      color: var(--color-red);
+    }
+  }
+}
+
+// color carets with the user color
+// make carets look like carets again (instead of 3 dots)
+body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
+  div[data-testid=caret] {
+    & > div > div > div {
+      transition: all .2s ease-in-out;
+      background-color: var(--color-user);
+      opacity: 0;
+      &:hover {
+        opacity: .1;
+        & + svg {
+          background-color: var(--color-user);
+        }
+      }
+    }
+    svg {
+      background-color: var(--color-gray-light);
+      pointer-events: none;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      g {
+        display: none;
+      }
+    }
+  }
+}
+
+
+// color several ui elements with the user color
+// 2021-03-19 introduced for some users
+// 2021-05-12 reverted again
+// 2021-08-11 readded with ChirpUpdate
+//
+// follow/other buttons
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
+div[data-testid$=-cancel],
+div[data-testid$=-follow],
+a[href="/settings/profile"],
+div[id^=topic-follow-button]:not(.r-1ucxkr8),
+div[data-testid=listCell] div[role=button],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
+  border-color: var(--color-user) !important;
+  background-color: transparent !important;
+  span {
+    line-height: unset !important;
+  }
+  & > *,
+  // all but notifications bell turned on
+  svg g > *:not([d^="M23.61.15c-.375"]) {
+    color: var(--color-user) !important;
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+// unfollow button
+div[data-testid$=-unfollow],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
+  transition-property: border-color, background-color, box-shadow;
+  span {
+    line-height: unset !important;
+  }
+  &:not(:hover),
+  &:hover[data-gt2-just-clicked-follow] {
+    border-color: var(--color-user) !important;
+    background-color: var(--color-user) !important;
+    & > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+  &:hover:not([data-gt2-just-clicked-follow]) {
+    border-color: var(--color-red-dark) !important;
+    background-color: var(--color-red-dark) !important;
+    & > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+}
+
+// notification bell
+[data-gt2-bell-full-color] {
+  border-color: var(--color-user) !important;
+  background-color: var(--color-user) !important;
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+
+// ChirpUpdate: icon recolors
+// spark icon
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+// various cogs
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
+// messages
+a[href*="/messages/settings"],
+a[href*="/messages/compose"],
+a[href^="/messages/"][href*="/info"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
+// generic back button
+[data-testid="app-bar-back"],
+// generic close button
+[data-testid="app-bar-close"],
+// /search dot button
+[data-testid="searchBoxOverflowButton"] {
+  svg {
+    color: var(--color-user) !important;
+  }
+  &:hover {
+    background-color: rgba(var(--color-raw-user), 0.1) !important;
+  }
+}
+
+
+
+// ########################
+// #    GT2 functional    #
+// ########################
+
+// hide spark options (home timeline, top right icon)
+.gt2-hide-spark-opt {
+  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
+    display: none;
+  }
+}
+
+// spark settings
+.gt2-spark-toggle {
+  padding: 15px;
+  display: inline-flex;
+
+  svg {
+    height: 1.25em;
+    margin-right: 10px;
+  }
+
+  div {
+    color: var(--color-text);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-elem-sel);
+  }
+}
+
+// hide search when added to navbar
+.gt2-search-added {
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+    display: none;
+  }
+}
+
+// acc switcher dropdown
+.gt2-acc-switcher-active {
+  #layers > div:nth-child(2) > div > div > div:nth-child(2) {
+    bottom: unset !important;
+    right: unset !important;
+
+    & > div > div:nth-child(2) > div > div > div {
+      & > svg {
+        position: absolute;
+        fill: var(--color-elem);
+        filter: drop-shadow(var(--color-shadow) 0.25px -2px 1px);
+        transform: unset !important;
+        bottom: unset !important;
+        top: -11px !important;
+        right: 5px !important;
+        left: unset !important;
+      }
+      & > div > div {
+        padding: 0;
+      }
+    }
+  }
+}
+
+// stuff to do on modal
+html[style*="overflow: hidden"],
+html[style*="overflow-y: hidden"] {
+  .gt2-nav-center {
+    margin-right: calc(var(--scrollbar-width) / 2);
+  }
+  .gt2-nav-right,
+  .gt2-legacy-profile-nav-right {
+    padding-right: var(--scrollbar-width);
+  }
+  .gt2-legacy-profile-banner img {
+    padding-right: var(--scrollbar-width);
+  }
+}
+html[style*=margin-right] {
+  margin-right: unset !important;
+  main {
+    margin-right: var(--scrollbar-width);
+  }
+}
+
+.gt2-search-overflow-hider {
+  position: fixed;
+  width: calc(600px + var(--scrollbar-width));
+  height: 9px;
+  top: 47px;
+  background-color: var(--color-bg);
+  z-index: 1;
+  display: none;
+}
+
+// /search overflow, let search box stay on top
+body[data-gt2-path="search"],
+body[data-gt2-path="explore"] {
+  .gt2-search-overflow-hider {
+    display: block;
+  }
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+    & > div > div:nth-child(1) {
+      position: sticky;
+      top: 56px;
+      @include separatorTop;
+      transition: top .2s ease-in-out;
+      background-color: var(--color-elem);
+    }
+  }
+}
+body[data-gt2-path="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+  top: calc(56px - 107px);
+}
+body[data-gt2-path="explore"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+  top: calc(56px - 54px);
 }
 
 // make line under selected tab full width
@@ -2516,97 +2548,6 @@ nav [role=tablist] [role=tab] {
   }
 }
 
-body[data-gt2-path="home"] {
-  [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
-    border-bottom-width: 0;
-  }
-}
-
-body[data-gt2-path="messages"],
-body[data-gt2-path^="messages/"],
-body[data-gt2-path="i/moment_maker"] {
-  .gt2-left-sidebar {
-    display: none;
-  }
-  main > div > div > div {
-    & > section {
-      max-width: unset;
-      border-bottom-width: 1px;
-      margin-bottom: 10px;
-
-      &:nth-last-child(2) {
-        width: 40%;
-
-        // better indicator for active conversation
-        div[data-testid=conversation] {
-          @include separatorBottom;
-          &[aria-selected=true] {
-            background-color: var(--color-elem-sel);
-            & + div {
-              border-right-width: 4px;
-            }
-          }
-        }
-      }
-
-      // right section
-      &:nth-last-child(1) {
-        width: 60%;
-        & > div {
-          &,
-          & > div > div,
-          & > div > div:nth-child(1) > div > div > div > div,
-          & > div > div:nth-child(2) > div > div > div > div > div > div {
-            max-width: unset;
-            margin: unset;
-          }
-          & > div > div:nth-child(2) > div > div > div > div > div > div {
-            padding: unset;
-            div:not([class]):not([style]):not(:first-child) {
-              padding: 0 16px;
-            }
-          }
-        }
-
-        // larger avatar in top bar with the name
-        // & > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
-        //   flex-basis: unset;
-        //   & > div:nth-child(1),
-        //   a > div > div {
-        //     width: 40px;
-        //     height: 40px;
-        //   }
-        // }
-      }
-    }
-  }
-}
-body[data-gt2-path="messages/settings"] {
-  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
-    @include separatorBottom;
-  }
-}
-body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
-  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
-
-    &:nth-child(2),
-    &:nth-child(3) {
-      & > :empty {
-        margin: unset;
-      }
-      & > :not(:empty) {
-        @include separatorBottom;
-      }
-    }
-  }
-}
-body[data-gt2-path="i/moment_maker"] {
-  section:nth-of-type(1) > div:nth-child(2) {
-    background-color: var(--color-elem);
-  }
-}
-
-
 // embed card links
 [data-testid="card.layoutSmall.media"] + a {
   display: flex;
@@ -2620,6 +2561,265 @@ body[data-gt2-path="i/moment_maker"] {
   }
 }
 
+
+
+// ########################
+// #    GT2 components    #
+// ########################
+
+// custom icons
+.gt2-svg {
+  fill: var(--color-gray-light);
+}
+
+// element is hidden
+.gt2-hidden {
+  display: none !important;
+}
+
+// emoji styling
+.gt2-emoji {
+  height: 1.2em;
+  width: 1.2em;
+  margin: 0 0.075em -4px;
+}
+
+// link stuff
+.gt2-dashboard-profile a,
+a.gt2-trend {
+  text-decoration: none;
+  &:visited {
+    color: unset;
+  }
+  &:link {
+    color: unset;
+  }
+}
+
+// trends
+.gt2-trends section {
+  & > div > div > div > div {
+    & > div {
+      // smaller padding next to the trends cog
+      &:nth-child(1) {
+        padding-right: 5px;
+      }
+
+      &[role=button] {
+        border-radius: unset;
+      }
+    }
+
+    // ChirpUpdate: readd vertical dividers
+    a[href="/i/trends"],
+    & > div:not(:first-child) {
+      @include separatorTop;
+    }
+  }
+}
+
+// navbar dropdown
+#{$navbarDropdown} {
+  top: 54px;
+
+  & > div > div > div {
+    display: flex;
+    // existing elements
+    & > div > a {
+      transition-duration: 0s;
+    }
+
+    // inserted elements
+    & > a {
+      padding: 0;
+      & > div {
+        padding: incr(15px);
+        & > div:nth-child(2) {
+          display: none;
+        }
+      }
+
+      &.gt2-toggle-logout {
+        padding: 15px;
+        color: var(--color-text);
+        text-decoration-line: none;
+        &:link,
+        &:visited {
+          color: var(--color-text);
+        }
+      }
+
+      span {
+        font-size: incr(15px);
+        font-weight: 400;
+        margin-left: 0;
+        color: var(--color-text);
+      }
+      svg {
+        // color: var(--color-gray-light);
+        margin-right: 10px;
+        height: 1.25em;
+      }
+    }
+
+    // color changes on hover
+    // & > div > a:hover,
+    & > a:hover {
+      background-color: var(--color-elem-sel);
+      // svg,
+      // span {
+      //   color: white;
+      // }
+    }
+  }
+}
+
+// navbar
+.gt2-nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  height: 46px;
+  position: fixed;
+  width: 100%;
+  background-color: var(--color-navbar);
+  z-index: 1;
+  display: flex;
+
+  .gt2-nav-left {
+
+    & > a {
+      padding: 0;
+      width: fit-content;
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
+      display: inline-flex;
+      height: 100%;
+      transition: all .15s ease-in-out;
+
+      & > div {
+        background-color: unset !important;
+        margin-top: calc(var(--font-increment) * -1.25);
+        padding: 10px 15px;
+
+        & > div:nth-child(1) > div {
+          background-color: var(--color-user);
+          border-color: var(--color-elem);
+          color: var(--color-text-2);
+          font-size: calc(11px + var(--font-increment) * 0.75);
+        }
+        & > div:not(:first-child):not(.gt2-nav-header) {
+          display: none;
+        }
+        .gt2-nav-header {
+          color: var(--color-gray);
+          font-size: incr(13px);
+          margin-left: incr(3px);
+          margin-right: 3px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    & > a.active,
+    & > a:hover {
+      border-bottom: .2em solid var(--color-user);
+      .gt2-nav-header {
+        color: var(--color-user);
+      }
+    }
+
+    & > a svg {
+      color: var(--color-gray-light);
+      width: incr(23px);
+    }
+
+    & > a.active > div > div:nth-child(2),
+    & > a.active svg,
+    & > a:hover > div > div:nth-child(2),
+    & > a:hover svg {
+      color: var(--color-user);
+    }
+  }
+
+  // twitter logo
+  .gt2-nav-center {
+    position: absolute;
+    right: calc(50% - 12px);
+    width: incr(24px);
+    margin-top: calc(8px - var(--font-increment));
+    svg path {
+      color: #1da1f2;
+    }
+  }
+
+  // nav right
+  .gt2-nav-right {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+
+    .gt2-search > div {
+      height: auto;
+      width: 300px;
+      right: 10px;
+      background: unset;
+      position: relative;
+      margin-bottom: 0;
+      border: 1px solid var(--color-gray-dark);
+      border-radius: 21px;
+      transition: all .2s ease-in-out;
+      & input {
+        font-size: 14px;
+        padding: 8px;
+        height: 32px;
+        color: var(--color-text);
+      }
+      &:focus-within {
+        border: 2px solid var(--color-user);
+      }
+
+      form > div:nth-child(1) > div {
+        border: none;
+        background-color: var(--color-elem);
+      }
+    }
+
+    .gt2-toggle-navbar-dropdown {
+      margin-left: 5px;
+      margin-right: 15px;
+      height: 34px;
+      width: 34px;
+
+      img {
+        border-radius: 9999px;
+        height: 100%;
+        width: 100%;
+        @include grayscaleHover;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .gt2-compose {
+      display: inline-flex;
+      align-items: center;
+      font-size: var(--global-font-size);
+      font-weight: 700;
+      min-height: 34px;
+      background-color: var(--color-user);
+      color: var(--color-text-2);
+      padding: 0 16px;
+      border-radius: 9999px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
 
 // left sidebar
 .gt2-left-sidebar {
@@ -2784,14 +2984,11 @@ body[data-gt2-path="i/moment_maker"] {
     }
   }
 }
-
-
 div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   position: relative;
   margin: 0;
   width: 100%;
 }
-
 
 // gt2 sidebar notice
 .gt2-sidebar-notice {
@@ -2832,60 +3029,6 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   }
 }
 
-
-
-// tweet analytics
-body[data-promote-url^="/i/tfb/v1/quick_promote"] {
-  background-color: var(--color-elem) !important;
-
-  .QuoteTweet {
-    border-color: var(--color-gray);
-  }
-
-  // buttons
-  .ep-ViewAllEngagementsButton,
-  .ep-InlineSignupButton {
-    color: white !important;
-    background-color: #55acee !important;
-  }
-
-  // separators
-  .ep-Campaign,
-  .ep-DetailedEngagementsSection {
-    border-color: var(--color-gray-dark);
-  }
-
-  // text
-  .ProfileTweet-originalAuthor b,
-  .QuoteTweet-text,
-  .QuoteTweet-text b,
-  .QuoteTweet-text s,
-  .QuoteTweet-text span,
-  .ep-MetricName,
-  .ep-MetricValue span,
-  .ep-SectionTitle {
-    color: var(--color-text) !important;
-  }
-}
-
-// signup for tweet promoting
-body[data-payment-endpoint-path] {
-  background-color: var(--color-elem) !important;
-
-  .as-Label,
-  .as-SelectContainer {
-    color: var(--color-text);
-
-    option {
-      background-color: var(--color-elem);
-    }
-  }
-}
-
-.gt2-hidden {
-  display: none !important;
-}
-
 // translate tweet
 .gt2-translate-tweet,
 .gt2-translated-tweet-info {
@@ -2912,133 +3055,4 @@ body[data-payment-endpoint-path] {
   white-space: pre-line;
 
   @include standardLink;
-}
-
-.gt2-emoji {
-  height: 1.2em;
-  width: 1.2em;
-  margin: 0 0.075em -4px;
-}
-
-
-// blocked profile stuff
-.gt2-blocked-profile-description,
-.gt2-blocked-profile-items {
-  margin-bottom: 10px;
-  @include standardLink;
-}
-
-.gt2-blocked-profile-description {
-  color: var(--color-text);
-  white-space: pre-wrap;
-}
-
-.gt2-blocked-profile-items {
-  display: inline;
-  color: var(--color-gray-light);
-
-  & > * {
-    margin-right: 10px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  svg {
-    height: 1.25em;
-    margin-right: 5px;
-  }
-}
-
-.gt2-blocked-profile-ff {
-  a {
-    pointer-events: none;
-    color: var(--color-gray-light);
-    text-decoration: none;
-    margin-right: 20px;
-    span {
-      color: var(--color-text);
-      font-weight: 700;
-    }
-  }
-}
-
-.gt2-blocked-profile-followers-you-know {
-  margin-top: 10px;
-  font-size: incr(13px);
-  display: flex;
-  color: var(--color-gray-light);
-  text-decoration-line: none;
-
-  &:hover {
-    text-decoration-line: underline;
-  }
-
-  & > img {
-    width: 20px;
-    height: 20px;
-    border: solid 1px var(--color-bg);
-    border-radius: 9999px;
-    position: relative;
-
-    &:nth-child(1) {
-      z-index: 2;
-    }
-    &:nth-child(2) {
-      z-index: 1;
-      margin-left: -10px;
-    }
-    &:nth-child(3) {
-      margin-left: -10px;
-    }
-    &:nth-last-of-type(1) {
-      margin-right: 10px;
-    }
-  }
-}
-
-
-// quick block buttons
-[data-testid$="-follow"] {
-  &[data-gt2-qb-state=offer] {
-    border-color: var(--color-red) !important;
-    background-color: rgba(var(--color-raw-red), 0.1) !important;
-    & > div > span > span {
-      color: var(--color-red);
-      &:not(.gt2-qb-block) {
-        display: none;
-      }
-    }
-  }
-  &[data-gt2-qb-state=blocked] {
-    border-color: var(--color-red) !important;
-    background-color: var(--color-red) !important;
-    & > div > span > span {
-      color: white;
-    }
-    &:hover {
-      border-color: var(--color-red-dark) !important;
-      background-color: var(--color-red-dark) !important;
-      & > div > span > span:not(.gt2-qb-unblock) {
-        display: none;
-      }
-    }
-    &:not(:hover) > div > span > span:not(.gt2-qb-blocked) {
-      display: none;
-    }
-  }
-}
-[data-testid$="-unfollow"] {
-  [class^=gt2-qb] {
-    display: none;
-  }
-}
-
-[data-testid=confirmationSheetConfirm] {
-  background-color: var(--color-user) !important;
-  & > * {
-    color: var(--color-text-2) !important;
-  }
-  &:hover {
-    filter: brightness(0.9);
-  }
 }
