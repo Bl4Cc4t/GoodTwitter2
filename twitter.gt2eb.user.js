@@ -1969,9 +1969,11 @@
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]
         requestTweet(id, res => {
-          let score = ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
-            return p + (res.extended_entities.media[0].sensitive_media_warning[c] ? Math.pow(2, i) : 0)
-          }, 0)
+          let score = res.extended_entities.media.filter(e => e.hasOwnProperty("sensitive_media_warning")).map(m => {
+            return ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
+              return p + (m.sensitive_media_warning[c] ? Math.pow(2, i) : 0)
+            }, 0)
+          }).reduce((p, c) => p | c)
 
           console.log(`cw id: ${id}, opt: ${GM_getValue("opt_gt2").showMediaWithContentWarningsSel} score: ${score}`)
           if ((score & GM_getValue("opt_gt2").showMediaWithContentWarningsSel) == score) {
