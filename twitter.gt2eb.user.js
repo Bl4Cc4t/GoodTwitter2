@@ -1222,6 +1222,12 @@
             $(sparkOptToggle).click()
           }
           $("body").removeClass("gt2-hide-spark-opt")
+
+          // switch to "Latest Tweets" tab if it exists and isn't active
+          let $ltt = $(`[data-testid=primaryColumn] > div > div:nth-child(1) nav div:nth-child(2) > a[href="/home"][aria-selected=false]`)
+          if ($ltt.length) {
+            $ltt[0].click()
+          }
         }
       })
     })
@@ -2437,6 +2443,10 @@
     waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"],
                         [data-testid=emptyState] [href="https://support.twitter.com/articles/20172060"]`, displayBlockedProfileData)
 
+    // force latest
+    if (GM_getValue("opt_gt2").forceLatest && path().split("/")[0] == "home" && !$(`[data-testid=primaryColumn] > div > div:nth-child(1) nav div:nth-child(2) > a[href="/home"][aria-selected=false]`).length) {
+      forceLatest()
+    }
 
     if (!isModal) $("body").attr("data-gt2-prev-path", path())
   }
