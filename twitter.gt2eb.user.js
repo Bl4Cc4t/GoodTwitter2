@@ -1244,7 +1244,7 @@
 
         // hide trends
         if (GM_getValue("opt_gt2").hideTrends) {
-          $(trends).parents("section").parent().parent().parent().remove()
+          $(trends).parents("section").parent().parent().remove()
           return
         }
 
@@ -1254,7 +1254,7 @@
               || (GM_getValue("opt_gt2").smallSidebars && w > 1230))) {
           if ($(".gt2-trends").length) $(".gt2-trends").remove()
 
-          $(trends).parents("section").parent().parent().parent()
+          $(trends).parents("section").parent().parent()
           .detach().addClass("gt2-trends")
           .appendTo(".gt2-left-sidebar")
         }
@@ -1269,7 +1269,7 @@
 
       // wrap trends in anchors
       $(trends).each(function() {
-        let $toWrap = $(this).find("> div > div:nth-child(2) > span[dir]")
+        let $toWrap = $(this).find("> div > div:nth-child(2) > span [dir]")
         if ($toWrap.length) {
           $(this).addClass("gt2-trend-wrapped")
           let txt = $toWrap.text()
