@@ -1073,7 +1073,7 @@
         let pleg = profileData.legacy
 
         // profile id
-        $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
+        waitForKeyElements(".gt2-legacy-profile-info > :first", e => $(e).parent().attr("data-profile-id", profileData.rest_id))
 
         // change stats
         for (let tmp of [
@@ -1481,7 +1481,7 @@
         })
 
         // profile id
-        $(".gt2-legacy-profile-info").attr("data-profile-id", profileData.rest_id)
+        waitForKeyElements(".gt2-legacy-profile-info > :first", e => $(e).parent().attr("data-profile-id", profileData.rest_id))
       })
     })
   }
@@ -1565,7 +1565,7 @@
 
           // handle entities in tweet
           if (o.entities) {
-            // remove embedded url if applicable (https://twitter.com/ella_hollywood/status/1395290916303212544)
+            // remove embedded url if applicable
             if (quoteId && o.entities.urls) {
               let tco = o.entities.urls.find(x => x.expanded_url.endsWith(quoteId))
               if (tco) {
@@ -2395,21 +2395,6 @@
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }
-
-
-    // notifications
-    // if (onPage("notifications")) {
-    //   $("body").on("auxclick", `[data-testid=primaryColumn] section > div > div > div:not(.gt2-handled)`, function(e) {
-    //     e.preventDefault()
-    //     e.stopImmediatePropagation()
-    //     console.log(this);
-    //   })
-    //   $("body").on("mouseover", `[data-testid=primaryColumn] section > div > div > div`, function(e) {
-    //     console.log("a");
-    //     $(e).addClass("gt2-handled")
-    //     $(e).off("mousedown")
-    //   })
-    // }
 
 
     // sidebar
