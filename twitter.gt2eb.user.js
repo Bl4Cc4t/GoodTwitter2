@@ -195,8 +195,30 @@
     return `${out.replace("&", "?")}`
   }
 
-
+  // request a tweet
   function requestTweet(id, cb) {
+    GM_xmlhttpRequest({
+      method: "GET",
+      url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
+        id,
+        tweet_mode: "extended",
+        trim_user: true,
+        include_cards: 1
+      }),
+      headers: getRequestHeaders(),
+      onload: function(res) {
+        if (res.status == "200") {
+          cb(JSON.parse(res.response))
+        } else {
+          console.warn(res)
+        }
+      }
+    })
+  }
+
+  // request tweet with content warnings
+  // the results from this api sometimes are missing the url entities, hence the new function.
+  function requestTweetCW(id, cb) {
     GM_xmlhttpRequest({
       method: "GET",
       url: getRequestURL("https://twitter.com/i/api/graphql/bRL1YYMraLIBpo1PGLeFcw/TweetDetail", {
@@ -215,7 +237,13 @@
       headers: getRequestHeaders(),
       onload: function(res) {
         if (res.status == "200") {
-          cb(JSON.parse(res.response).data.threaded_conversation_with_injections.instructions.find(e => e.type == "TimelineAddEntries").entries.find(e => e.entryId.startsWith("tweet-")).content.itemContent.tweet_results.result.legacy)
+          cb(
+            JSON.parse(res.response)
+            .data.threaded_conversation_with_injections.instructions
+            .find(e => e.type == "TimelineAddEntries").entries
+            .find(e => e.entryId.startsWith("tweet-"))
+            .content.itemContent.tweet_results.result.legacy
+          )
         } else {
           console.warn(res)
         }
@@ -1815,7 +1843,7 @@
         let id = $("body").is(".gt2-page-tweet")
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]
-        requestTweet(id, res => {
+        requestTweetCW(id, res => {
           let score = res.extended_entities.media.filter(e => e.hasOwnProperty("sensitive_media_warning")).map(m => {
             return ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
               return p + (m.sensitive_media_warning[c] ? Math.pow(2, i) : 0)
