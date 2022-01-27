@@ -2109,6 +2109,7 @@ body:not(.gt2-opt-color-override) {
     height: 0;
     z-index: -1;
     border-width: 0;
+    box-shadow: unset;
   }
 }
 
@@ -2598,6 +2599,7 @@ a.gt2-trend {
 }
 
 // trends
+.gt2-trends-handled,
 .gt2-trends section {
   & > div > div > div > div {
     & > div {
