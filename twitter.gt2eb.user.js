@@ -1743,7 +1743,6 @@
         $(this).attr("href", res.entities.urls.find(e => e.url == $(this).attr("href").split("?")[0]).expanded_url)
       })
       $tweet.find(`[data-testid="card.layoutSmall.media"] + *:not(a)`).each(function() {
-        console.log(res);
         $(this).wrap(`<a href="${res.entities.urls.find(e => e.url == res.cards.players.find(p => Object.values(p.images)[0].image_url.match($(this).prev().find("img[src*=card_img]").attr("src").match(/card_img\/(\d+)/)[1])).url).expanded_url}"></a>`)
       })
     })
@@ -1846,7 +1845,7 @@
 
           console.log(`cw id: ${id}, opt: ${GM_getValue("opt_gt2").showMediaWithContentWarningsSel} score: ${score}`)
           if ((score & GM_getValue("opt_gt2").showMediaWithContentWarningsSel) == score) {
-            $tweet.addClass("gt2-show-media")
+            $tweet.attr("data-gt2-show-media", 1)
           }
         })
       }
