@@ -1,47 +1,46 @@
 #!/usr/bin/env node
 
+require("./include")
 const fs = require("fs")
 const path = require("path")
+const yaml = require("yaml")
+require("yaml/types").strOptions.fold.lineWidth = 0
 
-let dir = path.join(__dirname, "..", "i18n")
-let en = fs.readFileSync(path.join(dir, "en.json"), "utf8")
 
-fs.readdir(path.join(__dirname, "..", "i18n"), (err, files) => {
-  if (err) console.error(err)
+;(() => {
+  let dir = path.join(__dirname, "..", "i18n")
+  let en  = yaml.parseDocument(fs.readFileSync(path.join(dir, "en.yml"), "utf8"))
 
-  for (let file of files) {
-    if (file.endsWith(".json") && !file.match(/^en\.json/)) {
-      let foreign = fs.readFileSync(path.join(dir, file), "utf8")
-      let out = []
-      let enLines = en.split("\n")
-      let foreignLines = foreign.split("\n")
-      let offset = 0
+  fs.readdir(dir, (err, files) => {
+    if (err) console.error(err)
 
-      for (let lineNr=0; lineNr < enLines.length; lineNr++) {
-        // line with key
-        if (enLines[lineNr].match(/\"([^\"]+)\"/)) {
-          // translated line (key exists)
-          if (foreignLines[lineNr-offset].match(/\"([^\"]+)\"/)
-           && enLines[lineNr].match(/\"([^\"]+)\"/)[1] == foreignLines[lineNr-offset].match(/\"([^\"]+)\"/)[1]) {
-            let t = foreignLines[lineNr-offset].trimRight()
-            if (!t.endsWith(",") && lineNr < enLines.length-3) t += ","
-            out.push(t)
+    for (let file of files) {
+      if (file.endsWith(".yml") && !file.match(/^en\.yml/)) {
+        let foreign = yaml.parseDocument(fs.readFileSync(path.join(dir, file), "utf8"))
 
-          // new untranslated line (add *NEW* in front of the english version)
-          } else {
-            out.push(enLines[lineNr].replace(/: \"/, ": \"*NEW* "))
-            offset++
+        // walk through yml file
+        ;(function walk(...path) {
+          let i = 0
+          for (let e of en.getByPath(path).items) {
+            if (e.value.type == "MAP") walk(...path, "items", i, "value")
+            else {
+              // add untranslated fields
+              if (!foreign.toJSON().flatten().hasOwnProperty(e.key.value)) {
+                console.log(`[${file.split(".")[0]}] added "${e.key.value}"`)
+                let tmp = foreign.getByPath(path).items
+                tmp.splice(i, 0, e)
+                tmp[i].value.comment = " TODO translation missing!"
+              }
+            }
+            i++
           }
+        })("contents")
 
-        // other line
-        } else {
-          out.push(enLines[lineNr].trimRight())
-          if (enLines[lineNr].trim() != foreignLines[lineNr-offset].trim()) offset++
-        }
+
+        // write file
+        fs.writeFileSync(path.join(dir, file.split(".")[0] + ".yml"), foreign.toString())
       }
-
-      fs.writeFileSync(path.join(dir, file), out.join("\n"))
     }
-  }
 
-})
+  })
+})()

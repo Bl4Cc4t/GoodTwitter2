@@ -1,0 +1,97 @@
+# dutch language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweeten
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  joinDate: Lid geworden in $date$
+  navBookmarks: Bladwijzers
+  navMessages: Berichten
+  navExplore: Verkennen
+  navHome: Startpagina
+  navLists: Lijsten
+  navNotifications: Meldingen
+  navProfile: Profiel
+  statsFollowers: Volgers
+  statsFollowing: Volgend
+  statsLikes: Vind-ik-leuks
+  statsMoments: Momenten
+  statsTweets: Tweets
+  topics: Onderwerpen
+  translateTweet: Tweet vertalen
+  users: Gebruikers
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Geboren op $date$
+  bornYear: Geboren in $year$
+  favorite: Favorite # TODO translation missing!
+  favorites: Favorites # TODO translation missing!
+  followedBy0: Niet gevolgd door iemand die je volgt
+  followedBy1: Gevolgd door $p1$
+  followedBy2: Gevolgd door $p1$ en $p2$
+  followedBy3: Gevolgd door $p1$, $p2$ en $p3$
+  followedBy4Plus: Gevolgd door $p1$, $p2$ en $nr$ anderen die je volgt
+  translatedTweetInfo: Vertaald van $lang$ door $source$
+  qbBlock: "*Blokkeren"
+  qbBlocked: Geblokkeerd
+  qbUnblock: Deblokkeren
+  updatedInfo: Ge-update naar $version$!
+  updatedInfoChangelog: Changelog
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Tijdlijn
+    settingsHeaderSidebars: Zijbalken
+    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderOther: Diversen
+
+  timeline:
+    forceLatest: Forceer Nieuwste
+    forceLatestDesc: Inschakelen van de Nieuwste tweets modus is niet meer permanent. Met deze optie actief, schakelt de website automatisch terug naar de nieuwste tweets modus.
+    biggerPreviews: Grotere Voorbeelden
+    biggerPreviewsDesc: Afbeeldingen in tweets worden volledig afgebeeld.
+
+  tweets:
+    hideTranslateTweetButton: Verberg de Vertaal Tweet knop
+    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
+    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Sticky Zijbalken
+    smallSidebars: Smalle Zijbalken
+    smallSidebarsDesc: 290px in plaats van 350px wijde zijbalken.
+    hideTrends: Verberg Trends
+    leftTrends: Linker Zijbalk Trends
+    leftTrendsDesc: Toon de trends in de linker zijbalk.
+    show10Trends: Toon altijd 10 Trends
+
+  profile:
+    legacyProfile: Legacy profile layout # TODO translation missing!
+    squareAvatars: Vierkante Avatars
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: Enable Quickblock # TODO translation missing!
+    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
+    leftMedia: Left sidebar media # TODO translation missing!
+    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
+
+  global-look:
+    hideFollowSuggestions: Verberg Wie te volgen
+    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    fontOverride: Use custom font # TODO translation missing!
+    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
+    colorOverride: Use custom color # TODO translation missing!
+    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideMessageBox: Verberg Berichtenbox
+    hideMessageBoxDesc: Verbergt de nieuwe, altijd aanwezige berichtenbox in de rechterbenedenhoek.
+    rosettaIcons: Rosetta icons # TODO translation missing!
+    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
+    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+
+  other:
+    updateNotifications: GoodTwitter 2 Update Notificaties
+    expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!

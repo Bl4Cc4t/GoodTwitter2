@@ -1,0 +1,97 @@
+# romanian language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Dă Tweet
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  joinDate: S-a alăturat în $date$
+  navBookmarks: Marcaje
+  navMessages: Mesaje
+  navExplore: Explorează
+  navHome: Pagina principală
+  navLists: Liste
+  navNotifications: Notificări
+  navProfile: Profil
+  statsFollowers: Urmăritori
+  statsFollowing: Urmăriți
+  statsLikes: Aprecieri
+  statsMoments: Momente
+  statsTweets: Tweeturi
+  topics: Subiectele
+  translateTweet: Tradu Tweetul
+  users: Utilizatori
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: S-a născut în data de $date$
+  bornYear: S-a născut în anul $year$
+  favorite: Favorit
+  favorites: Favorite
+  followedBy0: Nu este urmărit de nicio persoană pe care o urmărești
+  followedBy1: Urmărit de $p1$
+  followedBy2: Urmărit de $p1$ și $p2$
+  followedBy3: Urmărit de $p1$, $p2$ și $p3$
+  followedBy4Plus: Urmărit de $p1$, $p2$ și de încă $nr$ persoane pe care le urmărești
+  translatedTweetInfo: Traducere din $lang$ de $source$
+  qbBlock: Blochează
+  qbBlocked: Blocat
+  qbUnblock: Deblochează
+  updatedInfo: Actualizat la $version$!
+  updatedInfoChangelog: Jurnal de schimbări
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Cronologie
+    settingsHeaderSidebars: Barele laterale
+    settingsHeaderGlobalLook: Aspect Global
+    settingsHeaderOther: Alte
+
+  timeline:
+    forceLatest: Forțează „Cele mai recente Tweeturi”
+    forceLatestDesc: Activarea modului „Cele mai recente Tweeturi” nu mai este permanent. Cu acest setare activat, site-ul se schimbă automat înapoi la modul „Cele mai recente Tweeturi”.
+    biggerPreviews: Previzualizări de imagini mai mari
+    biggerPreviewsDesc: Imagini mai lungi în tweeturi sunt afișate la înălțimea maximă.
+
+  tweets:
+    hideTranslateTweetButton: Ascunde butonul de tradus Tweetul
+    tweetIconsPullLeft: Mută butoanele de interacțiuni la stânga.
+    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Bare laterale lipicioase
+    smallSidebars: Bare laterale mai mici
+    smallSidebarsDesc: Bare laterale cu lățimea de 290 pixeli înloc de 350 pixeli.
+    hideTrends: Ascunde Tendințele
+    leftTrends: Bara laterală de Tendințe în stânga
+    leftTrendsDesc: Arată tendințele în bara laterală de stânga.
+    show10Trends: Întotdeauna afișați 10 Tendințe
+
+  profile:
+    legacyProfile: Design de Profil Clasic
+    squareAvatars: Avatare Pătrate
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: Activează Quickblock
+    enableQuickBlockDesc: Plasează cursorul deasupra butonul „Urmărește” pentru 3 secunde să blochezi un profil.
+    leftMedia: Conținut media în bara laterală de stânga
+    leftMediaDesc: Afișați containerul media pe paginile de profil în bara laterală de stânga.
+
+  global-look:
+    hideFollowSuggestions: Ascunde sugestii de urmărit (Subiecte și Utilizatori)
+    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    fontOverride: Folosește un font personalizat
+    fontOverrideDesc: Setează un font personalizat pentru a înlocui fontul implicit. Asta merge doar când ai fontul instalat.
+    colorOverride: Folosește o culoare personalizată
+    colorOverrideDesc: Setează o culoare personalizată pentru a înlocui culoarea implicită.
+    hideMessageBox: Ascunde Caseta de Mesaje
+    hideMessageBoxDesc: Ascunde cel nou, prezent tot timpul, caseta de mesaje în colțul de dreapta-jos.
+    rosettaIcons: Pictograme Rosetta
+    rosettaIconsDesc: Folosiți pictogramele Rosetta din pre-2017.
+    favoriteLikes: Înlocuiți Aprecierile cu Favorite
+
+  other:
+    updateNotifications: Notificări de Actualizare GoodTwitter 2
+    expandTcoShortlinks: Extinde link-uri scurte t.co

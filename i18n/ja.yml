@@ -1,0 +1,97 @@
+# japanese language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: ツイートする
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  joinDate: $date$からTwitterを利用しています
+  navBookmarks: ブックマーク
+  navMessages: メッセージ
+  navExplore: 話題を検索
+  navHome: ホーム
+  navLists: リスト
+  navNotifications: 通知
+  navProfile: プロフィール
+  statsFollowers: フォロワー
+  statsFollowing: フォロー中
+  statsLikes: いいね
+  statsMoments: モーメント
+  statsTweets: ツイート
+  topics: トピック
+  translateTweet: ツイートを翻訳
+  users: アカウント
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: "誕生日: $date$"
+  bornYear: "誕生年: $year$"
+  favorite: お気に入り
+  favorites: お気に入り
+  followedBy0: フォローしている人にフォロワーはいません
+  followedBy1: $p1$さんにフォローされています
+  followedBy2: $p1$さんと$p2$さんにフォローされています
+  followedBy3: $p1$さん、$p2$さん、$p3$さんにフォローされています
+  followedBy4Plus: フォローしている$p1$さん、$p2$さん、他$nr$人にフォローされています
+  translatedTweetInfo: $source$による$lang$からの翻訳
+  qbBlock: さんをブロック
+  qbBlocked: ブロック中
+  qbUnblock: ブロック解除
+  updatedInfo: バージョン$version$に更新完了しました！
+  updatedInfoChangelog: 更新履歴
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: タイムライン
+    settingsHeaderSidebars: サイドバー
+    settingsHeaderGlobalLook: 全体的な見た目
+    settingsHeaderOther: その他
+
+  timeline:
+    forceLatest: 最新ツイート表示を強制する
+    forceLatestDesc: 本来、最新ツイート表示モードを永続的に表示することはできません。この設定を有効にすると自動かつ強制的に最新ツイート表示モードに切り替えることができます。
+    biggerPreviews: プレビュー画像の表示を拡張する
+    biggerPreviewsDesc: ツイート内のプレビュー画像を完全表示します。
+
+  tweets:
+    hideTranslateTweetButton: ツイートを翻訳ボタンを非表示にする
+    tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
+    hidePromoteTweetButton: プロモートツイートボタンを隠す
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+
+  sidebars:
+    stickySidebars: サイドバーの固定
+    smallSidebars: 小さいサイドバー
+    smallSidebarsDesc: 350px幅のサイドバーの代わりに290px幅のサイドバーを表示します。
+    hideTrends: トレンドを非表示にする
+    leftTrends: トレンドを左に表示する
+    leftTrendsDesc: トレンドを左サイドバーに表示します。
+    show10Trends: 常に10個のトレンドを表示する
+
+  profile:
+    legacyProfile: プロフィールページを旧UIのレイアウトに変更する
+    squareAvatars: 四角いアイコン表示
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: クイックブロックを有効化
+    enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
+    leftMedia: メディアを左に表示する
+    leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
+
+  global-look:
+    hideFollowSuggestions: おすすめユーザーを非表示にする
+    hideFollowSuggestionsBox: 項目 $type$ 場所 $location$
+    fontOverride: カスタムフォントを使用する
+    fontOverrideDesc: デフォルトのフォントを設定したカスタムフォントに変更します。この機能は設定したフォントがインストールされている場合にのみ機能します。
+    colorOverride: カスタムカラーを使用する
+    colorOverrideDesc: デフォルトのカラーを設定したカスタムカラーで上書きします。
+    hideMessageBox: メッセージボックスを非表示にする
+    hideMessageBoxDesc: 右下の隅に常に表示される新しいメッセージボックスを非表示にします。
+    rosettaIcons: ロゼッタアイコンの変更
+    rosettaIconsDesc: 2017年以前のロゼッタアイコン（ツイート下部のアイコン群）を使用します。
+    favoriteLikes: いいね！をお気に入りに置き換える
+
+  other:
+    updateNotifications: GoodTwitter2の更新通知
+    expandTcoShortlinks: t.co リンクを自動的に展開

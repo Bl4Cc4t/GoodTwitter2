@@ -1,0 +1,97 @@
+# portuguese language file
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweetar
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  joinDate: Ingressou em $date$
+  navBookmarks: Itens salvos
+  navMessages: Mensagens
+  navExplore: Explorar
+  navHome: Página inicial
+  navLists: Listas
+  navNotifications: Notificações
+  navProfile: Perfil
+  statsFollowers: Seguidores
+  statsFollowing: Seguindo
+  statsLikes: Curtidas
+  statsMoments: Moments
+  statsTweets: Tweets
+  topics: Tópicos
+  translateTweet: Traduzir Tweet
+  users: Usuários
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Nascido(a) em $date$
+  bornYear: Nascido(a) em $year$
+  favorite: Favorite # TODO translation missing!
+  favorites: Favorites # TODO translation missing!
+  followedBy0: Não é seguido por ninguém que você segue
+  followedBy1: Seguido por $p1$
+  followedBy2: Seguido por $p1$ e $p2$
+  followedBy3: Seguido por $p1$, $p2$ e $p3$
+  followedBy4Plus: Seguido por $p1$, $p2$ e outros $nr$ que você segue
+  translatedTweetInfo: Traduzido do $lang$ por $source$
+  qbBlock: Bloquear
+  qbBlocked: Bloqueado
+  qbUnblock: Desbloquear
+  updatedInfo: Atualizado para á $version$!
+  updatedInfoChangelog: Changelog
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Timeline
+    settingsHeaderSidebars: Barras laterais
+    settingsHeaderGlobalLook: Aparência Global
+    settingsHeaderOther: Outros
+
+  timeline:
+    forceLatest: Forçar Tweets Mais Recentes
+    forceLatestDesc: Habilitando o modo de Tweets mais recentes não é mais permanente. Com esta opção ativada, o site automaticamente ativa a opção de Tweets mais recentes.
+    biggerPreviews: Pré-visualização de Imagens Grandes
+    biggerPreviewsDesc: Imagens altas em Tweets são exibidas em sua altura original.
+
+  tweets:
+    hideTranslateTweetButton: Esconder Botão de Traduzir Tweet
+    tweetIconsPullLeft: Agrupar botões de interação do Tweet à esquerda.
+    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Barras laterais fixas
+    smallSidebars: Pequenas Barras laterais
+    smallSidebarsDesc: Barras laterais com 290 pixels de largura ao invés de 350px.
+    hideTrends: Esconder Trends
+    leftTrends: Barra lateral esquerda de Trends
+    leftTrendsDesc: Mostre os trends na barra lateral esquerda.
+    show10Trends: Apenas Mostrar 10 Trends
+
+  profile:
+    legacyProfile: Layout de Perfil Legado
+    squareAvatars: Avatares Quadrados
+    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    enableQuickBlock: Habilitar bloqueio rápido
+    enableQuickBlockDesc: Passe o mouse sobre o botão de seguir por 3 segundos para bloquear um perfil.
+    leftMedia: Mídia na barra lateral esquerda
+    leftMediaDesc: Mostrar o contêiner de mídia do perfil na barra lateral esquerda.
+
+  global-look:
+    hideFollowSuggestions: Esconder Quem Seguir
+    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    fontOverride: Usar Fonte Personalizada
+    fontOverrideDesc: Definir uma fonte personalizada para substituir a padrão. Apenas funciona se você tiver a fonte instalada.
+    colorOverride: Usar Cor Personalizada
+    colorOverrideDesc: Definir uma cor personalizada para substituir a padrão.
+    hideMessageBox: Esconder Caixa de Mensagens Diretas
+    hideMessageBoxDesc: Esconde a nova e sempre presente, caixa de mensagens direta, no canto inferior direito.
+    rosettaIcons: Rosetta icons # TODO translation missing!
+    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
+    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+
+  other:
+    updateNotifications: Notificações de atualização do GoodTwitter 2
+    expandTcoShortlinks: Expandir Links Curtos t.co
