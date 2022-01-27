@@ -199,16 +199,23 @@
   function requestTweet(id, cb) {
     GM_xmlhttpRequest({
       method: "GET",
-      url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
-        id,
-        tweet_mode: "extended",
-        trim_user: true,
-        include_cards: 1
+      url: getRequestURL("https://twitter.com/i/api/graphql/bRL1YYMraLIBpo1PGLeFcw/TweetDetail", {
+        variables: {
+          focalTweetId: id,
+          includePromotedContent: false,
+          withBirdwatchNotes: false,
+          withDownvotePerspective: false,
+          withReactionsMetadata: false,
+          withReactionsPerspective: false,
+          withSuperFollowsTweetFields: false,
+          withSuperFollowsUserFields: false,
+          withVoice: false
+        }
       }),
       headers: getRequestHeaders(),
       onload: function(res) {
         if (res.status == "200") {
-          cb(JSON.parse(res.response))
+          cb(JSON.parse(res.response).data.threaded_conversation_with_injections.instructions.find(e => e.type == "TimelineAddEntries").entries.find(e => e.entryId.startsWith("tweet-")).content.itemContent.tweet_results.result.legacy)
         } else {
           console.warn(res)
         }
@@ -384,40 +391,48 @@
 
   // custom options and their default values
   const opt_gt2 = {
-    forceLatest:              false,
-    disableAutoRefresh:       false,
-    keepTweetsInTL:           true,
-    biggerPreviews:           false,
+    // timeline
+    forceLatest: false,
+    disableAutoRefresh: false,
+    keepTweetsInTL: true,
+    biggerPreviews: false,
 
+    // tweets
     hideTranslateTweetButton: false,
-    tweetIconsPullLeft:       false,
-    hidePromoteTweetButton:   false,
+    tweetIconsPullLeft: false,
+    hidePromoteTweetButton: false,
+    showMediaWithContentWarnings: false,
+    showMediaWithContentWarningsSel:  7,
 
-    stickySidebars:           true,
-    smallSidebars:            false,
-    hideTrends:               false,
-    leftTrends:               true,
-    show10Trends:             false,
+    // sidebars
+    stickySidebars: true,
+    smallSidebars: false,
+    hideTrends: false,
+    leftTrends: true,
+    show10Trends: false,
 
-    legacyProfile:            false,
-    squareAvatars:            false,
-    disableHexagonAvatars:    false,
-    enableQuickBlock:         false,
-    leftMedia:                false,
+    // profile
+    legacyProfile: false,
+    squareAvatars: false,
+    disableHexagonAvatars: false,
+    enableQuickBlock: false,
+    leftMedia: false,
 
-    hideFollowSuggestions:    false,
+    // global look
+    hideFollowSuggestions: false,
     hideFollowSuggestionsSel: 7,
     hideFollowSuggestionsLocSel: 3,
-    fontOverride:             false,
-    fontOverrideValue:        "Arial",
-    colorOverride:            false,
-    colorOverrideValue:       "85, 102, 68",
-    hideMessageBox:           true,
-    rosettaIcons:             false,
-    favoriteLikes:            false,
+    fontOverride: false,
+    fontOverrideValue: "Arial",
+    colorOverride: false,
+    colorOverrideValue: "85, 102, 68",
+    hideMessageBox: true,
+    rosettaIcons: false,
+    favoriteLikes: false,
 
-    updateNotifications:      true,
-    expandTcoShortlinks:      true,
+    // other
+    updateNotifications: true,
+    expandTcoShortlinks: true,
   }
 
   // set default options
@@ -526,6 +541,23 @@
           ${getSettingTogglePart("hideTranslateTweetButton")}
           ${getSettingTogglePart("tweetIconsPullLeft")}
           ${getSettingTogglePart("hidePromoteTweetButton")}
+          ${getSettingTogglePart("showMediaWithContentWarnings", `
+            <div data-setting-name="showMediaWithContentWarningsBox" class="gt2-settings-multi-selection ${GM_getValue("opt_gt2").showMediaWithContentWarnings ? "" : "gt2-hidden"}">
+              <div data-setting-name="showMediaWithContentWarningsSel">
+                ${["Nudity", "Violence", "SensitiveContent"].map((e, i) => {
+                  let x = Math.pow(2, i)
+                  return `
+                    <div>
+                      <span>${getLocStr(`contentWarning${e}`)}</span>
+                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").showMediaWithContentWarningsSel & x) == x ? "gt2-active" : ""}" data-sel="${x}">
+                        <div></div>
+                        <div>${getSvg("tick")}</div>
+                      </div>
+                    </div>`
+                }).join("")}
+              </div>
+            </div>
+          `)}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
@@ -546,14 +578,14 @@
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
           ${getSettingTogglePart("hideFollowSuggestions", `
-            <div data-setting-name="hideFollowSuggestionsBox" class="${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}">
+            <div data-setting-name="hideFollowSuggestionsBox" class="gt2-settings-multi-selection ${GM_getValue("opt_gt2").hideFollowSuggestions ? "" : "gt2-hidden"}">
               ${getLocStr("hideFollowSuggestionsBox").replace("$type$", `
                 <div data-setting-name="hideFollowSuggestionsSel">
                   ${["topics", "users", "navLists"].map((e, i) => {
                     let x = Math.pow(2, i)
                     return `<div>
                       <span>${getLocStr(e)}</span>
-                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-hfs-type="${x}">
+                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsSel & x) == x ? "gt2-active" : ""}" data-sel="${x}">
                         <div></div>
                         <div>${getSvg("tick")}</div>
                       </div>
@@ -566,7 +598,7 @@
                     let x = Math.pow(2, i)
                     return `<div>
                       <span>${getLocStr(`settingsHeader${e}`)}</span>
-                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & x) == x ? "gt2-active" : ""}" data-hfs-loc="${x}">
+                      <div class="gt2-setting-toggle ${(GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & x) == x ? "gt2-active" : ""}" data-sel="${x}">
                         <div></div>
                         <div>${getSvg("tick")}</div>
                       </div>
@@ -648,14 +680,11 @@
       $("body").toggleClass(`gt2-opt-${name.toKebab()}`)
     }
 
-    // hide follow suggestions
-    if ($(this).is("[data-hfs-type]")) {
+    // handle selector settings (hideFollowSuggestions, showMediaWithContentWarnings)
+    if ($(this).is("[data-sel]")) {
+      let sName = $(this).closest("[data-setting-name]").attr("data-setting-name")
       let opt = GM_getValue("opt_gt2")
-      GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsSel"]: opt.hideFollowSuggestionsSel ^ parseInt($(this).attr("data-hfs-type")) }))
-    }
-    if ($(this).is("[data-hfs-loc]")) {
-      let opt = GM_getValue("opt_gt2")
-      GM_setValue("opt_gt2", Object.assign(opt, { ["hideFollowSuggestionsLocSel"]: opt.hideFollowSuggestionsLocSel ^ parseInt($(this).attr("data-hfs-loc")) }))
+      GM_setValue("opt_gt2", Object.assign(opt, { [sName]: opt[sName] ^ parseInt($(this).attr("data-sel")) }))
     }
     disableTogglesIfNeeded()
   })
@@ -697,6 +726,10 @@
     // hide follow suggestions
     $("[data-setting-name=hideFollowSuggestionsBox]")
     [GM_getValue("opt_gt2").hideFollowSuggestions ? "removeClass" : "addClass"]("gt2-hidden")
+
+    // showMediaWithContentWarnings
+    $("[data-setting-name=showMediaWithContentWarningsBox]")
+    [GM_getValue("opt_gt2").showMediaWithContentWarnings ? "removeClass" : "addClass"]("gt2-hidden")
   }
 
 
@@ -1504,8 +1537,9 @@
     }
 
     let id = $(this).parents("article[data-testid=tweet]").length
-      ? $(this).parents("article[data-testid=tweet]").find(`> div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
-                                         div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
+      ? $(this).parents("article[data-testid=tweet]")
+        .find(`> div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
+               div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
     // embedded tweet
@@ -1514,7 +1548,6 @@
 
     // normal tweet with embedded one
     } else if ($(this).parents("article[data-testid=tweet]").find("[role=link] [lang]").length) {
-      console.log("aaa");
       requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
 
     // normal tweet or bio
@@ -1922,6 +1955,36 @@
 
 
   // ########################
+  // #        tweets        #
+  // ########################
+
+  waitForKeyElements(`[data-testid=tweet] [href^="/"][href*="/photo/1"] [data-testid=tweetPhoto],
+                      [data-testid=tweet] [data-testid=previewInterstitial]`, e => {
+    // showMediaWithContentWarnings
+    if (GM_getValue("opt_gt2").showMediaWithContentWarnings && GM_getValue("opt_gt2").showMediaWithContentWarningsSel < 7) {
+      let $tweet = $(e).closest("[data-testid=tweet]")
+
+      if ($(e).closest("[aria-labelledby]").find("> div > div > div:nth-child(2)").length) {
+        let id = $("body").is(".gt2-page-tweet")
+          ? getPath().split("/")[2].split("?")[0].split("#")[0]
+          : $tweet.find("time").parent().attr("href").split("/status/")[1]
+        requestTweet(id, res => {
+          let score = ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
+            return p + (res.extended_entities.media[0].sensitive_media_warning[c] ? Math.pow(2, i) : 0)
+          }, 0)
+
+          console.log(`cw id: ${id}, opt: ${GM_getValue("opt_gt2").showMediaWithContentWarningsSel} score: ${score}`)
+          if ((score & GM_getValue("opt_gt2").showMediaWithContentWarningsSel) == score) {
+            $tweet.addClass("gt2-show-media")
+          }
+        })
+      }
+    }
+  })
+
+
+
+  // ########################
   // #   display settings   #
   // ########################
 
@@ -2168,7 +2231,7 @@
     } else {
       // add gt2-options to body for the css to take effect
       for (let [key, val] of Object.entries(GM_getValue("opt_gt2"))) {
-        if (val) $("body").addClass(`gt2-opt-${key.toKebab()}`)
+        if (val) $("body").addClass(`gt2-opt-${key.toKebab()}${typeof val === "number" ? `-${val}` : ""}`)
       }
 
       // remove unneeded classes
