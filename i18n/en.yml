@@ -56,7 +56,7 @@ settings:
     settingsHeaderTimeline: Timeline
     settingsHeaderSidebars: Sidebars
     settingsHeaderGlobalLook: Global Look
-    settingsHeaderOther: null
+    settingsHeaderOther: Other
 
   timeline:
     forceLatest: Force “Latest Tweets First” mode
