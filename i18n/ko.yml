@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: 트윗
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: "가입일: $date$"
   navBookmarks: 북마크
   navMessages: 쪽지
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: 트윗 번역 버튼 숨기기
     tweetIconsPullLeft: 트윗 아이콘을 왼쪽으로 옮기기
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: 사이드바 고정

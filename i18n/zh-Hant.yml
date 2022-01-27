@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: 推文
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: 已加入 $date$
   navBookmarks: 書籤
   navMessages: 訊息
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: 隱藏翻譯此推文按鈕
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: 固定側邊欄

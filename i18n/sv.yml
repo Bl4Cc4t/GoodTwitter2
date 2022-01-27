@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeta
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Gick med $date$
   navBookmarks: Bokmärken
   navMessages: Meddelanden
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: Hide “Translate Tweet” button # TODO translation missing!
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: Orörliga Sidofält

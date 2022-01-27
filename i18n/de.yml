@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Twittern
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Seit $date$ bei Twitter
   navBookmarks: Lesezeichen
   navMessages: Nachrichten
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: Tweet übersetzen verstecken
     tweetIconsPullLeft: Linksbündige Tweet-Interaktions-Knöpfe
     hidePromoteTweetButton: “Promote Tweet” verstecken
+    showMediaWithContentWarnings: Medien mit Inhaltswarnung immer anzeigen
 
   sidebars:
     stickySidebars: Feste Seitenleisten

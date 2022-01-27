@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Dă Tweet
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: S-a alăturat în $date$
   navBookmarks: Marcaje
   navMessages: Mesaje
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: Ascunde butonul de tradus Tweetul
     tweetIconsPullLeft: Mută butoanele de interacțiuni la stânga.
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: Bare laterale lipicioase

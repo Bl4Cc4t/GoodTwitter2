@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeten
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Lid geworden in $date$
   navBookmarks: Bladwijzers
   navMessages: Berichten
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: Verberg de Vertaal Tweet knop
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: Sticky Zijbalken

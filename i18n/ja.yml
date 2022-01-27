@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: ツイートする
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: $date$からTwitterを利用しています
   navBookmarks: ブックマーク
   navMessages: メッセージ
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: ツイートを翻訳ボタンを非表示にする
     tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
     hidePromoteTweetButton: プロモートツイートボタンを隠す
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: サイドバーの固定

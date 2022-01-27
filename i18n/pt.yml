@@ -3,6 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweetar
+  contentWarningNudity: Nudity # TODO translation missing!
+  contentWarningViolence: Violence # TODO translation missing!
+  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Ingressou em $date$
   navBookmarks: Itens salvos
   navMessages: Mensagens
@@ -62,6 +65,7 @@ settings:
     hideTranslateTweetButton: Esconder Botão de Traduzir Tweet
     tweetIconsPullLeft: Agrupar botões de interação do Tweet à esquerda.
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
+    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
 
   sidebars:
     stickySidebars: Barras laterais fixas
