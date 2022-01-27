@@ -2165,12 +2165,15 @@
     if ((!GM_getValue("opt_gt2").smallSidebars && w <= 1350) ||
         ( GM_getValue("opt_gt2").smallSidebars && w <= 1230)) {
       // move dash profile to right sidebar
-      $(".gt2-dashboard-profile")
-      .prependTo("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div")
-      // remove trends
-      $(".gt2-trends").remove()
+      $(".gt2-left-sidebar > *").each(function() {
+        $(this).attr("data-gt2-detached-from-left-sidebar", 1)
+        .detach().insertBefore("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > :last-child")
+      })
     } else {
-      $(".gt2-dashboard-profile").prependTo(".gt2-left-sidebar")
+      $("[data-gt2-detached-from-left-sidebar]").each(function() {
+        $(this).removeAttr("data-gt2-detached-from-left-sidebar")
+        .detach().appendTo(".gt2-left-sidebar")
+      })
     }
   })
 
