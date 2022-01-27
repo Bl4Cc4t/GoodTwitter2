@@ -1617,6 +1617,7 @@ body[data-payment-endpoint-path] {
     }
 
     .gt2-legacy-profile-description:not(:empty) {
+      color: var(--color-text);
       [data-testid=UserDescription] {
         color: var(--color-text);
         & + div {
