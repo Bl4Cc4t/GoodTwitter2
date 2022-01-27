@@ -393,8 +393,6 @@
   const opt_gt2 = {
     // timeline
     forceLatest: false,
-    disableAutoRefresh: false,
-    keepTweetsInTL: true,
     biggerPreviews: false,
 
     // tweets
@@ -532,8 +530,6 @@
         <div class="gt2-settings">
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderTimeline")}</div>
           ${getSettingTogglePart("forceLatest")}
-          ${getSettingTogglePart("disableAutoRefresh")}
-          ${getSettingTogglePart("keepTweetsInTL")}
           ${getSettingTogglePart("biggerPreviews")}
           <div class="gt2-settings-separator"></div>
 
@@ -700,17 +696,6 @@
 
 
   function disableTogglesIfNeeded() {
-    // when autoRefresh is on, keepTweetsInTL must also be on and can not be deactivated (it is disabled)
-    let $t = $("div[data-setting-name=keepTweetsInTL]")
-    if (GM_getValue("opt_gt2").disableAutoRefresh) {
-      if (!GM_getValue("opt_gt2").keepTweetsInTL) {
-        $t.click()
-      }
-      $t.addClass("gt2-disabled")
-    } else {
-      $t.removeClass("gt2-disabled")
-    }
-
     // other trend related toggles are not needed when the trends are disabled
     $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
     [GM_getValue("opt_gt2").hideTrends ? "addClass" : "removeClass"]("gt2-disabled")
@@ -1473,31 +1458,6 @@
   }
 
 
-  // removeChild interception
-  /*
-  Element.prototype.removeChild = (function(fun) {
-    return function(child) {
-      // if ([
-      //   "a[data-testid=AppTabBar_Home_Link]",
-      //   "a[data-testid=AppTabBar_Notifications_Link]",
-      //   "a[data-testid=AppTabBar_DirectMessage_Link]"
-      // ].some(e => $(child).parent().parent().is(e))) {
-      //   return child
-      // }
-
-      return fun.apply(this, arguments)
-    }
-  }(Element.prototype.removeChild))
-  */
-
-
-  //
-  // $("body").on("ended", "video[poster='https://pbs.twimg.com/ext_tw_video_thumb/']", function(e) {
-  //   e.preventDefault()
-  //   console.log("test");
-  //   console.log(this);
-  // })
-
 
 
   // ##################################
@@ -1619,131 +1579,6 @@
     $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").addClass("gt2-hidden")
     $(this).prevAll(".gt2-translate-tweet, [role=button]").removeClass("gt2-hidden")
   })
-
-
-
-
-  // ########################
-  // #  disableAutoRefresh  #
-  // ########################
-
-
-  // russian numbering
-  function getRusShowNew(nr) {
-    let end
-    let t1 = nr.toString().slice(-1)
-    let t2 = nr.toString().slice(-2)
-
-    if (t1 == 1)                          end = "новый твит"
-    if (t1 >= 2 && t1 <= 4)               end = "новых твита"
-    if (t1 == 0 || (t1 >= 5 && t1 <= 9))  end = "новых твитов"
-    if (t2 >= 11 && t2 <= 14)             end = "новый твит"
-    return `Посмотреть ${nr} ${end}`
-  }
-
-  // add counter for new tweets
-  function updateNewTweetDisplay() {
-    let nr = $(".gt2-hidden-tweet").length
-    let text = nr == 1 ? getLocStr("showNewSingle") : getLocStr("showNewMulti").replace("$", nr)
-
-    // exception for russian
-    if (getLang() == "ru") {
-      text = getRusShowNew(nr)
-    }
-
-    if (nr) {
-      // add button
-      if ($(".gt2-show-hidden-tweets").length == 0) {
-        if (window.location.href.split("/")[3].startsWith("home")) {
-          $("div[data-testid=primaryColumn] > div > div:nth-child(3)").addClass("gt2-show-hidden-tweets")
-        } else {
-          $("div[data-testid='primaryColumn'] section > div > div > div > div:nth-child(1)").append(`
-            <div class="gt2-show-hidden-tweets"></div>
-          `)
-        }
-      }
-      $(".gt2-show-hidden-tweets").html(text)
-      let t = $("title").text()
-      $("title").text(`[${nr}] ${t.startsWith("(") ? t.split(") ")[1] : t.startsWith("[") ? t.split("] ")[1] : t}`)
-    } else {
-      $(".gt2-show-hidden-tweets").empty().removeClass("gt2-show-hidden-tweets")
-      resetTitle()
-    }
-  }
-
-
-  // show new tweets
-  $("body").on("click", ".gt2-show-hidden-tweets", () => {
-    let topTweet = $("div[data-testid=tweet]").eq(0).find("> div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
-    GM_setValue("topTweet", topTweet)
-    $(".gt2-hidden-tweet").removeClass("gt2-hidden-tweet")
-    $(".gt2-hidden-tweet-part").removeClass("gt2-hidden-tweet-part")
-    console.log(`topTweet: ${topTweet}`)
-    updateNewTweetDisplay()
-  })
-
-
-  // change title to display X new tweets
-  function resetTitle() {
-    let t = $("title").text()
-    let notifications = ".gt2-nav-left a[href='/notifications'] > div > div:nth-child(1) > div:nth-child(2)"
-    let messages      = ".gt2-nav-left a[href='/messages'] > div > div:nth-child(1) > div:nth-child(2)"
-    let nr = 0
-    if ($(notifications).length) nr += parseInt($(notifications).text())
-    if ($(messages).length)      nr += parseInt($(messages).text())
-    $("title").text(`${nr > 0 ? `(${nr}) ` : ""}${t.startsWith("[") ? t.split("] ")[1] : t}`)
-  }
-
-
-  // observe and hide auto refreshed tweets
-  function hideTweetsOnAutoRefresh() {
-    let obsTL = new MutationObserver(mutations => {
-      mutations.forEach(m => {
-        if (m.addedNodes.length == 1) {
-          let $t = $(m.addedNodes[0])
-          if ($t.find("div > div > div > div > article div[data-testid=tweet]").length && $t.nextAll().find(`a[href='${GM_getValue("topTweet")}']`).length) {
-            if ($t.find("div[data-testid=tweet] > div:nth-child(1) > div:nth-child(2)").length && (!$("> div > div > div > a[href^='/i/status/']").length || $t.next().find("> div > div > div > a[href^='/i/status/']").length)) {
-              $t.addClass("gt2-hidden-tweet-part")
-            } else {
-              console.log($t);
-              $t.addClass("gt2-hidden-tweet")
-              updateNewTweetDisplay()
-            }
-          } else if ($t.find("> div > div > div > a[href^='/i/status/']").length) {
-            console.log($t);
-            $t.addClass("gt2-hidden-tweet-part")
-          }
-        }
-      })
-    })
-    let tlSel = `div[data-testid=primaryColumn] > div > div:nth-child(4) section > div > div > div,
-                 div[data-testid=primaryColumn] > div > div:nth-child(2) section > div > div > div`
-    waitForKeyElements(tlSel, () => {
-      // memorize last tweet
-      let topTweet = $(tlSel).find("> div:nth-child(1) div[data-testid=tweet] > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a").attr("href")
-      GM_setValue("topTweet", topTweet)
-      console.log(`topTweet: ${topTweet}`)
-      obsTL.observe($(tlSel)[0], {
-        childList: true,
-        subtree: true
-      })
-    })
-  }
-
-
-  // keep the site from removing tweets (not working)
-  function keepTweetsInTL() {
-    let o = Element.prototype.removeChild
-    Element.prototype.removeChild = function(child) {
-      // check if element is a tweet
-      if ($(child).not("[class]") && $(child).find("> div > div > div > div > article[data-testid=tweet]").length) {
-        console.log($(child)[0])
-        return child
-      } else {
-        return o.apply(this, arguments)
-      }
-    }
-  }
 
 
 
@@ -2593,18 +2428,6 @@
     waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"],
                         [data-testid=emptyState] [href="https://support.twitter.com/articles/20172060"]`, displayBlockedProfileData)
 
-
-    // disableAutoRefresh
-    if (GM_getValue("opt_gt2").disableAutoRefresh &&
-        (path().split("/")[0] == "home" || path().match(/^[^\/]+\/lists/)) ) {
-      hideTweetsOnAutoRefresh()
-    }
-
-
-    // force latest
-    if (GM_getValue("opt_gt2").forceLatest && path().split("/")[0] == "home") {
-      forceLatest()
-    }
 
     if (!isModal) $("body").attr("data-gt2-prev-path", path())
   }
