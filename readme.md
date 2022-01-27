@@ -20,11 +20,10 @@
 
 
 ## Background
-Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [stopped working too](https://twitter.com/ZusorOW/status/1258885451055800320), I decided to create a somewhat fix for the site.
+Twitter disabled its old 2014 layout on June 1st 2020 completely. This caused the popular extension [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [to not work anymore](https://twitter.com/ZusorOW/status/1258885451055800320). But since I like the older layout better, I decided to create this script to recreate the legacy look in a way.
 
 ## Disclaimers
 - Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
-  - The disableAutoRefresh feature is extremely buggy atm, any help would be very nice
 - This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ## Features
@@ -36,30 +35,27 @@ Since Twitter disabled the 2014 layout on June 1st 2020 and therefore [GoodTwitt
   - The default and dim theme use the color palette from legacy twitter
 - Added toggle for nightmode when not logged in
 - Translate tweets directly in your timeline!
-- Various custom settings, take a look at the [previews](#previews)
+- Various other custom settings, take a look at the [previews](#previews)
 
 ## Installation
 To use this script, you need a userscript manager.
 
 - Install [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/) (Greasemonkey is not supported at the moment)
+  - Violentmonkey may work better with very old Firefox versions.
 - Then, click on [this link](https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you should be good to go!
-- [Firefox] You do not need to disable CSP anymore. If you disabled it previously, see [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md) on how to enable it again.
+- [Firefox only] You do not need to disable CSP anymore. If you disabled it previously, see [this guide](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/firefox-csp.md) on how to enable it again.
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
 ## FAQ
-### The highlights color does not match my settings!
+### The highlights color does not match my settings, what should I do?
 Normally, the script should detect what colors you are using.
 If it somehow does not, just navigate to the display settings, switch to another color and then select your desired color again.
 Now it should look the way you want!
 
-### I use a very old version of Firefox and the script does not work
-For Firefox 56.0 and similar versions, please use Violentmonkey.
-If that does not help, please open a new issue.
-
-### I want to help!
-That’s awesome! If you want to help with the translations, check out [Adding translations](#adding-translations).
+### Can I help you?
+Of course! If you want to help with the translations, check out [Adding translations](#adding-translations).
 
 If you want to help with coding, you can take a look at the issue tracker. There are a lot of things that do not work correctly and I certainly could use some help with that :)
 
