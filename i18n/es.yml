@@ -34,8 +34,6 @@ script:
   followedBy2: Seguido por $p1$ y $p2$
   followedBy3: Seguido por $p1$, $p2$ y $p3$
   followedBy4Plus: Seguido por $p1$, $p2$ y otros $nr$ a quienes tú sigues
-  showNewMulti: Mostrar $ nuevos Tweets
-  showNewSingle: Mostrar 1 nuevo Tweet
   translatedTweetInfo: Traducido del $lang$ por $source$
   qbBlock: Bloquear
   qbBlocked: Bloqueado

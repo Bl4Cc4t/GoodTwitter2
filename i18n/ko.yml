@@ -34,8 +34,6 @@ script:
   followedBy2: $p1$, $p2$ 님이 팔로우합니다
   followedBy3: $p1$, $p2$, $p3$ 님이 팔로우합니다
   followedBy4Plus: $p1$ 님, $p2$ 님 외 $nr$ 명이 팔로우했습니다
-  showNewMulti: $개의 트윗 더 보기
-  showNewSingle: 1개의 트윗 더 보기
   translatedTweetInfo: $lang$에서 번역 ($source$ 제공)
   qbBlock: 차단하기
   qbBlocked: 차단됨

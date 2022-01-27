@@ -34,8 +34,6 @@ script:
   followedBy2: Gevolgd door $p1$ en $p2$
   followedBy3: Gevolgd door $p1$, $p2$ en $p3$
   followedBy4Plus: Gevolgd door $p1$, $p2$ en $nr$ anderen die je volgt
-  showNewMulti: Toon $ nieuwe Tweets
-  showNewSingle: Toon 1 nieuwe Tweet
   translatedTweetInfo: Vertaald van $lang$ door $source$
   qbBlock: "*Blokkeren"
   qbBlocked: Geblokkeerd

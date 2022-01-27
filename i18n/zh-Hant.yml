@@ -34,8 +34,6 @@ script:
   followedBy2: Followed by $p1$ and $p2$ # TODO translation missing!
   followedBy3: Followed by $p1$, $p2$ and $p3$ # TODO translation missing!
   followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow # TODO translation missing!
-  showNewMulti: 顯示 $ 新推文
-  showNewSingle: 顯示 1 個新推文
   translatedTweetInfo: 由 $source$ 從 $lang$ 翻譯
   qbBlock: 封鎖
   qbBlocked: 己封鎖

@@ -34,8 +34,6 @@ script:
   followedBy2: Followed by $p1$ and $p2$ # TODO translation missing!
   followedBy3: Followed by $p1$, $p2$ and $p3$ # TODO translation missing!
   followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow # TODO translation missing!
-  showNewMulti: Visa $ nya Tweets
-  showNewSingle: Visa 1 nytt Tweet
   translatedTweetInfo: Översatt från $lang$ av $source$
   qbBlock: Blockera
   qbBlocked: Blockerad

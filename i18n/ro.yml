@@ -34,8 +34,6 @@ script:
   followedBy2: Urmărit de $p1$ și $p2$
   followedBy3: Urmărit de $p1$, $p2$ și $p3$
   followedBy4Plus: Urmărit de $p1$, $p2$ și de încă $nr$ persoane pe care le urmărești
-  showNewMulti: Arată $ Tweeturi noi
-  showNewSingle: Arată 1 Tweet nou
   translatedTweetInfo: Traducere din $lang$ de $source$
   qbBlock: Blochează
   qbBlocked: Blocat

@@ -34,8 +34,6 @@ script:
   followedBy2: В читаемых у $p1$ и $p2$
   followedBy3: В читаемых у $p1$, $p2$ и $p3$
   followedBy4Plus: В читаемых у $p1$, $p2$ и еще $nr$ пользователей, которых вы читаете
-  showNewMulti: Посмотреть новые твиты ($)
-  showNewSingle: Посмотреть 1 новый твит
   translatedTweetInfo: "Язык оригинала: $lang$, переведено с помощью $source$"
   qbBlock: Внести в черный список
   qbBlocked: В черном списке

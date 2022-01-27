@@ -34,8 +34,6 @@ script:
   followedBy2: $p1$さんと$p2$さんにフォローされています
   followedBy3: $p1$さん、$p2$さん、$p3$さんにフォローされています
   followedBy4Plus: フォローしている$p1$さん、$p2$さん、他$nr$人にフォローされています
-  showNewMulti: 新しいツイート$件を見る
-  showNewSingle: 新しいツイート1件を見る
   translatedTweetInfo: $source$による$lang$からの翻訳
   qbBlock: さんをブロック
   qbBlocked: ブロック中
