@@ -2084,7 +2084,7 @@ body:not(.gt2-opt-color-override) {
 .gt2-opt-show-media-with-content-warnings {
   [data-testid=tweet][data-gt2-show-media],
   &.gt2-opt-show-media-with-content-warnings-sel-7 [data-testid=tweet] {
-    [aria-labelledby] > div > div:not([data-testid="card.wrapper"]) > div {
+    [aria-labelledby] > div > div:not([data-testid="card.wrapper"]) > div:not([role]) {
       &:nth-child(1) {
         filter: unset;
       }
