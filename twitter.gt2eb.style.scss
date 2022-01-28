@@ -1893,7 +1893,7 @@ body:not(.gt2-opt-small-sidebars) {
   // sidebar (who to follow)
   div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
   // small profile modals
-  #layers > div:nth-child(2) > div > div > div > div > div > div > div > div > div:nth-child(1),
+  #layers > div:nth-child(2) > div > div > div:not([role=dialog]) > div > div > div > div > div > div:nth-child(1),
   // notifications
   article > div > div:nth-child(2) > div:nth-child(1) > div > div,
   // /messages conversation selector (left)
