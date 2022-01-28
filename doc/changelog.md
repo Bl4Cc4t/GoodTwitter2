@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.36.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/399)
+*released 2021-01-28*
+
+#### Changes
+- styling fixes.
+
 ## [0.0.36](https://github.com/Bl4Cc4t/GoodTwitter2/pull/394)
 *released 2021-01-27*
 #### New
