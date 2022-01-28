@@ -1920,8 +1920,29 @@ body:not(.gt2-opt-small-sidebars) {
   // /messages top left avatar
   &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
   // edit tweet recipients (replying to)
-  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div, {
+  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div {
     border-radius: 10% !important;
+  }
+
+  // tweet reply modal
+  #layers [aria-modal=true] {
+    [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(1),
+    & > div > div > div > div:nth-child(3) > div > div:not([class]) > div > div > div > div > div:nth-child(1) {
+      [style]:empty + div > div {
+        &,
+        [role=presentation] > div:nth-child(3) {
+          border-radius: 10% !important;
+        }
+      }
+    }
+  }
+
+  // quote retweets
+  [data-testid=tweet] [aria-labelledby] > div > div:not([data-testid="card.wrapper"]) > [role=link] > div > div:nth-child(1) [style]:empty + div > div {
+    &,
+    [role=presentation] > div:nth-child(3) {
+      border-radius: 10% !important;
+    }
   }
 
   // tweet (show this thread)
