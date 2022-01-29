@@ -1,13 +1,13 @@
 # Changelog
 
 ## [0.0.36.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/399)
-*released 2021-01-28*
+*released 2022-01-28*
 
 #### Changes
 - styling fixes.
 
 ## [0.0.36](https://github.com/Bl4Cc4t/GoodTwitter2/pull/394)
-*released 2021-01-27*
+*released 2022-01-27*
 #### New
 - **[New option]** added toggles to always show media with content warnings
   You can choose what will be shown, depending on the flags of the media.
@@ -28,7 +28,7 @@ Settings | ![image](https://user-images.githubusercontent.com/6740726/151444453-
 
 
 ## [0.0.35](https://github.com/Bl4Cc4t/GoodTwitter2/pull/390)
-*released 2021-01-25*
+*released 2022-01-25*
 #### Changes
 - fixed the square icons (yes, again. the site changed right a day after the last version got released.) ([#383](https://github.com/Bl4Cc4t/GoodTwitter2/issues/383))
 - added support for hexagonal avatars and a toggle to disable them ([#391](https://github.com/Bl4Cc4t/GoodTwitter2/issues/391), [#392](https://github.com/Bl4Cc4t/GoodTwitter2/issues/392))
