@@ -3,9 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Твитнуть
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Нагота
+  contentWarningViolence: Насилие
+  contentWarningSensitiveContent: Контент деликатного характера
   joinDate: "Регистрация: $date$"
   navBookmarks: Закладки
   navMessages: Сообщения
@@ -59,7 +59,7 @@ settings:
     hideTranslateTweetButton: Скрыть кнопку «Перевести твит»
     tweetIconsPullLeft: Сгруппировать кнопки взаимодействия с твитами слева
     hidePromoteTweetButton: Скрыть кнопку «Продвигайте свой твит»
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    showMediaWithContentWarnings: Всегда показывать медиафайлы с предупреждениями о содержании
 
   sidebars:
     stickySidebars: Фиксированные боковые панели
@@ -73,7 +73,7 @@ settings:
   profile:
     legacyProfile: Старый дизайн профиля
     squareAvatars: Квадратные аватары
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    disableHexagonAvatars: Отключить шестиугольные аватары
     enableQuickBlock: Включить быструю блокировку
     enableQuickBlockDesc: Наведите и удерживайте в течение 3 секунд курсор мыши на кнопке «Читать», для блокировки профиля.
     leftMedia: Медиа-контейнер слева
