@@ -1,0 +1,104 @@
+# indonesian language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweet
+  contentWarningNudity: Ketelanjangan
+  contentWarningViolence: Kekerasan
+  contentWarningSensitiveContent: Konten sensitif
+  joinDate: Bergabung $date$
+  navBookmarks: Markah
+  navMessages: Pesan
+  navExplore: Jelajahi
+  navHome: Beranda
+  navLists: Daftar
+  navNotifications: Notifikasi
+  navProfile: Profil
+  statsFollowers: Pengikut
+  statsFollowing: Mengikuti
+  statsLikes: Suka
+  statsMoments: Momen
+  statsTweets: Tweet
+  topics: Topik
+  translateTweet: Terjemahkan Tweet
+  users: Pengguna
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Lahir $date$
+  bornYear: Lahir $year$
+  favorite: Favorit
+  favorites: Favorit
+  followedBy0: Tidak diikuti oleh siapa pun yang Anda ikuti
+  followedBy1: Diikuti oleh $p1$
+  followedBy2: Diikuti oleh $p1$ dan $p2$
+  followedBy3: Diikuti oleh $p1$, $p2$ dan $p3$
+  followedBy4Plus: Diikuti oleh $p1$, $p2$ dan $nr$ lainnya yang Anda ikuti
+  translatedTweetInfo: Diterjemahkan ke $lang$ dari $source$
+  qbBlock: Blokir
+  qbBlocked: Terblokir
+  qbUnblock: Buka blokir
+  updatedInfo: Diperbaharui ke $version$!
+  updatedInfoChangelog: Log perubahan
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Linimasa
+    settingsHeaderSidebars: Bilah samping
+    settingsHeaderGlobalLook: Tampilan Global
+    settingsHeaderOther: Lainnya
+
+  timeline:
+    forceLatest: Paksa mode "Tweet Terbaru Lebih Dahulu"
+    forceLatestDesc: Mengaktifkan mode tweet terbaru sudah tidak permanen lagi. Dengan mengaktifkan pengaturan ini, situs secara otomatis beralih kembali ke mode "Tweet Terbaru".
+    biggerPreviews: Pratinjau gambar yang lebih besar
+    biggerPreviewsDesc: Gambar tinggi dalam tweet ditampilkan dalam ukuran penuh.
+
+  tweets:
+    hideTranslateTweetButton: Sembunykan tombol “Terjemahkan Tweet”
+    tweetIconsPullLeft: Kelompokkan tombol interaksi tweet di sebelah kiri
+    hidePromoteTweetButton: Sembunykan tombol “Promosikan Tweet”
+    showMediaWithContentWarnings: Selalu tampilkan media dengan peringatan konten
+
+  sidebars:
+    stickySidebars: Lengketkan bilah samping
+    smallSidebars: Bilah samping kecil
+    smallSidebarsDesc: 290px alih-alih sidebar lebar 350px.
+    hideTrends: Sembunyikan tren
+    leftTrends: Bilah sisi tren kiri
+    leftTrendsDesc: Tampilkan tren di bilah sisi kiri.
+    show10Trends: Selalu munculkan 10 tren
+
+  profile:
+    legacyProfile: Tampilan profil lawas
+    squareAvatars: Avatar kotak
+    disableHexagonAvatars: Matikan avatar segienam
+    enableQuickBlock: Aktifkan Blokir Cepat
+    enableQuickBlockDesc: Arahkan kursor ke tombol mengikuti selama 3 detik untuk memblokir profil.
+    leftMedia: Bilah media sisi kiri
+    leftMediaDesc: Tampilkan wadah media pada halaman profil di bilah sisi kiri.
+
+  global-look:
+    hideFollowSuggestions: Sembunyikan saran ikuti (Topik, Pengguna & Daftar)
+    hideFollowSuggestionsBox: Sembunyikan $type$ dari $location$
+    fontOverride: Gunakan font kustom
+    fontOverrideDesc: Setel font khusus untuk mengganti font default. Ini hanya berfungsi jika Anda telah menginstal font.
+    colorOverride: Gunakan warna kustom
+    colorOverrideDesc: Tetapkan warna khusus untuk mengganti warna default.
+    hideMessageBox: Sembunyikan kotak pesan
+    hideMessageBoxDesc: Menyembunyikan kotak pesan baru yang selalu ada di sudut kanan bawah.
+    rosettaIcons: Ikon Rosetta
+    rosettaIconsDesc: Gunakan font ikon Rosetta pra-2017
+    favoriteLikes: Mengganti suka dengan favorit (hanya ikonnya saja untuk saat ini)
+
+  other:
+    updateNotifications: Notifikasi pembaruan GoodTwitter 2
+    expandTcoShortlinks: Perluas tautan pendek t.co
