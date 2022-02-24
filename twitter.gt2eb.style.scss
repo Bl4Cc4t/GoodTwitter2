@@ -1481,7 +1481,7 @@ body[data-payment-endpoint-path] {
       & > div:nth-child(2) > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
-        left: -9999px;
+        left: -9999999px;
       }
       & > div:nth-child(2) > div > div > div:nth-child(2) {
         border-top-width: 0;
