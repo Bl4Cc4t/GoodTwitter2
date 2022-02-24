@@ -3,9 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: ツイートする
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: ヌード
+  contentWarningViolence: 暴力的
+  contentWarningSensitiveContent: センシティブな内容
   joinDate: $date$からTwitterを利用しています
   navBookmarks: ブックマーク
   navMessages: メッセージ
@@ -59,7 +59,7 @@ settings:
     hideTranslateTweetButton: ツイートを翻訳ボタンを非表示にする
     tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
     hidePromoteTweetButton: プロモートツイートボタンを隠す
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    showMediaWithContentWarnings: コンテンツ警告のあるメディアを常に表示する
 
   sidebars:
     stickySidebars: サイドバーの固定
@@ -73,8 +73,8 @@ settings:
   profile:
     legacyProfile: プロフィールページを旧UIのレイアウトに変更する
     squareAvatars: 四角いアイコン表示
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: クイックブロックを有効化
+    disableHexagonAvatars: 六角形アイコンを無効化する
+    enableQuickBlock: クイックブロックを有効化する
     enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
