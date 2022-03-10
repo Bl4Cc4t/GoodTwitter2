@@ -3,9 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: 트윗
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: 나체 노출
+  contentWarningViolence: 폭력
+  contentWarningSensitiveContent: 민감한 내용
   joinDate: "가입일: $date$"
   navBookmarks: 북마크
   navMessages: 쪽지
@@ -58,8 +58,8 @@ settings:
   tweets:
     hideTranslateTweetButton: 트윗 번역 버튼 숨기기
     tweetIconsPullLeft: 트윗 아이콘을 왼쪽으로 옮기기
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hidePromoteTweetButton: “트윗 홍보” 버튼 숨기기
+    showMediaWithContentWarnings: 항상 콘텐츠 경고가 있는 미디어 표시
 
   sidebars:
     stickySidebars: 사이드바 고정
@@ -73,7 +73,7 @@ settings:
   profile:
     legacyProfile: 예전 프로필 레이아웃
     squareAvatars: 사각형 프로필 사진
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    disableHexagonAvatars: 육각형 프로필 사진 비활성화
     enableQuickBlock: 빠른 차단 활성화
     enableQuickBlockDesc: 팔로우 버튼에 마우스를 3초간 올려 사용자를 차단할수 있도록 합니다.
     leftMedia: 왼쪽 사이드바 미디어
@@ -81,7 +81,7 @@ settings:
 
   global-look:
     hideFollowSuggestions: 팔로우 추천 숨기기
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    hideFollowSuggestionsBox: 숨기기 $type$ 위치 $location$
     fontOverride: 사용자 폰트 사용
     fontOverrideDesc: 기본 폰트 대신 사용할 폰트를 지정합니다. 설치된 폰트를 지정해야 동작합니다.
     colorOverride: 사용자 지정 색상 사용
