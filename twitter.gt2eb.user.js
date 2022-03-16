@@ -996,7 +996,7 @@
       const i = {
         $banner:        $("a[href$='/header_photo'] img"),
         avatarUrl:      $profile.find("a[href$='/photo'] img, a[href$='/nft'] img").first(),
-        screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
+        screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span:contains(@)").text().slice(1),
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
@@ -1111,7 +1111,7 @@
               $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
               $fyk:         $profile.find("> div:last-child:not(:nth-child(2)) > div:last-child:first-child")
             }
-            i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
+            i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span:contains(@)").text().slice(1)
             i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
             i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
             if (i.screenName == "") {
