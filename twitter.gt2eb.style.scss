@@ -2629,7 +2629,7 @@ a.gt2-trend {
 // trends
 .gt2-trends-handled,
 .gt2-trends section {
-  & > div > div > div > div {
+  & > div > div {
     & > div {
       // smaller padding next to the trends cog
       &:nth-child(1) {
@@ -2642,8 +2642,7 @@ a.gt2-trend {
     }
 
     // ChirpUpdate: readd vertical dividers
-    a[href="/i/trends"],
-    & > div:not(:first-child) {
+    & > div:nth-child(n+3) {
       @include separatorTop;
     }
   }
