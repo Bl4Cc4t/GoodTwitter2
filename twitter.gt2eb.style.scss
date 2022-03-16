@@ -604,7 +604,7 @@ $notLegacyProfile: "
   }
   body[data-gt2-path="messages"],
   body[data-gt2-path^="messages/"],
-  body[data-gt2-path="i/moment_maker"] {
+  body[data-gt2-path^="i/moment_maker"] {
     main > div > div > div > div:nth-last-child(2) {
       top: 56px;
       position: sticky;
@@ -877,7 +877,7 @@ body[data-gt2-path="home"] {
 // messages page
 body[data-gt2-path="messages"],
 body[data-gt2-path^="messages/"],
-body[data-gt2-path="i/moment_maker"] {
+body[data-gt2-path^="i/moment_maker"] {
   .gt2-left-sidebar {
     display: none;
   }
@@ -910,11 +910,11 @@ body[data-gt2-path="i/moment_maker"] {
           &,
           & > div > div,
           & > div > div:nth-child(1) > div > div > div > div,
-          & > div > div:nth-child(2) > div > div > div > div > div > div {
+          & > div > div:nth-child(2) > div > div > div:not([style]) > div > div > div {
             max-width: unset;
             margin: unset;
           }
-          & > div > div:nth-child(2) > div > div > div > div > div > div {
+          & > div > div:nth-child(2) > div > div > div:not([style]) > div > div > div {
             padding: unset;
             div:not([class]):not([style]):not(:first-child) {
               padding: 0 16px;
@@ -944,8 +944,8 @@ body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
     }
   }
 }
-body[data-gt2-path="i/moment_maker"] {
-  section:nth-of-type(1) > div:nth-child(2) {
+body[data-gt2-path^="i/moment_maker"] {
+  section {
     background-color: var(--color-elem);
   }
 }
