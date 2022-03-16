@@ -1135,7 +1135,7 @@
             `)
 
             GM_setValue("hasRun_InsertFYK", false)
-            waitForKeyElements(`a[href$="/followers_you_follow"] img`, e => {
+            waitForKeyElements(`a[href$="/followers_you_follow"] div[style*=background-image] + img`, e => {
               if (!GM_getValue("hasRun_InsertFYK")) {
                 $(".gt2-legacy-profile-fyk").html($(e).parents(`a[href$="/followers_you_follow"]`).prop("outerHTML"))
                 GM_setValue("hasRun_InsertFYK", true)
