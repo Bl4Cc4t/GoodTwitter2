@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.36.1
+// @version       0.0.37
 // @description   A try to make Twitter look good again
 // @author        schwarzkatz
 // @license       MIT
@@ -981,8 +981,12 @@
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img,
-                        a[href='/${currentScreenName}/nft' i] img`, () => {
+    waitForKeyElements([
+      `a[href="/${currentScreenName}/photo" i] img`,
+      `a[href="/${currentScreenName}/nft" i] img`,
+      `${profileSel} [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
+      `${profileSel} [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
+    ].join(", "), (e) => {
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -996,7 +1000,7 @@
       const i = {
         $banner:        $("a[href$='/header_photo'] img"),
         avatarUrl:      $profile.find("a[href$='/photo'] img, a[href$='/nft'] img").first(),
-        screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1),
+        screenName:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span:contains(@)").text().slice(1),
         followsYou:     $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html(),
         joinDateHTML:   $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
@@ -1111,7 +1115,7 @@
               $items:       $profile.find("div[data-testid=UserProfileHeader_Items]"),
               $fyk:         $profile.find("> div:last-child:not(:nth-child(2)) > div:last-child:first-child")
             }
-            i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > span").text().slice(1)
+            i.screenName  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) span:contains(@)").text().slice(1)
             i.followsYou  = $profile.find("> div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)")
             i.nameHTML    = $profile.find("> div:nth-child(2) > div > div > div:nth-child(1) > div").html()
             if (i.screenName == "") {
@@ -1135,7 +1139,7 @@
             `)
 
             GM_setValue("hasRun_InsertFYK", false)
-            waitForKeyElements(`a[href$="/followers_you_follow"] img`, e => {
+            waitForKeyElements(`a[href$="/followers_you_follow"] div[style*=background-image] + img`, e => {
               if (!GM_getValue("hasRun_InsertFYK")) {
                 $(".gt2-legacy-profile-fyk").html($(e).parents(`a[href$="/followers_you_follow"]`).prop("outerHTML"))
                 GM_setValue("hasRun_InsertFYK", true)
@@ -1152,12 +1156,10 @@
 
     })
 
-    // profile suspended / not found / temporarily restricted (first view)
+    // profile suspended / not found
     waitForKeyElements([
       `body:not([data-gt2-path^="messages"]) [data-testid=emptyState] > div:nth-child(2) > *:not(a)`, // not found
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`, // suspended
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
-      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]` // temporarily unavailable (Media Policy Violation)
+      `[data-testid=emptyState] [href="https://help.twitter.com/rules-and-policies/twitter-rules"]`   // suspended
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
@@ -1213,7 +1215,7 @@
           ${i.nameHTML ? `
             <div class="gt2-legacy-profile-screen-name-wrap">
               <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-              @<span>${i.screenName}</span>
+                @<span>${i.screenName}</span>
               </a>
             </div>
           ` : ""}
@@ -1821,6 +1823,10 @@
   $("body").on("mouseleave", `[data-testid$="-unfollow"][data-gt2-just-clicked-follow]`, e => $(e.target).parents(`[data-testid$="-unfollow"]`).removeAttr("data-gt2-just-clicked-follow"))
 
 
+  // [LPL] enlarge profile image when clicking on it
+  $("body").on("click", ".gt2-legacy-profile-nav-avatar", () => $(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)`).find(`a[href$="/photo"] img, a[href$="/nft"] img`).first().click())
+
+
 
   // ########################
   // #        tweets        #
@@ -2409,7 +2415,7 @@
 
     // assume profile page
     if (!isModal || onSubPage("intent", ["user"])) {
-      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
+      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
             || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
           || onSubPage("intent", ["user"])) {
 
