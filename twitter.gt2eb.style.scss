@@ -914,12 +914,6 @@ body[data-gt2-path^="i/moment_maker"] {
             max-width: unset;
             margin: unset;
           }
-          & > div > div:nth-child(2) > div > div > div:not([style]) > div > div > div {
-            padding: unset;
-            div:not([class]):not([style]):not(:first-child) {
-              padding: 0 16px;
-            }
-          }
         }
       }
     }
@@ -1928,6 +1922,15 @@ body:not(.gt2-opt-small-sidebars) {
   li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div {
     border-radius: 10% !important;
   }
+
+  // /messages typing avatar
+  &[data-gt2-path^="messages/"] section:nth-last-child(1) div:not([class]) > div:not([class]) > div:not([class]):last-child {
+    div:empty + div > div,
+    [role=presentation] > div {
+      border-radius: 10% !important;
+    }
+  }
+
 
   // tweet reply modal
   #layers [aria-modal=true] {
