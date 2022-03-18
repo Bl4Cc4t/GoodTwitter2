@@ -1,10 +1,23 @@
 # Changelog
 
+## [0.0.37](https://github.com/Bl4Cc4t/GoodTwitter2/pull/421)
+*released 2022-03-18*
+
+#### New
+- added indonesian translation (thanks [@NekoSam395!](https://github.com/NekoSam395))
+
+#### Changes
+- updated japanese, korean & russian translation
+- fixed moment_maker issues ()[#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
+- fixed legacy profile layout issues, showing wrong values on profile pages ([#420](https://github.com/Bl4Cc4t/GoodTwitter2/issues/420))
+
+
 ## [0.0.36.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/399)
 *released 2022-01-28*
 
 #### Changes
 - styling fixes.
+
 
 ## [0.0.36](https://github.com/Bl4Cc4t/GoodTwitter2/pull/394)
 *released 2022-01-27*

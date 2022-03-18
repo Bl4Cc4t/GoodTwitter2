@@ -65,6 +65,7 @@ Thanks to these awesome people, there are translations available for the followi
 - Traditional Chinese (added by [@roy4801](https://github.com/roy4801))
 - Dutch (added by [@gvmelle](https://github.com/gvmelle))
 - French (added by [@Aridow](https://github.com/Aridow))
+- Indonesian (added by [@NekoSam395!](https://github.com/NekoSam395))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
 - Polish (added by [@mkljczk](https://github.com/mkljczk))
