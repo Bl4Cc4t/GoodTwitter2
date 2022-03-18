@@ -1942,6 +1942,13 @@ body:not(.gt2-opt-small-sidebars) {
     }
   }
 
+  // enlarge profile picture
+  &.gt2-page-profile[data-gt2-path$="/photo"] {
+    #layers [data-testid=swipe-to-dismiss] > div > div > div {
+      border-radius: 10% !important;
+    }
+  }
+
   // quote retweets
   [data-testid=tweet] [aria-labelledby] > div > div:not([data-testid="card.wrapper"]) > [role=link] > div > div:nth-child(1) [style]:empty + div > div {
     &,
