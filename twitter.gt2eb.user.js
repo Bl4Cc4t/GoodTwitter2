@@ -1821,6 +1821,10 @@
   $("body").on("mouseleave", `[data-testid$="-unfollow"][data-gt2-just-clicked-follow]`, e => $(e.target).parents(`[data-testid$="-unfollow"]`).removeAttr("data-gt2-just-clicked-follow"))
 
 
+  // [LPL] enlarge profile image when clicking on it
+  $("body").on("click", ".gt2-legacy-profile-nav-avatar", () => $(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)`).find(`a[href$="/photo"] img, a[href$="/nft"] img`).first().click())
+
+
 
   // ########################
   // #        tweets        #

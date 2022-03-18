@@ -1540,6 +1540,11 @@ body[data-payment-endpoint-path] {
       // avatar
       .gt2-legacy-profile-nav-avatar img {
         border-radius: 9999px;
+        transition: 0.25s filter;
+        &:hover {
+          filter: brightness(.85);
+          cursor: pointer;
+        }
       }
       & > div {
         display: flex;
