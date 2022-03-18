@@ -981,8 +981,12 @@
 
     let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
 
-    waitForKeyElements(`a[href='/${currentScreenName}/photo' i] img,
-                        a[href='/${currentScreenName}/nft' i] img`, () => {
+    waitForKeyElements([
+      `a[href="/${currentScreenName}/photo" i] img`,
+      `a[href="/${currentScreenName}/nft" i] img`,
+      `${profileSel} [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
+      `${profileSel} [data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]`  // temporarily unavailable (Media Policy Violation)
+    ].join(", "), (e) => {
       // remove previously added profile
       if ($(".gt2-legacy-profile-nav").length) {
         $(".gt2-legacy-profile-banner, .gt2-legacy-profile-nav").remove()
@@ -1152,12 +1156,10 @@
 
     })
 
-    // profile suspended / not found / temporarily restricted (first view)
+    // profile suspended / not found
     waitForKeyElements([
       `body:not([data-gt2-path^="messages"]) [data-testid=emptyState] > div:nth-child(2) > *:not(a)`, // not found
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/18311"]`, // suspended
-      `[data-testid=emptyState] [href="https://support.twitter.com/articles/20169222"]`, // withheld in country
-      `[data-testid=UserDescription] [href="https://support.twitter.com/articles/20169199"]` // temporarily unavailable (Media Policy Violation)
+      `[data-testid=emptyState] [href="https://help.twitter.com/rules-and-policies/twitter-rules"]`   // suspended
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
@@ -1213,7 +1215,7 @@
           ${i.nameHTML ? `
             <div class="gt2-legacy-profile-screen-name-wrap">
               <a href="/${i.screenName}" class="gt2-legacy-profile-screen-name">
-              @<span>${i.screenName}</span>
+                @<span>${i.screenName}</span>
               </a>
             </div>
           ` : ""}
