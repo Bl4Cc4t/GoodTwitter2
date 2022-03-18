@@ -2415,7 +2415,7 @@
 
     // assume profile page
     if (!isModal || onSubPage("intent", ["user"])) {
-      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings")
+      if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
             || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
           || onSubPage("intent", ["user"])) {
 
