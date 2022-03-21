@@ -1736,7 +1736,7 @@
     // exit if tweet has no links
     if (!$tweet.find(`a[href^="http://t.co"], a[href^="https://t.co"], [data-testid="card.wrapper"]`).length) return
 
-    let id = $("body").is(".gt2-page-tweet")
+    let id = !$tweet.find(`time`).length && $("body").is(".gt2-page-tweet")
       ? getPath().split("/")[2].split("?")[0].split("#")[0]
       : $tweet.find(`time`).parent().attr("href").split("/status/")[1]
 
