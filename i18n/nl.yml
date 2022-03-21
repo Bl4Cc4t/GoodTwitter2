@@ -3,9 +3,9 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeten
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Naaktheid
+  contentWarningViolence: Geweld
+    contentWarningSensitiveContent: Gevoelige inhoud
   joinDate: Lid geworden in $date$
   navBookmarks: Bladwijzers
   navMessages: Berichten
@@ -27,8 +27,8 @@ twitter-default:
 script:
   bornDate: Geboren op $date$
   bornYear: Geboren in $year$
-  favorite: Favorite # TODO translation missing!
-  favorites: Favorites # TODO translation missing!
+  favorite: Favoriet
+  favorites: Favorieten
   followedBy0: Niet gevolgd door iemand die je volgt
   followedBy1: Gevolgd door $p1$
   followedBy2: Gevolgd door $p1$ en $p2$
@@ -46,7 +46,7 @@ settings:
   headers:
     settingsHeaderTimeline: Tijdlijn
     settingsHeaderSidebars: Zijbalken
-    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderGlobalLook: Globaal uiterlijk
     settingsHeaderOther: Diversen
 
   timeline:
@@ -57,9 +57,9 @@ settings:
 
   tweets:
     hideTranslateTweetButton: Verberg de Vertaal Tweet knop
-    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    tweetIconsPullLeft: Bundel tweet-interactieknoppen aan de linkerkant
+    hidePromoteTweetButton: Verberg de knop 'Tweet promoten'
+    showMediaWithContentWarnings: Geef altijd media weer met inhoudswaarschuwingen
 
   sidebars:
     stickySidebars: Sticky Zijbalken
@@ -71,27 +71,27 @@ settings:
     show10Trends: Toon altijd 10 Trends
 
   profile:
-    legacyProfile: Legacy profile layout # TODO translation missing!
+    legacyProfile: Verouderde profiellay-out
     squareAvatars: Vierkante Avatars
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
-    leftMedia: Left sidebar media # TODO translation missing!
-    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
+    disableHexagonAvatars: Zeshoekige avatars uitschakelen
+    enableQuickBlock: Quickblock inschakelen
+    enableQuickBlockDesc: Beweeg de muis over de volgknop gedurende 3 seconden om een profiel te blokkeren.
+    leftMedia: Media in de linkerzijbalk
+    leftMediaDesc: Toon de mediacontainer op profielpagina's in de linkerzijbalk.
 
   global-look:
     hideFollowSuggestions: Verberg Wie te volgen
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
-    fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
-    colorOverride: Use custom color # TODO translation missing!
-    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideFollowSuggestionsBox: Verberg $type$ van $location$
+    fontOverride: Aangepast lettertype gebruiken
+    fontOverrideDesc: Stel een aangepast lettertype in om het standaardlettertype te overschrijven. Dit werkt alleen als je het lettertype hebt geïnstalleerd.
+    colorOverride: Aangepaste kleur gebruiken
+    colorOverrideDesc: Stel een aangepaste kleur in om de standaardkleur te overschrijven.
     hideMessageBox: Verberg Berichtenbox
     hideMessageBoxDesc: Verbergt de nieuwe, altijd aanwezige berichtenbox in de rechterbenedenhoek.
-    rosettaIcons: Rosetta icons # TODO translation missing!
-    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
-    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+    rosettaIcons: Rosetta-pictogrammen
+    rosettaIconsDesc: Gebruik het Rosetta-pictogramlettertype van vóór 2017
+    favoriteLikes: Vervang vind-ik-leuks door favorieten (voor nu alleen pictogrammen)
 
   other:
     updateNotifications: GoodTwitter 2 Update Notificaties
-    expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!
+    expandTcoShortlinks: Vouw t.co shortlinks uit
