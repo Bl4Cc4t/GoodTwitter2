@@ -1517,44 +1517,49 @@
 
 
   // translate a tweet or LPL bio
-  $("body").on("click", ".gt2-translate-tweet, .gt2-legacy-profile-info [data-testid=UserDescription] + [role=button]", function(event) {
+  $("body")[0].addEventListener("click", function(event) {
+    if (!$(event.target).is(".gt2-translate-tweet, .gt2-legacy-profile-info [data-testid=UserDescription] + [role=button] span")) return
     event.preventDefault()
+    console.log("translating tweet");
+
+    let target = $(event.target).is(".gt2-translate-tweet") ? event.target : $(event.target).parents("[role=button]")[0]
 
     // already translated
-    if ($(this).parent().find(".gt2-translated-tweet").length) {
-      $(this).addClass("gt2-hidden")
-      $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").removeClass("gt2-hidden")
+    if ($(target).parent().find(".gt2-translated-tweet").length) {
+      $(target).addClass("gt2-hidden")
+      $(target).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").removeClass("gt2-hidden")
       return
     }
 
-    let id = $(this).parents("article[data-testid=tweet]").length
-      ? $(this).parents("article[data-testid=tweet]")
+    let id = $(target).parents("article[data-testid=tweet]").length
+      ? $(target).parents("article[data-testid=tweet]")
         .find(`> div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
                div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`).attr("href").split("/")[3]
       : null
 
     // embedded tweet
-    if ($(this).parents("[role=link]").parents("article[data-testid=tweet]").length) {
-      requestTweet(id, res => translateTweet(this, res.quoted_status_id_str))
+    if ($(target).parents("[role=link]").parents("article[data-testid=tweet]").length) {
+      requestTweet(id, res => translateTweet(target, res.quoted_status_id_str))
 
     // normal tweet with embedded one
-    } else if ($(this).parents("article[data-testid=tweet]").find("[role=link] [lang]").length) {
-      requestTweet(id, res => translateTweet(this, id, res.quoted_status_id_str))
+    } else if ($(target).parents("article[data-testid=tweet]").find("[role=link] [lang]").length) {
+      requestTweet(id, res => translateTweet(target, id, res.quoted_status_id_str))
 
     // normal tweet or bio
     } else {
-      translateTweet(this, id)
+      translateTweet(target, id)
     }
-  })
+  }, true)
 
 
   function translateTweet(e, id, quoteId) {
     let isTweet = $(e).is(".gt2-translate-tweet")
     GM_setValue("tmp_translatedTweetInfo", getLocStr("translatedTweetInfo"))
+    let url = `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${id}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`
 
     GM_xmlhttpRequest({
       method: "GET",
-      url:    `https://twitter.com/i/api/1.1/strato/column/None/${isTweet ? `tweetId=${id}` : `profileUserId=${$(".gt2-legacy-profile-info").data("profile-id")}`},destinationLanguage=None,translationSource=Some(Google),feature=None,timeout=None,onlyCached=None/translation/service/translate${isTweet ? "Tweet" : "Profile"}`,
+      url,
       headers: getRequestHeaders(isTweet ? {
         referer: `https://twitter.com/i/status/${id}`
       } : {}),
@@ -1596,6 +1601,7 @@
           `)
         } else {
           console.error("Error occurred while translating.")
+          console.error(url)
           console.error(res)
         }
       }
@@ -1604,12 +1610,14 @@
 
 
   // hide translation
-  $("body").on("click", ".gt2-translated-tweet-info", function(event) {
+
+  $("body")[0].addEventListener("click", function(event) {
+    if (!$(event.target).is(".gt2-translated-tweet-info")) return
     event.preventDefault()
 
-    $(this).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").addClass("gt2-hidden")
-    $(this).prevAll(".gt2-translate-tweet, [role=button]").removeClass("gt2-hidden")
-  })
+    $(event.target).parent().find(".gt2-translated-tweet, .gt2-translated-tweet-info").addClass("gt2-hidden")
+    $(event.target).prevAll(".gt2-translate-tweet, [role=button]").removeClass("gt2-hidden")
+  }, true)
 
 
 
