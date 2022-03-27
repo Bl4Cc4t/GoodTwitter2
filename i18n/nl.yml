@@ -5,9 +5,10 @@ twitter-default:
   composeNewTweet: Tweeten
   contentWarningNudity: Naaktheid
   contentWarningViolence: Geweld
-    contentWarningSensitiveContent: Gevoelige inhoud
+  contentWarningSensitiveContent: Gevoelige inhoud
   joinDate: Lid geworden in $date$
   navBookmarks: Bladwijzers
+  navCommunities: Communities # TODO translation missing!
   navMessages: Berichten
   navExplore: Verkennen
   navHome: Startpagina

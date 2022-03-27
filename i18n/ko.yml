@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: 민감한 내용
   joinDate: "가입일: $date$"
   navBookmarks: 북마크
+  navCommunities: Communities # TODO translation missing!
   navMessages: 쪽지
   navExplore: 탐색하기
   navHome: 홈

@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: センシティブな内容
   joinDate: $date$からTwitterを利用しています
   navBookmarks: ブックマーク
+  navCommunities: Communities # TODO translation missing!
   navMessages: メッセージ
   navExplore: 話題を検索
   navHome: ホーム

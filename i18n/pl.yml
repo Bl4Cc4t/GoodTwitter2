@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Dołączył/a $date$
   navBookmarks: Zakładki
+  navCommunities: Communities # TODO translation missing!
   navMessages: Wiadomości
   navExplore: Przeglądaj
   navHome: Główna

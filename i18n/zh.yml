@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: $date$ 加入
   navBookmarks: 书签
+  navCommunities: Communities # TODO translation missing!
   navMessages: 私信
   navExplore: 探索
   navHome: 主页
