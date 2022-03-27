@@ -1610,7 +1610,6 @@
 
 
   // hide translation
-
   $("body")[0].addEventListener("click", function(event) {
     if (!$(event.target).is(".gt2-translated-tweet-info")) return
     event.preventDefault()
@@ -1646,20 +1645,24 @@
       // items from left menu to attach
       let toAttach = [
         {
-          sel:  `a[href='/explore']`,
-          name: "Explore"
-        }, {
-          sel:  `a[href='/i/bookmarks']`,
-          name: "Bookmarks"
+          sel:  `a[href='/${i.screenName}']`,
+          name: "Profile"
         }, {
           sel:  `a[href='/${i.screenName}/lists']`,
           name: "Lists"
         }, {
-          sel:  `a[href='/${i.screenName}']`,
-          name: "Profile"
+          sel:  `a[href='/i/bookmarks']`,
+          name: "Bookmarks"
+        }, {
+          sel:  `a[href='/i/communities']`,
+          name: "Communities"
+        }, {
+          sel:  `a[href='/explore']`,
+          name: "Explore"
         }
       ]
-      for (let e of toAttach) {
+      for (let e of toAttach.reverse()) {
+        if (!$("header nav").find(e.sel).length) continue
         let $tmp = $("header nav").find(e.sel).clone()
         $tmp.children().append(`<span>${getLocStr(`nav${e.name}`)}</span>`)
         $tmp.prependTo(more)
@@ -2424,7 +2427,7 @@
     // assume profile page
     if (!isModal || onSubPage("intent", ["user"])) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
-            || onSubPage(null, ["followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
+            || onSubPage(null, ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
           || onSubPage("intent", ["user"])) {
 
         $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
