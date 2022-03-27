@@ -894,6 +894,10 @@ body[data-gt2-path^="i/moment_maker"] {
         div[data-testid=conversation] {
           @include separatorBottom;
 
+          & > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(1) > div {
+            overflow-x: hidden;
+          }
+
           &[aria-selected=true] {
             background-color: var(--color-elem-sel);
             & + div {
