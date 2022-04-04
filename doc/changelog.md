@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.38](https://github.com/Bl4Cc4t/GoodTwitter2/pull/427)
+*released 2022-04-04*
+
+#### Changes
+- fixed t.co shortlink expansion on tweet pages
+- fixed translation button in timeline ([#425](https://github.com/Bl4Cc4t/GoodTwitter2/issues/425))
+- added communities (experimental, not able to test this myself, see [#425](https://github.com/Bl4Cc4t/GoodTwitter2/issues/424))
+
+Not many this time, sorry. I'm a bit short on time atm
+
+
 ## [0.0.37](https://github.com/Bl4Cc4t/GoodTwitter2/pull/421)
 *released 2022-03-18*
 
@@ -8,7 +19,7 @@
 
 #### Changes
 - updated japanese, korean & russian translation
-- fixed moment_maker issues ()[#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
+- fixed moment_maker issues ([#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
 - fixed legacy profile layout issues, showing wrong values on profile pages ([#420](https://github.com/Bl4Cc4t/GoodTwitter2/issues/420))
 
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.37
-// @description   A try to make Twitter look good again
+// @version       0.0.38
+// @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
