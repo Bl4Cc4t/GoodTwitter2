@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: S-a alăturat în $date$
   navBookmarks: Marcaje
+  navCommunities: Communities # TODO translation missing!
   navMessages: Mesaje
   navExplore: Explorează
   navHome: Pagina principală

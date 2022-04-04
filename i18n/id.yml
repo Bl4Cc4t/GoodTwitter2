@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweet
@@ -13,6 +12,7 @@ twitter-default:
   contentWarningSensitiveContent: Konten sensitif
   joinDate: Bergabung $date$
   navBookmarks: Markah
+  navCommunities: Communities # TODO translation missing!
   navMessages: Pesan
   navExplore: Jelajahi
   navHome: Beranda
@@ -27,7 +27,6 @@ twitter-default:
   topics: Topik
   translateTweet: Terjemahkan Tweet
   users: Pengguna
-
 
 # strings that are used on various parts within the script.
 script:
@@ -46,7 +45,6 @@ script:
   qbUnblock: Buka blokir
   updatedInfo: Diperbaharui ke $version$!
   updatedInfoChangelog: Log perubahan
-
 
 # these strings are for the gt2 settings page.
 settings:

@@ -8,6 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: Контент деликатного характера
   joinDate: "Регистрация: $date$"
   navBookmarks: Закладки
+  navCommunities: Сообщества
   navMessages: Сообщения
   navExplore: Поиск
   navHome: Главная

@@ -13,6 +13,7 @@ twitter-default:
   contentWarningSensitiveContent: Sensitive content
   joinDate: Joined $date$
   navBookmarks: Bookmarks
+  navCommunities: Communities
   navMessages: Messages
   navExplore: Explore
   navHome: Home
