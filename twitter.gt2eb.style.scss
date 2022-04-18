@@ -1549,13 +1549,15 @@ body[data-payment-endpoint-path] {
         flex-direction: column;
         margin-left: 10px;
 
-        .gt2-legacy-profile-name {
+        .gt2-legacy-profile-name span {
           text-overflow: ellipsis;
         }
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-screen-name-wrap {
-          white-space: nowrap;
-          overflow: hidden;
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
       }
     }
@@ -1876,7 +1878,7 @@ body:not(.gt2-opt-sticky-sidebars) {
 }
 body:not(.gt2-opt-small-sidebars) {
   .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
-    width: calc(360px - 46px);
+    width: calc(360px - 56px);
   }
   .gt2-legacy-profile-nav-center {
     padding-left: 360px;
