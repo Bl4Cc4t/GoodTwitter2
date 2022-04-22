@@ -1158,8 +1158,8 @@
 
     // profile suspended / not found
     waitForKeyElements([
-      `body:not([data-gt2-path^="messages"]) [data-testid=emptyState] > div:nth-child(2) > *:not(a)`, // not found
-      `[data-testid=emptyState] [href="https://help.twitter.com/rules-and-policies/twitter-rules"]`   // suspended
+      `body:not([data-gt2-path^="messages"]) [data-testid=empty_state_body_text] > *:first-child:last-child`, // not found
+      `[data-testid=emptyState] [href="https://help.twitter.com/rules-and-policies/twitter-rules"]`           // suspended
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
       let i = {
