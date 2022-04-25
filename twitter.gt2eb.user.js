@@ -2283,10 +2283,10 @@
     return top.some(e => e == path.split("/")[0])
   }
   function _onSubPage(path, top, sub) {
-    return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == path.split("/")[1])
+    return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == e.includes("/") ? path.split("/").slice(1).join("/") : path.split("/")[1])
   }
   function _isModal(path) {
-    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow"])
+    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow", "lists/add_member"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
         || _onSubPage(path, "account", ["add", "switch"])
