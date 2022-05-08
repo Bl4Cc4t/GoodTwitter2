@@ -1158,7 +1158,7 @@
 
     // profile suspended / not found
     waitForKeyElements([
-      `body:not([data-gt2-path^="messages"]) [data-testid=empty_state_body_text] > *:first-child:last-child`, // not found
+      `body:not([data-gt2-path^="messages"]) [data-testid=empty_state_body_text] > *:not(a):first-child:last-child`, // not found
       `[data-testid=emptyState] [href="https://help.twitter.com/rules-and-policies/twitter-rules"]`           // suspended
     ].join(", "), () => {
       let $tmp = $(profileSel).find("> div:nth-child(2) > div > div")
@@ -1849,7 +1849,7 @@
     if (GM_getValue("opt_gt2").showMediaWithContentWarnings && GM_getValue("opt_gt2").showMediaWithContentWarningsSel < 7) {
       let $tweet = $(e).closest("[data-testid=tweet]")
 
-      if ($(e).closest("[aria-labelledby]").find("> div > div > div:nth-child(2)").length) {
+      if ($(e).closest("[aria-labelledby]").find("> div > div > div > div:nth-child(2)").length) {
         let id = $("body").is(".gt2-page-tweet")
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]
