@@ -1943,7 +1943,7 @@
         if ($p.find("article").length) return
         $p.addClass("gt2-hidden")
       } else {
-        if (window.scrollY < 500) return
+        // if (window.scrollY < 500) return
         setTimeout(() => {
           $p = hideTLFS($p)
         }, 100)
