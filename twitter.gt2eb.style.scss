@@ -734,7 +734,7 @@ main {
         }
 
         // ChirpUpdate: readd vertical dividers
-        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(.gt2-hidden) + div:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
           @include separatorBottom;
 
           & > div:empty {
@@ -2126,7 +2126,7 @@ body:not(.gt2-opt-color-override) {
 .gt2-opt-show-media-with-content-warnings {
   *:not([data-testid=placementTracking]) > * > [data-testid=tweet][data-gt2-show-media],
   &.gt2-opt-show-media-with-content-warnings-sel-7 *:not([data-testid=placementTracking]) > * > [data-testid=tweet] {
-    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]) > div:not([data-testid]) > div:not([role]) {
+    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]):not([role]) > div:not([role]) > div:not([role]) {
       &:nth-child(1) {
         filter: unset;
       }
@@ -2136,6 +2136,12 @@ body:not(.gt2-opt-color-override) {
       }
     }
   }
+}
+
+// hide follow suggestions (divider line)
+[data-testid=cellInnerDiv].gt2-hidden + div > div > div:empty {
+  height: 0;
+  margin: 0;
 }
 
 // hide translated tweets

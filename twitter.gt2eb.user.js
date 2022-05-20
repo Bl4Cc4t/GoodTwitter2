@@ -1935,7 +1935,7 @@
 
 
   // hide timeline follow suggestions
-  if (GM_getValue("opt_gt2").hideFollowSuggestions && (GM_getValue("opt_gt2").hideFollowSuggestionsLocSel & 1) == 1) {
+  if (GM_getValue("opt_gt2").hideFollowSuggestions) {
     function hideTLFS($p) {
       if (!$p) return $p
       if ($p.prev().length) {
@@ -1951,11 +1951,6 @@
       return $p
     }
 
-    // small follow topic above tweets
-    // if ((GM_getValue("opt_gt2").hideFollowSuggestionsSel & 1) == 1) {
-    //   waitForKeyElements(`[data-gt2-path=home] [data-testid=primaryColumn] section article > div > div > div > div:not([data-testid=tweet]) > div > div > div`, e => $(e).addClass("gt2-hidden"))
-    // }
-
     // big follow boxes
     waitForKeyElements(
       ["topics/picker", "connect_people", "lists/suggested"]
@@ -1963,9 +1958,8 @@
       .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
       .join(", "), e => {
 
-      let $p = $(e).parent().parent().addClass("gt2-hidden")
-      if ($p.next().length) $p.next().addClass("gt2-hidden")
-      if ($p.next().next().find("div > div:empty").length) $p.next().next().addClass("gt2-hidden")
+      let $p = $(e).parents("[data-testid=cellInnerDiv]").addClass("gt2-hidden")
+      if ($p.next().find("div > div:empty").length) $p.next().addClass("gt2-hidden")
       for (let i=0; i < 6; i++) {
         $p = hideTLFS($p)
       }
@@ -1984,8 +1978,7 @@
   })
 
   // do not add dividers to tweet inline threads
-  waitForKeyElements(`[style*="position: absolute"] > div > div > a[href^="/i/status/"],
-                      [style*="position: absolute"] > div > div > article`, e => $(e).parents(`[style*="position: absolute"]`).children().attr("data-gt2-divider-add-ignore", ""))
+  waitForKeyElements(`[data-testid=cellInnerDiv] [data-testid=tweet]`, e => $(e).parents(`[data-testid=cellInnerDiv]`).children().attr("data-gt2-divider-add-ignore", ""))
 
   // color notifications bell
   waitForKeyElements(`path[d^="M23.61.15c-.375"]`, e => $(e).parents("[role=button]").attr("data-gt2-bell-full-color", ""))
