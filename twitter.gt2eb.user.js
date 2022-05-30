@@ -1978,7 +1978,7 @@
   })
 
   // do not add dividers to tweet inline threads
-  waitForKeyElements(`[data-testid=cellInnerDiv] [data-testid=tweet],
+  waitForKeyElements(`[data-testid=cellInnerDiv] article,
                       [data-testid=cellInnerDiv] a[href^="/i/status/"]`, e => $(e).parents(`[data-testid=cellInnerDiv]`).children().attr("data-gt2-divider-add-ignore", ""))
 
   // color notifications bell
