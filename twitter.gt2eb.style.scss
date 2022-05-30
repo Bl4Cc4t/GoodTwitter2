@@ -747,6 +747,11 @@ main {
           }
         }
 
+        [data-testid=cellInnerDiv] [data-gt2-divider-add-ignore] a[href^="/i/status/"] {
+          margin: unset;
+          padding-left: 16px;
+        }
+
         & > div:nth-child(2) > div > section > div > div {
           padding-bottom: 0 !important;
           & > div > div:not([class]) {
