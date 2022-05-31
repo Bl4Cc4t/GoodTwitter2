@@ -5,6 +5,7 @@
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
+// @match         https://mobile.twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
 // @exclude       https://twitter.com/i/release_notes
 // @exclude       https://twitter.com/*/privacy
@@ -32,6 +33,18 @@
 
 (function($, waitForKeyElements) {
   "use strict"
+
+  // redirect for mobile urls
+  function checkSite(site) {
+    if (site.host == 'mobile.twitter.com') {
+      return site.href.replace('//mobile.twitter.com', '//twitter.com');
+    }
+    return false;
+  }
+  var destination = checkSite(window.location);
+  if (destination !== false) {
+    window.location.href = destination;
+  }
 
   // do not execute on these pages
   if (getPath().match(/^login(\?.*)?$/) || (!isLoggedIn() && getPath().match(/^(\?.*)?$/))) {
