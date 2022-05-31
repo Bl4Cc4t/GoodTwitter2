@@ -1253,16 +1253,14 @@
   // handle trends (wrap, move and show10)
   function handleTrends() {
     let w = window.innerWidth
-    let trends = `div[data-testid=trend]:not(.gt2-trend-wrapped),
-                  section[aria-labelledby^=accessible-list] a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
+    let trends = `section:not(.gt2-trends-handled) div[data-testid=trend]:not(.gt2-trend-wrapped),
+                  section[aria-labelledby^=accessible-list]:not(.gt2-trends-handled) a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
 
-    waitForKeyElements(trends, () => {
-
+    waitForKeyElements(trends, e => {
       // actions for the whole container
       if (!$(trends).parents("section").hasClass("gt2-trends-handled")
         && $(trends).parents("div[data-testid=sidebarColumn]").length
       ) {
-        $(trends).parents("section").addClass("gt2-trends-handled")
 
         // hide trends
         if (GM_getValue("opt_gt2").hideTrends) {
@@ -1282,15 +1280,17 @@
         }
 
         // show 10 trends
-        if (GM_getValue("opt_gt2").show10Trends) {
-          if ($(trends).parent().parent().find("> div").length == 7) {
-            $(trends).parent().parent().find("> div[role=button]").click()
-          }
+        if (GM_getValue("opt_gt2").show10Trends
+            && $(trends).parent().parent().find("> div").length == 7) {
+          $(trends).parent().parent().find("> div[role=button]").click()
         }
+
+        $(trends).parents("section").addClass("gt2-trends-handled")
       }
 
+
       // wrap trends in anchors
-      $(trends).each(function() {
+      $(e).each(function() {
         let $toWrap = $(this).find("> div > div:nth-child(2) > span [dir]")
         if ($toWrap.length) {
           $(this).addClass("gt2-trend-wrapped")
