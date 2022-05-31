@@ -73,7 +73,7 @@ settings:
     hideTrends: Sembunyikan tren
     leftTrends: Bilah sisi tren kiri
     leftTrendsDesc: Tampilkan tren di bilah sisi kiri.
-    show10Trends: Selalu munculkan 10 tren
+    show5Trends: Selalu munculkan 5 tren
 
   profile:
     legacyProfile: Tampilan profil lawas

@@ -69,7 +69,7 @@ settings:
     hideTrends: 트렌드 숨기기
     leftTrends: 왼쪽 사이드바 트렌드
     leftTrendsDesc: 왼쪽 사이드바에 트렌드를 표시합니다.
-    show10Trends: 항상 트렌드 10개 표시
+    show5Trends: 항상 트렌드 5개 표시
 
   profile:
     legacyProfile: 예전 프로필 레이아웃

@@ -734,7 +734,7 @@ main {
         }
 
         // ChirpUpdate: readd vertical dividers
-        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
+        section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(.gt2-hidden) + div:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
           @include separatorBottom;
 
           & > div:empty {
@@ -745,6 +745,11 @@ main {
           [data-testid=placementTracking] {
             @include separatorTop;
           }
+        }
+
+        [data-testid=cellInnerDiv] [data-gt2-divider-add-ignore] a[href^="/i/status/"] {
+          margin: unset;
+          padding-left: 16px;
         }
 
         & > div:nth-child(2) > div > section > div > div {
@@ -1549,13 +1554,15 @@ body[data-payment-endpoint-path] {
         flex-direction: column;
         margin-left: 10px;
 
-        .gt2-legacy-profile-name {
+        .gt2-legacy-profile-name span {
           text-overflow: ellipsis;
         }
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-screen-name-wrap {
-          white-space: nowrap;
-          overflow: hidden;
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
       }
     }
@@ -1640,8 +1647,13 @@ body[data-payment-endpoint-path] {
     }
 
     .gt2-legacy-profile-screen-name-wrap,
-    .gt2-legacy-profile-description:not(:empty) {
+    .gt2-legacy-profile-description:not(:empty),
+    .gt2-legacy-profile-automated {
       margin-bottom: 12px !important;
+    }
+
+    .gt2-legacy-profile-automated {
+      margin: unset;
     }
 
     .gt2-legacy-profile-items > *:not(:last-child) {
@@ -1716,9 +1728,8 @@ body[data-payment-endpoint-path] {
           img {
             width: 200px;
             height: 200px;
-            position: relative;
-            bottom: 50px;
           }
+          margin-bottom: 100px;
         }
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-screen-name-wrap {
@@ -1876,10 +1887,17 @@ body:not(.gt2-opt-sticky-sidebars) {
 }
 body:not(.gt2-opt-small-sidebars) {
   .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
-    width: calc(360px - 46px);
+    width: calc(360px - 56px);
   }
   .gt2-legacy-profile-nav-center {
     padding-left: 360px;
+  }
+}
+
+// show 5 trends
+.gt2-opt-show-5-trends {
+  .gt2-trends-handled > div > div > div:nth-child(n+8):nth-child(-n+12) {
+    display: none !important;
   }
 }
 
@@ -2124,7 +2142,7 @@ body:not(.gt2-opt-color-override) {
 .gt2-opt-show-media-with-content-warnings {
   *:not([data-testid=placementTracking]) > * > [data-testid=tweet][data-gt2-show-media],
   &.gt2-opt-show-media-with-content-warnings-sel-7 *:not([data-testid=placementTracking]) > * > [data-testid=tweet] {
-    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]) > div:not([role]) {
+    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]):not([role]) > div:not([role]) > div:not([role]) {
       &:nth-child(1) {
         filter: unset;
       }
@@ -2134,6 +2152,12 @@ body:not(.gt2-opt-color-override) {
       }
     }
   }
+}
+
+// hide follow suggestions (divider line)
+[data-testid=cellInnerDiv].gt2-hidden + div > div > div:empty {
+  height: 0;
+  margin: 0;
 }
 
 // hide translated tweets

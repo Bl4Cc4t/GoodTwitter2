@@ -69,7 +69,7 @@ settings:
     hideTrends: Esconder Trends
     leftTrends: Barra lateral esquerda de Trends
     leftTrendsDesc: Mostre os trends na barra lateral esquerda.
-    show10Trends: Apenas Mostrar 10 Trends
+    show5Trends: Apenas Mostrar 5 Trends
 
   profile:
     legacyProfile: Layout de Perfil Legado

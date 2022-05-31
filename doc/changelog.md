@@ -1,12 +1,24 @@
 # Changelog
 
+## [0.0.39](https://github.com/Bl4Cc4t/GoodTwitter2/pull/440)
+*released 2022-05-31*
+
+#### Changes
+- "Show 10 trends" is now "Show 5 trends", since 10 are now the default amount on the site
+- fixed "Hide follow suggestions" not working ([#438](https://github.com/Bl4Cc4t/GoodTwitter2/issues/438))
+- fixed "Show media with content warnings"
+- hopefully fixed communities button ([#424](https://github.com/Bl4Cc4t/GoodTwitter2/issues/424))
+- changed the way the "Legacy profile layout" gets built, possible fix for [#232](https://github.com/Bl4Cc4t/GoodTwitter2/issues/232), [#300](https://github.com/Bl4Cc4t/GoodTwitter2/issues/300), [#310](https://github.com/Bl4Cc4t/GoodTwitter2/issues/310) & [#387](https://github.com/Bl4Cc4t/GoodTwitter2/issues/387)?
+- some other fixes for the "Legacy profile layout"
+
+
 ## [0.0.38](https://github.com/Bl4Cc4t/GoodTwitter2/pull/427)
 *released 2022-04-04*
 
 #### Changes
 - fixed t.co shortlink expansion on tweet pages
 - fixed translation button in timeline ([#425](https://github.com/Bl4Cc4t/GoodTwitter2/issues/425))
-- added communities (experimental, not able to test this myself, see [#425](https://github.com/Bl4Cc4t/GoodTwitter2/issues/424))
+- added communities (experimental, not able to test this myself, see [#424](https://github.com/Bl4Cc4t/GoodTwitter2/issues/424))
 
 Not many this time, sorry. I'm a bit short on time atm
 

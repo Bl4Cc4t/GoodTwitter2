@@ -69,7 +69,7 @@ settings:
     hideTrends: Trends verstecken
     leftTrends: Trends in der linken Seitenleiste
     leftTrendsDesc: Verschiebt die Trends in die linke Seitenleiste.
-    show10Trends: Zeige immer 10 Trends
+    show5Trends: Zeige immer 5 Trends
 
   profile:
     legacyProfile: Altes Profil-Layout

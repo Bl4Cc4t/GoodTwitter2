@@ -69,7 +69,7 @@ settings:
     hideTrends: 隱藏流行趨勢
     leftTrends: 側邊欄流行趨勢
     leftTrendsDesc: 在左側邊欄顯示流行趨勢
-    show10Trends: 總是顯示 10 個流行趨勢
+    show5Trends: 總是顯示 5 個流行趨勢
 
   profile:
     legacyProfile: Legacy profile layout # TODO translation missing!

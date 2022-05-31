@@ -69,7 +69,7 @@ settings:
     hideTrends: Ascunde Tendințele
     leftTrends: Bara laterală de Tendințe în stânga
     leftTrendsDesc: Arată tendințele în bara laterală de stânga.
-    show10Trends: Întotdeauna afișați 10 Tendințe
+    show5Trends: Întotdeauna afișați 5 Tendințe
 
   profile:
     legacyProfile: Design de Profil Clasic
