@@ -75,11 +75,14 @@
 
   // get kebab case (thisIsAString -> this-is-a-string)
   String.prototype.toKebab = function() {
-    let out = ""
-    for (let e of this.toString().split("")) {
-      out += e == e.toUpperCase() ? `-${e.toLowerCase()}` : e
-    }
-    return out
+    let arr = this.toString().split("")
+    return arr.map((e, i) => {
+      let add_dash = i > 0
+        && ((!isNaN(e) && isNaN(arr[i-1]))
+         || (isNaN(e) && !isNaN(arr[i-1]))
+         || (isNaN(e) && e == e.toUpperCase()))
+      return `${add_dash ? "-" : ""}${e.toLowerCase()}`
+    }).join("")
   }
 
   String.prototype.replaceAt = function(index, length, text) {
@@ -435,7 +438,7 @@
     smallSidebars: false,
     hideTrends: false,
     leftTrends: true,
-    show10Trends: false,
+    show5Trends: false,
 
     // profile
     legacyProfile: false,
@@ -589,7 +592,7 @@
           ${getSettingTogglePart("smallSidebars")}
           ${getSettingTogglePart("hideTrends")}
           ${getSettingTogglePart("leftTrends")}
-          ${getSettingTogglePart("show10Trends")}
+          ${getSettingTogglePart("show5Trends")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("navProfile")}</div>
@@ -725,7 +728,7 @@
 
   function disableTogglesIfNeeded() {
     // other trend related toggles are not needed when the trends are disabled
-    $("div[data-setting-name=leftTrends], div[data-setting-name=show10Trends]")
+    $("div[data-setting-name=leftTrends], div[data-setting-name=show5Trends]")
     [GM_getValue("opt_gt2").hideTrends ? "addClass" : "removeClass"]("gt2-disabled")
 
     // hide font input if fontOverride is disabled
@@ -1250,7 +1253,7 @@
   }
 
 
-  // handle trends (wrap, move and show10)
+  // handle trends (hide, move, wrap)
   function handleTrends() {
     let w = window.innerWidth
     let trends = `section:not(.gt2-trends-handled) div[data-testid=trend]:not(.gt2-trend-wrapped),
@@ -1277,12 +1280,6 @@
           $(trends).parents("section").parent().parent()
           .detach().addClass("gt2-trends")
           .appendTo(".gt2-left-sidebar")
-        }
-
-        // show 10 trends
-        if (GM_getValue("opt_gt2").show10Trends
-            && $(trends).parent().parent().find("> div").length == 7) {
-          $(trends).parent().parent().find("> div[role=button]").click()
         }
 
         $(trends).parents("section").addClass("gt2-trends-handled")
