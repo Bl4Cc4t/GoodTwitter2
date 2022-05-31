@@ -69,7 +69,7 @@ settings:
     hideTrends: Ocultar "Tendencias"
     leftTrends: Barra lateral izquierda de Tendencias
     leftTrendsDesc: Muestra las Tendencias en la barra lateral izquierda.
-    show10Trends: Mostrar siempre 10 Tendencias
+    show5Trends: Mostrar siempre 5 Tendencias
 
   profile:
     legacyProfile: Diseño Clásico de Perfil

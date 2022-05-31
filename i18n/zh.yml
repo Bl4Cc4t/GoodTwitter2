@@ -69,7 +69,7 @@ settings:
     hideTrends: 隐藏趋势
     leftTrends: 侧边栏趋势
     leftTrendsDesc: 在左侧的侧边栏显示趋势。
-    show10Trends: 固定显示10条趋势
+    show5Trends: 固定显示5条趋势
 
   profile:
     legacyProfile: 以传统方式显示个人资料

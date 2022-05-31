@@ -69,7 +69,7 @@ settings:
     hideTrends: Cacher les Tendances
     leftTrends: Barre des Tendances à gauche
     leftTrendsDesc: Affiche les Tendances dans la barre de gauche.
-    show10Trends: Toujours afficher 10 Tendances
+    show5Trends: Toujours afficher 5 Tendances
 
   profile:
     legacyProfile: Affichage du profil de l'ancien Twitter

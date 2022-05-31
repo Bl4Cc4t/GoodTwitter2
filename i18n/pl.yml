@@ -69,7 +69,7 @@ settings:
     hideTrends: Ukryj trendy
     leftTrends: Trendy na pasku po lewej
     leftTrendsDesc: Pokazuj trendy na pasku po lewej.
-    show10Trends: Zawsze pokazuj 10 trendów
+    show5Trends: Zawsze pokazuj 5 trendów
 
   profile:
     legacyProfile: Stary układ profilu

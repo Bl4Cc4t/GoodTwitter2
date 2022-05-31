@@ -69,7 +69,7 @@ settings:
     hideTrends: Hide trends # TODO translation missing!
     leftTrends: Trender i Vänster Sidofält
     leftTrendsDesc: Visar trender i vänster sidofält.
-    show10Trends: Always show 10 trends # TODO translation missing!
+    show5Trends: Always show 5 trends # TODO translation missing!
 
   profile:
     legacyProfile: Legacy profile layout # TODO translation missing!

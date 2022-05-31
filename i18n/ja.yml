@@ -69,7 +69,7 @@ settings:
     hideTrends: トレンドを非表示にする
     leftTrends: トレンドを左に表示する
     leftTrendsDesc: トレンドを左サイドバーに表示します。
-    show10Trends: 常に10個のトレンドを表示する
+    show5Trends: 常に5個のトレンドを表示する
 
   profile:
     legacyProfile: プロフィールページを旧UIのレイアウトに変更する

@@ -69,7 +69,7 @@ settings:
     hideTrends: Verberg Trends
     leftTrends: Linker Zijbalk Trends
     leftTrendsDesc: Toon de trends in de linker zijbalk.
-    show10Trends: Toon altijd 10 Trends
+    show5Trends: Toon altijd 5 Trends
 
   profile:
     legacyProfile: Verouderde profiellay-out
