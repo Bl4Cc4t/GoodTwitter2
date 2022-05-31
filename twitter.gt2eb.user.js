@@ -1637,13 +1637,13 @@
           sel:  `a[href='/${i.screenName}']`,
           name: "Profile"
         }, {
-          sel:  `a[href='/${i.screenName}/lists']`,
+          sel:  `a[href$='/lists']`,
           name: "Lists"
         }, {
-          sel:  `a[href='/i/bookmarks']`,
+          sel:  `a[href$='/bookmarks']`,
           name: "Bookmarks"
         }, {
-          sel:  `a[href='/i/communities']`,
+          sel:  `a[href$='/communities']`,
           name: "Communities"
         }, {
           sel:  `a[href='/explore']`,
