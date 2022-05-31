@@ -1647,8 +1647,13 @@ body[data-payment-endpoint-path] {
     }
 
     .gt2-legacy-profile-screen-name-wrap,
-    .gt2-legacy-profile-description:not(:empty) {
+    .gt2-legacy-profile-description:not(:empty),
+    .gt2-legacy-profile-automated {
       margin-bottom: 12px !important;
+    }
+
+    .gt2-legacy-profile-automated {
+      margin: unset;
     }
 
     .gt2-legacy-profile-items > *:not(:last-child) {

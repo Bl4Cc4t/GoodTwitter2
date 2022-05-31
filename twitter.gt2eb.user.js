@@ -1003,6 +1003,7 @@
         screenName:     () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div [dir] > span:contains(@):not(:has(> *))").text().slice(1),
         followsYou:     () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2)"),
         nameHTML:       () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div > div:nth-child(1) > div").html(),
+        automated:      () => $profile.find("> [data-testid=UserName] > div:nth-child(2)"),
         joinDateHTML:   () => $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
         followingRnd:   () => $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
         followersRnd:   () => $profile.find(`a[href$="/followers"] > span:first-child, > div:not(:first-child) div:nth-child(2) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
@@ -1122,6 +1123,7 @@
                 `}
                 ${i.followsYou().length ? i.followsYou().prop("outerHTML") : ""}
               </div>
+              ${i.automated().length ? `<div class="gt2-legacy-profile-automated">${i.automated().prop("outerHTML")}</div>` : ""}
               ${i.description().length ? `<div class="gt2-legacy-profile-description">${i.description().parent().html()}</div>` : ""}
               <div class="gt2-legacy-profile-items">
                 ${i.items().length ? i.items().html() : ""}
