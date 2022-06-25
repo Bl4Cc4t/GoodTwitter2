@@ -39,6 +39,23 @@
     return
   }
 
+  // redirect for mobile urls
+  function checkSite(site) {
+    if (site.host == 'mobile.twitter.com') {
+      return site.href.replace('//mobile.twitter.com', '//twitter.com');
+    }
+    return false;
+  }
+  var destination = checkSite(window.location);
+  if (GM_getValue("opt_gt2").mobileRedirect) {
+    if (destination !== false) {
+      window.location.href = destination;
+    }
+  }
+  if (destination !== false) {
+    return
+  }
+
 
 
   // ###########################
@@ -760,14 +777,6 @@
   // #######################
   // #  various functions  #
   // #######################
-
-  // redirect for mobile urls
-  function checkSite(site) {
-    if (site.host == 'mobile.twitter.com') {
-      return site.href.replace('//mobile.twitter.com', '//twitter.com');
-    }
-    return false;
-  }
 
   // add navbar
   function addNavbar() {
@@ -1836,17 +1845,6 @@
 
   // [LPL] enlarge profile image when clicking on it
   $("body").on("click", ".gt2-legacy-profile-nav-avatar", () => $(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)`).find(`a[href$="/photo"] img, a[href$="/nft"] img`).first().click())
-
-  // Redirect mobile urls
-  var destination = checkSite(window.location);
-  if (GM_getValue("opt_gt2").mobileRedirect) {
-    if (destination !== false) {
-      window.location.href = destination;
-    }
-  }
-  if (destination !== false) {
-    return
-  }
 
 
   // ########################
