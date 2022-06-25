@@ -96,3 +96,4 @@ settings:
   other:
     updateNotifications: GoodTwitter2の更新通知
     expandTcoShortlinks: t.co リンクを自動的に展開
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!

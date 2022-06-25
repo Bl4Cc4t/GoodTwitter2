@@ -96,3 +96,4 @@ settings:
   other:
     updateNotifications: GoodTwitter 2 업데이트 알림
     expandTcoShortlinks: t.co 주소 확장하기
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!

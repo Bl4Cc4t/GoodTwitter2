@@ -96,3 +96,4 @@ settings:
   other:
     updateNotifications: Уведомления об обновлениях GoodTwitter 2
     expandTcoShortlinks: Расшифровать короткие ссылки t.co
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!
