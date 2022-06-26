@@ -40,20 +40,10 @@
   }
 
   // redirect for mobile urls
-  function checkSite(site) {
-    if (site.host == 'mobile.twitter.com') {
-      return site.href.replace('//mobile.twitter.com', '//twitter.com');
-    }
-    return false;
-  }
-  var destination = checkSite(window.location);
-  if (GM_getValue("opt_gt2").mobileRedirect) {
-    if (destination !== false) {
-      window.location.href = destination;
-    }
-  }
-  if (destination !== false) {
-    return
+  if (window.location.host == 'mobile.twitter.com' ) {
+    if (GM_getValue("opt_gt2").mobileRedirect) {
+      window.location.href = window.location.href.replace('//mobile.twitter.com', '//twitter.com');
+    } else return
   }
 
 
@@ -778,6 +768,7 @@
   // #  various functions  #
   // #######################
 
+
   // add navbar
   function addNavbar() {
     waitForKeyElements(`nav > a[href="/home"]`, () => {
@@ -1124,7 +1115,6 @@
           })
         }
       })
-
 
       // sidebar profile information
       waitForKeyElements(`[href="/${
@@ -1845,6 +1835,7 @@
 
   // [LPL] enlarge profile image when clicking on it
   $("body").on("click", ".gt2-legacy-profile-nav-avatar", () => $(`div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)`).find(`a[href$="/photo"] img, a[href$="/nft"] img`).first().click())
+
 
 
   // ########################
