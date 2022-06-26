@@ -658,7 +658,7 @@
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("expandTcoShortlinks")}
-	  ${getSettingTogglePart("mobileRedirect")}
+          ${getSettingTogglePart("mobileRedirect")}
         </div>
       `
       let $s = $("main section[aria-labelledby=detail-header]")
