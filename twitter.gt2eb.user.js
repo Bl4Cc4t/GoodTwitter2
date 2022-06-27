@@ -5,6 +5,7 @@
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
+// @match         https://mobile.twitter.com/*
 // @exclude       https://twitter.com/i/cards/*
 // @exclude       https://twitter.com/i/release_notes
 // @exclude       https://twitter.com/*/privacy
@@ -36,6 +37,13 @@
   // do not execute on these pages
   if (getPath().match(/^login(\?.*)?$/) || (!isLoggedIn() && getPath().match(/^(\?.*)?$/))) {
     return
+  }
+
+  // redirect for mobile urls
+  if (window.location.host == 'mobile.twitter.com' ) {
+    if (GM_getValue("opt_gt2").mobileRedirect) {
+      window.location.href = window.location.href.replace('//mobile.twitter.com', '//twitter.com');
+    } else return
   }
 
 
@@ -462,6 +470,7 @@
     // other
     updateNotifications: true,
     expandTcoShortlinks: true,
+    mobileRedirect: false,
   }
 
   // set default options
@@ -649,6 +658,7 @@
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
           ${getSettingTogglePart("updateNotifications")}
           ${getSettingTogglePart("expandTcoShortlinks")}
+          ${getSettingTogglePart("mobileRedirect")}
         </div>
       `
       let $s = $("main section[aria-labelledby=detail-header]")

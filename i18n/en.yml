@@ -103,3 +103,4 @@ settings:
   other:
     updateNotifications: GoodTwitter 2 update notifications
     expandTcoShortlinks: Expand t.co shortlinks
+    mobileRedirect: Redirect mobile URLs
