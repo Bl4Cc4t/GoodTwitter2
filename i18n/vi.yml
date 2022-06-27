@@ -101,4 +101,5 @@ settings:
 
   other:
     updateNotifications: Thông báo cập nhật GoodTwitter 2
-    expandTcoShortlinks: Mở rộng link t.co
+    expandTcoShortlinks: Mở rộng liên kết t.co
+    mobileRedirect: Chuyển hướng liên kết mobile
