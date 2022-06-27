@@ -1,0 +1,104 @@
+# vietnamese language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweet
+  contentWarningNudity: Ảnh khoả thân
+  contentWarningViolence: Bạo lực
+  contentWarningSensitiveContent: Nội dung nhạy cảm
+  joinDate: Đã tham gia $date$
+  navBookmarks: Dấu trang
+  navCommunities: Cộng đồng
+  navMessages: Tin nhắn
+  navExplore: Khám phá
+  navHome: Trang chủ
+  navLists: Danh sách
+  navNotifications: Thông báo
+  navProfile: Hồ sơ
+  statsFollowers: Được theo dõi
+  statsFollowing: Đang theo dõi
+  statsLikes: Lượt thích
+  statsMoments: Khoảnh khắc
+  statsTweets: Tweets
+  topics: Chủ đề
+  translateTweet: Dịch Tweet
+  users: Người dùng
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Sinh vào ngày $date$
+  bornYear: Sinh vào năm $year$
+  favorite: Yêu thích
+  favorites: Yêu thích
+  followedBy0: Không được theo dõi bởi bất kỳ ai mà bạn đang theo dõi
+  followedBy1: Được theo dõi bởi $p1$
+  followedBy2: Được theo dõi bởi $p1$ và $p2$
+  followedBy3: Được theo dõi bởi $p1$, $p2$ và $p3$
+  followedBy4Plus: Được theo dõi bởi $p1$, $p2$ và $nr$ người khác mà bạn theo dõi
+  translatedTweetInfo: Được dịch từ $lang$ bởi $source$
+  qbBlock: Chặn
+  qbBlocked: Đã chặn
+  qbUnblock: Bỏ chặn
+  updatedInfo: Cập nhật đến $version$!
+  updatedInfoChangelog: Thay đổi:
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Dòng thời gian
+    settingsHeaderSidebars: Thanh bên
+    settingsHeaderGlobalLook: Giao diện chung
+    settingsHeaderOther: Khác
+
+  timeline:
+    forceLatest: Buộc chế độ “Những Tweet mới nhất”
+    forceLatestDesc: Bật chế độ Tweet mới nhất không còn là mặc định nữa. Với thiết đặt này, trang sẽ tự động chuyển qua chế độ “Những Tweet mới nhất”.
+    biggerPreviews: Ảnh xem trước lớn hơn
+    biggerPreviewsDesc: Những bức ảnh cao trong các tweet sẽ được hiện ở độ phân giải tối đa.
+
+  tweets:
+    hideTranslateTweetButton: Ẩn nút “Dịch Tweet”
+    tweetIconsPullLeft: Dịch các nút tương tác với tweet về phía bên trái
+    hidePromoteTweetButton: Ẩn nút “Promote Tweet”
+    showMediaWithContentWarnings: Luôn hiển thị ảnh và video với cảnh báo nội dung
+
+  sidebars:
+    stickySidebars: Ghim thanh bên
+    smallSidebars: Thanh bên nhỏ hơn
+    smallSidebarsDesc: Thanh bên hiển thị 290px thay vì 350px.
+    hideTrends: Ẩn xu hướng
+    leftTrends: Xu hướng ở bên trái
+    leftTrendsDesc: Hiển thị mục xu hướng ở thanh bên trái.
+    show5Trends: Luôn hiển thị 5 xu hướng
+
+  profile:
+    legacyProfile: Bố cục trang hồ sơ cũ
+    squareAvatars: Hình đại diện vuông
+    disableHexagonAvatars: Tắt hình đại diện lục giác
+    enableQuickBlock: Bật chặn nhanh
+    enableQuickBlockDesc: Đặt con trỏ chuột ở nút theo dõi trong 3 giây để chặn một ai đó.
+    leftMedia: Đa phương tiện ở bên trái
+    leftMediaDesc: Hiển thị khung đa phương tiện ở thanh bên trái.
+
+  global-look:
+    hideFollowSuggestions: Ẩn các gợi ý từ theo dõi (Chủ đề, Người dùng & Danh sách)
+    hideFollowSuggestionsBox: Ẩn $type$ từ $location$
+    fontOverride: Dùng phông chữ tuỳ chỉnh
+    fontOverrideDesc: Thay thế phông chữ mặc định. Chỉ hoạt động nếu thiết bị của bạn có cài đặt phông chữ này.
+    colorOverride: Dùng màu tuỳ chỉnh
+    colorOverrideDesc: Thay thế màu chủ đạo mặc định.
+    hideMessageBox: Ẩn hộp tin nhắn
+    hideMessageBoxDesc: Ẩn hộp tin nhắn luôn xuất hiện ở góc dưới bên phải màn hình.
+    rosettaIcons: Biểu tượng Rosetta
+    rosettaIconsDesc: Sử dụng biểu tượng Rosetta từ năm 2017 về trước
+    favoriteLikes: Thay thế thích với yêu thích (chỉ biểu tượng)
+
+  other:
+    updateNotifications: Thông báo cập nhật GoodTwitter 2
+    expandTcoShortlinks: Mở rộng link t.co
