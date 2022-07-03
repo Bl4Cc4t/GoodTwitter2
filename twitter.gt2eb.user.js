@@ -2499,4 +2499,13 @@
     urlChange("pop", getPath())
   })
 
+
+  // remove "t" search parameter (probably used for tracking?)
+  // https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ
+  let _selectNodeContents = Range.prototype.selectNodeContents
+  Range.prototype.selectNodeContents = function() {
+    arguments[0].textContent = arguments[0].textContent.replace(/&t=.*$/, "")
+    _selectNodeContents.apply(this, arguments)
+  }
+
 })(jQuery, waitForKeyElements)
