@@ -471,7 +471,7 @@
     // other
     updateNotifications: true,
     expandTcoShortlinks: true,
-    mobileRedirect: false,
+    mobileRedirect: true,
   }
 
   // set default options
