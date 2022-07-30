@@ -40,9 +40,9 @@
   }
 
   // redirect for mobile urls
-  if (window.location.host == 'mobile.twitter.com' ) {
+  if (window.location.host == "mobile.twitter.com") {
     if (GM_getValue("opt_gt2").mobileRedirect) {
-      window.location.href = window.location.href.replace('//mobile.twitter.com', '//twitter.com');
+      window.location.href = window.location.href.replace("//mobile.twitter.com", "//twitter.com")
     } else return
   }
 
@@ -2279,7 +2279,7 @@
     return (top == null ? true : _onPage(path, top)) && path.includes("/") && sub.some(e => e == (e.includes("/") ? path.split("/").slice(1).join("/") : path.split("/")[1]))
   }
   function _isModal(path) {
-    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow", "lists/add_member"])
+    return _onSubPage(path, "i", ["display", "keyboard_shortcuts", "flow", "lists/add_member", "report"])
         || _onSubPage(path, "settings", ["trends", "profile"])
         || _onSubPage(path, "compose", ["tweet"])
         || _onSubPage(path, "account", ["add", "switch"])
@@ -2397,7 +2397,7 @@
 
 
     // tweet
-    if (onSubPage(null, ["status"])) {
+    if (onSubPage(null, ["status"]) || path().startsWith("i/web/status/")) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
       waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
