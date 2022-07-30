@@ -40,9 +40,9 @@
   }
 
   // redirect for mobile urls
-  if (window.location.host == 'mobile.twitter.com' ) {
+  if (window.location.host == "mobile.twitter.com") {
     if (GM_getValue("opt_gt2").mobileRedirect) {
-      window.location.href = window.location.href.replace('//mobile.twitter.com', '//twitter.com');
+      window.location.href = window.location.href.replace("//mobile.twitter.com", "//twitter.com")
     } else return
   }
 
@@ -2397,7 +2397,7 @@
 
 
     // tweet
-    if (onSubPage(null, ["status"])) {
+    if (onSubPage(null, ["status"]) || path().startsWith("i/web/status/")) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
       waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
