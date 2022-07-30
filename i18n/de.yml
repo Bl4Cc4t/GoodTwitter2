@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Halte den Mauszeiger für 3 Sekunden über einen Folgen-Knopf, um das Profil zu blockieren
     leftMedia: Bilder/Videos in linker Seitenleiste
     leftMediaDesc: Zeigt die Bilder/Videos eines Profils in der linken Seitenleiste an.
+    profileMediaRedirect: Umleiten auf /media beim Besuch von Profilen
 
   global-look:
     hideFollowSuggestions: Folgen-Vorschläge verstecken (Themen, Nutzer & Listen)
@@ -96,4 +97,4 @@ settings:
   other:
     updateNotifications: GoodTwitter-2-Update-Benachrichtigungen
     expandTcoShortlinks: t.co-Links auflösen
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: mobile.twitter.com-Links umleiten

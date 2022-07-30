@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: おすすめユーザーを非表示にする

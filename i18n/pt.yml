@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Passe o mouse sobre o botão de seguir por 3 segundos para bloquear um perfil.
     leftMedia: Mídia na barra lateral esquerda
     leftMediaDesc: Mostrar o contêiner de mídia do perfil na barra lateral esquerda.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Esconder Quem Seguir

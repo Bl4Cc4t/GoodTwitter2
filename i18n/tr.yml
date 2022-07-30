@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweetle
@@ -29,7 +28,6 @@ twitter-default:
   translateTweet: Tweeti çevir
   users: Kullanıcılar
 
-
 # strings that are used on various parts within the script.
 script:
   bornDate: $date$ tarihinde doğdu
@@ -48,7 +46,6 @@ script:
   updatedInfo: $version$ sürümüne güncellendi!
   updatedInfoChangelog: Değişiklikler
 
-
 # these strings are for the gt2 settings page.
 settings:
   headers:
@@ -66,7 +63,7 @@ settings:
   tweets:
     hideTranslateTweetButton: “Çeviriyi göster” butonunu gizle
     tweetIconsPullLeft: Tweet etkileşim düğmelerini sol tarafta bir araya getir
-    hidePromoteTweetButton: "Tweeti Tanıt" düğmesini gizle
+    hidePromoteTweetButton: “Tweeti Tanıt” düğmesini gizle
     showMediaWithContentWarnings: İçerik uyarısına sahip medyayı her zaman göster
 
   sidebars:
@@ -86,6 +83,7 @@ settings:
     enableQuickBlockDesc: Bir profili engellemek için imleci 3 saniye boyunca takip düğmesinin üzerine getir.
     leftMedia: Sol kenar çubuğu medyası
     leftMediaDesc: Medya kapsayıcısını sol kenar çubuğundaki profil sayfalarında göster.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Takip önerilerini gizle (Gündemler, Kullanıcılar ve Listeler)

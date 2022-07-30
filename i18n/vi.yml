@@ -28,7 +28,6 @@ twitter-default:
   translateTweet: Dịch Tweet
   users: Người dùng
 
-
 # strings that are used on various parts within the script.
 script:
   bornDate: Sinh vào ngày $date$
@@ -45,8 +44,7 @@ script:
   qbBlocked: Đã chặn
   qbUnblock: Bỏ chặn
   updatedInfo: Cập nhật đến $version$!
-  updatedInfoChangelog: Thay đổi:
-
+  updatedInfoChangelog: Thay đổi
 
 # these strings are for the gt2 settings page.
 settings:
@@ -85,6 +83,7 @@ settings:
     enableQuickBlockDesc: Đặt con trỏ chuột ở nút theo dõi trong 3 giây để chặn một ai đó.
     leftMedia: Đa phương tiện ở bên trái
     leftMediaDesc: Hiển thị khung đa phương tiện ở thanh bên trái.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Ẩn các gợi ý từ theo dõi (Chủ đề, Người dùng & Danh sách)

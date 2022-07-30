@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Наведите и удерживайте в течение 3 секунд курсор мыши на кнопке «Читать», для блокировки профиля.
     leftMedia: Медиа-контейнер слева
     leftMediaDesc: Отображать медиа-контейнер на странице профиля в левой боковой панели.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Скрыть «Кого читать»

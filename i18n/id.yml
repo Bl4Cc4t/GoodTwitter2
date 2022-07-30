@@ -83,6 +83,7 @@ settings:
     enableQuickBlockDesc: Arahkan kursor ke tombol mengikuti selama 3 detik untuk memblokir profil.
     leftMedia: Bilah media sisi kiri
     leftMediaDesc: Tampilkan wadah media pada halaman profil di bilah sisi kiri.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Sembunyikan saran ikuti (Topik, Pengguna & Daftar)

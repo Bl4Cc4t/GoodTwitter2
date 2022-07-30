@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Plasează cursorul deasupra butonul „Urmărește” pentru 3 secunde să blochezi un profil.
     leftMedia: Conținut media în bara laterală de stânga
     leftMediaDesc: Afișați containerul media pe paginile de profil în bara laterală de stânga.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Ascunde sugestii de urmărit (Subiecte și Utilizatori)
