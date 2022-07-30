@@ -1,0 +1,104 @@
+# turkish language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tweetle
+  contentWarningNudity: Çıplaklık
+  contentWarningViolence: Vahşet
+  contentWarningSensitiveContent: Hassas içerik
+  joinDate: $date$ tarihinde katıldı
+  navBookmarks: Yer İşaretleri
+  navCommunities: Communities
+  navMessages: Mesajlar
+  navExplore: Keşfet
+  navHome: Anasayfa
+  navLists: Listeler
+  navNotifications: Bildirimler
+  navProfile: Profil
+  statsFollowers: Takipçi
+  statsFollowing: Takip edilen
+  statsLikes: Beğeni
+  statsMoments: Anlar
+  statsTweets: Tweetler
+  topics: Konular
+  translateTweet: Tweeti çevir
+  users: Kullanıcılar
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: $date$ tarihinde doğdu
+  bornYear: $year$ yılında doğdu
+  favorite: Favori
+  favorites: Favoriler
+  followedBy0: Takip ettiğiniz kimse tarafından takip edilmiyor
+  followedBy1: $p1$ tarafından takip ediliyor
+  followedBy2: $p1$ ve $p2$ tarafından takip ediliyor
+  followedBy3: $p1$, $p2$ ve $p3$ tarafından takip ediliyor
+  followedBy4Plus: $p1$, $p2$ ve $nr$ takip ettiğiniz diğer kişiler tarafından takip ediliyor
+  translatedTweetInfo: $lang$ dilinden $source$ göre çevrildi
+  qbBlock: Engel
+  qbBlocked: Engellenmiş
+  qbUnblock: Engeli kaldır
+  updatedInfo: $version$ sürümüne güncellendi!
+  updatedInfoChangelog: Değişiklikler
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Zaman Dilimi
+    settingsHeaderSidebars: Kenar Çubuğu
+    settingsHeaderGlobalLook: Genel Görünüm
+    settingsHeaderOther: Diğer
+
+  timeline:
+    forceLatest: “Son tweetleri başta göster” moduna zorla
+    forceLatestDesc: Son atılan tweetleri başta görme modunu etkinleştirmek artık kalıcı değil. Bu ayar aktifken site otomatik olarak “Son Tweetler” moduna geri döner.
+    biggerPreviews: Daha büyük resim ön izlemeleri
+    biggerPreviewsDesc: Tweetlerdeki uzun fotoğraflar tam boyutuyla görünür.
+
+  tweets:
+    hideTranslateTweetButton: “Çeviriyi göster” butonunu gizle
+    tweetIconsPullLeft: Tweet etkileşim düğmelerini sol tarafta bir araya getir
+    hidePromoteTweetButton: “Tweeti Tanıt” düğmesini gizle
+    showMediaWithContentWarnings: İçerik uyarısına sahip medyayı her zaman göster
+
+  sidebars:
+    stickySidebars: Yapışkan kenar çubukları
+    smallSidebars: Küçük kenar çubukları
+    smallSidebarsDesc: 350px yerine 290px kenar çubukları.
+    hideTrends: Trendleri gizle
+    leftTrends: Trendler sol kenar çubuğunda
+    leftTrendsDesc: Trendleri sol kenar çubuğunda göster.
+    show5Trends: Her zaman 5 trend göster
+
+  profile:
+    legacyProfile: Eski profil düzeni
+    squareAvatars: Kare avatarlar
+    disableHexagonAvatars: Altıgen avatarları devre dışı bırak
+    enableQuickBlock: Hızlı engellemeyi aktifleştir
+    enableQuickBlockDesc: Bir profili engellemek için imleci 3 saniye boyunca takip düğmesinin üzerine getir.
+    leftMedia: Sol kenar çubuğu medyası
+    leftMediaDesc: Medya kapsayıcısını sol kenar çubuğundaki profil sayfalarında göster.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+
+  global-look:
+    hideFollowSuggestions: Takip önerilerini gizle (Gündemler, Kullanıcılar ve Listeler)
+    hideFollowSuggestionsBox: Hide $type$ from $location$
+    fontOverride: Kişisel yazı tipi kullan
+    fontOverrideDesc: Varsayılan yazı tipi yerine kişisel yazı tipi kullan. Yazı tipi indirilmiş olmalıdır.
+    colorOverride: Kişisel renk kullan
+    colorOverrideDesc: Varsayılan renkler yerine kişisel renkleri kullan.
+    hideMessageBox: Mesaj kutusunu gizle
+    hideMessageBoxDesc: Sağ alt köşedeki sürekli gözüken mesajlar kutusunu gizler.
+    rosettaIcons: Rosetta simgeleri
+    rosettaIconsDesc: 2017 öncesi Rosetta simgesi yazı tipini kullan
+    favoriteLikes: Kalbi yıldız ile değiştir (şimdilik sadece simge olarak)
+
+  other:
+    updateNotifications: GoodTwitter 2 güncelleme bildirimleri
+    expandTcoShortlinks: t.co kısa linklerini uzun olarak göster
+    mobileRedirect: Mobil bağlantıları yönlendir

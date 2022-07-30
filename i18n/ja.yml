@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: おすすめユーザーを非表示にする
@@ -96,3 +97,4 @@ settings:
   other:
     updateNotifications: GoodTwitter2の更新通知
     expandTcoShortlinks: t.co リンクを自動的に展開
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!

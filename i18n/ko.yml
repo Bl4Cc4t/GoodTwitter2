@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: 팔로우 버튼에 마우스를 3초간 올려 사용자를 차단할수 있도록 합니다.
     leftMedia: 왼쪽 사이드바 미디어
     leftMediaDesc: 프로필 페이지의 왼쪽 사이드바에 미디어 모음을 추가합니다.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: 팔로우 추천 숨기기
@@ -96,3 +97,4 @@ settings:
   other:
     updateNotifications: GoodTwitter 2 업데이트 알림
     expandTcoShortlinks: t.co 주소 확장하기
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!

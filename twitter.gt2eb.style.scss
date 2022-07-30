@@ -16,6 +16,7 @@
 
   --font-increment:   calc(var(--global-font-size) - 15px);
   --font-default:     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
+  --square-avatars-border-radius: 10%;
 }
 
 $navbarDropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
@@ -1782,6 +1783,8 @@ body {
     main {
       margin-top: 56px;
     }
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav,
     .gt2-legacy-profile-info {
       display: none;
     }
@@ -1903,101 +1906,35 @@ body:not(.gt2-opt-small-sidebars) {
 
 // square avatars
 .gt2-opt-square-avatars {
-  // /home new tweet
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1),
-  // profile
-  div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(1),
-  // tweet
-  [data-testid=tweet] > div > div > div > div > div:nth-child(1) > div > div,
-  // tweet your reply
-  [style*="position: absolute"] > div > div:nth-child(2) [role=progressbar] + div > div > div > div > div > div,
-  // sidebar (who to follow)
-  div[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) > div,
-  // small profile modals
-  #layers > div:nth-child(2) > div > div > div:not([role=dialog]) > div > div > div > div > div > div:nth-child(1),
-  // notifications
-  article > div > div:nth-child(2) > div:nth-child(1) > div > div,
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) div,
-  // /messages top left avatar
-  // &[data-gt2-path^="messages/"] section:nth-last-child(1) > div > div > div:nth-child(1) > div > div > div > div,
-  // /messages message
-  [data-testid=messageEntry] > div > div:nth-child(3) > div:nth-child(2) {
-    & > div > div > div > div {
-      & > div,
-      & > div > a:not([href$="/photo"]),
-      & > div > a > div {
-        border-width: 0;
-        border-radius: 10% !important;
-      }
-      & > div > a[href$="/photo"] {
-        border-radius: 11.5% !important;
-      }
+  [data-testid*=UserAvatar-Container] > div > div > div {
+    & > div,
+    & > div > * > div:not(:nth-child(1)) {
+      border-width: 0;
+      border-radius: var(--square-avatars-border-radius) !important;
     }
-  }
-
-  // /messages conversation selector (left)
-  [data-testid=conversation] > div > div:nth-child(1) > div,
-  // /messages top left avatar
-  &[data-gt2-path^="messages/"] section:nth-last-child(1) > div:nth-child(1) > div > div > div > div > div > div > div > div,
-  // edit tweet recipients (replying to)
-  li[data-testid=UserCell] > div:nth-child(1) > div:nth-child(1) div {
-    border-radius: 10% !important;
-  }
-
-  // /messages typing avatar
-  &[data-gt2-path^="messages/"] section:nth-last-child(1) div:not([class]) > div:not([class]) > div:not([class]):last-child {
-    div:empty + div > div,
-    [role=presentation] > div {
-      border-radius: 10% !important;
-    }
-  }
-
-
-  // tweet reply modal
-  #layers [aria-modal=true] {
-    [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(1),
-    & > div > div > div > div:nth-child(3) > div > div:not([class]) > div > div > div > div > div:nth-child(1) {
-      [style]:empty + div > div {
-        &,
-        [role=presentation] > div:nth-child(3) {
-          border-radius: 10% !important;
-        }
-      }
+    & > div > * > div:nth-child(1) {
+      border-radius: calc(var(--square-avatars-border-radius) * 1.15) !important;
     }
   }
 
   // enlarge profile picture
   &.gt2-page-profile[data-gt2-path$="/photo"] {
     #layers [data-testid=swipe-to-dismiss] > div > div > div {
-      border-radius: 10% !important;
+      border-radius: var(--square-avatars-border-radius) !important;
     }
   }
 
-  // quote retweets
-  [data-testid=tweet] [aria-labelledby] > div > div:not([data-testid="card.wrapper"]) > [role=link] > div > div:nth-child(1) [style]:empty + div > div {
-    &,
-    [role=presentation] > div:nth-child(3) {
-      border-radius: 10% !important;
-    }
-  }
-
-  // tweet (show this thread)
-  article + a[href*="/status/"] {
-    div[role=presentation],
-    div[role=presentation] > div:nth-child(1) > div:nth-child(2) > div {
-      border-radius: 10%;
-    }
-  }
   // dashboard profile
   .gt2-dashboard-profile .gt2-avatar {
-    border-radius: 11.5%;
+    border-radius: calc(var(--square-avatars-border-radius) * 1.15);
     img {
-      border-radius: 10%;
+      border-radius: var(--square-avatars-border-radius);
     }
   }
+
+  // legacy profile layout
   &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
-    border-radius: 10%;
+    border-radius: var(--square-avatars-border-radius);
   }
 }
 

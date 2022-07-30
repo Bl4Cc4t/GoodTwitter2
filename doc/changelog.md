@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.0.40](https://github.com/Bl4Cc4t/GoodTwitter2/pull/445)
+*released 2022-07-30*
+
+#### New
+- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!)
+  - #104
+  - #441
+- option to redirect to `/media` when visiting profile pages
+  - #446
+- 2 translations:
+  - #444 (thanks @touanu!)
+  - #450 (thanks @seaque!)
+- clicking the "copy link to tweet" button now removes the t parameter from the url
+  - #405
+  - example: `https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ` -> `https://twitter.com/Outrojules/status/1543220843995619328?s=20`
+
+#### Changes
+- fixed square avatars again
+
+
 ## [0.0.39](https://github.com/Bl4Cc4t/GoodTwitter2/pull/440)
 *released 2022-05-31*
 

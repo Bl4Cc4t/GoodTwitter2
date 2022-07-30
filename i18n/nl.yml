@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Beweeg de muis over de volgknop gedurende 3 seconden om een profiel te blokkeren.
     leftMedia: Media in de linkerzijbalk
     leftMediaDesc: Toon de mediacontainer op profielpagina's in de linkerzijbalk.
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Verberg Wie te volgen
@@ -96,3 +97,4 @@ settings:
   other:
     updateNotifications: GoodTwitter 2 Update Notificaties
     expandTcoShortlinks: Vouw t.co shortlinks uit
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!

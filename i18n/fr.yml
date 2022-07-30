@@ -79,6 +79,7 @@ settings:
     enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
     leftMedia: Left sidebar media # TODO translation missing!
     leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
+    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
 
   global-look:
     hideFollowSuggestions: Cacher Suggestions et Vous pourriez aimer
@@ -96,3 +97,4 @@ settings:
   other:
     updateNotifications: Notification de mise à jour de GoodTwitter 2
     expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!
+    mobileRedirect: Redirect mobile URLs # TODO translation missing!
