@@ -454,6 +454,7 @@
     disableHexagonAvatars: false,
     enableQuickBlock: false,
     leftMedia: false,
+    profileMediaRedirect: false,
 
     // global look
     hideFollowSuggestions: false,
@@ -610,6 +611,7 @@
           ${getSettingTogglePart("disableHexagonAvatars")}
           ${getSettingTogglePart("enableQuickBlock")}
           ${getSettingTogglePart("leftMedia")}
+          ${getSettingTogglePart("profileMediaRedirect")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderGlobalLook")}</div>
@@ -2422,7 +2424,6 @@
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
             || onSubPage(null, ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
           || onSubPage("intent", ["user"])) {
-
         $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
@@ -2432,6 +2433,14 @@
           }
           rebuildLegacyProfile()
         }
+
+        // redirect to /media on profiles (without /intent)
+        if (GM_getValue("opt_gt2").profileMediaRedirect && path().split("/").length == 1 && (!document.body.dataset.hasOwnProperty("gt2PrevPath") || document.body.dataset.gt2PrevPath.split("/")[0] != path().split("/")[0])) {
+          waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e[0].click())
+          console.log("redirecting to /media")
+        }
+
+        // move left media
         if (GM_getValue("opt_gt2").leftMedia
           && ((!GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1350)
             || (GM_getValue("opt_gt2").smallSidebars && window.innerWidth > 1230))) {
@@ -2443,8 +2452,8 @@
             $mediaContainer.detach().addClass("gt2-profile-media")
             .appendTo(".gt2-left-sidebar")
           })
-
         }
+
       } else {
         $("body").removeClass("gt2-page-profile")
         $(`.gt2-legacy-profile-banner,
