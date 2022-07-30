@@ -86,7 +86,7 @@ settings:
     enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile.
     leftMedia: Left sidebar media
     leftMediaDesc: Show the media container on profile pages in the left sidebar.
-    profileMediaRedirect: Redirect to /media when visiting profile pages.
+    profileMediaRedirect: Redirect to /media when visiting profile pages
 
   global-look:
     hideFollowSuggestions: Hide follow suggestions (Topics, Users & Lists)
