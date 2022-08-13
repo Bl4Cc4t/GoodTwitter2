@@ -8,7 +8,7 @@ twitter-default:
   contentWarningSensitiveContent: センシティブな内容
   joinDate: $date$からTwitterを利用しています
   navBookmarks: ブックマーク
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: コミュニティ
   navMessages: メッセージ
   navExplore: 話題を検索
   navHome: ホーム
@@ -79,7 +79,7 @@ settings:
     enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: プロフィールページアクセス時にメディア欄にリダイレクトする
 
   global-look:
     hideFollowSuggestions: おすすめユーザーを非表示にする
@@ -97,4 +97,4 @@ settings:
   other:
     updateNotifications: GoodTwitter2の更新通知
     expandTcoShortlinks: t.co リンクを自動的に展開
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: モバイル版からデスクトップ版へ自動でリダイレクトする

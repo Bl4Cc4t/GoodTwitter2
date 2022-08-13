@@ -54,7 +54,7 @@ settings:
     forceLatest: Всегда последние твиты
     forceLatestDesc: Выбор режима показа последних твитов теперь является временным. Но если включен этот параметр, сайт будет автоматически переключаться на режим показа последних твитов.
     biggerPreviews: Большие превью изображения
-    biggerPreviewsDesc: Показывать превью высоких изображений в твитах во всю высоту.
+    biggerPreviewsDesc: Показывать превью высоких изображений в твитах во всю высоту
 
   tweets:
     hideTranslateTweetButton: Скрыть кнопку «Перевести твит»
@@ -65,10 +65,10 @@ settings:
   sidebars:
     stickySidebars: Фиксированные боковые панели
     smallSidebars: Уменьшенные боковые панели
-    smallSidebarsDesc: Боковые панели шириной 290px вместо 350px.
+    smallSidebarsDesc: Боковые панели шириной 290px вместо 350px
     hideTrends: Скрыть «Актуальные темы»
     leftTrends: Актуальные темы слева
-    leftTrendsDesc: Отображать актуальные темы в левой боковой панели.
+    leftTrendsDesc: Отображать актуальные темы в левой боковой панели
     show5Trends: Всегда показывать 5 актуальных тем
 
   profile:
@@ -76,20 +76,20 @@ settings:
     squareAvatars: Квадратные аватары
     disableHexagonAvatars: Отключить шестиугольные аватары
     enableQuickBlock: Включить быструю блокировку
-    enableQuickBlockDesc: Наведите и удерживайте в течение 3 секунд курсор мыши на кнопке «Читать», для блокировки профиля.
+    enableQuickBlockDesc: Наведите и удерживайте в течение 3 секунд курсор мыши на кнопке «Читать», для блокировки профиля
     leftMedia: Медиа-контейнер слева
-    leftMediaDesc: Отображать медиа-контейнер на странице профиля в левой боковой панели.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    leftMediaDesc: Отображать медиа-контейнер на странице профиля в левой боковой панели
+    profileMediaRedirect: Открывать сразу /media при посещении профилей пользователей
 
   global-look:
     hideFollowSuggestions: Скрыть «Кого читать»
     hideFollowSuggestionsBox: Скрыть $type$ в $location$
     fontOverride: Использовать свой шрифт
-    fontOverrideDesc: Установить свой шрифт вместо шрифта по умолчанию. Это работает только с установленными шрифтами.
+    fontOverrideDesc: Установить свой шрифт вместо шрифта по умолчанию. Это работает только с установленными шрифтами
     colorOverride: Использовать свой цвет
-    colorOverrideDesc: Установить свой цвет вместо цвета по умолчанию.
+    colorOverrideDesc: Установить свой цвет вместо цвета по умолчанию
     hideMessageBox: Скрыть меню «Сообщения»
-    hideMessageBoxDesc: Скрыть новое меню «Сообщения», постоянно отображающееся в правом нижнем углу.
+    hideMessageBoxDesc: Скрыть новое меню «Сообщения», постоянно отображающееся в правом нижнем углу
     rosettaIcons: Иконки Rosetta
     rosettaIconsDesc: Использовать иконки из шрифта Rosetta, который использовался до 2017 года
     favoriteLikes: Заменить Лайки на Избранное
@@ -97,4 +97,4 @@ settings:
   other:
     updateNotifications: Уведомления об обновлениях GoodTwitter 2
     expandTcoShortlinks: Расшифровать короткие ссылки t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Исправлять мобильные адреса

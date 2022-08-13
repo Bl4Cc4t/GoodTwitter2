@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.40.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/457)
+*released 2022-08-13*
+
+#### Changes
+- fixed the twitter freezing issues, courtesy of @EdinUser!
+  - #455
+- Japanese & Russian translation updated with new strings
+
+
 ## [0.0.40](https://github.com/Bl4Cc4t/GoodTwitter2/pull/445)
 *released 2022-07-30*
 
