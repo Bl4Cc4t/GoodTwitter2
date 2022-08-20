@@ -1,0 +1,39 @@
+// search & explore specific
+
+.gt2-search-overflow-hider {
+  background-color: var(--color-bg);
+  display: none;
+  height: 9px;
+  position: fixed;
+  top: 47px;
+  width: calc(600px + var(--scrollbar-width));
+  z-index: 1;
+}
+
+// /search overflow, let search box stay on top
+body[data-gt2-path="search"],
+body[data-gt2-path="explore"] {
+  .gt2-search-overflow-hider {
+    display: block;
+  }
+
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+
+    > div > div:nth-child(1) {
+      @include separator-top;
+      background-color: var(--color-elem);
+      position: sticky;
+      top: 56px;
+      transition: top .2s ease-in-out;
+    }
+  }
+}
+
+body[data-gt2-path="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+  top: calc(56px - 107px);
+}
+
+body[data-gt2-path="explore"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+  top: calc(56px - 54px);
+}

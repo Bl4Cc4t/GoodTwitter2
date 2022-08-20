@@ -1,0 +1,33 @@
+// home page
+body[data-gt2-path="home"] {
+  [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
+    border-bottom-width: 0;
+  }
+}
+
+// hide spark options (home timeline, top right icon)
+.gt2-hide-spark-opt {
+  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
+    display: none;
+  }
+}
+
+// spark settings
+.gt2-spark-toggle {
+  display: inline-flex;
+  padding: 15px;
+
+  svg {
+    height: 1.25em;
+    margin-right: 10px;
+  }
+
+  div {
+    color: var(--color-text);
+  }
+
+  &:hover {
+    background-color: var(--color-elem-sel);
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,399 @@
+// scss-lint:disable SingleLinePerSelector, SpaceBeforeBrace
+
+@use "sass:map";
+@use "sass:string";
+
+
+:root {
+  --color-normal: ; // scss-lint:disable TrailingSemicolon
+  --color-override: ; // scss-lint:disable TrailingSemicolon
+}
+
+
+$themes: (
+  "white": (
+    "bg":           #e6ecf0,
+    "elem":         rgb(255, 255, 255),
+    "elem-sel":     rgb(247, 249, 250),
+    "gray":         rgb(91, 112, 131),
+    "gray-dark":    #e6ecf0,
+    "gray-dark-2":  rgb(196, 207, 214),
+    "gray-light":   rgb(101, 119, 134),
+    "navbar":       #ffffff,
+    "text":         rgb(20, 23, 26),
+    "text-2":       white,
+    "shadow":       rgba(101, 119, 134, .15),
+    "backdrop":     rgba(0, 0, 0, .4),
+
+    // base colors
+    "blue":         rgb(29, 161, 242),
+    "green":        rgb(23, 191, 99),
+    "red":          rgb(224, 36, 94),
+    "red-dark":     rgb(202, 32, 85),
+    "yellow":       rgb(255, 173, 31)
+  ),
+  "dim": (
+    "bg":           #10171e,
+    "elem":         rgb(21, 32, 43),
+    "elem-sel":     rgb(25, 39, 52),
+    "gray":         rgb(101, 119, 134),
+    "gray-dark":    #38444d,
+    "gray-dark-2":  rgb(61, 84, 102),
+    "gray-light":   rgb(136, 153, 166),
+    "navbar":       #1c2938,
+    "text":         rgb(255, 255, 255),
+    "text-2":       white,
+    "shadow":       rgba(136, 153, 166, .15),
+    "backdrop":     rgba(91, 112, 131, .4)
+  ),
+  "lightsout": (
+    "bg":           #000000,
+    "elem":         #000000,
+    "elem-sel":     rgb(21, 24, 28),
+    "gray":         #657786,
+    "gray-dark":    #38444d,
+    "gray-dark-2":  rgb(47, 51, 54),
+    "gray-light":   rgb(110, 118, 125),
+    "navbar":       rgb(21, 24, 28),
+    "text":         rgb(217, 217, 217),
+    "text-2":       white,
+    "shadow":       rgba(255, 255, 255, .15),
+    "backdrop":     rgba(91, 112, 131, .4)
+  ),
+  // high contrast themes
+  "white-hc": (
+    "gray":         rgb(59, 76, 92),
+    "gray-dark":    rgb(170, 184, 194),
+    "gray-light":   rgb(59, 76, 92),
+    "text":         rgb(20, 29, 38),
+
+    // base colors
+    "blue":         rgb(38, 74, 157),
+    "green":        rgb(9, 102, 51),
+    "red":          rgb(159, 12, 58),
+    "red-dark":     rgb(169, 36, 78),
+    "yellow":       rgb(121, 80, 11)
+  ),
+  "dim-hc": (
+    "elem-sel":     rgb(24, 36, 48),
+    "gray":         rgb(184, 203, 217),
+    "gray-dark":    rgb(56, 68, 88),
+    "gray-light":   rgb(184, 203, 217),
+    "text-2":       rgb(15, 20, 25),
+
+    // base colors
+    "blue":         rgb(112, 200, 255),
+    "green":        rgb(102, 211, 151),
+    "red":          rgb(240, 152, 179),
+    "red-dark":     rgb(216, 137, 161),
+    "yellow":       rgb(255, 203, 112)
+  ),
+  "lightsout-hc": (
+    "bg":           rgb(5, 5, 5),
+    "elem":         rgb(5, 5, 5),
+    "elem-sel":     rgb(14, 16, 18),
+    "gray":         rgb(146, 156, 166),
+    "gray-dark":    rgb(61, 65, 69),
+    "gray-light":   rgb(146, 156, 166),
+    "text":         rgb(255, 255, 255),
+    "text2":        rgb(15, 20, 25)
+  )
+);
+
+
+@mixin get-colors-from-map($map) {
+  @each $key, $value in $map {
+    --color-#{$key}: #{$value};
+  }
+}
+
+
+// create color schemes from theme
+@each $theme, $map in $themes {
+  @if $theme == "white" {
+    :root {
+      @include get-colors-from-map($map);
+    }
+  } @else {
+    [data-theme="#{$theme}"] {
+      // add missing colors to hc-themes
+      @if str-index($theme, "-hc") {
+        $map: map-merge(map-get($themes, str-slice($theme, 1, -4)), $map);
+      }
+
+      // lightsout-hc has the same base colors as dim-hc
+      @if $theme == "lightsout-hc" {
+        $map: map-merge(map-get($themes, "dim-hc"), $map);
+      }
+
+      @include get-colors-from-map($map);
+    }
+  }
+}
+
+
+
+
+// ########################
+// #      recoloring      #
+// ########################
+
+// colorized buttons for image modals
+div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child(2) > div > div {
+  // comments
+  div[data-testid=reply]:hover,
+  div[role=button]:not([data-testid]):hover {
+    > div {
+      color: var(--color-blue);
+
+      > div > div {
+        background-color: rgba(var(--color-raw-blue), .1);
+      }
+    }
+  }
+
+  // retweets
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet]:hover {
+    > div > div > div {
+      background-color: rgba(var(--color-raw-green), .1);
+    }
+  }
+
+  div[data-testid=retweet]:hover,
+  div[data-testid=unretweet] {
+    > div {
+      color: var(--color-green);
+    }
+  }
+
+  // likes
+  div[data-testid=like]:hover,
+  div[data-testid=unlike]:hover {
+    > div > div > div {
+      background-color: rgba(var(--color-raw-red), .1);
+    }
+  }
+
+  div[data-testid=like]:hover,
+  div[data-testid=unlike] {
+    > div {
+      color: var(--color-red);
+    }
+  }
+}
+
+// color carets with the user color
+// make carets look like carets again (instead of 3 dots)
+body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
+  div[data-testid=caret] {
+    > div > div > div {
+      background-color: var(--color-user);
+      opacity: 0;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        opacity: .1;
+
+        + svg {
+          background-color: var(--color-user);
+        }
+      }
+    }
+
+    svg {
+      background-color: var(--color-gray-light);
+      mask: url($caret);
+      pointer-events: none;
+
+      g {
+        display: none;
+      }
+    }
+  }
+}
+
+
+// color several ui elements with the user color
+// 2021-03-19 introduced for some users
+// 2021-05-12 reverted again
+// 2021-08-11 readded with ChirpUpdate
+//
+// follow/other buttons
+div[data-testid=userActions],
+div[data-testid=sendDMFromProfile],
+div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
+div[data-testid$=-cancel],
+div[data-testid$=-follow],
+a[href="/settings/profile"],
+div[id^=topic-follow-button]:not(.r-1ucxkr8),
+div[data-testid=listCell] div[role=button],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
+  background-color: transparent !important;
+  border-color: var(--color-user) !important;
+
+  span {
+    line-height: unset !important;
+  }
+
+  > *,
+  // all but notifications bell turned on
+  svg g > *:not([d^="M23.61.15c-.375"]) {
+    color: var(--color-user) !important;
+  }
+
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+// unfollow button
+div[data-testid$=-unfollow],
+body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
+  transition-property: border-color, background-color, box-shadow;
+
+  span {
+    line-height: unset !important;
+  }
+
+  &:not(:hover),
+  &:hover[data-gt2-just-clicked-follow] {
+    background-color: var(--color-user) !important;
+    border-color: var(--color-user) !important;
+
+    > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+
+  &:hover:not([data-gt2-just-clicked-follow]) {
+    background-color: var(--color-red-dark) !important;
+    border-color: var(--color-red-dark) !important;
+
+    > * {
+      color: var(--color-text-2) !important;
+    }
+  }
+}
+
+// notification bell
+[data-gt2-bell-full-color] {
+  background-color: var(--color-user) !important;
+  border-color: var(--color-user) !important;
+
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+
+// ChirpUpdate: icon recolors
+// spark icon
+div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
+// various cogs
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
+// messages
+a[href*="/messages/settings"],
+a[href*="/messages/compose"],
+a[href^="/messages/"][href*="/info"],
+body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
+// generic back button
+[data-testid="app-bar-back"],
+// generic close button
+[data-testid="app-bar-close"],
+// /search dot button
+[data-testid="searchBoxOverflowButton"] {
+  svg {
+    color: var(--color-user) !important;
+  }
+
+  &:hover {
+    background-color: rgba(var(--color-raw-user), .1) !important;
+  }
+}
+
+// color global override TODO
+.gt2-opt-color-override {
+  --color-raw-user: var(--color-override);
+  --color-user: rgb(var(--color-override));
+  // normal color
+  *:not(#placeholder) {
+    // blue         yellow         red             purple          orange          green
+    > .r-13gxpu9, > .r-61mi1v, > .r-daml9f,  > .r-xfsgu1,  > .r-1qkqhnw, > .r-nw8l94,  // normal
+    > .r-xyrcl7,  > .r-iogyil, > .r-dyo1pg,  > .r-1u5vp33, > .r-ucruu0,  > .r-58mm23, // white hc
+    > .r-6743kw,  > .r-mjbqy8, > .r-1e0i1xg, > .r-2o3veo,  > .r-pxzkq4,  > .r-mhzhfq, // dim/lo hc
+    > .r-1n1174f // blue (link?)
+    {
+      &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
+        color: var(--color-user) !important;
+      }
+    }
+  }
+
+  // border
+  // blue     yellow      red         purple      orange      green
+  .r-p1n3y5,  .r-v6khid,  .r-1iofnty, .r-11mmphe, .r-1xl5njo, .r-5ctkeg,  // normal
+  .r-yness5,  .r-9h97i0,  .r-1y0ydr9, .r-1v3952k, .r-57jueo,  .r-2a99tl,  // white hc
+  .r-141ztgp, .r-dbkiaw,  .r-161anm9, .r-1mqg5jq, .r-15zavzp, .r-16uoikt, // dim/lo hc
+  // border-right-color
+  .r-4rwt92,  .r-o1b8s3,  .r-l7fug5,  .r-ukm9ly,  .r-as53oi,  .r-1oux8jo, // normal
+  .r-d5u5q4,  .r-19xls35, .r-1kbil5v, .r-s9itga,  .r-bym8x3,  .r-1yd53u3, // white hc
+  .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
+  [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
+    &:not([data-gt2-color-override-ignore]) {
+      border-color: var(--color-user) !important;
+    }
+  }
+
+  // background-color
+  // blue     yellow      red         purple      orange      green
+  .r-urgr8i,  .r-1vkxrha, .r-1dgebii, .r-1qqlz1x, .r-18z3xeu, .r-b5skir,  // normal
+  .r-uc097p,  .r-xw9v2f,  .r-evx7rm,  .r-1dbsxl1, .r-1hmhqf0, .r-1glhoi6, // white hc
+  .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: var(--color-user) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-zv2cs0,  .r-75i7r9,  .r-wcu338,  .r-va2hk5,  .r-1vxd3ld, .r-1up5ays, // normal
+  .r-1bek5y6, .r-1ho5ue4, .r-vrom3q,  .r-ri3bjg,  .r-bnzbsy,  .r-1q8d70v, // white hc
+  .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      background-color: rgba(var(--color-raw-user), .1) !important;
+    }
+  }
+  // blue     yellow      red         purple      orange      green
+  .r-1q3imqu, .r-1kplyi6, .r-1ucxkr8, .r-njt2r9,  .r-l779s2,  .r-zx61xx, // normal
+  .r-1urml5z, .r-1qhlxry, .r-1vitrf9, .r-pg0o0i,  .r-z5urpw,  .r-xsbikc, // white hc
+  .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
+      background-color: rgba(var(--color-raw-user), .7) !important;
+    }
+  }
+
+  // box-shadow
+  // blue     yellow      red         purple      orange      green
+  .r-1bih22f, .r-cdj8wb,  .r-jd07pc,  .r-hy56xe,  .r-b8m25f,  .r-1cqwhho, // normal
+  .r-yab67o,  .r-1wzm90r, .r-1cstf6x, .r-13g0htx, .r-fne7zz,  .r-nlrx61,  // white hc
+  .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
+  {
+    &:not([data-gt2-color-override-ignore]) {
+      box-shadow: var(--color-user) 0 0 0 1px !important;
+    }
+  }
+
+  // compose tweet length indicator
+  [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
+    stroke: var(--color-user) !important;
+  }
+}
+
+body:not(.gt2-opt-color-override) {
+  --color-raw-user: var(--color-normal);
+  --color-user: rgb(var(--color-normal));
+}

@@ -1,0 +1,8 @@
+:root {
+  --scrollbar-width: ;
+  --square-avatars-border-radius: 10%;
+}
+
+
+$navbar-dropdown: "div[role=menu][style^='max-height: calc'].r-ipm5af";
+$caret: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg%3E%3Cpath d='M2.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E";

@@ -1,0 +1,47 @@
+// tweet analytics
+body[data-promote-url^="/i/tfb/v1/quick_promote"] {
+  background-color: var(--color-elem) !important;
+
+  .QuoteTweet {
+    border-color: var(--color-gray);
+  }
+
+  // buttons
+  .ep-ViewAllEngagementsButton,
+  .ep-InlineSignupButton {
+    background-color: #55acee !important;
+    color: #ffffff !important;
+  }
+
+  // separators
+  .ep-Campaign,
+  .ep-DetailedEngagementsSection {
+    border-color: var(--color-gray-dark);
+  }
+
+  // text
+  .ProfileTweet-originalAuthor b,
+  .QuoteTweet-text,
+  .QuoteTweet-text b,
+  .QuoteTweet-text s,
+  .QuoteTweet-text span,
+  .ep-MetricName,
+  .ep-MetricValue span,
+  .ep-SectionTitle {
+    color: var(--color-text) !important;
+  }
+}
+
+// signup for tweet promoting
+body[data-payment-endpoint-path] {
+  background-color: var(--color-elem) !important;
+
+  .as-Label,
+  .as-SelectContainer {
+    color: var(--color-text);
+
+    option {
+      background-color: var(--color-elem);
+    }
+  }
+}

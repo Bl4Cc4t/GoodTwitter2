@@ -1,0 +1,327 @@
+// settings page
+body[data-gt2-path^="settings/"] {
+  main {
+    section[aria-labelledby=root-header],
+    section[aria-labelledby=detail-header] {
+      > div:nth-child(2) {
+        margin-bottom: 0;
+      }
+    }
+
+    section[aria-labelledby=root-header] {
+      border-bottom-width: 1px;
+      border-right-width: 0;
+      box-shadow: 1px 0 0 var(--color-gray-dark);
+      position: fixed;
+
+      // ChirpUpdate: readd vertical dividers
+      [role=tablist] > div > a {
+        @include separator-bottom;
+      }
+    }
+
+    section[aria-labelledby=detail-header] {
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+      height: max-content;
+      margin-bottom: 10px;
+
+      a[href="/settings/contacts"],
+      a[href="/settings/location_information"],
+      a:last-child {
+        border-bottom-width: 0;
+      }
+
+      // ChirpUpdate: readd vertical dividers
+      > div:nth-child(2):not(.gt2-settings) {
+        > *,
+        > div:not([class*=" "]) > * {
+          &:not(:first-child) {
+            @include separator-top;
+
+            &:empty {
+              background-color: var(--color-elem-sel);
+              height: 8px;
+              margin: unset !important;
+            }
+          }
+
+          &:first-child:empty {
+            background-color: var(--color-elem-sel);
+            height: 8px;
+            margin: unset !important;
+          }
+
+        }
+      }
+
+      // tablists nav background colors get glitched somehow, not sure why
+      [role=tablist] {
+        background-color: var(--color-elem);
+      }
+
+      > nav + div > div {
+        &:first-child {
+          border-bottom-width: 0;
+        }
+      }
+    }
+  }
+
+  .gt2-toggle-settings {
+    background-color: var(--color-elem);
+    box-sizing: border-box;
+    color: var(--color-text);
+    font-size: incr(15px);
+    text-decoration: none;
+
+    div {
+      padding: 11.7px 15px;
+      width: inherit;
+    }
+
+    svg {
+      position: absolute;
+      right: 15px;
+      transform: rotate(-90deg);
+      width: incr(1.25em);
+    }
+
+    &:hover {
+      background-color: var(--color-elem-sel);
+      cursor: pointer;
+    }
+  }
+
+  &[data-gt2-path="settings/gt2"] {
+    main section[aria-labelledby=root-header] > div:nth-child(2) > div {
+      > div:not(:empty),
+      > div:not(:empty) > div:not(:empty) {
+        background-color: var(--color-elem);
+
+        > div:nth-child(2) {
+          border-right-width: 0;
+        }
+      }
+    }
+
+    .gt2-toggle-settings {
+      background-color: var(--color-elem-sel);
+
+      div {
+        border-right: solid 2px var(--color-user);
+      }
+    }
+  }
+
+  .gt2-settings {
+    ~ * {
+      display: none;
+    }
+  }
+
+  .gt2-settings-header,
+  .gt2-settings-sub-header,
+  .gt2-setting {
+    @include separator-bottom;
+    background-color: var(--color-elem);
+    box-sizing: border-box;
+    color: var(--color-text);
+  }
+
+  .gt2-settings-header {
+    align-items: center;
+    display: flex;
+    height: 53px;
+    padding: 0 15px;
+
+    .gt2-settings-back {
+      @include hoverable-svg;
+      display: none !important;
+      height: 39px;
+      margin-left: -4px;
+      margin-right: 18px;
+      position: relative;
+      width: 39px;
+
+      svg {
+        font-size: 15px;
+        height: 1.5em;
+        width: 1.5em;
+      }
+    }
+  }
+
+  .gt2-settings-header,
+  .gt2-settings-sub-header {
+    font-size: incr(19px) !important;
+    font-weight: 800;
+  }
+
+  .gt2-settings-sub-header {
+    line-height: 1.3135em;
+    padding: 10px 15px;
+  }
+
+  .gt2-settings-separator {
+    @include separator-bottom;
+    background-color: var(--color-elem-sel);
+    height: 8px;
+  }
+
+
+  .gt2-setting {
+    padding: 15px;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .gt2-setting-toggle {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 20px;
+
+      div {
+        height: 20px;
+        position: absolute;
+        width: 20px;
+      }
+
+      // hover shadow
+      div:nth-child(1) {
+        background-color: var(--color-gray);
+        border-radius: 9999px;
+        opacity: 0;
+        padding: 10px;
+        transition: opacity .2s ease-in-out;
+      }
+
+      &:not(.gt2-disabled):hover div:nth-child(1) {
+        opacity: .1;
+      }
+
+      // checkbox
+      div:nth-child(2) {
+        border: 2px solid var(--color-gray);
+        border-radius: 4px;
+        box-sizing: border-box;
+
+        svg {
+          display: none;
+          fill: #ffffff;
+        }
+      }
+
+      &.gt2-active {
+        div:nth-child(2) {
+          background-color: var(--color-user);
+          border-color: var(--color-user);
+        }
+
+        svg {
+          display: block !important;
+        }
+      }
+
+      &.gt2-disabled {
+        cursor: not-allowed;
+
+        &.gt2-active {
+          div:nth-child(2) {
+            background-color: var(--color-gray-dark);
+            border-color: var(--color-gray-dark);
+          }
+        }
+      }
+    }
+
+    .gt2-setting-input {
+      backface-visibility: hidden;
+      border: solid 1px var(--color-gray-dark-2);
+      border-radius: 4px;
+      margin-top: 10px;
+      padding: 4px;
+
+      &:focus-within {
+        border-color: var(--color-user);
+        box-shadow: var(--color-user) 0 0 0 1px;
+      }
+
+      input {
+        appearance: none;
+        background: transparent;
+        border: unset;
+        color: var(--color-text);
+        font-family: inherit;
+        font-size: incr(20px);
+        outline-style: none;
+        width: 100%;
+      }
+    }
+
+    > span {
+      color: var(--color-gray-light);
+      display: block;
+      font-size: incr(13px);
+      padding-top: 10px;
+    }
+
+    &:last-child {
+      border-bottom: unset;
+    }
+
+    .gt2-settings-multi-selection {
+      font-size: incr(13px);
+      margin-top: 12.5px;
+
+      > div {
+        display: flex;
+        flex-direction: column;
+
+        &:first-child:last-child {
+          flex-grow: 1;
+        }
+
+        > div {
+          display: flex;
+          margin-left: auto;
+
+          &:not(:last-child) {
+            margin-bottom: 12.5px;
+          }
+
+          > span {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+
+    // color pickr
+    .gt2-color-override-pickr {
+      margin-top: 12.5px;
+      opacity: 1;
+      visibility: visible;
+      width: auto;
+
+      &,
+      input {
+        background-color: transparent;
+        border: 1px solid var(--color-gray-dark-2);
+        border-radius: 4px;
+        box-shadow: unset;
+        color: var(--color-text);
+        font-family: inherit;
+        font-size: calc(15px + var(--font-increment));
+      }
+
+      .pcr-type.active {
+        background-color: var(--color-user);
+        color: var(--color-text-2);
+      }
+    }
+  }
+}

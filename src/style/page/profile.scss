@@ -1,0 +1,104 @@
+// profile page
+.gt2-page-profile {
+  .gt2-dashboard-profile {
+    display: none;
+  }
+
+  &.gt2-profile-not-found {
+    [data-testid=emptyState] {
+      margin: unset;
+      max-width: unset;
+
+      > div {
+        text-align: center;
+
+        &:nth-child(1) {
+          font-size: calc(22px + var(--font-increment));
+          font-weight: 700;
+          line-height: unset;
+        }
+      }
+    }
+  }
+}
+
+// blocked profile page
+.gt2-page-profile-youre-blocked {
+  .gt2-blocked-profile-description,
+  .gt2-blocked-profile-items {
+    @include standard-link;
+    margin-bottom: 10px;
+  }
+
+  .gt2-blocked-profile-description {
+    color: var(--color-text);
+    white-space: pre-wrap;
+  }
+
+  .gt2-blocked-profile-items {
+    color: var(--color-gray-light);
+    display: inline;
+
+    > * {
+      align-items: center;
+      display: inline-flex;
+      margin-right: 10px;
+    }
+
+    svg {
+      height: 1.25em;
+      margin-right: 5px;
+    }
+  }
+
+  .gt2-blocked-profile-ff {
+    a {
+      color: var(--color-gray-light);
+      margin-right: 20px;
+      pointer-events: none;
+      text-decoration: none;
+
+      span {
+        color: var(--color-text);
+        font-weight: 700;
+      }
+    }
+  }
+
+  .gt2-blocked-profile-followers-you-know {
+    color: var(--color-gray-light);
+    display: flex;
+    font-size: incr(13px);
+    margin-top: 10px;
+    text-decoration-line: none;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+
+    > img {
+      border: solid 1px var(--color-bg);
+      border-radius: 9999px;
+      height: 20px;
+      position: relative;
+      width: 20px;
+
+      &:nth-child(1) {
+        z-index: 2;
+      }
+
+      &:nth-child(2) {
+        margin-left: -10px;
+        z-index: 1;
+      }
+
+      &:nth-child(3) {
+        margin-left: -10px;
+      }
+
+      &:nth-last-of-type(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+}

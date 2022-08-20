@@ -1,0 +1,345 @@
+.gt2-opt-legacy-profile.gt2-page-profile {
+  main {
+    margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
+    min-height: 880px;
+
+    > div {
+      transition: margin-top .25s ease-in-out;
+    }
+
+    div[data-testid=primaryColumn] > div {
+      @include separator-top;
+
+      > div:nth-child(1),
+      > div:nth-child(2) > div > div > div:nth-child(1) {
+        left: -9999999px;
+        position: absolute;
+        top: 0;
+      }
+
+      > div:nth-child(2) > div > div > div:nth-child(2) {
+        border-top-width: 0;
+      }
+    }
+  }
+
+  &.gt2-profile-not-found {
+    main > div {
+      margin-top: unset !important;
+    }
+
+    .gt2-legacy-profile-nav a,
+    .gt2-legacy-profile-info a {
+      pointer-events: none;
+    }
+
+    &.gt2-scrolled-down-banner .gt2-legacy-profile-info {
+      display: none;
+    }
+  }
+
+  .gt2-legacy-profile-banner,
+  .gt2-legacy-profile-nav {
+    z-index: 1;
+  }
+
+  .gt2-legacy-profile-banner {
+    align-items: center;
+    background-color: var(--color-gray-dark);
+    display: flex;
+    height: calc((100vw - var(--scrollbar-width)) / 3);
+    margin-top: 47px;
+    overflow: hidden;
+    width: 100%;
+
+    img {
+      width: inherit;
+    }
+  }
+
+  .gt2-legacy-profile-nav {
+    @include standard-link;
+    background-color: var(--color-navbar);
+    border-bottom: 1px solid rgba(0, 0, 0, .25);
+    display: flex;
+    height: 60px;
+    width: 100%;
+
+    > div {
+      display: flex;
+      height: inherit;
+      position: absolute;
+    }
+
+    .gt2-legacy-profile-nav-left {
+      align-items: center;
+
+      // avatar
+      .gt2-legacy-profile-nav-avatar img {
+        border-radius: 9999px;
+        transition: .25s filter;
+
+        &:hover {
+          cursor: pointer;
+          filter: brightness(.85);
+        }
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+
+        .gt2-legacy-profile-name span {
+          text-overflow: ellipsis;
+        }
+
+        .gt2-legacy-profile-name,
+        .gt2-legacy-profile-screen-name-wrap {
+          span {
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .gt2-legacy-profile-nav-center {
+      a {
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration-line: none !important;
+
+        div {
+          color: var(--color-gray-light) !important;
+          font-weight: bold;
+
+          &:nth-child(1) {
+            font-size: incr(12px);
+          }
+
+          &:nth-child(2) {
+            font-size: incr(18px);
+          }
+        }
+
+        &:hover {
+          border-bottom: 3px solid var(--color-user);
+
+          div:nth-child(2) {
+            color: var(--color-user) !important;
+          }
+        }
+      }
+    }
+
+    .gt2-legacy-profile-nav-right {
+      align-items: center;
+      right: 0;
+
+      [role=button],
+      div[data-testid=placementTracking] > div,
+      [href="/settings/profile"] {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .gt2-legacy-profile-name {
+    color: var(--color-text) !important;
+    font-size: incr(18px);
+    font-weight: 800;
+  }
+
+  .gt2-legacy-profile-screen-name-wrap {
+    display: flex;
+  }
+
+  .gt2-legacy-profile-screen-name {
+    color: var(--color-gray-light);
+    font-size: incr(14px);
+  }
+
+  .gt2-legacy-profile-info {
+    @include standard-link;
+    background-color: unset;
+    border: unset;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+    .gt2-legacy-profile-screen-name {
+      color: var(--color-gray-light) !important;
+    }
+
+    .gt2-legacy-profile-description:not(:empty) {
+      color: var(--color-text);
+
+      [data-testid=UserDescription] {
+        color: var(--color-text);
+
+        + div {
+          width: max-content;
+
+          &:hover {
+            text-decoration-line: underline;
+          }
+        }
+      }
+    }
+
+    .gt2-legacy-profile-screen-name-wrap,
+    .gt2-legacy-profile-description:not(:empty),
+    .gt2-legacy-profile-automated {
+      margin-bottom: 12px !important;
+    }
+
+    .gt2-legacy-profile-automated {
+      margin: unset;
+    }
+
+    .gt2-legacy-profile-items {
+      span,
+      svg {
+        color: var(--color-gray-light);
+      }
+
+      a:hover {
+        text-decoration-color: var(--color-gray-light);
+      }
+
+      > *:not(:last-child) {
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+
+    .gt2-legacy-profile-name,
+    .gt2-legacy-profile-items > *:not(:last-child) {
+      width: fit-content -moz-fit-content -webkit-fit-content;
+    }
+
+    .gt2-legacy-profile-fyk:not(:empty) {
+      margin-top: 12px;
+      padding-right: 10px;
+
+      span,
+      div {
+        color: var(--color-gray-light);
+      }
+
+      &:hover a {
+        text-decoration-color: var(--color-gray-light);
+      }
+    }
+
+
+    // blocked profile
+    .gt2-legacy-profile-item {
+      .gt2-blocked-profile-location,
+      .gt2-blocked-profile-url,
+      .gt2-blocked-profile-birthday,
+      .gt2-blocked-profile-joined-at {
+        display: inline-flex;
+
+        svg {
+          height: 1.25em;
+          margin-right: 5px;
+        }
+
+        &:not(.gt2-blocked-profile-url) {
+          color: var(--color-gray-light);
+        }
+      }
+    }
+
+    .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
+      color: var(--color-gray-light);
+    }
+  }
+
+  // normal view with big banner
+  &:not(.gt2-scrolled-down-banner) {
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav {
+      position: absolute;
+    }
+
+    .gt2-legacy-profile-nav {
+      margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px);
+
+      .gt2-legacy-profile-nav-left {
+        // avatar
+        .gt2-legacy-profile-nav-avatar {
+          filter: dropborder(2.5px, var(--color-navbar));
+          margin-bottom: 100px;
+
+          img {
+            height: 200px;
+            width: 200px;
+          }
+        }
+
+        .gt2-legacy-profile-name,
+        .gt2-legacy-profile-screen-name-wrap {
+          display: none;
+        }
+      }
+    }
+
+    .gt2-legacy-profile-info {
+      padding-top: 30px;
+    }
+  }
+
+  // view when scrolled down
+  &.gt2-scrolled-down-banner {
+    main > div {
+      margin-top: 50px;
+    }
+
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav {
+      position: fixed;
+    }
+
+    .gt2-legacy-profile-banner {
+      height: 15px !important;
+
+      img {
+        transform: unset !important;
+      }
+    }
+
+    .gt2-legacy-profile-nav {
+      margin-top: calc(47px + 15px);
+
+      .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
+        height: 36px;
+        width: 36px;
+      }
+    }
+
+    .gt2-legacy-profile-info {
+      .gt2-legacy-profile-name,
+      .gt2-legacy-profile-screen-name-wrap {
+        display: none;
+      }
+    }
+  }
+}
+
+// LPL disabled
+body {
+  #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+    main {
+      margin-top: 56px;
+    }
+
+    .gt2-legacy-profile-banner,
+    .gt2-legacy-profile-nav,
+    .gt2-legacy-profile-info {
+      display: none;
+    }
+  }
+}

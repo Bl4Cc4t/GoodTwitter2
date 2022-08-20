@@ -1,0 +1,337 @@
+// sticky sidebars
+.gt2-opt-sticky-sidebars {
+  #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      height: calc(100vh - 47px);
+      position: fixed;
+      top: 56px !important;
+    }
+  }
+
+  &.gt2-page-profile.gt2-opt-legacy-profile {
+    &:not(.gt2-scrolled-down-banner) {
+      .gt2-left-sidebar,
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        position: absolute;
+        top: 0 !important;
+      }
+    }
+
+    &.gt2-scrolled-down-banner {
+      .gt2-left-sidebar,
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        position: fixed;
+        top: calc(47px + 15px + 60px + 10px) !important;
+      }
+
+      div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+        height: calc(100vh - (47px + 15px + 60px));
+      }
+
+      .gt2-left-sidebar {
+        height: calc(100vh - (47px + 15px + 60px + 10px));
+      }
+    }
+  }
+
+  // indepentently scrollable right sidebar
+  div[data-testid=sidebarColumn] > div {
+
+    > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+
+    > div:nth-child(2) {
+      bottom: unset !important;
+      margin-top: -10px;
+      -ms-overflow-style: none;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      padding-top: 10px;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  // bigger native navbar
+  &.gt2-not-logged-in {
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) {
+      height: calc(100vh - 64px);
+      top: 64px !important;
+    }
+  }
+}
+
+body:not(.gt2-opt-sticky-sidebars) {
+  min-height: unset !important;
+
+  div[data-testid=sidebarColumn] > div {
+    > div:nth-child(1) {
+      margin-top: 0 !important;
+    }
+
+    > div:nth-child(2) {
+      bottom: unset !important;
+      position: absolute;
+      top: 0 !important;
+    }
+  }
+}
+
+// small sidebars
+.gt2-opt-small-sidebars {
+  @include small-dashboard-profile;
+
+  .gt2-left-sidebar,
+  div[data-testid=sidebarColumn],
+  div[data-testid=sidebarColumn] > div > div:nth-child(2),
+  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div {
+    width: 290px;
+  }
+
+  .gt2-toggle-acc-switcher-dropdown {
+    bottom: 82px !important;
+  }
+
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
+    width: calc(300px - 46px);
+  }
+
+  .gt2-legacy-profile-nav-center {
+    padding-left: 300px;
+  }
+}
+
+body:not(.gt2-opt-small-sidebars) {
+  .gt2-legacy-profile-nav-left > div:not(.gt2-legacy-profile-nav-avatar) {
+    width: calc(360px - 56px);
+  }
+
+  .gt2-legacy-profile-nav-center {
+    padding-left: 360px;
+  }
+}
+
+// show 5 trends
+.gt2-opt-show-5-trends {
+  .gt2-trends-handled > div > div > div:nth-child(n+8):nth-child(-n+12) {
+    display: none !important;
+  }
+}
+
+// square avatars
+.gt2-opt-square-avatars {
+  [data-testid*=UserAvatar-Container] > div > div > div {
+    > div,
+    > div > * > div:not(:nth-child(1)) {
+      border-radius: var(--square-avatars-border-radius) !important;
+      border-width: 0;
+    }
+
+    > div > * > div:nth-child(1) {
+      border-radius: calc(var(--square-avatars-border-radius) * 1.15) !important;
+    }
+  }
+
+  // enlarge profile picture
+  &.gt2-page-profile[data-gt2-path$="/photo"] {
+    #layers [data-testid=swipe-to-dismiss] > div > div > div {
+      border-radius: var(--square-avatars-border-radius) !important;
+    }
+  }
+
+  // dashboard profile
+  .gt2-dashboard-profile .gt2-avatar {
+    border-radius: calc(var(--square-avatars-border-radius) * 1.15);
+
+    img {
+      border-radius: var(--square-avatars-border-radius);
+    }
+  }
+
+  // legacy profile layout
+  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
+    border-radius: var(--square-avatars-border-radius);
+  }
+}
+
+// disable hexagonal avatars OFF
+body:not(.gt2-opt-disable-hexagon-avatars) {
+  .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
+    clip-path: url("#hex-hw-shapeclip-clipconfig");
+  }
+}
+
+// font global override
+.gt2-opt-font-override {
+  &,
+  .r-1qd0xha,
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-override), var(--font-default) !important;
+  }
+}
+
+body:not(.gt2-opt-font-override) {
+  &,
+  .r-1qd0xha,
+  .r-1tl8opc,
+  .r-37j5jr {
+    font-family: var(--font-default) !important;
+  }
+}
+
+
+// bigger image previews
+.gt2-opt-bigger-previews {
+  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+    align-self: unset !important;
+
+    a[href^="/"][href*="/photo/"] > div {
+      height: unset !important;
+      width: unset !important;
+
+      > div:nth-child(1) {
+        padding-bottom: 0 !important;
+      }
+
+      > div:nth-child(2) {
+        position: relative;
+
+        > div {
+          display: contents;
+          position: relative;
+
+          > div {
+            display: none;
+          }
+
+          > img {
+            opacity: 1;
+            position: relative;
+          }
+        }
+      }
+    }
+  }
+}
+
+// showMediaWithContentWarnings
+.gt2-opt-show-media-with-content-warnings {
+  *:not([data-testid=placementTracking]) > * > [data-testid=tweet][data-gt2-show-media],
+  &.gt2-opt-show-media-with-content-warnings-sel-7 *:not([data-testid=placementTracking]) > * > [data-testid=tweet] {
+    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]):not([role]) > div:not([role]) > div:not([role]) {
+      &:nth-child(1) {
+        filter: unset;
+      }
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}
+
+// hide follow suggestions (divider line)
+[data-testid=cellInnerDiv].gt2-hidden + div > div > div:empty {
+  height: 0;
+  margin: 0;
+}
+
+// hide translated tweets
+.gt2-opt-hide-translate-tweet-button {
+  [data-testid=tweet] div[lang] + div[role=button] {
+    display: none;
+  }
+}
+
+// hide promote tweet button
+.gt2-opt-hide-promote-tweet-button {
+  [data-testid=tweet] a[href*="/quick_promote_web/"] {
+    display: none;
+  }
+}
+
+// hide message box (bottom right)
+.gt2-opt-hide-message-box {
+  div[data-testid=DMDrawer] {
+    border-width: 0;
+    box-shadow: unset;
+    height: 0;
+    z-index: -1;
+  }
+}
+
+// bunch up tweet interactions
+.gt2-opt-tweet-icons-pull-left {
+  [data-testid=primaryColumn] [data-testid=tweet] > div > div > div > div:nth-child(2) > div:nth-child(2) > div:last-child > div:last-child > div[role=group] {
+    justify-content: unset;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+      max-width: 80px;
+    }
+  }
+}
+
+
+// quick block buttons
+.gt2-opt-enable-quick-block {
+  [data-testid$="-follow"] {
+    &[data-gt2-qb-state=offer] {
+      background-color: rgba(var(--color-raw-red), .1) !important;
+      border-color: var(--color-red) !important;
+
+      > div > span > span {
+        color: var(--color-red);
+
+        &:not(.gt2-qb-block) {
+          display: none;
+        }
+      }
+    }
+
+    &[data-gt2-qb-state=blocked] {
+      background-color: var(--color-red) !important;
+      border-color: var(--color-red) !important;
+
+      > div > span > span {
+        color: #ffffff;
+      }
+
+      &:hover {
+        background-color: var(--color-red-dark) !important;
+        border-color: var(--color-red-dark) !important;
+
+        > div > span > span:not(.gt2-qb-unblock) {
+          display: none;
+        }
+      }
+
+      &:not(:hover) > div > span > span:not(.gt2-qb-blocked) {
+        display: none;
+      }
+    }
+  }
+
+  [data-testid$="-unfollow"] {
+    [class^=gt2-qb] {
+      display: none;
+    }
+  }
+
+  [data-testid=confirmationSheetConfirm] {
+    background-color: var(--color-user) !important;
+
+    > * {
+      color: var(--color-text-2) !important;
+    }
+
+    &:hover {
+      filter: brightness(.9);
+    }
+  }
+}

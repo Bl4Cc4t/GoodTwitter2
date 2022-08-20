@@ -1,0 +1,39 @@
+// tweet page
+.gt2-page-tweet {
+  // sticky header with back button
+  .gt2-search-overflow-hider {
+    display: block;
+  }
+
+  div[data-testid=primaryColumn] {
+    border-top-width: 0 !important;
+
+    > div > div {
+      &:nth-child(1) {
+        @include separator-top;
+        position: sticky;
+        top: 56px;
+      }
+
+      &:nth-child(2) {
+        position: relative;
+        top: 0;
+      }
+    }
+  }
+}
+
+
+// embed card links
+[data-testid="card.layoutSmall.media"] + a {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &,
+  &:link,
+  &:visited {
+    color: var(--color-user);
+    text-decoration-line: none;
+  }
+}

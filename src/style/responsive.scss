@@ -1,0 +1,474 @@
+// normal display
+@media only screen and (min-width: 1350px) {
+  body:not(.gt2-opt-small-sidebars) {
+    main > div,
+    main > div > div > div {
+      width: 1320px !important;
+    }
+
+    .gt2-nav-left,
+    .gt2-legacy-profile-nav-left,
+    .gt2-legacy-profile-nav-center {
+      margin-left: space(1318px);
+    }
+
+    .gt2-nav-right,
+    .gt2-legacy-profile-nav-right {
+      margin-right: space(1318px);
+    }
+
+    #{$navbar-dropdown} {
+      right: space(1320px) !important;
+    }
+
+    .gt2-search-overflow-hider {
+      right: calc(50% - 300px);
+    }
+
+    &.gt2-opt-sticky-sidebars {
+      div[data-testid=primaryColumn] {
+        margin-left: 360px;
+      }
+    }
+
+    &[data-gt2-path^="settings"] {
+      main {
+        section[aria-labelledby=root-header] {
+          margin-left: 360px;
+          width: 360px;
+        }
+
+        section[aria-labelledby=detail-header] {
+          margin-left: 720px;
+        }
+      }
+    }
+
+    &.gt2-not-logged-in {
+      &.gt2-opt-sticky-sidebars {
+        div[data-testid=sidebarColumn] {
+          margin-left: 10px;
+        }
+      }
+
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
+      }
+
+      &[data-gt2-path^="settings"] {
+        main > div > div > div {
+          max-width: 1310px;
+        }
+      }
+    }
+  }
+}
+
+
+// normal display (with smallSidebars enabled)
+@media only screen and (min-width: 1230px) {
+  .gt2-opt-small-sidebars {
+    main > div {
+      width: 1200px !important;
+
+      > div > div {
+        max-width: 1200px !important;
+        width: 1200px !important;
+      }
+    }
+
+    .gt2-nav-left,
+    .gt2-legacy-profile-nav-left,
+    .gt2-legacy-profile-nav-center {
+      margin-left: space(1198px);
+    }
+
+    .gt2-nav-right,
+    .gt2-legacy-profile-nav-right {
+      margin-right: space(1198px);
+    }
+
+    #{$navbar-dropdown} {
+      right: space(1200px) !important;
+    }
+
+    .gt2-search-overflow-hider {
+      right: calc(50% - 300px);
+    }
+
+    &.gt2-opt-sticky-sidebars {
+      div[data-testid=primaryColumn] {
+        margin-left: 300px;
+      }
+    }
+
+    &[data-gt2-path^="settings"] {
+      main {
+        section[aria-labelledby=root-header] {
+          margin-left: 300px;
+          width: 300px;
+        }
+
+        section[aria-labelledby=detail-header] {
+          margin-left: 600px;
+        }
+      }
+    }
+
+    &.gt2-not-logged-in {
+      &.gt2-opt-sticky-sidebars {
+        div[data-testid=sidebarColumn] {
+          margin-left: 10px;
+        }
+      }
+
+      &:not(.gt2-opt-sticky-sidebars) {
+        div[data-testid=primaryColumn] {
+          margin: 0 10px;
+        }
+
+        div[data-testid=sidebarColumn] {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+
+// only right sidebar
+@media only screen and (max-width: 1350px)
+                   and (min-width: 1095px) {
+  body:not(.gt2-opt-small-sidebars) {
+    main > div {
+      width: 960px !important;
+
+      > div > div {
+        left: 0 !important;
+        width: 960px !important;
+      }
+    }
+
+    .gt2-nav-left,
+    .gt2-legacy-profile-nav-left,
+    .gt2-legacy-profile-nav-center {
+      margin-left: space(958px);
+    }
+
+    .gt2-nav-right,
+    .gt2-legacy-profile-nav-right {
+      margin-right: space(958px);
+    }
+
+    #{$navbar-dropdown} {
+      right: space(960px) !important;
+    }
+
+    .gt2-search-overflow-hider {
+      right: calc(50% - 120px);
+    }
+
+    // hide sidebar
+    .gt2-left-sidebar {
+      display: none;
+    }
+
+    &[data-gt2-path^="settings"] {
+      main {
+        section[aria-labelledby=root-header] {
+          margin-left: 0;
+          width: 360px;
+        }
+
+        section[aria-labelledby=detail-header] {
+          margin-left: 360px;
+        }
+      }
+    }
+
+    .gt2-legacy-profile-nav {
+      .gt2-legacy-profile-nav-right {
+        padding-right: 360px;
+      }
+    }
+  }
+}
+
+
+// right small sidebar (for reuse)
+@mixin display-right-small-sidebar {
+  main > div {
+    width: 900px !important;
+
+    > div > div {
+      justify-content: unset !important;
+      width: 900px !important;
+
+      div[data-testid=sidebarColumn],
+      div[data-testid=sidebarColumn] > div > div {
+        width: 290px;
+      }
+    }
+  }
+
+  .gt2-nav-left,
+  .gt2-legacy-profile-nav-left,
+  .gt2-legacy-profile-nav-center {
+    margin-left: space(898px);
+  }
+
+  .gt2-nav-right,
+  .gt2-legacy-profile-nav-right {
+    margin-right: space(898px);
+  }
+
+  .gt2-legacy-profile-nav-right {
+    padding-right: 300px;
+  }
+
+  #{$navbar-dropdown} {
+    right: space(900px) !important;
+  }
+
+  .gt2-search-overflow-hider {
+    right: calc(50% - 150px);
+  }
+
+  // smaller search
+  .gt2-search > div {
+    width: 270px !important;
+  }
+}
+
+
+// only right sidebar (with smallSidebars enabled)
+@media only screen and (min-width: 1095px)
+                   and (max-width: 1230px) {
+  .gt2-opt-small-sidebars {
+    @include display-right-small-sidebar;
+
+    &[data-gt2-path^="settings"] {
+      main {
+        section[aria-labelledby=root-header] {
+          margin-left: 0;
+          width: 300px;
+        }
+
+        section[aria-labelledby=detail-header] {
+          margin-left: 300px;
+        }
+      }
+    }
+  }
+}
+
+
+// right small sidebar
+@media only screen and (min-width: 1005px)
+                   and (max-width: 1095px) {
+  @include display-right-small-sidebar;
+  @include small-dashboard-profile;
+
+  body[data-gt2-path^="settings"] {
+    main {
+      section[aria-labelledby=root-header] {
+        margin-left: 0;
+        width: 300px;
+      }
+
+      section[aria-labelledby=detail-header] {
+        margin-left: 300px;
+      }
+    }
+  }
+}
+
+
+// any right sidebar
+@mixin some-right-sidebar {
+  div[data-testid=primaryColumn] {
+    margin-right: 10px;
+  }
+
+  .gt2-left-sidebar {
+    display: none;
+  }
+
+
+  .gt2-settings-back {
+    display: none !important;
+  }
+
+  .gt2-legacy-profile-nav {
+    .gt2-legacy-profile-nav-left {
+      padding-left: 610px;
+    }
+
+    .gt2-legacy-profile-nav-center {
+      left: 0;
+      padding: unset;
+    }
+  }
+}
+
+@media only screen and (max-width: 1350px)
+                   and (min-width: 1005px) {
+  body:not(.gt2-opt-small-sidebars) {
+    @include some-right-sidebar;
+
+    &.gt2-not-logged-in {
+      div[data-testid=sidebarColumn] {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .gt2-opt-small-sidebars {
+    @media only screen and (max-width: 1230px) {
+      @include some-right-sidebar;
+
+      &.gt2-not-logged-in {
+        div[data-testid=sidebarColumn] {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+// no sidebars at all
+@media only screen and (max-width: 1005px) {
+  main > div {
+    width: 600px !important;
+
+    > div > div > div:nth-child(1) {
+      margin-right: 0 !important;
+    }
+  }
+
+  .gt2-nav-left,
+  .gt2-legacy-profile-nav-left,
+  .gt2-legacy-profile-nav-center {
+    margin-left: space(598px);
+
+    .gt2-nav-header {
+      display: none;
+    }
+  }
+
+  .gt2-nav-right,
+  .gt2-legacy-profile-nav-right {
+    margin-right: space(598px);
+  }
+
+  #{$navbar-dropdown} {
+    right: space(600px) !important;
+  }
+
+  .gt2-left-sidebar {
+    display: none;
+  }
+
+  body[data-gt2-path^="settings"] {
+    main > div > div > div {
+      border-width: 1px;
+      flex-grow: 0;
+      height: max-content;
+      margin-bottom: 10px;
+
+      section {
+        margin-bottom: 0 !important;
+      }
+
+      > div:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &[data-gt2-path^="settings/gt2"] {
+      main > div > div > div > div:not(.gt2-left-sidebar) {
+        display: none;
+      }
+    }
+
+    .gt2-settings-back {
+      display: flex !important;
+    }
+  }
+
+  .gt2-search-overflow-hider {
+    width: 100% !important;
+  }
+
+  .gt2-not-logged-in {
+    div[data-testid=sidebarColumn] {
+      display: none;
+    }
+  }
+}
+
+
+// not smallest screen
+@media only screen and (min-width: 1005px) {
+  .gt2-opt-sticky-sidebars {
+    #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+      .gt2-left-sidebar {
+        height: calc(100vh - 57px);
+        position: fixed !important;
+      }
+    }
+  }
+
+  body:not(.gt2-opt-sticky-sidebars)[data-gt2-path^="settings/"] {
+    .gt2-left-sidebar {
+      height: calc(100vh - 57px);
+      position: fixed !important;
+    }
+  }
+
+  body:not(.gt2-not-logged-in) {
+    .gt2-nav-left > a[href="/explore"] {
+      display: none !important;
+    }
+  }
+}
+
+
+// even smaller screen
+@media only screen and (max-width: 705px) {
+  body[data-gt2-path-modal^="compose/tweet"] {
+    main {
+      margin-top: 0 !important;
+
+      > div {
+        width: 100% !important;
+      }
+    }
+
+    .gt2-nav {
+      display: none;
+    }
+  }
+
+  body[data-gt2-path="messages"],
+  body[data-gt2-path^="messages/"],
+  body[data-gt2-path^="i/moment_maker"] {
+    main > div > div > div > div:nth-last-child(2) {
+      @include separator-top;
+      position: sticky;
+      top: 56px;
+    }
+
+    .gt2-search-overflow-hider {
+      display: block;
+    }
+  }
+}
+

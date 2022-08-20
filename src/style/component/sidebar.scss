@@ -1,0 +1,279 @@
+// left sidebar
+.gt2-left-sidebar {
+  margin-top: -10px;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 10px;
+  scrollbar-width: none;
+  width: 350px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > div {
+    margin-bottom: 11px;
+    position: relative;
+  }
+
+  &:empty {
+    display: none;
+  }
+
+  // moved trends
+  .gt2-trends,
+  .gt2-profile-media {
+    background-color: var(--color-elem);
+    border: solid 1px var(--color-gray-dark);
+    border-radius: 0;
+  }
+}
+
+// dashboard profile
+.gt2-dashboard-profile {
+  background-color: var(--color-elem);
+  border: 1px solid var(--color-gray-dark);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  right: 0;
+  z-index: 1;
+
+  a:not([href]) {
+    cursor: default;
+  }
+
+  .gt2-banner {
+    background-color: var(--color-gray);
+    background-position: 0 50%;
+    background-size: 100%;
+    height: 116px;
+    width: 100%;
+  }
+
+  > div {
+
+    .gt2-avatar {
+      align-items: center;
+      background-color: var(--color-elem);
+      border-radius: 9999px;
+      display: flex;
+      height: 82px;
+      justify-content: center;
+      margin: -30px 0 0 8px;
+      width: 82px;
+
+      img {
+        @include grayscale-hover;
+        border-radius: inherit;
+        height: 90%;
+        width: 90%;
+      }
+    }
+
+    .gt2-user {
+      color: var(--color-text);
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+      left: 100px;
+      position: absolute;
+      top: calc(125px - var(--font-increment) * 2);
+      width: 185px;
+
+      .gt2-name {
+        font-size: incr(18px);
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 210px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .gt2-screenname {
+        color: var(--color-gray-light);
+        font-size: incr(14px);
+
+        &:hover span {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .gt2-toggle-acc-switcher-dropdown,
+    .gt2-toggle-lo-nightmode {
+      @include hoverable-svg;
+      bottom: calc(89px + (var(--font-increment) + 2px) / 2);
+      right: 14px;
+
+      div {
+        height: 34.75px;
+        width: 34.75px;
+      }
+
+      svg {
+        fill: var(--color-gray-light);
+        height: 18.75px;
+        width: 18.75px;
+      }
+    }
+
+    .gt2-stats {
+      margin-top: calc(var(--font-increment) * -2);
+      padding: 16px;
+
+      ul {
+        display: table;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        li {
+          display: table-cell;
+          list-style: none;
+          width: 1%;
+
+          a {
+            display: flex;
+            flex-direction: column;
+
+            span:nth-child(1) {
+              color: var(--color-gray);
+              font-size: incr(13px);
+              font-weight: bold;
+              transition: color .15s ease-in-out;
+            }
+
+            span:nth-child(2) {
+              color: var(--color-user);
+              font-size: incr(19px);
+              font-weight: bold;
+              line-height: 1;
+              padding-top: 3px;
+            }
+          }
+
+          a:hover span:nth-child(1) {
+            color: var(--color-user);
+          }
+        }
+      }
+    }
+  }
+}
+
+div[data-testid=sidebarColumn] .gt2-dashboard-profile {
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+
+// gt2 sidebar notice
+.gt2-sidebar-notice {
+  @include standard-link;
+  background-color: var(--color-elem);
+  border: 1px solid var(--color-gray-dark);
+  color: var(--color-text);
+
+  .gt2-sidebar-notice-header {
+    @include separator-bottom;
+    font-size: incr(19px);
+    font-weight: 800;
+    position: relative;
+
+    .gt2-sidebar-notice-close {
+      @include hoverable-svg;
+      right: 10px;
+      top: 10px;
+    }
+  }
+
+  .gt2-sidebar-notice-content {
+    text-align: center;
+  }
+
+  > div {
+    padding: 10px 15px;
+  }
+
+  &.gt2-update-notice {
+    .gt2-sidebar-notice-content svg {
+      background-color: #008000;
+      border: 3.5px solid #008000;
+      border-radius: 9999px;
+      fill: #ffffff;
+      height: 12px;
+      margin-right: 5px;
+      vertical-align: bottom;
+    }
+  }
+}
+
+
+// link stuff
+.gt2-dashboard-profile a,
+a.gt2-trend {
+  text-decoration: none;
+
+  &:visited {
+    color: unset;
+  }
+
+  &:link {
+    color: unset;
+  }
+}
+
+// trends
+.gt2-trends-handled,
+.gt2-trends section {
+  > div > div {
+    > div {
+      // smaller padding next to the trends cog
+      &:nth-child(1) {
+        padding-right: 5px;
+      }
+
+      &[role=button] {
+        border-radius: unset;
+      }
+    }
+
+    // ChirpUpdate: readd vertical dividers
+    > div:nth-child(n+3) {
+      @include separator-top;
+    }
+  }
+}
+
+
+// acc switcher dropdown
+.gt2-acc-switcher-active {
+  #layers > div:nth-child(2) > div > div > div:nth-child(2) {
+    bottom: unset !important;
+    right: unset !important;
+
+    > div > div:nth-child(2) > div > div > div {
+      > svg {
+        bottom: unset !important;
+        fill: var(--color-elem);
+        filter: drop-shadow(var(--color-shadow) .25px -2px 1px);
+        left: unset !important;
+        position: absolute;
+        right: 5px !important;
+        top: -11px !important;
+        transform: unset !important;
+      }
+
+      > div > div {
+        padding: 0;
+      }
+    }
+  }
+}
