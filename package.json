@@ -1,0 +1,67 @@
+{
+  "name": "GoodTwitter2dev",
+  "version": "0.1.0",
+  "description": "A try to make Twitter look good again.",
+  "author": "schwarzkatz",
+  "license": "MIT",
+  "homepage": "https://github.com/Bl4Cc4t/GoodTwitter2#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bl4Cc4t/GoodTwitter2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bl4Cc4t/GoodTwitter2/issues"
+  },
+  "keywords": [
+    "twitter",
+    "userscript"
+  ],
+  "main": "dist/goodtwitter2.user.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "build:js": "rollup -c",
+    "i18n-add-new-strings": "ts-node util/i18n-add-new-strings.ts",
+    "build:i18n": "ts-node util/i18n-build.ts",
+    "build": "yarn build:js && yarn i18n-add-new-strings && yarn build:i18n"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@simonwep/pickr": "^1.8.2",
+    "@types/browserify": "^12.0.37",
+    "@types/node": "^18.7.8",
+    "@types/tampermonkey": "^4.0.5",
+    "autoprefixer": "^10.4.8",
+    "core-js": "^3.24.1",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.16",
+    "postcss-cli": "^10.0.0",
+    "rollup": "^2.78.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.54.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4",
+    "yaml": "^2.1.1"
+  },
+  "packageManager": "yarn@3.2.2",
+  "dependenciesMeta": {
+    "@simonwep/pickr@1.8.2": {
+      "unplugged": true
+    }
+  },
+  "workspaces": [
+    "packages/rollup-plugin-add-userscript-header"
+  ],
+  "eslintConfig": {
+    "env": {
+      "es2021": true
+    }
+  }
+}

@@ -1,3 +1,15 @@
+# editor stuff
+.vscode
+
+# caches
 .sass-cache
-.test
-test.js
+
+# internal testing
+.test*
+
+# package manager
+node_modules
+.yarn
+
+# comiled stuff
+dist
