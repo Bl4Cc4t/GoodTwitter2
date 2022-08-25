@@ -1,11 +1,13 @@
-// check for js-yaml
-try {
-  require.resolve("yaml")
-} catch (e) {
-  console.log("The required module 'js-yaml' wasn't found. \nPlease install it with 'npm i -g js-yaml'")
-  process.exit()
-}
+import { Pair } from "yaml"
 
+export {}
+
+declare global {
+  interface Object {
+    flatten(): Object
+    getByPath(...path: string[]): any
+  }
+}
 
 // flatten an object
 Object.prototype.flatten = function() {
@@ -20,7 +22,7 @@ Object.prototype.flatten = function() {
 }
 
 
-Object.prototype.getByPath = function(...path) {
+Object.prototype.getByPath = function(...path: string[]) {
   // https://stackoverflow.com/a/8817531
   if (!path.length) return this
   if (Array.isArray(path[0])) path = path[0]

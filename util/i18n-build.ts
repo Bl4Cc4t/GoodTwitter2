@@ -1,13 +1,11 @@
-#!/usr/bin/env node
-
-require("./include")
-const fs = require("fs")
-const path = require("path")
-const yaml = require("yaml")
+import * as fs from "fs"
+import * as path from "path"
+import * as yaml from "yaml"
+import "./extension/object.extension"
 
 
 ;(() => {
-  let dir = path.join(__dirname, "..", "i18n")
+  let dir = path.resolve("i18n")
   fs.readdir(dir, (err, files) => {
     if (err) console.error(err)
 
@@ -17,14 +15,14 @@ const yaml = require("yaml")
       let tl = yaml.parseDocument(fs.readFileSync(path.join(dir, file), "utf8"))
 
       // walk through yml file
-      ;(function walk(...path) {
+      ;(function walk(...path: string[]) {
         let i = 0
-        for (let e of tl.getByPath(path).items) {
-          if (e.value.type == "MAP") walk(...path, "items", i, "value")
+        for (let e of tl.getByPath(...path).items) {
+          if (e.value.type == "MAP") walk(...path, "items", i.toString(), "value")
           else {
             // remove untranslated fields
             if (e.value.comment && e.value.comment.match("TODO translation missing!")) {
-              tl.getByPath(path).delete(e.key.value)
+              tl.getByPath(...path).delete(e.key.value)
               ctr++
             }
           }
@@ -39,7 +37,7 @@ const yaml = require("yaml")
     console.log(`Trimmed ${ctr} untranslated strings.`)
 
     // write file
-    fs.writeFileSync(path.join(__dirname, "..", "twitter.gt2eb.i18n.js"), `const i18n = ${JSON.stringify(out)}`)
+    fs.writeFileSync(path.resolve("dist", "goodtwitter2.i18n.js"), `const i18n = ${JSON.stringify(out)}`)
   })
 
 })()
