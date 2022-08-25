@@ -1,0 +1,162 @@
+import { MODAL_PAGES, SVG } from "../constants"
+import { Path } from "../types"
+
+// declarations
+
+
+
+/**
+ * returns an SVG string
+ * @param  key icon to return
+ * @return     SVG string
+ */
+export function getSvg(key: keyof typeof SVG) {
+  return `
+    <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
+      ${SVG[key]}
+    </svg>`
+}
+
+
+/**
+ * Check if the user is logged in
+ * @return true if logged in, false if not
+ */
+export function isLoggedIn(): boolean {
+  return Boolean(document.cookie.match(/twid=u/))
+}
+
+
+/**
+ * Get current display language
+ * @return display language
+ */
+export function getLanguage() {
+  let lang = document.documentElement.lang
+  return lang == "en-GB" ? "en" : lang
+}
+
+
+/**
+ * Get localized version of a string.
+ * Defaults to english version.
+ * @param  key the value to look up
+ * @return     localized string
+ */
+export function getLocalizedString(key: string) {
+  let lang = getLanguage()
+  lang = Object.keys(i18n).includes(lang) ? lang : "en"
+  return i18n[Object.keys(i18n[lang]).includes(key) ? lang : "en"][key]
+}
+
+/**
+ * Execute callback function on elements once they are available in the DOM.
+ * Heavily based on https://gist.github.com/BrockA/2625891 but without jQuery.
+ * @param selector        A valid CSS selector string.
+ * @param callback        The callback function to execute. Gets passed the added element node.
+ * @param waitOnce       If set to false, continue to search for new elements even after the first match is found.
+ * @param iframeSelector Valid CSS selector string for an iframe to search elements in.
+ */
+export function waitForKeyElements(
+  selector: string,
+  callback: (e: HTMLElement) => void,
+  waitOnce = true,
+  iframeSelector?: string
+) {
+  let targetNodes: NodeListOf<HTMLElement>
+  let targetsFound = false
+  let WAIT_TIME_MS = 300
+
+
+  // get the target nodes
+  if (typeof iframeSelector == "undefined") {
+    targetNodes = document.querySelectorAll(selector)
+  }
+  // get nodes from iframe
+  else {
+    let iframe: HTMLIFrameElement | null = document.querySelector(iframeSelector)
+    if (!iframe) return
+    else {
+      targetNodes = iframe.contentDocument.querySelectorAll(selector)
+    }
+  }
+
+  if (targetNodes && targetNodes.length > 0) {
+    targetsFound = true
+
+    // loop over all nodes and execute the callback function
+    for (let node of Array.from(targetNodes)) {
+      if (!node.alreadyFound) {
+        callback(node)
+        node.alreadyFound = true
+      }
+    }
+  }
+
+  // Get the timer-control letiable for this selector.
+  let controlObj  = window.controlObj || {}
+  let controlKey  = selector.replace(/[^\w]/g, "_")
+  let timeControl = controlObj[controlKey]
+
+  // Now set or clear the timer as appropriate.
+  if (targetsFound && waitOnce && timeControl) {
+    // The only condition where we need to clear the timer.
+    clearInterval(timeControl)
+    delete controlObj[controlKey]
+  }
+
+  // Set a timer, if needed.
+  else if (!timeControl) {
+    timeControl = setInterval(function () { waitForKeyElements(selector, callback, waitOnce, iframeSelector) }, WAIT_TIME_MS)
+    controlObj[controlKey] = timeControl
+  }
+  window.controlObj = controlObj
+}
+
+
+// path helper functions
+export function onPage(path: Path, level=0) {
+  let pathSplit = location.pathname.split("/")
+
+  // given path is too deep
+  if (pathSplit.length < level) return false
+  let pathCurrent = pathSplit[level]
+
+  // path is an array
+  if (Array.isArray(path)) {
+    for (const sub of path) {
+      // single string
+      if (typeof sub == "string" && pathCurrent == sub) return true
+      // another path object
+      else if (typeof sub != "string" && onPage(sub, level+1)) return true
+    }
+  }
+
+  // path object
+  else {
+    for (const [top, sub] of Object.entries(path)) {
+      if (pathCurrent == top && onPage(sub, level+1)) return true
+    }
+  }
+
+  return false
+}
+
+export function onModal() {
+  return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/)
+}
+
+
+export function watchForChanges(selector: string, callback: (e: HTMLElement) => void) {
+  waitForKeyElements(selector, element => {
+    if (element) {
+      new MutationObserver(mut => {
+        mut.forEach(m => {
+          callback(element)
+        })
+      }).observe(element, {
+        attributes: true
+      })
+    }
+  })
+}
