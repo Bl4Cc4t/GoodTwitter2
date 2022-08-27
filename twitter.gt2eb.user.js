@@ -794,20 +794,35 @@
       `)
 
       // home, notifications, messages
-      for (let e of [
+      for (let type of [
         "Home",
         "Notifications",
         "Messages",
         window.innerWidth < 1005 ? "Explore" : null
       ]) {
-        if (!e) continue
-        let $e = $(`nav > a[href^="/${e.toLowerCase()}"]:not([data-testid=AppTabBar_Profile_Link]):not([href$="/lists"])`)
-        if (!e.length) continue
-        $(".gt2-nav-left").append($e.get(0).outerHTML)
-        $(`.gt2-nav a[href^="/${e.toLowerCase()}"] > div`)
+        if (!type) continue
+        let origElemSel = `nav > a[href^="/${type.toLowerCase()}"]:not([data-testid=AppTabBar_Profile_Link]):not([href$="/lists"])`
+        let $e = document.querySelector(origElemSel)
+        if (!$e) continue
+        document.querySelector(".gt2-nav-left").insertAdjacentHTML("beforeend", $e.outerHTML)
+
+        watchForChanges(origElemSel, e => {
+          let navbarElem = document.querySelector(`.gt2-nav-left [data-testid=${e.dataset.testid}]`)
+          if (!navbarElem) return
+          navbarElem.innerHTML = e.innerHTML
+          navbarElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
+          navbarElem.firstElementChild.insertAdjacentHTML("beforeend", `
+            <div class="gt2-nav-header">
+              ${getLocStr(`nav${type}`)}
+            </div>
+          `)
+        })
+
+        // $e.appendTo(".gt2-nav-left")
+        $(`.gt2-nav a[href^="/${type.toLowerCase()}"] > div`)
         .append(`
           <div class="gt2-nav-header">
-            ${getLocStr(`nav${e}`)}
+            ${getLocStr(`nav${type}`)}
           </div>
         `)
         .attr("data-gt2-color-override-ignore", "")
@@ -819,6 +834,20 @@
       // twitter logo
       $("h1 a[href='/home'] svg")
       .appendTo(".gt2-nav-center a")
+    })
+  }
+
+  function watchForChanges(selector, callback) {
+    waitForKeyElements(selector, $element => {
+      let element = $element[0]
+      if (element) {
+        new MutationObserver(mut => {
+          mut.forEach(() => callback(element))
+        }).observe(element, {
+          attributes: true,
+          childList: true
+        })
+      }
     })
   }
 
