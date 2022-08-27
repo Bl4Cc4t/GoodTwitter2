@@ -189,7 +189,8 @@ export function getTweetTranslation(
     feature: "None",
     timeout: "None",
     onlyCached: "None/translation/service/translateTweet"
-  }).map((k, v) => `${k}=${v}`).join(",")
+  }).map(e => `${e[0]}=${e[1]}`).join(",")
+
 
   GM_xmlhttpRequest({
     method: "GET",
@@ -219,7 +220,7 @@ export function getProfileTranslation(
     feature: "None",
     timeout: "None",
     onlyCached: "None/translation/service/translateProfile"
-  }).map((k, v) => `${k}=${v}`).join(",")
+  }).map(e => `${e[0]}=${e[1]}`).join(",")
 
   GM_xmlhttpRequest({
     method: "GET",

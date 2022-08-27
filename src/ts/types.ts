@@ -4,28 +4,28 @@ export namespace TwitterApi {
     export namespace statuses {
       export type show = TweetLegacy
     }
-    export interface translateTweet {
+    export interface translateTweet extends Translation {
       id: string
       id_str: string
-      translation: string
-      entities: Entities
       translationState: "Success"
-      sourceLanguage: string
-      localizedSourceLanguage: string
       destinationLanguage: string
-      translationSource: "Google"
     }
     export interface translateProfile {
       profileUserId: string
-      profileTranslation: {
-        translation: string
-        language: string // destination
-        entities: Entities
-        sourceLanguage: string
-        localizedSourceLanguage: string
-        translationSource: "Google"
-      }
+      profileTranslation: ProfileTranslation
     }
+  }
+
+  export interface Translation {
+    translation: string
+    entities: Entities
+    sourceLanguage: string
+    localizedSourceLanguage: string
+    translationSource: "Google"
+  }
+
+  export interface ProfileTranslation extends Translation {
+    language: string // destination
   }
 
   export namespace Graphql {
@@ -464,7 +464,9 @@ export namespace TwitterApi {
 }
 
 declare global {
-  const i18n: {string: string}[]
+  const i18n: {[lang: string]: {
+    [key: string]: string
+  }}[]
   interface Window {
     controlObj: any
   }
