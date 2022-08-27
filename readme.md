@@ -74,6 +74,9 @@ Thanks to these awesome people, there are translations available for the followi
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
+- Turkish (added by [@seaque](https://github.com/seaque))
+- Ukrainian (added by [@megamanyoutuber](https://github.com/megamanyoutuber))
+- Vietnamese (added by [@touanu](https://github.com/touanu))
 - English and German are natively supported.
 
 ### Adding translations
