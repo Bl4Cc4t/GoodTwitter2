@@ -4,8 +4,7 @@
 *released 2022-08-13*
 
 #### Changes
-- fixed the twitter freezing issues, courtesy of @EdinUser!
-  - #455
+- fixed the twitter freezing issues, courtesy of @EdinUser! ([#455](https://github.com/Bl4Cc4t/GoodTwitter2/issues/455))
 - Japanese & Russian translation updated with new strings
 
 
@@ -13,16 +12,12 @@
 *released 2022-07-30*
 
 #### New
-- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!)
-  - #104
-  - #441
-- option to redirect to `/media` when visiting profile pages
-  - #446
+- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!, [#104](https://github.com/Bl4Cc4t/GoodTwitter2/issues/104), [#441](https://github.com/Bl4Cc4t/GoodTwitter2/issues/441))
+- option to redirect to `/media` when visiting profile pages ([#446](https://github.com/Bl4Cc4t/GoodTwitter2/issues/446))
 - 2 translations:
-  - #444 (thanks @touanu!)
-  - #450 (thanks @seaque!)
-- clicking the "copy link to tweet" button now removes the t parameter from the url
-  - #405
+  - Vietnamese in [#444](https://github.com/Bl4Cc4t/GoodTwitter2/pull/444) (thanks @touanu!)
+  - Turkish in [#450](https://github.com/Bl4Cc4t/GoodTwitter2/pull/450) (thanks @seaque!)
+- clicking the "copy link to tweet" button now removes the t parameter from the url ([#405](https://github.com/Bl4Cc4t/GoodTwitter2/issues/405))
   - example: `https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ` -> `https://twitter.com/Outrojules/status/1543220843995619328?s=20`
 
 #### Changes
