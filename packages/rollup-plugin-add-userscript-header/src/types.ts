@@ -70,7 +70,7 @@ export const GM_GRANT = [
   "getResourceUrl",
   "registerMenuCommand",
   "unregisterMenuCommand",
-  "xmlHttpRequest",
+  "xmlhttpRequest",
   "download",
   "saveTab",
   "getTab",
