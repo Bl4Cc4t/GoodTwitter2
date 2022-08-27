@@ -478,3 +478,42 @@ export type Path = {
 } | Array<Path | string>
 
 export type Theme = (typeof import("./constants").THEMES)[number]
+
+export interface I18nReplacable {
+  bornDate: {
+    date: string
+  }
+  bornYear: {
+    year: string
+  }
+  followedBy1: {
+    p1: string
+  }
+  followedBy2: {
+    p1: string
+    p2: string
+  }
+  followedBy3: {
+    p1: string
+    p2: string
+    p3: string
+  }
+  followedBy4Plus: {
+    p1: string
+    p2: string
+    nr: number
+  }
+  translatedTweetInfo: {
+    lang: string
+    source: string
+  }
+  updatedInfo: {
+    version: string
+  }
+  hideFollowSuggestionsBox: {
+    type: string
+    location: string
+  }
+}
+
+
