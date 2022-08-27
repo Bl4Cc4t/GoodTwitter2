@@ -1,6 +1,8 @@
 import { MODAL_PAGES, SVG } from "../constants"
-import { I18nReplacable, Path } from "../types"
-import { logger } from "./logger"
+import { Path } from "../types"
+
+// declarations
+
 
 
 /**
@@ -41,39 +43,10 @@ export function getLanguage() {
  * @param  key the value to look up
  * @return     localized string
  */
-export function getLocalizedString(key: string): string {
-  if (!i18n) {
-    logger.error("error getting i18n data.")
-    return key
-  }
-
+export function getLocalizedString(key: string) {
   let lang = getLanguage()
-  if (!Object.keys(i18n).includes(lang)) {
-    logger.warn(`the language file for ${lang} does not exist yet. falling back to english.`)
-    lang = "en"
-  }
-
-  if (!Object.keys(i18n[lang]).includes(key)) {
-    if (!Object.keys(i18n["en"]).includes(key)) {
-      logger.error(`the string "${key}" does not exist.`)
-      return key
-    }
-
-    logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
-    lang = "en"
-  }
-
-  return i18n[lang][key]
-}
-
-export function getLocalizedReplacableString<K extends keyof I18nReplacable, V extends I18nReplacable[K]>(key: K, val: V): string {
-  let loc = getLocalizedString(key)
-
-  Object.entries(val).forEach(e => {
-    loc = loc.replace(`$${e[0]}$`, e[1].toString())
-  })
-
-  return loc
+  lang = Object.keys(i18n).includes(lang) ? lang : "en"
+  return i18n[Object.keys(i18n[lang]).includes(key) ? lang : "en"][key]
 }
 
 /**
