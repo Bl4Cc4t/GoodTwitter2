@@ -67,7 +67,7 @@ export const GM_GRANT = [
   "addValueChangeListener",
   "removeValueChangeListener",
   "getResourceText",
-  "getResourceUrl",
+  "getResourceURL",
   "registerMenuCommand",
   "unregisterMenuCommand",
   "xmlhttpRequest",
