@@ -1,11 +1,24 @@
+import { logger } from "./util/logger"
 import { Path, Theme } from "./types"
+
+//  userscript resources
+export const RES_EMOJI_REGEX = "emojiRegex"
+export const RES_CSS = "css"
+
 
 export const DEFAULT_AVATAR_URL = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
 
 // found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
 export const PUBLIC_BEARER = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
 
-export const emoji_regexp = new RegExp(`(${GM_getResourceText("emojiRegex")})`, "gu")
+export const EMOJI_REGEXP = (() => {
+  let text = GM_getResourceText(RES_EMOJI_REGEX)
+  if (!text || text.length == 0) {
+    logger.error(`error getting resource ${RES_EMOJI_REGEX}`)
+    return null
+  }
+  return new RegExp(`(${text})`, "gu")
+})()
 
 
 export const SVG = {

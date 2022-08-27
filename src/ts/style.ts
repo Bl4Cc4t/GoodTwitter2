@@ -1,5 +1,5 @@
 import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
-import { BG_COLOR_TO_THEME, TEXT_COLOR_TO_THEME } from "./constants"
+import { BG_COLOR_TO_THEME, RES_CSS, TEXT_COLOR_TO_THEME } from "./constants"
 import { Theme } from "./types"
 import { settings } from "./util/settings"
 import { logger } from "./util/logger"
@@ -101,7 +101,7 @@ export function initializeStyle(): void {
 
 
   // add stylesheet
-  GM_addStyle(GM_getResourceText("css")).classList.add("gt2-style")
+  GM_addStyle(GM_getResourceText(RES_CSS)).classList.add("gt2-style")
   logger.debug("added stylesheet")
 }
 

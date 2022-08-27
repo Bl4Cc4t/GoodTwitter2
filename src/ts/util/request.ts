@@ -51,6 +51,10 @@ export function requestTweet(
   id: string,
   callback: (result: TwitterApi.v1_1.statuses.show) => void
 ): void {
+  if (typeof id != "string" || id == "") {
+    logger.error(`requestTweet: given id "${id}" is invalid.`)
+    return
+  }
   GM_xmlhttpRequest({
     method: "GET",
     url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
@@ -80,6 +84,10 @@ export function requestTweetCW(
   id: string,
   callback: (result: TwitterApi.TweetLegacy) => void
 ): void {
+  if (typeof id != "string" || id == "") {
+    logger.error(`requestTweetCW: given id "${id}" is invalid.`)
+    return
+  }
   GM_xmlhttpRequest({
     method: "GET",
     url: getRequestURL("https://twitter.com/i/api/graphql/_iJccJ-mHcyaV0nq_odmBA/TweetDetail", {
@@ -123,10 +131,11 @@ export function requestTweetCW(
  * @param  screenName the screen_name of the user (@user)
  * @param  callback    function to call on success
  */
-export function requestUser(
-  screenName: string,
-  callback: (result: TwitterApi.UserResult) => void
-): void {
+export function requestUser(screenName: string, callback: (result: TwitterApi.UserResult) => void): void {
+  if (typeof screenName != "string" || screenName == "") {
+    logger.error(`requestUser: given screenName "${screenName}" is invalid.`)
+    return
+  }
   GM_xmlhttpRequest({
     method: "GET",
     url: getRequestURL(`https://twitter.com/i/api/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName`, {
@@ -154,11 +163,12 @@ export function requestUser(
  * @param  doBlock if true, block the user. else unblock.
  * @param  callback function to call on success
  */
-export function blockUser(
-  userId: string,
-  doBlock: boolean,
-  callback: () => void
-): void {
+export function blockUser(userId: string, doBlock: boolean, callback: () => void): void {
+  if (typeof userId != "string" || userId == "") {
+    logger.error(`blockUser: given userId "${userId}" is invalid.`)
+    return
+  }
+
   GM_xmlhttpRequest({
     method: "POST",
     url: getRequestURL(`https://api.twitter.com/1.1/blocks/${doBlock ? "create" : "destroy"}.json`, {
@@ -177,10 +187,11 @@ export function blockUser(
 }
 
 
-export function getTweetTranslation(
-  tweetId: string,
-  callback: (result: TwitterApi.v1_1.translateTweet) => void
-): void {
+export function getTweetTranslation(tweetId: string, callback: (result: TwitterApi.v1_1.translateTweet) => void): void {
+  if (typeof tweetId != "string" || tweetId == "") {
+    logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
+    return
+  }
 
   let urlEnd = Object.entries({
     tweetId: tweetId,
@@ -208,10 +219,11 @@ export function getTweetTranslation(
   })
 }
 
-export function getProfileTranslation(
-  userId: string,
-  callback: (result: TwitterApi.v1_1.translateProfile) => void
-): void {
+export function getProfileTranslation(userId: string, callback: (result: TwitterApi.v1_1.translateProfile) => void): void {
+  if (typeof userId != "string" || userId == "") {
+    logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
+    return
+  }
 
   let urlEnd = Object.entries({
     profileUserId: userId,

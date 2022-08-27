@@ -1,4 +1,4 @@
-import { emoji_regexp } from "../../constants"
+import { EMOJI_REGEXP } from "../../constants"
 import { settings } from "../settings"
 import { TwitterApi } from "../../types"
 import { logger } from "../logger"
@@ -87,12 +87,12 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities) 
   // change indices if emoji(s) appear before the entity
   // reason: multiple > 0xFFFF codepoint emojis are counted wrong: all but the first emoji have their length reduced by 1.
   // also, if any emoji > 0xFFFF precedes a url, the indices of the url are misaligned by -1.
-  if (!emoji_regexp) {
+  if (!EMOJI_REGEXP) {
     logger.error("error with emoji-regex.txt.")
   } else {
     let match: RegExpMatchArray | null
     let counter = 0
-    while ((match = emoji_regexp.exec(text)) != null) {
+    while ((match = EMOJI_REGEXP.exec(text)) != null) {
       let e = match[1]
       if (e.codePointAt(0) < 0xFFFF) continue
       counter++
@@ -141,7 +141,7 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities) 
  * @return String with replaced emojis
  */
 String.prototype.replaceEmojis = function() {
-  if (!emoji_regexp) {
+  if (!EMOJI_REGEXP) {
     logger.error("error with emoji-regex.txt.")
     return this
   }
@@ -153,7 +153,7 @@ String.prototype.replaceEmojis = function() {
   let out = text
   let match: RegExpMatchArray | null
   let offset = 0
-  while ((match = emoji_regexp.exec(text)) != null) {
+  while ((match = EMOJI_REGEXP.exec(text)) != null) {
     let e = match[1]
     // get unicode of emoji
     let uni = []
