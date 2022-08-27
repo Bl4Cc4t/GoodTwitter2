@@ -1,5 +1,16 @@
 :root {
-  --scrollbar-width: ;
+  // color
+  --color-normal: rgb(29, 161, 242);
+  // --color-override: ; // scss-lint:disable TrailingSemicolon
+
+  // font
+  --font-family-default: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
+  // --font-family-override: ; // scss-lint:disable TrailingSemicolon
+  --font-increment: calc(var(--font-size) - 15px);
+  --font-size: 14px;
+
+  // misc
+  --scrollbar-width: 17px;
   --square-avatars-border-radius: 10%;
 }
 

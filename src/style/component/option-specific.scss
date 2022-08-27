@@ -171,7 +171,7 @@ body:not(.gt2-opt-disable-hexagon-avatars) {
   .r-1qd0xha,
   .r-1tl8opc,
   .r-37j5jr {
-    font-family: var(--font-override), var(--font-default) !important;
+    font-family: var(--font-family-override), var(--font-family-default) !important;
   }
 }
 
@@ -180,7 +180,7 @@ body:not(.gt2-opt-font-override) {
   .r-1qd0xha,
   .r-1tl8opc,
   .r-37j5jr {
-    font-family: var(--font-default) !important;
+    font-family: var(--font-family-default) !important;
   }
 }
 

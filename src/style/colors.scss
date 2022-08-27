@@ -4,12 +4,6 @@
 @use "sass:string";
 
 
-:root {
-  --color-normal: ; // scss-lint:disable TrailingSemicolon
-  --color-override: ; // scss-lint:disable TrailingSemicolon
-}
-
-
 $themes: (
   "white": (
     "bg":           #e6ecf0,
