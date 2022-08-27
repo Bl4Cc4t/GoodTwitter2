@@ -37,9 +37,9 @@ function setTheme(theme: Theme) {
 export function initializeStyle(): void {
   // user color
   waitForKeyElements(`header [href="/compose/tweet"]`, e => {
-    let bgColor = getComputedStyle(e).backgroundColor
-    document.documentElement.style.setProperty("--color-normal", bgColor)
-    logger.debug(`set --color-normal to "${bgColor}" (user color)`)
+    let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
+    document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
+    logger.debug(`set --color-raw-accent-normal to "${bgColor}" (user color)`)
   }, false)
 
   // font size
@@ -81,14 +81,19 @@ export function initializeStyle(): void {
   logger.debug(`set --scrollbar-width to "${scrollbarWidth}px"`)
 
 
-  // settings values
-  let fontOverride = settings.get("fontOverrideValue")
-  document.documentElement.style.setProperty("--font-family-override", fontOverride)
-  logger.debug(`set --font-family-override to "${fontOverride}"`)
-  let colorOverride = settings.get("colorOverrideValue")
-  document.documentElement.style.setProperty("--color-override", colorOverride)
-  logger.debug(`set --color-override to "${colorOverride}"`)
+  // @option fontOverride
+  if (settings.get("fontOverride")) {
+    let fontOverride = settings.get("fontOverrideValue")
+    document.documentElement.style.setProperty("--font-family-override", fontOverride)
+    logger.debug(`set --font-family-override to "${fontOverride}"`)
+  }
 
+  // @option colorOverride
+  if (settings.get("colorOverride")) {
+    let colorOverride = settings.get("colorOverrideValue")
+    document.documentElement.style.setProperty("--color-raw-accent-override", colorOverride)
+    logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
+  }
 
   // add settings to body
   settings.setAllInDom()

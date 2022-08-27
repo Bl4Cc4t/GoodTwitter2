@@ -324,7 +324,7 @@ body:not(.gt2-opt-font-override) {
   }
 
   [data-testid=confirmationSheetConfirm] {
-    background-color: var(--color-user) !important;
+    background-color: var(--color-accent) !important;
 
     > * {
       color: var(--color-text-2) !important;

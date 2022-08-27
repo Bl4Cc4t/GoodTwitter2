@@ -1,5 +1,6 @@
 // scss-lint:disable SingleLinePerSelector, SpaceBeforeBrace
 
+@use "sass:color";
 @use "sass:map";
 @use "sass:string";
 
@@ -98,6 +99,7 @@ $themes: (
 @mixin get-colors-from-map($map) {
   @each $key, $value in $map {
     --color-#{$key}: #{$value};
+    --color-raw-#{$key}: #{red($value)}, #{green($value)}, #{blue($value)};
   }
 }
 
@@ -182,7 +184,7 @@ div[aria-labelledby=modal-header] > div > div > div:nth-child(1) > div:nth-child
 body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
   div[data-testid=caret] {
     > div > div > div {
-      background-color: var(--color-user);
+      background-color: var(--color-accent);
       opacity: 0;
       transition: all .2s ease-in-out;
 
@@ -190,7 +192,7 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
         opacity: .1;
 
         + svg {
-          background-color: var(--color-user);
+          background-color: var(--color-accent);
         }
       }
     }
@@ -224,7 +226,7 @@ div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
 body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
   background-color: transparent !important;
-  border-color: var(--color-user) !important;
+  border-color: var(--color-accent) !important;
 
   span {
     line-height: unset !important;
@@ -233,11 +235,11 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
   > *,
   // all but notifications bell turned on
   svg g > *:not([d^="M23.61.15c-.375"]) {
-    color: var(--color-user) !important;
+    color: var(--color-accent) !important;
   }
 
   &:hover {
-    background-color: rgba(var(--color-raw-user), .1) !important;
+    background-color: rgba(var(--color-raw-accent), .1) !important;
   }
 }
 
@@ -252,8 +254,8 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 
   &:not(:hover),
   &:hover[data-gt2-just-clicked-follow] {
-    background-color: var(--color-user) !important;
-    border-color: var(--color-user) !important;
+    background-color: var(--color-accent) !important;
+    border-color: var(--color-accent) !important;
 
     > * {
       color: var(--color-text-2) !important;
@@ -272,11 +274,11 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 
 // notification bell
 [data-gt2-bell-full-color] {
-  background-color: var(--color-user) !important;
-  border-color: var(--color-user) !important;
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
 
   &:hover {
-    background-color: rgba(var(--color-raw-user), .1) !important;
+    background-color: rgba(var(--color-raw-accent), .1) !important;
   }
 }
 
@@ -300,18 +302,16 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 // /search dot button
 [data-testid="searchBoxOverflowButton"] {
   svg {
-    color: var(--color-user) !important;
+    color: var(--color-accent) !important;
   }
 
   &:hover {
-    background-color: rgba(var(--color-raw-user), .1) !important;
+    background-color: rgba(var(--color-raw-accent), .1) !important;
   }
 }
 
 // color global override TODO
 .gt2-opt-color-override {
-  --color-raw-user: var(--color-override);
-  --color-user: rgb(var(--color-override));
   // normal color
   *:not(#placeholder) {
     // blue         yellow         red             purple          orange          green
@@ -321,7 +321,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
     > .r-1n1174f // blue (link?)
     {
       &:not([data-gt2-color-override-ignore]):not([href="/i/keyboard_shortcuts"]) {
-        color: var(--color-user) !important;
+        color: var(--color-accent) !important;
       }
     }
   }
@@ -337,7 +337,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
   .r-1d28s8i, .r-in38py,  .r-vq7458,  .r-sl5e8k,  .r-6yb0ro,  .r-n7vpbo,  // dim/lo hc
   [role^=radio] > [style*=border-color]:not([style*="196, 207, 214"]):not([style*="61, 84, 102"]):not([style*="105, 121, 135"]) {
     &:not([data-gt2-color-override-ignore]) {
-      border-color: var(--color-user) !important;
+      border-color: var(--color-accent) !important;
     }
   }
 
@@ -348,7 +348,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
   .r-ehp08b,  .r-b6cyrz,  .r-1smv0ti, .r-1y0hbxw, .r-1vm9sjz, .r-akbbt1   // dim/lo hc
   {
     &:not([data-gt2-color-override-ignore]) {
-      background-color: var(--color-user) !important;
+      background-color: var(--color-accent) !important;
     }
   }
   // blue     yellow      red         purple      orange      green
@@ -357,7 +357,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
   .r-1398f9q, .r-10uxyot, .r-4fqi4g,  .r-1q8gm4o, .r-dvf0r7,  .r-j9ra1a   // dim/lo hc
   {
     &:not([data-gt2-color-override-ignore]) {
-      background-color: rgba(var(--color-raw-user), .1) !important;
+      background-color: rgba(var(--color-raw-accent), .1) !important;
     }
   }
   // blue     yellow      red         purple      orange      green
@@ -366,7 +366,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
   .r-88ljsu,  .r-1wgs45s, .r-1op4b40, .r-1ljv63d, .r-1g95jii, .r-1q8eqjg // dim/lo hc
   {
     &:not([data-gt2-color-override-ignore]):not([data-testid=confirmationSheetConfirm]) {
-      background-color: rgba(var(--color-raw-user), .7) !important;
+      background-color: rgba(var(--color-raw-accent), .7) !important;
     }
   }
 
@@ -377,17 +377,12 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
   .r-4m1y5e,  .r-6q7mtj,  .r-n0hhbi,  .r-jlh3ao,  .r-1pfvgl4, .r-1v12qsz  // dim/lo hc
   {
     &:not([data-gt2-color-override-ignore]) {
-      box-shadow: var(--color-user) 0 0 0 1px !important;
+      box-shadow: var(--color-accent) 0 0 0 1px !important;
     }
   }
 
   // compose tweet length indicator
   [data-testid=toolBar] [role=progressbar] svg circle:nth-child(2) {
-    stroke: var(--color-user) !important;
+    stroke: var(--color-accent) !important;
   }
-}
-
-body:not(.gt2-opt-color-override) {
-  --color-raw-user: var(--color-normal);
-  --color-user: rgb(var(--color-normal));
 }

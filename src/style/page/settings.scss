@@ -109,7 +109,7 @@ body[data-gt2-path^="settings/"] {
       background-color: var(--color-elem-sel);
 
       div {
-        border-right: solid 2px var(--color-user);
+        border-right: solid 2px var(--color-accent);
       }
     }
   }
@@ -217,8 +217,8 @@ body[data-gt2-path^="settings/"] {
 
       &.gt2-active {
         div:nth-child(2) {
-          background-color: var(--color-user);
-          border-color: var(--color-user);
+          background-color: var(--color-accent);
+          border-color: var(--color-accent);
         }
 
         svg {
@@ -246,8 +246,8 @@ body[data-gt2-path^="settings/"] {
       padding: 4px;
 
       &:focus-within {
-        border-color: var(--color-user);
-        box-shadow: var(--color-user) 0 0 0 1px;
+        border-color: var(--color-accent);
+        box-shadow: var(--color-accent) 0 0 0 1px;
       }
 
       input {
@@ -319,7 +319,7 @@ body[data-gt2-path^="settings/"] {
       }
 
       .pcr-type.active {
-        background-color: var(--color-user);
+        background-color: var(--color-accent);
         color: var(--color-text-2);
       }
     }

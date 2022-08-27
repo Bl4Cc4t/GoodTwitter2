@@ -8,7 +8,7 @@
   width: 1.5em;
 
   div {
-    background-color: var(--color-user);
+    background-color: var(--color-accent);
     border-radius: 9999px;
     height: 39px;
     opacity: 0;
@@ -18,7 +18,7 @@
   }
 
   svg {
-    fill: var(--color-user);
+    fill: var(--color-accent);
     height: 1em;
     width: 1em;
   }
@@ -31,7 +31,7 @@
     }
 
     svg {
-      fill: var(--color-user) !important;
+      fill: var(--color-accent) !important;
     }
   }
 }
@@ -82,7 +82,7 @@
   a,
   a:link,
   a:visited {
-    color: var(--color-user);
+    color: var(--color-accent);
     text-decoration-line: none;
 
     &:hover {

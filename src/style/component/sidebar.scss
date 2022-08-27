@@ -151,7 +151,7 @@
             }
 
             span:nth-child(2) {
-              color: var(--color-user);
+              color: var(--color-accent);
               font-size: incr(19px);
               font-weight: bold;
               line-height: 1;
@@ -160,7 +160,7 @@
           }
 
           a:hover span:nth-child(1) {
-            color: var(--color-user);
+            color: var(--color-accent);
           }
         }
       }

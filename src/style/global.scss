@@ -93,7 +93,7 @@ nav [role=tablist] [role=tab] {
 
   &[aria-selected=true] {
     > div {
-      color: var(--color-user);
+      color: var(--color-accent);
 
       div {
         display: none;
@@ -101,7 +101,7 @@ nav [role=tablist] [role=tab] {
     }
 
     &::after {
-      background-color: var(--color-user);
+      background-color: var(--color-accent);
       bottom: 0;
       content: "";
       height: 4px;

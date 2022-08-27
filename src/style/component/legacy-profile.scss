@@ -124,10 +124,10 @@
         }
 
         &:hover {
-          border-bottom: 3px solid var(--color-user);
+          border-bottom: 3px solid var(--color-accent);
 
           div:nth-child(2) {
-            color: var(--color-user) !important;
+            color: var(--color-accent) !important;
           }
         }
       }

@@ -1,11 +1,13 @@
 :root {
   // color
-  --color-normal: rgb(29, 161, 242);
-  // --color-override: ; // scss-lint:disable TrailingSemicolon
+  --color-accent: rgb(var(--color-raw-accent));
+  --color-raw-accent: var(--color-raw-accent-override, var(--color-raw-accent-normal));
+  --color-raw-accent-normal: 29, 161, 242;
+  // --color-raw-accent-override: ; // @option overrideColor
 
   // font
   --font-family-default: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif, "TwitterChirp";
-  // --font-family-override: ; // scss-lint:disable TrailingSemicolon
+  // --font-family-override: ; // @option overrideFont
   --font-increment: calc(var(--font-size) - 15px);
   --font-size: 14px;
 

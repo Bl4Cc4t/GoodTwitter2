@@ -28,7 +28,7 @@
         padding: 10px 15px;
 
         > div:nth-child(1) > div {
-          background-color: var(--color-user);
+          background-color: var(--color-accent);
           border-color: var(--color-elem);
           color: var(--color-text-2);
           font-size: calc(11px + var(--font-increment) * .75);
@@ -50,10 +50,10 @@
 
     > a.active,
     > a:hover {
-      border-bottom: .2em solid var(--color-user);
+      border-bottom: .2em solid var(--color-accent);
 
       .gt2-nav-header {
-        color: var(--color-user);
+        color: var(--color-accent);
       }
     }
 
@@ -61,7 +61,7 @@
     > a.active svg,
     > a:hover > div > div:nth-child(2),
     > a:hover svg {
-      color: var(--color-user);
+      color: var(--color-accent);
     }
   }
 
@@ -104,7 +104,7 @@
       }
 
       &:focus-within {
-        border: 2px solid var(--color-user);
+        border: 2px solid var(--color-accent);
       }
 
       form > div:nth-child(1) > div {
@@ -133,7 +133,7 @@
 
     .gt2-compose {
       align-items: center;
-      background-color: var(--color-user);
+      background-color: var(--color-accent);
       border-radius: 9999px;
       color: var(--color-text-2);
       display: inline-flex;
