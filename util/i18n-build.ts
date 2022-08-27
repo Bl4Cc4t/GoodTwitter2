@@ -36,8 +36,10 @@ import "./extension/object.extension"
     // how many strings got deleted?
     console.log(`Trimmed ${ctr} untranslated strings.`)
 
+    let str = `(() => { window.i18n = ${JSON.stringify(out)} })();`
+
     // write file
-    fs.writeFileSync(path.resolve("dist", "goodtwitter2.i18n.js"), `const i18n = ${JSON.stringify(out)}`)
+    fs.writeFileSync(path.resolve("dist", "goodtwitter2.i18n.js"), str)
   })
 
 })()
