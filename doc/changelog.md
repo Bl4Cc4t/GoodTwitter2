@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.40.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/468)
+*released 2022-08-27*
+
+#### New
+- Ukrainian translation (thanks @megamanyoutuber!, [#464](https://github.com/Bl4Cc4t/GoodTwitter2/issues/464))
+
+#### Changes
+- fixed notifications not showing up in the navbar, as introduced by the freezing bug fix ([#459](https://github.com/Bl4Cc4t/GoodTwitter2/issues/459))
+
+
 ## [0.0.40.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/457)
 *released 2022-08-13*
 
