@@ -12,17 +12,16 @@ const extensions = [".js", ".ts"]
 export default {
   input: "./src/ts/main.ts",
   plugins: [
-    // postcss({
-    //   extract: "goodtwitter2.style.css",
-    //   plugins: [ autoprefixer() ],
-    //   // minimize: true
-    // }),
+    // scss
+    postcss({
+      extract: "goodtwitter2.style.css",
+      plugins: [ autoprefixer() ],
+      minimize: true
+    }),
 
-    // Allows node_modules resolution
+    // ts
     commonjs(),
     resolve({ extensions }),
-
-    // Compile TypeScript/JavaScript files
     babel({
       extensions,
       babelHelpers: "bundled",
@@ -44,11 +43,14 @@ export default {
         "connect": [
           "api.twitter.com"
         ],
+        "require": [
+          "https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js"
+        ],
         "resource": {
           // "css": "dist/goodtwitter2.style.css",
           "css": "twitter.gt2eb.style.css",
-          "i18n": "dist/goodtwitter2.i18n.js",
-          "emojiRegex": "static/emoji-regex.txt"
+          // "emojiRegex": "static/emoji-regex.txt"
+          "emojiRegex": "data/emoji-regex.txt"
         }
       }
     })
