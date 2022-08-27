@@ -66,6 +66,7 @@ export function getLocalizedString(key: string): string {
   return i18n[lang][key]
 }
 
+
 export function getLocalizedReplacableString<K extends keyof I18nReplacable, V extends I18nReplacable[K]>(key: K, val: V): string {
   let loc = getLocalizedString(key)
 
@@ -75,6 +76,7 @@ export function getLocalizedReplacableString<K extends keyof I18nReplacable, V e
 
   return loc
 }
+
 
 /**
  * Execute callback function on elements once they are available in the DOM.
@@ -169,6 +171,7 @@ export function onPage(path: Path, level=0) {
   return false
 }
 
+
 export function onModal() {
   return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/)
 }
@@ -178,12 +181,39 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
   waitForKeyElements(selector, element => {
     if (element) {
       new MutationObserver(mut => {
-        mut.forEach(m => {
-          callback(element)
-        })
+        mut.forEach(() => callback(element))
       }).observe(element, {
-        attributes: true
+        attributes: true,
+        childList: true
       })
     }
   })
+}
+
+
+export function getTweetId(tweetArticle: HTMLElement): string | null {
+  // on tweet page
+  if (document.documentElement.dataset.pageType == "tweet") {
+    return location.pathname.replace(/.*\/status\/(\d+)/, "$1")
+  }
+
+  // check
+  if (!tweetArticle?.matches("article[data-testid=tweet]")) {
+    logger.error("Given element is not a valid tweet article.", tweetArticle)
+    return null
+  }
+
+  // inline tweet
+  let id = tweetArticle
+    ?.querySelector("time")
+    ?.parentElement
+    ?.getAttribute("href")
+    ?.replace(/.*\/status\/(\d+)/, "$1")
+
+  if (!id) {
+    logger.error("error getting tweet id for element: ", tweetArticle)
+    return null
+  }
+
+  return id
 }

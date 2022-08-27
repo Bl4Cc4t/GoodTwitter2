@@ -1,4 +1,4 @@
-import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
+import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, getTweetId, waitForKeyElements } from "../util/util"
 import { settings } from "../util/settings"
 import { requestTweet, getProfileTranslation, getTweetTranslation } from "../util/request"
 import { logger } from "../util/logger"
@@ -11,8 +11,10 @@ export function initializeInlineTranslation(): void {
     addInlineTranslateTweetButton()
 
 
-  // translate tweet or LPL bio
-  document.body.addEventListener("click", translateTweetOrProfileHandler, true)
+  // translate quoted tweet
+  document.body.addEventListener("click", translateQuotedTweetHandler, true)
+  // translate LPL profile
+  document.body.addEventListener("click", translateProfileHandler, true)
   // hide translation
   document.body.addEventListener("click", hideTranslationHandler, true)
 }
@@ -37,106 +39,82 @@ function addInlineTranslateTweetButton(): void {
 
 
 function hideTranslationHandler(event: MouseEvent): void {
-  if (event.target instanceof Element) {
-    if (!event.target.matches(".gt2-translated-tweet-info")) return
+  let target = event.target as Element
+  if (!target.matches(".gt2-translated-tweet-info")) return
 
-    event.preventDefault()
-    event.target.parentElement
-      .querySelectorAll(".gt2-translated-tweet, .gt2-translated-tweet-info")
-      .forEach(e => e.classList.add("gt2-hidden"))
+  event.preventDefault()
+  target.parentElement
+    .querySelectorAll(".gt2-translated-tweet, .gt2-translated-tweet-info")
+    .forEach(e => e.classList.add("gt2-hidden"))
 
-    let prev = event.target
-    while ((prev = prev.previousElementSibling) != null) {
-      if (prev.matches(".gt2-translate-tweet, [role=button]"))
-        prev.classList.remove("gt2-hidden")
-    }
+  let prev = target
+  while ((prev = prev.previousElementSibling) != null) {
+    if (prev.matches(".gt2-translate-tweet, [role=button]"))
+      prev.classList.remove("gt2-hidden")
   }
+  logger.debug("translation hidden", target)
 }
 
 
-function translateTweetOrProfileHandler(event: MouseEvent): void {
-  if (event.target instanceof Element) {
-    if (!event.target.matches(".gt2-translate-tweet, .gt2-legacy-profile-info [data-testid=UserDescription] + [role=button] span")) return
+function translateQuotedTweetHandler(event: MouseEvent): void {
+  let target = event.target as Element
+  if (!target.matches(".gt2-translate-tweet")) return
+  event.preventDefault()
 
-    event.preventDefault()
+  // already translated
+  if (target.parentElement.querySelector(".gt2-translated-tweet")) {
+    target.classList.add("gt2-hidden")
+    target.parentElement
+      .querySelectorAll(".gt2-translated-tweet, .gt2-translated-tweet-info")
+      .forEach(e => e.classList.remove("gt2-hidden"))
+    logger.debug("translation shown", target)
+    return
+  }
 
-    let target = event.target.matches(".gt2-translate-tweet")
-      ? event.target
-      : event.target.closest("[role=button]")
+  // get quote retweet id (parent)
+  let id = getTweetId(target.closest("article[data-testid=tweet]"))
 
-    if (target == null) return
-
-    // already translated
-    if (target.parentElement.querySelector(".gt2-translated-tweet")) {
-      target.classList.add("gt2-hidden")
-      target.parentElement.querySelectorAll(".gt2-translated-tweet, .gt2-translated-tweet-info")
-        .forEach(e => e.classList.remove("gt2-hidden"))
+  logger.debug("translating quoted tweet...")
+  requestTweet(id, res => {
+    if (!res.hasOwnProperty("quoted_status_id_str")) {
+      logger.error("error with requested tweet: ", res)
       return
     }
 
-    let id = target
-      .closest("article[data-testid=tweet]")
-      ?.querySelector(`:scope > div > div > div > div > div > div:nth-child(1) a[href*='/status/'],
-                       div[data-testid=tweet] + div > div:nth-child(3) a[href*='/status/']`)
-      ?.getAttribute("href").split("/")[3]
+    getTweetTranslation(res.quoted_status_id_str, tlRes => {
+      logger.debug("got translation response", tlRes)
 
-    // embedded tweet
-    if (target.closest("[role=link]")?.closest("article[data-testid=tweet]")) {
-      logger.debug("translating embedded tweet...")
-      requestTweet(id, res => translateTweet(target, res.quoted_status_id_str))
-    }
-
-    // normal tweet with embedded one
-    else if (target.closest("article[data-testid=tweet]")?.querySelector("[role=link] [lang]")) {
-      logger.debug("translating normal tweet containing an embedded one...")
-      requestTweet(id, res => translateTweet(target, id, res.quoted_status_id_str))
-    }
-
-    // normal tweet
-    else if (target.matches(".gt2-translate-tweet")) {
-      logger.debug("translating tweet...")
-      translateTweet(target, id)
-    }
-
-    // profile
-    else {
-      logger.debug("translating profile...")
-      translateProfile(target, id)
-    }
-  }
-}
-
-
-function translateTweet(targetElement: Element, tweetId: string, quoteTweetId?: string) {
-  getTweetTranslation(tweetId, res => {
-    logger.debug("got translation response", res)
-
-    // remove embedded url if applicable
-    if (quoteTweetId && res.entities?.urls) {
-      let tco = res.entities.urls.find(x => x.expanded_url.endsWith(quoteTweetId))
-      if (tco) {
-        res.translation = res.translation.replace(` ${tco.url}`, "")
-        res.entities.urls = res.entities.urls.filter(x => !x.expanded_url.endsWith(quoteTweetId))
-      }
-    }
-
-    let html = getTranslationHtml(res)
-    targetElement.classList.add("gt2-hidden")
-    targetElement.insertAdjacentHTML("afterend", html)
+      let html = getTranslationHtml(tlRes)
+      target.classList.add("gt2-hidden")
+      target.insertAdjacentHTML("afterend", html)
+    })
   })
+
 }
 
-function translateProfile(targetElement: Element, userId: string) {
+
+// TODO
+function translateProfileHandler(event: MouseEvent): void {
+  let target = event.target as Element
+  if (!target.matches(".gt2-translate-profile")) return
+  event.preventDefault()
+
+  logger.debug("translating profile...")
+  logger.error("NOT IMPLEMENTED")
+
+  let userId
+
   getProfileTranslation(userId, res => {
     logger.debug("got translation response", res)
 
     let html = getTranslationHtml(res.profileTranslation)
-    targetElement.classList.add("gt2-hidden")
-    targetElement.insertAdjacentHTML("afterend", html)
+    target.classList.add("gt2-hidden")
+    target.insertAdjacentHTML("afterend", html)
   })
 }
 
-function getTranslationHtml(translation: TwitterApi.Translation) {
+
+function getTranslationHtml(translation: TwitterApi.Translation): string {
   let tl = translation.translation
 
   if (translation.entities) {
