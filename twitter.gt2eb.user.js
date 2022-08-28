@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.40.2
+// @version       0.0.40.3
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -806,6 +806,15 @@
         if (!$e) continue
         document.querySelector(".gt2-nav-left").insertAdjacentHTML("beforeend", $e.outerHTML)
 
+        document.querySelectorAll(`.gt2-nav-left [data-testid]`)
+          .forEach(e => {
+            e.addEventListener("click", event => {
+              event.preventDefault()
+              let testid = event.target.closest("[data-testid]").dataset.testid
+              document.querySelector(`nav [data-testid=${testid}]`).click()
+            })
+          })
+
         watchForChanges(origElemSel, e => {
           let navbarElem = document.querySelector(`.gt2-nav-left [data-testid=${e.dataset.testid}]`)
           if (!navbarElem) return
@@ -845,6 +854,7 @@
           mut.forEach(() => callback(element))
         }).observe(element, {
           attributes: true,
+          subtree: true,
           childList: true
         })
       }
@@ -1017,7 +1027,7 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
-    let currentScreenName = getPath().match(/^intent\/user/)
+    let currentScreenName = getPath().match(/^intent\/(user|follow)/)
       ? getPath().match(/screen_name=(\w+)/)[1]
       : getPath().split("/")[0].split("?")[0].split("#")[0]
     console.log(`rebuild: ${currentScreenName}`)
@@ -1149,7 +1159,7 @@
 
       // sidebar profile information
       waitForKeyElements(`[href="/${
-        getPath().match(/^intent\/user/)
+        getPath().match(/^intent\/(user|follow)/)
           ? getPath().match(/screen_name=(\w+)/)[1]
           : getPath().split("/")[0].split("?")[0].split("#")[0]
         }/following" i]`, () => {
@@ -1264,7 +1274,7 @@
   // force latest tweets view.
   function forceLatest() {
     let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup]"
-    let sparkOpt        = "#react-root h2 + div > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3)"
+    let sparkOpt        = "#layers [data-testid=Dropdown]"
 
     GM_setValue("hasRun_forceLatest", false)
     waitForKeyElements(sparkOptToggle, () => {
@@ -1879,7 +1889,7 @@
     if (GM_getValue("opt_gt2").showMediaWithContentWarnings && GM_getValue("opt_gt2").showMediaWithContentWarningsSel < 7) {
       let $tweet = $(e).closest("[data-testid=tweet]")
 
-      if ($(e).closest("[aria-labelledby]").find("> div > div > div > div:nth-child(2)").length) {
+      if ($(e).closest("[aria-labelledby]").find("figure > div > div:nth-child(2)").length) {
         let id = $("body").is(".gt2-page-tweet")
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]
@@ -2449,10 +2459,10 @@
 
 
     // assume profile page
-    if (!isModal || onSubPage("intent", ["user"])) {
+    if (!isModal || onSubPage("intent", ["user", "follow"])) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
             || onSubPage(null, ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
-          || onSubPage("intent", ["user"])) {
+          || onSubPage("intent", ["user", "follow"])) {
         $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
