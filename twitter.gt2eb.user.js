@@ -1017,7 +1017,7 @@
 
   // recreate the legacy profile layout
   function rebuildLegacyProfile() {
-    let currentScreenName = getPath().match(/^intent\/user/)
+    let currentScreenName = getPath().match(/^intent\/(user|follow)/)
       ? getPath().match(/screen_name=(\w+)/)[1]
       : getPath().split("/")[0].split("?")[0].split("#")[0]
     console.log(`rebuild: ${currentScreenName}`)
@@ -1149,7 +1149,7 @@
 
       // sidebar profile information
       waitForKeyElements(`[href="/${
-        getPath().match(/^intent\/user/)
+        getPath().match(/^intent\/(user|follow)/)
           ? getPath().match(/screen_name=(\w+)/)[1]
           : getPath().split("/")[0].split("?")[0].split("#")[0]
         }/following" i]`, () => {
@@ -2449,10 +2449,10 @@
 
 
     // assume profile page
-    if (!isModal || onSubPage("intent", ["user"])) {
+    if (!isModal || onSubPage("intent", ["user", "follow"])) {
       if (!(onPage("", "explore", "home", "hashtag", "i", "messages", "notifications", "places", "search", "settings", "404")
             || onSubPage(null, ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"]))
-          || onSubPage("intent", ["user"])) {
+          || onSubPage("intent", ["user", "follow"])) {
         $("body").addClass("gt2-page-profile").removeClass("gt2-profile-not-found gt2-page-profile-youre-blocked")
         $("[class^=gt2-blocked-profile-]").remove()
         $(".gt2-tco-expanded").removeClass("gt2-tco-expanded")
