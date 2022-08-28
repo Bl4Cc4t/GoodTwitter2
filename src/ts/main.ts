@@ -1,11 +1,14 @@
-import { isLoggedIn, waitForKeyElements } from "./util/util"
+import { isLoggedIn } from "./util/util"
 import { settings } from "./util/settings"
-import { initializeStyle, additionalStyleRules } from "./style"
+import { initializeStyle, setAdditionalStyleRules } from "./style"
+import { initializeInlineTranslation } from "./component/translation"
+import { overrideFunctions } from "./util/overrides"
+import { initializeLocation } from "./util/location"
 import "./util/extension"
-// import "../style/main.scss"
+import "../style/main.scss"
+import { logger } from "./util/logger"
 
 (() => {
-
   // do not execute on these pages
   if (!isLoggedIn() && location.pathname == "") return
 
@@ -16,12 +19,19 @@ import "./util/extension"
     } else return
   }
 
+  // add settings to body
+  settings.setAllInDom()
+  logger.debug("set all settings in the dom")
+
+  // basic
+  overrideFunctions()
+  initializeLocation()
+
+  // styling
   initializeStyle()
-  additionalStyleRules()
+  setAdditionalStyleRules()
 
-
-  waitForKeyElements("body", e => {
-    console.log(settings.getAll())
-  })
+  // components
+  initializeInlineTranslation()
 })()
 
