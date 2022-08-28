@@ -47,7 +47,7 @@ const INITIAL_SETTINGS = {
 }
 
 type SettingsType = typeof INITIAL_SETTINGS
-type SettingsKey = keyof SettingsType
+export type SettingsKey = keyof SettingsType
 
 
 class Settings {
@@ -119,9 +119,16 @@ class Settings {
    * Toggle a boolean settings value
    * @param  key the key of the setting
    */
-  toggle(key: keyof typeof this.data): void {
+  toggle(key: SettingsKey): void {
     if (typeof this.data[key] == "boolean") {
       this.set(key, !this.get(key))
+    }
+  }
+
+  xor(key: SettingsKey, value: number): void {
+    let current = this.get(key)
+    if (typeof current == "number") {
+      this.set(key, current ^ value)
     }
   }
 
