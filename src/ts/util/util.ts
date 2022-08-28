@@ -1,5 +1,5 @@
-import { MODAL_PAGES, SVG } from "../constants"
-import { I18nReplacable, Path } from "../types"
+import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
+import { I18nReplacable, Path, UserInfo } from "../types"
 import { logger } from "./logger"
 
 
@@ -217,4 +217,31 @@ export function getTweetId(tweetArticle: HTMLElement): string | null {
   }
 
   return id
+}
+
+
+// get account information
+export function getCurrentUserInfo(): UserInfo {
+  let infoScript = document.querySelector("#react-root ~ script").innerHTML
+  function x(reg: RegExp) {
+    let m = infoScript.match(reg)
+    return m ? m[1] : null
+  }
+
+  let avatarUrl = x(/profile_image_url_https\":\"(.+?)\",/)
+    .replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")
+
+  return {
+    bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/)        ?? "",
+    avatarUrl:  avatarUrl                                   ?? DEFAULT_AVATAR_URL,
+    screenName: x(/screen_name\":\"(.+?)\",/)               ?? "youarenotloggedin",
+    name:       x(/(?:true|false),\"name\":\"(.+?)\",/)     ?? x(/screen_name\":\"(.+?)\",/)
+                                                            ?? "Anonymous",
+    id:         x(/id_str\":\"(\d+)\"/)                     ?? "0",
+    stats: {
+      tweets:    parseInt(x(/statuses_count\":(\d+),/))     ?? 0,
+      followers: parseInt(x(/\"followers_count\":(\d+),/))  ?? 0,
+      following: parseInt(x(/friends_count\":(\d+),/))      ?? 0,
+    }
+  }
 }

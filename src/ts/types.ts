@@ -519,3 +519,15 @@ export interface I18nReplacable {
 }
 
 
+export interface UserInfo {
+  bannerUrl:    string
+    avatarUrl:  string
+    screenName: string
+    name:       string
+    id:         string
+    stats: {
+      tweets:    number
+      followers: number
+      following: number
+    }
+}
