@@ -54,9 +54,9 @@ export function getLocalizedString(key: string): string {
   }
 
   if (!Object.keys(i18n[lang]).includes(key)) {
-    if (!Object.keys(i18n["en"]).includes(key)) {
+    if (!hasLocalizedString(key)) {
       logger.error(`the string "${key}" does not exist.`)
-      return key
+      return null
     }
 
     logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
@@ -64,6 +64,10 @@ export function getLocalizedString(key: string): string {
   }
 
   return i18n[lang][key]
+}
+
+export function hasLocalizedString(key: string) {
+  return Object.keys(i18n["en"]).includes(key)
 }
 
 
