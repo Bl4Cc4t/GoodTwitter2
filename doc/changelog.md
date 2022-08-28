@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.40.3](https://github.com/Bl4Cc4t/GoodTwitter2/pull/470)
+*released 2022-08-28*
+
+#### Changes
+- fixed hard refreshs when clicking navbar items ([#458](https://github.com/Bl4Cc4t/GoodTwitter2/issues/458))
+- fixed forceLatestTweets not hiding modal ([#469](https://github.com/Bl4Cc4t/GoodTwitter2/issues/469))
+- fixed showMediaWithContentWarnings ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
 ## [0.0.40.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/468)
 *released 2022-08-27*
 
