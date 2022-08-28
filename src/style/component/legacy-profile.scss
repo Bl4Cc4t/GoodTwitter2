@@ -1,4 +1,4 @@
-.gt2-opt-legacy-profile.gt2-page-profile {
+body[data-page-type=profile].gt2-opt-legacy-profile {
   main {
     margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
     min-height: 880px;
@@ -331,7 +331,7 @@
 
 // LPL disabled
 body {
-  #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+  #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
     main {
       margin-top: 56px;
     }

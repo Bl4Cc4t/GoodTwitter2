@@ -1,5 +1,5 @@
 // home page
-body[data-gt2-path="home"] {
+body[data-page-type="home"] {
   [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
     border-bottom-width: 0;
   }

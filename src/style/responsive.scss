@@ -31,7 +31,7 @@
       }
     }
 
-    &[data-gt2-path^="settings"] {
+    &[data-page-pathname^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 360px;
@@ -61,7 +61,7 @@
         }
       }
 
-      &[data-gt2-path^="settings"] {
+      &[data-page-pathname^="settings"] {
         main > div > div > div {
           max-width: 1310px;
         }
@@ -108,7 +108,7 @@
       }
     }
 
-    &[data-gt2-path^="settings"] {
+    &[data-page-pathname^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 300px;
@@ -179,7 +179,7 @@
       display: none;
     }
 
-    &[data-gt2-path^="settings"] {
+    &[data-page-pathname^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -253,7 +253,7 @@
   .gt2-opt-small-sidebars {
     @include display-right-small-sidebar;
 
-    &[data-gt2-path^="settings"] {
+    &[data-page-pathname^="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -275,7 +275,7 @@
   @include display-right-small-sidebar;
   @include small-dashboard-profile;
 
-  body[data-gt2-path^="settings"] {
+  body[data-page-pathname^="settings"] {
     main {
       section[aria-labelledby=root-header] {
         margin-left: 0;
@@ -376,7 +376,7 @@
     display: none;
   }
 
-  body[data-gt2-path^="settings"] {
+  body[data-page-pathname^="settings"] {
     main > div > div > div {
       border-width: 1px;
       flex-grow: 0;
@@ -392,7 +392,7 @@
       }
     }
 
-    &[data-gt2-path^="settings/gt2"] {
+    &[data-page-pathname^="settings/gt2"] {
       main > div > div > div > div:not(.gt2-left-sidebar) {
         display: none;
       }
@@ -418,7 +418,7 @@
 // not smallest screen
 @media only screen and (min-width: 1005px) {
   .gt2-opt-sticky-sidebars {
-    #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+    #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
       .gt2-left-sidebar {
         height: calc(100vh - 57px);
         position: fixed !important;
@@ -426,7 +426,7 @@
     }
   }
 
-  body:not(.gt2-opt-sticky-sidebars)[data-gt2-path^="settings/"] {
+  body:not(.gt2-opt-sticky-sidebars)[data-page-pathname^="settings/"] {
     .gt2-left-sidebar {
       height: calc(100vh - 57px);
       position: fixed !important;
@@ -443,7 +443,7 @@
 
 // even smaller screen
 @media only screen and (max-width: 705px) {
-  body[data-gt2-path-modal^="compose/tweet"] {
+  body[data-page-pathname-modal^="compose/tweet"] {
     main {
       margin-top: 0 !important;
 
@@ -457,9 +457,9 @@
     }
   }
 
-  body[data-gt2-path="messages"],
-  body[data-gt2-path^="messages/"],
-  body[data-gt2-path^="i/moment_maker"] {
+  body[data-page-pathname="messages"],
+  body[data-page-pathname^="messages/"],
+  body[data-page-pathname^="i/moment_maker"] {
     main > div > div > div > div:nth-last-child(2) {
       @include separator-top;
       position: sticky;

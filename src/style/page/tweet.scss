@@ -1,5 +1,5 @@
 // tweet page
-.gt2-page-tweet {
+body[data-page-type=tweet] {
   // sticky header with back button
   .gt2-search-overflow-hider {
     display: block;

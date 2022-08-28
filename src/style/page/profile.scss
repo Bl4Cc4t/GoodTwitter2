@@ -1,5 +1,5 @@
 // profile page
-.gt2-page-profile {
+body[data-page-type=profile] {
   .gt2-dashboard-profile {
     display: none;
   }
@@ -22,8 +22,8 @@
   }
 }
 
-// blocked profile page
-.gt2-page-profile-youre-blocked {
+// blocked profile page TODO
+.profile-youre-blocked {
   .gt2-blocked-profile-description,
   .gt2-blocked-profile-items {
     @include standard-link;

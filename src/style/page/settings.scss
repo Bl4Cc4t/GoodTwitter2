@@ -1,5 +1,5 @@
 // settings page
-body[data-gt2-path^="settings/"] {
+body[data-page-type=settings] {
   main {
     section[aria-labelledby=root-header],
     section[aria-labelledby=detail-header] {
@@ -93,7 +93,7 @@ body[data-gt2-path^="settings/"] {
     }
   }
 
-  &[data-gt2-path="settings/gt2"] {
+  &[data-page-pathname="settings/gt2"] {
     main section[aria-labelledby=root-header] > div:nth-child(2) > div {
       > div:not(:empty),
       > div:not(:empty) > div:not(:empty) {
@@ -199,8 +199,12 @@ body[data-gt2-path^="settings/"] {
         transition: opacity .2s ease-in-out;
       }
 
-      &:not(.gt2-disabled):hover div:nth-child(1) {
-        opacity: .1;
+      &:not(.gt2-disabled) {
+        cursor: pointer;
+
+        &:hover div:nth-child(1) {
+          opacity: .1;
+        }
       }
 
       // checkbox

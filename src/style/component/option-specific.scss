@@ -1,6 +1,6 @@
 // sticky sidebars
 .gt2-opt-sticky-sidebars {
-  #{not-either(".gt2-opt-legacy-profile", ".gt2-page-profile")} {
+  #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
     div[data-testid=sidebarColumn] > div > div:nth-child(2) {
       height: calc(100vh - 47px);
       position: fixed;
@@ -8,7 +8,7 @@
     }
   }
 
-  &.gt2-page-profile.gt2-opt-legacy-profile {
+  &[data-page-type=profile].gt2-opt-legacy-profile {
     &:not(.gt2-scrolled-down-banner) {
       .gt2-left-sidebar,
       div[data-testid=sidebarColumn] > div > div:nth-child(2) {
@@ -137,7 +137,7 @@ body:not(.gt2-opt-small-sidebars) {
   }
 
   // enlarge profile picture
-  &.gt2-page-profile[data-gt2-path$="/photo"] {
+  &[data-page-type=profile][data-page-pathname$="/photo"] {
     #layers [data-testid=swipe-to-dismiss] > div > div > div {
       border-radius: var(--square-avatars-border-radius) !important;
     }
@@ -153,7 +153,7 @@ body:not(.gt2-opt-small-sidebars) {
   }
 
   // legacy profile layout
-  &.gt2-opt-legacy-profile.gt2-page-profile .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
+  &.gt2-opt-legacy-profile[data-page-type=profile] .gt2-legacy-profile-nav .gt2-legacy-profile-nav-left .gt2-legacy-profile-nav-avatar img {
     border-radius: var(--square-avatars-border-radius);
   }
 }

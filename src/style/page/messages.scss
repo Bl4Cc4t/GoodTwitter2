@@ -2,9 +2,8 @@
 
 
 // messages page
-body[data-gt2-path="messages"],
-body[data-gt2-path^="messages/"],
-body[data-gt2-path^="i/moment_maker"] {
+body[data-page-type="messages"],
+body[data-page-pathname^="i/moment_maker"] {
   .gt2-left-sidebar {
     display: none;
   }
@@ -54,13 +53,13 @@ body[data-gt2-path^="i/moment_maker"] {
   }
 }
 
-body[data-gt2-path="messages/settings"] {
+body[data-page-pathname="messages/settings"] {
   main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
     @include separator-bottom;
   }
 }
 
-body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
+body[data-page-pathname^="messages/"][data-page-pathname*="/info"] {
   main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
 
     &:nth-child(2),
@@ -76,7 +75,7 @@ body[data-gt2-path^="messages/"][data-gt2-path*="/info"] {
   }
 }
 
-body[data-gt2-path^="i/moment_maker"] {
+body[data-page-pathname^="i/moment_maker"] {
   section {
     background-color: var(--color-elem);
   }

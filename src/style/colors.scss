@@ -224,7 +224,7 @@ div[data-testid$=-follow],
 a[href="/settings/profile"],
 div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
+body[data-page-pathname*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button]:not(.r-14lw9ot):not(.r-1ucxkr8) {
   background-color: transparent !important;
   border-color: var(--color-accent) !important;
 
@@ -245,7 +245,7 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 
 // unfollow button
 div[data-testid$=-unfollow],
-body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
+body[data-page-pathname*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
   transition-property: border-color, background-color, box-shadow;
 
   span {
@@ -287,14 +287,14 @@ body[data-gt2-path*="/lists/"] [data-testid=primaryColumn] section > h1 + div > 
 // spark icon
 div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup],
 // various cogs
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/trends"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/explore"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/notifications"],
+body:not([data-page-pathname^="settings/"]) a[href*="/settings/trends"],
+body:not([data-page-pathname^="settings/"]) a[href*="/settings/explore"],
+body:not([data-page-pathname^="settings/"]) a[href*="/settings/notifications"],
 // messages
 a[href*="/messages/settings"],
 a[href*="/messages/compose"],
 a[href^="/messages/"][href*="/info"],
-body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
+body:not([data-page-pathname^="settings/"]) a[href*="/settings/direct_messages"],
 // generic back button
 [data-testid="app-bar-back"],
 // generic close button

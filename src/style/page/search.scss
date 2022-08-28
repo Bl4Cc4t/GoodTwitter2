@@ -11,8 +11,7 @@
 }
 
 // /search overflow, let search box stay on top
-body[data-gt2-path="search"],
-body[data-gt2-path="explore"] {
+body[data-page-type="search"] {
   .gt2-search-overflow-hider {
     display: block;
   }
@@ -30,10 +29,10 @@ body[data-gt2-path="explore"] {
   }
 }
 
-body[data-gt2-path="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+body[data-page-pathname="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
   top: calc(56px - 107px);
 }
 
-body[data-gt2-path="explore"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
+body[data-page-pathname="explore"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
   top: calc(56px - 54px);
 }
