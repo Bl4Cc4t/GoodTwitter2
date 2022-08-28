@@ -806,6 +806,15 @@
         if (!$e) continue
         document.querySelector(".gt2-nav-left").insertAdjacentHTML("beforeend", $e.outerHTML)
 
+        document.querySelectorAll(`.gt2-nav-left [data-testid]`)
+          .forEach(e => {
+            e.addEventListener("click", event => {
+              event.preventDefault()
+              let testid = event.target.closest("[data-testid]").dataset.testid
+              document.querySelector(`nav [data-testid=${testid}]`).click()
+            })
+          })
+
         watchForChanges(origElemSel, e => {
           let navbarElem = document.querySelector(`.gt2-nav-left [data-testid=${e.dataset.testid}]`)
           if (!navbarElem) return
@@ -845,6 +854,7 @@
           mut.forEach(() => callback(element))
         }).observe(element, {
           attributes: true,
+          subtree: true,
           childList: true
         })
       }
