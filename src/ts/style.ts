@@ -6,6 +6,8 @@ import { logger } from "./util/logger"
 import { requestTweetCW } from "./util/request"
 
 
+const LOG_PREFIX = "style:"
+
 /**
  * Get the current scrollbar width.
  * Reference: https://stackoverflow.com/q/8079187
@@ -30,7 +32,8 @@ function getScrollbarWidth(): number {
 
 function setTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme
-  logger.debug(`set theme to ${theme}`)
+  logger.debug(LOG_PREFIX, `set theme to ${theme}`)
+  GM_setValue("theme", theme)
 }
 
 
@@ -39,19 +42,22 @@ export function initializeStyle(): void {
   waitForKeyElements(`header [href="/compose/tweet"]`, e => {
     let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
     document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
-    logger.debug(`set --color-raw-accent-normal to "${bgColor}" (user color)`)
+    logger.debug(LOG_PREFIX, `set --color-raw-accent-normal to "${bgColor}"`)
   }, false)
 
   // font size
   watchForChanges(`html[style*="font-size"]`, e => {
     let fontSize = e.style.fontSize
     document.documentElement.style.setProperty("--font-size", fontSize)
-    logger.debug(`set --font-size to "${fontSize}"`)
+    logger.debug(LOG_PREFIX, `set --font-size to "${fontSize}"`)
   })
 
-  // theme
+  // theme from last time
+  setTheme(GM_getValue("theme", "dim"))
+
+  // theme current
   if (isLoggedIn()) {
-    waitForKeyElements(`[data-testid="AppTabBar_Home_Link"] span`, homeSpan => {
+    waitForKeyElements(`[data-testid="DMDrawerHeader"] h2 span`, homeSpan => {
       let textColor = getComputedStyle(homeSpan).color
       let bgColor = getComputedStyle(document.body).backgroundColor
 
@@ -78,31 +84,26 @@ export function initializeStyle(): void {
   // scrollbar width
   let scrollbarWidth = getScrollbarWidth()
   document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`)
-  logger.debug(`set --scrollbar-width to "${scrollbarWidth}px"`)
+  logger.debug(LOG_PREFIX, `set --scrollbar-width to "${scrollbarWidth}px"`)
 
 
   // @option fontOverride
   if (settings.get("fontOverride")) {
     let fontOverride = settings.get("fontOverrideValue")
     document.documentElement.style.setProperty("--font-family-override", fontOverride)
-    logger.debug(`set --font-family-override to "${fontOverride}"`)
+    logger.debug(LOG_PREFIX, `set --font-family-override to "${fontOverride}"`)
   }
 
   // @option colorOverride
   if (settings.get("colorOverride")) {
     let colorOverride = settings.get("colorOverrideValue")
     document.documentElement.style.setProperty("--color-raw-accent-override", colorOverride)
-    logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
+    logger.debug(LOG_PREFIX, `set --color-raw-accent-override to "${colorOverride}"`)
   }
-
-  // add settings to body
-  settings.setAllInDom()
-  logger.debug("set all settings in the dom")
-
 
   // add stylesheet
   GM_addStyle(GM_getResourceText(RES_CSS)).classList.add("gt2-style")
-  logger.debug("added stylesheet")
+  logger.debug(LOG_PREFIX, "added stylesheet")
 }
 
 
@@ -180,7 +181,7 @@ function showMediaWithContentWarnings(): void {
 }
 
 
-export function additionalStyleRules(): void {
+export function setAdditionalStyleRules(): void {
   // @option hideMessageBox: minimize DMDrawer
   if (settings.get("hideMessageBox")) {
     waitForKeyElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
