@@ -2424,7 +2424,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 
 // hide spark options (home timeline, top right icon)
 .gt2-hide-spark-opt {
-  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
+  #layers [data-testid=Dropdown] {
     display: none;
   }
 }
