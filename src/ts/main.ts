@@ -7,6 +7,7 @@ import { initializeLocation } from "./util/location"
 import "./util/extension"
 import "../style/main.scss"
 import { logger } from "./util/logger"
+import { initializeNavbar } from "./component/navbar"
 
 (() => {
   // do not execute on these pages
@@ -33,5 +34,6 @@ import { logger } from "./util/logger"
 
   // components
   initializeInlineTranslation()
+  initializeNavbar()
 })()
 

@@ -531,3 +531,14 @@ export interface UserInfo {
       following: number
     }
 }
+
+
+export const TESTID_I18N_MAPPING = {
+  AppTabBar_Home_Link:          "navHome",
+  AppTabBar_Explore_Link:       "navExplore",
+  AppTabBar_Notifications_Link: "navNotifications",
+  AppTabBar_DirectMessage_Link: "navMessages",
+  AppTabBar_Profile_Link:       "navProfile"
+}
+
+export type TranslateableTestid = keyof typeof TESTID_I18N_MAPPING
