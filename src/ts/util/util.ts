@@ -182,13 +182,15 @@ export function onModal() {
 }
 
 
-export function watchForChanges(selector: string, callback: (e: HTMLElement) => void) {
+export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, subtree=false) {
   waitForKeyElements(selector, element => {
     if (element) {
+      callback(element)
       new MutationObserver(mut => {
         mut.forEach(() => callback(element))
       }).observe(element, {
         attributes: true,
+        subtree,
         childList: true
       })
     }
