@@ -1889,7 +1889,7 @@
     if (GM_getValue("opt_gt2").showMediaWithContentWarnings && GM_getValue("opt_gt2").showMediaWithContentWarningsSel < 7) {
       let $tweet = $(e).closest("[data-testid=tweet]")
 
-      if ($(e).closest("[aria-labelledby]").find("figure > div > div:nth-child(2)").length) {
+      if ($(e).closest("[aria-labelledby]").find("> div > div > div > div:nth-child(2)").length) {
         let id = $("body").is(".gt2-page-tweet")
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]
