@@ -23,7 +23,7 @@ export function initializeInlineTranslation(): void {
 function addInlineTranslateTweetButton(): void {
   waitForKeyElements(`[data-testid=tweet] [lang]`, e => {
     // ignore tweets that already have a translate button
-    if (e.parentElement.childElementCount > 1) return
+    if (e.parentElement.querySelectorAll(":scope > [role=button]").length) return
 
     let tweetLang = e.getAttribute("lang")
     if (tweetLang != getLanguage() && tweetLang != "und") {
@@ -34,7 +34,7 @@ function addInlineTranslateTweetButton(): void {
       `)
       logger.debug("added translate button to element: ", e)
     }
-  })
+  }, false)
 }
 
 
@@ -71,24 +71,43 @@ function translateQuotedTweetHandler(event: MouseEvent): void {
     return
   }
 
-  // get quote retweet id (parent)
+  let isQuotedTweet = target
+    ?.closest("div[aria-labelledby]")
+    ?.closest("article[data-testid=tweet]") != null
+
+  // get id (potential parent tweet)
   let id = getTweetId(target.closest("article[data-testid=tweet]"))
 
-  logger.debug("translating quoted tweet...")
-  requestTweet(id, res => {
-    if (!res.hasOwnProperty("quoted_status_id_str")) {
-      logger.error("error with requested tweet: ", res)
-      return
-    }
+  // quoted tweet
+  if (isQuotedTweet) {
+    logger.debug("translating quoted tweet...")
+    requestTweet(id, res => {
+      if (!res.hasOwnProperty("quoted_status_id_str")) {
+        logger.error("error with requested tweet: ", res)
+        return
+      }
 
-    getTweetTranslation(res.quoted_status_id_str, tlRes => {
+      getTweetTranslation(res.quoted_status_id_str, tlRes => {
+        logger.debug("got translation response", tlRes)
+
+        let html = getTranslationHtml(tlRes)
+        target.classList.add("gt2-hidden")
+        target.insertAdjacentHTML("afterend", html)
+      })
+    })
+  }
+
+  // normal tweet
+  else {
+    logger.debug("translating normal tweet...")
+    getTweetTranslation(id, tlRes => {
       logger.debug("got translation response", tlRes)
 
       let html = getTranslationHtml(tlRes)
       target.classList.add("gt2-hidden")
       target.insertAdjacentHTML("afterend", html)
     })
-  })
+  }
 
 }
 

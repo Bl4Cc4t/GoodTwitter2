@@ -1,5 +1,5 @@
 import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
-import { I18nReplacable, Path, UserInfo } from "../types"
+import { I18nReplacable, Path, TESTID_I18N_MAPPING, TranslateableTestid, UserInfo } from "../types"
 import { logger } from "./logger"
 
 
@@ -79,6 +79,11 @@ export function getLocalizedReplacableString<K extends keyof I18nReplacable, V e
   })
 
   return loc
+}
+
+
+export function getLocalizedStringByTestid(testid: TranslateableTestid) {
+  return getLocalizedString(TESTID_I18N_MAPPING[testid])
 }
 
 

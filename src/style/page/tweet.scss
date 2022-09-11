@@ -23,6 +23,10 @@ body[data-page-type=tweet] {
   }
 }
 
+[data-testid=tweetText]:nth-of-type(n+2) {
+  display: none;
+}
+
 
 // embed card links
 [data-testid="card.layoutSmall.media"] + a {

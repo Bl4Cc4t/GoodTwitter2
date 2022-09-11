@@ -16,6 +16,15 @@ export function overrideFunctions() {
     _selectNodeContents.call(this, node)
   }
 
+  const _removeChild = Node.prototype.removeChild
+  Node.prototype.removeChild = function<T extends Node>(child: T): T {
+    // prevent removal of untranslated tweet texts in timeline
+    if (child instanceof HTMLElement && child.dataset.testid == "tweetText") {
+      return child
+    }
+    return _removeChild.call(this, child)
+  }
+
   const _push = History.prototype.pushState
   History.prototype.pushState = function() {
     _push.apply(this, arguments)
