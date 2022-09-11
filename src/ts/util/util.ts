@@ -196,9 +196,9 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
 }
 
 
-export function getTweetId(tweetArticle: HTMLElement): string | null {
+export function getTweetId(tweetArticle: Element): string | null {
   // on tweet page
-  if (document.documentElement.dataset.pageType == "tweet") {
+  if (document.body.dataset.pageType == "tweet") {
     return location.pathname.replace(/.*\/status\/(\d+)/, "$1")
   }
 
