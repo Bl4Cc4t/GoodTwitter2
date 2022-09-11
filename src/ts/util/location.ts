@@ -1,6 +1,6 @@
 import { addSettings, addSettingsMenuEntry } from "../component/page-settings"
 import { logger } from "./logger"
-import { onModal, onPage, waitForKeyElements } from "./util"
+import { onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
 
 
@@ -24,6 +24,33 @@ export function initializeLocation() {
   })
 
   onLocationChange("init")
+  watchTitle()
+}
+
+
+// watch title
+function watchTitle(): void {
+  waitForKeyElements("head title", title => {
+    new MutationObserver(mut => {
+      mut.forEach(() => {
+        if (title.textContent != title.getAttribute("content")) {
+          // settings/gt2
+          if (location.pathname == "/settings/gt2")
+            changeTitle("GoodTwitter2")
+
+        }
+      })
+    }).observe(title, { childList: true })
+  })
+}
+
+
+function changeTitle(newTitle: string): void {
+  let title = document.querySelector("title")
+  let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
+  title.textContent = newContent
+  title.setAttribute("content", newContent)
+  logger.debug(`title changed to "${newContent}"`)
 }
 
 
@@ -96,6 +123,6 @@ export function onLocationChange(type: string) {
   // unhandled modals
   else {
     logger.debug("on unhandled modal")
-    resetPageType()
+    // resetPageType()
   }
 }

@@ -31,7 +31,7 @@
       }
     }
 
-    &[data-page-pathname^="settings"] {
+    &[data-page-type="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 360px;
@@ -61,7 +61,7 @@
         }
       }
 
-      &[data-page-pathname^="settings"] {
+      &[data-page-type="settings"] {
         main > div > div > div {
           max-width: 1310px;
         }
@@ -108,7 +108,7 @@
       }
     }
 
-    &[data-page-pathname^="settings"] {
+    &[data-page-type="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 300px;
@@ -179,7 +179,7 @@
       display: none;
     }
 
-    &[data-page-pathname^="settings"] {
+    &[data-page-type="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -253,7 +253,7 @@
   .gt2-opt-small-sidebars {
     @include display-right-small-sidebar;
 
-    &[data-page-pathname^="settings"] {
+    &[data-page-type="settings"] {
       main {
         section[aria-labelledby=root-header] {
           margin-left: 0;
@@ -275,7 +275,7 @@
   @include display-right-small-sidebar;
   @include small-dashboard-profile;
 
-  body[data-page-pathname^="settings"] {
+  body[data-page-type="settings"] {
     main {
       section[aria-labelledby=root-header] {
         margin-left: 0;
@@ -376,7 +376,7 @@
     display: none;
   }
 
-  body[data-page-pathname^="settings"] {
+  body[data-page-type="settings"] {
     main > div > div > div {
       border-width: 1px;
       flex-grow: 0;
@@ -426,7 +426,7 @@
     }
   }
 
-  body:not(.gt2-opt-sticky-sidebars)[data-page-pathname^="settings/"] {
+  body:not(.gt2-opt-sticky-sidebars)[data-page-type="settings"] {
     .gt2-left-sidebar {
       height: calc(100vh - 57px);
       position: fixed !important;
@@ -457,8 +457,7 @@
     }
   }
 
-  body[data-page-pathname="messages"],
-  body[data-page-pathname^="messages/"],
+  body[data-page-type="messages"],
   body[data-page-pathname^="i/moment_maker"] {
     main > div > div > div > div:nth-last-child(2) {
       @include separator-top;

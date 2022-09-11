@@ -32,7 +32,6 @@ export function addSettingsMenuEntry() {
           event.preventDefault()
           window.history.pushState({}, "", target.getAttribute("href"))
           addSettings()
-          changeSettingsTitle()
         }
 
         // disable settings display again when clicking on another menu item
@@ -169,7 +168,7 @@ function getSettingsHtml(): string {
 
 
 // add the settings to the display (does not yet work on screens smaller than 1050px)
-export function addSettings() {
+export function addSettings(): void {
   if (document.querySelector(".gt2-settings")) return
 
   waitForKeyElements(`main a[href="/settings/about"]`, () => {
@@ -188,6 +187,8 @@ export function addSettings() {
 
     // add color pickr
     initializeColorPickr()
+
+    // disable toggles
     disableTogglesIfNeeded()
 
 
@@ -205,13 +206,6 @@ export function addSettings() {
     document.querySelectorAll(".gt2-setting-input input")
       .forEach(e => e.addEventListener("keyup", inputKeyupHandler))
   })
-}
-
-
-function changeSettingsTitle() {
-  let title = document.querySelector("title")
-  title.innerText = title.innerText.replace(/(\(.*\) )?.*/, "$1GoodTwitter2 / Twitter")
-  logger.debug(LOG_PREFIX, `title changed to ${title.innerText}`)
 }
 
 
