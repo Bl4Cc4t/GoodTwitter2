@@ -1,6 +1,7 @@
 import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
-import { I18nReplacable, Path, TESTID_I18N_MAPPING, TranslateableTestid, UserInfo } from "../types"
+import { I18nReplacable, Path, TESTID_I18N_MAPPING, TranslateableTestid, TwitterApi, UserInfo } from "../types"
 import { logger } from "./logger"
+import { requestTweet } from "./request"
 
 
 /**
@@ -200,34 +201,6 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
       })
     }
   })
-}
-
-
-export function getTweetId(tweetArticle: Element): string | null {
-  // on tweet page
-  if (document.body.dataset.pageType == "tweet") {
-    return location.pathname.replace(/.*\/status\/(\d+)/, "$1")
-  }
-
-  // check
-  if (!tweetArticle?.matches("article[data-testid=tweet]")) {
-    logger.error("Given element is not a valid tweet article.", tweetArticle)
-    return null
-  }
-
-  // inline tweet
-  let id = tweetArticle
-    ?.querySelector("time")
-    ?.parentElement
-    ?.getAttribute("href")
-    ?.replace(/.*\/status\/(\d+)/, "$1")
-
-  if (!id) {
-    logger.error("error getting tweet id for element: ", tweetArticle)
-    return null
-  }
-
-  return id
 }
 
 

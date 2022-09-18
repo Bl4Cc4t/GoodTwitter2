@@ -31,7 +31,7 @@ export namespace TwitterApi {
   export namespace Graphql {
     export interface TweetDetailResponse {
       data: {
-        threaded_conversation_with_injections: {
+        threaded_conversation_with_injections_v2: {
           instructions: (TimelineClearCache | TimelineTerminateTimeline | TweetDetailTimelineAddEntries)[]
         }
       }
@@ -88,9 +88,7 @@ export namespace TwitterApi {
       entryType: "TimelineTimelineItem"
       itemContent: {
         itemType: "TimelineTweet"
-        tweet_results: {
-          result: TweetResults
-        } | {}
+        tweet_results: TweetResults
         tweetDisplayType: "Tweet"
       }
     }
@@ -118,7 +116,11 @@ export namespace TwitterApi {
   // TweetResults
   //////////////////////
 
-  export type TweetResults =
+  export type TweetResults = {
+    result: AllTweetResult
+  } | {}
+
+  export type AllTweetResult =
       TweetResult
     | TweetTombstoneResult
 
@@ -464,11 +466,16 @@ export namespace TwitterApi {
 }
 
 declare global {
-  const i18n: {[lang: string]: {
-    [key: string]: string
-  }}[]
+  const i18n: {
+    [lang: string]: {
+      [key: string]: string
+    }
+  }[]
   interface Window {
     controlObj: any
+    tweetData: {
+      [tweetId: string]: TwitterApi.TweetLegacy
+    }
   }
   interface Node {
     alreadyFound: boolean

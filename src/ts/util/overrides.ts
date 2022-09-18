@@ -1,4 +1,6 @@
+import { TwitterApi } from "../types"
 import { onLocationChange } from "./location"
+import { saveTweetDetailData } from "./tweet"
 
 
 export function overrideFunctions() {
@@ -35,5 +37,17 @@ export function overrideFunctions() {
   History.prototype.replaceState = function() {
     _replace.apply(this, arguments)
     onLocationChange("replace")
+  }
+
+  const XMLHttpRequest_open = XMLHttpRequest.prototype.open
+  XMLHttpRequest.prototype.open = function() {
+    if (new URL(arguments[1]).pathname.endsWith("/TweetDetail")) {
+      this.addEventListener("readystatechange", () => {
+        if (this.readyState === XMLHttpRequest.DONE) {
+          saveTweetDetailData(JSON.parse(this.responseText))
+        }
+      })
+    }
+    XMLHttpRequest_open.apply(this, arguments)
   }
 }

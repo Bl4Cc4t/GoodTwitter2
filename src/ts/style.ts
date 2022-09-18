@@ -1,9 +1,10 @@
 import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
+import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, RES_CSS, TEXT_COLOR_TO_THEME } from "./constants"
 import { Theme } from "./types"
 import { settings } from "./util/settings"
 import { logger } from "./util/logger"
-import { requestTweetCW } from "./util/request"
+// import { requestTweetCW } from "./util/request"
 
 
 const LOG_PREFIX = "style:"
@@ -167,7 +168,7 @@ function showMediaWithContentWarnings(): void {
           ?.parentElement.getAttribute("href")
           ?.split("/status/")?.[1]
 
-      requestTweetCW(id, res => {
+      getTweetData(id, res => {
         let score = res.extended_entities.media.filter(e => e.hasOwnProperty("sensitive_media_warning")).map(m => {
           return ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
             return p + (m.sensitive_media_warning[c] ? Math.pow(2, i) : 0)

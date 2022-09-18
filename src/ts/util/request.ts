@@ -74,57 +74,6 @@ export function requestTweet(
   })
 }
 
-/**
- * Request a tweet with content warnings.
- * The results from this api call are sometimes missing the url entities, so the old function is still used.
- * @param  id       id of the tweet
- * @param  callback function to call on success
- */
-export function requestTweetCW(
-  id: string,
-  callback: (result: TwitterApi.TweetLegacy) => void
-): void {
-  if (typeof id != "string" || id == "") {
-    logger.error(`requestTweetCW: given id "${id}" is invalid.`)
-    return
-  }
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: getRequestURL("https://twitter.com/i/api/graphql/_iJccJ-mHcyaV0nq_odmBA/TweetDetail", {
-      variables: {
-        focalTweetId: id,
-        includePromotedContent: false,
-        withBirdwatchNotes: false,
-        withDownvotePerspective: false,
-        withReactionsMetadata: false,
-        withReactionsPerspective: false,
-        withSuperFollowsTweetFields: false,
-        withSuperFollowsUserFields: false,
-        withVoice: false,
-        with_rux_injections: false,
-        withCommunity: false,
-        withQuickPromoteEligibilityTweetFields: true,
-        withV2Timeline: false
-      }
-    }),
-    headers: getRequestHeaders(),
-    onload: function(res) {
-      if (res.status == 200) {
-        let _res = JSON.parse(res.response) as TwitterApi.Graphql.TweetDetailResponse
-        let tweet_results = _res?.data?.threaded_conversation_with_injections?.instructions
-        .find((e): e is TwitterApi.Graphql.TweetDetailTimelineAddEntries => e.type == "TimelineAddEntries")
-        ?.entries
-        .find((e): e is TwitterApi.Graphql.TimelineTweetItemEntries => e.sortIndex == id)
-        ?.content?.itemContent?.tweet_results
-
-        if (tweet_results && "result" in tweet_results && tweet_results.result.__typename == "Tweet") {
-          callback(tweet_results.result.legacy)
-        } else console.warn(res)
-      } else console.warn(res)
-    }
-  })
-}
-
 
 /**
  * Get a twitter user from the screen_name

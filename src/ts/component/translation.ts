@@ -1,8 +1,9 @@
-import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, getTweetId, waitForKeyElements } from "../util/util"
+import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
 import { settings } from "../util/settings"
-import { requestTweet, getProfileTranslation, getTweetTranslation } from "../util/request"
+import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { logger } from "../util/logger"
 import { TwitterApi } from "types"
+import { getTweetData, getTweetId } from "../util/tweet"
 
 
 export function initializeInlineTranslation(): void {
@@ -81,7 +82,8 @@ function translateQuotedTweetHandler(event: MouseEvent): void {
   // quoted tweet
   if (isQuotedTweet) {
     logger.debug("translating quoted tweet...")
-    requestTweet(id, res => {
+
+    getTweetData(id, res => {
       if (!res.hasOwnProperty("quoted_status_id_str")) {
         logger.error("error with requested tweet: ", res)
         return
