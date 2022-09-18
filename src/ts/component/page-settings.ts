@@ -2,12 +2,13 @@ import { settings, SettingsKey } from "../util/settings"
 import { getLocalizedReplacableString, getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { logger } from "../util/logger"
+import { changeTitle, revertTitle } from "../util/location"
 
 
 const LOG_PREFIX = "page-settings:"
 
 // insert the menu item
-export function addSettingsMenuEntry() {
+export function addSettingsMenuEntry(): void {
   waitForKeyElements(`
     main section[aria-labelledby=root-header] div[role=tablist],
     main > div > div > div > div:last-child > div[role=tablist],
@@ -26,18 +27,20 @@ export function addSettingsMenuEntry() {
 
       e.addEventListener("click", event => {
         let target = event.target as Element
+        let menuElement = target.closest(".gt2-toggle-settings")
 
         // toggle settings display
-        if (target.matches(".gt2-toggle-settings")) {
+        if (menuElement) {
           event.preventDefault()
-          window.history.pushState({}, "", target.getAttribute("href"))
+          window.history.pushState({}, "", menuElement.getAttribute("href"))
+          changeTitle("GoodTwitter2")
           addSettings()
         }
 
         // disable settings display again when clicking on another menu item
         else {
-          document.querySelectorAll(".gt2-settings-header, .gt2-settings")
-            .forEach(e => e.classList.add("gt2-hidden"))
+          revertTitle()
+          removeSettings()
         }
       })
     }
@@ -46,13 +49,13 @@ export function addSettingsMenuEntry() {
 
 
 // get html for a gt2 toggle (checkbox)
-function getSettingToggleHtml(name: SettingsKey, additionalHTML="") {
+function getSettingToggleHtml(name: SettingsKey, additionalHTML=""): string {
   let description = `${name}Desc`
   return `
     <div class="gt2-setting">
       <div>
         <span>${getLocalizedString(name)}</span>
-        <div class="gt2-setting-toggle ${GM_getValue("opt_gt2")[name] ? "gt2-active" : ""}" data-setting-name="${name}">
+        <div class="gt2-setting-toggle ${settings.get(name) ? "gt2-active" : ""}" data-setting-name="${name}">
           <div></div>
           <div>${getSvg("tick")}</div>
         </div>
@@ -63,7 +66,7 @@ function getSettingToggleHtml(name: SettingsKey, additionalHTML="") {
 }
 
 
-function getSettingSelectionHtml(settingName: SettingsKey, options: string[]) {
+function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): string {
   let html = ""
   for (let [index, option] of options.entries()) {
     let sel = Math.pow(2, index)
@@ -102,7 +105,7 @@ function getSettingsHtml(): string {
       ${getSettingToggleHtml("hidePromoteTweetButton")}
       ${getSettingToggleHtml("showMediaWithContentWarnings", `
         <div
-          data-setting-name="showMediaWithContentWarningsBox"
+          data-multi-selection-name="showMediaWithContentWarningsBox"
           class="gt2-settings-multi-selection ${settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
         >
           ${getSettingSelectionHtml("showMediaWithContentWarningsSel", [
@@ -134,7 +137,7 @@ function getSettingsHtml(): string {
       <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderGlobalLook")}</div>
       ${getSettingToggleHtml("hideFollowSuggestions", `
         <div
-          data-setting-name="hideFollowSuggestionsBox"
+          data-multi-selection-name="hideFollowSuggestionsBox"
           class="gt2-settings-multi-selection ${settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
         >
           ${getLocalizedReplacableString("hideFollowSuggestionsBox", {
@@ -169,7 +172,11 @@ function getSettingsHtml(): string {
 
 // add the settings to the display (does not yet work on screens smaller than 1050px)
 export function addSettings(): void {
-  if (document.querySelector(".gt2-settings")) return
+  if (document.querySelector(".gt2-settings")) {
+    document.querySelectorAll(".gt2-settings-header, .gt2-settings")
+      .forEach(e => e.classList.remove("gt2-hidden"))
+    return
+  }
 
   waitForKeyElements(`main a[href="/settings/about"]`, () => {
     let settingsHtml = getSettingsHtml()
@@ -182,7 +189,7 @@ export function addSettings(): void {
       settingsContainer = document.querySelector("main > div > div > div")
       settingsContainer.insertAdjacentHTML("beforeend", `<section>${settingsHtml}</section>`)
     }
-    logger.debug(LOG_PREFIX, `added to `, settingsContainer)
+    logger.debug(LOG_PREFIX, `added gt2 settings to `, settingsContainer)
 
 
     // add color pickr
@@ -206,6 +213,12 @@ export function addSettings(): void {
     document.querySelectorAll(".gt2-setting-input input")
       .forEach(e => e.addEventListener("keyup", inputKeyupHandler))
   })
+}
+
+
+export function removeSettings(): void {
+  document.querySelectorAll(".gt2-settings-header, .gt2-settings")
+    .forEach(e => e.classList.add("gt2-hidden"))
 }
 
 
@@ -234,7 +247,6 @@ function initializeColorPickr(): void {
   .on("change", (color: Pickr.HSVaColor) => {
     let val = color.toRGBA().toString(0).slice(5, -4)
     settings.set("colorOverrideValue", val)
-    document.documentElement.style.setProperty("--color-raw-accent-override", val)
     logger.debug(LOG_PREFIX, `color picked: ${val}`)
   })
 
@@ -242,7 +254,7 @@ function initializeColorPickr(): void {
 }
 
 
-function disableTogglesIfNeeded() {
+function disableTogglesIfNeeded(): void {
   // other trend related toggles are not needed when the trends are disabled
   document.querySelectorAll("div[data-setting-name=leftTrends], div[data-setting-name=show5Trends]")
     .forEach(e => {
@@ -263,11 +275,11 @@ function disableTogglesIfNeeded() {
   // hide color input if colorOverride is disabled
   hideBasedOnToggle("colorOverride", ".gt2-color-override-pickr")
 
-  // hide follow suggestions
-  hideBasedOnToggle("hideFollowSuggestions", "[data-setting-name=hideFollowSuggestionsBox]")
+  // @option hideFollowSuggestions
+  hideBasedOnToggle("hideFollowSuggestions", "[data-multi-selection-name=hideFollowSuggestionsBox]")
 
-  // showMediaWithContentWarnings
-  hideBasedOnToggle("showMediaWithContentWarnings", "[data-setting-name=showMediaWithContentWarningsBox]")
+  // @option showMediaWithContentWarnings
+  hideBasedOnToggle("showMediaWithContentWarnings", "[data-multi-selection-name=showMediaWithContentWarningsBox]")
 }
 
 
@@ -291,33 +303,38 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
 }
 
 
-function toggleClickHandler(event: MouseEvent) {
+function toggleClickHandler(event: MouseEvent): void {
   let toggle = event.target as Element
-  toggle = toggle.closest("[data-setting-name]")
+  toggle = toggle.closest(".gt2-setting-toggle")
+
+  // disabled
   if (toggle.classList.contains("gt2-disabled")) return
 
+  // ui
   toggle.classList.toggle("gt2-active")
 
+  let settingName = toggle.closest("[data-setting-name]").getAttribute("data-setting-name") as SettingsKey
+  let settingSel = toggle.getAttribute("data-sel")
+
+  // multi selection
+  if (settingSel) {
+    settings.xor(settingName, parseInt(settingSel))
+    logger.debug(LOG_PREFIX, `setting selection changed: ${settingName} = ${settings.get(settingName)}`)
+  }
+
   // normal toggle
-  let settingName = toggle.closest("[data-setting-name]").getAttribute("data-setting-name")
-  if (settingName) {
+  else {
     settings.toggle(settingName as SettingsKey)
     logger.debug(LOG_PREFIX, `setting toggled: ${settingName}`)
   }
 
-  // selector
-  let settingSel = toggle.getAttribute("data-sel")
-  if (settingSel) {
-    settingName = toggle.closest("[data-setting-name]").getAttribute("data-setting-name")
-    settings.xor(settingName as SettingsKey, parseInt(settingSel))
-    logger.debug(LOG_PREFIX, `setting selection changed: ${settingName}`)
-  }
+
 
   disableTogglesIfNeeded()
 }
 
 
-function inputKeyupHandler(event: InputEvent) {
+function inputKeyupHandler(event: InputEvent): void {
   let target = event.target as HTMLInputElement
   let settingName = target.closest("[data-setting-name]").getAttribute("data-setting-name")
   settings.set(settingName as SettingsKey, target.value)

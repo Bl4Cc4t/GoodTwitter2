@@ -48,8 +48,11 @@ export function initializeStyle(): void {
   // font size
   watchForChanges(`html[style*="font-size"]`, e => {
     let fontSize = e.style.fontSize
-    document.documentElement.style.setProperty("--font-size", fontSize)
-    logger.debug(LOG_PREFIX, `set --font-size to "${fontSize}"`)
+    let fontSizeCurrent = document.documentElement.style.getPropertyValue("--font-size")
+    if (fontSize != fontSizeCurrent) {
+      document.documentElement.style.setProperty("--font-size", fontSize)
+      logger.debug(LOG_PREFIX, `set --font-size to "${fontSize}"`)
+    }
   })
 
   // theme from last time

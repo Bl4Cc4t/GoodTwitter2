@@ -3,7 +3,7 @@ body[data-page-type=settings] {
   main {
     section[aria-labelledby=root-header],
     section[aria-labelledby=detail-header] {
-      > div:nth-child(2) {
+      > div:nth-last-child(1) {
         margin-bottom: 0;
       }
     }
@@ -33,7 +33,7 @@ body[data-page-type=settings] {
       }
 
       // ChirpUpdate: readd vertical dividers
-      > div:nth-child(2):not(.gt2-settings) {
+      > div:nth-last-child(1):not(.gt2-settings) {
         > *,
         > div:not([class*=" "]) > * {
           &:not(:first-child) {
@@ -114,7 +114,7 @@ body[data-page-type=settings] {
     }
   }
 
-  .gt2-settings {
+  .gt2-settings:not(.gt2-hidden) {
     ~ * {
       display: none;
     }

@@ -1,6 +1,6 @@
-import { addSettings, addSettingsMenuEntry } from "../component/page-settings"
+import { addSettings, addSettingsMenuEntry, removeSettings } from "../component/page-settings"
 import { logger } from "./logger"
-import { onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
+import { onModal, onPage, waitForKeyElements } from "./util"
 
 
 
@@ -37,7 +37,6 @@ function watchTitle(): void {
           // settings/gt2
           if (location.pathname == "/settings/gt2")
             changeTitle("GoodTwitter2")
-
         }
       })
     }).observe(title, { childList: true })
@@ -45,12 +44,25 @@ function watchTitle(): void {
 }
 
 
-function changeTitle(newTitle: string): void {
+export function changeTitle(newTitle: string): void {
   let title = document.querySelector("title")
   let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
-  title.textContent = newContent
-  title.setAttribute("content", newContent)
-  logger.debug(`title changed to "${newContent}"`)
+  if (title.textContent != newContent) {
+    title.setAttribute("content-old", title.textContent)
+    title.textContent = newContent
+    title.setAttribute("content", newContent)
+    logger.debug(`title changed to "${newContent}"`)
+  }
+}
+
+export function revertTitle() {
+  let title = document.querySelector("title")
+  let oldContent = title.getAttribute("content-old")
+  if (oldContent) {
+    title.setAttribute("content", oldContent)
+    title.removeAttribute("content-old")
+    title.textContent = oldContent
+  }
 }
 
 
@@ -94,6 +106,8 @@ export function onLocationChange(type: string) {
 
     if (onPage({settings: ["gt2"]})) {
       addSettings()
+    } else {
+      removeSettings()
     }
   }
 

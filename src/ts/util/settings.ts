@@ -96,6 +96,24 @@ class Settings {
     // internal
     this.data[key] = value
     this.setAll()
+
+    // @option colorOverride
+    if (key == "colorOverride" || key == "colorOverrideValue") {
+      if (this.get("colorOverride")) {
+        document.documentElement.style.setProperty("--color-raw-accent-override", this.get("colorOverrideValue"))
+      } else {
+        document.documentElement.style.removeProperty("--color-raw-accent-override")
+      }
+    }
+
+    // @option fontOverride
+    if (key == "fontOverride" || key == "fontOverrideValue") {
+      if (this.get("fontOverride")) {
+        document.documentElement.style.setProperty("--font-family-override", this.get("fontOverrideValue"))
+      } else {
+        document.documentElement.style.removeProperty("--font-family-override")
+      }
+    }
   }
 
   private setInDom<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
