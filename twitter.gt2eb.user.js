@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.40.3
+// @version       0.0.40.4
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -1273,13 +1273,13 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = "div[data-testid=primaryColumn] > div > div:nth-child(1) > div:nth-child(1) > div > div > div > div > div:nth-child(2) div[aria-haspopup]"
+    let sparkOptToggle  = `[d*="M22.772 10.506l-5.618-2.192"]`
     let sparkOpt        = "#layers [data-testid=Dropdown]"
 
     GM_setValue("hasRun_forceLatest", false)
     waitForKeyElements(sparkOptToggle, () => {
       if (!GM_getValue("hasRun_forceLatest")) {
-        $(sparkOptToggle).click()
+        $(sparkOptToggle).closest("[aria-haspopup]").click()
         $("body").addClass("gt2-hide-spark-opt")
       }
 
@@ -1289,7 +1289,7 @@
           if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
             $(sparkOpt).children().eq(1).click()
           } else {
-            $(sparkOptToggle).click()
+            $(sparkOptToggle).closest("[aria-haspopup]").click()
           }
           $("body").removeClass("gt2-hide-spark-opt")
 
@@ -1889,7 +1889,7 @@
     if (GM_getValue("opt_gt2").showMediaWithContentWarnings && GM_getValue("opt_gt2").showMediaWithContentWarningsSel < 7) {
       let $tweet = $(e).closest("[data-testid=tweet]")
 
-      if ($(e).closest("[aria-labelledby]").find("figure > div > div:nth-child(2)").length) {
+      if ($(e).closest("[aria-labelledby]").find("> div > div > div > div:nth-child(2)").length) {
         let id = $("body").is(".gt2-page-tweet")
           ? getPath().split("/")[2].split("?")[0].split("#")[0]
           : $tweet.find("time").parent().attr("href").split("/status/")[1]

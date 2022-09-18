@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.40.4](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
+*released 2022-09-18*
+
+#### Changes
+- updated Romanian translation (thanks @Andy9001!)
+- Force Latest Tweet First Mode no longer working ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
+- fixed showMediaWithContentWarnings ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
 ## [0.0.40.3](https://github.com/Bl4Cc4t/GoodTwitter2/pull/470)
 *released 2022-08-28*
 
