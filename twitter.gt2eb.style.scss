@@ -1479,16 +1479,15 @@ body[data-payment-endpoint-path] {
     }
 
     div[data-testid=primaryColumn] > div {
-      @include separatorTop;
+      // @include separatorTop;
 
-      & > div:nth-child(1),
-      & > div:nth-child(2) > div > div > div:nth-child(1) {
+      & > div > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
         left: -9999999px;
       }
-      & > div:nth-child(2) > div > div > div:nth-child(2) {
-        border-top-width: 0;
+      & > div:nth-child(1) {
+        border-top-width: 0 !important;
       }
     }
   }
