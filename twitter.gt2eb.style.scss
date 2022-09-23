@@ -2047,7 +2047,7 @@ body:not(.gt2-opt-color-override) {
 
 // bigger image previews
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+  [data-testid=tweet] [aria-labelledby] > div > div > div > div {
     align-self: unset !important;
     a[href^="/"][href*="/photo/"] > div {
       height: unset !important;
