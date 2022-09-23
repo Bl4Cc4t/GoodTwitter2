@@ -1479,16 +1479,15 @@ body[data-payment-endpoint-path] {
     }
 
     div[data-testid=primaryColumn] > div {
-      @include separatorTop;
+      // @include separatorTop;
 
-      & > div:nth-child(1),
-      & > div:nth-child(2) > div > div > div:nth-child(1) {
+      & > div > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
         left: -9999999px;
       }
-      & > div:nth-child(2) > div > div > div:nth-child(2) {
-        border-top-width: 0;
+      & > div:nth-child(1) {
+        border-top-width: 0 !important;
       }
     }
   }
@@ -2048,7 +2047,7 @@ body:not(.gt2-opt-color-override) {
 
 // bigger image previews
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
+  [data-testid=tweet] [aria-labelledby] > div > div > div > div {
     align-self: unset !important;
     a[href^="/"][href*="/photo/"] > div {
       height: unset !important;

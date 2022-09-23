@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.40.4
+// @version       0.0.40.5
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -1033,7 +1033,7 @@
     console.log(`rebuild: ${currentScreenName}`)
 
 
-    let profileSel = "div[data-testid=primaryColumn] > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)"
+    let profileSel = "div[data-testid=primaryColumn] > div > div:nth-last-child(1) > div > div > div:nth-child(1) > div:nth-child(2)"
 
     waitForKeyElements([
       `a[href="/${currentScreenName}/photo" i] img`,
@@ -1102,11 +1102,11 @@
               </a>
               <a href="/${i.screenName()}/following" title="">
                 <div>${getLocStr("statsFollowing")}</div>
-                <div>${i.followingRnd()}</div>
+                <div>${i.followingRnd() || 0}</div>
               </a>
               <a href="/${i.screenName()}/followers" title="">
                 <div>${getLocStr("statsFollowers")}</div>
-                <div>${i.followersRnd()}</div>
+                <div>${i.followersRnd() || 0}</div>
               </a>
               <a href="/${i.screenName()}/likes" title="">
                 <div>${getLocStr("statsLikes")}</div>
