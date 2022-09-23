@@ -1,12 +1,20 @@
 # Changelog
 
+## [0.0.40.5](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
+*released 2022-09-23*
+
+#### Changes
+- fixed video progress not showing up when biggerPreviews was activated ([#442](https://github.com/Bl4Cc4t/GoodTwitter2/issues/442))
+- fixed legacyProfileLayout not showing up correctly ([#474](https://github.com/Bl4Cc4t/GoodTwitter2/issues/474))
+
+
 ## [0.0.40.4](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
 *released 2022-09-18*
 
 #### Changes
 - updated Romanian translation (thanks @Andy9001!)
-- Force Latest Tweet First Mode no longer working ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
-- fixed showMediaWithContentWarnings ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+- fixed forceLatestTweets not working again ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
+- fixed showMediaWithContentWarnings again ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
 
 
 ## [0.0.40.3](https://github.com/Bl4Cc4t/GoodTwitter2/pull/470)
