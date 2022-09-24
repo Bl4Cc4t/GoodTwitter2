@@ -66,10 +66,10 @@ settings:
     stickySidebars: Фиксированные боковые панели
     smallSidebars: Уменьшенные боковые панели
     smallSidebarsDesc: Боковые панели шириной 290px вместо 350px
-    hideTrends: Скрыть «Актуальные темы»
-    leftTrends: Актуальные темы слева
-    leftTrendsDesc: Отображать актуальные темы в левой боковой панели
-    show5Trends: Всегда показывать 5 актуальных тем
+    hideTrends: Скрыть «Что нового?»
+    leftTrends: «Что нового?» слева
+    leftTrendsDesc: Отображать «Что нового?» в левой колонке
+    show5Trends: Всегда показывать 5 тем в «Что нового?»
 
   profile:
     legacyProfile: Старый дизайн профиля
