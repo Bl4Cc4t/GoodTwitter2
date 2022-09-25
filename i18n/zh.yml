@@ -20,6 +20,7 @@ twitter-default:
   navLists: 列表
   navNotifications: 通知
   navProfile: 个人资料
+  navSettings: 设置
   statsFollowers: 关注者
   statsFollowing: 正在关注
   statsLikes: 喜欢

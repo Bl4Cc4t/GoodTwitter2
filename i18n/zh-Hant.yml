@@ -20,6 +20,7 @@ twitter-default:
   navLists: 列表
   navNotifications: 通知
   navProfile: 個人資料
+  navSettings: 設定
   statsFollowers: 跟隨者
   statsFollowing: 正在跟隨
   statsLikes: 喜歡的內容

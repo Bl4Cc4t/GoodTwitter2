@@ -20,6 +20,7 @@ twitter-default:
   navLists: Lists
   navNotifications: Notifications
   navProfile: Profile
+  navSettings: Settings
   statsFollowers: Followers
   statsFollowing: Following
   statsLikes: Likes

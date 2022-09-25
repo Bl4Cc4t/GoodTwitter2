@@ -20,6 +20,7 @@ twitter-default:
   navLists: Listas
   navNotifications: Notificaciones
   navProfile: Perfil
+  navSettings: Configuración
   statsFollowers: Seguidores
   statsFollowing: Siguiendo
   statsLikes: Me gusta

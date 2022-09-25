@@ -20,6 +20,7 @@ twitter-default:
   navLists: Listor
   navNotifications: Notiser
   navProfile: Profil
+  navSettings: Inställningar
   statsFollowers: Följare
   statsFollowing: Följer
   statsLikes: Gillamarkeringar

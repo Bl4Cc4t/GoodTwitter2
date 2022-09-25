@@ -20,6 +20,7 @@ twitter-default:
   navLists: 리스트
   navNotifications: 알림
   navProfile: 프로필
+  navSettings: 설정
   statsFollowers: 팔로워
   statsFollowing: 팔로잉
   statsLikes: 마음에 들어요
