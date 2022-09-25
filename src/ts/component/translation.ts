@@ -110,7 +110,7 @@ function translateTweetHandler(event: MouseEvent): void {
 
     getTweetData(id, res => {
       if (!res.hasOwnProperty("quoted_status_id_str")) {
-        logger.error("error with requested tweet: ", res)
+        logger.error(`error with requested tweet (id: ${id}): `, res)
         return
       }
 

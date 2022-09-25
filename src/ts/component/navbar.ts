@@ -156,7 +156,6 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
 function addSearch(): void {
   let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
   watchForChanges(`${search} [data-testid=SearchBox_Search_Input]`, () => {
-    logger.info("search")
     document.querySelector(".gt2-search")
       .replaceChildren(document.querySelector(search))
     logger.debug("added search")

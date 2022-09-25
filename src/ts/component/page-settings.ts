@@ -4,6 +4,7 @@ import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
 import { changeTitle, resetTitle } from "../util/location"
 
+
 const logger = new Logger("component", "page-settings")
 
 
