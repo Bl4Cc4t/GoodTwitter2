@@ -12,7 +12,7 @@ import "./extension/object.extension"
     if (err) console.error(err)
 
     for (let file of files) {
-      if (file.endsWith(".yml") && file == "de.yml") {
+      if (file.endsWith(".yml") && file != "en.yml") {
         let foreign = yaml.parseDocument(fs.readFileSync(path.join(dir, file), "utf8"))
 
         // walk through yml file
