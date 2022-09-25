@@ -17,7 +17,7 @@ export class Logger {
    * @param msg the message to log
    */
   debug(...msg: any) {
-    console.debug(this.prefixes, ...msg)
+    console.debug(...this.prefixes, ...msg)
   }
 
   /**
@@ -25,7 +25,7 @@ export class Logger {
    * @param msg the message to log
    */
   info(...msg: any) {
-    console.info(this.prefixes, ...msg)
+    console.info(...this.prefixes, ...msg)
   }
 
   /**
@@ -33,7 +33,7 @@ export class Logger {
    * @param msg the message to log
    */
   warn(...msg: any) {
-    console.warn(this.prefixes, ...msg)
+    console.warn(...this.prefixes, ...msg)
   }
 
   /**
@@ -41,7 +41,7 @@ export class Logger {
    * @param msg the message to log
    */
   error(...msg: any) {
-    console.error(this.prefixes, ...msg)
+    console.error(...this.prefixes, ...msg)
   }
 }
 
