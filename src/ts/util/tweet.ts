@@ -6,6 +6,11 @@ import { requestTweet } from "./request"
 const logger = new Logger("tweet")
 
 
+/**
+ * Gets the tweet id of a given tweet article element.
+ * @param tweetArticle the article DOM element of a tweet
+ * @returns the if of the tweet or null if an error occurred
+ */
 export function getTweetId(tweetArticle: Element): string | null {
   // on tweet page
   if (document.body.dataset.pageType == "tweet") {
@@ -33,7 +38,13 @@ export function getTweetId(tweetArticle: Element): string | null {
   return id
 }
 
-export function saveTweetDetailData(tweetDetailResponse: TwitterApi.Graphql.TweetDetailResponse) {
+
+/**
+ * Saves tweet details in the window object for later use.
+ * Makes requesting individual tweets obsolete.
+ * @param tweetDetailResponse the response from timeline request
+ */
+export function saveTweetDetailData(tweetDetailResponse: TwitterApi.Graphql.TweetDetailResponse): void {
   tweetDetailResponse.data.threaded_conversation_with_injections_v2.instructions
   .forEach(instr => {
     if (instr.type == "TimelineAddEntries") {
@@ -54,6 +65,11 @@ export function saveTweetDetailData(tweetDetailResponse: TwitterApi.Graphql.Twee
   })
 }
 
+
+/**
+ * Helper function for `saveTweetDetailData`.
+ * @param tweetResults the tweet data to save
+ */
 function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
   if ("result" in tweetResults && tweetResults.result.__typename == "Tweet") {
     unsafeWindow.tweetData = unsafeWindow.tweetData || {}
@@ -61,13 +77,19 @@ function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
   }
 }
 
-export function getTweetData(id: string, callback: (result: TwitterApi.TweetLegacy) => void): void {
-  if (unsafeWindow.tweetData.hasOwnProperty(id)) {
-    callback(unsafeWindow.tweetData[id])
+
+/**
+ * Gets information about a tweet by its id.
+ * @param tweetId Id of the tweet to retrieve data for
+ * @param callback function to execute once the data has been fetched
+ */
+export function getTweetData(tweetId: string, callback: (result: TwitterApi.TweetLegacy) => void): void {
+  if (unsafeWindow.tweetData.hasOwnProperty(tweetId)) {
+    callback(unsafeWindow.tweetData[tweetId])
   }
 
   else {
-    logger.warn(`Tweet with id "${id} not found in index, requesting it manually`)
-    requestTweet(id, callback)
+    logger.warn(`Tweet with id "${tweetId} not found in index, requesting it manually`)
+    requestTweet(tweetId, callback)
   }
 }

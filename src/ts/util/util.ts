@@ -7,11 +7,11 @@ const logger = new Logger("util")
 
 
 /**
- * returns an SVG string
- * @param  key icon to return
- * @return     SVG string
+ * Returns an SVG string.
+ * @param key name of the SVG
+ * @return SVG string
  */
-export function getSvg(key: keyof typeof SVG) {
+export function getSvg(key: keyof typeof SVG): string {
   return `
     <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
       ${SVG[key]}
@@ -20,7 +20,7 @@ export function getSvg(key: keyof typeof SVG) {
 
 
 /**
- * Check if the user is logged in
+ * Checks if the current user is logged in.
  * @return true if logged in, false if not
  */
 export function isLoggedIn(): boolean {
@@ -29,20 +29,20 @@ export function isLoggedIn(): boolean {
 
 
 /**
- * Get current display language
- * @return display language
+ * Gets the current display language.
+ * @return display language code
  */
-export function getLanguage() {
+export function getLanguage(): string {
   let lang = document.documentElement.lang
   return lang == "en-GB" ? "en" : lang
 }
 
 
 /**
- * Get localized version of a string.
- * Defaults to english version.
- * @param  key the value to look up
- * @return     localized string
+ * Gets the localized version of a string.
+ * Defaults to the english version.
+ * @param key the key of the string
+ * @return localized string
  */
 export function getLocalizedString(key: string): string {
   if (!i18n) {
@@ -69,7 +69,13 @@ export function getLocalizedString(key: string): string {
   return i18n[lang][key]
 }
 
-export function hasLocalizedString(key: string) {
+
+/**
+ * Checks whether a string has a localized version or not.
+ * @param key the key of the string
+ * @returns true if the string has a localized version
+ */
+export function hasLocalizedString(key: string): boolean {
   return Object.keys(i18n["en"]).includes(key)
 }
 
@@ -86,19 +92,19 @@ export function getLocalizedReplacableString<K extends keyof I18nReplacable, V e
 
 
 /**
- * Execute callback function on elements once they are available in the DOM.
+ * Execute a callback function on elements once they are available in the DOM.
  * Heavily based on https://gist.github.com/BrockA/2625891 but without jQuery.
- * @param selector        A valid CSS selector string.
- * @param callback        The callback function to execute. Gets passed the added element node.
- * @param waitOnce       If set to false, continue to search for new elements even after the first match is found.
- * @param iframeSelector Valid CSS selector string for an iframe to search elements in.
+ * @param selector a valid CSS selector string
+ * @param callback the callback function to execute. Gets passed the added element node
+ * @param waitOnce if set to false, continue to search for new elements even after the first match is found
+ * @param iframeSelector a valid CSS selector string for an iframe to search elements in
  */
 export function waitForKeyElements(
   selector: string,
   callback: (e: HTMLElement) => void,
   waitOnce = true,
   iframeSelector?: string
-) {
+): void {
   let targetNodes: NodeListOf<HTMLElement>
   let targetsFound = false
   let WAIT_TIME_MS = 300
@@ -150,8 +156,13 @@ export function waitForKeyElements(
 }
 
 
-// path helper functions
-export function onPage(path: Path, level=0) {
+/**
+ * Checks if the current location is in a given path object.
+ * @param path the path to check
+ * @param level internal path level
+ * @returns true if the current location is in the given path object
+ */
+export function onPage(path: Path, level=0): boolean {
   let pathSplit = location.pathname.split("/")
   pathSplit.shift()
 
@@ -180,12 +191,22 @@ export function onPage(path: Path, level=0) {
 }
 
 
-export function onModal() {
-  return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/)
+/**
+ * Checks whether the current location is a modal page.
+ * @returns true if the current location is a modal page
+ */
+export function onModal(): boolean {
+  return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/) != null
 }
 
 
-export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, subtree=false) {
+/**
+ * Watch a given element for changes and execute a callback function when they happen.
+ * @param selector a valid CSS selector string of the element to watch
+ * @param callback the function to execute when a change happens
+ * @param subtree whether to watch child elements as well.
+ */
+export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, subtree=false): void {
   waitForKeyElements(selector, element => {
     if (element) {
       callback(element)
@@ -201,7 +222,10 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
 }
 
 
-// get account information
+/**
+ * Get information about the currently logged in account.
+ * @returns user info object
+ */
 export function getCurrentUserInfo(): UserInfo {
   let infoScript = document.querySelector("#react-root ~ script").innerHTML
   function x(reg: RegExp) {

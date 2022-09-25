@@ -1,6 +1,6 @@
 import { isLoggedIn } from "./util/util"
 import { settings } from "./util/settings"
-import { initializeStyle, setAdditionalStyleRules } from "./style"
+import { initializeStyle } from "./style"
 import { initializeInlineTranslation } from "./component/translation"
 import { overrideFunctions } from "./util/overrides"
 import { initializeLocation } from "./util/location"
@@ -31,7 +31,6 @@ import { initializeNavbar } from "./component/navbar"
 
   // styling
   initializeStyle()
-  setAdditionalStyleRules()
 
   // components
   initializeInlineTranslation()

@@ -1,26 +1,16 @@
-import { addSettings, addSettingsMenuEntry, removeSettings } from "../component/page-settings"
+import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
 import { onModal, onPage, waitForKeyElements } from "./util"
 
+
 const logger = new Logger("location")
 
 
-function setPageType(type: string) {
-  document.body.dataset.pageType = type
-  logger.debug(`page type set to: ${type}`)
-}
-
-function resetPageType() {
-  delete document.body.dataset.pageType
-}
-
-function setErrorPage() {
-  document.body.dataset.pageError = "true"
-  logger.debug("on error page")
-}
-
-export function initializeLocation() {
+/**
+ * Entry function for all location adjustments.
+ */
+export function initializeLocation(): void {
   window.addEventListener("popstate", function() {
     onLocationChange("pop")
   })
@@ -30,7 +20,36 @@ export function initializeLocation() {
 }
 
 
-// watch title
+/**
+ * Sets the type of the page.
+ * @param type type of the page
+ */
+function setPageType(type: string): void {
+  document.body.dataset.pageType = type
+  logger.debug(`page type set to: ${type}`)
+}
+
+
+/**
+ * Resets the page type.
+ */
+function resetPageType(): void {
+  delete document.body.dataset.pageType
+}
+
+
+/**
+ * Sets the current page as an error page.
+ */
+function setErrorPage(): void {
+  document.body.dataset.pageError = "true"
+  logger.debug("on error page")
+}
+
+
+/**
+ * Watches the page title for changes and modifies it if necessary.
+ */
 function watchTitle(): void {
   waitForKeyElements("head title", title => {
     new MutationObserver(mut => {
@@ -47,6 +66,10 @@ function watchTitle(): void {
 }
 
 
+/**
+ * Changes the current page title.
+ * @param newTitle the new title of the page
+ */
 export function changeTitle(newTitle: string): void {
   let title = document.querySelector("title")
   let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
@@ -58,7 +81,11 @@ export function changeTitle(newTitle: string): void {
   }
 }
 
-export function revertTitle() {
+
+/**
+ * Resets the page title to the last one.
+ */
+export function resetTitle(): void {
   let title = document.querySelector("title")
   let oldContent = title.getAttribute("content-old")
   if (oldContent) {
@@ -69,7 +96,12 @@ export function revertTitle() {
 }
 
 
-export function onLocationChange(type: string) {
+/**
+ * Changes to apply to the page whenever a location change happens.
+ * Gets called by push/pop/replace event listeners.
+ * @param type type of the change event
+ */
+export function onLocationChange(type: string): void {
   logger.info(`location change: [${type}] ${location.pathname}`)
 
   document.body.dataset.pagePathname = location.pathname.slice(1)
@@ -110,7 +142,7 @@ export function onLocationChange(type: string) {
     if (onPage({settings: ["gt2"]})) {
       addSettings()
     } else {
-      removeSettings()
+      hideSettings()
     }
   }
 

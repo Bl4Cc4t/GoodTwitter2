@@ -2,12 +2,14 @@ import { settings, SettingsKey } from "../util/settings"
 import { getLocalizedReplacableString, getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
-import { changeTitle, revertTitle } from "../util/location"
+import { changeTitle, resetTitle } from "../util/location"
 
 const logger = new Logger("component", "page-settings")
 
 
-// insert the menu item
+/**
+ * Inserts the GT2 settings menu item into the list of subsettings.
+ */
 export function addSettingsMenuEntry(): void {
   waitForKeyElements(`
     main section[aria-labelledby=root-header] div[role=tablist],
@@ -39,8 +41,8 @@ export function addSettingsMenuEntry(): void {
 
         // disable settings display again when clicking on another menu item
         else {
-          revertTitle()
-          removeSettings()
+          resetTitle()
+          hideSettings()
         }
       })
     }
@@ -48,8 +50,13 @@ export function addSettingsMenuEntry(): void {
 }
 
 
-// get html for a gt2 toggle (checkbox)
-function getSettingToggleHtml(name: SettingsKey, additionalHTML=""): string {
+/**
+ * Gets the HTML of a toggle setting.
+ * @param name the name of the setting
+ * @param additionalHtml additional HTML to add between the toggle and the description
+ * @returns the HTML of the toggle setting
+ */
+function getSettingToggleHtml(name: SettingsKey, additionalHtml=""): string {
   let description = `${name}Desc`
   return `
     <div class="gt2-setting">
@@ -60,12 +67,18 @@ function getSettingToggleHtml(name: SettingsKey, additionalHTML=""): string {
           <div>${getSvg("tick")}</div>
         </div>
       </div>
-      ${additionalHTML}
+      ${additionalHtml}
       ${hasLocalizedString(description) ? `<span>${getLocalizedString(description)}</span>` : ""}
     </div>`
 }
 
 
+/**
+ * Gets the HTML of a selection setting.
+ * @param settingName the name of the setting
+ * @param options the options of the setting
+ * @returns the HTML of the selection setting
+ */
 function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): string {
   let html = ""
   for (let [index, option] of options.entries()) {
@@ -84,6 +97,10 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
 }
 
 
+/**
+ * Gets the HTML of the GT2 settings page.
+ * @returns the HTML of the settings page
+ */
 function getSettingsHtml(): string {
   return `
     <div class="gt2-settings-header">
@@ -170,7 +187,10 @@ function getSettingsHtml(): string {
 }
 
 
-// add the settings to the display (does not yet work on screens smaller than 1050px)
+/**
+ * Adds the GT2 settings.
+ * TODO (does not yet work on screens smaller than 1050px)
+ */
 export function addSettings(): void {
   if (document.querySelector(".gt2-settings")) {
     document.querySelectorAll(".gt2-settings-header, .gt2-settings")
@@ -216,12 +236,18 @@ export function addSettings(): void {
 }
 
 
-export function removeSettings(): void {
+/**
+ * Hides the GT2 settings.
+ */
+export function hideSettings(): void {
   document.querySelectorAll(".gt2-settings-header, .gt2-settings")
     .forEach(e => e.classList.add("gt2-hidden"))
 }
 
 
+/**
+ * Initializes the color pickr.
+ */
 function initializeColorPickr(): void {
   Pickr.create({
     el: ".gt2-pickr",
@@ -254,6 +280,9 @@ function initializeColorPickr(): void {
 }
 
 
+/**
+ * Disables toggles and elements if they are not needed.
+ */
 function disableTogglesIfNeeded(): void {
   // other trend related toggles are not needed when the trends are disabled
   document.querySelectorAll("div[data-setting-name=leftTrends], div[data-setting-name=show5Trends]")
@@ -269,10 +298,10 @@ function disableTogglesIfNeeded(): void {
       }
     })
 
-  // hide font input if fontOverride is disabled
+  // @option fontOverride: hide font input if fontOverride is disabled
   hideBasedOnToggle("fontOverride", "[data-setting-name=fontOverrideValue]")
 
-  // hide color input if colorOverride is disabled
+  // @option colorOverride: hide color input if colorOverride is disabled
   hideBasedOnToggle("colorOverride", ".gt2-color-override-pickr")
 
   // @option hideFollowSuggestions
@@ -283,6 +312,11 @@ function disableTogglesIfNeeded(): void {
 }
 
 
+/**
+ * Hides elements based on the state of a toggle.
+ * @param toggle the name of the toggle
+ * @param selector the selector of the element to hide
+ */
 function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
   let target = document.querySelector(selector)
 
@@ -303,12 +337,17 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
 }
 
 
+/**
+ * Handler for click events on a toggle.
+ * @param event the mouse event
+ */
 function toggleClickHandler(event: MouseEvent): void {
   let toggle = event.target as Element
   toggle = toggle.closest(".gt2-setting-toggle")
 
   // disabled
-  if (toggle.classList.contains("gt2-disabled")) return
+  if (toggle.classList.contains("gt2-disabled"))
+    return
 
   // ui
   toggle.classList.toggle("gt2-active")
@@ -328,12 +367,15 @@ function toggleClickHandler(event: MouseEvent): void {
     logger.debug(`setting toggled: ${settingName}`)
   }
 
-
-
+  // disable toggles if needed
   disableTogglesIfNeeded()
 }
 
 
+/**
+ * Handler for input events on text fields.
+ * @param event the event
+ */
 function inputKeyupHandler(event: InputEvent): void {
   let target = event.target as HTMLInputElement
   let settingName = target.closest("[data-setting-name]").getAttribute("data-setting-name")

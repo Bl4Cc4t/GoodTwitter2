@@ -6,45 +6,93 @@ export {}
 
 declare global {
   interface String {
-    toSnakeCase(separator?: string): string
-    toKebabCase(): string
+    /**
+     * Converts a camel case string to a custom case format.
+     * @param separator The separator to split the string with
+     * @returns string in custom separated case format
+     */
+    camelCaseToSeparatedCase(separator: string): string
+
+    /**
+     * Converts a camel case string to snake case.
+     *
+     * Example: `thisIsATest123` -> `this_is_a_test_123`
+     * @returns string in snake case
+     */
+    camelCaseToSnakeCase(): string
+
+    /**
+     * Converts a camel case string to kebab case.
+     *
+     * Example: `thisIsATest123` -> `this-is-a-test-123`
+     * @returns string in kebab case
+     */
+    camelCaseToKebabCase(): string
+
+    /**
+     * Replaces a range inside the string with a given replacement string.
+     * @param index the position where the replacement should start
+     * @param length the amount of characters to replace
+     * @param text the string to be added
+     */
     replaceAt(index: number, length: number, text: string): string
+
+    /**
+     * Inserts a string at a given position.
+     * @param index the position where the string should be placed
+     * @param text the string to be added
+     */
     insertAt(index: number, text: string): string
+
+    /**
+     * Adds links from an entities object to the string.
+     * @param entities the entities to add to the string
+     * @returns string with linked entities
+     */
     populateWithEntities(entities: TwitterApi.Entities): string
+
+    /**
+     * Replaces emojis with the twitter twemoji SVGs.
+     * @returns string with replaced emojis
+     */
     replaceEmojis(): string
   }
 }
 
 
-String.prototype.toSnakeCase = function(separator="_") {
-  let arr: String[] = this.toString().split("")
+String.prototype.camelCaseToSeparatedCase = function(separator: string): string {
+  let arr: string[] = this.toString().split("")
   return arr.map((e, i) => {
-    let add_dash = i > 0
+    let addDash = i > 0
       && ((!isNaN(e as any) && isNaN(arr[i-1] as any))
        || (isNaN(e as any) && !isNaN(arr[i-1] as any))
        || (isNaN(e as any) && e == e.toUpperCase()))
-    return `${add_dash ? separator : ""}${e.toLowerCase()}`
+    return `${addDash ? separator : ""}${e.toLowerCase()}`
   }).join("")
 }
 
-String.prototype.toKebabCase = function() {
-  return this.toSnakeCase("-")
+
+String.prototype.camelCaseToSnakeCase = function(): string {
+  return this.camelCaseToSeparatedCase("_")
 }
 
-String.prototype.replaceAt = function(index: number, length: number, text: string) {
+
+String.prototype.camelCaseToKebabCase = function(): string {
+  return this.camelCaseToSeparatedCase("-")
+}
+
+
+String.prototype.replaceAt = function(index: number, length: number, text: string): string {
   return `${this.toString().slice(0, index)}${text}${this.toString().slice(index + length)}`
 }
 
-String.prototype.insertAt = function(index: number, text: string) {
+
+String.prototype.insertAt = function(index: number, text: string): string {
   return this.toString().replaceAt(index, 0, text)
 }
 
-/**
- * Adds links from an entities object to string
- * @param  entities the entities to add
- * @return          string with linked entities
- */
-String.prototype.populateWithEntities = function(entities: TwitterApi.Entities) {
+
+String.prototype.populateWithEntities = function(entities: TwitterApi.Entities): string {
   let text = this.toString()
   let out = text
 
@@ -136,11 +184,7 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities) 
 }
 
 
-/**
- * Replace emojis with the twitter svgs
- * @return String with replaced emojis
- */
-String.prototype.replaceEmojis = function() {
+String.prototype.replaceEmojis = function(): string {
   if (!EMOJI_REGEXP) {
     logger.error("error with emoji-regex.txt.")
     return this

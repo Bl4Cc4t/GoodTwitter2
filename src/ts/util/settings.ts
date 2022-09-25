@@ -50,11 +50,15 @@ type SettingsType = typeof INITIAL_SETTINGS
 export type SettingsKey = keyof SettingsType
 
 
+/**
+ * Settings helper class.
+ */
 class Settings {
   private data: SettingsType
 
+
   /**
-   * Create a new Settings instance
+   * Create a new Settings instance.
    */
   constructor() {
     this.data = INITIAL_SETTINGS
@@ -62,21 +66,27 @@ class Settings {
     this.setAll()
   }
 
+
   /**
-   * Get all settings
+   * Gets all settings.
    * @return all settings
    */
   getAll(): SettingsType {
     return GM_getValue(SETTINGS_KEY)
   }
 
+
   /**
-   * Set the currently set settings
+   * Sets all currently active settings.
    */
   setAll(): void {
     return GM_setValue(SETTINGS_KEY, this.data)
   }
 
+
+  /**
+   * Sets all currently active settings in the DOM.
+   */
   setAllInDom(): void {
     let key: SettingsKey
     for (key in this.data) {
@@ -84,9 +94,10 @@ class Settings {
     }
   }
 
+
   /**
-   * Set a value by key
-   * @param key   the key of the setting
+   * Sets a settings value by key
+   * @param key the key of the setting
    * @param value the new value
    */
   set<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
@@ -116,6 +127,13 @@ class Settings {
     }
   }
 
+
+  /**
+   * Sets a settings value in the DOM by
+   * adding a new class to the body element.
+   * @param key the key of the settings
+   * @param value the new value
+   */
   private setInDom<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
     const className = this.getClassName(key, value)
 
@@ -123,9 +141,10 @@ class Settings {
     else document.body.classList.remove(className)
   }
 
+
   /**
-   * Get a single value
-   * @param key   the key of the setting to get
+   * Gets a single value
+   * @param key the key of the setting
    * @returns the current value
    */
   get<K extends SettingsKey>(key: K): SettingsType[K] {
@@ -133,9 +152,10 @@ class Settings {
     return this.data[key]
   }
 
+
   /**
-   * Toggle a boolean settings value
-   * @param  key the key of the setting
+   * Toggles a boolean settings value.
+   * @param key the key of the setting
    */
   toggle(key: SettingsKey): void {
     if (typeof this.data[key] == "boolean") {
@@ -143,6 +163,12 @@ class Settings {
     }
   }
 
+
+  /**
+   * XORs a numeric settings value with a given number.
+   * @param key the key of the setting
+   * @param value the value to XOR with
+   */
   xor(key: SettingsKey, value: number): void {
     let current = this.get(key)
     if (typeof current == "number") {
@@ -150,9 +176,17 @@ class Settings {
     }
   }
 
-  getClassName<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): string {
-    return `gt2-opt-${key.toKebabCase()}${typeof value === "number" ? `-${value}` : ""}`
+
+  /**
+   * Gets a valid className string from a setting.
+   * @param key the key of the setting
+   * @param value the value of the setting. Only important for numeric settings
+   * @returns a className string
+   */
+  private getClassName<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): string {
+    return `gt2-opt-${key.camelCaseToKebabCase()}${typeof value === "number" ? `-${value}` : ""}`
   }
 }
+
 
 export let settings = new Settings()

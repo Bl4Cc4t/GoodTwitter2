@@ -5,6 +5,9 @@ import { getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements,
 const logger = new Logger("component", "navbar")
 
 
+/**
+ * Entry function for adding the navbar component.
+ */
 export function initializeNavbar() {
   addNavbar()
   addSearch()
@@ -108,7 +111,7 @@ function highlightNavbarLocation(): void {
 
 
 /**
- * Add or update a navbar element by a given selector.
+ * Adds or updates a navbar element by a given selector.
  * @param selector Selector string of the navbar element to add
  * @param localizedString localized string of the text
  */
@@ -162,7 +165,7 @@ function addSearch(): void {
 
 
 /**
- * Adds the twitter bird to the navbar
+ * Adds the twitter bird to the navbar.
  */
 function addBird(): void {
   let bird = document.querySelector("header h1 svg")

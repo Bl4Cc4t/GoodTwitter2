@@ -8,9 +8,9 @@ const logger = new Logger("request")
 
 
 /**
- * Get default request headers
- * @param  additionalHeaders additional header to add
- * @return                   request headers
+ * Gets the default request headers.
+ * @param additionalHeaders additional headers to add
+ * @returns valid request headers object, to be used for API calls
  */
 export function getRequestHeaders(
   additionalHeaders?: {[header: string]: string}
@@ -30,13 +30,13 @@ export function getRequestHeaders(
 
 
 /**
- * Get url with search params added (can be objects too)
- * @param  base_url the url
- * @param  params   the search parameters to add
- * @return          url with search params added
+ * Get an url with search params added
+ * @param baseUrl the url to change
+ * @param params  the search parameters to add (can be objects too)
+ * @return url with search params added
  */
-function getRequestURL(base_url: string, params: {[key: string]: any}): string {
-  let out = base_url
+function getRequestURL(baseUrl: string, params: {[key: string]: any}): string {
+  let out = baseUrl
   for (let [key, val] of Object.entries(params)) {
     if (typeof val === "object") val = encodeURIComponent(JSON.stringify(val))
     out += `&${key}=${val}`
@@ -45,11 +45,10 @@ function getRequestURL(base_url: string, params: {[key: string]: any}): string {
 }
 
 
-
 /**
- * Request a tweet.
- * @param  id       id of the tweet
- * @param  callback function to call on success
+ * Request information of a tweet.
+ * @param id id of the tweet
+ * @param callback function to call on success
  */
 export function requestTweet(
   id: string,
@@ -80,9 +79,9 @@ export function requestTweet(
 
 
 /**
- * Get a twitter user from the screen_name
+ * Gets information about a twitter user by their screen_name.
  * @param  screenName the screen_name of the user (@user)
- * @param  callback    function to call on success
+ * @param  callback function to call on success
  */
 export function requestUser(screenName: string, callback: (result: TwitterApi.UserResult) => void): void {
   if (typeof screenName != "string" || screenName == "") {
@@ -111,10 +110,10 @@ export function requestUser(screenName: string, callback: (result: TwitterApi.Us
 
 
 /**
- * Block a user
- * @param  userId  the user to block
- * @param  doBlock if true, block the user. else unblock.
- * @param  callback function to call on success
+ * Blocks a user by their id.
+ * @param userId the if of the user
+ * @param doBlock if true, blocks the user. else unblocks
+ * @param callback function to call on success
  */
 export function blockUser(userId: string, doBlock: boolean, callback: () => void): void {
   if (typeof userId != "string" || userId == "") {
@@ -140,6 +139,11 @@ export function blockUser(userId: string, doBlock: boolean, callback: () => void
 }
 
 
+/**
+ * Gets the translation of tweet.
+ * @param tweetId the id of the tweet
+ * @param callback the function to execute on success
+ */
 export function getTweetTranslation(tweetId: string, callback: (result: TwitterApi.v1_1.translateTweet) => void): void {
   if (typeof tweetId != "string" || tweetId == "") {
     logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
@@ -172,6 +176,12 @@ export function getTweetTranslation(tweetId: string, callback: (result: TwitterA
   })
 }
 
+
+/**
+ * Gets the translation of a profile description
+ * @param userId the id of the user profile
+ * @param callback the function execute on success
+ */
 export function getProfileTranslation(userId: string, callback: (result: TwitterApi.v1_1.translateProfile) => void): void {
   if (typeof userId != "string" || userId == "") {
     logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)

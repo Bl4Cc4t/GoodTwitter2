@@ -10,34 +10,8 @@ const logger = new Logger("style")
 
 
 /**
- * Get the current scrollbar width.
- * Reference: https://stackoverflow.com/q/8079187
- * @returns the width of the scrollbar
+ * Entry function for all style adjustments.
  */
-function getScrollbarWidth(): number {
-  if (document.documentElement.dataset.hasOwnProperty("minimalscrollbar")) {
-    return 0
-  }
-
-  let div = document.createElement("div")
-  div.style.setProperty("overflow-x", "hidden")
-  div.style.setProperty("overflow-y", "scroll")
-  div.style.setProperty("position", "absolute")
-  div.style.setProperty("top", "-100px")
-  document.body.appendChild(div)
-  let out = div.offsetWidth - div.clientWidth
-  document.body.removeChild(div)
-  return out
-}
-
-
-function setTheme(theme: Theme) {
-  document.documentElement.dataset.theme = theme
-  logger.debug(`set theme to ${theme}`)
-  GM_setValue("theme", theme)
-}
-
-
 export function initializeStyle(): void {
   // user color
   waitForKeyElements(`header [href="/compose/tweet"]`, e => {
@@ -108,10 +82,48 @@ export function initializeStyle(): void {
   // add stylesheet
   GM_addStyle(GM_getResourceText(RES_CSS)).classList.add("gt2-style")
   logger.debug("added stylesheet")
+
+  // additional rules
+  setAdditionalStyleRules()
 }
 
 
-// @option hideFollowSuggestions
+/**
+ * Get the current scrollbar width.
+ * Reference: https://stackoverflow.com/q/8079187
+ * @returns the width of the scrollbar
+ */
+function getScrollbarWidth(): number {
+  if (document.documentElement.dataset.hasOwnProperty("minimalscrollbar")) {
+    return 0
+  }
+
+  let div = document.createElement("div")
+  div.style.setProperty("overflow-x", "hidden")
+  div.style.setProperty("overflow-y", "scroll")
+  div.style.setProperty("position", "absolute")
+  div.style.setProperty("top", "-100px")
+  document.body.appendChild(div)
+  let out = div.offsetWidth - div.clientWidth
+  document.body.removeChild(div)
+  return out
+}
+
+/**
+ * Sets a theme.
+ * @param theme theme to set
+ */
+function setTheme(theme: Theme): void {
+  document.documentElement.dataset.theme = theme
+  logger.debug(`set theme to ${theme}`)
+  GM_setValue("theme", theme)
+}
+
+
+/**
+ * Hides follow suggestions.
+ * @option hideFollowSuggestions
+ */
 function hideFollowSuggestions(): void {
   // helper function
   function hideFromTimeline(div: Element) {
@@ -154,7 +166,10 @@ function hideFollowSuggestions(): void {
 }
 
 
-// @option showMediaWithContentWarnings
+/**
+ * Shows media with content warnings.
+ * @option showMediaWithContentWarnings
+ */
 function showMediaWithContentWarnings(): void {
   waitForKeyElements(`[data-testid=tweet] [href^="/"][href*="/photo/1"] [data-testid=tweetPhoto],
                       [data-testid=tweet] [data-testid=previewInterstitial]`, e => {
@@ -185,7 +200,11 @@ function showMediaWithContentWarnings(): void {
 }
 
 
-export function setAdditionalStyleRules(): void {
+/**
+ * Sets additional style rules.
+ * Mostly based on user specified options.
+ */
+function setAdditionalStyleRules(): void {
   // @option hideMessageBox: minimize DMDrawer
   if (settings.get("hideMessageBox")) {
     waitForKeyElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
