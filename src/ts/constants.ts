@@ -1,8 +1,5 @@
-import { Logger } from "./util/logger"
+import { logger } from "./util/logger"
 import { Path, Theme } from "./types"
-
-
-const logger = new Logger()
 
 
 //  userscript resources

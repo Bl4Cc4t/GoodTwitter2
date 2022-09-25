@@ -28,3 +28,5 @@ export class Logger {
     console.error(this.prefixes, ...msg)
   }
 }
+
+export const logger  = new Logger()
