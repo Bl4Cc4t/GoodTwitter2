@@ -1,7 +1,7 @@
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
-import { onModal, onPage, waitForKeyElements } from "./util"
+import { isLoggedIn, onModal, onPage, waitForKeyElements } from "./util"
 
 
 const logger = new Logger("location")
@@ -106,6 +106,10 @@ export function onLocationChange(type: string): void {
 
   document.body.dataset.pagePathname = location.pathname.slice(1)
 
+  // not logged in
+  if (!isLoggedIn()) {
+    document.body.classList.add("gt2-not-logged-in")
+  }
 
   // error
   waitForKeyElements(`main > div > div > div`, e => {
