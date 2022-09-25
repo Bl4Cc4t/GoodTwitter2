@@ -2047,26 +2047,29 @@ body:not(.gt2-opt-color-override) {
 
 // bigger image previews
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] [aria-labelledby] > div > div > div > div {
-    align-self: unset !important;
-    a[href^="/"][href*="/photo/"] > div {
-      height: unset !important;
-      width: unset !important;
-      & > div:nth-child(1) {
-        padding-bottom: 0 !important;
-      }
-      & > div:nth-child(2) {
-        position: relative;
-
-        & > div {
-          display: contents;
+  [data-testid=tweet] [aria-labelledby] > div > div {
+    width: 100%;
+    > div > div {
+      align-self: unset !important;
+      a[href^="/"][href*="/photo/"] > div {
+        height: 100% !important;
+        width: 100% !important;
+        & > div:nth-child(1) {
+          padding-bottom: 0 !important;
+        }
+        & > div:nth-child(2) {
           position: relative;
+
           & > div {
-            display: none;
-          }
-          & > img {
+            display: contents;
             position: relative;
-            opacity: 1;
+            & > div {
+              display: none;
+            }
+            & > img {
+              position: relative;
+              opacity: 1;
+            }
           }
         }
       }
