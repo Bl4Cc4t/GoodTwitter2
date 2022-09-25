@@ -124,6 +124,9 @@ export function onLocationChange(type: string): void {
   if (onPage({
     "*": ["status"],
     i: { web: ["status"] }
+  }) && !onPage({
+    "*": ["status", "retweets", "with_comments"],
+    i: { web: ["status", "retweets", "with_comments"] }
   })) {
     setPageType("tweet")
   }
