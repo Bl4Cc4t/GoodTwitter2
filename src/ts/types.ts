@@ -16,6 +16,18 @@ export namespace TwitterApi {
     }
   }
 
+  export namespace v2 {
+    export namespace search {
+      export interface adaptive {
+        globalObjects: {
+          tweets: {
+            [tweetId: string]: TweetLegacy
+          }
+        }
+      }
+    }
+  }
+
   export interface Translation {
     translation: string
     entities: Entities
@@ -32,7 +44,32 @@ export namespace TwitterApi {
     export interface TweetDetailResponse {
       data: {
         threaded_conversation_with_injections_v2: {
-          instructions: (TimelineClearCache | TimelineTerminateTimeline | TweetDetailTimelineAddEntries)[]
+          instructions: Instruction[]
+        }
+      }
+    }
+
+    export interface UserTweets {
+      data: {
+        user: {
+          result: {
+            __typename: "User"
+            timeline_v2: {
+              timeline: {
+                instructions: Instruction[]
+              }
+            }
+          }
+        }
+      }
+    }
+
+    export interface HomeLatestTimelineResponse {
+      data: {
+        home: {
+          home_timeline_urt: {
+            instructions: Instruction[]
+          }
         }
       }
     }
@@ -44,6 +81,9 @@ export namespace TwitterApi {
         }
       }
     }
+
+
+    export type Instruction = TimelineClearCache | TimelineTerminateTimeline | TweetDetailTimelineAddEntries
 
 
     interface TimelineClearCache {

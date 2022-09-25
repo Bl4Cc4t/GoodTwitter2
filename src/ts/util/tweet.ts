@@ -42,10 +42,42 @@ export function getTweetId(tweetArticle: Element): string | null {
 /**
  * Saves tweet details in the window object for later use.
  * Makes requesting individual tweets obsolete.
- * @param tweetDetailResponse the response from timeline request
+ * @param res the response from request
  */
-export function saveTweetDetailData(tweetDetailResponse: TwitterApi.Graphql.TweetDetailResponse): void {
-  tweetDetailResponse.data.threaded_conversation_with_injections_v2.instructions
+export function saveTweetResponse(res:
+  TwitterApi.Graphql.TweetDetailResponse
+  | TwitterApi.Graphql.HomeLatestTimelineResponse
+  | TwitterApi.Graphql.UserTweets
+  | TwitterApi.v2.search.adaptive): void {
+
+  if ("data" in res) {
+    // TwitterApi.Graphql.UserTweets
+    if ("user" in res.data)
+      saveTweetTimelineInstructions(res.data.user.result.timeline_v2.timeline.instructions)
+
+    // TwitterApi.Graphql.HomeLatestTimelineResponse
+    else if ("home" in res.data)
+      saveTweetTimelineInstructions(res.data.home.home_timeline_urt.instructions)
+
+    // TwitterApi.Graphql.TweetDetailResponse
+    else
+      saveTweetTimelineInstructions(res.data.threaded_conversation_with_injections_v2.instructions)
+  }
+
+  // TwitterApi.v2.search.adaptive
+  else {
+    unsafeWindow.tweetData = unsafeWindow.tweetData || {}
+    Object.assign(unsafeWindow.tweetData, res.globalObjects.tweets)
+  }
+}
+
+
+/**
+ * Helper function for saving tweet data.
+ * @param instructions the timeline instructions to process
+ */
+function saveTweetTimelineInstructions(instructions: TwitterApi.Graphql.Instruction[]) {
+  instructions
   .forEach(instr => {
     if (instr.type == "TimelineAddEntries") {
       instr.entries.forEach(entry => {
@@ -67,7 +99,7 @@ export function saveTweetDetailData(tweetDetailResponse: TwitterApi.Graphql.Twee
 
 
 /**
- * Helper function for `saveTweetDetailData`.
+ * Helper function for `saveTweetTimelineInstructions`.
  * @param tweetResults the tweet data to save
  */
 function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
