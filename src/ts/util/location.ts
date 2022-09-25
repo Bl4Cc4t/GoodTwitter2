@@ -1,4 +1,5 @@
 import { addSettings, addSettingsMenuEntry, removeSettings } from "../component/page-settings"
+import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
 import { onModal, onPage, waitForKeyElements } from "./util"
 
@@ -35,9 +36,10 @@ function watchTitle(): void {
     new MutationObserver(mut => {
       mut.forEach(() => {
         if (title.textContent != title.getAttribute("content")) {
-          // settings/gt2
-          if (location.pathname == "/settings/gt2")
-            changeTitle("GoodTwitter2")
+          for (let adj of TITLE_ADJUSTMENTS) {
+            if (location.pathname == adj.location)
+              changeTitle(adj.title)
+          }
         }
       })
     }).observe(title, { childList: true })

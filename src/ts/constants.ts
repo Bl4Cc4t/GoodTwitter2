@@ -85,3 +85,10 @@ export const TEXT_COLOR_TO_THEME: {[key: string]: Theme} = {
 export const BG_COLOR_TO_THEME: {[key: string]: Theme} = {
   "rgb(5, 5, 5)": "lightsout-hc"
 }
+
+export const TITLE_ADJUSTMENTS = [
+  {
+    location: "/settings/gt2",
+    title: "GoodTwitter2"
+  }
+]
