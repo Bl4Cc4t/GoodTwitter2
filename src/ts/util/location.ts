@@ -1,7 +1,8 @@
 import { addSettings, addSettingsMenuEntry, removeSettings } from "../component/page-settings"
-import { logger } from "./logger"
+import { Logger } from "./logger"
 import { onModal, onPage, waitForKeyElements } from "./util"
 
+const logger = new Logger("location")
 
 
 function setPageType(type: string) {

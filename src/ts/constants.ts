@@ -1,5 +1,9 @@
-import { logger } from "./util/logger"
+import { Logger } from "./util/logger"
 import { Path, Theme } from "./types"
+
+
+const logger = new Logger()
+
 
 //  userscript resources
 export const RES_EMOJI_REGEX = "emojiRegex"

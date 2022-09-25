@@ -1,6 +1,9 @@
 import { TranslateableTestid } from "../types"
-import { logger } from "../util/logger"
+import { Logger } from "../util/logger"
 import { getCurrentUserInfo, getLocalizedString, getLocalizedStringByTestid, waitForKeyElements, watchForChanges } from "../util/util"
+
+
+const logger = new Logger("component", "navbar")
 
 
 export function initializeNavbar() {

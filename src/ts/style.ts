@@ -3,11 +3,11 @@ import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, RES_CSS, TEXT_COLOR_TO_THEME } from "./constants"
 import { Theme } from "./types"
 import { settings } from "./util/settings"
-import { logger } from "./util/logger"
-// import { requestTweetCW } from "./util/request"
+import { Logger } from "./util/logger"
 
 
-const LOG_PREFIX = "style:"
+const logger = new Logger("style")
+
 
 /**
  * Get the current scrollbar width.
@@ -33,7 +33,7 @@ function getScrollbarWidth(): number {
 
 function setTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme
-  logger.debug(LOG_PREFIX, `set theme to ${theme}`)
+  logger.debug(`set theme to ${theme}`)
   GM_setValue("theme", theme)
 }
 
@@ -43,7 +43,7 @@ export function initializeStyle(): void {
   waitForKeyElements(`header [href="/compose/tweet"]`, e => {
     let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
     document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
-    logger.debug(LOG_PREFIX, `set --color-raw-accent-normal to "${bgColor}"`)
+    logger.debug(`set --color-raw-accent-normal to "${bgColor}"`)
   }, false)
 
   // font size
@@ -52,7 +52,7 @@ export function initializeStyle(): void {
     let fontSizeCurrent = document.documentElement.style.getPropertyValue("--font-size")
     if (fontSize != fontSizeCurrent) {
       document.documentElement.style.setProperty("--font-size", fontSize)
-      logger.debug(LOG_PREFIX, `set --font-size to "${fontSize}"`)
+      logger.debug(`set --font-size to "${fontSize}"`)
     }
   })
 
@@ -88,26 +88,26 @@ export function initializeStyle(): void {
   // scrollbar width
   let scrollbarWidth = getScrollbarWidth()
   document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`)
-  logger.debug(LOG_PREFIX, `set --scrollbar-width to "${scrollbarWidth}px"`)
+  logger.debug(`set --scrollbar-width to "${scrollbarWidth}px"`)
 
 
   // @option fontOverride
   if (settings.get("fontOverride")) {
     let fontOverride = settings.get("fontOverrideValue")
     document.documentElement.style.setProperty("--font-family-override", fontOverride)
-    logger.debug(LOG_PREFIX, `set --font-family-override to "${fontOverride}"`)
+    logger.debug(`set --font-family-override to "${fontOverride}"`)
   }
 
   // @option colorOverride
   if (settings.get("colorOverride")) {
     let colorOverride = settings.get("colorOverrideValue")
     document.documentElement.style.setProperty("--color-raw-accent-override", colorOverride)
-    logger.debug(LOG_PREFIX, `set --color-raw-accent-override to "${colorOverride}"`)
+    logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
   }
 
   // add stylesheet
   GM_addStyle(GM_getResourceText(RES_CSS)).classList.add("gt2-style")
-  logger.debug(LOG_PREFIX, "added stylesheet")
+  logger.debug("added stylesheet")
 }
 
 

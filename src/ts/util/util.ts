@@ -1,7 +1,10 @@
 import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
 import { I18nReplacable, Path, TESTID_I18N_MAPPING, TranslateableTestid, TwitterApi, UserInfo } from "../types"
-import { logger } from "./logger"
+import { Logger } from "./logger"
 import { requestTweet } from "./request"
+
+
+const logger = new Logger("util")
 
 
 /**

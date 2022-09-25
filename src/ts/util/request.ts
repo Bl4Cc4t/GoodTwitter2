@@ -1,7 +1,11 @@
 import { PUBLIC_BEARER } from "../constants"
 import { getLanguage } from "./util"
 import { TwitterApi } from "../types"
-import { logger } from "./logger"
+import { Logger } from "./logger"
+
+
+const logger = new Logger("request")
+
 
 /**
  * Get default request headers

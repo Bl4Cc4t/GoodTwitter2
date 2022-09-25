@@ -1,6 +1,9 @@
 import { TwitterApi } from "../types"
-import { logger } from "./logger"
+import { Logger } from "./logger"
 import { requestTweet } from "./request"
+
+
+const logger = new Logger("tweet")
 
 
 export function getTweetId(tweetArticle: Element): string | null {

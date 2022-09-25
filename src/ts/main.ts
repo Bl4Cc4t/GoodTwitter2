@@ -6,10 +6,15 @@ import { overrideFunctions } from "./util/overrides"
 import { initializeLocation } from "./util/location"
 import "./util/extension"
 import "../style/main.scss"
-import { logger } from "./util/logger"
+import { Logger } from "./util/logger"
 import { initializeNavbar } from "./component/navbar"
 
+
+
+
 (() => {
+  const logger = new Logger()
+
   // do not execute on these pages
   if (!isLoggedIn() && location.pathname == "") return
 

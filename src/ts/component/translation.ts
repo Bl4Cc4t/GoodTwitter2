@@ -1,9 +1,12 @@
 import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
 import { settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
-import { logger } from "../util/logger"
+import { Logger } from "../util/logger"
 import { TwitterApi } from "types"
 import { getTweetData, getTweetId } from "../util/tweet"
+
+
+const logger = new Logger("component/translation:")
 
 
 export function initializeInlineTranslation(): void {

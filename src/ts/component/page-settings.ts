@@ -1,11 +1,11 @@
 import { settings, SettingsKey } from "../util/settings"
 import { getLocalizedReplacableString, getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
-import { logger } from "../util/logger"
+import { Logger } from "../util/logger"
 import { changeTitle, revertTitle } from "../util/location"
 
+const logger = new Logger("component", "page-settings")
 
-const LOG_PREFIX = "page-settings:"
 
 // insert the menu item
 export function addSettingsMenuEntry(): void {
@@ -23,7 +23,7 @@ export function addSettingsMenuEntry(): void {
         </a>
       `)
 
-      logger.debug(LOG_PREFIX, "added gt2 settings menu entry")
+      logger.debug("added gt2 settings menu entry")
 
       e.addEventListener("click", event => {
         let target = event.target as Element
@@ -189,7 +189,7 @@ export function addSettings(): void {
       settingsContainer = document.querySelector("main > div > div > div")
       settingsContainer.insertAdjacentHTML("beforeend", `<section>${settingsHtml}</section>`)
     }
-    logger.debug(LOG_PREFIX, `added gt2 settings to `, settingsContainer)
+    logger.debug(`added gt2 settings to `, settingsContainer)
 
 
     // add color pickr
@@ -247,10 +247,10 @@ function initializeColorPickr(): void {
   .on("change", (color: Pickr.HSVaColor) => {
     let val = color.toRGBA().toString(0).slice(5, -4)
     settings.set("colorOverrideValue", val)
-    logger.debug(LOG_PREFIX, `color picked: ${val}`)
+    logger.debug(`color picked: ${val}`)
   })
 
-  logger.debug(LOG_PREFIX, "color pickr initialized.")
+  logger.debug("color pickr initialized.")
 }
 
 
@@ -262,10 +262,10 @@ function disableTogglesIfNeeded(): void {
 
       if (settings.get("hideTrends") && !isDisabled) {
         e.classList.add("gt2-disabled")
-        logger.debug(LOG_PREFIX, `disabled component `, e)
+        logger.debug(`disabled component `, e)
       } else if (!settings.get("hideTrends") && isDisabled) {
         e.classList.remove("gt2-disabled")
-        logger.debug(LOG_PREFIX, `enabled component `, e)
+        logger.debug(`enabled component `, e)
       }
     })
 
@@ -295,10 +295,10 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
 
   if (settings.get(toggle) && isHidden) {
     target.classList.remove("gt2-hidden")
-    logger.debug(LOG_PREFIX, `revealed component `, target)
+    logger.debug(`revealed component `, target)
   } else if (!settings.get(toggle) && !isHidden) {
     target.classList.add("gt2-hidden")
-    logger.debug(LOG_PREFIX, `hid component `, target)
+    logger.debug(`hid component `, target)
   }
 }
 
@@ -319,13 +319,13 @@ function toggleClickHandler(event: MouseEvent): void {
   // multi selection
   if (settingSel) {
     settings.xor(settingName, parseInt(settingSel))
-    logger.debug(LOG_PREFIX, `setting selection changed: ${settingName} = ${settings.get(settingName)}`)
+    logger.debug(`setting selection changed: ${settingName} = ${settings.get(settingName)}`)
   }
 
   // normal toggle
   else {
     settings.toggle(settingName as SettingsKey)
-    logger.debug(LOG_PREFIX, `setting toggled: ${settingName}`)
+    logger.debug(`setting toggled: ${settingName}`)
   }
 
 
@@ -338,5 +338,5 @@ function inputKeyupHandler(event: InputEvent): void {
   let target = event.target as HTMLInputElement
   let settingName = target.closest("[data-setting-name]").getAttribute("data-setting-name")
   settings.set(settingName as SettingsKey, target.value)
-  logger.debug(LOG_PREFIX, `setting value changed: ${settingName} = ${target.value}`)
+  logger.debug(`setting value changed: ${settingName} = ${target.value}`)
 }
