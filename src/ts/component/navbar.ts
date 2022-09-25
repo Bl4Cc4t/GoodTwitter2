@@ -1,6 +1,5 @@
-import { TranslateableTestid } from "../types"
 import { Logger } from "../util/logger"
-import { getCurrentUserInfo, getLocalizedString, getLocalizedStringByTestid, waitForKeyElements, watchForChanges } from "../util/util"
+import { getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements, watchForChanges } from "../util/util"
 
 
 const logger = new Logger("component", "navbar")
@@ -11,61 +10,93 @@ export function initializeNavbar() {
   addSearch()
 }
 
-// add navbar
-function addNavbar() {
-  waitForKeyElements(`nav > a[href="/home"]`, () => {
+
+/**
+ * Adds the navbar to the page.
+ */
+function addNavbar(): void {
+  waitForKeyElements(`nav > [data-testid]`, () => {
     if (document.querySelector(".gt2-nav")) return
+
+    let loggedIn = isLoggedIn()
 
     document.querySelector("main")
       .insertAdjacentHTML("beforebegin", `
         <nav class="gt2-nav">
           <div class="gt2-nav-left"></div>
           <div class="gt2-nav-center">
-            <a href="/home"></a>
+            <a class="gt2-nav-bird" href="${loggedIn ? "/home" : "/"}"></a>
           </div>
           <div class="gt2-nav-right">
             <div class="gt2-search"></div>
+            ${loggedIn ? `
             <div class="gt2-toggle-navbar-dropdown">
               <img src="${getCurrentUserInfo().avatarUrl}" />
             </div>
-            <div class="gt2-compose">${getLocalizedString("composeNewTweet")}</div>
+            <div class="gt2-compose">${getLocalizedString("composeNewTweet")}</div>` : ""}
           </div>
         </nav>
         <div class="gt2-search-overflow-hider"></div>`)
 
     logger.debug(`added navbar`)
 
-    // home, notifications, messages (and explore on smaller screens)
-    let navbarElementsToAdd: TranslateableTestid[] = [
-      "AppTabBar_Home_Link",
-      "AppTabBar_Notifications_Link",
-      "AppTabBar_DirectMessage_Link"
-    ]
-    if (window.innerWidth < 1005) navbarElementsToAdd.push("AppTabBar_Explore_Link")
 
-    for (let testid of navbarElementsToAdd) {
+    let navbarElementsToAdd: {
+      selector: string
+      localizedString: string
+    }[] = []
+
+    // home, notifications, messages (and explore on smaller screens)
+    if (loggedIn) {
+      navbarElementsToAdd = [
+        {
+          selector: "[data-testid=AppTabBar_Home_Link]",
+          localizedString: getLocalizedString("navHome")
+        }, {
+          selector: "[data-testid=AppTabBar_Notifications_Link]",
+          localizedString: getLocalizedString("navNotifications")
+        }, {
+          selector: "[data-testid=AppTabBar_DirectMessage_Link]",
+          localizedString: getLocalizedString("navMessages")
+        }
+      ]
+
+      if (window.innerWidth < 1005) navbarElementsToAdd.push({
+        selector: "[data-testid=AppTabBar_Explore_Link]",
+        localizedString: getLocalizedString("navExplore")
+      })
+    }
+
+    // not logged in
+    else {
+      navbarElementsToAdd = [
+        {
+          selector: "[data-testid=AppTabBar_Explore_Link]",
+          localizedString: getLocalizedString("navExplore")
+        }, {
+          selector: `a[href="/settings"]`,
+          localizedString: getLocalizedString("navSettings")
+        }
+      ]
+    }
+
+    for (let elem of navbarElementsToAdd) {
       // check for updates
-      watchForChanges(`header [data-testid=${testid}]`, () => {
-        addOrUpdateNavbarElement(testid)
+      watchForChanges(`header ${elem.selector}`, () => {
+        addOrUpdateNavbarElement(elem.selector, elem.localizedString)
         highlightNavbarLocation()
       }, true)
     }
 
-    // twitter logo
-    let bird = document.querySelector("header h1 a[href='/home'] svg")
-    if (!bird) {
-      logger.error("couldn't find twitter bird")
-    } else {
-      document.querySelector(".gt2-nav-center a").insertAdjacentHTML("beforeend", bird.outerHTML)
-      logger.debug("added twitter bird to navbar")
-    }
-
+    addBird()
   })
 }
 
 
-// highlight current location in navbar
-export function highlightNavbarLocation() {
+/**
+ * Highlights the current location in the navbar.
+ */
+function highlightNavbarLocation(): void {
   document.querySelectorAll(`.gt2-nav-left > a`)
     ?.forEach(e => e.classList.remove("active"))
   let elem = document.querySelector(`.gt2-nav a[href^='/${location.pathname.split("/")[1]}']`)
@@ -76,21 +107,26 @@ export function highlightNavbarLocation() {
 }
 
 
-export function addOrUpdateNavbarElement(testid: TranslateableTestid) {
-  let origElem = document.querySelector(`header [data-testid=${testid}]`) as HTMLElement
+/**
+ * Add or update a navbar element by a given selector.
+ * @param selector Selector string of the navbar element to add
+ * @param localizedString localized string of the text
+ */
+function addOrUpdateNavbarElement(selector: string, localizedString: string): void {
+  let origElem = document.querySelector(`header ${selector}`) as HTMLElement
   if (!origElem) {
-    logger.error(`Error finding navbar element with testid ${testid}`)
+    logger.error(`Error finding navbar element with selector "${selector}"`)
     return
   }
 
-  let mockElem = document.querySelector(`.gt2-nav [data-testid=${testid}]`)
+  let mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
   // mock element does not exist
   if (!mockElem) {
     document.querySelector(".gt2-nav-left")
     .insertAdjacentHTML("beforeend", origElem.outerHTML)
-    logger.debug(`added navbar element with testid ${testid}`)
-    mockElem = document.querySelector(`.gt2-nav [data-testid=${testid}]`)
+    logger.debug(`added navbar element with selector "${selector}"`)
+    mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
     // click handler
     mockElem.addEventListener("click", (event: MouseEvent) => {
@@ -102,20 +138,19 @@ export function addOrUpdateNavbarElement(testid: TranslateableTestid) {
   // mock element already exists
   else {
     mockElem.innerHTML = origElem.innerHTML
-    logger.debug(`updated navbar element with testid ${testid}`)
+    logger.debug(`updated navbar element with selector "${selector}"`)
   }
 
   mockElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
   mockElem.firstElementChild.insertAdjacentHTML("beforeend", `
-    <div class="gt2-nav-header">
-      ${getLocalizedStringByTestid(testid)}
-    </div>
-  `)
+    <div class="gt2-nav-header">${localizedString}</div>`)
 }
 
 
-// add search
-function addSearch() {
+/**
+ * Adds the search box to the navbar.
+ */
+function addSearch(): void {
   let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
   watchForChanges(`${search} [data-testid=SearchBox_Search_Input]`, () => {
     logger.info("search")
@@ -123,4 +158,19 @@ function addSearch() {
       .replaceChildren(document.querySelector(search))
     logger.debug("added search")
   }, true)
+}
+
+
+/**
+ * Adds the twitter bird to the navbar
+ */
+function addBird(): void {
+  let bird = document.querySelector("header h1 svg")
+  if (!bird) {
+    logger.error("couldn't find twitter bird")
+  } else {
+    document.querySelector(".gt2-nav-bird")
+      .insertAdjacentHTML("beforeend", bird.outerHTML)
+    logger.debug("added twitter bird to navbar")
+  }
 }
