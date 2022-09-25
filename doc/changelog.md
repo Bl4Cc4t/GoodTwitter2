@@ -1,7 +1,15 @@
 # Changelog
 
-## [0.0.40.5](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
-*released 2022-09-23*
+## [0.0.40.6](https://github.com/Bl4Cc4t/GoodTwitter2/pull/482)
+*released 2022-09-25*
+
+#### Changes
+- fixed biggerPreviews not showing any images ([#461](https://github.com/Bl4Cc4t/GoodTwitter2/issues/461), [#479](https://github.com/Bl4Cc4t/GoodTwitter2/issues/479))
+- fixed legacyProfileLayout not showing the follow/action buttons ([#478](https://github.com/Bl4Cc4t/GoodTwitter2/issues/478))
+
+
+## [0.0.40.5](https://github.com/Bl4Cc4t/GoodTwitter2/pull/477)
+*released 2022-09-24*
 
 #### Changes
 - fixed video progress not showing up when biggerPreviews was activated ([#442](https://github.com/Bl4Cc4t/GoodTwitter2/issues/442))
