@@ -809,9 +809,11 @@
         document.querySelectorAll(`.gt2-nav-left [data-testid]`)
           .forEach(e => {
             e.addEventListener("click", event => {
-              event.preventDefault()
-              let testid = event.target.closest("[data-testid]").dataset.testid
-              document.querySelector(`nav [data-testid=${testid}]`).click()
+              if (!event.ctrlKey) {
+                event.preventDefault()
+                let testid = event.target.closest("[data-testid]").dataset.testid
+                document.querySelector(`nav [data-testid=${testid}]`).click()
+              }
             })
           })
 
