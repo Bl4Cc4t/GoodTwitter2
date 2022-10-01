@@ -1,5 +1,5 @@
 import { Logger } from "../util/logger"
-import { getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements, watchForChanges } from "../util/util"
+import { addClickHandlerToMockElement, getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements, watchForChanges } from "../util/util"
 
 
 const logger = new Logger("component", "navbar")
@@ -91,7 +91,13 @@ function addNavbar(): void {
       }, true)
     }
 
+    // add bird
     addBird()
+
+    // handler for compose tweet button
+    let composeTweetOrig = document.querySelector<HTMLElement>("header a[href='/compose/tweet'] > div")
+    let composeTweetMock = document.querySelector<HTMLElement>(".gt2-nav .gt2-compose")
+    addClickHandlerToMockElement(composeTweetMock, composeTweetOrig)
   })
 }
 
@@ -132,10 +138,7 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
     mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
     // click handler
-    mockElem.addEventListener("click", (event: MouseEvent) => {
-      event.preventDefault()
-      origElem.click()
-    })
+    addClickHandlerToMockElement(mockElem, origElem)
   }
 
   // mock element already exists
@@ -180,12 +183,14 @@ export function removeSearch(): void {
  * Adds the twitter bird to the navbar.
  */
 function addBird(): void {
-  let bird = document.querySelector("header h1 svg")
+  let bird = document.querySelector<HTMLElement>("header h1 svg")
   if (!bird) {
     logger.error("couldn't find twitter bird")
   } else {
-    document.querySelector(".gt2-nav-bird")
-      .insertAdjacentHTML("beforeend", bird.outerHTML)
+    let mockBird = document.querySelector(".gt2-nav-bird")
+
+    mockBird.insertAdjacentHTML("beforeend", bird.outerHTML)
+    addClickHandlerToMockElement(mockBird, bird)
     logger.debug("added twitter bird to navbar")
   }
 }
