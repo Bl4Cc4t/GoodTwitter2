@@ -11,5 +11,5 @@
 node_modules
 .yarn
 
-# comiled stuff
+# compiled stuff
 dist
