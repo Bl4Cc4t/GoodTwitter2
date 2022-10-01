@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.40.7](https://github.com/Bl4Cc4t/GoodTwitter2/pull/486)
+*released 2022-10-02*
+
+#### Changes
+- updated Korean translation (thanks [@hellojo011](https://github.com/hellojo011)!)
+- fixed dropdown menu ([#484](https://github.com/Bl4Cc4t/GoodTwitter2/issues/484))
+- fixed images not showing up with biggerImagePreviews enabled ([#485](https://github.com/Bl4Cc4t/GoodTwitter2/issues/485))
+
+
 ## [0.0.40.6](https://github.com/Bl4Cc4t/GoodTwitter2/pull/482)
 *released 2022-09-25*
 
@@ -20,7 +29,7 @@
 *released 2022-09-18*
 
 #### Changes
-- updated Romanian translation (thanks @Andy9001!)
+- updated Romanian translation (thanks [@Andy9001](https://github.com/Andy9001)!)
 - fixed forceLatestTweets not working again ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
 - fixed showMediaWithContentWarnings again ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
 
@@ -38,7 +47,7 @@
 *released 2022-08-27*
 
 #### New
-- Ukrainian translation (thanks @megamanyoutuber!, [#464](https://github.com/Bl4Cc4t/GoodTwitter2/issues/464))
+- Ukrainian translation (thanks [@megamanyoutuber](https://github.com/megamanyoutuber)!, [#464](https://github.com/Bl4Cc4t/GoodTwitter2/issues/464))
 
 #### Changes
 - fixed notifications not showing up in the navbar, as introduced by the freezing bug fix ([#459](https://github.com/Bl4Cc4t/GoodTwitter2/issues/459))
@@ -48,7 +57,7 @@
 *released 2022-08-13*
 
 #### Changes
-- fixed the twitter freezing issues, courtesy of @EdinUser! ([#455](https://github.com/Bl4Cc4t/GoodTwitter2/issues/455))
+- fixed the twitter freezing issues, courtesy of [@EdinUser](https://github.com/EdinUser)! ([#455](https://github.com/Bl4Cc4t/GoodTwitter2/issues/455))
 - Japanese & Russian translation updated with new strings
 
 
@@ -56,7 +65,7 @@
 *released 2022-07-30*
 
 #### New
-- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!, [#104](https://github.com/Bl4Cc4t/GoodTwitter2/issues/104), [#441](https://github.com/Bl4Cc4t/GoodTwitter2/issues/441))
+- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks [@geyerbri](https://github.com/geyerbri)!, [#104](https://github.com/Bl4Cc4t/GoodTwitter2/issues/104), [#441](https://github.com/Bl4Cc4t/GoodTwitter2/issues/441))
 - option to redirect to `/media` when visiting profile pages ([#446](https://github.com/Bl4Cc4t/GoodTwitter2/issues/446))
 - 2 translations:
   - Vietnamese in [#444](https://github.com/Bl4Cc4t/GoodTwitter2/pull/444) (thanks @touanu!)
@@ -95,10 +104,10 @@ Not many this time, sorry. I'm a bit short on time atm
 *released 2022-03-18*
 
 #### New
-- added indonesian translation (thanks [@NekoSam395!](https://github.com/NekoSam395))
+- added Indonesian translation (thanks [@NekoSam395](https://github.com/NekoSam395)!)
 
 #### Changes
-- updated japanese, korean & russian translation
+- updated Japanese, Korean & Russian translation
 - fixed moment_maker issues ([#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
 - fixed legacy profile layout issues, showing wrong values on profile pages ([#420](https://github.com/Bl4Cc4t/GoodTwitter2/issues/420))
 
