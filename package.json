@@ -44,6 +44,7 @@
     "postcss": "^8.4.16",
     "postcss-cli": "^10.0.0",
     "rollup": "^2.78.1",
+    "rollup-plugin-add-userscript-header": "^0.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.54.0",
     "ts-node": "^10.9.1",
@@ -51,14 +52,6 @@
     "yaml": "^2.1.1"
   },
   "packageManager": "yarn@3.2.2",
-  "dependenciesMeta": {
-    "@simonwep/pickr@1.8.2": {
-      "unplugged": true
-    }
-  },
-  "workspaces": [
-    "packages/rollup-plugin-add-userscript-header"
-  ],
   "eslintConfig": {
     "env": {
       "es2021": true

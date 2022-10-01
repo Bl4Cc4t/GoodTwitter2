@@ -3,7 +3,7 @@ import resolve from "@rollup/plugin-node-resolve"
 import babel from "@rollup/plugin-babel"
 import postcss from "rollup-plugin-postcss"
 import autoprefixer from "autoprefixer"
-import addUserscriptHeader from "./packages/rollup-plugin-add-userscript-header/dist/plugin"
+import addUserscriptHeader from "rollup-plugin-add-userscript-header"
 import pkg from "./package.json"
 
 
