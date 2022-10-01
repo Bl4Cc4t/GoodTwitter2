@@ -3,7 +3,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "main": "lib/plugin.js",
+  "main": "dist/plugin.js",
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
     "@babel/types": "^7.18.10",
