@@ -2051,6 +2051,9 @@ body:not(.gt2-opt-color-override) {
     width: 100%;
     > div > div {
       align-self: unset !important;
+      > div > div {
+        width: 100%;
+      }
       a[href^="/"][href*="/photo/"] > div {
         height: 100% !important;
         width: 100% !important;
