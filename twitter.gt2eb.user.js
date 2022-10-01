@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.40.6
+// @version       0.0.40.7
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -809,9 +809,11 @@
         document.querySelectorAll(`.gt2-nav-left [data-testid]`)
           .forEach(e => {
             e.addEventListener("click", event => {
-              event.preventDefault()
-              let testid = event.target.closest("[data-testid]").dataset.testid
-              document.querySelector(`nav [data-testid=${testid}]`).click()
+              if (!event.ctrlKey) {
+                event.preventDefault()
+                let testid = event.target.closest("[data-testid]").dataset.testid
+                document.querySelector(`nav [data-testid=${testid}]`).click()
+              }
             })
           })
 
@@ -1678,10 +1680,12 @@
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
     let more = "div[role=menu][style^='max-height: calc'].r-ipm5af > div > div > div"
 
-    waitForKeyElements(`${more} `, () => {
+    waitForKeyElements(`${more} `, e => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div:empty") // separator line
-      $hr.clone().prependTo(more)
+
+      // separator line
+      let separatorHtml = e[0].querySelector("[role=separator]").parentElement.outerHTML
+      e[0].insertAdjacentHTML("afterbegin", separatorHtml)
       // items from left menu to attach
       let toAttach = [
         {
@@ -1708,7 +1712,13 @@
         $tmp.prependTo(more)
       }
 
-      $hr.clone().appendTo(more)
+      // expand sections
+      document.querySelectorAll(`${more} [aria-expanded=false]`)
+        .forEach(e => {
+          e.click()
+          e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
+        })
+
       $(`<a href="/logout" class="gt2-toggle-logout">Logout</a>`).appendTo(more)
     })
 
