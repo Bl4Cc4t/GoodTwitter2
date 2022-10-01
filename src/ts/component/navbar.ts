@@ -98,6 +98,10 @@ function addNavbar(): void {
     let composeTweetOrig = document.querySelector<HTMLElement>("header a[href='/compose/tweet'] > div")
     let composeTweetMock = document.querySelector<HTMLElement>(".gt2-nav .gt2-compose")
     addClickHandlerToMockElement(composeTweetMock, composeTweetOrig)
+
+    // handler for dropdown button
+    document.querySelector(".gt2-toggle-navbar-dropdown")
+      .addEventListener("click", dropDownToggledHandler)
   })
 }
 
@@ -193,4 +197,67 @@ function addBird(): void {
     addClickHandlerToMockElement(mockBird, bird)
     logger.debug("added twitter bird to navbar")
   }
+}
+
+
+/**
+ * Handler for the dropdown button in the navbar
+ */
+function dropDownToggledHandler(): void {
+  let info = getCurrentUserInfo()
+  logger.debug("dropdown menu toggled")
+
+  // open "more menu"
+  let moreMenuButton = document.querySelector<HTMLElement>("header [data-testid=AppTabBar_More_Menu]")
+  moreMenuButton.click()
+
+  // add elements to navbar dropdow menu
+  waitForKeyElements("#layers [data-testid=Dropdown]", moreMenu => {
+    // if (e.find("a[href='/explore']").length)
+    //   return
+
+    // separator line
+    let separatorHtml = moreMenu.querySelector("[role=separator]")?.outerHTML ?? ""
+    moreMenu.insertAdjacentHTML("afterbegin", separatorHtml)
+
+    // items from left menu to attach
+    let toAttach: {
+      selector: string
+      localizedString: string
+    }[] = [
+      {
+        selector: `a[href="/${info.screenName}"]`,
+        localizedString: getLocalizedString("navProfile")
+      }, {
+        selector: `a[href$="/lists"]`,
+        localizedString: getLocalizedString("navLists")
+      }, {
+        selector: `a[href$="/bookmarks"]`,
+        localizedString: getLocalizedString("navBookmarks")
+      }, {
+        selector: `a[href$="/communities"]`,
+        localizedString: getLocalizedString("navCommunities")
+      }, {
+        selector: `a[href="/explore"]`,
+        localizedString: getLocalizedString("navExplore")
+      }
+    ]
+
+    for (let elem of toAttach.reverse()) {
+      let origElem = document.querySelector<HTMLElement>(`header nav ${elem.selector}`)
+      if (!origElem)
+        continue
+
+      moreMenu.insertAdjacentHTML("afterbegin", origElem.outerHTML)
+      let mockElem = moreMenu.querySelector(elem.selector)
+      mockElem.firstElementChild.insertAdjacentHTML("beforeend", `<span>${elem.localizedString}</span>`)
+      addClickHandlerToMockElement(mockElem, origElem, () => moreMenuButton.click())
+      logger.debug(`added dropdown element with selector "${elem.selector}"`)
+    }
+
+    moreMenu.insertAdjacentHTML("beforeend", separatorHtml)
+    moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
+
+    moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
+  })
 }

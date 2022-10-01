@@ -158,13 +158,27 @@
 
 // navbar dropdown
 #{$navbar-dropdown} {
+  max-height: calc(100vh - 54px - 10px) !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   top: 54px;
 
-  > div > div > div {
+  >::-webkit-scrollbar {
+    display: none;
+  }
+
+  [data-testid=Dropdown] {
     display: flex;
+    opacity: 0;
+
+    &.gt2-navbar-dropdown-buttons-added {
+      opacity: 1;
+    }
+
     // existing elements
-    > div > a {
-      transition-duration: 0s;
+    > div a > div {
+      padding: incr(14px);
+      // transition-duration: 0s;
     }
 
     // inserted elements
@@ -172,7 +186,7 @@
       padding: 0;
 
       > div {
-        padding: incr(15px);
+        padding: incr(14px);
 
         > div:nth-child(2) {
           display: none;
@@ -181,7 +195,7 @@
 
       &.gt2-toggle-logout {
         color: var(--color-text);
-        padding: 15px;
+        padding: incr(14px);
         text-decoration-line: none;
 
         &:link,
@@ -201,6 +215,7 @@
         // color: var(--color-gray-light);
         height: 1.25em;
         margin-right: 10px;
+        width: unset;
       }
     }
 
