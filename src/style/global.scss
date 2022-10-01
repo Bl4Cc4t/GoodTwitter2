@@ -229,48 +229,53 @@ main {
             margin-bottom: 10px;
 
             > div > div {
-              padding: 0;
-
-              // apply theme to sidebar elements
-              > div {
+              &[role=progressbar] {
                 background-color: var(--color-elem);
                 border: 1px solid var(--color-gray-dark);
                 border-radius: 0;
-                margin-bottom: 10px;
+                padding: 20px 0;
+              }
 
-                // tos/privacy policy/etc. nav
-                &:nth-last-child(1) nav {
-                  padding: 15px;
-                  // more button
-                  > :nth-last-child(2) > div {
-                    &:hover {
-                      text-decoration-thickness: 1px;
-                    }
+              &:not([role=progressbar]) {
+                padding: 0;
 
-                    &:not(:hover) {
-                      text-decoration-line: unset;
+                // apply theme to sidebar elements
+                > div {
+                  background-color: var(--color-elem);
+                  border: 1px solid var(--color-gray-dark);
+                  border-radius: 0;
+                  margin-bottom: 10px;
+
+                  // tos/privacy policy/etc. nav
+                  &:nth-last-child(1) nav {
+                    padding: 15px;
+                    // more button
+                    > :nth-last-child(2) > div {
+                      &:hover {
+                        text-decoration-thickness: 1px;
+                      }
+
+                      &:not(:hover) {
+                        text-decoration-line: unset;
+                      }
                     }
                   }
-                }
 
-                &:empty {
-                  display: none;
-                }
+                  &:empty {
+                    display: none;
+                  }
 
-                &:last-child {
-                  margin-bottom: 10px;
-                }
+                  a[href^="/i/connect_people"] {
+                    border-radius: unset;
+                  }
 
-                a[href^="/i/connect_people"] {
-                  border-radius: unset;
-                }
-
-                // ChirpUpdate: readd vertical dividers
-                // who to follow / you might like
-                aside {
-                  > div > div,
-                  > a[href*="i/connect_people"] {
-                    @include separator-top;
+                  // ChirpUpdate: readd vertical dividers
+                  // who to follow / you might like
+                  aside {
+                    > div > div,
+                    > a[href*="i/connect_people"] {
+                      @include separator-top;
+                    }
                   }
                 }
               }
