@@ -30,7 +30,7 @@ function getMetadata(packageJson: any): UserscriptMetadata {
   // downloadURL / updateURL
   let repo = getRepo(packageJson)
   if (repo) {
-    meta.downloadURL = meta.downloadURL ?? `${repo}/raw/master/${packageJson.main}`
+    meta.downloadURL = meta.downloadURL ?? `${repo}/releases/latest/download/${packageJson.main}`
     meta.updateURL   = meta.updateURL   ?? meta.downloadURL
   }
 
@@ -45,7 +45,7 @@ function getRepo(packageJson): string | null {
 
 function getLocalUrl(url: string, packageJson: any): string {
   let repo = getRepo(packageJson)
-  return url.startsWith("http") || !repo ? url : `${repo}/raw/master/${url}`
+  return url.startsWith("http") || !repo ? url : `${repo}/${url}`
 }
 
 

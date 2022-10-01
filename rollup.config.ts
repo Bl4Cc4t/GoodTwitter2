@@ -44,13 +44,14 @@ export default {
           "api.twitter.com"
         ],
         "require": [
-          "https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.i18n.js"
+          // "releases/latest/download/twitter.gt2eb.i18n.js"
+          "raw/master/twitter.gt2eb.i18n.js"
         ],
         "resource": {
-          // "css": "dist/goodtwitter2.style.css",
-          "css": "twitter.gt2eb.style.css",
-          // "emojiRegex": "static/emoji-regex.txt"
-          "emojiRegex": "data/emoji-regex.txt"
+          // "css": "releases/latest/download/twitter.gt2eb.style.css",
+          "css": "raw/master/twitter.gt2eb.style.css",
+          // "emojiRegex": "raw/master/static/emoji-regex.txt"
+          "emojiRegex": "raw/master/data/emoji-regex.txt"
         }
       }
     })
