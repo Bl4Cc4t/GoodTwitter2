@@ -25,8 +25,10 @@ export function initializeLocation(): void {
  * @param type type of the page
  */
 function setPageType(type: string): void {
-  document.body.dataset.pageType = type
-  logger.debug(`page type set to: ${type}`)
+  if (document.body.dataset.pageType != type) {
+    document.body.dataset.pageType = type
+    logger.debug(`page type set to: ${type}`)
+  }
 }
 
 
@@ -167,7 +169,7 @@ export function onLocationChange(type: string): void {
   else if (onPage(["hashtag", "i", "places", "notifications"]) || onPage({
     "*": ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"],
   })) {
-    logger.debug("on unhandled page")
+    logger.warn("on unhandled page")
     resetPageType()
   }
 
@@ -178,7 +180,7 @@ export function onLocationChange(type: string): void {
 
   // unhandled modals
   else {
-    logger.debug("on unhandled modal")
+    logger.warn("on unhandled modal")
     // resetPageType()
   }
 }
