@@ -101,7 +101,7 @@ function addNavbar(): void {
 
     // handler for dropdown button
     document.querySelector(".gt2-toggle-navbar-dropdown")
-      .addEventListener("click", dropDownToggledHandler)
+      .addEventListener("click", dropdownToggledHandler)
   })
 }
 
@@ -203,7 +203,7 @@ function addBird(): void {
 /**
  * Handler for the dropdown button in the navbar
  */
-function dropDownToggledHandler(): void {
+function dropdownToggledHandler(): void {
   let info = getCurrentUserInfo()
   logger.debug("dropdown menu toggled")
 
@@ -217,7 +217,8 @@ function dropDownToggledHandler(): void {
     //   return
 
     // separator line
-    let separatorHtml = moreMenu.querySelector("[role=separator]")?.outerHTML ?? ""
+    let separatorHtml = moreMenu.querySelector("[role=separator]")
+      ?.parentElement?.outerHTML ?? ""
     moreMenu.insertAdjacentHTML("afterbegin", separatorHtml)
 
     // items from left menu to attach
@@ -255,7 +256,13 @@ function dropDownToggledHandler(): void {
       logger.debug(`added dropdown element with selector "${elem.selector}"`)
     }
 
-    moreMenu.insertAdjacentHTML("beforeend", separatorHtml)
+    // expand sections
+    moreMenu.querySelectorAll<HTMLElement>(`[aria-expanded=false]`)
+      .forEach(e => {
+        e.click()
+        e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
+      })
+
     moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
 
     moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
