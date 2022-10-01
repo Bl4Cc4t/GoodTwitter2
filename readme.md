@@ -28,7 +28,7 @@ Twitter disabled its old 2014 layout on June 1st 2020 completely. This caused th
 
 ## Features
 - Legacy Navbar is back!
-  ![](doc/img/navbar.png)
+  ![](doc/img/preview/navbar.png)
 - Legacy Profile Layout Option!
 - Your profile appears on the left side for most pages
 - All display settings are supported!
@@ -116,14 +116,13 @@ This project uses the following libraries:
 - some polyfills from MDN
 
 ## Previews
-[![](doc/img/home-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-1.png)
-[![](doc/img/profile-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-1.png)
-[![](doc/img/profile-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/profile-2.png)
-[![](doc/img/tweet.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/tweet.png)
-[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
-[![](doc/img/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/home-2.png)
+[![](doc/img/preview/profile-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/profile-1.png)
+[![](doc/img/preview/profile-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/profile-2.png)
+[![](doc/img/preview/tweet.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/tweet.png)
+[![](doc/img/preview/home-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/home-1.png)
+[![](doc/img/preview/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/home-2.png)
 
 ### Settings
 Page 1 | Page 2
 -|-
-[![](doc/img/settings-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-1.png) | [![](doc/img/settings-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/settings-2.png)
+[![](doc/img/preview/settings-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/settings-1.png) | [![](doc/img/preview/settings-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/settings-2.png)
