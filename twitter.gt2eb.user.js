@@ -1680,10 +1680,12 @@
     $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
     let more = "div[role=menu][style^='max-height: calc'].r-ipm5af > div > div > div"
 
-    waitForKeyElements(`${more} `, () => {
+    waitForKeyElements(`${more} `, e => {
       if ($(more).find("a[href='/explore']").length) return
-      let $hr = $(more).find("> div:empty") // separator line
-      $hr.clone().prependTo(more)
+
+      // separator line
+      let separatorHtml = e[0].querySelector("[role=separator]").parentElement.outerHTML
+      e[0].insertAdjacentHTML("afterbegin", separatorHtml)
       // items from left menu to attach
       let toAttach = [
         {
@@ -1710,7 +1712,13 @@
         $tmp.prependTo(more)
       }
 
-      $hr.clone().appendTo(more)
+      // expand sections
+      document.querySelectorAll(`${more} [aria-expanded=false]`)
+        .forEach(e => {
+          e.click()
+          e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
+        })
+
       $(`<a href="/logout" class="gt2-toggle-logout">Logout</a>`).appendTo(more)
     })
 

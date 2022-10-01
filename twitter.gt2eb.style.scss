@@ -2637,22 +2637,47 @@ a.gt2-trend {
   & > div > div > div {
     display: flex;
     // existing elements
-    & > div > a {
-      transition-duration: 0s;
+    & > div {
+      min-width: unset;
+      // topics / twitter circle
+      > div > a > div {
+        padding: incr(14px);
+        svg {
+          margin-right: 10px;
+          height: 1.25em;
+        }
+        svg ~ * {
+          font-size: incr(15px);
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      [aria-expanded] {
+        display: none;
+      }
+
+      section a {
+        padding: incr(14px);
+        svg {
+          margin-right: 10px;
+          height: 1.25em;
+        }
+      }
     }
 
     // inserted elements
     & > a {
       padding: 0;
       & > div {
-        padding: incr(15px);
+        padding: incr(14px);
         & > div:nth-child(2) {
           display: none;
         }
       }
 
       &.gt2-toggle-logout {
-        padding: 15px;
+        padding: incr(14px);
         color: var(--color-text);
         text-decoration-line: none;
         &:link,
@@ -2677,7 +2702,7 @@ a.gt2-trend {
     // color changes on hover
     // & > div > a:hover,
     & > a:hover {
-      background-color: var(--color-elem-sel);
+      background-color: rgb(30, 39, 50);
       // svg,
       // span {
       //   color: white;
