@@ -1,3 +1,4 @@
+import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
@@ -141,6 +142,9 @@ export function onLocationChange(type: string): void {
   // search/explore
   else if (onPage(["search", "explore"])) {
     setPageType("search")
+
+    // remove navbar search
+    removeSearch()
   }
 
   // settings

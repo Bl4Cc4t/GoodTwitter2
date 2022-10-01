@@ -155,11 +155,24 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
  */
 function addSearch(): void {
   let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
-  watchForChanges(`${search} [data-testid=SearchBox_Search_Input]`, () => {
-    document.querySelector(".gt2-search")
-      .replaceChildren(document.querySelector(search))
-    logger.debug("added search")
-  }, true)
+  waitForKeyElements(`${search} [data-testid=SearchBox_Search_Input]`, () => {
+    let mockSearch = document.querySelector(".gt2-search")
+    let hadInput = mockSearch.querySelector("input") != null
+
+    // replace mock search
+    mockSearch.replaceChildren(document.querySelector(search))
+
+    logger.debug(`${hadInput ? "updated" : "added"} search`)
+  }, false)
+}
+
+
+/**
+ * Removes the search from the navbar.
+ */
+export function removeSearch(): void {
+  document.querySelector(".gt2-search").replaceChildren()
+  logger.debug("removed search")
 }
 
 
