@@ -250,3 +250,21 @@ export function getCurrentUserInfo(): UserInfo {
     }
   }
 }
+
+
+/**
+ * Adds a click EventListener to a mock element.
+ * @param mockElement the mock element to append the listener to
+ * @param originalElement the original element to click on
+ */
+export function addClickHandlerToMockElement(mockElement: Element, originalElement: HTMLElement, callback?: () => void) {
+  mockElement.addEventListener("click", (event: MouseEvent) => {
+    if (!event.ctrlKey && originalElement != null) {
+      event.preventDefault()
+      originalElement.click()
+
+      if (callback)
+        callback()
+    }
+  })
+}
