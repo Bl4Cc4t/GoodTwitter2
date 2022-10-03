@@ -7,24 +7,24 @@
 
 # strings that are used on the site already.
 twitter-default:
-  composeNewTweet: Туит
+  composeNewTweet: Туитване
   contentWarningNudity: gff
   contentWarningViolence: Насилие
-  contentWarningSensitiveContent: Чувствително съдържание
-  joinDate: Присъединил се $date$
+  contentWarningSensitiveContent: Деликатно съдържание
+  joinDate: Присъединяване $date$
   navBookmarks: Отметки
   navCommunities: Общности
   navMessages: Съобщения
-  navExplore: Откриване
+  navExplore: Изследване
   navHome: Начало
   navLists: ff
-  navNotifications: Уведомления
+  navNotifications: Известия
   navProfile: Профил
   statsFollowers: Последователи
-  statsFollowing: Следвания
+  statsFollowing: Следвано
   statsLikes: Харесвания
   statsMoments: Моменти
-  statsTweets: Тиутове
+  statsTweets: Туитове
   topics: Теми
   translateTweet: Превод на туит
   users: Потребители
@@ -102,6 +102,6 @@ settings:
     favoriteLikes: Замяна на "харесвания" с "добавяне в любими" (засега само икони)
 
   other:
-    updateNotifications: GoodTwitter 2 уведомления за обновяване
+    updateNotifications: GoodTwitter 2 известия за обновяване
     expandTcoShortlinks: Разкриване на връзките t.co до пълен адрес
     mobileRedirect: Пренасочване на мобилните адреси
