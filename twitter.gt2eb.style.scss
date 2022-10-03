@@ -1479,16 +1479,15 @@ body[data-payment-endpoint-path] {
     }
 
     div[data-testid=primaryColumn] > div {
-      @include separatorTop;
+      // @include separatorTop;
 
-      & > div:nth-child(1),
-      & > div:nth-child(2) > div > div > div:nth-child(1) {
+      & > div > div > div > div:nth-child(1) {
         position: absolute;
         top: 0;
         left: -9999999px;
       }
-      & > div:nth-child(2) > div > div > div:nth-child(2) {
-        border-top-width: 0;
+      & > div:nth-child(1) {
+        border-top-width: 0 !important;
       }
     }
   }
@@ -2048,26 +2047,32 @@ body:not(.gt2-opt-color-override) {
 
 // bigger image previews
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] div:not([role=link]) > div > div > div > div {
-    align-self: unset !important;
-    a[href^="/"][href*="/photo/"] > div {
-      height: unset !important;
-      width: unset !important;
-      & > div:nth-child(1) {
-        padding-bottom: 0 !important;
+  [data-testid=tweet] [aria-labelledby] > div > div {
+    width: 100%;
+    > div > div {
+      align-self: unset !important;
+      > div > div {
+        width: 100%;
       }
-      & > div:nth-child(2) {
-        position: relative;
-
-        & > div {
-          display: contents;
+      a[href^="/"][href*="/photo/"] > div {
+        height: 100% !important;
+        width: 100% !important;
+        & > div:nth-child(1) {
+          padding-bottom: 0 !important;
+        }
+        & > div:nth-child(2) {
           position: relative;
+
           & > div {
-            display: none;
-          }
-          & > img {
+            display: contents;
             position: relative;
-            opacity: 1;
+            & > div {
+              display: none;
+            }
+            & > img {
+              position: relative;
+              opacity: 1;
+            }
           }
         }
       }
@@ -2424,7 +2429,7 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 
 // hide spark options (home timeline, top right icon)
 .gt2-hide-spark-opt {
-  #layers > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(3) {
+  #layers [data-testid=Dropdown] {
     display: none;
   }
 }
@@ -2635,22 +2640,47 @@ a.gt2-trend {
   & > div > div > div {
     display: flex;
     // existing elements
-    & > div > a {
-      transition-duration: 0s;
+    & > div {
+      min-width: unset;
+      // topics / twitter circle
+      > div > a > div {
+        padding: incr(14px);
+        svg {
+          margin-right: 10px;
+          height: 1.25em;
+        }
+        svg ~ * {
+          font-size: incr(15px);
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      [aria-expanded] {
+        display: none;
+      }
+
+      section a {
+        padding: incr(14px);
+        svg {
+          margin-right: 10px;
+          height: 1.25em;
+        }
+      }
     }
 
     // inserted elements
     & > a {
       padding: 0;
       & > div {
-        padding: incr(15px);
+        padding: incr(14px);
         & > div:nth-child(2) {
           display: none;
         }
       }
 
       &.gt2-toggle-logout {
-        padding: 15px;
+        padding: incr(14px);
         color: var(--color-text);
         text-decoration-line: none;
         &:link,
@@ -2675,7 +2705,7 @@ a.gt2-trend {
     // color changes on hover
     // & > div > a:hover,
     & > a:hover {
-      background-color: var(--color-elem-sel);
+      background-color: rgb(30, 39, 50);
       // svg,
       // span {
       //   color: white;

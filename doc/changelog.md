@@ -1,11 +1,63 @@
 # Changelog
 
+## [0.0.40.7](https://github.com/Bl4Cc4t/GoodTwitter2/pull/486)
+*released 2022-10-02*
+
+#### Changes
+- updated Korean translation (thanks [@hellojo011](https://github.com/hellojo011)!)
+- fixed dropdown menu ([#484](https://github.com/Bl4Cc4t/GoodTwitter2/issues/484))
+- fixed images not showing up with biggerImagePreviews enabled ([#485](https://github.com/Bl4Cc4t/GoodTwitter2/issues/485))
+
+
+## [0.0.40.6](https://github.com/Bl4Cc4t/GoodTwitter2/pull/482)
+*released 2022-09-25*
+
+#### Changes
+- fixed biggerPreviews not showing any images ([#461](https://github.com/Bl4Cc4t/GoodTwitter2/issues/461), [#479](https://github.com/Bl4Cc4t/GoodTwitter2/issues/479))
+- fixed legacyProfileLayout not showing the follow/action buttons ([#478](https://github.com/Bl4Cc4t/GoodTwitter2/issues/478))
+
+
+## [0.0.40.5](https://github.com/Bl4Cc4t/GoodTwitter2/pull/477)
+*released 2022-09-24*
+
+#### Changes
+- fixed video progress not showing up when biggerPreviews was activated ([#442](https://github.com/Bl4Cc4t/GoodTwitter2/issues/442))
+- fixed legacyProfileLayout not showing up correctly ([#474](https://github.com/Bl4Cc4t/GoodTwitter2/issues/474))
+
+
+## [0.0.40.4](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
+*released 2022-09-18*
+
+#### Changes
+- updated Romanian translation (thanks [@Andy9001](https://github.com/Andy9001)!)
+- fixed forceLatestTweets not working again ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
+- fixed showMediaWithContentWarnings again ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
+## [0.0.40.3](https://github.com/Bl4Cc4t/GoodTwitter2/pull/470)
+*released 2022-08-28*
+
+#### Changes
+- fixed hard refreshs when clicking navbar items ([#458](https://github.com/Bl4Cc4t/GoodTwitter2/issues/458))
+- fixed forceLatestTweets not hiding modal ([#469](https://github.com/Bl4Cc4t/GoodTwitter2/issues/469))
+- fixed showMediaWithContentWarnings ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
+## [0.0.40.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/468)
+*released 2022-08-27*
+
+#### New
+- Ukrainian translation (thanks [@megamanyoutuber](https://github.com/megamanyoutuber)!, [#464](https://github.com/Bl4Cc4t/GoodTwitter2/issues/464))
+
+#### Changes
+- fixed notifications not showing up in the navbar, as introduced by the freezing bug fix ([#459](https://github.com/Bl4Cc4t/GoodTwitter2/issues/459))
+
+
 ## [0.0.40.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/457)
 *released 2022-08-13*
 
 #### Changes
-- fixed the twitter freezing issues, courtesy of @EdinUser!
-  - #455
+- fixed the twitter freezing issues, courtesy of [@EdinUser](https://github.com/EdinUser)! ([#455](https://github.com/Bl4Cc4t/GoodTwitter2/issues/455))
 - Japanese & Russian translation updated with new strings
 
 
@@ -13,16 +65,12 @@
 *released 2022-07-30*
 
 #### New
-- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!)
-  - #104
-  - #441
-- option to redirect to `/media` when visiting profile pages
-  - #446
+- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks [@geyerbri](https://github.com/geyerbri)!, [#104](https://github.com/Bl4Cc4t/GoodTwitter2/issues/104), [#441](https://github.com/Bl4Cc4t/GoodTwitter2/issues/441))
+- option to redirect to `/media` when visiting profile pages ([#446](https://github.com/Bl4Cc4t/GoodTwitter2/issues/446))
 - 2 translations:
-  - #444 (thanks @touanu!)
-  - #450 (thanks @seaque!)
-- clicking the "copy link to tweet" button now removes the t parameter from the url
-  - #405
+  - Vietnamese in [#444](https://github.com/Bl4Cc4t/GoodTwitter2/pull/444) (thanks @touanu!)
+  - Turkish in [#450](https://github.com/Bl4Cc4t/GoodTwitter2/pull/450) (thanks @seaque!)
+- clicking the "copy link to tweet" button now removes the t parameter from the url ([#405](https://github.com/Bl4Cc4t/GoodTwitter2/issues/405))
   - example: `https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ` -> `https://twitter.com/Outrojules/status/1543220843995619328?s=20`
 
 #### Changes
@@ -56,10 +104,10 @@ Not many this time, sorry. I'm a bit short on time atm
 *released 2022-03-18*
 
 #### New
-- added indonesian translation (thanks [@NekoSam395!](https://github.com/NekoSam395))
+- added Indonesian translation (thanks [@NekoSam395](https://github.com/NekoSam395)!)
 
 #### Changes
-- updated japanese, korean & russian translation
+- updated Japanese, Korean & Russian translation
 - fixed moment_maker issues ([#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
 - fixed legacy profile layout issues, showing wrong values on profile pages ([#420](https://github.com/Bl4Cc4t/GoodTwitter2/issues/420))
 
