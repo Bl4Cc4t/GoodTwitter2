@@ -273,5 +273,15 @@ function dropdownToggledHandler(): void {
     moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
 
     moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
+
+    // add ability to middle mouse click all items
+    moreMenu.addEventListener("mouseup", event => {
+      event.preventDefault()
+      let target = event.target as HTMLElement
+      if (target.closest("a") && event.button == 1) {
+        target.dispatchEvent(new MouseEvent("click", { ctrlKey: true }))
+        logger.debug("middle clicked dropdown element", target.closest("a"))
+      }
+    })
   })
 }
