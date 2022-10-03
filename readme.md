@@ -9,10 +9,9 @@
 
 ## Content
 - [Background](#background)
-- [Disclaimers](#disclaimers)
 - [Features](#features)
 - [Installation](#installation)
-- [FAQ](#faq)
+- [Helping](#helping)
 - [Translations](#translations)
 - [Similar projects](#similar-projects)
 - [Credits](#credits)
@@ -22,9 +21,6 @@
 ## Background
 Twitter disabled its old 2014 layout on June 1st 2020 completely. This caused the popular extension [GoodTwitter](https://github.com/ZusorCode/GoodTwitter) [to not work anymore](https://twitter.com/ZusorOW/status/1258885451055800320). But since I like the older layout better, I decided to create this script to recreate the legacy look in a way.
 
-## Disclaimers
-- Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
-- This is by no means a full recreation of the old design, it is more like a hybrid between the two.
 
 ## Features
 - Legacy Navbar is back!
@@ -37,6 +33,11 @@ Twitter disabled its old 2014 layout on June 1st 2020 completely. This caused th
 - Translate tweets directly in your timeline!
 - Various other custom settings, take a look at the [previews](#previews)
 
+### Disclaimers
+- Please keep in mind that a few things break from time to time so creating pull requests and/or issues is appreciated.
+- This is by no means a full recreation of the old design, it is more like a hybrid between the two.
+
+
 ## Installation
 To use this script, you need a userscript manager.
 
@@ -48,24 +49,24 @@ To use this script, you need a userscript manager.
 
 **Do not use this script together with the GoodTwitter extension. Disable it first!**
 
-## FAQ
-### The highlights color does not match my settings, what should I do?
-Normally, the script should detect what colors you are using.
-If it somehow does not, just navigate to the display settings, switch to another color and then select your desired color again.
-Now it should look the way you want!
+### Building
+If you want to build the script yourself, take a look at [building.md](doc/building.md)
 
-### Can I help you?
-Of course! If you want to help with the translations, check out [Adding translations](#adding-translations).
+
+## Helping
+If you want to help with the translations, check out [Adding translations](#adding-translations).
 
 If you want to help with coding, you can take a look at the issue tracker. There are a lot of things that do not work correctly and I certainly could use some help with that :)
 
+
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
+- Bulgarian (added by [@EdinUser](https://github.com/EdinUser))
 - Simplified Chinese (added by [@Hewasshushed](https://github.com/Hewasshushed))
 - Traditional Chinese (added by [@roy4801](https://github.com/roy4801))
 - Dutch (added by [@gvmelle](https://github.com/gvmelle))
 - French (added by [@Aridow](https://github.com/Aridow))
-- Indonesian (added by [@NekoSam395!](https://github.com/NekoSam395))
+- Indonesian (added by [@NekoSam395](https://github.com/NekoSam395))
 - Japanese (added by [@Gizel-jiz](https://github.com/Gizel-jiz))
 - Korean (added by [@Lastorder-DC](https://github.com/Lastorder-DC))
 - Polish (added by [@mkljczk](https://github.com/mkljczk))
@@ -74,7 +75,11 @@ Thanks to these awesome people, there are translations available for the followi
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
 - Spanish (added by [@granmacco](https://github.com/granmacco))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
+- Turkish (added by [@seaque](https://github.com/seaque))
+- Ukrainian (added by [@megamanyoutuber](https://github.com/megamanyoutuber))
+- Vietnamese (added by [@touanu](https://github.com/touanu))
 - English and German are natively supported.
+
 
 ### Adding translations
 If your language is not yet supported, you can help by adding it!
@@ -104,8 +109,10 @@ Open the following box to learn more.
   ````
 </details>
 
+
 ## Similar projects
 - [userscripts-public](https://github.com/Bl4Cc4t/userscripts-public) (other very small userscripts)
+
 
 ## Credits
 This project uses the following libraries:
@@ -115,12 +122,14 @@ This project uses the following libraries:
 - [waitForKeyElements.js](https://gist.github.com/BrockA/2625891)
 - some polyfills from MDN
 
+
 ## Previews
 [![](doc/img/preview/profile-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/profile-1.png)
 [![](doc/img/preview/profile-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/profile-2.png)
 [![](doc/img/preview/tweet.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/tweet.png)
 [![](doc/img/preview/home-1.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/home-1.png)
 [![](doc/img/preview/home-2.png)](https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/doc/img/preview/home-2.png)
+
 
 ### Settings
 Page 1 | Page 2
