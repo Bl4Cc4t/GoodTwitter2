@@ -115,13 +115,12 @@ export function onLocationChange(type: string): void {
   }
 
   // error
-  waitForKeyElements(`main > div > div > div`, e => {
-    if (document.querySelector(`[data-testid=error-detail]`) && !onPage({ settings: ["gt2"] })) {
+  delete document.body.dataset.pageError
+  waitForKeyElements(`main > div > div > div [data-testid=error-detail]`, e => {
+    if (!onPage({ settings: ["gt2"] })) {
       setErrorPage()
-    } else {
-      delete document.body.dataset.pageError
     }
-  })
+  }, false)
 
   // tweet
   if (onPage({

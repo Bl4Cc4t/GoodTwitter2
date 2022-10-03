@@ -161,15 +161,22 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
  * Adds the search box to the navbar.
  */
 function addSearch(): void {
-  let search = "div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1)"
-  waitForKeyElements(`${search} [data-testid=SearchBox_Search_Input]`, () => {
-    let mockSearch = document.querySelector(".gt2-search")
-    let hadInput = mockSearch.querySelector("input") != null
+  logger.debug("waiting for search to appear")
+  waitForKeyElements(".gt2-search", mockSearch => {
+    waitForKeyElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
+      let searchContainer = search.closest("form")
+        ?.parentElement?.parentElement?.parentElement?.parentElement
 
-    // replace mock search
-    mockSearch.replaceChildren(document.querySelector(search))
+      if (!searchContainer) {
+        logger.error("search container not found")
+        return
+      }
 
-    logger.debug(`${hadInput ? "updated" : "added"} search`)
+      // replace mock search
+      let hadInput = mockSearch.querySelector("input") != null
+      mockSearch.replaceChildren(searchContainer)
+      logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
+    }, false)
   }, false)
 }
 
