@@ -8,6 +8,7 @@ import "./util/extension"
 import "../style/main.scss"
 import { logger } from "./util/logger"
 import { initializeNavbar } from "./component/navbar"
+import { initializeSidebar } from "./component/sidebar"
 
 
 (() => {
@@ -35,5 +36,6 @@ import { initializeNavbar } from "./component/navbar"
   // components
   initializeInlineTranslation()
   initializeNavbar()
+  initializeSidebar()
 })()
 

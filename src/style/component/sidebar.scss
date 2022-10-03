@@ -1,5 +1,5 @@
 // left sidebar
-.gt2-left-sidebar {
+.gt2-left-sidebar-container {
   margin-top: -10px;
   -ms-overflow-style: none;
   overflow-x: hidden;
@@ -12,21 +12,50 @@
     display: none;
   }
 
-  > div {
-    margin-bottom: 11px;
-    position: relative;
+  .gt2-left-sidebar {
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      margin-bottom: 11px;
+      position: relative;
+    }
   }
 
   &:empty {
     display: none;
   }
 
-  // moved trends
+  // moved elements
   .gt2-trends,
   .gt2-profile-media {
-    background-color: var(--color-elem);
-    border: solid 1px var(--color-gray-dark);
-    border-radius: 0;
+    > div {
+      background-color: var(--color-elem);
+      border: solid 1px var(--color-gray-dark);
+      border-radius: 0;
+      margin: 0;
+    }
+  }
+
+  // content order
+  .gt2-legacy-profile-info {
+    order: 1;
+  }
+
+  .gt2-profile-media {
+    order: 2;
+  }
+
+  .gt2-sidebar-notice {
+    order: 3;
+  }
+
+  .gt2-dashboard-profile {
+    order: 4;
+  }
+
+  .gt2-trends {
+    order: 5;
   }
 }
 

@@ -1,6 +1,7 @@
 import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
 import { I18nReplacable, Path, UserInfo } from "../types"
 import { Logger } from "./logger"
+import { settings } from "./settings"
 
 
 const logger = new Logger("util")
@@ -267,4 +268,16 @@ export function addClickHandlerToMockElement(mockElement: Element, originalEleme
         callback()
     }
   })
+}
+
+
+export function isOnSmallerView(): boolean {
+  let smallSidebars = settings.get("smallSidebars")
+  let width = window.innerWidth
+  return (!smallSidebars && width <= 1350) || (smallSidebars && width <= 1230)
+}
+
+
+export function updateAcknowlegded(): boolean {
+  return GM_getValue("updateAcknowledgements", []).includes(GM_info.script.version)
 }

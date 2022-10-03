@@ -175,7 +175,7 @@
     }
 
     // hide sidebar
-    .gt2-left-sidebar {
+    .gt2-left-sidebar-container {
       display: none;
     }
 
@@ -296,7 +296,7 @@
     margin-right: 10px;
   }
 
-  .gt2-left-sidebar {
+  .gt2-left-sidebar-container {
     display: none;
   }
 
@@ -372,7 +372,7 @@
     right: space(600px) !important;
   }
 
-  .gt2-left-sidebar {
+  .gt2-left-sidebar-container {
     display: none;
   }
 
@@ -419,7 +419,7 @@
 @media only screen and (min-width: 1005px) {
   .gt2-opt-sticky-sidebars {
     #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
-      .gt2-left-sidebar {
+      .gt2-left-sidebar-container {
         height: calc(100vh - 57px);
         position: fixed !important;
       }
@@ -427,7 +427,7 @@
   }
 
   body:not(.gt2-opt-sticky-sidebars)[data-page-type="settings"] {
-    .gt2-left-sidebar {
+    .gt2-left-sidebar-container {
       height: calc(100vh - 57px);
       position: fixed !important;
     }
