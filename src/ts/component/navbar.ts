@@ -18,6 +18,7 @@ export function initializeNavbar() {
  * Adds the navbar to the page.
  */
 function addNavbar(): void {
+  logger.debug("waiting for header to appear")
   waitForKeyElements(`nav > [data-testid]`, () => {
     if (document.querySelector(".gt2-nav")) return
 
@@ -102,7 +103,7 @@ function addNavbar(): void {
     // handler for dropdown button
     document.querySelector(".gt2-toggle-navbar-dropdown")
       .addEventListener("click", dropdownToggledHandler)
-  })
+  }, false)
 }
 
 
@@ -220,13 +221,9 @@ function dropdownToggledHandler(): void {
 
   // add elements to navbar dropdow menu
   waitForKeyElements("#layers [data-testid=Dropdown]", moreMenu => {
-    // if (e.find("a[href='/explore']").length)
-    //   return
-
     // separator line
     let separatorHtml = moreMenu.querySelector("[role=separator]")
       ?.parentElement?.outerHTML ?? ""
-    moreMenu.insertAdjacentHTML("afterbegin", separatorHtml)
 
     // items from left menu to attach
     let toAttach: {

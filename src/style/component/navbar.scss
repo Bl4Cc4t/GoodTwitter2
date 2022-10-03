@@ -187,15 +187,10 @@
       > div > a > div {
         padding: incr(14px);
 
-        svg {
-          height: 1.25em;
-          margin-right: 10px;
-
-          ~ * {
-            font-size: incr(15px);
-            font-weight: 400;
-            line-height: normal;
-          }
+        svg ~ * {
+          font-size: incr(15px);
+          font-weight: 400;
+          line-height: normal;
         }
       }
 
@@ -205,11 +200,6 @@
 
       section a {
         padding: incr(14px);
-
-        svg {
-          height: 1.25em;
-          margin-right: 10px;
-        }
       }
     }
 
@@ -242,14 +232,13 @@
         font-weight: 400;
         margin-left: 0;
       }
-
-      svg {
-        // color: var(--color-gray-light);
-        height: 1.25em;
-        margin-right: 10px;
-        width: unset;
-      }
     }
+  }
+
+  svg {
+    height: 1.25em;
+    margin-right: 10px;
+    width: 1.25em;
   }
 }
 
