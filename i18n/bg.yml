@@ -8,7 +8,7 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Туитване
-  contentWarningNudity: gff
+  contentWarningNudity: Голота
   contentWarningViolence: Насилие
   contentWarningSensitiveContent: Деликатно съдържание
   joinDate: Присъединяване $date$
@@ -17,7 +17,7 @@ twitter-default:
   navMessages: Съобщения
   navExplore: Изследване
   navHome: Начало
-  navLists: ff
+  navLists: Списъци
   navNotifications: Известия
   navProfile: Профил
   statsFollowers: Последователи
