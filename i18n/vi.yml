@@ -83,7 +83,7 @@ settings:
     enableQuickBlockDesc: Đặt con trỏ chuột ở nút theo dõi trong 3 giây để chặn một ai đó.
     leftMedia: Đa phương tiện ở bên trái
     leftMediaDesc: Hiển thị khung đa phương tiện ở thanh bên trái.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: Chuyển hướng đến /media khi truy cập trang hồ sơ.
 
   global-look:
     hideFollowSuggestions: Ẩn các gợi ý từ theo dõi (Chủ đề, Người dùng & Danh sách)
