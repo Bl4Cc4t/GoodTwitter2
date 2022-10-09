@@ -1,0 +1,107 @@
+# Bulgarian language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Туитване
+  contentWarningNudity: Голота
+  contentWarningViolence: Насилие
+  contentWarningSensitiveContent: Деликатно съдържание
+  joinDate: Присъединяване $date$
+  navBookmarks: Отметки
+  navCommunities: Общности
+  navMessages: Съобщения
+  navExplore: Изследване
+  navHome: Начало
+  navLists: Списъци
+  navNotifications: Известия
+  navProfile: Профил
+  statsFollowers: Последователи
+  statsFollowing: Следвано
+  statsLikes: Харесвания
+  statsMoments: Моменти
+  statsTweets: Туитове
+  topics: Теми
+  translateTweet: Превод на туит
+  users: Потребители
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Дата на раждане $date$
+  bornYear: Година на раждане $year$
+  favorite: Любим
+  favorites: Любими
+  followedBy0: Не е следван от никой от вашите последователи
+  followedBy1: Последван от $p1$
+  followedBy2: Последван от $p1$ и $p2$
+  followedBy3: Последван от $p1$, $p2$ и $p3$
+  followedBy4Plus: Последван от $p1$, $p2$ и $nr$ от твоите последователи
+  translatedTweetInfo: Преведено от $lang$ на $source$
+  qbBlock: Блокиране
+  qbBlocked: Блокиран
+  qbUnblock: Разблокирай
+  updatedInfo: Обновено до версия $version$!
+  updatedInfoChangelog: Списък с промени
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Хронология
+    settingsHeaderSidebars: Странични панели
+    settingsHeaderGlobalLook: Глобален облик
+    settingsHeaderOther: Други
+
+  timeline:
+    forceLatest: Задължителна подредба "Най-новите Туитове първи"
+    forceLatestDesc: Режимът "Най-новите Туитове първи" вече не е постоянен. Активирайки тази настройка ще направите сайта винаги да работи в този режим.
+    biggerPreviews: По-големи прегледи на картинките.
+    biggerPreviewsDesc: Високите картинки се показват в пълен размер.
+
+  tweets:
+    hideTranslateTweetButton: Скрий бутона “Превод на Туит”
+    tweetIconsPullLeft: Групирай бутоните за взаимодействие на туит вляво
+    hidePromoteTweetButton: Скрий бутона “Промоториане на Туит”
+    showMediaWithContentWarnings: Винаги показва медията с предупреждения за съдържанието
+
+  sidebars:
+    stickySidebars: Статични панели
+    smallSidebars: Малки панели
+    smallSidebarsDesc: Панели с широчина 290px вместо 350px.
+    hideTrends: Скрий тенденциите
+    leftTrends: Актуални теми вляво
+    leftTrendsDesc: Покажи актуалните теми в левият панел.
+    show5Trends: Винаги показвай 5 актуални теми
+
+  profile:
+    legacyProfile: Legacy profile layout
+    squareAvatars: Квадратни снимки на профила
+    disableHexagonAvatars: Изключване на шестоъгълни профилни снимки
+    enableQuickBlock: Включване на Quickblock (бързо блокиране)
+    enableQuickBlockDesc: Задръжте мишката над бутона за следване за 3 секунди, за да блокирате даден профил.
+    leftMedia: Медия в левия панел
+    leftMediaDesc: Показване на медията в левия панел при преглед на профил.
+    profileMediaRedirect: Винаги позване първо на медията при посещение на профил
+
+  global-look:
+    hideFollowSuggestions: Скриване на предложения за следване (Теми, Потребители и Списъци)
+    hideFollowSuggestionsBox: Скриване на $type$ от $location$
+    fontOverride: Използване на собствен шрифт
+    fontOverrideDesc: Избор на собствен шрифт вместо този по подразбиране. Работи само ако имате инсталиран шрифта.
+    colorOverride: Използване на собствен цвят
+    colorOverrideDesc: Избор на собствен цвят вместо този по подразбиране.
+    hideMessageBox: Скриване на панела със съобщения
+    hideMessageBoxDesc: Скриване на постоянно видимият панел за съобщения в долния десен ъгъл.
+    rosettaIcons: Икони Rosetta
+    rosettaIconsDesc: Използване на Rosetta шрифт с икони от преди 2017 година.
+    favoriteLikes: Замяна на "харесвания" с "добавяне в любими" (засега само икони)
+
+  other:
+    updateNotifications: GoodTwitter 2 известия за обновяване
+    expandTcoShortlinks: Разкриване на връзките t.co до пълен адрес
+    mobileRedirect: Пренасочване на мобилните адреси
