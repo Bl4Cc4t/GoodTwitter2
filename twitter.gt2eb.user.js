@@ -1275,7 +1275,7 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = `[d*="M22.772 10.506l-5.618-2.192"]`
+    let sparkOptToggle  = `[d*="M2 4c1.66 0 3-1.34 3-3h1c0"]`
     let sparkOpt        = "#layers [data-testid=Dropdown]"
 
     GM_setValue("hasRun_forceLatest", false)
