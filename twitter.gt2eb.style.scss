@@ -2047,7 +2047,7 @@ body:not(.gt2-opt-color-override) {
 
 // bigger image previews
 .gt2-opt-bigger-previews {
-  [data-testid=tweet] [aria-labelledby] > div > div {
+  [data-testid=tweet] [aria-labelledby] > div:not([data-testid]) > div {
     width: 100%;
     > div > div {
       align-self: unset !important;
