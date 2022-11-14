@@ -30,6 +30,13 @@ export function initializeSidebar() {
       }, false)
     }
   }
+
+  window.addEventListener("resize", () => {
+    if (isOnSmallerView())
+      moveSidebarElements("right")
+    else
+      moveSidebarElements("left")
+  })
 }
 
 
@@ -225,4 +232,22 @@ function handleTrends() {
       toWrap.innerHTML = `<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
     }
   }, false)
+}
+
+function moveSidebarElements(targetSide: "left" | "right"): void {
+  // check if there are elements to move
+  let opposite = targetSide == "left" ? "right" : "left"
+  if (document.querySelectorAll(`.gt2-${opposite}-sidebar > *`).length == 0)
+    return
+
+  let sidebar = document.querySelector(`.gt2-${targetSide}-sidebar`)
+  if (!sidebar) {
+    logger.error(`${targetSide} sidebar not found while trying to move elements.`)
+    return
+  }
+
+  let elements = document.querySelectorAll(".gt2-left-sidebar-elem")
+  sidebar.append(...Array.from(elements))
+
+  logger.debug(`moved ${elements.length} elements to the ${targetSide} sidebar`)
 }
