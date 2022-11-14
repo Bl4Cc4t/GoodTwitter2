@@ -1,4 +1,4 @@
-const SETTINGS_KEY = "gt2_opt"
+const SETTINGS_KEY = "opt_gt2"
 
 
 const INITIAL_SETTINGS = {
