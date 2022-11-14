@@ -240,11 +240,11 @@ main {
                 padding: 0;
 
                 // apply theme to sidebar elements
-                > div {
+                > div:not(.gt2-right-sidebar) {
                   background-color: var(--color-elem);
                   border: 1px solid var(--color-gray-dark);
                   border-radius: 0;
-                  margin-bottom: 10px;
+                  margin-bottom: 11px;
 
                   // tos/privacy policy/etc. nav
                   &:nth-last-child(1) nav {
@@ -286,5 +286,3 @@ main {
     }
   }
 }
-
-

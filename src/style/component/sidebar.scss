@@ -12,29 +12,28 @@
     display: none;
   }
 
-  .gt2-left-sidebar {
-    display: flex;
-    flex-direction: column;
-
-    > div {
-      margin-bottom: 11px;
-      position: relative;
-    }
-  }
-
   &:empty {
     display: none;
+  }
+}
+
+.gt2-left-sidebar,
+.gt2-right-sidebar {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    margin-bottom: 11px;
+    position: relative;
   }
 
   // moved elements
   .gt2-trends,
   .gt2-profile-media {
-    > div {
-      background-color: var(--color-elem);
-      border: solid 1px var(--color-gray-dark);
-      border-radius: 0;
-      margin: 0;
-    }
+    background-color: var(--color-elem);
+    border: solid 1px var(--color-gray-dark);
+    border-radius: 0;
+    margin: 0;
   }
 
   // content order
@@ -195,12 +194,6 @@
       }
     }
   }
-}
-
-div[data-testid=sidebarColumn] .gt2-dashboard-profile {
-  margin: 0;
-  position: relative;
-  width: 100%;
 }
 
 // gt2 sidebar notice

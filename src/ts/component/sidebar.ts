@@ -67,7 +67,7 @@ function addSidebarElements() {
     sidebar.insertAdjacentHTML("afterbegin", `
       ${getUpdateNotice()}
       ${getDashboardProfileHtml()}
-      <div class="gt2-legacy-profile-info"></div>
+      <div class="gt2-legacy-profile-info gt2-left-sidebar-elem"></div>
     `)
     logger.debug("added static elements")
 
@@ -90,7 +90,7 @@ function getDashboardProfileHtml() {
   let i = getCurrentUserInfo()
   let href = isLoggedIn() ? "href" : "data-href"
   return `
-    <div class="gt2-dashboard-profile">
+    <div class="gt2-dashboard-profile gt2-left-sidebar-elem">
       <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
       <div>
         <a ${href}="/${i.screenName}" class="gt2-avatar">
@@ -143,7 +143,7 @@ function getUpdateNotice(): string {
 
   let ver = GM_info.script.version
   return `
-    <div class="gt2-sidebar-notice gt2-update-notice">
+    <div class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-elem">
       <div class="gt2-sidebar-notice-header">
         GoodTwitter2
         <div class="gt2-sidebar-notice-close">
@@ -172,6 +172,7 @@ function handleTrends() {
 
   waitForKeyElements(trendsSelector, trends => {
     let trendSection = trends.closest("section")
+    let trendContainer = trendSection.parentElement.parentElement
 
     // actions for the whole container
     if (!trendSection.classList.contains("gt2-trends-handled")
@@ -179,24 +180,36 @@ function handleTrends() {
 
       // hide trends
       if (settings.get("hideTrends")) {
-        trendSection.parentElement.parentElement.remove()
+        trendContainer.remove()
         logger.debug("removed trends")
         return
       }
 
-      // move trends
-      if (settings.get("leftTrends") && !isOnSmallerView()) {
-        let leftSidebar = document.querySelector(".gt2-left-sidebar")
-        if (!document.querySelector(".gt2-trends")) {
-          leftSidebar.insertAdjacentHTML("afterbegin", `<div class="gt2-trends"></div>`)
-        }
-
-        document.querySelector(".gt2-trends")
-          .replaceChildren(trendSection.parentElement.parentElement)
-        logger.debug("moved trends to left sidebar")
-      }
-
       trendSection.classList.add("gt2-trends-handled")
+      trendContainer.classList.add("gt2-trends")
+
+      // move trends
+      if (settings.get("leftTrends")) {
+        trendContainer.classList.add("gt2-left-sidebar-elem")
+
+        if (!isOnSmallerView()) {
+          let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-trends")
+
+          // replace existing trends
+          if (leftSidebarTrends) {
+            leftSidebarTrends.replaceWith(trendContainer)
+            logger.debug("replace existing trends in left sidebar")
+          }
+
+          // move trends
+          else {
+            document.querySelector(".gt2-left-sidebar")
+              ?.append(trendContainer)
+            logger.debug("moved trends to left sidebar")
+          }
+
+        }
+      }
     }
 
 
