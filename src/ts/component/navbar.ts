@@ -89,7 +89,9 @@ function addNavbar(): void {
       watchForChanges(`header ${elem.selector}`, () => {
         addOrUpdateNavbarElement(elem.selector, elem.localizedString)
         highlightNavbarLocation()
-      }, true)
+      }, {
+        subtree: true
+      })
     }
 
     // add bird

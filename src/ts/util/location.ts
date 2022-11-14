@@ -2,7 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
-import { isLoggedIn, onModal, onPage, waitForKeyElements } from "./util"
+import { isLoggedIn, onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
 
 const logger = new Logger("location")
@@ -38,6 +38,7 @@ function setPageType(type: string): void {
  */
 function resetPageType(): void {
   delete document.body.dataset.pageType
+  logger.debug("reset page type")
 }
 
 
@@ -54,17 +55,15 @@ function setErrorPage(): void {
  * Watches the page title for changes and modifies it if necessary.
  */
 function watchTitle(): void {
-  waitForKeyElements("head title", title => {
-    new MutationObserver(mut => {
-      mut.forEach(() => {
-        if (title.textContent != title.getAttribute("content")) {
-          for (let adj of TITLE_ADJUSTMENTS) {
-            if (location.pathname == adj.location)
-              changeTitle(adj.title)
-          }
-        }
-      })
-    }).observe(title, { childList: true })
+  watchForChanges("head title", title => {
+    if (title.textContent != title.getAttribute("content")) {
+      for (let adj of TITLE_ADJUSTMENTS) {
+        if (location.pathname == adj.location)
+          changeTitle(adj.title)
+      }
+    }
+  }, {
+    attributes: false
   })
 }
 
@@ -75,6 +74,11 @@ function watchTitle(): void {
  */
 export function changeTitle(newTitle: string): void {
   let title = document.querySelector("title")
+  if (!title) {
+    logger.error("title element not found.")
+    return
+  }
+
   let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
   if (title.textContent != newContent) {
     title.setAttribute("content-old", title.textContent)
@@ -90,11 +94,17 @@ export function changeTitle(newTitle: string): void {
  */
 export function resetTitle(): void {
   let title = document.querySelector("title")
+  if (!title) {
+    logger.error("title element not found.")
+    return
+  }
+
   let oldContent = title.getAttribute("content-old")
   if (oldContent) {
     title.setAttribute("content", oldContent)
     title.removeAttribute("content-old")
     title.textContent = oldContent
+    logger.debug("reset title to: ", oldContent)
   }
 }
 

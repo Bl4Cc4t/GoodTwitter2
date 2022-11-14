@@ -207,7 +207,7 @@ export function onModal(): boolean {
  * @param callback the function to execute when a change happens
  * @param subtree whether to watch child elements as well.
  */
-export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, subtree=false): void {
+export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, options?: MutationObserverInit): void {
   waitForKeyElements(selector, element => {
     if (element) {
       callback(element)
@@ -215,8 +215,8 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
         mut.forEach(() => callback(element))
       }).observe(element, {
         attributes: true,
-        subtree,
-        childList: true
+        childList: true,
+        ...options
       })
     }
   })
