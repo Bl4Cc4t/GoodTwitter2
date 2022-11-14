@@ -278,6 +278,13 @@ export function isOnSmallerView(): boolean {
 }
 
 
-export function updateAcknowlegded(): boolean {
-  return GM_getValue("updateAcknowledgements", []).includes(GM_info.script.version)
+export function updateNoticeDismissed(): boolean {
+  return GM_getValue("updateNoticesDismissed", []).includes(GM_info.script.version)
+}
+
+export function dismissUpdateNotice(): void {
+  let notices = GM_getValue("updateNoticesDismissed", [])
+  notices.push(GM_info.script.version)
+  GM_setValue("updateNoticesDismissed", notices)
+  logger.debug("dismissed update notice")
 }

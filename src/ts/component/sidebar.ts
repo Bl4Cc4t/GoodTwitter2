@@ -1,6 +1,6 @@
 import { Logger } from "../util/logger"
 import { settings } from "../util/settings"
-import { getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSmallerView, updateAcknowlegded, waitForKeyElements } from "../util/util"
+import { dismissUpdateNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSmallerView, updateNoticeDismissed, waitForKeyElements } from "../util/util"
 
 
 const logger = new Logger("component/sidebar")
@@ -70,6 +70,17 @@ function addSidebarElements() {
       <div class="gt2-legacy-profile-info"></div>
     `)
     logger.debug("added static elements")
+
+    sidebar.querySelector(".gt2-sidebar-notice-close")
+      ?.addEventListener("click", event => {
+        let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice")
+
+        if (container.classList.contains("gt2-update-notice")) {
+          dismissUpdateNotice()
+        }
+        container.remove()
+      })
+
   }, false)
 }
 
@@ -126,7 +137,7 @@ function getDashboardProfileHtml() {
 // gt2 update notice
 function getUpdateNotice(): string {
   // check if update notice needs to be shown
-  if (!settings.get("updateNotifications") || updateAcknowlegded()) {
+  if (!settings.get("updateNotifications") || updateNoticeDismissed()) {
     return ""
   }
 
