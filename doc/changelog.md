@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.41](https://github.com/Bl4Cc4t/GoodTwitter2/pull/496)
+*released 2022-11-20*
+
+#### New
+- Bulgarian translation (thanks [@EdinUser](https://github.com/EdinUser)!, [#487](https://github.com/Bl4Cc4t/GoodTwitter2/issues/487))
+
+#### Changes
+- updated Vietnamese translation (thanks [@touanu](https://github.com/touanu)!)
+- fixed verification reason not showing up ([#492](https://github.com/Bl4Cc4t/GoodTwitter2/issues/492))
+- fixed some other styling issues
+
+
 ## [0.0.40.7](https://github.com/Bl4Cc4t/GoodTwitter2/pull/486)
 *released 2022-10-02*
 

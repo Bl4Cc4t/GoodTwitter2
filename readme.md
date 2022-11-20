@@ -61,6 +61,7 @@ If you want to help with coding, you can take a look at the issue tracker. There
 
 ## Translations
 Thanks to these awesome people, there are translations available for the following languages:
+- Bulgarian (added by [@EdinUser](https://github.com/EdinUser))
 - Simplified Chinese (added by [@Hewasshushed](https://github.com/Hewasshushed))
 - Traditional Chinese (added by [@roy4801](https://github.com/roy4801))
 - Dutch (added by [@gvmelle](https://github.com/gvmelle))

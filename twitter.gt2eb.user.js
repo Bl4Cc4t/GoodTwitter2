@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.40.7
+// @version       0.0.41
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -1058,7 +1058,7 @@
         avatar:         () => $profile.find("a[href$='/photo'] img, a[href$='/nft'] img").first(),
         screenName:     () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div [dir] > span:contains(@):not(:has(> *))").text().slice(1),
         followsYou:     () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2)"),
-        nameHTML:       () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div > div:nth-child(1) > div").html(),
+        name:       () => $profile.find("> [data-testid=UserName] > div:nth-child(1) > div > div:nth-child(1) > div"),
         automated:      () => $profile.find("> [data-testid=UserName] > div:nth-child(2)"),
         joinDateHTML:   () => $profile.find("div[data-testid=UserProfileHeader_Items] > span:last-child").html(),
         followingRnd:   () => $profile.find(`a[href$="/following"] > span:first-child, > div:not(:first-child) div:nth-child(1) > [role=button]:first-child:last-child > span:first-child`).first().text().trim(),
@@ -1086,7 +1086,7 @@
                 <img src="${i.avatar().length ? i.avatar().attr("src").replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_400x400") : defaultAvatarUrl}" />
               </div>
               <div>
-                <div class="gt2-legacy-profile-name">${i.nameHTML()}</div>
+                <div class="gt2-legacy-profile-name">${i.name().html()}</div>
                 <div class="gt2-legacy-profile-screen-name-wrap">
                   ${i.hasOnlyScreenName() ? "" : `
                     <div class="gt2-legacy-profile-screen-name">
@@ -1170,7 +1170,7 @@
           if (!$(".gt2-legacy-profile-info .gt2-legacy-profile-name").length) {
 
             $(".gt2-legacy-profile-info").append(`
-              <div class="gt2-legacy-profile-name">${i.nameHTML()}</div>
+              <div class="gt2-legacy-profile-name"></div>
               <div class="gt2-legacy-profile-screen-name-wrap">
                 ${i.hasOnlyScreenName() ? "" : `
                   <div class="gt2-legacy-profile-screen-name">
@@ -1186,6 +1186,10 @@
               </div>
               ${i.fyk().length ? `<div class="gt2-legacy-profile-fyk">${i.fyk().prop("outerHTML")}</div>` : ""}
             `)
+
+            document.querySelector(".gt2-legacy-profile-info .gt2-legacy-profile-name")
+              .appendChild(i.name()[0])
+
 
             GM_setValue("hasRun_InsertFYK", false)
             waitForKeyElements(`a[href$="/followers_you_follow"] div[style*=background-image] + img`, e => {
@@ -1275,7 +1279,7 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = `[d*="M22.772 10.506l-5.618-2.192"]`
+    let sparkOptToggle  = `[d*="M2 4c1.66 0 3-1.34 3-3h1c0"]`
     let sparkOpt        = "#layers [data-testid=Dropdown]"
 
     GM_setValue("hasRun_forceLatest", false)
