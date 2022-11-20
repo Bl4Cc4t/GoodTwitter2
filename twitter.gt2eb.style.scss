@@ -2546,11 +2546,8 @@ nav [role=tablist] [role=tab] {
     font-weight: 700;
   }
   &[aria-selected=true] {
-    & > div {
+    span {
       color: var(--color-user);
-      div {
-        display: none;
-      }
     }
     &:after {
       content: "";
