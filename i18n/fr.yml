@@ -3,12 +3,12 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeter
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Nudité
+  contentWarningViolence: Violence
+  contentWarningSensitiveContent: Contenu sensible
   joinDate: A rejoint Twitter en $date$
   navBookmarks: Signets
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Communautés
   navMessages: Messages
   navExplore: Explorer
   navHome: Accueil
@@ -28,8 +28,8 @@ twitter-default:
 script:
   bornDate: Naissance le $date$
   bornYear: Naissance en $year$
-  favorite: Favorite # TODO translation missing!
-  favorites: Favorites # TODO translation missing!
+  favorite: Favori
+  favorites: Favoris
   followedBy0: Suivi par aucune des personnes que vous suivez
   followedBy1: Suivi par $p1$
   followedBy2: Suivi par $p1$ et $p2$
@@ -47,7 +47,7 @@ settings:
   headers:
     settingsHeaderTimeline: Fil d'actualités
     settingsHeaderSidebars: Barres latérales
-    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderGlobalLook: Apparence Générale
     settingsHeaderOther: Autres
 
   timeline:
@@ -58,9 +58,9 @@ settings:
 
   tweets:
     hideTranslateTweetButton: Cacher le bouton Traduire le Tweet
-    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    tweetIconsPullLeft: Resserrer tous les boutons d'intéraction à un tweet sur le gauche
+    hidePromoteTweetButton: Cacher le bouton "Promouvoir le tweet"
+    showMediaWithContentWarnings: Toujours afficher les médias marqués comme sensibles
 
   sidebars:
     stickySidebars: Barres latérales fixes
@@ -74,27 +74,27 @@ settings:
   profile:
     legacyProfile: Affichage du profil de l'ancien Twitter
     squareAvatars: Avatars Carrés
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
-    leftMedia: Left sidebar media # TODO translation missing!
-    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    disableHexagonAvatars: Désactiver les avatars hexagonaux
+    enableQuickBlock: Activer le blocage rapide
+    enableQuickBlockDesc: Laisser son curseur 3 secondes sur le bouton "Suivre" le transforme en bouton "Bloquer".
+    leftMedia: Afficher les médias à gauche
+    leftMediaDesc: Déplace le bloc des médias à gauche lorsque vous êtes sur un profil.
+    profileMediaRedirect: Rediriger vers /media lorsque vous visitez un profil.
 
   global-look:
     hideFollowSuggestions: Cacher Suggestions et Vous pourriez aimer
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
-    fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
-    colorOverride: Use custom color # TODO translation missing!
-    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideFollowSuggestionsBox: Cacher $type$ de $location$
+    fontOverride: Utiliser une police personnalisée
+    fontOverrideDesc: Permet de choisir une police personnalisée pour remplacer celle par défaut. Fonctionne uniquement si vous avez la police d'installée.
+    colorOverride: Utiliser une couleur personnalisée
+    colorOverrideDesc: Permet de choisir une couleur personnalisée pour remplacer celle par défaut.
     hideMessageBox: Cacher la boîte de Messages
     hideMessageBoxDesc: Cache la nouvelle boîte de Messages constante dans le coin inférieur droit.
-    rosettaIcons: Rosetta icons # TODO translation missing!
-    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
-    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+    rosettaIcons: Icônes Rosetta
+    rosettaIconsDesc: Utiliser les icônes Rosetta (icônes pré-2017)
+    favoriteLikes: Remplacer les "j'aime" par les anciens "favoris" (effectue uniquement un changement d'icône pour le moment)
 
   other:
     updateNotifications: Notification de mise à jour de GoodTwitter 2
-    expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    expandTcoShortlinks: Étendre les liens raccourcis t.co
+    mobileRedirect: Rediriger les URLs pour mobile
