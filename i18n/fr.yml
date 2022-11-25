@@ -58,7 +58,7 @@ settings:
 
   tweets:
     hideTranslateTweetButton: Cacher le bouton Traduire le Tweet
-    tweetIconsPullLeft: Resserrer tous les boutons d'intéraction à un tweet sur le gauche
+    tweetIconsPullLeft: Resserrer tous les boutons d'interaction à un tweet sur la gauche
     hidePromoteTweetButton: Cacher le bouton "Promouvoir le tweet"
     showMediaWithContentWarnings: Toujours afficher les médias marqués comme sensibles
 
@@ -76,7 +76,7 @@ settings:
     squareAvatars: Avatars Carrés
     disableHexagonAvatars: Désactiver les avatars hexagonaux
     enableQuickBlock: Activer le blocage rapide
-    enableQuickBlockDesc: Laisser son curseur 3 secondes sur le bouton "Suivre" le transforme en bouton "Bloquer".
+    enableQuickBlockDesc: Laisser le curseur 3 secondes sur le bouton "Suivre" le transforme en bouton "Bloquer".
     leftMedia: Afficher les médias à gauche
     leftMediaDesc: Déplace le bloc des médias à gauche lorsque vous êtes sur un profil.
     profileMediaRedirect: Rediriger vers /media lorsque vous visitez un profil.
