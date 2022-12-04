@@ -24,3 +24,12 @@
 @function not-either($sel1, $sel2) {
   @return "#{$sel1}:not(#{$sel2}), #{$sel2}:not(#{$sel1}), :not(#{$sel1}):not(#{$sel2})";
 }
+
+
+/// @source - [@Stephn-R](https://github.com/sass/sass/issues/1395#issuecomment-57483844)
+/// @description converts 1 or more characters into a unicode
+/// @markup {scss}
+/// unicode("e655"); // "\e655"
+@function unicode($str) {
+  @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
+}

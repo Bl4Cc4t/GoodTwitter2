@@ -27,7 +27,6 @@ body[data-page-type=tweet] {
   display: none;
 }
 
-
 // embed card links
 [data-testid="card.layoutSmall.media"] + a {
   display: flex;
@@ -39,5 +38,16 @@ body[data-page-type=tweet] {
   &:visited {
     color: var(--color-accent);
     text-decoration-line: none;
+  }
+}
+
+.gt2-tweet-source {
+  @include standard-link;
+  color: var(--color-user);
+
+  &::before {
+    color: var(--color-gray-light);
+    content: unicode("00B7");
+    padding: 0 5px;
   }
 }

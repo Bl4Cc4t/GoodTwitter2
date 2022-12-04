@@ -1,6 +1,7 @@
 import { TwitterApi } from "../types"
 import { Logger } from "./logger"
 import { requestTweet } from "./request"
+import { waitForKeyElements } from "./util"
 
 
 const logger = new Logger("tweet")
@@ -11,10 +12,13 @@ const logger = new Logger("tweet")
  * @param tweetArticle the article DOM element of a tweet
  * @returns the if of the tweet or null if an error occurred
  */
-export function getTweetId(tweetArticle: Element): string | null {
+export function getTweetId(tweetArticle?: Element): string | null {
   // on tweet page
   if (document.body.dataset.pageType == "tweet") {
     return location.pathname.replace(/.*\/status\/(\d+)/, "$1")
+  } else if (!tweetArticle) {
+    logger.error("Not on a tweet page and given tweetArticle element is not valid.")
+    return null
   }
 
   // check
@@ -116,7 +120,7 @@ function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
  * @param callback function to execute once the data has been fetched
  */
 export function getTweetData(tweetId: string, callback: (result: TwitterApi.TweetLegacy) => void): void {
-  if (unsafeWindow.tweetData.hasOwnProperty(tweetId)) {
+  if (unsafeWindow?.tweetData.hasOwnProperty(tweetId)) {
     callback(unsafeWindow.tweetData[tweetId])
   }
 
@@ -124,4 +128,21 @@ export function getTweetData(tweetId: string, callback: (result: TwitterApi.Twee
     logger.warn(`Tweet with id "${tweetId} not found in index, requesting it manually`)
     requestTweet(tweetId, callback)
   }
+}
+
+
+export function addSourceLabel(): void {
+  let tweetId = getTweetId()
+  waitForKeyElements(`[href*="${tweetId}"] time`, e => {
+    getTweetData(tweetId, result => {
+      if (!result.source) {
+        logger.warn(`tweet with id ${tweetId} has no source label.`)
+        return
+      }
+
+      e.parentElement.insertAdjacentHTML("afterend", `
+        <span class="gt2-tweet-source">${result.source}</span>
+      `)
+    })
+  })
 }

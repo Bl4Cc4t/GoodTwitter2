@@ -2,6 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
+import { addSourceLabel } from "./tweet"
 import { isLoggedIn, onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
 
@@ -137,10 +138,13 @@ export function onLocationChange(type: string): void {
     "*": ["status"],
     i: { web: ["status"] }
   }) && !onPage({
-    "*": ["status", "retweets", "with_comments"],
-    i: { web: ["status", "retweets", "with_comments"] }
+    "*": { "status": { "*": { "retweets": ["with_comments"] } } },
+    i: { web: { "status": { "*": { "retweets": ["with_comments"] } } } }
   })) {
     setPageType("tweet")
+
+    // add source
+    addSourceLabel()
   }
 
   // home
@@ -176,6 +180,10 @@ export function onLocationChange(type: string): void {
   // 404
   else if (onPage(["404"])) {
     setErrorPage()
+  }
+
+  else if (onModal()) {
+    logger.debug("on modal")
   }
 
   // unhandled / not important
