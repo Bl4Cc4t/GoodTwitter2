@@ -73,7 +73,7 @@ Thanks to these awesome people, there are translations available for the followi
 - Portuguese (added by [@fr0r](https://github.com/fr0r))
 - Romanian (added by [@Andy9001](https://github.com/Andy9001))
 - Russian (added by [@BrandtnerKPW](https://github.com/BrandtnerKPW))
-- Spanish (added by [@granmacco](https://github.com/granmacco))
+- Spanish (added by [@granmacco](https://github.com/granmacco) & [@gaelcoral](https://github.com/gaelcoral))
 - Swedish (added by [@krokerik](https://github.com/krokerik))
 - Turkish (added by [@seaque](https://github.com/seaque))
 - Ukrainian (added by [@megamanyoutuber](https://github.com/megamanyoutuber))
