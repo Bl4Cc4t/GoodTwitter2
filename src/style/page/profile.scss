@@ -22,6 +22,16 @@ body[data-page-type=profile] {
   }
 }
 
+// dropdown
+#layers [data-testid=Dropdown] {
+  [role=menuitem][href$="/topics"] {
+    span,
+    ~ * span {
+      font-weight: normal;
+    }
+  }
+}
+
 // blocked profile page TODO
 .profile-youre-blocked {
   .gt2-blocked-profile-description,

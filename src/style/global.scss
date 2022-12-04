@@ -92,12 +92,8 @@ nav [role=tablist] [role=tab] {
   }
 
   &[aria-selected=true] {
-    > div {
+    span {
       color: var(--color-accent);
-
-      div {
-        display: none;
-      }
     }
 
     &::after {

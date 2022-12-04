@@ -76,7 +76,7 @@ body[data-page-type=settings] {
     text-decoration: none;
 
     div {
-      padding: 11.7px 15px;
+      padding: 12px 15px;
       width: inherit;
     }
 
@@ -123,10 +123,14 @@ body[data-page-type=settings] {
   .gt2-settings-header,
   .gt2-settings-sub-header,
   .gt2-setting {
-    @include separator-bottom;
     background-color: var(--color-elem);
     box-sizing: border-box;
     color: var(--color-text);
+
+    &:not(:last-child) {
+      @include separator-bottom;
+    }
+
   }
 
   .gt2-settings-header {
