@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.41.1
+// @version       0.0.42
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -2488,6 +2488,18 @@
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
       waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
+
+      // add source
+      let m = location.pathname.match(/\/status\/(\d+)/)
+      if (m) {
+        requestTweet(m[1], res => {
+          if (!res.source)
+            return
+          waitForKeyElements(`[href*="${m[1]}"] time`, e => {
+            e[0].parentElement.insertAdjacentHTML("afterend", `<span class="gt2-tweet-source">${res.source}</span>`)
+          })
+        })
+      }
     } else if (!isModal) {
       $("body").removeClass("gt2-page-tweet")
     }

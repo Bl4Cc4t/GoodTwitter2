@@ -1540,6 +1540,7 @@ body[data-payment-endpoint-path] {
 
     .gt2-legacy-profile-nav-left {
       align-items: center;
+      width: 0;
       // avatar
       .gt2-legacy-profile-nav-avatar img {
         border-radius: 9999px;
@@ -3094,4 +3095,23 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
   white-space: pre-line;
 
   @include standardLink;
+}
+
+.gt2-tweet-source {
+  color: var(--color-user);
+  @include standardLink;
+  &::before {
+    color: var(--color-gray-light);
+    content: '\00B7';
+    padding: 0 5px;
+  }
+}
+
+#layers [data-testid=Dropdown] {
+  [role=menuitem][href$="/topics"] {
+    span,
+    ~ * span {
+      font-weight: normal;
+    }
+  }
 }

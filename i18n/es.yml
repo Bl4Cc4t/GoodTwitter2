@@ -3,12 +3,12 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Twittear
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Desnudez
+  contentWarningViolence: Violencia
+  contentWarningSensitiveContent: Contenido delicado
   joinDate: Se unió en $date$
   navBookmarks: Guardados
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Comunidades
   navMessages: Mensajes
   navExplore: Explorar
   navHome: Inicio
@@ -28,8 +28,8 @@ twitter-default:
 script:
   bornDate: "Fecha de nacimiento: $date$"
   bornYear: "Fecha de nacimiento: $year$"
-  favorite: Favorite # TODO translation missing!
-  favorites: Favorites # TODO translation missing!
+  favorite: Favorito
+  favorites: Favoritos
   followedBy0: Ninguno de tus seguidores te sigue
   followedBy1: Seguido por $p1$
   followedBy2: Seguido por $p1$ y $p2$
@@ -39,7 +39,7 @@ script:
   qbBlock: Bloquear
   qbBlocked: Bloqueado
   qbUnblock: Desbloquear
-  updatedInfo: ¡Actualizado a $version$!
+  updatedInfo: ¡Se actualizó a $version$!
   updatedInfoChangelog: Lista de cambios
 
 # these strings are for the gt2 settings page.
@@ -47,55 +47,54 @@ settings:
   headers:
     settingsHeaderTimeline: Cronología
     settingsHeaderSidebars: Barras laterales
-    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderGlobalLook: Apariencia general
     settingsHeaderOther: Otros
 
   timeline:
     forceLatest: Forzar "Tweets más recientes"
-    forceLatestDesc: Activar el modo de "Tweets más recientes" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de "Tweets más recientes".
+    forceLatestDesc: Al activar el modo "Tweets más recientes" no se mantiene de forma permanente. Tras activar este ajuste, la página habilitará automáticamente el modo de "Tweets más recientes".
     biggerPreviews: Previsualizaciones de imágenes más grandes
     biggerPreviewsDesc: Las imágenes más largas de algunos tweets se muestran en toda su longitud.
 
   tweets:
     hideTranslateTweetButton: Ocultar botón de Traducir Tweet
-    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    tweetIconsPullLeft: Agrupar los botones de interacción de los tweets a la izquierda
+    hidePromoteTweetButton: Ocultar el botón "Promocionar Tweet"
+    showMediaWithContentWarnings: Mostrar siempre los contenidos con advertencia
 
   sidebars:
-    stickySidebars: Barras laterales "pegajosas" (sticky)
-    smallSidebars: Barras laterales pequeñas
-    smallSidebarsDesc: Barras laterales de 290 píxeles de ancho en lugar de 350px.
-    hideTrends: Ocultar "Tendencias"
-    leftTrends: Barra lateral izquierda de Tendencias
-    leftTrendsDesc: Muestra las Tendencias en la barra lateral izquierda.
+    stickySidebars: Fijar las barras laterales
+    smallSidebars: Hacer las barras laterales pequeñas
+    smallSidebarsDesc: Las barras laterales será 290px en lugar de 350px de ancho.
+    hideTrends: Ocultar Tendencias
+    leftTrends: Barra lateral de Tendencias hacia la izquierda
+    leftTrendsDesc: Muestra las tendencias de la barra lateral hacia la izquierda.
     show5Trends: Mostrar siempre 5 Tendencias
 
   profile:
     legacyProfile: Diseño Clásico de Perfil
     squareAvatars: Avatares Cuadrados
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
-    leftMedia: Left sidebar media # TODO translation missing!
-    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    disableHexagonAvatars: Desactivar los avatares hexagonales
+    enableQuickBlock: Habilitar el bloqueo rápido
+    enableQuickBlockDesc: Pasa el ratón por encima del botón de seguir durante 3 segundos para bloquear un perfil.
+    leftMedia: Hacer las barras laterales de contenido multimedia hacia la izquierda
+    leftMediaDesc: Muestra el contenido multimedia de los perfiles de la barra lateral hacia la izquierda.
+    profileMediaRedirect: Redirigir a /media al visitar las páginas de los perfiles.
 
   global-look:
     hideFollowSuggestions: Ocultar "A quién seguir"
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
-    fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc: # TODO translation missing!
-      Set a custom font to override the default one. This works only if you have the font installed.
-    colorOverride: Use custom color # TODO translation missing!
-    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideFollowSuggestionsBox: Ocultar $type$ de $location$
+    fontOverride: Utilizar una fuente personalizada
+    fontOverrideDesc: Establece una fuente personalizada para sustituir la fuente predeterminada. Esto sólo funciona si tienes instalada una fuente.
+    colorOverride: Utilizar un color personalizado
+    colorOverrideDesc: Establece un color personalizado para sustituir el predeterminado.
     hideMessageBox: Ocultar la bandeja de mensajes
-    hideMessageBoxDesc: Oculta la nueva bandeja de mensajes que está siempre presente en la esquina inferior derecha.
-    rosettaIcons: Rosetta icons # TODO translation missing!
-    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
-    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+    hideMessageBoxDesc: Oculta la nueva bandeja de mensajes que encuentra presente en la esquina inferior de la derecha.
+    rosettaIcons: Iconos de Rosetta
+    rosettaIconsDesc: Utiliza la fuente de iconos "Rosetta" previo a 2017
+    favoriteLikes: Reemplazar los "Me gusta" por "Favoritos" (por ahora solamente iconos)
 
   other:
     updateNotifications: Notificaciones de actualización de GoodTwitter 2
     expandTcoShortlinks: Expandir enlaces abreviados de t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Redirigir las URL para móviles
