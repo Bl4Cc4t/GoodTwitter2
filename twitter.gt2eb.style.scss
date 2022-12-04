@@ -3105,3 +3105,12 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
     padding: 0 5px;
   }
 }
+
+#layers [data-testid=Dropdown] {
+  [role=menuitem][href$="/topics"] {
+    span,
+    ~ * span {
+      font-weight: normal;
+    }
+  }
+}
