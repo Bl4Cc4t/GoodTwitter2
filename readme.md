@@ -35,6 +35,7 @@ Twitter disabled its old 2014 layout on June 1st 2020 completely. This caused th
   - The default and dim theme use the color palette from legacy twitter
 - Added toggle for nightmode when not logged in
 - Translate tweets directly in your timeline!
+- Tweet source field is visible again
 - Various other custom settings, take a look at the [previews](#previews)
 
 ## Installation
