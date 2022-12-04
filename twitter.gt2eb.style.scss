@@ -3095,3 +3095,13 @@ div[data-testid=sidebarColumn] .gt2-dashboard-profile {
 
   @include standardLink;
 }
+
+.gt2-tweet-source {
+  color: var(--color-user);
+  @include standardLink;
+  &::before {
+    color: var(--color-gray-light);
+    content: '\00B7';
+    padding: 0 5px;
+  }
+}
