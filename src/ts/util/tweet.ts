@@ -1,7 +1,7 @@
 import { TwitterApi } from "../types"
 import { Logger } from "./logger"
 import { requestTweet } from "./request"
-import { waitForKeyElements } from "./util"
+import { getLocalizedString, waitForKeyElements } from "./util"
 
 
 const logger = new Logger("tweet")
@@ -120,7 +120,7 @@ function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
  * @param callback function to execute once the data has been fetched
  */
 export function getTweetData(tweetId: string, callback: (result: TwitterApi.TweetLegacy) => void): void {
-  if (unsafeWindow?.tweetData.hasOwnProperty(tweetId)) {
+  if (unsafeWindow && unsafeWindow.hasOwnProperty("tweetData") && unsafeWindow.tweetData.hasOwnProperty(tweetId)) {
     callback(unsafeWindow.tweetData[tweetId])
   }
 
@@ -131,6 +131,9 @@ export function getTweetData(tweetId: string, callback: (result: TwitterApi.Twee
 }
 
 
+/**
+ * Re-adds the source label to tweets.
+ */
 export function addSourceLabel(): void {
   let tweetId = getTweetId()
   waitForKeyElements(`[href*="${tweetId}"] time`, e => {
@@ -144,5 +147,20 @@ export function addSourceLabel(): void {
         <span class="gt2-tweet-source">${result.source}</span>
       `)
     })
+  })
+}
+
+
+/**
+ * Labels the "More Tweets" timeline elements for optional hiding.
+ */
+export function labelMoreTweetsElement(): void {
+  let moreTweetsLocalized = getLocalizedString("moreTweets").trim()
+  waitForKeyElements(`[data-testid=cellInnerDiv] h2 span`, header => {
+    if (header.innerText.match(moreTweetsLocalized)) {
+      logger.debug("found more tweets header, adding label")
+      header.closest("[data-testid=cellInnerDiv]")
+        .classList.add("gt2-timeline-elem-more-tweets-header")
+    }
   })
 }

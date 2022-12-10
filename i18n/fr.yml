@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeter
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Violence # TODO translation missing!
   contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: A rejoint Twitter en $date$
+  moreTweets: Plus de Tweets
   navBookmarks: Signets
   navCommunities: Communities # TODO translation missing!
   navMessages: Messages
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
     showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Barres latérales fixes

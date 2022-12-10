@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweet
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Kekerasan
   contentWarningSensitiveContent: Konten sensitif
   joinDate: Bergabung $date$
+  moreTweets: Tweet Lainnya
   navBookmarks: Markah
   navCommunities: Communities # TODO translation missing!
   navMessages: Pesan
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Kelompokkan tombol interaksi tweet di sebelah kiri
     hidePromoteTweetButton: Sembunykan tombol “Promosikan Tweet”
     showMediaWithContentWarnings: Selalu tampilkan media dengan peringatan konten
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Lengketkan bilah samping

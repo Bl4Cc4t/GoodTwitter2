@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweet
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Bạo lực
   contentWarningSensitiveContent: Nội dung nhạy cảm
   joinDate: Đã tham gia $date$
+  moreTweets: Thêm Tweet
   navBookmarks: Dấu trang
   navCommunities: Cộng đồng
   navMessages: Tin nhắn
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Dịch các nút tương tác với tweet về phía bên trái
     hidePromoteTweetButton: Ẩn nút “Promote Tweet”
     showMediaWithContentWarnings: Luôn hiển thị ảnh và video với cảnh báo nội dung
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Ghim thanh bên

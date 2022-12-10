@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweetle
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Vahşet
   contentWarningSensitiveContent: Hassas içerik
   joinDate: $date$ tarihinde katıldı
+  moreTweets: Daha fazla Tweet
   navBookmarks: Yer İşaretleri
   navCommunities: Communities
   navMessages: Mesajlar
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Tweet etkileşim düğmelerini sol tarafta bir araya getir
     hidePromoteTweetButton: “Tweeti Tanıt” düğmesini gizle
     showMediaWithContentWarnings: İçerik uyarısına sahip medyayı her zaman göster
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Yapışkan kenar çubukları

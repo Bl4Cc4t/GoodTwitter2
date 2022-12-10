@@ -4,14 +4,14 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Twittern
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Nudity
+  contentWarningViolence: Violence
+  contentWarningSensitiveContent: Sensitive content
   joinDate: Seit $date$ bei Twitter
+  moreTweets: Mehr Tweets # TODO translation missing!
   navBookmarks: Lesezeichen
   navCommunities: Communities # TODO translation missing!
   navMessages: Nachrichten
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Linksbündige Tweet-Interaktions-Knöpfe
     hidePromoteTweetButton: „Promote Tweet“ verstecken
     showMediaWithContentWarnings: Medien mit Inhaltswarnung immer anzeigen
+    hideMoreTweets: „Mehr Tweets“-Abschnitt auf Tweetseiten verstecken
+    hideMoreTweetsDesc: Diese zusätzlichen Tweets haben inhaltlich nichts mit dem aktuell betrachteten Tweet zu tun und sind nur dafür da, den evtl. leeren Raum unterhalb des Tweets zu füllen.
 
   sidebars:
     stickySidebars: Feste Seitenleisten

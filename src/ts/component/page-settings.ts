@@ -133,6 +133,7 @@ function getSettingsHtml(): string {
           ])}
         </div>
       `)}
+      ${getSettingToggleHtml("hideMoreTweets")}
       <div class="gt2-settings-separator"></div>
 
       <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderSidebars")}</div>

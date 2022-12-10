@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: 트윗
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: 폭력
   contentWarningSensitiveContent: 민감한 내용
   joinDate: "가입일: $date$"
+  moreTweets: 트윗 더 보기
   navBookmarks: 북마크
   navCommunities: Communities # TODO translation missing!
   navMessages: 쪽지
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: 트윗 아이콘을 왼쪽으로 옮기기
     hidePromoteTweetButton: “트윗 홍보” 버튼 숨기기
     showMediaWithContentWarnings: 항상 콘텐츠 경고가 있는 미디어 표시
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: 사이드바 고정

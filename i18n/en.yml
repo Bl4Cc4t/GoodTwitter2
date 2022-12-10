@@ -12,6 +12,7 @@ twitter-default:
   contentWarningViolence: Violence
   contentWarningSensitiveContent: Sensitive content
   joinDate: Joined $date$
+  moreTweets: More Tweets
   navBookmarks: Bookmarks
   navCommunities: Communities
   navMessages: Messages
@@ -69,6 +70,8 @@ settings:
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left
     hidePromoteTweetButton: Hide “Promote Tweet” button
     showMediaWithContentWarnings: Always show media with content warnings
+    hideMoreTweets: Hide “More Tweets” section on tweet page
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space.
 
   sidebars:
     stickySidebars: Sticky sidebars

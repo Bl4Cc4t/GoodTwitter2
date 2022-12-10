@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: ツイートする
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: 暴力的
   contentWarningSensitiveContent: センシティブな内容
   joinDate: $date$からTwitterを利用しています
+  moreTweets: その他のツイート
   navBookmarks: ブックマーク
   navCommunities: Communities # TODO translation missing!
   navMessages: メッセージ
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
     hidePromoteTweetButton: プロモートツイートボタンを隠す
     showMediaWithContentWarnings: コンテンツ警告のあるメディアを常に表示する
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: サイドバーの固定

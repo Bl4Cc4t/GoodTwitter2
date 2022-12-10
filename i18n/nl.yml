@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweeten
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Geweld
   contentWarningSensitiveContent: Gevoelige inhoud
   joinDate: Lid geworden in $date$
+  moreTweets: Meer Tweets
   navBookmarks: Bladwijzers
   navCommunities: Communities # TODO translation missing!
   navMessages: Berichten
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Bundel tweet-interactieknoppen aan de linkerkant
     hidePromoteTweetButton: Verberg de knop 'Tweet promoten'
     showMediaWithContentWarnings: Geef altijd media weer met inhoudswaarschuwingen
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Sticky Zijbalken

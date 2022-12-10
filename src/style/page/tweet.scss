@@ -21,6 +21,15 @@ body[data-page-type=tweet] {
       }
     }
   }
+
+  &.gt2-opt-hide-more-tweets {
+    .gt2-timeline-elem-more-tweets-header {
+      &,
+      & ~ * {
+        display: none;
+      }
+    }
+  }
 }
 
 [data-testid=tweetText]:nth-of-type(n+2) {

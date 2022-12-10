@@ -11,7 +11,8 @@ const INITIAL_SETTINGS = {
   tweetIconsPullLeft: false,
   hidePromoteTweetButton: false,
   showMediaWithContentWarnings: false,
-  showMediaWithContentWarningsSel:  7,
+  showMediaWithContentWarningsSel: 7,
+  hideMoreTweets: false,
 
   // sidebars
   stickySidebars: true,

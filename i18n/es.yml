@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Twittear
@@ -12,6 +11,7 @@ twitter-default:
   contentWarningViolence: Violence # TODO translation missing!
   contentWarningSensitiveContent: Sensitive content # TODO translation missing!
   joinDate: Se unió en $date$
+  moreTweets: Más Tweets
   navBookmarks: Guardados
   navCommunities: Communities # TODO translation missing!
   navMessages: Mensajes
@@ -67,6 +67,8 @@ settings:
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
     showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Barras laterales "pegajosas" (sticky)
@@ -91,7 +93,8 @@ settings:
     hideFollowSuggestions: Ocultar "A quién seguir"
     hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
     fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc: # TODO translation missing!
+    fontOverrideDesc:
+      # TODO translation missing!
       Set a custom font to override the default one. This works only if you have the font installed.
     colorOverride: Use custom color # TODO translation missing!
     colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!

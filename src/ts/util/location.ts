@@ -2,7 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
-import { addSourceLabel } from "./tweet"
+import { addSourceLabel, labelMoreTweetsElement } from "./tweet"
 import { isLoggedIn, onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
 
@@ -145,6 +145,7 @@ export function onLocationChange(type: string): void {
 
     // add source
     addSourceLabel()
+    labelMoreTweetsElement()
   }
 
   // home
