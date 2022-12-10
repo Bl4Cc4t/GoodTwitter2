@@ -136,7 +136,7 @@ export function getTweetData(tweetId: string, callback: (result: TwitterApi.Twee
  */
 export function addSourceLabel(): void {
   let tweetId = getTweetId()
-  waitForKeyElements(`[href*="${tweetId}"] time`, e => {
+  waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${tweetId}"] time`, e => {
     getTweetData(tweetId, result => {
       if (!result.source) {
         logger.warn(`tweet with id ${tweetId} has no source label.`)
