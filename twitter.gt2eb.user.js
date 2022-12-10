@@ -2495,7 +2495,7 @@
         requestTweet(m[1], res => {
           if (!res.source)
             return
-          waitForKeyElements(`[href*="${m[1]}"] time`, e => {
+          waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${m[1]}"] time`, e => {
             e[0].parentElement.insertAdjacentHTML("afterend", `<span class="gt2-tweet-source">${res.source}</span>`)
           })
         })
