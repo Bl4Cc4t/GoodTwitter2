@@ -2,7 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
-import { addSourceLabel, labelMoreTweetsElement } from "./tweet"
+import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
 import { isLoggedIn, onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
 
@@ -143,9 +143,9 @@ export function onLocationChange(type: string): void {
   })) {
     setPageType("tweet")
 
-    // add source
     addSourceLabel()
     labelMoreTweetsElement()
+    scrollTweetUp()
   }
 
   // home

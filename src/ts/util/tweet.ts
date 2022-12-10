@@ -164,3 +164,15 @@ export function labelMoreTweetsElement(): void {
     }
   })
 }
+
+
+/**
+ * Scrolls up to make up for the added navbar height.
+ */
+export function scrollTweetUp(): void {
+  waitForKeyElements(`[data-testid=tweet][tabindex="-1"] > :nth-child(1)`, () => {
+    let amount = 75
+    window.scroll(0, window.pageYOffset - amount)
+    logger.debug(`scrolled up ${amount}px to make up for the added navbar height`)
+  })
+}
