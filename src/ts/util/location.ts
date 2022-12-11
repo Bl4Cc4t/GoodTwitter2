@@ -2,6 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
+import { settings } from "./settings"
 import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
 import { isLoggedIn, onModal, onPage, waitForKeyElements, watchForChanges } from "./util"
 
@@ -198,6 +199,12 @@ export function onLocationChange(type: string): void {
   // profile page
   else if (!onModal() || onPage({intent: ["user"]})) {
     setPageType("profile")
+
+    // @option profileMediaRedirect
+    if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
+      waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e.click())
+      logger.debug("redirected to /media page")
+    }
   }
 
   // unhandled modals
