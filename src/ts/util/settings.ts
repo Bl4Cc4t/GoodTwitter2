@@ -31,8 +31,8 @@ const INITIAL_SETTINGS = {
 
   // global look
   hideFollowSuggestions: false,
-  hideFollowSuggestionsSel: 7,
-  hideFollowSuggestionsLocSel: 3,
+  hideFollowSuggestionsTimelineSel: 7,
+  hideFollowSuggestionsSidebarSel: 3,
   fontOverride: false,
   fontOverrideValue: "Arial",
   colorOverride: false,

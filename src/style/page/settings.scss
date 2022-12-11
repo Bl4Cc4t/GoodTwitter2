@@ -282,10 +282,14 @@ body[data-page-type=settings] {
     }
 
     .gt2-settings-multi-selection {
-      font-size: incr(13px);
       margin-top: 12.5px;
 
-      > div {
+      .gt2-settings-selection-header {
+        margin: 5px 0 10px;
+      }
+
+      [data-setting-name] {
+        font-size: incr(13px);
         display: flex;
         flex-direction: column;
 

@@ -159,14 +159,19 @@ function getSettingsHtml(): string {
           data-multi-selection-name="hideFollowSuggestionsBox"
           class="gt2-settings-multi-selection ${settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
         >
-          ${getLocalizedReplacableString("hideFollowSuggestionsBox", {
-            type: getSettingSelectionHtml("hideFollowSuggestionsSel", [
-              "topics", "users", "navLists"
-            ]),
-            location: getSettingSelectionHtml("hideFollowSuggestionsLocSel", [
-              "settingsHeaderTimeline", "settingsHeaderSidebars"
-            ])
-          })}
+          <div>
+            <div class="gt2-settings-selection-header">${getLocalizedString("settingsHeaderTimeline")}</div>
+            ${getSettingSelectionHtml("hideFollowSuggestionsTimelineSel", [
+              "users", "topics", "navLists"
+            ])}
+          </div>
+
+          <div>
+            <div class="gt2-settings-selection-header">${getLocalizedString("settingsHeaderSidebars")}</div>
+            ${getSettingSelectionHtml("hideFollowSuggestionsSidebarSel", [
+              "users", "topics"
+            ])}
+          </div>
         </div>
       `)}
       ${getSettingToggleHtml("fontOverride", `

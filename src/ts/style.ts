@@ -143,9 +143,9 @@ function hideFollowSuggestions(): void {
     return div
   }
 
-  let selector = ["topics/picker", "connect_people", "lists/suggested"]
+  let selector = ["connect_people", "topics/picker", "lists/suggested"]
     .filter((_e, i) => {
-      return (settings.get("hideFollowSuggestionsSel") & Math.pow(2, i)) == Math.pow(2, i)
+      return (settings.get("hideFollowSuggestionsTimelineSel") & Math.pow(2, i)) == Math.pow(2, i)
     })
     .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
     .join(", ")

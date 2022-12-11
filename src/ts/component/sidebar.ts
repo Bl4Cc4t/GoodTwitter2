@@ -13,20 +13,20 @@ export function initializeSidebar() {
   handleTrends()
 
   // @option hideFollowSuggestions
-  if (settings.get("hideFollowSuggestions") && (settings.get("hideFollowSuggestionsLocSel") & 2) == 2) {
-    let sel = settings.get("hideFollowSuggestionsSel")
+  if (settings.get("hideFollowSuggestions")) {
+    let sel = settings.get("hideFollowSuggestionsSidebarSel")
 
-    // topic suggestions
+    // user suggestions (Who to follow, You might like)
     if ((sel & 1) == 1) {
-      waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => {
-        e.closest("section").parentElement.parentElement.remove()
+      waitForKeyElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => {
+        e.closest("aside").parentElement.remove()
       }, false)
     }
 
-    // user suggestions (Who to follow, You might like)
+    // topic suggestions
     if ((sel & 2) == 2) {
-      waitForKeyElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => {
-        e.closest("aside").parentElement.remove()
+      waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => {
+        e.closest("section").parentElement.parentElement.remove()
       }, false)
     }
   }
