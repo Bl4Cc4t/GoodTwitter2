@@ -48,7 +48,7 @@ export const MODAL_PAGES: Path = {
     "keyboard_shortcuts",
     "flow",
     {
-      "lists": ["add_member"]
+      "lists": ["add_member", "create"]
     },
     "report"
   ],
