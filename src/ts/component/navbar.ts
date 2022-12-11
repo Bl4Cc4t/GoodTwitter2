@@ -189,8 +189,11 @@ function addSearch(): void {
  * Removes the search from the navbar.
  */
 export function removeSearch(): void {
-  document.querySelector(".gt2-search").replaceChildren()
-  logger.debug("removed search")
+  let search = document.querySelector(".gt2-search")
+  if (search) {
+    search.replaceChildren()
+    logger.debug("removed search")
+  }
 }
 
 
