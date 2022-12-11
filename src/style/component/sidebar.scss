@@ -29,7 +29,7 @@
 
   // moved elements
   .gt2-trends,
-  .gt2-profile-media {
+  .gt2-profile-media > * {
     background-color: var(--color-elem);
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;

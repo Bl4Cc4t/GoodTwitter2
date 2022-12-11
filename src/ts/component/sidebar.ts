@@ -15,6 +15,7 @@ export function initializeSidebar():void {
   addRightSidebar()
   addSidebarElements()
   handleTrends()
+  handleProfileMedia()
 
   // @option hideFollowSuggestions
   if (settings.get("hideFollowSuggestions")) {
@@ -275,4 +276,59 @@ function moveSidebarElements(targetSide: "left" | "right"): void {
   sidebar.append(...Array.from(elements))
 
   logger.debug(`moved ${elements.length} elements to the ${targetSide} sidebar`)
+}
+
+
+/**
+ * Handles the profile page media element.
+ */
+function handleProfileMedia(): void {
+  let mediaSelector =
+    `[data-testid=sidebarColumn] div:nth-child(1) > a[href*="/photo/"],
+     [data-testid=sidebarColumn] div:nth-child(1) > a[href*="/video/"]`
+  waitForKeyElements(mediaSelector, media => {
+    let container = document.querySelector(".gt2-profile-media")
+    let placeLeft = settings.get("leftMedia")
+
+    // add container element if it does not exist
+    if (!container) {
+      let sidebar = document.querySelector(`.gt2-${placeLeft ? "left" : "right"}-sidebar`)
+
+      if (!sidebar) {
+        logger.error("sidebar not found")
+        return
+      }
+      sidebar.insertAdjacentHTML("beforeend", `
+        <div class="gt2-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>
+      `)
+      container = document.querySelector(".gt2-profile-media")
+    }
+
+    let containerIsLeft = container.classList.contains("gt2-left-sidebar-element")
+
+    // move container to left sidebar if needed
+    if (placeLeft && !containerIsLeft) {
+      logger.debug("moving profile media to left sidebar")
+      document.querySelector(".gt2-left-sidebar")
+        .append(container)
+    }
+
+    // move container to right sidebar if needed
+    else if (!placeLeft && containerIsLeft) {
+      logger.debug("moving profile media to right sidebar")
+      document.querySelector(".gt2-right-sidebar")
+        .append(container)
+    }
+
+    // replace content
+    let mediaElement = media
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+      .parentElement
+    container.replaceChildren(mediaElement)
+  }, false)
 }
