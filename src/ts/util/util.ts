@@ -177,7 +177,7 @@ export function onPage(path: Path, level=0): boolean {
       // single string
       if (typeof sub == "string" && (pathCurrent == sub || sub == "*")) return true
       // another path object
-      else if (typeof sub != "string" && onPage(sub, level+1)) return true
+      else if (typeof sub != "string" && onPage(sub, level)) return true
     }
   }
 
