@@ -132,6 +132,13 @@ function getSettingsHtml(): string {
             "contentWarningSensitiveContent"
           ])}
         </div>
+
+        <div>
+          <div class="gt2-settings-selection-header">${getLocalizedString("navProfile")}</div>
+          ${getSettingSelectionHtml("hideFollowSuggestionsProfileSel", [
+            "users"
+          ])}
+        </div>
       `)}
       ${getSettingToggleHtml("hideMoreTweets")}
       <div class="gt2-settings-separator"></div>

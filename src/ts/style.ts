@@ -163,6 +163,12 @@ function hideFollowSuggestions(): void {
     }
   })
 
+  // profile page (Who to follow / Suggested)
+  if ((settings.get("hideFollowSuggestionsProfileSel") & 1) == 1) {
+    waitForKeyElements(`a[href$="/header_photo"] ~ [style=""] aside [data-testid=UserCell]:nth-child(1)`, e => {
+      e.closest(`[style=""]`).classList.add("gt2-hidden")
+    })
+  }
 }
 
 

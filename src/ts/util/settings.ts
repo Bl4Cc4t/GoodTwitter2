@@ -33,6 +33,7 @@ const INITIAL_SETTINGS = {
   hideFollowSuggestions: false,
   hideFollowSuggestionsTimelineSel: 7,
   hideFollowSuggestionsSidebarSel: 3,
+  hideFollowSuggestionsProfileSel: 1,
   fontOverride: false,
   fontOverrideValue: "Arial",
   colorOverride: false,
