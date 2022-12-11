@@ -6,7 +6,11 @@ import { dismissUpdateNotice, getCurrentUserInfo, getLocalizedString, getSvg, is
 const logger = new Logger("component/sidebar")
 
 
-export function initializeSidebar() {
+/**
+ * Initializes the sidebars by adding them and watching the elements for changes.
+ */
+export function initializeSidebar():void {
+  logger.debug("initializing sidebar")
   addLeftSidebar()
   addRightSidebar()
   addSidebarElements()
@@ -40,8 +44,10 @@ export function initializeSidebar() {
 }
 
 
-// add left sidebar
-function addLeftSidebar() {
+/**
+ * Adds the left sidebar to the DOM.
+ */
+function addLeftSidebar(): void {
   waitForKeyElements("main > div > div > div", mainView => {
     if (!mainView.querySelector(".gt2-left-sidebar")) {
       mainView.insertAdjacentHTML("afterbegin", `
@@ -55,8 +61,10 @@ function addLeftSidebar() {
 }
 
 
-// add right sidebar
-function addRightSidebar() {
+/**
+ * Adds the right helper sidebar to the DOM
+ */
+function addRightSidebar(): void {
   waitForKeyElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", rightSidebar => {
     if (!rightSidebar.querySelector(".gt2-right-sidebar")) {
       rightSidebar.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
@@ -66,13 +74,18 @@ function addRightSidebar() {
 }
 
 
-function addSidebarElements() {
+/**
+ * Adds the actual elements to the left sidebar.
+ *
+ * If the there isn't enough screen space available, they get added to the one on the right.
+ */
+function addSidebarElements(): void {
   let insertAt = isOnSmallerView() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
 
   waitForKeyElements(insertAt, sidebar => {
     sidebar.replaceChildren()
     sidebar.insertAdjacentHTML("afterbegin", `
-      ${getUpdateNotice()}
+      ${getUpdateNoticeHtml()}
       ${getDashboardProfileHtml()}
       <div class="gt2-legacy-profile-info gt2-left-sidebar-elem"></div>
     `)
@@ -92,8 +105,11 @@ function addSidebarElements() {
 }
 
 
-// profile view left sidebar
-function getDashboardProfileHtml() {
+/**
+ * Gets the HTML of the dashboard profile.
+ * @returns the HTML of the dashboard profile
+ */
+function getDashboardProfileHtml(): string {
   let i = getCurrentUserInfo()
   let href = isLoggedIn() ? "href" : "data-href"
   return `
@@ -141,8 +157,11 @@ function getDashboardProfileHtml() {
 }
 
 
-// gt2 update notice
-function getUpdateNotice(): string {
+/**
+ * Gets the HTML of the current GT2 update notice.
+ * @returns the HTML of the current GT2 update notice
+ */
+function getUpdateNoticeHtml(): string {
   // check if update notice needs to be shown
   if (!settings.get("updateNotifications") || updateNoticeDismissed()) {
     return ""
@@ -171,11 +190,13 @@ function getUpdateNotice(): string {
 }
 
 
-// handle trends (hide, move, wrap)
-function handleTrends() {
-  let w = window.innerWidth
-  let trendsSelector = `section:not(.gt2-trends-handled) div[data-testid=trend]:not(.gt2-trend-wrapped),
-                section[aria-labelledby^=accessible-list]:not(.gt2-trends-handled) a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
+/**
+ * Handles trends in the sidebar (hiding, moving, wrapping as links).
+ */
+function handleTrends(): void {
+  let trendsSelector =
+    `section:not(.gt2-trends-handled) div[data-testid=trend]:not(.gt2-trend-wrapped),
+     section[aria-labelledby^=accessible-list]:not(.gt2-trends-handled) a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
 
   waitForKeyElements(trendsSelector, trends => {
     let trendSection = trends.closest("section")
@@ -219,7 +240,6 @@ function handleTrends() {
       }
     }
 
-
     // wrap trends in anchors
     let toWrap = trends.querySelector<HTMLElement>(":scope > div > div:nth-child(2) > span [dir]")
     if (toWrap) {
@@ -234,6 +254,11 @@ function handleTrends() {
   }, false)
 }
 
+
+/**
+ * Moves sidebar elements to the specified side(bar).
+ * @param targetSide where to move the sidebar elements to
+ */
 function moveSidebarElements(targetSide: "left" | "right"): void {
   // check if there are elements to move
   let opposite = targetSide == "left" ? "right" : "left"

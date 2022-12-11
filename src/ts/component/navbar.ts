@@ -9,6 +9,7 @@ const logger = new Logger("component", "navbar")
  * Entry function for adding the navbar component.
  */
 export function initializeNavbar() {
+  logger.debug("initializing navbar")
   addNavbar()
   addSearch()
 }
