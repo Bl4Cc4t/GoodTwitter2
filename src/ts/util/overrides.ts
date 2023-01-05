@@ -5,7 +5,7 @@ import { saveTweetResponse } from "./tweet"
 /**
  * Overrides various functions to change the behavior of the site.
  */
-export function overrideFunctions() {
+export function overrideFunctions(): void {
   // remove whitespace when inserting HTML
   const Element_insertAdjacentHTML = Element.prototype.insertAdjacentHTML
   Element.prototype.insertAdjacentHTML = function(position, text) {

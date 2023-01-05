@@ -144,7 +144,10 @@ export function blockUser(userId: string, doBlock: boolean, callback: () => void
  * @param tweetId the id of the tweet
  * @param callback the function to execute on success
  */
-export function getTweetTranslation(tweetId: string, callback: (result: TwitterApi.v1_1.translateTweet) => void): void {
+export function getTweetTranslation(
+  tweetId: string,
+  callback: (result: TwitterApi.v1_1.translateTweet) => void
+): void {
   if (typeof tweetId != "string" || tweetId == "") {
     logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
     return
@@ -182,7 +185,10 @@ export function getTweetTranslation(tweetId: string, callback: (result: TwitterA
  * @param userId the id of the user profile
  * @param callback the function execute on success
  */
-export function getProfileTranslation(userId: string, callback: (result: TwitterApi.v1_1.translateProfile) => void): void {
+export function getProfileTranslation(
+  userId: string,
+  callback: (result: TwitterApi.v1_1.translateProfile) => void
+): void {
   if (typeof userId != "string" || userId == "") {
     logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
     return

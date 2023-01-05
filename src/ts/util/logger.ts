@@ -1,5 +1,9 @@
 const GLOBAL_PREFIX = "[GT2]"
 
+
+/**
+ * Logging class for the script.
+ */
 export class Logger {
   prefixes: string[]
 
@@ -45,5 +49,7 @@ export class Logger {
   }
 }
 
-// base logger
-export const logger  = new Logger()
+/**
+ * "Singleton" of the logger, used for general purposes.
+ */
+export const logger = new Logger()

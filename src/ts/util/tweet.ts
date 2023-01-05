@@ -80,7 +80,7 @@ export function saveTweetResponse(res:
  * Helper function for saving tweet data.
  * @param instructions the timeline instructions to process
  */
-function saveTweetTimelineInstructions(instructions: TwitterApi.Graphql.Instruction[]) {
+function saveTweetTimelineInstructions(instructions: TwitterApi.Graphql.Instruction[]): void {
   instructions
   .forEach(instr => {
     if (instr.type == "TimelineAddEntries") {
@@ -106,7 +106,7 @@ function saveTweetTimelineInstructions(instructions: TwitterApi.Graphql.Instruct
  * Helper function for `saveTweetTimelineInstructions`.
  * @param tweetResults the tweet data to save
  */
-function saveTweetResults(tweetResults?: TwitterApi.TweetResults) {
+function saveTweetResults(tweetResults?: TwitterApi.TweetResults): void {
   if ("result" in tweetResults && tweetResults.result.__typename == "Tweet") {
     unsafeWindow.tweetData = unsafeWindow.tweetData || {}
     unsafeWindow.tweetData[tweetResults.result.rest_id] = tweetResults.result.legacy
@@ -169,9 +169,8 @@ export function labelMoreTweetsElement(): void {
 /**
  * Scrolls up to make up for the added navbar height.
  */
-export function scrollTweetUp(): void {
+export function scrollTweetUp(amount: number): void {
   waitForKeyElements(`[data-testid=tweet][tabindex="-1"] > :nth-child(1)`, () => {
-    let amount = 75
     window.scroll(0, window.pageYOffset - amount)
     logger.debug(`scrolled up ${amount}px to make up for the added navbar height`)
   })

@@ -191,4 +191,7 @@ class Settings {
 }
 
 
+/**
+ * "Singleton" of the settings object.
+ */
 export let settings = new Settings()

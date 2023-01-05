@@ -1,4 +1,6 @@
-// twitter api
+/**
+ * Types for the twitter api.
+ */
 export namespace TwitterApi {
   export namespace v1_1 {
     export namespace statuses {
@@ -505,29 +507,58 @@ export namespace TwitterApi {
 
 }
 
+
+// type additions to the global namespace
 declare global {
+  /**
+   * Global helper variable that contains the i18n strings.
+   */
   const i18n: {
     [lang: string]: {
       [key: string]: string
     }
   }[]
+
   interface Window {
+    /**
+     * Helper variable for waitForKeyElements.
+     * @see waitForKeyElements
+     */
     controlObj: any
+
+
     tweetData: {
       [tweetId: string]: TwitterApi.TweetLegacy
     }
   }
+
   interface Node {
+    /**
+     * Helper attribute for waitForKeyElements.
+     * @see waitForKeyElements
+     */
     alreadyFound: boolean
   }
 }
 
+/**
+ * The path type. Used for the onPage function.
+ * @see onPage
+ */
 export type Path = {
   [key: string]: Path
 } | Array<Path | string>
 
+
+/**
+ * Available themes.
+ */
 export type Theme = (typeof import("./constants").THEMES)[number]
 
+
+/**
+ * Replacable i18n strings.
+ */
 export interface I18nReplacable {
   bornDate: {
     date: string
@@ -566,14 +597,17 @@ export interface I18nReplacable {
 }
 
 
+/**
+ * Info object for a user.
+ */
 export interface UserInfo {
-  bannerUrl:    string
-    avatarUrl:  string
+  bannerUrl: string
+    avatarUrl: string
     screenName: string
-    name:       string
-    id:         string
+    name: string
+    id: string
     stats: {
-      tweets:    number
+      tweets: number
       followers: number
       following: number
     }

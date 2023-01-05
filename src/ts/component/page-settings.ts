@@ -1,5 +1,5 @@
 import { settings, SettingsKey } from "../util/settings"
-import { getLocalizedReplacableString, getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
+import { getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
 import { changeTitle, resetTitle } from "../util/location"

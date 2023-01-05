@@ -1,6 +1,6 @@
 import { Logger } from "../util/logger"
 import { settings } from "../util/settings"
-import { dismissUpdateNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSmallerView, updateNoticeDismissed, waitForKeyElements } from "../util/util"
+import { dismissUpdateNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSingleSidebarLayout, updateNoticeDismissed, waitForKeyElements } from "../util/util"
 
 
 const logger = new Logger("component/sidebar")
@@ -37,7 +37,7 @@ export function initializeSidebar():void {
   }
 
   window.addEventListener("resize", () => {
-    if (isOnSmallerView())
+    if (isOnSingleSidebarLayout())
       moveSidebarElements("right")
     else
       moveSidebarElements("left")
@@ -81,7 +81,7 @@ function addRightSidebar(): void {
  * If the there isn't enough screen space available, they get added to the one on the right.
  */
 function addSidebarElements(): void {
-  let insertAt = isOnSmallerView() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
+  let insertAt = isOnSingleSidebarLayout() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
 
   waitForKeyElements(insertAt, sidebar => {
     sidebar.replaceChildren()
@@ -221,7 +221,7 @@ function handleTrends(): void {
       if (settings.get("leftTrends")) {
         trendContainer.classList.add("gt2-left-sidebar-elem")
 
-        if (!isOnSmallerView()) {
+        if (!isOnSingleSidebarLayout()) {
           let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-trends")
 
           // replace existing trends

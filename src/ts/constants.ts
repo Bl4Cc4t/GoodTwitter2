@@ -2,25 +2,50 @@ import { logger } from "./util/logger"
 import { Path, Theme } from "./types"
 
 
-//  userscript resources
-export const RES_EMOJI_REGEX = "emojiRegex"
-export const RES_CSS = "css"
+/**
+ * Userscript resource: emojiRegex.
+ */
+const RESOURCE_EMOJI_REGEX = "emojiRegex"
 
 
+/**
+ * Userscript resource: stylesheet
+ */
+export const RESOURCE_CSS = "css"
+
+
+/**
+ * Url of the default avatar.
+ */
 export const DEFAULT_AVATAR_URL = "https://abs.twimg.com/sticky/default_profile_images/default_profile.png"
 
-// found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
+
+/**
+ * Public bearer token, used for API requests.
+ *
+ * Found in https://abs.twimg.com/responsive-web/web/main.5c0baa34.js
+ */
 export const PUBLIC_BEARER = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
 
-export const EMOJI_REGEXP = (() => {
-  let text = GM_getResourceText(RES_EMOJI_REGEX)
+
+/**
+ * The RegExp for emojis.
+ */
+export const EMOJI_REGEXP: RegExp = (() => {
+  let text = GM_getResourceText(RESOURCE_EMOJI_REGEX)
   if (!text || text.length == 0) {
-    logger.error(`error getting resource ${RES_EMOJI_REGEX}`)
+    logger.error(`error getting resource ${RESOURCE_EMOJI_REGEX}`)
     return null
   }
   return new RegExp(`(${text})`, "gu")
 })()
 
+
+/**
+ * SVG constants.
+ *
+ * TODO: to be moved
+ */
 export const SVG = {
   lightning: `<g><path d="M8.98 22.698c-.103 0-.205-.02-.302-.063-.31-.135-.49-.46-.44-.794l1.228-8.527H6.542c-.22 0-.43-.098-.573-.266-.144-.17-.204-.393-.167-.61L7.49 2.5c.062-.36.373-.625.74-.625h6.81c.23 0 .447.105.59.285.142.18.194.415.14.64l-1.446 6.075H19c.29 0 .553.166.678.428.124.262.087.57-.096.796L9.562 22.42c-.146.18-.362.276-.583.276zM7.43 11.812h2.903c.218 0 .425.095.567.26.142.164.206.382.175.598l-.966 6.7 7.313-8.995h-4.05c-.228 0-.445-.105-.588-.285-.142-.18-.194-.415-.14-.64l1.446-6.075H8.864L7.43 11.812z"></path></g>`,
   caret: `<g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g>`,
@@ -35,6 +60,10 @@ export const SVG = {
   balloon: `<g><path d="M7.75 11.083c-.414 0-.75-.336-.75-.75C7 7.393 9.243 5 12 5c.414 0 .75.336.75.75s-.336.75-.75.75c-1.93 0-3.5 1.72-3.5 3.833 0 .414-.336.75-.75.75z"></path><path d="M20.75 10.333c0-5.01-3.925-9.083-8.75-9.083s-8.75 4.074-8.75 9.083c0 4.605 3.32 8.412 7.605 8.997l-1.7 1.83c-.137.145-.173.357-.093.54.08.182.26.3.46.3h4.957c.198 0 .378-.118.457-.3.08-.183.044-.395-.092-.54l-1.7-1.83c4.285-.585 7.605-4.392 7.605-8.997zM12 17.917c-3.998 0-7.25-3.402-7.25-7.584S8.002 2.75 12 2.75s7.25 3.4 7.25 7.583-3.252 7.584-7.25 7.584z"></path></g>`
 }
 
+
+/**
+ * Known modal pages.
+ */
 export const MODAL_PAGES: Path = {
   "account": [
     "add",
@@ -60,6 +89,10 @@ export const MODAL_PAGES: Path = {
   ]
 }
 
+
+/**
+ * Array of available themes.
+ */
 export const THEMES = [
   "white",
   "dim",
@@ -69,6 +102,10 @@ export const THEMES = [
   "lightsout-hc"
 ] as const
 
+
+/**
+ * Text color to theme mapping.
+ */
 export const TEXT_COLOR_TO_THEME: {[key: string]: Theme} = {
   "rgb(15, 20, 25)":    "white",
   "rgb(20, 29, 38)":    "white-hc",
@@ -76,10 +113,18 @@ export const TEXT_COLOR_TO_THEME: {[key: string]: Theme} = {
   "rgb(231, 233, 234)": "lightsout"
 }
 
+
+/**
+ * Background color to theme mapping.
+ */
 export const BG_COLOR_TO_THEME: {[key: string]: Theme} = {
   "rgb(5, 5, 5)": "lightsout-hc"
 }
 
+
+/**
+ * Array of title adjustments.
+ */
 export const TITLE_ADJUSTMENTS = [
   {
     location: "/settings/gt2",

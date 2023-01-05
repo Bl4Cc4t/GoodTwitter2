@@ -29,7 +29,7 @@ export function initializeInlineTranslation(): void {
 
 /**
  * Adds a "Translate Tweet" button to all tweets
- * in a language that differs from the current display
+ * in languages that differ from the current display
  * language.
  */
 function addInlineTranslateTweetButton(): void {
