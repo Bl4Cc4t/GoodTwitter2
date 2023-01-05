@@ -47,7 +47,7 @@ export function addSettingsMenuEntry(): void {
         }
       })
     }
-  })
+  }, false)
 }
 
 
@@ -132,13 +132,6 @@ function getSettingsHtml(): string {
             "contentWarningSensitiveContent"
           ])}
         </div>
-
-        <div>
-          <div class="gt2-settings-selection-header">${getLocalizedString("navProfile")}</div>
-          ${getSettingSelectionHtml("hideFollowSuggestionsProfileSel", [
-            "users"
-          ])}
-        </div>
       `)}
       ${getSettingToggleHtml("hideMoreTweets")}
       <div class="gt2-settings-separator"></div>
@@ -160,23 +153,41 @@ function getSettingsHtml(): string {
       ${getSettingToggleHtml("profileMediaRedirect")}
       <div class="gt2-settings-separator"></div>
 
-      <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderGlobalLook")}</div>
+      <div class="gt2-settings-sub-header">
+        ${getLocalizedString("settingsHeaderGlobalLook")}
+      </div>
       ${getSettingToggleHtml("hideFollowSuggestions", `
         <div
           data-multi-selection-name="hideFollowSuggestionsBox"
           class="gt2-settings-multi-selection ${settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
         >
           <div>
-            <div class="gt2-settings-selection-header">${getLocalizedString("settingsHeaderTimeline")}</div>
+            <div class="gt2-settings-selection-header">
+              ${getLocalizedString("settingsHeaderTimeline")}
+            </div>
             ${getSettingSelectionHtml("hideFollowSuggestionsTimelineSel", [
-              "users", "topics", "navLists"
+              "users",
+              "topics",
+              "navLists"
             ])}
           </div>
 
           <div>
-            <div class="gt2-settings-selection-header">${getLocalizedString("settingsHeaderSidebars")}</div>
+            <div class="gt2-settings-selection-header">
+              ${getLocalizedString("settingsHeaderSidebars")}
+            </div>
             ${getSettingSelectionHtml("hideFollowSuggestionsSidebarSel", [
-              "users", "topics"
+              "users",
+              "topics"
+            ])}
+          </div>
+
+          <div>
+            <div class="gt2-settings-selection-header">
+              ${getLocalizedString("navProfile")}
+            </div>
+            ${getSettingSelectionHtml("hideFollowSuggestionsProfileSel", [
+              "users",
             ])}
           </div>
         </div>
