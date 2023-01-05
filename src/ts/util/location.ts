@@ -4,6 +4,7 @@ import { MODAL_PAGES, TITLE_ADJUSTMENTS } from "../constants"
 import { Path } from "../types"
 import { Logger } from "./logger"
 import { settings } from "./settings"
+import { enableLatestTweets } from "./timeline"
 import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
 import { isLoggedIn, waitForKeyElements, watchForChanges } from "./util"
 
@@ -197,6 +198,8 @@ export function onLocationChange(type: string): void {
   // home
   else if (onPage(["home"])) {
     setPageType("home")
+
+    enableLatestTweets()
   }
 
   // search/explore
