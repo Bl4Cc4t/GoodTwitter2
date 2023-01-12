@@ -439,7 +439,8 @@
     tweetIconsPullLeft: false,
     hidePromoteTweetButton: false,
     showMediaWithContentWarnings: false,
-    showMediaWithContentWarningsSel:  7,
+    showMediaWithContentWarningsSel: 7,
+    hideTweetAnalytics: false,
 
     // sidebars
     stickySidebars: true,
@@ -595,6 +596,7 @@
               </div>
             </div>
           `)}
+          ${getSettingTogglePart("hideTweetAnalytics")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
@@ -1954,6 +1956,10 @@
       }
     }
   })
+
+  if (GM_getValue("opt_gt2").hideTweetAnalytics) {
+    waitForKeyElements(`[data-testid=tweet] [href$="/analytics"]`, e => e[0].parentElement.classList.add("gt2-hidden"))
+  }
 
 
 

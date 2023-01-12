@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: Agrupar botões de interação do Tweet à esquerda.
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
     showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Barras laterais fixas

@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Твітнути
@@ -66,6 +65,7 @@ settings:
     tweetIconsPullLeft: Згрупувати кнопки взаємодії с твітами сліва
     hidePromoteTweetButton: Сховати кнопку «Просувайте свій твіт»
     showMediaWithContentWarnings: Завжди показувати медіафайли с попередженням о змісту
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Фіксовані бокові панелі

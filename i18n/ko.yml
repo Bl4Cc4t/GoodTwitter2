@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: 트윗 아이콘을 왼쪽으로 옮기기
     hidePromoteTweetButton: “프로모션” 버튼 숨기기
     showMediaWithContentWarnings: 항상 콘텐츠 경고가 있는 미디어 표시
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: 사이드바 고정

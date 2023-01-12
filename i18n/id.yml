@@ -65,6 +65,7 @@ settings:
     tweetIconsPullLeft: Kelompokkan tombol interaksi tweet di sebelah kiri
     hidePromoteTweetButton: Sembunykan tombol “Promosikan Tweet”
     showMediaWithContentWarnings: Selalu tampilkan media dengan peringatan konten
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Lengketkan bilah samping

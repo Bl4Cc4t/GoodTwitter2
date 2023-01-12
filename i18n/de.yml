@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: Linksbündige Tweet-Interaktions-Knöpfe
     hidePromoteTweetButton: „Promote Tweet“ verstecken
     showMediaWithContentWarnings: Medien mit Inhaltswarnung immer anzeigen
+    hideTweetAnalytics: Statistiken/Analytics für Tweets verstecken
 
   sidebars:
     stickySidebars: Feste Seitenleisten

@@ -1,9 +1,8 @@
-# english language file
+# serbian language file
 #
 # information
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
-
 
 # strings that are used on the site already.
 twitter-default:
@@ -11,7 +10,7 @@ twitter-default:
   contentWarningNudity: Нагост
   contentWarningViolence: Насиље
   contentWarningSensitiveContent: Осетљив садржај
-  joinDate: Датум придруживања: $date$
+  joinDate: Датум придруживања $date$
   navBookmarks: Обележивачи
   navCommunities: Заједнице
   navMessages: Поруке
@@ -28,7 +27,6 @@ twitter-default:
   topics: Теме
   translateTweet: Преведи твит
   users: Корисници
-
 
 # strings that are used on various parts within the script.
 script:
@@ -47,7 +45,6 @@ script:
   qbUnblock: Одблокирај
   updatedInfo: Ажурирано на $version$!
   updatedInfoChangelog: Дневник промена
-
 
 # these strings are for the gt2 settings page.
 settings:
@@ -68,6 +65,7 @@ settings:
     tweetIconsPullLeft: Скупите дугмад за интеракцију са твитовима са леве стране
     hidePromoteTweetButton: Сакриј дугме „Промовиши твит“.
     showMediaWithContentWarnings: Увек прикажите медије са упозорењима о садржају
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Фиксне бочне плоче
