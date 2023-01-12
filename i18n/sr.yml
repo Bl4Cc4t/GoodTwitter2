@@ -1,0 +1,107 @@
+# english language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Твитуј
+  contentWarningNudity: Нагост
+  contentWarningViolence: Насиље
+  contentWarningSensitiveContent: Осетљив садржај
+  joinDate: Датум придруживања: $date$
+  navBookmarks: Обележивачи
+  navCommunities: Заједнице
+  navMessages: Поруке
+  navExplore: Истражите
+  navHome: Почетна
+  navLists: Листе
+  navNotifications: Обавештења
+  navProfile: Профил
+  statsFollowers: пратиоца
+  statsFollowing: пратиш
+  statsLikes: Свиђања
+  statsMoments: Моменти
+  statsTweets: Твитови
+  topics: Теме
+  translateTweet: Преведи твит
+  users: Корисници
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Датум рођен/на $date$
+  bornYear: Година рођен/на $year$
+  favorite: Омиљен
+  favorites: Омиљени
+  followedBy0: Не прати нико кога пратите
+  followedBy1: Праћен од $p1$
+  followedBy2: Праћен од $p1$ и $p2$
+  followedBy3: Праћен од $p1$, $p2$ и $p3$
+  followedBy4Plus: Праћен од $p1$, $p2$ и $nr$ друге које пратите
+  translatedTweetInfo: Изворни језик $lang$, преведено са $source$
+  qbBlock: Блокирај корисника
+  qbBlocked: Блокиран
+  qbUnblock: Одблокирај
+  updatedInfo: Ажурирано на $version$!
+  updatedInfoChangelog: Дневник промена
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Трака
+    settingsHeaderSidebars: Бочна трака
+    settingsHeaderGlobalLook: Глобални изглед
+    settingsHeaderOther: Остало
+
+  timeline:
+    forceLatest: Присилите режим „Прво најновији твитови“.
+    forceLatestDesc: Омогућавање најновијег режима твитова више није трајно. Када је ово подешавање активно, сајт се аутоматски враћа у режим „Најновији твитови“.
+    biggerPreviews: Већи прегледи слика
+    biggerPreviewsDesc: Високе слике у твитовима су приказане у пуној висини.
+
+  tweets:
+    hideTranslateTweetButton: Сакриј дугме „Преведи твит“.
+    tweetIconsPullLeft: Скупите дугмад за интеракцију са твитовима са леве стране
+    hidePromoteTweetButton: Сакриј дугме „Промовиши твит“.
+    showMediaWithContentWarnings: Увек прикажите медије са упозорењима о садржају
+
+  sidebars:
+    stickySidebars: Фиксне бочне плоче
+    smallSidebars: Смањене бочне плоче
+    smallSidebarsDesc: Бочне траке ширине 290 пиксела уместо 350 пиксела
+    hideTrends: Сакриј „Шта је ново?“
+    leftTrends: Трендови на левој бочној траци
+    leftTrendsDesc: Прикажите трендове на левој бочној траци.
+    show5Trends: Увек покажите 5 трендова
+
+  profile:
+    legacyProfile: Стари изглед профила
+    squareAvatars: Квадратни аватари
+    disableHexagonAvatars: Онемогућите шестоугаоне аватаре
+    enableQuickBlock: Омогућите брзо блокирање
+    enableQuickBlockDesc: Задржите показивач миша преко дугмета за праћење 3 секунде да бисте блокирали профил.
+    leftMedia: Медији са леве бочне траке
+    leftMediaDesc: Прикажи медијски контејнер на страницама профила на левој бочној траци.
+    profileMediaRedirect: Преусмерите на /media када посећујете странице профила
+
+  global-look:
+    hideFollowSuggestions: Сакриј предлоге за праћење (теме, корисници и листе)
+    hideFollowSuggestionsBox: Сакриј $type$ са $location$
+    fontOverride: Користите прилагођени фонт
+    fontOverrideDesc: Подесите прилагођени фонт који ће заменити подразумевани. Ово ради само ако имате инсталиран фонт.
+    colorOverride: Користите прилагођену боју
+    colorOverrideDesc: Подесите прилагођену боју која ће заменити подразумевану.
+    hideMessageBox: Сакриј оквир за поруке
+    hideMessageBoxDesc: Сакрива нови, увек присутан оквир за поруку у доњем десном углу.
+    rosettaIcons: Икони Rosetta
+    rosettaIconsDesc: Користите иконе из фонта Rosetta коришћеног пре 2017
+    favoriteLikes: Замените лајкове са омиљеним (за сада само иконе)
+
+  other:
+    updateNotifications: Обавештења о ажурирању ГоодТвиттер 2
+    expandTcoShortlinks: Дешифрујте кратке везе t.co
+    mobileRedirect: Преусмери УРЛ-ове за мобилне уређаје
