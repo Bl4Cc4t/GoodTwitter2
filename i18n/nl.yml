@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: Bundel tweet-interactieknoppen aan de linkerkant
     hidePromoteTweetButton: Verberg de knop 'Tweet promoten'
     showMediaWithContentWarnings: Geef altijd media weer met inhoudswaarschuwingen
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Sticky Zijbalken

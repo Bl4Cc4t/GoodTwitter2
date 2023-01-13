@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.42
+// @version       0.0.43
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -439,7 +439,8 @@
     tweetIconsPullLeft: false,
     hidePromoteTweetButton: false,
     showMediaWithContentWarnings: false,
-    showMediaWithContentWarningsSel:  7,
+    showMediaWithContentWarningsSel: 7,
+    hideTweetAnalytics: false,
 
     // sidebars
     stickySidebars: true,
@@ -595,6 +596,7 @@
               </div>
             </div>
           `)}
+          ${getSettingTogglePart("hideTweetAnalytics")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderSidebars")}</div>
@@ -1955,6 +1957,10 @@
     }
   })
 
+  if (GM_getValue("opt_gt2").hideTweetAnalytics) {
+    waitForKeyElements(`[data-testid=tweet] [href$="/analytics"]`, e => e[0].parentElement.classList.add("gt2-hidden"))
+  }
+
 
 
   // ########################
@@ -2495,7 +2501,7 @@
         requestTweet(m[1], res => {
           if (!res.source)
             return
-          waitForKeyElements(`[href*="${m[1]}"] time`, e => {
+          waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${m[1]}"] time`, e => {
             e[0].parentElement.insertAdjacentHTML("afterend", `<span class="gt2-tweet-source">${res.source}</span>`)
           })
         })

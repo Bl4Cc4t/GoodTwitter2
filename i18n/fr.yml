@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: Resserrer tous les boutons d'interaction à un tweet sur la gauche
     hidePromoteTweetButton: Cacher le bouton "Promouvoir le tweet"
     showMediaWithContentWarnings: Toujours afficher les médias marqués comme sensibles
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Barres latérales fixes

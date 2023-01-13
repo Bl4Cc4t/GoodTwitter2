@@ -65,6 +65,7 @@ settings:
     tweetIconsPullLeft: Dịch các nút tương tác với tweet về phía bên trái
     hidePromoteTweetButton: Ẩn nút “Promote Tweet”
     showMediaWithContentWarnings: Luôn hiển thị ảnh và video với cảnh báo nội dung
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Ghim thanh bên

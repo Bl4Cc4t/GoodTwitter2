@@ -65,6 +65,7 @@ settings:
     tweetIconsPullLeft: Tweet etkileşim düğmelerini sol tarafta bir araya getir
     hidePromoteTweetButton: “Tweeti Tanıt” düğmesini gizle
     showMediaWithContentWarnings: İçerik uyarısına sahip medyayı her zaman göster
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Yapışkan kenar çubukları

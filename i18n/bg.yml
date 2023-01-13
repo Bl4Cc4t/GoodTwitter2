@@ -1,9 +1,8 @@
-# Bulgarian language file
+# bulgarian language file
 #
 # information
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
-
 
 # strings that are used on the site already.
 twitter-default:
@@ -29,7 +28,6 @@ twitter-default:
   translateTweet: Превод на туит
   users: Потребители
 
-
 # strings that are used on various parts within the script.
 script:
   bornDate: Дата на раждане $date$
@@ -47,7 +45,6 @@ script:
   qbUnblock: Разблокирай
   updatedInfo: Обновено до версия $version$!
   updatedInfoChangelog: Списък с промени
-
 
 # these strings are for the gt2 settings page.
 settings:
@@ -68,6 +65,7 @@ settings:
     tweetIconsPullLeft: Групирай бутоните за взаимодействие на туит вляво
     hidePromoteTweetButton: Скрий бутона “Промоториане на Туит”
     showMediaWithContentWarnings: Винаги показва медията с предупреждения за съдържанието
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Статични панели

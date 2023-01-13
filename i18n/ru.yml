@@ -61,6 +61,7 @@ settings:
     tweetIconsPullLeft: Сгруппировать кнопки взаимодействия с твитами слева
     hidePromoteTweetButton: Скрыть кнопку «Продвигайте свой твит»
     showMediaWithContentWarnings: Всегда показывать медиафайлы с предупреждениями о содержании
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
 
   sidebars:
     stickySidebars: Фиксированные боковые панели
