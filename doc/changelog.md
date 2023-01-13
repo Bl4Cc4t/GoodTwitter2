@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.43](https://github.com/Bl4Cc4t/GoodTwitter2/pull/515)
+*released 2022-12-04*
+
+#### New
+- Serbian translation (thanks [BaneSRB1](https://github.com/BaneSRB1)!, [#514](https://github.com/Bl4Cc4t/GoodTwitter2/pull/514))
+- added option to hide tweet analytics ([#510](https://github.com/Bl4Cc4t/GoodTwitter2/pull/510))
+
+
 ## [0.0.42](https://github.com/Bl4Cc4t/GoodTwitter2/pull/506)
 *released 2022-12-04*
 
