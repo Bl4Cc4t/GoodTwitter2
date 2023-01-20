@@ -52,35 +52,35 @@ settings:
 
   timeline:
     forceLatest: Forzar "Tweets más recientes"
-    forceLatestDesc: Al activar el modo "Tweets más recientes" no se mantiene de forma permanente. Tras activar este ajuste, la página habilitará automáticamente el modo de "Tweets más recientes".
+    forceLatestDesc: Al activar el modo "Tweets más recientes" en Twitter, no se mantiene en ese modo. Tras activar este ajuste, la página cambiará automáticamente el modo de "Tweets más recientes".
     biggerPreviews: Previsualizaciones de imágenes más grandes
     biggerPreviewsDesc: Las imágenes más largas de algunos tweets se muestran en toda su longitud.
 
   tweets:
-    hideTranslateTweetButton: Ocultar botón de Traducir Tweet
+    hideTranslateTweetButton: Ocultar el botón de "Traducir Tweet"
     tweetIconsPullLeft: Agrupar los botones de interacción de los tweets a la izquierda
     hidePromoteTweetButton: Ocultar el botón "Promocionar Tweet"
     showMediaWithContentWarnings: Mostrar siempre los contenidos con advertencia
-    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    hideTweetAnalytics: Ocultar el contador de vistas de los tweets
 
   sidebars:
     stickySidebars: Fijar las barras laterales
     smallSidebars: Hacer las barras laterales pequeñas
     smallSidebarsDesc: Las barras laterales será 290px en lugar de 350px de ancho.
-    hideTrends: Ocultar Tendencias
+    hideTrends: Ocultar las Tendencias
     leftTrends: Barra lateral de Tendencias hacia la izquierda
     leftTrendsDesc: Muestra las tendencias de la barra lateral hacia la izquierda.
-    show5Trends: Mostrar siempre 5 Tendencias
+    show5Trends: Mostrar siempre las 5 Tendencias
 
   profile:
     legacyProfile: Diseño Clásico de Perfil
     squareAvatars: Avatares Cuadrados
     disableHexagonAvatars: Desactivar los avatares hexagonales
     enableQuickBlock: Habilitar el bloqueo rápido
-    enableQuickBlockDesc: Pasa el ratón por encima del botón de seguir durante 3 segundos para bloquear un perfil.
+    enableQuickBlockDesc: Pasa el cursor del mouse por encima del botón de seguir durante 3 segundos para bloquear un perfil.
     leftMedia: Hacer las barras laterales de contenido multimedia hacia la izquierda
     leftMediaDesc: Muestra el contenido multimedia de los perfiles de la barra lateral hacia la izquierda.
-    profileMediaRedirect: Redirigir a /media al visitar las páginas de los perfiles.
+    profileMediaRedirect: Redireccionar a "Fotos y videos" del perfil al visitar un perfil
 
   global-look:
     hideFollowSuggestions: Ocultar "A quién seguir"
@@ -92,7 +92,7 @@ settings:
     hideMessageBox: Ocultar la bandeja de mensajes
     hideMessageBoxDesc: Oculta la nueva bandeja de mensajes que encuentra presente en la esquina inferior de la derecha.
     rosettaIcons: Iconos de Rosetta
-    rosettaIconsDesc: Utiliza la fuente de iconos "Rosetta" previo a 2017
+    rosettaIconsDesc: Utiliza los iconos "Rosetta" previo a 2017
     favoriteLikes: Reemplazar los "Me gusta" por "Favoritos" (por ahora solamente iconos)
 
   other:

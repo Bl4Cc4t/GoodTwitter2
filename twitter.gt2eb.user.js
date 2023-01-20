@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.43
+// @version       0.0.43.1
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -1309,33 +1309,9 @@
 
   // force latest tweets view.
   function forceLatest() {
-    let sparkOptToggle  = `[d*="M2 4c1.66 0 3-1.34 3-3h1c0"]`
-    let sparkOpt        = "#layers [data-testid=Dropdown]"
-
-    GM_setValue("hasRun_forceLatest", false)
-    waitForKeyElements(sparkOptToggle, () => {
-      if (!GM_getValue("hasRun_forceLatest")) {
-        $(sparkOptToggle).closest("[aria-haspopup]").click()
-        $("body").addClass("gt2-hide-spark-opt")
-      }
-
-      waitForKeyElements(`${sparkOpt} a[href='/settings/content_preferences']`, () => {
-        if (!GM_getValue("hasRun_forceLatest")) {
-          GM_setValue("hasRun_forceLatest", true)
-          if ($(sparkOpt).find("> div:nth-child(1) path").length == 3) {
-            $(sparkOpt).children().eq(1).click()
-          } else {
-            $(sparkOptToggle).closest("[aria-haspopup]").click()
-          }
-          $("body").removeClass("gt2-hide-spark-opt")
-
-          // switch to "Latest Tweets" tab if it exists and isn't active
-          let $ltt = $(`[data-testid=primaryColumn] > div > div:nth-child(1) nav div:nth-child(2) > a[href="/home"][aria-selected=false]`)
-          if ($ltt.length) {
-            $ltt[0].click()
-          }
-        }
-      })
+    waitForKeyElements(`[data-gt2-path=home]:not([data-switched-to-latest]) [data-testid=ScrollSnap-List] > div:nth-child(2) > [aria-selected=false]`, e => {
+      e[0].click()
+      document.body.setAttribute("data-switched-to-latest", "")
     })
   }
 
@@ -2493,7 +2469,7 @@
     if (onSubPage(null, ["status"]) || path().startsWith("i/web/status/")) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
-      waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
+      waitForKeyElements("[data-testid=tweet][tabindex=-1] time", () =>  window.scroll(0, window.pageYOffset - 75))
 
       // add source
       let m = location.pathname.match(/\/status\/(\d+)/)
@@ -2502,6 +2478,9 @@
           if (!res.source)
             return
           waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${m[1]}"] time`, e => {
+            if (GM_getValue("opt_gt2").hideTweetAnalytics) {
+              e[0].parentElement.parentElement.querySelectorAll(":scope > span").forEach(e => e.classList.add("gt2-hidden"))
+            }
             e[0].parentElement.insertAdjacentHTML("afterend", `<span class="gt2-tweet-source">${res.source}</span>`)
           })
         })
@@ -2574,10 +2553,15 @@
     waitForKeyElements(`div[data-testid=placementTracking] div[data-testid$="-unblock"],
                         [data-testid=emptyState] [href="https://support.twitter.com/articles/20172060"]`, displayBlockedProfileData)
 
-    // force latest
-    if (GM_getValue("opt_gt2").forceLatest && path().split("/")[0] == "home" && !$(`[data-testid=primaryColumn] > div > div:nth-child(1) nav div:nth-child(2) > a[href="/home"][aria-selected=false]`).length) {
-      forceLatest()
+
+    // home page
+    if (path().split("/")[0] == "home") {
+      if (GM_getValue("opt_gt2").forceLatest)
+        forceLatest()
+    } else {
+      document.body.removeAttribute("data-switched-to-latest")
     }
+
 
     if (!isModal) $("body").attr("data-gt2-prev-path", path())
   }

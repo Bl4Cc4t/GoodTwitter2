@@ -51,8 +51,8 @@ settings:
     settingsHeaderOther: Diverses
 
   timeline:
-    forceLatest: Immer die neusten Tweets
-    forceLatestDesc: Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.
+    forceLatest: „Folge ich“ als Standard-Timeline (Einstellung hieß früher „Immer die neusten Tweets“)
+    forceLatestDesc: Wählt „Folge ich“ standardmäßig aus, wenn man die Startseite aufruft.
     biggerPreviews: Größere Bildervorschauen
     biggerPreviewsDesc: Bildervorschauen in Tweets werden komplett angezeigt.
 

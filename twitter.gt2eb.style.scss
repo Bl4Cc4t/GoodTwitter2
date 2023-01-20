@@ -2428,33 +2428,6 @@ body:not([data-gt2-path^="settings/"]) a[href*="/settings/direct_messages"],
 // #    GT2 functional    #
 // ########################
 
-// hide spark options (home timeline, top right icon)
-.gt2-hide-spark-opt {
-  #layers [data-testid=Dropdown] {
-    display: none;
-  }
-}
-
-// spark settings
-.gt2-spark-toggle {
-  padding: 15px;
-  display: inline-flex;
-
-  svg {
-    height: 1.25em;
-    margin-right: 10px;
-  }
-
-  div {
-    color: var(--color-text);
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--color-elem-sel);
-  }
-}
-
 // hide search when added to navbar
 .gt2-search-added {
   div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {

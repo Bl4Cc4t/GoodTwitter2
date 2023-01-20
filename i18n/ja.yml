@@ -61,7 +61,7 @@ settings:
     tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
     hidePromoteTweetButton: プロモートツイートボタンを隠す
     showMediaWithContentWarnings: コンテンツ警告のあるメディアを常に表示する
-    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    hideTweetAnalytics: ツイート下部のアナリティクス(インプレッション数)を非表示にする
 
   sidebars:
     stickySidebars: サイドバーの固定
