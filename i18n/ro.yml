@@ -61,7 +61,7 @@ settings:
     tweetIconsPullLeft: Mută butoanele de interacțiuni la stânga.
     hidePromoteTweetButton: Ascunde butonul „Promovează Tweet-ul”
     showMediaWithContentWarnings: Afișează mereu conținut media cu avertizări de conținut
-    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    hideTweetAnalytics: Ascunde vizualizările publice pentru tweeturi
 
   sidebars:
     stickySidebars: Bare laterale lipicioase
