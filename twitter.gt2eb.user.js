@@ -2469,7 +2469,7 @@
     if (onSubPage(null, ["status"]) || path().startsWith("i/web/status/")) {
       $("body").addClass("gt2-page-tweet")
       // scroll up on load
-      waitForKeyElements("[data-testid=tweet] [href$=source-labels]", () =>  window.scroll(0, window.pageYOffset - 75))
+      waitForKeyElements("[data-testid=tweet][tabindex=-1] time", () =>  window.scroll(0, window.pageYOffset - 75))
 
       // add source
       let m = location.pathname.match(/\/status\/(\d+)/)
