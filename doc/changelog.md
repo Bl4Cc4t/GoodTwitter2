@@ -1,7 +1,17 @@
 # Changelog
 
+## [0.0.43.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/522)
+*released 2023-01-20*
+
+#### Changes
+- fixed the force latest tweets mode ([#510](https://github.com/Bl4Cc4t/GoodTwitter2/pull/510))
+  - Twitter has removed this timeline setting and instead introduced tabs on the top of the timeline.
+  - ... which you need to click everytime you want to see the latest tweets (now called "Following").
+  - with the setting active, the "Following" tab is selected automatically everytime you visit `/home`
+
+
 ## [0.0.43](https://github.com/Bl4Cc4t/GoodTwitter2/pull/515)
-*released 2022-12-04*
+*released 2023-01-13*
 
 #### New
 - Serbian translation (thanks [BaneSRB1](https://github.com/BaneSRB1)!, [#514](https://github.com/Bl4Cc4t/GoodTwitter2/pull/514))
