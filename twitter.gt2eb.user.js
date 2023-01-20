@@ -2502,6 +2502,9 @@
           if (!res.source)
             return
           waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${m[1]}"] time`, e => {
+            if (GM_getValue("opt_gt2").hideTweetAnalytics) {
+              e[0].parentElement.parentElement.querySelectorAll(":scope > span").forEach(e => e.classList.add("gt2-hidden"))
+            }
             e[0].parentElement.insertAdjacentHTML("afterend", `<span class="gt2-tweet-source">${res.source}</span>`)
           })
         })
