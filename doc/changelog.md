@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.43.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/529)
+*released 2023-01-24*
+
+#### Changes
+- bug fixes
+- translations updated
+
+
 ## [0.0.43.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/522)
 *released 2023-01-20*
 
