@@ -1309,7 +1309,7 @@
 
   // force latest tweets view.
   function forceLatest() {
-    waitForKeyElements(`[data-gt2-path=home]:not([data-switched-to-latest]) [data-testid=ScrollSnap-List] > div:nth-child(2) > [aria-selected=false]`, e => {
+    waitForKeyElements(`body:not([data-switched-to-latest]) [data-testid=ScrollSnap-List] > div:nth-child(2) > [href="/home"][aria-selected=false]`, e => {
       e[0].click()
       document.body.setAttribute("data-switched-to-latest", "")
     })
