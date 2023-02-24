@@ -4,15 +4,16 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
+
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweet
   contentWarningNudity: Ketelanjangan
   contentWarningViolence: Kekerasan
   contentWarningSensitiveContent: Konten sensitif
-  joinDate: Bergabung $date$
+  joinDate: Bergabung pada $date$
   navBookmarks: Markah
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Komunitas
   navMessages: Pesan
   navExplore: Jelajahi
   navHome: Beranda
@@ -27,6 +28,7 @@ twitter-default:
   topics: Topik
   translateTweet: Terjemahkan Tweet
   users: Pengguna
+
 
 # strings that are used on various parts within the script.
 script:
@@ -45,6 +47,7 @@ script:
   qbUnblock: Buka blokir
   updatedInfo: Diperbaharui ke $version$!
   updatedInfoChangelog: Log perubahan
+
 
 # these strings are for the gt2 settings page.
 settings:
@@ -65,7 +68,7 @@ settings:
     tweetIconsPullLeft: Kelompokkan tombol interaksi tweet di sebelah kiri
     hidePromoteTweetButton: Sembunykan tombol “Promosikan Tweet”
     showMediaWithContentWarnings: Selalu tampilkan media dengan peringatan konten
-    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    hideTweetAnalytics: Sembunyikan analitik publik untuk tweet
 
   sidebars:
     stickySidebars: Lengketkan bilah samping
@@ -84,7 +87,7 @@ settings:
     enableQuickBlockDesc: Arahkan kursor ke tombol mengikuti selama 3 detik untuk memblokir profil.
     leftMedia: Bilah media sisi kiri
     leftMediaDesc: Tampilkan wadah media pada halaman profil di bilah sisi kiri.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: Alihkan ke /media ketika mengunjungi halaman profil.
 
   global-look:
     hideFollowSuggestions: Sembunyikan saran ikuti (Topik, Pengguna & Daftar)
@@ -102,4 +105,4 @@ settings:
   other:
     updateNotifications: Notifikasi pembaruan GoodTwitter 2
     expandTcoShortlinks: Perluas tautan pendek t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Alihkan URL mobile
