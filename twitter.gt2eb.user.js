@@ -106,25 +106,59 @@
 
 
   // get account information
+  let info = null
   function getInfo() {
-    let sel = "#react-root ~ script"
-    let infoScript = $(sel).text()
-    function x(reg, defaultVal="") {
-      let m = infoScript.match(reg)
-      return m ? m[1] : defaultVal
+    if (info)
+      return info
+
+    let user = null
+    try {
+      for (let e of Array.from(document.querySelectorAll("#react-root ~ script"))) {
+        if (e.textContent.includes("__INITIAL_STATE__")) {
+          let match = e.textContent.match(/__INITIAL_STATE__=(\{.*?\});window/)
+          if (match) {
+            let initialState = JSON.parse(match[1])
+            user = Object.values(initialState?.entities?.users?.entities)[0] ?? null
+          }
+          break
+        }
+      }
+    } catch (e) {
+      console.error(e)
     }
-    return {
-      bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/),
-      avatarUrl:  x(/profile_image_url_https\":\"(.+?)\",/, defaultAvatarUrl),
-      screenName: x(/screen_name\":\"(.+?)\",/, "youarenotloggedin"),
-      name:       x(/(?:true|false),\"name\":\"(.+?)\",/, x(/screen_name\":\"(.+?)\",/, "Anonymous")),
-      id:         x(/id_str\":\"(\d+)\"/, "0"),
-      stats: {
-        tweets:    parseInt(x(/statuses_count\":(\d+),/, "0")),
-        followers: parseInt(x(/\"followers_count\":(\d+),/, "0")),
-        following: parseInt(x(/friends_count\":(\d+),/, "0")),
+
+
+    if (user) {
+      info = {
+        bannerUrl: user.profile_banner_url,
+        avatarUrl: user.profile_image_url_https,
+        screenName: user.screen_name,
+        name: user.name,
+        id: user.id_str,
+        stats: {
+          tweets: user.statuses_count,
+          followers: user.followers_count,
+          following: user.friends_count
+        }
+      }
+      console.log("user info", info)
+    } else {
+      console.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
+      info = {
+        bannerUrl: "",
+        avatarUrl: defaultAvatarUrl,
+        screenName: "youarenotloggedin",
+        name: "Anonymous",
+        id: "0",
+        stats: {
+          tweets: 0,
+          followers: 0,
+          following: 0
+        }
       }
     }
+
+    return info
   }
 
 
