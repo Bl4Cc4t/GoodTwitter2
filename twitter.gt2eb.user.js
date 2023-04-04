@@ -1224,11 +1224,10 @@
             document.querySelector(".gt2-legacy-profile-info .gt2-legacy-profile-name")
               .insertAdjacentHTML("afterbegin", i.name()[0].innerHTML)
 
-              document.querySelector(`.gt2-legacy-profile-info .gt2-legacy-profile-name [d^="M22.25 12c0-1.43-.88"]`)
-                ?.parentElement?.parentElement?.parentElement
-                ?.addEventListener("click", e => {
-                  document.querySelector(`${profileSel} [d^="M22.25 12c0-1.43-.88"]`)
-                    ?.parentElement?.parentElement?.parentElement?.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+              document.querySelector(`.gt2-legacy-profile-info .gt2-legacy-profile-name [data-testid=icon-verified]`)
+                ?.parentElement?.addEventListener("click", e => {
+                  document.querySelector(`${profileSel} [data-testid=icon-verified]`)
+                    ?.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 
                   // calculate position of the box
                   waitForKeyElements(`#layers > div:nth-child(2) > div > div > div:nth-child(2)`, $floatingBox => {
