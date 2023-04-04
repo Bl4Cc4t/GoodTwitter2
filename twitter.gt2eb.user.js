@@ -18,6 +18,7 @@
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
+// @run-at        document-start
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/data/emoji-regex.txt
@@ -2014,7 +2015,7 @@
   new MutationObserver(mut => {
     mut.forEach(m => {
       let fs = m.target[m.attributeName]["font-size"]
-      let fsOld = m.oldValue.match(/font-size: (\d+px);/)
+      let fsOld = m.oldValue?.match(/font-size: (\d+px);/)
       if (fsOld && fs != "" && fs != fsOld[1]) {
         GM_setValue("opt_display_fontSize", fs)
         updateCSS()
@@ -2612,7 +2613,7 @@
 
   const origPush = exportFunc(pageHistory.pushState, pageWindow)
   pageHistory.pushState = exportFunc(function () {
-    let path = arguments[2].slice(1)
+    let path = arguments.length > 2 ? arguments[2].slice(1) : "???"
     beforeUrlChange(path)
     origPush.apply(this, arguments)
     urlChange("push", path)
@@ -2620,7 +2621,7 @@
 
   const origRepl = exportFunc(pageHistory.replaceState, pageWindow)
   pageHistory.replaceState = exportFunc(function () {
-    let path = arguments[2].slice(1)
+    let path = arguments.length > 2 ? arguments[2].slice(1) : "???"
     beforeUrlChange(path)
     origRepl.apply(this, arguments)
     urlChange("replace", path)
