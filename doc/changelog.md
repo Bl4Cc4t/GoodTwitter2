@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.44](https://github.com/Bl4Cc4t/GoodTwitter2/pull/536)
+*released 2023-04-04*
+
+#### New
+- replaced doge logo (???) with twitter logo
+
+#### Changes
+- fixed username showing up twice in the small profile view
+- translations updated
+
+
 ## [0.0.43.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/529)
 *released 2023-01-24*
 
