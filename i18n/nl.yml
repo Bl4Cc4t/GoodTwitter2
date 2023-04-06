@@ -94,6 +94,7 @@ settings:
     rosettaIcons: Rosetta-pictogrammen
     rosettaIconsDesc: Gebruik het Rosetta-pictogramlettertype van vóór 2017
     favoriteLikes: Vervang vind-ik-leuks door favorieten (voor nu alleen pictogrammen)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 Update Notificaties

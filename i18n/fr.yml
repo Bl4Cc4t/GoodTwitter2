@@ -94,6 +94,7 @@ settings:
     rosettaIcons: Icônes Rosetta
     rosettaIconsDesc: Utiliser les icônes Rosetta (icônes pré-2017)
     favoriteLikes: Remplacer les "j'aime" par les anciens "favoris" (effectue uniquement un changement d'icône pour le moment)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: Notification de mise à jour de GoodTwitter 2
