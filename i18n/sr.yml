@@ -98,6 +98,7 @@ settings:
     rosettaIcons: Икони Rosetta
     rosettaIconsDesc: Користите иконе из фонта Rosetta коришћеног пре 2017
     favoriteLikes: Замените лајкове са омиљеним (за сада само иконе)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: Обавештења о ажурирању ГоодТвиттер 2

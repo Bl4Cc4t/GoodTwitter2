@@ -101,6 +101,7 @@ settings:
     rosettaIcons: Rosetta icons
     rosettaIconsDesc: Use the pre 2017 Rosetta icon font
     favoriteLikes: Replace likes with favorites (only icons for now)
+    birdIcon: Show normal twitter icon instead of memes from 2010
 
   other:
     updateNotifications: GoodTwitter 2 update notifications

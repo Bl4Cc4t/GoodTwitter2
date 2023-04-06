@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.44.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/536)
+*released 2023-04-06*
+
+#### Changes
+- reverted @run directive change causing various things to break ([#537](https://github.com/Bl4Cc4t/GoodTwitter2/issues/537), [#539](https://github.com/Bl4Cc4t/GoodTwitter2/issues/539), [#540](https://github.com/Bl4Cc4t/GoodTwitter2/issues/540), [#541](https://github.com/Bl4Cc4t/GoodTwitter2/issues/541)
+- fixed issues with twitter bird icon not showing up on Chrome ([#538](https://github.com/Bl4Cc4t/GoodTwitter2/issues/538)
+- ... and turned it into a toggle (find it under "Global look")
+
+
 ## [0.0.44](https://github.com/Bl4Cc4t/GoodTwitter2/pull/536)
 *released 2023-04-04*
 

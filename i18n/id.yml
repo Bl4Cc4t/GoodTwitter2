@@ -4,7 +4,6 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tweet
@@ -29,7 +28,6 @@ twitter-default:
   translateTweet: Terjemahkan Tweet
   users: Pengguna
 
-
 # strings that are used on various parts within the script.
 script:
   bornDate: Lahir $date$
@@ -47,7 +45,6 @@ script:
   qbUnblock: Buka blokir
   updatedInfo: Diperbaharui ke $version$!
   updatedInfoChangelog: Log perubahan
-
 
 # these strings are for the gt2 settings page.
 settings:
@@ -101,6 +98,7 @@ settings:
     rosettaIcons: Ikon Rosetta
     rosettaIconsDesc: Gunakan font ikon Rosetta pra-2017
     favoriteLikes: Mengganti suka dengan favorit (hanya ikonnya saja untuk saat ini)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: Notifikasi pembaruan GoodTwitter 2

@@ -94,6 +94,7 @@ settings:
     rosettaIcons: Rosetta Icons
     rosettaIconsDesc: Ersetzt manche Icons mit denen der Rosetta-Schriftart von vor 2017
     favoriteLikes: Ersetzt „Gefällt mir“-Angaben durch Favoriten
+    birdIcon: Zeige normales Twitter-Icon anstelle von Memes von 2010
 
   other:
     updateNotifications: GoodTwitter-2-Update-Benachrichtigungen

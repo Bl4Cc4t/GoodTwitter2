@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.44
+// @version       0.0.44.1
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
@@ -18,7 +18,6 @@
 // @grant         GM_setValue
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
-// @run-at        document-start
 // @connect       api.twitter.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/data/emoji-regex.txt
@@ -503,6 +502,7 @@
     hideMessageBox: true,
     rosettaIcons: false,
     favoriteLikes: false,
+    birdIcon: true,
 
     // other
     updateNotifications: true,
@@ -692,6 +692,7 @@
           ${getSettingTogglePart("hideMessageBox")}
           ${getSettingTogglePart("rosettaIcons")}
           ${getSettingTogglePart("favoriteLikes")}
+          ${getSettingTogglePart("birdIcon")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>

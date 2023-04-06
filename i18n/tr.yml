@@ -98,6 +98,7 @@ settings:
     rosettaIcons: Rosetta simgeleri
     rosettaIconsDesc: 2017 öncesi Rosetta simgesi yazı tipini kullan
     favoriteLikes: Kalbi yıldız ile değiştir (şimdilik sadece simge olarak)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 güncelleme bildirimleri
