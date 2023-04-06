@@ -502,6 +502,7 @@
     hideMessageBox: true,
     rosettaIcons: false,
     favoriteLikes: false,
+    birdIcon: true,
 
     // other
     updateNotifications: true,
@@ -691,6 +692,7 @@
           ${getSettingTogglePart("hideMessageBox")}
           ${getSettingTogglePart("rosettaIcons")}
           ${getSettingTogglePart("favoriteLikes")}
+          ${getSettingTogglePart("birdIcon")}
           <div class="gt2-settings-separator"></div>
 
           <div class="gt2-settings-sub-header">${getLocStr("settingsHeaderOther")}</div>
