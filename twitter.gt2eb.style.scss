@@ -2640,6 +2640,12 @@ a.gt2-trend {
         svg {
           margin-right: 10px;
           height: 1.25em;
+          width: 1.75em;
+        }
+        > :nth-child(2) {
+          font-size: incr(15px);
+          font-weight: 400;
+          line-height: normal;
         }
       }
     }
