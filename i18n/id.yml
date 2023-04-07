@@ -98,7 +98,7 @@ settings:
     rosettaIcons: Ikon Rosetta
     rosettaIconsDesc: Gunakan font ikon Rosetta pra-2017
     favoriteLikes: Mengganti suka dengan favorit (hanya ikonnya saja untuk saat ini)
-    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIcon: Gunakan ikon Twitter normal alih-alih meme dari tahun 2010
 
   other:
     updateNotifications: Notifikasi pembaruan GoodTwitter 2
