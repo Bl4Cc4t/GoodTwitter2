@@ -2,11 +2,9 @@ import { settings, SettingsKey } from "../util/settings"
 import { getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
-import { changeTitle, resetTitle } from "../util/location"
 
 
 const logger = new Logger("component", "page-settings")
-
 
 /**
  * Inserts the GT2 settings menu item into the list of subsettings.
@@ -36,13 +34,11 @@ export function addSettingsMenuEntry(): void {
         if (menuElement) {
           event.preventDefault()
           window.history.pushState({}, "", menuElement.getAttribute("href"))
-          changeTitle("GoodTwitter2")
           addSettings()
         }
 
         // disable settings display again when clicking on another menu item
         else {
-          resetTitle()
           hideSettings()
         }
       })

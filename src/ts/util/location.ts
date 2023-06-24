@@ -216,8 +216,10 @@ export function onLocationChange(type: string): void {
     addSettingsMenuEntry()
 
     if (onPage({settings: ["gt2"]})) {
+      changeTitle("GoodTwitter2")
       addSettings()
     } else {
+      resetTitle()
       hideSettings()
     }
   }
