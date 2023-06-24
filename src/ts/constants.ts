@@ -1,5 +1,4 @@
 import { logger } from "./util/logger"
-import { Path, Theme } from "./types"
 
 
 /**

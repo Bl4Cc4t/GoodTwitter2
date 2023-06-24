@@ -1,6 +1,5 @@
 import { PUBLIC_BEARER } from "../constants"
 import { getLanguage } from "./util"
-import { TwitterApi } from "../types"
 import { Logger } from "./logger"
 
 

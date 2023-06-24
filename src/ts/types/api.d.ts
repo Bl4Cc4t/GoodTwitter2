@@ -1,26 +1,33 @@
 /**
  * Types for the twitter api.
  */
-export namespace TwitterApi {
-  export namespace v1_1 {
-    export namespace statuses {
-      export type show = TweetLegacy
+declare namespace TwitterApi {
+
+  namespace v1_1 {
+    namespace account {
+      type settings = Settings
     }
-    export interface translateTweet extends Translation {
+
+    namespace statuses {
+      type show = TweetLegacy
+    }
+
+    interface translateTweet extends Translation {
       id: string
       id_str: string
       translationState: "Success"
       destinationLanguage: string
     }
-    export interface translateProfile {
+
+    interface translateProfile {
       profileUserId: string
       profileTranslation: ProfileTranslation
     }
   }
 
-  export namespace v2 {
-    export namespace search {
-      export interface adaptive {
+  namespace v2 {
+    namespace search {
+      interface adaptive {
         globalObjects: {
           tweets: {
             [tweetId: string]: TweetLegacy
@@ -30,7 +37,7 @@ export namespace TwitterApi {
     }
   }
 
-  export interface Translation {
+  interface Translation {
     translation: string
     entities: Entities
     sourceLanguage: string
@@ -38,12 +45,12 @@ export namespace TwitterApi {
     translationSource: "Google"
   }
 
-  export interface ProfileTranslation extends Translation {
+  interface ProfileTranslation extends Translation {
     language: string // destination
   }
 
-  export namespace Graphql {
-    export interface TweetDetailResponse {
+  namespace Graphql {
+    interface TweetDetailResponse {
       data: {
         threaded_conversation_with_injections_v2: {
           instructions: Instruction[]
@@ -51,7 +58,7 @@ export namespace TwitterApi {
       }
     }
 
-    export interface UserTweets {
+    interface UserTweets {
       data: {
         user: {
           result: {
@@ -66,7 +73,7 @@ export namespace TwitterApi {
       }
     }
 
-    export interface HomeLatestTimelineResponse {
+    interface HomeLatestTimelineResponse {
       data: {
         home: {
           home_timeline_urt: {
@@ -76,7 +83,7 @@ export namespace TwitterApi {
       }
     }
 
-    export interface UserByScreenNameResponse {
+    interface UserByScreenNameResponse {
       data: {
         user: {
           result: UserResults
@@ -85,7 +92,7 @@ export namespace TwitterApi {
     }
 
 
-    export type Instruction = TimelineClearCache | TimelineTerminateTimeline | TweetDetailTimelineAddEntries
+    type Instruction = TimelineClearCache | TimelineTerminateTimeline | TweetDetailTimelineAddEntries
 
 
     interface TimelineClearCache {
@@ -97,11 +104,11 @@ export namespace TwitterApi {
       direction: "Top" | "Bottom"
     }
 
-    export type TweetDetailTimelineAddEntries = TimelineAddEntries<TimelineTweetItemEntry | TweetDetailTimelineCursor | TweetDetailTimelineModuleEntry>
+    type TweetDetailTimelineAddEntries = TimelineAddEntries<TimelineTweetItemEntry | TweetDetailTimelineCursor | TweetDetailTimelineModuleEntry>
 
-    export type TweetDetailTimelineModuleEntry = TimelineModuleEntry<TimelineTweetItemEntry | TweetDetailTimelineCursor>
+    type TweetDetailTimelineModuleEntry = TimelineModuleEntry<TimelineTweetItemEntry | TweetDetailTimelineCursor>
 
-    export interface TimelineAddEntries<T> {
+    interface TimelineAddEntries<T> {
       type: "TimelineAddEntries"
       entries: {
         entryId: string
@@ -110,7 +117,7 @@ export namespace TwitterApi {
       }[]
     }
 
-    export interface TweetDetailTimelineCursor {
+    interface TweetDetailTimelineCursor {
       entryType: "TimelineTimelineItem"
       itemContent: {
         itemType: "TimelineTimelineCursor"
@@ -120,13 +127,13 @@ export namespace TwitterApi {
       }
     }
 
-    export interface TimelineTweetItemEntries {
+    interface TimelineTweetItemEntries {
       entryId: string
       sortIndex: string
       content: TimelineTweetItemEntry
     }
 
-    export interface TimelineTweetItemEntry {
+    interface TimelineTweetItemEntry {
       entryType: "TimelineTimelineItem"
       itemContent: {
         itemType: "TimelineTweet"
@@ -135,7 +142,7 @@ export namespace TwitterApi {
       }
     }
 
-    export interface TimelineModuleEntry<T> {
+    interface TimelineModuleEntry<T> {
       entryType: "TimelineTimelineModule"
       items: {
         entryId: string
@@ -158,15 +165,15 @@ export namespace TwitterApi {
   // TweetResults
   //////////////////////
 
-  export type TweetResults = {
+  type TweetResults = {
     result: AllTweetResult
   } | {}
 
-  export type AllTweetResult =
+  type AllTweetResult =
       TweetResult
     | TweetTombstoneResult
 
-  export interface TweetResult {
+  interface TweetResult {
     __typename?: "Tweet"
     rest_id: string
     core: {
@@ -207,50 +214,58 @@ export namespace TwitterApi {
     }
   }
 
-  export interface TweetLegacy {
+  interface TweetLegacy {
+    conversation_id_str: string
     created_at: string
-    id_str: string
-    id: number
-    full_text: string
-    truncated: boolean
     display_text_range: number[]
     entities: Entities
     extended_entities: {
       media: MediaExtended[]
     }
-    source: string
-    in_reply_to_status_id: number | null
-    in_reply_to_status_id_str: string | null
-    in_reply_to_user_id_str: string | null
-    in_reply_to_user_id: number | null
-    in_reply_to_screen_name: string | null
-    user: UserLegacy
-    geo: any | null
-    coordinates: any | null
-    place: Place | null
-    contributors: any | null
+    favorite_count: number
+    favorited: boolean
+    full_text: string
+    id_str: string
+    in_reply_to_user_id_str?: string
+    in_reply_to_status_id_str?: string
+    in_reply_to_screen_name?: string
     is_quote_status: boolean
-    quoted_status_id?: number,
-    quoted_status_id_str?: string,
+    lang: string
+    possibly_sensitive?: boolean
+    possibly_sensitive_appealable?: boolean
+    possibly_sensitive_editable?: boolean
+    quoted_status_id_str?: string
     quoted_status_permalink?: {
       url: string
       expanded: string
       display: string
     }
-    quoted_status?: TweetLegacy
+    quote_count: number
+    reply_count: number
     retweet_count: number
-    favorite_count: number
-    favorited: boolean
     retweeted: boolean
-    possibly_sensitive: boolean
-    possibly_sensitive_appealable: boolean
-    possibly_sensitive_editable: boolean
-    lang: string
-    supplemental_language: any | null
-    card_uri: string
+    retweeted_status_result?: {
+      result: TweetResult
+    }
+    self_thread: {
+      id_str: string
+    }
+    source: string
+    user_id_str: string
+
+
+    // truncated: boolean
+    // user: UserLegacy
+    // geo: any | null
+    // coordinates: any | null
+    // place: Place | null
+    // contributors: any | null
+    // quoted_status?: TweetLegacy
+    // supplemental_language: any | null
+    // card_uri: string
   }
 
-  export interface Place {
+  interface Place {
     bounding_box?: {
       coordinates: number[][][]
       type?: string
@@ -263,7 +278,7 @@ export namespace TwitterApi {
     url: string
   }
 
-  export interface Entities {
+  interface Entities {
     // https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/entities-object
     media: Media[]
     user_mentions: UserMention[]
@@ -292,7 +307,7 @@ export namespace TwitterApi {
     resize: string
   }
 
-  export interface Url {
+  interface Url {
     display_url?: string
     expanded_url?: string
     indices: number[]
@@ -308,7 +323,7 @@ export namespace TwitterApi {
     }
   }
 
-  export interface UserMention {
+  interface UserMention {
     id: number
     id_str: string
     indices: number[]
@@ -338,7 +353,7 @@ export namespace TwitterApi {
     url: string
   }
 
-  export interface MediaExtended extends Media {
+  interface MediaExtended extends Media {
     media_key: string
     video_info: {
       aspect_ratio: number[]
@@ -413,7 +428,7 @@ export namespace TwitterApi {
   }
 
 
-  export interface UserResult {
+  interface UserResult {
     __typename: "User"
     id: string
     rest_id: string
@@ -438,7 +453,7 @@ export namespace TwitterApi {
   }
 
 
-  export interface UserLegacy {
+  interface UserLegacy {
     id: number
     id_str: string
     name: string
@@ -505,110 +520,71 @@ export namespace TwitterApi {
     require_some_consent: boolean
   }
 
-}
-
-
-// type additions to the global namespace
-declare global {
-  /**
-   * Global helper variable that contains the i18n strings.
-   */
-  const i18n: {
-    [lang: string]: {
-      [key: string]: string
+  /** User settings. */
+  interface Settings {
+    time_zone: {
+      name: string
+      utc_offset: number
+      tzinfo_name: string
     }
-  }[]
-
-  interface Window {
-    /**
-     * Helper variable for waitForKeyElements.
-     * @see waitForKeyElements
-     */
-    controlObj: any
-
-
-    tweetData: {
-      [tweetId: string]: TwitterApi.TweetLegacy
+    protected: boolean
+    screen_name: string
+    always_use_https: boolean
+    use_cookie_personalization: boolean
+    sleep_time: {
+      enabled: boolean
+      end_time: unknown
+      start_time: unknown
+    },
+    geo_enabled: boolean
+    language: string
+    discoverable_by_email: boolean
+    discoverable_by_mobile_phone: boolean
+    display_sensitive_media: boolean
+    personalized_trends: boolean
+    allow_media_tagging: "all" | string
+    allow_contributor_request: "all" | string
+    allow_ads_personalization: boolean
+    allow_logged_out_device_personalization: boolean
+    allow_location_history_personalization: boolean
+    allow_sharing_data_for_third_party_personalization: boolean
+    allow_dms_from: "all" | string
+    allow_dm_groups_from: "following" | string
+    translator_type: "none" | string
+    trend_location: {
+      name: "Worldwide"
+      countryCode: string | null
+      url: string
+      woeid: number
+      placeType: {
+        name: string
+        code: number
+      }
+      parentid: number
+      country: string
+    }[]
+    country_code: string
+    nsfw_user: boolean
+    nsfw_admin: boolean
+    ranked_timeline_setting: number
+    ranked_timeline_eligible: unknown
+    address_book_live_sync_enabled: boolean
+    universal_quality_filtering_enabled: "enabled" | "disabled"
+    dm_receipt_setting: "all_enabled" | string
+    alt_text_compose_enabled: boolean
+    mention_filter: "unfiltered" | string
+    allow_authenticated_periscope_requests: boolean
+    protect_password_reset: boolean
+    require_password_login: boolean
+    requires_login_verification: boolean
+    ext_sharing_audiospaces_listening_data_with_followers: boolean
+    ext: {
+      ssoConnections: any
+    },
+    dm_quality_filter: "enabled" | "disabled"
+    autoplay_disabled: boolean
+    settings_metadata: {
+      is_eu: "true" | "false"
     }
   }
-
-  interface Node {
-    /**
-     * Helper attribute for waitForKeyElements.
-     * @see waitForKeyElements
-     */
-    alreadyFound: boolean
-  }
-}
-
-/**
- * The path type. Used for the onPage function.
- * @see onPage
- */
-export type Path = {
-  [key: string]: Path
-} | Array<Path | string>
-
-
-/**
- * Available themes.
- */
-export type Theme = (typeof import("./constants").THEMES)[number]
-
-
-/**
- * Replacable i18n strings.
- */
-export interface I18nReplacable {
-  bornDate: {
-    date: string
-  }
-  bornYear: {
-    year: string
-  }
-  followedBy1: {
-    p1: string
-  }
-  followedBy2: {
-    p1: string
-    p2: string
-  }
-  followedBy3: {
-    p1: string
-    p2: string
-    p3: string
-  }
-  followedBy4Plus: {
-    p1: string
-    p2: string
-    nr: number
-  }
-  translatedTweetInfo: {
-    lang: string
-    source: string
-  }
-  updatedInfo: {
-    version: string
-  }
-  hideFollowSuggestionsBox: {
-    type: string
-    location: string
-  }
-}
-
-
-/**
- * Info object for a user.
- */
-export interface UserInfo {
-  bannerUrl: string
-    avatarUrl: string
-    screenName: string
-    name: string
-    id: string
-    stats: {
-      tweets: number
-      followers: number
-      following: number
-    }
 }

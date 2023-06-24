@@ -1,7 +1,6 @@
 import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
 import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, RESOURCE_CSS, TEXT_COLOR_TO_THEME } from "./constants"
-import { Theme } from "./types"
 import { settings } from "./util/settings"
 import { Logger } from "./util/logger"
 

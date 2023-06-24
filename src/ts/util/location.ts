@@ -1,7 +1,6 @@
 import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { MODAL_PAGES, TITLE_ADJUSTMENTS } from "../constants"
-import { Path } from "../types"
 import { Logger } from "./logger"
 import { settings } from "./settings"
 import { enableLatestTweets } from "./timeline"

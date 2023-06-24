@@ -1,4 +1,3 @@
-import { TwitterApi } from "../types"
 import { Logger } from "./logger"
 import { requestTweet } from "./request"
 import { getLocalizedString, waitForKeyElements } from "./util"

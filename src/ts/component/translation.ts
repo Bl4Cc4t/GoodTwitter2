@@ -2,7 +2,6 @@ import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, 
 import { settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
-import { TwitterApi } from "types"
 import { getTweetData, getTweetId } from "../util/tweet"
 
 

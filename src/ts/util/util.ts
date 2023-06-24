@@ -1,5 +1,4 @@
-import { DEFAULT_AVATAR_URL, MODAL_PAGES, SVG } from "../constants"
-import { I18nReplacable, Path, UserInfo } from "../types"
+import { DEFAULT_AVATAR_URL, SVG } from "../constants"
 import { Logger } from "./logger"
 import { settings } from "./settings"
 

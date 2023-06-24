@@ -1,7 +1,7 @@
 import { EMOJI_REGEXP } from "../../constants"
 import { settings } from "../settings"
-import { TwitterApi } from "../../types"
 import { logger } from "../logger"
+
 export {}
 
 declare global {
