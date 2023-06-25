@@ -144,7 +144,6 @@ function getSettingsHtml(): string {
       ${getSettingToggleHtml("legacyProfile")}
       ${getSettingToggleHtml("squareAvatars")}
       ${getSettingToggleHtml("disableHexagonAvatars")}
-      ${getSettingToggleHtml("enableQuickBlock")}
       ${getSettingToggleHtml("leftMedia")}
       ${getSettingToggleHtml("profileMediaRedirect")}
       <div class="gt2-settings-separator"></div>

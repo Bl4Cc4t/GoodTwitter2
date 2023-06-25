@@ -24,7 +24,6 @@ const INITIAL_SETTINGS = {
   legacyProfile: false,
   squareAvatars: false,
   disableHexagonAvatars: false,
-  enableQuickBlock: false,
   leftMedia: false,
   profileMediaRedirect: false,
 

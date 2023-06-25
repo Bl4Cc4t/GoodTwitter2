@@ -42,9 +42,6 @@ script:
   followedBy3: $p1$さん、$p2$さん、$p3$さんにフォローされています
   followedBy4Plus: フォローしている$p1$さん、$p2$さん、他$nr$人にフォローされています
   translatedTweetInfo: $source$による$lang$からの翻訳
-  qbBlock: さんをブロック
-  qbBlocked: ブロック中
-  qbUnblock: ブロック解除
   updatedInfo: バージョン$version$に更新完了しました！
   updatedInfoChangelog: 更新履歴
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: プロフィールページを旧UIのレイアウトに変更する
     squareAvatars: 四角いアイコン表示
     disableHexagonAvatars: 六角形アイコンを無効化する
-    enableQuickBlock: クイックブロックを有効化する
-    enableQuickBlockDesc: フォローボタンの上に3秒間カーソルを置くとブロックすることができます。
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

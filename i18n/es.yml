@@ -42,9 +42,6 @@ script:
   followedBy3: Seguido por $p1$, $p2$ y $p3$
   followedBy4Plus: Seguido por $p1$, $p2$ y otros $nr$ a quienes tú sigues
   translatedTweetInfo: Traducido del $lang$ por $source$
-  qbBlock: Bloquear
-  qbBlocked: Bloqueado
-  qbUnblock: Desbloquear
   updatedInfo: ¡Actualizado a $version$!
   updatedInfoChangelog: Lista de cambios
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Diseño Clásico de Perfil
     squareAvatars: Avatares Cuadrados
     disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
     leftMedia: Left sidebar media # TODO translation missing!
     leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

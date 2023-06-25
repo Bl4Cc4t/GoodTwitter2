@@ -42,9 +42,6 @@ script:
   followedBy3: $p1$, $p2$, $p3$ 님이 팔로우합니다
   followedBy4Plus: $p1$ 님, $p2$ 님 외 $nr$ 명이 팔로우했습니다
   translatedTweetInfo: $lang$에서 번역 ($source$ 제공)
-  qbBlock: 차단하기
-  qbBlocked: 차단됨
-  qbUnblock: 차단 해제
   updatedInfo: $version$ 버전으로 업데이트되었습니다!
   updatedInfoChangelog: 변경 기록
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: 예전 프로필 레이아웃
     squareAvatars: 사각형 프로필 사진
     disableHexagonAvatars: 육각형 프로필 사진 비활성화
-    enableQuickBlock: 빠른 차단 활성화
-    enableQuickBlockDesc: 팔로우 버튼에 마우스를 3초간 올려 사용자를 차단할수 있도록 합니다.
     leftMedia: 왼쪽 사이드바 미디어
     leftMediaDesc: 프로필 페이지의 왼쪽 사이드바에 미디어 모음을 추가합니다.
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

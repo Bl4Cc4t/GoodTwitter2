@@ -42,9 +42,6 @@ script:
   followedBy3: Được theo dõi bởi $p1$, $p2$ và $p3$
   followedBy4Plus: Được theo dõi bởi $p1$, $p2$ và $nr$ người khác mà bạn theo dõi
   translatedTweetInfo: Được dịch từ $lang$ bởi $source$
-  qbBlock: Chặn
-  qbBlocked: Đã chặn
-  qbUnblock: Bỏ chặn
   updatedInfo: Cập nhật đến $version$!
   updatedInfoChangelog: Thay đổi
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Bố cục trang hồ sơ cũ
     squareAvatars: Hình đại diện vuông
     disableHexagonAvatars: Tắt hình đại diện lục giác
-    enableQuickBlock: Bật chặn nhanh
-    enableQuickBlockDesc: Đặt con trỏ chuột ở nút theo dõi trong 3 giây để chặn một ai đó.
     leftMedia: Đa phương tiện ở bên trái
     leftMediaDesc: Hiển thị khung đa phương tiện ở thanh bên trái.
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

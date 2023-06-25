@@ -42,9 +42,6 @@ script:
   followedBy3: Followed by $p1$, $p2$ and $p3$ # TODO translation missing!
   followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow # TODO translation missing!
   translatedTweetInfo: 由 $source$ 從 $lang$ 翻譯
-  qbBlock: 封鎖
-  qbBlocked: 己封鎖
-  qbUnblock: 解除封鎖
   updatedInfo: 更新了 $version$!
   updatedInfoChangelog: 更新日誌
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Legacy profile layout # TODO translation missing!
     squareAvatars: 正方形的頭像
     disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
     leftMedia: Left sidebar media # TODO translation missing!
     leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

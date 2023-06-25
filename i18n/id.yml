@@ -42,9 +42,6 @@ script:
   followedBy3: Diikuti oleh $p1$, $p2$ dan $p3$
   followedBy4Plus: Diikuti oleh $p1$, $p2$ dan $nr$ lainnya yang Anda ikuti
   translatedTweetInfo: Diterjemahkan ke $lang$ dari $source$
-  qbBlock: Blokir
-  qbBlocked: Terblokir
-  qbUnblock: Buka blokir
   updatedInfo: Diperbaharui ke $version$!
   updatedInfoChangelog: Log perubahan
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Tampilan profil lawas
     squareAvatars: Avatar kotak
     disableHexagonAvatars: Matikan avatar segienam
-    enableQuickBlock: Aktifkan Blokir Cepat
-    enableQuickBlockDesc: Arahkan kursor ke tombol mengikuti selama 3 detik untuk memblokir profil.
     leftMedia: Bilah media sisi kiri
     leftMediaDesc: Tampilkan wadah media pada halaman profil di bilah sisi kiri.
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

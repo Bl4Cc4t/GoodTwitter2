@@ -42,9 +42,6 @@ script:
   followedBy3: Urmărit de $p1$, $p2$ și $p3$
   followedBy4Plus: Urmărit de $p1$, $p2$ și de încă $nr$ persoane pe care le urmărești
   translatedTweetInfo: Traducere din $lang$ de $source$
-  qbBlock: Blochează
-  qbBlocked: Blocat
-  qbUnblock: Deblochează
   updatedInfo: Actualizat la $version$!
   updatedInfoChangelog: Jurnal de schimbări
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Design de Profil Clasic
     squareAvatars: Avatare Pătrate
     disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Activează Quickblock
-    enableQuickBlockDesc: Plasează cursorul deasupra butonul „Urmărește” pentru 3 secunde să blochezi un profil.
     leftMedia: Conținut media în bara laterală de stânga
     leftMediaDesc: Afișați containerul media pe paginile de profil în bara laterală de stânga.
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

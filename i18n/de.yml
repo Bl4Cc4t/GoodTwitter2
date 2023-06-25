@@ -11,9 +11,9 @@ twitter-default:
   contentWarningViolence: Violence
   contentWarningSensitiveContent: Sensitive content
   joinDate: Seit $date$ bei Twitter
-  moreTweets: Mehr Tweets # TODO translation missing!
+  moreTweets: Mehr Tweets
   navBookmarks: Lesezeichen
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Communities
   navMessages: Nachrichten
   navExplore: Entdecken
   navHome: Startseite
@@ -42,9 +42,6 @@ script:
   followedBy3: Gefolgt von $p1$, $p2$ und $p3$
   followedBy4Plus: Gefolgt von $p1$, $p2$ und $nr$ weiteren Personen, denen du folgst
   translatedTweetInfo: Original ($lang$) übersetzt von $source$
-  qbBlock: Blockieren
-  qbBlocked: Blockiert
-  qbUnblock: Entblocken
   updatedInfo: Aktualisiert auf $version$!
   updatedInfoChangelog: Changelog
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Altes Profil-Layout
     squareAvatars: Eckige Avatare
     disableHexagonAvatars: Hexagonale Avatar deaktivieren
-    enableQuickBlock: Quickblock aktivieren
-    enableQuickBlockDesc: Halte den Mauszeiger für 3 Sekunden über einen Folgen-Knopf, um das Profil zu blockieren
     leftMedia: Bilder/Videos in linker Seitenleiste
     leftMediaDesc: Zeigt die Bilder/Videos eines Profils in der linken Seitenleiste an.
     profileMediaRedirect: Umleiten auf /media beim Besuch von Profilen

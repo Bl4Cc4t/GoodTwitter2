@@ -42,9 +42,6 @@ script:
   followedBy3: $p1$、$p2$ 和 $p3$ 都已关注
   followedBy4Plus: $p1$、$p2$ 和你关注的另外 $nr$ 人关注了此账号
   translatedTweetInfo: "由 $source$ 翻译自 $lang$ "
-  qbBlock: 屏蔽
-  qbBlocked: 已屏蔽
-  qbUnblock: 取消屏蔽
   updatedInfo: 升级到 $version$!
   updatedInfoChangelog: 更新日志
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: 以传统方式显示个人资料
     squareAvatars: 正方形头像
     disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
     leftMedia: Left sidebar media # TODO translation missing!
     leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!

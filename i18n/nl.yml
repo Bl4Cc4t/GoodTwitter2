@@ -42,9 +42,6 @@ script:
   followedBy3: Gevolgd door $p1$, $p2$ en $p3$
   followedBy4Plus: Gevolgd door $p1$, $p2$ en $nr$ anderen die je volgt
   translatedTweetInfo: Vertaald van $lang$ door $source$
-  qbBlock: "*Blokkeren"
-  qbBlocked: Geblokkeerd
-  qbUnblock: Deblokkeren
   updatedInfo: Ge-update naar $version$!
   updatedInfoChangelog: Changelog
 
@@ -83,8 +80,6 @@ settings:
     legacyProfile: Verouderde profiellay-out
     squareAvatars: Vierkante Avatars
     disableHexagonAvatars: Zeshoekige avatars uitschakelen
-    enableQuickBlock: Quickblock inschakelen
-    enableQuickBlockDesc: Beweeg de muis over de volgknop gedurende 3 seconden om een profiel te blokkeren.
     leftMedia: Media in de linkerzijbalk
     leftMediaDesc: Toon de mediacontainer op profielpagina's in de linkerzijbalk.
     profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
