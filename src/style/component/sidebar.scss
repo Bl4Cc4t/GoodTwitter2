@@ -255,20 +255,18 @@ a.gt2-trend {
 // trends
 .gt2-trends-handled,
 .gt2-trends section {
-  > div > div {
-    > div {
-      // smaller padding next to the trends cog
-      &:nth-child(1) {
-        padding-right: 5px;
-      }
+  > div > div > div > div > div {
+    // smaller padding next to the trends cog
+    &:nth-child(1) {
+      padding-right: 5px;
+    }
 
-      &[role=button] {
-        border-radius: unset;
-      }
+    &[role=button] {
+      border-radius: unset;
     }
 
     // ChirpUpdate: readd vertical dividers
-    > div:nth-child(n+3) {
+    &:nth-child(n+3) {
       @include separator-top;
     }
   }
