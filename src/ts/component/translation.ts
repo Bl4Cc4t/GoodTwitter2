@@ -113,28 +113,34 @@ function translateTweetHandler(event: MouseEvent): void {
         return
       }
 
-      getTweetTranslation(res.quoted_status_id_str, tlRes => {
-        logger.debug("got translation response", tlRes)
-
-        let html = getTranslationHtml(tlRes)
-        target.classList.add("gt2-hidden")
-        target.insertAdjacentHTML("afterend", html)
-      })
+      getTweetTranslation(res.quoted_status_id_str, response => onTweetTranslationRequest(target, response))
     })
   }
 
   // normal tweet
   else {
     logger.debug("translating normal tweet...")
-    getTweetTranslation(id, tlRes => {
-      logger.debug("got translation response", tlRes)
-
-      let html = getTranslationHtml(tlRes)
-      target.classList.add("gt2-hidden")
-      target.insertAdjacentHTML("afterend", html)
-    })
+    getTweetTranslation(id, response => onTweetTranslationRequest(target, response))
   }
+}
 
+
+/**
+ * Callback function for tweet translation requests.
+ * @param target the target element
+ * @param response the API response
+ */
+function onTweetTranslationRequest(target: Element, response: TwitterApi.v1_1.translateTweet) {
+  logger.debug("got translation response", response)
+
+  let html = response.translationState == "Success"
+    ? getTranslationHtml(response)
+    : `
+      <div class="gt2-translated-tweet-info">Tweet translation</div>
+      <div class="gt2-translated-tweet">API error translating tweet (status: ${response.translationState})</div>`
+
+  target.classList.add("gt2-hidden")
+  target.insertAdjacentHTML("afterend", html)
 }
 
 

@@ -15,7 +15,7 @@ declare namespace TwitterApi {
     interface translateTweet extends Translation {
       id: string
       id_str: string
-      translationState: "Success"
+      translationState: "Success" | "Missing"
       destinationLanguage: string
     }
 
