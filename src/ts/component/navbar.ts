@@ -2,14 +2,14 @@ import { Logger } from "../util/logger"
 import { addClickHandlerToMockElement, getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements, watchForChanges } from "../util/util"
 
 
-const logger = new Logger("component", "navbar")
+const _logger = new Logger("component", "navbar")
 
 
 /**
  * Entry function for adding the navbar component.
  */
 export function initializeNavbar() {
-  logger.debug("initializing navbar")
+  _logger.debug("initializing navbar")
   addNavbar()
   addSearch()
 }
@@ -19,7 +19,7 @@ export function initializeNavbar() {
  * Adds the navbar to the page.
  */
 function addNavbar(): void {
-  logger.debug("waiting for header to appear")
+  _logger.debug("waiting for header to appear")
   waitForKeyElements(`nav > [data-testid]`, () => {
     if (document.querySelector(".gt2-nav")) return
 
@@ -43,7 +43,7 @@ function addNavbar(): void {
         </nav>
         <div class="gt2-search-overflow-hider"></div>`)
 
-    logger.debug(`added navbar`)
+    _logger.debug(`added navbar`)
 
 
     let navbarElementsToAdd: {
@@ -119,7 +119,7 @@ function highlightNavbarLocation(): void {
   let elem = document.querySelector(`.gt2-nav a[href^='/${location.pathname.split("/")[1]}']`)
   if (elem) {
     elem.classList.add("active")
-    logger.debug("highlighted location on navbar element:", elem)
+    _logger.debug("highlighted location on navbar element:", elem)
   }
 }
 
@@ -132,7 +132,7 @@ function highlightNavbarLocation(): void {
 function addOrUpdateNavbarElement(selector: string, localizedString: string): void {
   let origElem = document.querySelector(`header ${selector}`) as HTMLElement
   if (!origElem) {
-    logger.error(`Error finding navbar element with selector "${selector}"`)
+    _logger.error(`Error finding navbar element with selector "${selector}"`)
     return
   }
 
@@ -142,7 +142,7 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
   if (!mockElem) {
     document.querySelector(".gt2-nav-left")
     .insertAdjacentHTML("beforeend", origElem.outerHTML)
-    logger.debug(`added navbar element with selector "${selector}"`)
+    _logger.debug(`added navbar element with selector "${selector}"`)
     mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
     // click handler
@@ -152,7 +152,7 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
   // mock element already exists
   else {
     mockElem.innerHTML = origElem.innerHTML
-    logger.debug(`updated navbar element with selector "${selector}"`)
+    _logger.debug(`updated navbar element with selector "${selector}"`)
   }
 
   mockElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
@@ -165,21 +165,21 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
  * Adds the search box to the navbar.
  */
 function addSearch(): void {
-  logger.debug("waiting for search to appear")
+  _logger.debug("waiting for search to appear")
   waitForKeyElements(".gt2-search", mockSearch => {
     waitForKeyElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
       let searchContainer = search.closest("form")
         ?.parentElement?.parentElement?.parentElement?.parentElement
 
       if (!searchContainer) {
-        logger.error("search container not found")
+        _logger.error("search container not found")
         return
       }
 
       // replace mock search
       let hadInput = mockSearch.querySelector("input") != null
       mockSearch.replaceChildren(searchContainer)
-      logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
+      _logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
     }, false)
   }, false)
 }
@@ -192,7 +192,7 @@ export function removeSearch(): void {
   let search = document.querySelector(".gt2-search")
   if (search) {
     search.replaceChildren()
-    logger.debug("removed search")
+    _logger.debug("removed search")
   }
 }
 
@@ -203,13 +203,13 @@ export function removeSearch(): void {
 function addBird(): void {
   let bird = document.querySelector<HTMLElement>("header h1 svg")
   if (!bird) {
-    logger.error("couldn't find twitter bird")
+    _logger.error("couldn't find twitter bird")
   } else {
     let mockBird = document.querySelector(".gt2-nav-bird")
 
     mockBird.insertAdjacentHTML("beforeend", bird.outerHTML)
     addClickHandlerToMockElement(mockBird, bird)
-    logger.debug("added twitter bird to navbar")
+    _logger.debug("added twitter bird to navbar")
   }
 }
 
@@ -219,7 +219,7 @@ function addBird(): void {
  */
 function dropdownToggledHandler(): void {
   let info = getCurrentUserInfo()
-  logger.debug("dropdown menu toggled")
+  _logger.debug("dropdown menu toggled")
 
   // open "more menu"
   let moreMenuButton = document.querySelector<HTMLElement>("header [data-testid=AppTabBar_More_Menu]")
@@ -263,7 +263,7 @@ function dropdownToggledHandler(): void {
       let mockElem = moreMenu.querySelector(elem.selector)
       mockElem.firstElementChild.insertAdjacentHTML("beforeend", `<span>${elem.localizedString}</span>`)
       addClickHandlerToMockElement(mockElem, origElem, () => moreMenuButton.click())
-      logger.debug(`added dropdown element with selector "${elem.selector}"`)
+      _logger.debug(`added dropdown element with selector "${elem.selector}"`)
     }
 
     // expand sections
@@ -283,7 +283,7 @@ function dropdownToggledHandler(): void {
       let target = event.target as HTMLElement
       if (target.closest("a") && event.button == 1) {
         target.dispatchEvent(new MouseEvent("click", { ctrlKey: true }))
-        logger.debug("middle clicked dropdown element", target.closest("a"))
+        _logger.debug("middle clicked dropdown element", target.closest("a"))
       }
     })
   })

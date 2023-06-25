@@ -5,7 +5,7 @@ import { Logger } from "../util/logger"
 import { getTweetData } from "../util/tweet"
 
 
-const logger = new Logger("component", "translation")
+const _logger = new Logger("component", "translation")
 
 
 /**
@@ -44,7 +44,7 @@ function addInlineTranslateTweetButton(): void {
           ${getLocalizedString("translateTweet")}
         </div>
       `)
-      logger.debug("added translate button to element: ", e)
+      _logger.debug("added translate button to element: ", e)
     }
   }, false)
 }
@@ -71,7 +71,7 @@ function hideTranslationHandler(event: MouseEvent): void {
     if (prev.matches(".gt2-translate-tweet, [role=button]"))
       prev.classList.remove("gt2-hidden")
   }
-  logger.debug("translation hidden", target)
+  _logger.debug("translation hidden", target)
 }
 
 
@@ -92,7 +92,7 @@ function translateTweetHandler(event: MouseEvent): void {
     target.parentElement
       .querySelectorAll(".gt2-translated-tweet, .gt2-translated-tweet-info")
       .forEach(e => e.classList.remove("gt2-hidden"))
-    logger.debug("translation shown", target)
+    _logger.debug("translation shown", target)
     return
   }
 
@@ -107,14 +107,14 @@ function translateTweetHandler(event: MouseEvent): void {
 
   // quoted tweet
   if (isQuotedTweet) {
-    logger.debug("translating quoted tweet...")
+    _logger.debug("translating quoted tweet...")
 
     getTweetTranslation(tweet.quoted_status.id_str, response => onTweetTranslationRequest(target, response))
   }
 
   // normal tweet
   else {
-    logger.debug("translating normal tweet...")
+    _logger.debug("translating normal tweet...")
     getTweetTranslation(tweet.id_str, response => onTweetTranslationRequest(target, response))
   }
 }
@@ -126,7 +126,7 @@ function translateTweetHandler(event: MouseEvent): void {
  * @param response the API response
  */
 function onTweetTranslationRequest(target: Element, response: TwitterApi.v1_1.translateTweet) {
-  logger.debug("got translation response", response)
+  _logger.debug("got translation response", response)
 
   let html = response.translationState == "Success"
     ? getTranslationHtml(response)
@@ -145,13 +145,13 @@ function translateProfileHandler(event: MouseEvent): void {
   if (!target.matches(".gt2-translate-profile")) return
   event.preventDefault()
 
-  logger.debug("translating profile...")
-  logger.error("NOT IMPLEMENTED")
+  _logger.debug("translating profile...")
+  _logger.error("NOT IMPLEMENTED")
 
   let userId
 
   getProfileTranslation(userId, res => {
-    logger.debug("got translation response", res)
+    _logger.debug("got translation response", res)
 
     let html = getTranslationHtml(res.profileTranslation)
     target.classList.add("gt2-hidden")
@@ -169,11 +169,11 @@ function getTranslationHtml(translation: TwitterApi.Translation): string {
   let tl = translation.translation
 
   if (translation.entities) {
-    logger.debug("adding entities to translation...")
+    _logger.debug("adding entities to translation...")
     tl = tl.populateWithEntities(translation.entities)
   }
 
-  logger.debug("replacing emojis...")
+  _logger.debug("replacing emojis...")
   tl = tl.replaceEmojis()
 
   let info = getLocalizedReplacableString("translatedTweetInfo", {

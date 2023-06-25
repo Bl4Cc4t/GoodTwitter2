@@ -3,7 +3,7 @@ import { Logger } from "./logger"
 import { settings } from "./settings"
 
 
-const logger = new Logger("util")
+const _logger = new Logger("util")
 
 
 /**
@@ -46,23 +46,23 @@ export function getLanguage(): string {
  */
 export function getLocalizedString(key: string): string {
   if (!i18n) {
-    logger.error("error getting i18n data.")
+    _logger.error("error getting i18n data.")
     return key
   }
 
   let lang = getLanguage()
   if (!Object.keys(i18n).includes(lang)) {
-    logger.warn(`the language file for ${lang} does not exist yet. falling back to english.`)
+    _logger.warn(`the language file for ${lang} does not exist yet. falling back to english.`)
     lang = "en"
   }
 
   if (!Object.keys(i18n[lang]).includes(key)) {
     if (!hasLocalizedString(key)) {
-      logger.error(`the string "${key}" does not exist.`)
+      _logger.error(`the string "${key}" does not exist.`)
       return null
     }
 
-    logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
+    _logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
     lang = "en"
   }
 
@@ -199,7 +199,7 @@ export function getCurrentUserInfo(): UserInfo {
       }
     }
   } catch (e) {
-    logger.error(e)
+    _logger.error(e)
   }
 
 
@@ -216,9 +216,9 @@ export function getCurrentUserInfo(): UserInfo {
         following: user.friends_count
       }
     }
-    logger.info("got user info", window.userInfo)
+    _logger.info("got user info", window.userInfo)
   } else {
-    logger.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
+    _logger.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
     window.userInfo = {
       bannerUrl: "",
       avatarUrl: DEFAULT_AVATAR_URL,
@@ -284,5 +284,5 @@ export function dismissSidebarNotice(key: string): void {
   let notices = GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, [])
   notices.push(key)
   GM_setValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, notices)
-  logger.debug("dismissed sidebar notice with key: ", key)
+  _logger.debug("dismissed sidebar notice with key: ", key)
 }

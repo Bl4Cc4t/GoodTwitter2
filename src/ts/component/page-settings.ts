@@ -4,7 +4,7 @@ import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
 
 
-const logger = new Logger("component", "page-settings")
+const _logger = new Logger("component", "page-settings")
 
 /**
  * Inserts the GT2 settings menu item into the list of subsettings.
@@ -24,7 +24,7 @@ export function addSettingsMenuEntry(): void {
         </a>
       `)
 
-      logger.debug("added gt2 settings menu entry")
+      _logger.debug("added gt2 settings menu entry")
 
       e.addEventListener("click", event => {
         let target = event.target as Element
@@ -229,7 +229,7 @@ export function addSettings(): void {
       settingsContainer = document.querySelector("main > div > div > div")
       settingsContainer.insertAdjacentHTML("beforeend", `<section>${settingsHtml}</section>`)
     }
-    logger.debug(`added gt2 settings to `, settingsContainer)
+    _logger.debug(`added gt2 settings to `, settingsContainer)
 
 
     // add color pickr
@@ -293,10 +293,10 @@ function initializeColorPickr(): void {
   .on("change", (color: Pickr.HSVaColor) => {
     let val = color.toRGBA().toString(0).slice(5, -4)
     settings.set("colorOverrideValue", val)
-    logger.debug(`color picked: ${val}`)
+    _logger.debug(`color picked: ${val}`)
   })
 
-  logger.debug("color pickr initialized.")
+  _logger.debug("color pickr initialized.")
 }
 
 
@@ -311,10 +311,10 @@ function disableTogglesIfNeeded(): void {
 
       if (settings.get("hideTrends") && !isDisabled) {
         e.classList.add("gt2-disabled")
-        logger.debug(`disabled component `, e)
+        _logger.debug(`disabled component `, e)
       } else if (!settings.get("hideTrends") && isDisabled) {
         e.classList.remove("gt2-disabled")
-        logger.debug(`enabled component `, e)
+        _logger.debug(`enabled component `, e)
       }
     })
 
@@ -341,7 +341,7 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
   let target = document.querySelector(selector)
 
   if (!target) {
-    logger.warn(`Element with selector "${selector}" does not exist (yet)`)
+    _logger.warn(`Element with selector "${selector}" does not exist (yet)`)
     return
   }
 
@@ -349,10 +349,10 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
 
   if (settings.get(toggle) && isHidden) {
     target.classList.remove("gt2-hidden")
-    logger.debug(`revealed component `, target)
+    _logger.debug(`revealed component `, target)
   } else if (!settings.get(toggle) && !isHidden) {
     target.classList.add("gt2-hidden")
-    logger.debug(`hid component `, target)
+    _logger.debug(`hid component `, target)
   }
 }
 
@@ -378,13 +378,13 @@ function toggleClickHandler(event: MouseEvent): void {
   // multi selection
   if (settingSel) {
     settings.xor(settingName, parseInt(settingSel))
-    logger.debug(`setting selection changed: ${settingName} = ${settings.get(settingName)}`)
+    _logger.debug(`setting selection changed: ${settingName} = ${settings.get(settingName)}`)
   }
 
   // normal toggle
   else {
     settings.toggle(settingName as SettingsKey)
-    logger.debug(`setting toggled: ${settingName}`)
+    _logger.debug(`setting toggled: ${settingName}`)
   }
 
   // disable toggles if needed
@@ -400,5 +400,5 @@ function inputKeyupHandler(event: InputEvent): void {
   let target = event.target as HTMLInputElement
   let settingName = target.closest("[data-setting-name]").getAttribute("data-setting-name")
   settings.set(settingName as SettingsKey, target.value)
-  logger.debug(`setting value changed: ${settingName} = ${target.value}`)
+  _logger.debug(`setting value changed: ${settingName} = ${target.value}`)
 }

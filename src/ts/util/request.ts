@@ -3,7 +3,7 @@ import { getLanguage } from "./util"
 import { Logger } from "./logger"
 
 
-const logger = new Logger("request")
+const _logger = new Logger("request")
 
 
 /**
@@ -54,7 +54,7 @@ export function requestTweet(
   callback: (result: TwitterApi.v1_1.statuses.show) => void
 ): void {
   if (typeof id != "string" || id == "") {
-    logger.error(`requestTweet: given id "${id}" is invalid.`)
+    _logger.error(`requestTweet: given id "${id}" is invalid.`)
     return
   }
   GM_xmlhttpRequest({
@@ -84,7 +84,7 @@ export function requestTweet(
  */
 export function requestUser(screenName: string, callback: (result: TwitterApi.UserResult) => void): void {
   if (typeof screenName != "string" || screenName == "") {
-    logger.error(`requestUser: given screenName "${screenName}" is invalid.`)
+    _logger.error(`requestUser: given screenName "${screenName}" is invalid.`)
     return
   }
   GM_xmlhttpRequest({
@@ -116,7 +116,7 @@ export function requestUser(screenName: string, callback: (result: TwitterApi.Us
  */
 export function blockUser(userId: string, doBlock: boolean, callback: () => void): void {
   if (typeof userId != "string" || userId == "") {
-    logger.error(`blockUser: given userId "${userId}" is invalid.`)
+    _logger.error(`blockUser: given userId "${userId}" is invalid.`)
     return
   }
 
@@ -148,7 +148,7 @@ export function getTweetTranslation(
   callback: (result: TwitterApi.v1_1.translateTweet) => void
 ): void {
   if (typeof tweetId != "string" || tweetId == "") {
-    logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
+    _logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
     return
   }
 
@@ -172,7 +172,7 @@ export function getTweetTranslation(
       if (res.status == 200) {
         callback(JSON.parse(res.response) as TwitterApi.v1_1.translateTweet)
       } else {
-        logger.error("Error occurred while translating.", res)
+        _logger.error("Error occurred while translating.", res)
       }
     }
   })
@@ -189,7 +189,7 @@ export function getProfileTranslation(
   callback: (result: TwitterApi.v1_1.translateProfile) => void
 ): void {
   if (typeof userId != "string" || userId == "") {
-    logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
+    _logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
     return
   }
 
@@ -210,7 +210,7 @@ export function getProfileTranslation(
       if (res.status == 200) {
         callback(JSON.parse(res.response) as TwitterApi.v1_1.translateProfile)
       } else {
-        logger.error("Error occurred while translating.", res)
+        _logger.error("Error occurred while translating.", res)
       }
     }
   })

@@ -5,7 +5,7 @@ import { settings } from "./util/settings"
 import { Logger } from "./util/logger"
 
 
-const logger = new Logger("style")
+const _logger = new Logger("style")
 
 
 /**
@@ -16,7 +16,7 @@ export function initializeStyle(): void {
   waitForKeyElements(`header [href="/compose/tweet"]`, e => {
     let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
     document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
-    logger.debug(`set --color-raw-accent-normal to "${bgColor}"`)
+    _logger.debug(`set --color-raw-accent-normal to "${bgColor}"`)
   }, false)
 
   // font size
@@ -25,7 +25,7 @@ export function initializeStyle(): void {
     let fontSizeCurrent = document.documentElement.style.getPropertyValue("--font-size")
     if (fontSize != fontSizeCurrent) {
       document.documentElement.style.setProperty("--font-size", fontSize)
-      logger.debug(`set --font-size to "${fontSize}"`)
+      _logger.debug(`set --font-size to "${fontSize}"`)
     }
   })
 
@@ -61,26 +61,26 @@ export function initializeStyle(): void {
   // scrollbar width
   let scrollbarWidth = getScrollbarWidth()
   document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`)
-  logger.debug(`set --scrollbar-width to "${scrollbarWidth}px"`)
+  _logger.debug(`set --scrollbar-width to "${scrollbarWidth}px"`)
 
 
   // @option fontOverride
   if (settings.get("fontOverride")) {
     let fontOverride = settings.get("fontOverrideValue")
     document.documentElement.style.setProperty("--font-family-override", fontOverride)
-    logger.debug(`set --font-family-override to "${fontOverride}"`)
+    _logger.debug(`set --font-family-override to "${fontOverride}"`)
   }
 
   // @option colorOverride
   if (settings.get("colorOverride")) {
     let colorOverride = settings.get("colorOverrideValue")
     document.documentElement.style.setProperty("--color-raw-accent-override", colorOverride)
-    logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
+    _logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
   }
 
   // add stylesheet
   GM_addStyle(GM_getResourceText(RESOURCE_CSS)).classList.add("gt2-style")
-  logger.debug("added stylesheet")
+  _logger.debug("added stylesheet")
 
   // additional rules
   setAdditionalStyleRules()
@@ -114,7 +114,7 @@ function getScrollbarWidth(): number {
  */
 function setTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme
-  logger.debug(`set theme to ${theme}`)
+  _logger.debug(`set theme to ${theme}`)
   GM_setValue(GM_KEYS.THEME, theme)
 }
 
@@ -192,7 +192,7 @@ function showMediaWithContentWarnings(): void {
         }, 0)
       }).reduce((p, c) => p | c)
 
-      logger.debug(`got content warning. tweet id: ${tweet.id_str}, opt: ${opt} score: ${score}`)
+      _logger.debug(`got content warning. tweet id: ${tweet.id_str}, opt: ${opt} score: ${score}`)
       if ((score & opt) == score) {
         tweetArticle.setAttribute("data-gt2-show-media", "1")
       }
@@ -212,7 +212,7 @@ function setAdditionalStyleRules(): void {
       let button = e.closest("[role=button]") as HTMLElement
       if (button) {
         button.click()
-        logger.debug("minimized DMDrawer")
+        _logger.debug("minimized DMDrawer")
       }
     })
   }

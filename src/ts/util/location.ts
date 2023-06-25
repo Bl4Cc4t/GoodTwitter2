@@ -8,7 +8,7 @@ import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
 import { isLoggedIn, waitForKeyElements, watchForChanges } from "./util"
 
 
-const logger = new Logger("location")
+const _logger = new Logger("location")
 
 
 /**
@@ -31,7 +31,7 @@ export function initializeLocation(): void {
 function setPageType(type: string): void {
   if (document.body.dataset.pageType != type) {
     document.body.dataset.pageType = type
-    logger.debug(`page type set to: ${type}`)
+    _logger.debug(`page type set to: ${type}`)
   }
 }
 
@@ -41,7 +41,7 @@ function setPageType(type: string): void {
  */
 function resetPageType(): void {
   delete document.body.dataset.pageType
-  logger.debug("reset page type")
+  _logger.debug("reset page type")
 }
 
 
@@ -50,7 +50,7 @@ function resetPageType(): void {
  */
 function setErrorPage(): void {
   document.body.dataset.pageError = "true"
-  logger.debug("on error page")
+  _logger.debug("on error page")
 }
 
 
@@ -78,7 +78,7 @@ function watchTitle(): void {
 export function changeTitle(newTitle: string): void {
   let title = document.querySelector("title")
   if (!title) {
-    logger.error("title element not found.")
+    _logger.error("title element not found.")
     return
   }
 
@@ -87,7 +87,7 @@ export function changeTitle(newTitle: string): void {
     title.setAttribute("content-old", title.textContent)
     title.textContent = newContent
     title.setAttribute("content", newContent)
-    logger.debug(`title changed to "${newContent}"`)
+    _logger.debug(`title changed to "${newContent}"`)
   }
 }
 
@@ -98,7 +98,7 @@ export function changeTitle(newTitle: string): void {
 export function resetTitle(): void {
   let title = document.querySelector("title")
   if (!title) {
-    logger.error("title element not found.")
+    _logger.error("title element not found.")
     return
   }
 
@@ -107,7 +107,7 @@ export function resetTitle(): void {
     title.setAttribute("content", oldContent)
     title.removeAttribute("content-old")
     title.textContent = oldContent
-    logger.debug("reset title to: ", oldContent)
+    _logger.debug("reset title to: ", oldContent)
   }
 }
 
@@ -162,7 +162,7 @@ export function onModal(): boolean {
  * @param type type of the change event
  */
 export function onLocationChange(type: string): void {
-  logger.info(`location change: [${type}] ${location.pathname}`)
+  _logger.info(`location change: [${type}] ${location.pathname}`)
 
   document.body.dataset.pagePathname = location.pathname.slice(1)
 
@@ -234,14 +234,14 @@ export function onLocationChange(type: string): void {
   }
 
   else if (onModal()) {
-    logger.debug("on modal")
+    _logger.debug("on modal")
   }
 
   // unhandled / not important
   else if (onPage(["hashtag", "i", "places", "notifications"]) || onPage({
     "*": ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"],
   })) {
-    logger.warn("on unhandled page")
+    _logger.warn("on unhandled page")
     resetPageType()
   }
 
@@ -252,13 +252,13 @@ export function onLocationChange(type: string): void {
     // @option profileMediaRedirect
     if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
       waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e.click())
-      logger.debug("redirected to /media page")
+      _logger.debug("redirected to /media page")
     }
   }
 
   // unhandled modals
   else {
-    logger.warn("on unhandled modal")
+    _logger.warn("on unhandled modal")
     // resetPageType()
   }
 }

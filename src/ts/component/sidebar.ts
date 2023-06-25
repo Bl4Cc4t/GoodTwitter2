@@ -4,14 +4,14 @@ import { settings } from "../util/settings"
 import { dismissSidebarNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSingleSidebarLayout, isSidebarNoticeDismissed, waitForKeyElements } from "../util/util"
 
 
-const logger = new Logger("component/sidebar")
+const _logger = new Logger("component/sidebar")
 
 
 /**
  * Initializes the sidebars by adding them and watching the elements for changes.
  */
 export function initializeSidebar():void {
-  logger.debug("initializing sidebar")
+  _logger.debug("initializing sidebar")
   addLeftSidebar()
   addRightSidebar()
   addSidebarElements()
@@ -66,7 +66,7 @@ function addLeftSidebar(): void {
         <div class="gt2-left-sidebar"></div>
       </div>
       `)
-      logger.debug("added left sidebar")
+      _logger.debug("added left sidebar")
     }
   }, false)
 }
@@ -79,7 +79,7 @@ function addRightSidebar(): void {
   waitForKeyElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", rightSidebar => {
     if (!rightSidebar.querySelector(".gt2-right-sidebar")) {
       rightSidebar.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
-      logger.debug("added right sidebar")
+      _logger.debug("added right sidebar")
     }
   }, false)
 }
@@ -100,7 +100,7 @@ function addSidebarElements(): void {
       ${getDashboardProfileHtml()}
       <div class="gt2-legacy-profile-info gt2-left-sidebar-element"></div>
     `)
-    logger.debug("added static elements")
+    _logger.debug("added static elements")
   }, false)
 }
 
@@ -213,7 +213,7 @@ function handleTrends(): void {
       // hide trends
       if (settings.get("hideTrends")) {
         trendContainer.remove()
-        logger.debug("removed trends")
+        _logger.debug("removed trends")
         return
       }
 
@@ -230,14 +230,14 @@ function handleTrends(): void {
           // replace existing trends
           if (leftSidebarTrends) {
             leftSidebarTrends.replaceWith(trendContainer)
-            logger.debug("replace existing trends in left sidebar")
+            _logger.debug("replace existing trends in left sidebar")
           }
 
           // move trends
           else {
             document.querySelector(".gt2-left-sidebar")
               ?.append(trendContainer)
-            logger.debug("moved trends to left sidebar")
+            _logger.debug("moved trends to left sidebar")
           }
 
         }
@@ -272,14 +272,14 @@ function moveSidebarElements(targetSide: "left" | "right"): void {
 
   let sidebar = document.querySelector(`.gt2-${targetSide}-sidebar`)
   if (!sidebar) {
-    logger.error(`${targetSide} sidebar not found while trying to move elements.`)
+    _logger.error(`${targetSide} sidebar not found while trying to move elements.`)
     return
   }
 
   let elements = document.querySelectorAll(".gt2-left-sidebar-element")
   sidebar.append(...Array.from(elements))
 
-  logger.debug(`moved ${elements.length} elements to the ${targetSide} sidebar`)
+  _logger.debug(`moved ${elements.length} elements to the ${targetSide} sidebar`)
 }
 
 
@@ -299,7 +299,7 @@ function handleProfileMedia(): void {
       let sidebar = document.querySelector(`.gt2-${placeLeft ? "left" : "right"}-sidebar`)
 
       if (!sidebar) {
-        logger.error("sidebar not found")
+        _logger.error("sidebar not found")
         return
       }
       sidebar.insertAdjacentHTML("beforeend", `
@@ -312,14 +312,14 @@ function handleProfileMedia(): void {
 
     // move container to left sidebar if needed
     if (placeLeft && !containerIsLeft) {
-      logger.debug("moving profile media to left sidebar")
+      _logger.debug("moving profile media to left sidebar")
       document.querySelector(".gt2-left-sidebar")
         .append(container)
     }
 
     // move container to right sidebar if needed
     else if (!placeLeft && containerIsLeft) {
-      logger.debug("moving profile media to right sidebar")
+      _logger.debug("moving profile media to right sidebar")
       document.querySelector(".gt2-right-sidebar")
         .append(container)
     }
@@ -367,7 +367,7 @@ function handleSidebarNotice(container: HTMLElement, key: string) {
   container.dataset.noticeId = key
 
   if (isSidebarNoticeDismissed(key)) {
-    logger.debug("removing sidebar notice with key: ", key)
+    _logger.debug("removing sidebar notice with key: ", key)
     container.remove()
     return
   }
