@@ -27,6 +27,21 @@ body[data-page-type="search"] {
       transition: top .2s ease-in-out;
     }
   }
+
+  // sidebar ordering
+  .gt2-right-sidebar {
+    order: -1;
+
+    + div {
+      border-bottom-width: 0 !important;
+      margin-bottom: 0 !important;
+      order: -3;
+
+      + div {
+        order: -2;
+      }
+    }
+  }
 }
 
 body[data-page-pathname="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
