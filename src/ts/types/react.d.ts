@@ -32,3 +32,53 @@ declare interface SocialProof {
     verified_type: unknown
   }
 }
+
+declare interface Entry {
+  type: "tweet" | "ui_moduleHeader"
+  entryId: string
+  sortIndex: string
+  itemMetadata: {
+    clientEventInfo: {
+      component?: "related_tweet"
+      details: {
+        conversationDetails: {
+          conversationSection: "AbusiveQuality" | "RelatedTweet"
+        }
+        timelinesDetails: {
+          controllerData: string
+        }
+      }
+    }
+    feedbackInfo?: unknown
+    moduleMetadata?: {
+      conversationMetadata: unknown
+      gridCarouselMetadata: unknown
+      verticalMetadata: unknown
+    }
+  }
+  content: {
+    id?: string
+    displayType?: "Tweet"
+    header?: {
+      displayType: "Classic"
+      text: string
+      sticky: boolean
+      socialContext: {
+        generalContext: {
+          contextType: "TextOnly"
+          text: string
+        }
+      }
+    }
+    timelineModule?: any
+  }
+  shouldCountTowardsAdSpacing?: boolean
+  conversationPosition?: {
+    isStart: boolean
+    isEnd: boolean
+    position: "descendant" | "adjacent"
+    showReplyContext: boolean
+  }
+  position: number
+  cursor?: number
+}

@@ -1,4 +1,5 @@
 import { Logger } from "./logger"
+import { getReactPropByName } from "./react-util"
 import { settings } from "./settings"
 import { getTweetData } from "./tweet"
 import { waitForKeyElements } from "./util"
@@ -56,6 +57,8 @@ export function enableLatestTweets(): void {
 export function watchForTweets(): void {
   if (settings.get("expandTcoShortlinks"))
     expandTweetTcoShortlinks()
+  if (settings.get("hideMoreTweets"))
+    hideMoreTweets()
 }
 
 
@@ -66,7 +69,7 @@ function expandTweetTcoShortlinks(): void {
   const selector = `
     article[data-testid=tweet] a[href^="http://t.co"],
     article[data-testid=tweet] a[href^="https://t.co"]`
-  waitForKeyElements(selector, expandTweetTcoShortlink)
+  waitForKeyElements(selector, expandTweetTcoShortlink, false)
 }
 
 
@@ -99,4 +102,18 @@ function expandTweetTcoShortlink(anchor: Element): void {
 
   anchor.setAttribute("href", url.expanded_url)
   _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
+}
+
+
+function hideMoreTweets() {
+  waitForKeyElements(`[data-testid=cellInnerDiv]`, cell => {
+    const entry = getReactPropByName<Entry>(cell, "entry", true)
+    if (!entry)
+      return
+
+    if (entry?.itemMetadata?.clientEventInfo?.details?.conversationDetails?.conversationSection == "RelatedTweet") {
+      _logger.debug(`Removed tweet from "More tweets" section: `, entry.entryId)
+      cell.remove()
+    }
+  }, false)
 }

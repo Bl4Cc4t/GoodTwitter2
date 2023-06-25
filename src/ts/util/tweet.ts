@@ -37,7 +37,7 @@ export function getTweetData(element: Element): TwitterApi.TweetLegacy {
  */
 export function addSourceLabel(): void {
   let tweetId = getTweetPageId()
-  waitForKeyElements(`[data-testid=tweet][tabindex="-1"] time`, element => {
+  waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${tweetId}"] time`, element => {
     const tweet = getTweetData(element.closest("[data-testid=tweet]"))
 
     if (!tweet?.source) {
@@ -72,7 +72,7 @@ export function labelMoreTweetsElement(): void {
  */
 export function scrollTweetUp(amount: number): void {
   waitForKeyElements(`[data-testid=tweet][tabindex="-1"] > :nth-child(1)`, () => {
-    window.scroll(0, window.pageYOffset - amount)
+    window.scroll(0, window.scrollY - amount)
     _logger.debug(`scrolled up ${amount}px to make up for the added navbar height`)
   })
 }
