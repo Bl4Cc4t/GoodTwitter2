@@ -88,7 +88,7 @@ function addSidebarElements(): void {
     sidebar.insertAdjacentHTML("afterbegin", `
       ${getUpdateNoticeHtml()}
       ${getDashboardProfileHtml()}
-      <div class="gt2-legacy-profile-info gt2-left-sidebar-elem"></div>
+      <div class="gt2-legacy-profile-info gt2-left-sidebar-element"></div>
     `)
     logger.debug("added static elements")
 
@@ -114,7 +114,7 @@ function getDashboardProfileHtml(): string {
   let i = getCurrentUserInfo()
   let href = isLoggedIn() ? "href" : "data-href"
   return `
-    <div class="gt2-dashboard-profile gt2-left-sidebar-elem">
+    <div class="gt2-dashboard-profile gt2-left-sidebar-element">
       <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
       <div>
         <a ${href}="/${i.screenName}" class="gt2-avatar">
@@ -170,7 +170,7 @@ function getUpdateNoticeHtml(): string {
 
   let ver = GM_info.script.version
   return `
-    <div class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-elem">
+    <div class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element">
       <div class="gt2-sidebar-notice-header">
         GoodTwitter2
         <div class="gt2-sidebar-notice-close">
@@ -219,7 +219,7 @@ function handleTrends(): void {
 
       // move trends
       if (settings.get("leftTrends")) {
-        trendContainer.classList.add("gt2-left-sidebar-elem")
+        trendContainer.classList.add("gt2-left-sidebar-element")
 
         if (!isOnSingleSidebarLayout()) {
           let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-trends")
@@ -273,7 +273,7 @@ function moveSidebarElements(targetSide: "left" | "right"): void {
     return
   }
 
-  let elements = document.querySelectorAll(".gt2-left-sidebar-elem")
+  let elements = document.querySelectorAll(".gt2-left-sidebar-element")
   sidebar.append(...Array.from(elements))
 
   logger.debug(`moved ${elements.length} elements to the ${targetSide} sidebar`)
