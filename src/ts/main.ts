@@ -9,6 +9,7 @@ import "../style/main.scss"
 import { logger } from "./util/logger"
 import { initializeNavbar } from "./component/navbar"
 import { initializeSidebar } from "./component/sidebar"
+import { watchForTweets } from "./util/timeline"
 
 
 (() => {
@@ -29,6 +30,7 @@ import { initializeSidebar } from "./component/sidebar"
   // basic
   overrideFunctions()
   initializeLocation()
+  watchForTweets()
 
   // styling
   initializeStyle()
@@ -38,4 +40,3 @@ import { initializeSidebar } from "./component/sidebar"
   initializeNavbar()
   initializeSidebar()
 })()
-
