@@ -242,6 +242,7 @@ function handleTrends(): void {
     }
 
     // wrap trends in anchors
+    // TODO handle non-hashtags, reprocess on update
     let toWrap = trends.querySelector<HTMLElement>(":scope > div > div:nth-child(2) > span [dir]")
     if (toWrap) {
       trends.classList.add("gt2-trend-wrapped")

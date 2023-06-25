@@ -5,7 +5,10 @@ You can easily build the userscript yourself if you want!
 ## Requirements
 - [Node.js](https://nodejs.org) (preferably v16+)
 
-I tend to use `yarn` more often (which can easily be enabled with the `corepack enable` command), but `npm` should also work just fine.
+I like to use `yarn` more often these days.
+It can easily be enabled via the `corepack enable` command.
+
+`npm` should also work just fine.
 
 ## Steps to building
 - Clone the Repo

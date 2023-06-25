@@ -29,29 +29,30 @@ export default {
     }),
     addUserscriptHeader({
       meta: {
-        "match": [
+        // "run-at": "document-start",
+        match: [
           "https://twitter.com/*",
           "https://mobile.twitter.com/*"
         ],
-        "exclude": [
+        exclude: [
           "https://twitter.com/i/cards/*",
           "https://twitter.com/i/release_notes",
           "https://twitter.com/*/privacy",
           "https://twitter.com/*/tos",
           "https://twitter.com/account/access"
         ],
-        "connect": [
+        connect: [
           "api.twitter.com"
         ],
-        "require": [
+        require: [
           // "releases/latest/download/twitter.gt2eb.i18n.js"
           "raw/master/twitter.gt2eb.i18n.js"
         ],
-        "resource": {
-          // "css": "releases/latest/download/twitter.gt2eb.style.css",
-          "css": "raw/master/twitter.gt2eb.style.css",
-          // "emojiRegex": "raw/master/static/emoji-regex.txt"
-          "emojiRegex": "raw/master/data/emoji-regex.txt"
+        resource: {
+          // css: "releases/latest/download/twitter.gt2eb.style.css",
+          css: "raw/master/twitter.gt2eb.style.css",
+          // emojiRegex: "raw/master/static/emoji-regex.txt"
+          emojiRegex: "raw/master/data/emoji-regex.txt"
         }
       }
     })
@@ -63,4 +64,3 @@ export default {
     name: pkg.name
   }]
 }
-
