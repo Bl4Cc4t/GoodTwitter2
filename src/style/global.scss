@@ -143,6 +143,7 @@ main {
               }
             }
           }
+
           // compose tweet hide scrollbar
           .DraftEditor-root {
             overflow: unset;
@@ -156,21 +157,6 @@ main {
 
             > div > div > div > div:nth-child(3) > div > div:empty {
               margin: unset;
-            }
-          }
-
-          // ChirpUpdate: readd vertical dividers
-          section[aria-labelledby*=accessible-list] div[style*="position: absolute"]:not(.gt2-hidden) + div:not(:last-child) > div:not(:empty):not([data-gt2-divider-add-ignore]) {
-            @include separator-bottom;
-
-            > div:empty {
-              background-color: var(--color-elem-sel);
-              height: 8px;
-              margin: unset !important;
-            }
-
-            [data-testid=placementTracking] {
-              @include separator-top;
             }
           }
 
@@ -241,6 +227,10 @@ main {
                   border: 1px solid var(--color-gray-dark);
                   border-radius: 0;
                   margin-bottom: 11px;
+
+                  > div {
+                    min-height: unset;
+                  }
 
                   // tos/privacy policy/etc. nav
                   &:nth-last-child(1) nav {

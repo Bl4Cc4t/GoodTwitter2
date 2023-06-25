@@ -33,7 +33,9 @@
     background-color: var(--color-elem);
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;
-    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
   }
 
   // content order
@@ -82,7 +84,6 @@
   }
 
   > div {
-
     .gt2-avatar {
       align-items: center;
       background-color: var(--color-elem);
