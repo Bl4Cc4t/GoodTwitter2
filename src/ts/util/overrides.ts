@@ -1,5 +1,4 @@
 import { onLocationChange } from "./location"
-import { saveTweetResponse } from "./tweet"
 
 
 /**
@@ -46,19 +45,5 @@ export function overrideFunctions(): void {
   History.prototype.replaceState = function() {
     History_replace.apply(this, arguments)
     onLocationChange("replace")
-  }
-
-
-  // XMLHttpRequest interception
-  const XMLHttpRequest_open = XMLHttpRequest.prototype.open
-  XMLHttpRequest.prototype.open = function() {
-    if (new URL(arguments[1]).pathname.match(/\/(adaptive\.json|TweetDetail|HomeLatestTimeline|UserTweets)/)) {
-      this.addEventListener("readystatechange", () => {
-        if (this.readyState === XMLHttpRequest.DONE) {
-          saveTweetResponse(JSON.parse(this.responseText))
-        }
-      })
-    }
-    XMLHttpRequest_open.apply(this, arguments)
   }
 }

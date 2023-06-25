@@ -178,28 +178,24 @@ function hideFollowSuggestions(): void {
 function showMediaWithContentWarnings(): void {
   waitForKeyElements(`[data-testid=tweet] [href^="/"][href*="/photo/1"] [data-testid=tweetPhoto],
                       [data-testid=tweet] [data-testid=previewInterstitial]`, e => {
-    let tweet = e.closest("[data-testid=tweet]")
+    let tweetArticle = e.closest("[data-testid=tweet]")
     let opt = settings.get("showMediaWithContentWarningsSel")
 
     if (e.closest("[aria-labelledby]")?.querySelector("> div > div > div > div:nth-child(2)")) {
-      let id = document.body.classList.contains("gt2-page-tweet")
-        ? location.pathname.split("/")[2]
-        : tweet.querySelector("time")
-          ?.parentElement.getAttribute("href")
-          ?.split("/status/")?.[1]
+      const tweet = getTweetData(tweetArticle)
+      if (!tweet)
+        return
 
-      getTweetData(id, res => {
-        let score = res.extended_entities.media.filter(e => e.hasOwnProperty("sensitive_media_warning")).map(m => {
-          return ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
-            return p + (m.sensitive_media_warning[c] ? Math.pow(2, i) : 0)
-          }, 0)
-        }).reduce((p, c) => p | c)
+      let score = tweet.extended_entities.media.filter(e => e.hasOwnProperty("sensitive_media_warning")).map(m => {
+        return ["adult_content", "graphic_violence", "other"].reduce((p, c, i) => {
+          return p + (m.sensitive_media_warning[c] ? Math.pow(2, i) : 0)
+        }, 0)
+      }).reduce((p, c) => p | c)
 
-        logger.debug(`got content warning. tweet id: ${id}, opt: ${opt} score: ${score}`)
-        if ((score & opt) == score) {
-          tweet.setAttribute("data-gt2-show-media", "1")
-        }
-      })
+      logger.debug(`got content warning. tweet id: ${tweet.id_str}, opt: ${opt} score: ${score}`)
+      if ((score & opt) == score) {
+        tweetArticle.setAttribute("data-gt2-show-media", "1")
+      }
     }
   })
 }

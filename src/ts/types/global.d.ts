@@ -18,10 +18,13 @@ declare global {
      */
     controlObj: any
 
-
-    tweetData: {
-      [tweetId: string]: TwitterApi.TweetLegacy
-    }
+    /**
+     * Temporary user data.
+     *
+     * Use `getCurrentUserInfo` to get this info.
+     * @see getCurrentUserInfo
+     */
+    userInfo: UserInfo
   }
 
   interface Node {

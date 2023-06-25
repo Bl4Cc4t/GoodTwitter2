@@ -183,28 +183,57 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
  * @returns user info object
  */
 export function getCurrentUserInfo(): UserInfo {
-  let infoScript = document.querySelector("#react-root ~ script").innerHTML
-  function x(reg: RegExp) {
-    let m = infoScript.match(reg)
-    return m ? m[1] : null
+  if (window.userInfo)
+    return window.userInfo
+
+  let user = null
+  try {
+    for (let e of Array.from(document.querySelectorAll("#react-root ~ script"))) {
+      if (e.textContent.includes("__INITIAL_STATE__")) {
+        let match = e.textContent.match(/__INITIAL_STATE__=(\{.*?\});window/)
+        if (match) {
+          let initialState = JSON.parse(match[1])
+          user = Object.values(initialState?.entities?.users?.entities)[0] ?? null
+        }
+        break
+      }
+    }
+  } catch (e) {
+    console.error(e)
   }
 
-  let avatarUrl = x(/profile_image_url_https\":\"(.+?)\",/)
-    .replace(/_(bigger|normal|(reasonably_)?small|\d*x\d+)/, "_bigger")
 
-  return {
-    bannerUrl:  x(/profile_banner_url\":\"(.+?)\",/)        ?? "",
-    avatarUrl:  avatarUrl                                   ?? DEFAULT_AVATAR_URL,
-    screenName: x(/screen_name\":\"(.+?)\",/)               ?? "youarenotloggedin",
-    name:       x(/(?:true|false),\"name\":\"(.+?)\",/)     ?? x(/screen_name\":\"(.+?)\",/)
-                                                            ?? "Anonymous",
-    id:         x(/id_str\":\"(\d+)\"/)                     ?? "0",
-    stats: {
-      tweets:    parseInt(x(/statuses_count\":(\d+),/))     ?? 0,
-      followers: parseInt(x(/\"followers_count\":(\d+),/))  ?? 0,
-      following: parseInt(x(/friends_count\":(\d+),/))      ?? 0,
+  if (user) {
+    window.userInfo = {
+      bannerUrl: user.profile_banner_url,
+      avatarUrl: user.profile_image_url_https.replace("_normal", "_bigger"),
+      screenName: user.screen_name,
+      name: user.name,
+      id: user.id_str,
+      stats: {
+        tweets: user.statuses_count,
+        followers: user.followers_count,
+        following: user.friends_count
+      }
+    }
+    console.log("user info", window.userInfo)
+  } else {
+    console.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
+    window.userInfo = {
+      bannerUrl: "",
+      avatarUrl: DEFAULT_AVATAR_URL,
+      screenName: "youarenotloggedin",
+      name: "Anonymous",
+      id: "0",
+      stats: {
+        tweets: 0,
+        followers: 0,
+        following: 0
+      }
     }
   }
+
+  return window.userInfo
 }
 
 

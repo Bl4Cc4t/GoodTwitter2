@@ -2,7 +2,7 @@ import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, 
 import { settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
-import { getTweetData, getTweetId } from "../util/tweet"
+import { getTweetData } from "../util/tweet"
 
 
 const logger = new Logger("component", "translation")
@@ -101,26 +101,21 @@ function translateTweetHandler(event: MouseEvent): void {
     ?.closest("article[data-testid=tweet]") != null
 
   // get id (potential parent tweet)
-  let id = getTweetId(target.closest("article[data-testid=tweet]"))
+  const tweet = getTweetData(target.closest("article[data-testid=tweet]"))
+  if (!tweet)
+    return
 
   // quoted tweet
   if (isQuotedTweet) {
     logger.debug("translating quoted tweet...")
 
-    getTweetData(id, res => {
-      if (!res.hasOwnProperty("quoted_status_id_str")) {
-        logger.error(`error with requested tweet (id: ${id}): `, res)
-        return
-      }
-
-      getTweetTranslation(res.quoted_status_id_str, response => onTweetTranslationRequest(target, response))
-    })
+    getTweetTranslation(tweet.quoted_status.id_str, response => onTweetTranslationRequest(target, response))
   }
 
   // normal tweet
   else {
     logger.debug("translating normal tweet...")
-    getTweetTranslation(id, response => onTweetTranslationRequest(target, response))
+    getTweetTranslation(tweet.id_str, response => onTweetTranslationRequest(target, response))
   }
 }
 

@@ -260,7 +260,7 @@ declare namespace TwitterApi {
     // coordinates: any | null
     // place: Place | null
     // contributors: any | null
-    // quoted_status?: TweetLegacy
+    quoted_status?: TweetLegacy
     // supplemental_language: any | null
     // card_uri: string
   }
