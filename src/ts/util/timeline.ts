@@ -54,41 +54,49 @@ export function enableLatestTweets(): void {
  * Actions to execute when a new tweet is added to the DOM.
  */
 export function watchForTweets(): void {
-  waitForKeyElements(`article[data-testid=tweet] time`, element => {
-    const tweetArticle = element.closest(`article[data-testid=tweet]`)
-    if (settings.get("expandTcoShortlinks"))
-      expandTweetTcoShortlinks(tweetArticle)
-  })
+  if (settings.get("expandTcoShortlinks"))
+    expandTweetTcoShortlinks()
 }
 
 
 /**
  * Expands t.co shortlinks in a tweet element.
- * @param tweetArticle the tweet element where the shortlinks should be replaced
  */
-function expandTweetTcoShortlinks(tweetArticle: Element): void {
-  const anchors = tweetArticle.querySelectorAll(`a[href^="http://t.co"], a[href^="https://t.co"]`)
+function expandTweetTcoShortlinks(): void {
+  const selector = `
+    article[data-testid=tweet] a[href^="http://t.co"],
+    article[data-testid=tweet] a[href^="https://t.co"]`
+  waitForKeyElements(selector, expandTweetTcoShortlink)
+}
+
+
+/**
+ * Expands a t.co shortlink in a tweet element.
+ * @param anchor the t.co shortlink DOM element
+ */
+function expandTweetTcoShortlink(anchor: Element): void {
+  const tweetArticle = anchor.closest(`article[data-testid=tweet]`)
 
   const tweet = getTweetData(tweetArticle)
   if (!tweet)
     return
 
+  const urlEntities = tweet.entities.urls.concat(tweet.note_tweet?.entity_set?.urls || [])
+
   // loop over all tco anchors in the tweet
-  anchors.forEach(anchor => {
-    let tcoUrl = anchor.getAttribute("href")
-    let url = tweet.entities.urls.find(e => e.url == tcoUrl.split("?")[0])
+  let tcoUrl = anchor.getAttribute("href")
+  let url = urlEntities.find(e => e.url == tcoUrl.split("?")[0])
 
-    if (!url) {
-      _logger.error("expandTcoShortlinks: error getting url object", tcoUrl, tweet, tweetArticle)
-      return
-    }
+  if (!url) {
+    _logger.error("expandTcoShortlinks: error getting url object", tcoUrl, tweet, tweetArticle)
+    return
+  }
 
-    if (!url.expanded_url) {
-      _logger.error("expandTcoShortlinks: url object has no expanded_url", tcoUrl, tweet, tweetArticle)
-      return
-    }
+  if (!url.expanded_url) {
+    _logger.error("expandTcoShortlinks: url object has no expanded_url", tcoUrl, tweet, tweetArticle)
+    return
+  }
 
-    anchor.setAttribute("href", url.expanded_url)
-    _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
-  })
+  anchor.setAttribute("href", url.expanded_url)
+  _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
 }
