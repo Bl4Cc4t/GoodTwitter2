@@ -223,7 +223,7 @@ body:not(.gt2-opt-font-override) {
 .gt2-opt-show-media-with-content-warnings {
   *:not([data-testid=placementTracking]) > * > [data-testid=tweet][data-gt2-show-media],
   &.gt2-opt-show-media-with-content-warnings-sel-7 *:not([data-testid=placementTracking]) > * > [data-testid=tweet] {
-    [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]):not([role]) > div:not([role]) > div:not([role]) {
+    * > [aria-labelledby] > div:not([data-testid]) > div:not([data-testid]):not([role]) > div:not([role]) > div:not([role]) > div:not([role]) {
       &:nth-child(1) {
         filter: unset;
       }

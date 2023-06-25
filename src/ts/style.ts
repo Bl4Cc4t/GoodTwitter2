@@ -181,7 +181,7 @@ function showMediaWithContentWarnings(): void {
     let tweetArticle = e.closest("[data-testid=tweet]")
     let opt = settings.get("showMediaWithContentWarningsSel")
 
-    if (e.closest("[aria-labelledby]")?.querySelector("> div > div > div > div:nth-child(2)")) {
+    if (tweetArticle.querySelector(`[d^="M3.693 21.707l-1.414-1.414 2.429-2.429c-2.479-2.421-3.606-5.376-3.658-5.513l-.131-."]`)) {
       const tweet = getTweetData(tweetArticle)
       if (!tweet)
         return
@@ -197,7 +197,7 @@ function showMediaWithContentWarnings(): void {
         tweetArticle.setAttribute("data-gt2-show-media", "1")
       }
     }
-  })
+  }, false)
 }
 
 
