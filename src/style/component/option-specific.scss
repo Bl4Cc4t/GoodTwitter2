@@ -117,7 +117,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 // show 5 trends
 .gt2-opt-show-5-trends {
-  .gt2-trends-handled > div > div > div:nth-child(n+8):nth-child(-n+12) {
+  .gt2-trends-handled > div > div > div > div > div:nth-child(n+8):nth-child(-n+12) {
     display: none !important;
   }
 }
