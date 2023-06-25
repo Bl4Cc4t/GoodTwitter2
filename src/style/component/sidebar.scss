@@ -28,8 +28,8 @@
   }
 
   // moved elements
-  .gt2-trends,
-  .gt2-profile-media > * {
+  .gt2-sidebar-element-trends,
+  .gt2-sidebar-element-profile-media > * {
     background-color: var(--color-elem);
     border: solid 1px var(--color-gray-dark);
     border-radius: 0;
@@ -40,7 +40,7 @@
     order: 1;
   }
 
-  .gt2-profile-media {
+  .gt2-sidebar-element-profile-media {
     order: 2;
 
     > * {
@@ -56,7 +56,7 @@
     order: 4;
   }
 
-  .gt2-trends {
+  .gt2-sidebar-element-trends {
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -213,19 +213,20 @@
     font-size: incr(19px);
     font-weight: 800;
     position: relative;
+  }
 
-    .gt2-sidebar-notice-close {
-      @include hoverable-svg;
-      right: 10px;
-      top: 10px;
-    }
+  .gt2-sidebar-notice-close {
+    @include hoverable-svg;
+    font-size: incr(19px);
+    right: 10px;
+    top: 10px;
   }
 
   .gt2-sidebar-notice-content {
     text-align: center;
   }
 
-  > div {
+  > div:not(.gt2-sidebar-notice-close) {
     padding: 10px 15px;
   }
 
@@ -259,7 +260,7 @@ a.gt2-trend {
 
 // trends
 .gt2-trends-handled,
-.gt2-trends section {
+.gt2-sidebar-element-trends section {
   > div > div > div > div > div {
     // smaller padding next to the trends cog
     &:nth-child(1) {

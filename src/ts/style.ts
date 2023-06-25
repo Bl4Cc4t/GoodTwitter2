@@ -1,6 +1,6 @@
 import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
 import { getTweetData } from "./util/tweet"
-import { BG_COLOR_TO_THEME, RESOURCE_CSS, TEXT_COLOR_TO_THEME } from "./constants"
+import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE_CSS, TEXT_COLOR_TO_THEME } from "./constants"
 import { settings } from "./util/settings"
 import { Logger } from "./util/logger"
 
@@ -30,7 +30,7 @@ export function initializeStyle(): void {
   })
 
   // theme from last time
-  setTheme(GM_getValue("theme", "dim"))
+  setTheme(GM_getValue(GM_KEYS.THEME, "dim"))
 
   // theme current
   if (isLoggedIn()) {
@@ -115,7 +115,7 @@ function getScrollbarWidth(): number {
 function setTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme
   logger.debug(`set theme to ${theme}`)
-  GM_setValue("theme", theme)
+  GM_setValue(GM_KEYS.THEME, theme)
 }
 
 

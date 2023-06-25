@@ -1,4 +1,4 @@
-import { DEFAULT_AVATAR_URL, SVG } from "../constants"
+import { DEFAULT_AVATAR_URL, GM_KEYS, SVG } from "../constants"
 import { Logger } from "./logger"
 import { settings } from "./settings"
 
@@ -199,7 +199,7 @@ export function getCurrentUserInfo(): UserInfo {
       }
     }
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 
 
@@ -216,9 +216,9 @@ export function getCurrentUserInfo(): UserInfo {
         following: user.friends_count
       }
     }
-    console.log("user info", window.userInfo)
+    logger.info("got user info", window.userInfo)
   } else {
-    console.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
+    logger.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
     window.userInfo = {
       bannerUrl: "",
       avatarUrl: DEFAULT_AVATAR_URL,
@@ -267,20 +267,22 @@ export function isOnSingleSidebarLayout(): boolean {
 
 
 /**
- * Checks, if the update notice of the current version has been dismissed.
+ * Checks, if a sidebar notice has been dismissed.
+ * @param key the key of the notice to check
  * @returns true, if the notice has been dismissed
  */
-export function updateNoticeDismissed(): boolean {
-  return GM_getValue("updateNoticesDismissed", []).includes(GM_info.script.version)
+export function isSidebarNoticeDismissed(key: string): boolean {
+  return GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, []).includes(key)
 }
 
 
 /**
- * Dismisses the update notice.
+ * Dismisses a sidebar notice.
+ * @param key the key of the notice to dismiss.
  */
-export function dismissUpdateNotice(): void {
-  let notices = GM_getValue("updateNoticesDismissed", [])
-  notices.push(GM_info.script.version)
-  GM_setValue("updateNoticesDismissed", notices)
-  logger.debug("dismissed update notice")
+export function dismissSidebarNotice(key: string): void {
+  let notices = GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, [])
+  notices.push(key)
+  GM_setValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, notices)
+  logger.debug("dismissed sidebar notice with key: ", key)
 }

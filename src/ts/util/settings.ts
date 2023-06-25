@@ -1,5 +1,4 @@
-const SETTINGS_KEY = "opt_gt2"
-
+import { GM_KEYS } from "../constants"
 
 const INITIAL_SETTINGS = {
   // timeline
@@ -74,7 +73,7 @@ class Settings {
    * @return all settings
    */
   getAll(): SettingsType {
-    return GM_getValue(SETTINGS_KEY)
+    return GM_getValue(GM_KEYS.SETTINGS)
   }
 
 
@@ -82,7 +81,7 @@ class Settings {
    * Sets all currently active settings.
    */
   setAll(): void {
-    return GM_setValue(SETTINGS_KEY, this.data)
+    return GM_setValue(GM_KEYS.SETTINGS, this.data)
   }
 
 

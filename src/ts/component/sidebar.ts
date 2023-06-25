@@ -1,6 +1,7 @@
 import { Logger } from "../util/logger"
+import { getReactPropByName } from "../util/react-util"
 import { settings } from "../util/settings"
-import { dismissUpdateNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSingleSidebarLayout, updateNoticeDismissed, waitForKeyElements } from "../util/util"
+import { dismissSidebarNotice, getCurrentUserInfo, getLocalizedString, getSvg, isLoggedIn, isOnSingleSidebarLayout, isSidebarNoticeDismissed, waitForKeyElements } from "../util/util"
 
 
 const logger = new Logger("component/sidebar")
@@ -16,6 +17,8 @@ export function initializeSidebar():void {
   addSidebarElements()
   handleTrends()
   handleProfileMedia()
+  handleListenLiveInSpaces()
+  handleGetVerified()
 
   // @option hideFollowSuggestions
   if (settings.get("hideFollowSuggestions")) {
@@ -42,6 +45,13 @@ export function initializeSidebar():void {
     else
       moveSidebarElements("left")
   })
+
+  waitForKeyElements(".gt2-sidebar-notice-close", e => e?.addEventListener("click", event => {
+    let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice") as HTMLElement
+    console.log(container.dataset.noticeId)
+    dismissSidebarNotice(container.dataset.noticeId)
+    container.remove()
+  }))
 }
 
 
@@ -91,17 +101,6 @@ function addSidebarElements(): void {
       <div class="gt2-legacy-profile-info gt2-left-sidebar-element"></div>
     `)
     logger.debug("added static elements")
-
-    sidebar.querySelector(".gt2-sidebar-notice-close")
-      ?.addEventListener("click", event => {
-        let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice")
-
-        if (container.classList.contains("gt2-update-notice")) {
-          dismissUpdateNotice()
-        }
-        container.remove()
-      })
-
   }, false)
 }
 
@@ -163,14 +162,18 @@ function getDashboardProfileHtml(): string {
  * @returns the HTML of the current GT2 update notice
  */
 function getUpdateNoticeHtml(): string {
+  let version = GM_info.script.version
+  const key = `gt2-update-${version}`
   // check if update notice needs to be shown
-  if (!settings.get("updateNotifications") || updateNoticeDismissed()) {
+  if (!settings.get("updateNotifications") || isSidebarNoticeDismissed(key)) {
     return ""
   }
 
-  let ver = GM_info.script.version
   return `
-    <div class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element">
+    <div
+      class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element"
+      data-notice-id="gt2-update-${version}"
+    >
       <div class="gt2-sidebar-notice-header">
         GoodTwitter2
         <div class="gt2-sidebar-notice-close">
@@ -179,9 +182,9 @@ function getUpdateNoticeHtml(): string {
         </div>
       </div>
       <div class="gt2-sidebar-notice-content">
-        ${getSvg("tick")} ${getLocalizedString("updatedInfo").replace("$version$", `v${ver}`)}<br />
+        ${getSvg("tick")} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
         <a
-          href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${ver.replace(/\./g, "")}"
+          href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${version.replace(/\./g, "")}"
           target="_blank">
           ${getLocalizedString("updatedInfoChangelog")}
         </a>
@@ -215,14 +218,14 @@ function handleTrends(): void {
       }
 
       trendSection.classList.add("gt2-trends-handled")
-      trendContainer.classList.add("gt2-trends")
+      trendContainer.classList.add("gt2-sidebar-element-trends")
 
       // move trends
       if (settings.get("leftTrends")) {
         trendContainer.classList.add("gt2-left-sidebar-element")
 
         if (!isOnSingleSidebarLayout()) {
-          let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-trends")
+          let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-sidebar-element-trends")
 
           // replace existing trends
           if (leftSidebarTrends) {
@@ -288,7 +291,7 @@ function handleProfileMedia(): void {
     `[data-testid=sidebarColumn] div:nth-child(1) > a[href*="/photo/"],
      [data-testid=sidebarColumn] div:nth-child(1) > a[href*="/video/"]`
   waitForKeyElements(mediaSelector, media => {
-    let container = document.querySelector(".gt2-profile-media")
+    let container = document.querySelector(".gt2-sidebar-element-profile-media")
     let placeLeft = settings.get("leftMedia")
 
     // add container element if it does not exist
@@ -300,9 +303,9 @@ function handleProfileMedia(): void {
         return
       }
       sidebar.insertAdjacentHTML("beforeend", `
-        <div class="gt2-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>
+        <div class="gt2-sidebar-element-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>
       `)
-      container = document.querySelector(".gt2-profile-media")
+      container = document.querySelector(".gt2-sidebar-element-profile-media")
     }
 
     let containerIsLeft = container.classList.contains("gt2-left-sidebar-element")
@@ -332,4 +335,48 @@ function handleProfileMedia(): void {
       .parentElement
     container.replaceChildren(mediaElement)
   }, false)
+}
+
+
+function handleListenLiveInSpaces() {
+  const key = "listen-live-in-spaces"
+  waitForKeyElements(`[data-testid=placementTracking]`, e => {
+    const props = getReactPropByName<SocialProof>(e, "socialProof", true)
+    if (isNaN(props?.user?.start))
+      return
+
+    handleSidebarNotice(e.parentElement, key)
+  }, false)
+}
+
+
+function handleGetVerified() {
+  const key = "get-verified"
+  waitForKeyElements(`[data-testid=sidebarColumn] [href="/i/verified-choose"]`, e => {
+    const container = e?.closest("aside")?.parentElement
+    if (!container)
+      return
+
+    handleSidebarNotice(container, key)
+  }, false)
+}
+
+
+function handleSidebarNotice(container: HTMLElement, key: string) {
+  container.classList.add(`gt2-sidebar-element-${key}`, `gt2-sidebar-notice`)
+  container.dataset.noticeId = key
+
+  if (isSidebarNoticeDismissed(key)) {
+    logger.debug("removing sidebar notice with key: ", key)
+    container.remove()
+    return
+  }
+
+  // add close button
+  container.insertAdjacentHTML("beforeend", `
+    <div class="gt2-sidebar-notice-close">
+      <div></div>
+      ${getSvg("x")}
+    </div>
+  `)
 }

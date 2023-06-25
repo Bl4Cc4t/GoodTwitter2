@@ -130,3 +130,13 @@ export const TITLE_ADJUSTMENTS = [
     title: "GoodTwitter2"
   }
 ]
+
+
+/**
+ * Keys for GM_getValue / GM_setValue functions.
+ */
+export const GM_KEYS = {
+  THEME: "theme",
+  DISMISSED_SIDEBAR_NOTICES: "dismissedSidebarNotices",
+  SETTINGS: "opt_gt2"
+}
