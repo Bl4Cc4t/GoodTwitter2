@@ -13,30 +13,30 @@ import { watchForTweets } from "./util/timeline"
 
 
 (() => {
-  // do not execute on these pages
-  if (!isLoggedIn() && location.pathname == "") return
+    // do not execute on these pages
+    if (!isLoggedIn() && location.pathname == "") return
 
-  // redirect for mobile urls
-  if (location.host == "mobile.twitter.com") {
-    if (settings.get("mobileRedirect")) {
-      location.href = location.href.replace("//mobile.twitter.com", "//twitter.com")
-    } else return
-  }
+    // redirect for mobile urls
+    if (location.host == "mobile.twitter.com") {
+        if (settings.get("mobileRedirect")) {
+            location.href = location.href.replace("//mobile.twitter.com", "//twitter.com")
+        } else return
+    }
 
-  // add settings to body
-  settings.setAllInDom()
-  logger.debug("set all settings in the dom")
+    // add settings to body
+    settings.setAllInDom()
+    logger.debug("set all settings in the dom")
 
-  // basic
-  overrideFunctions()
-  initializeLocation()
-  watchForTweets()
+    // basic
+    overrideFunctions()
+    initializeLocation()
+    watchForTweets()
 
-  // styling
-  initializeStyle()
+    // styling
+    initializeStyle()
 
-  // components
-  initializeInlineTranslation()
-  initializeNavbar()
-  initializeSidebar()
+    // components
+    initializeInlineTranslation()
+    initializeNavbar()
+    initializeSidebar()
 })()

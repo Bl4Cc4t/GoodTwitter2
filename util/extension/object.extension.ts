@@ -1,5 +1,3 @@
-import { Pair } from "yaml"
-
 export {}
 
 declare global {

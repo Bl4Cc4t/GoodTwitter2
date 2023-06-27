@@ -1,62 +1,62 @@
 // tweet page
 body[data-page-type=tweet] {
-  // sticky header with back button
-  .gt2-search-overflow-hider {
-    display: block;
-  }
-
-  div[data-testid=primaryColumn] {
-    border-top-width: 0 !important;
-
-    > div > div {
-      &:nth-child(1) {
-        @include separator-top;
-        position: sticky;
-        top: 56px;
-      }
-
-      &:nth-child(2) {
-        position: relative;
-        top: 0;
-      }
+    // sticky header with back button
+    .gt2-search-overflow-hider {
+        display: block;
     }
-  }
 
-  &.gt2-opt-hide-more-tweets {
-    .gt2-timeline-elem-more-tweets-header {
-      &,
-      & ~ * {
-        display: none;
-      }
+    div[data-testid=primaryColumn] {
+        border-top-width: 0 !important;
+
+        > div > div {
+            &:nth-child(1) {
+                @include separator-top;
+                position: sticky;
+                top: 56px;
+            }
+
+            &:nth-child(2) {
+                position: relative;
+                top: 0;
+            }
+        }
     }
-  }
+
+    &.gt2-opt-hide-more-tweets {
+        .gt2-timeline-elem-more-tweets-header {
+            &,
+            & ~ * {
+                display: none;
+            }
+        }
+    }
 }
 
 [data-testid=tweetText]:nth-of-type(n+2) {
-  display: none;
+    display: none;
 }
 
 // embed card links
 [data-testid="card.layoutSmall.media"] + a {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
-  &,
-  &:link,
-  &:visited {
-    color: var(--color-accent);
-    text-decoration-line: none;
-  }
+    &,
+    &:link,
+    &:visited {
+        color: var(--color-accent);
+        text-decoration-line: none;
+    }
 }
 
 .gt2-tweet-source {
-  @include standard-link;
-  color: var(--color-user);
+    @include standard-link;
+    color: var(--color-user);
 
-  &::before {
-    color: var(--color-gray-light);
-    content: unicode("00B7");
-    padding: 0 5px;
-  }
+    &::before {
+        color: var(--color-gray-light);
+        content: unicode("00B7");
+        padding: 0 5px;
+    }
 }

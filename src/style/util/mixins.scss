@@ -1,101 +1,101 @@
 // style for parents with hoverable icons
 @mixin hoverable-svg {
-  align-items: center;
-  display: flex;
-  height: 1.5em;
-  justify-content: center;
-  position: absolute;
-  width: 1.5em;
-
-  div {
-    background-color: var(--color-accent);
-    border-radius: 9999px;
-    height: 39px;
-    opacity: 0;
+    align-items: center;
+    display: flex;
+    height: 1.5em;
+    justify-content: center;
     position: absolute;
-    transition: opacity .2s ease-in-out;
-    width: 39px;
-  }
-
-  svg {
-    fill: var(--color-accent);
-    height: 1em;
-    width: 1em;
-  }
-
-  &:hover {
-    cursor: pointer;
+    width: 1.5em;
 
     div {
-      opacity: .1;
+        background-color: var(--color-accent);
+        border-radius: 9999px;
+        height: 39px;
+        opacity: 0;
+        position: absolute;
+        transition: opacity .2s ease-in-out;
+        width: 39px;
     }
 
     svg {
-      fill: var(--color-accent) !important;
+        fill: var(--color-accent);
+        height: 1em;
+        width: 1em;
     }
-  }
+
+    &:hover {
+        cursor: pointer;
+
+        div {
+            opacity: .1;
+        }
+
+        svg {
+            fill: var(--color-accent) !important;
+        }
+    }
 }
 
 // turn area gray on hover
 @mixin grayscale-hover {
-  transition: filter .2s ease-in-out;
-  backface-visibility: hidden;
+    transition: filter .2s ease-in-out;
+    backface-visibility: hidden;
 
-  &:hover {
-    // -webkit-filter: brightness(87.5%);
-    filter: brightness(87.5%);
-  }
+    &:hover {
+        // -webkit-filter: brightness(87.5%);
+        filter: brightness(87.5%);
+    }
 }
 
 // small dashboard profile
 @mixin small-dashboard-profile {
-  .gt2-dashboard-profile {
-    width: 290px !important;
+    .gt2-dashboard-profile {
+        width: 290px !important;
 
-    .gt2-banner {
-      height: 96px !important;
+        .gt2-banner {
+            height: 96px !important;
+        }
+
+        .gt2-avatar {
+            height: 72px !important;
+            width: 72px !important;
+        }
+
+        .gt2-toggle-lo-nightmode,
+        .gt2-toggle-acc-switcher-dropdown {
+            bottom: calc(83px + (var(--font-increment) + 2px) / 2) !important;
+        }
+
+        .gt2-user {
+            left: 90px !important;
+            top: 103px !important;
+
+            .gt2-name {
+                width: 160px !important;
+            }
+        }
     }
-
-    .gt2-avatar {
-      height: 72px !important;
-      width: 72px !important;
-    }
-
-    .gt2-toggle-lo-nightmode,
-    .gt2-toggle-acc-switcher-dropdown {
-      bottom: calc(83px + (var(--font-increment) + 2px) / 2) !important;
-    }
-
-    .gt2-user {
-      left: 90px !important;
-      top: 103px !important;
-
-      .gt2-name {
-        width: 160px !important;
-      }
-    }
-  }
 }
 
 // default link styling
 @mixin standard-link {
-  a,
-  a:link,
-  a:visited {
-    color: var(--color-accent);
-    text-decoration-line: none;
+    a,
+    a:link,
+    a:visited {
+        color: var(--color-accent);
+        text-decoration-line: none;
 
-    &:hover {
-      text-decoration-line: underline;
+        &:hover {
+            text-decoration-line: underline;
+        }
     }
-  }
 }
 
 // default border styling
 @mixin separator-top {
-  border-top: 1px solid var(--color-gray-dark) !important;
+    border-top: 1px solid var(--color-gray-dark) !important;
 }
 
 @mixin separator-bottom {
-  border-bottom: 1px solid var(--color-gray-dark) !important;
+    border-bottom: 1px solid var(--color-gray-dark) !important;
 }

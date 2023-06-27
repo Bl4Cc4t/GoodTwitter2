@@ -1,5 +1,12 @@
 import { Logger } from "../util/logger"
-import { addClickHandlerToMockElement, getCurrentUserInfo, getLocalizedString, isLoggedIn, waitForKeyElements, watchForChanges } from "../util/util"
+import {
+    addClickHandlerToMockElement,
+    getCurrentUserInfo,
+    getLocalizedString,
+    isLoggedIn,
+    waitForKeyElements,
+    watchForChanges
+} from "../util/util"
 
 
 const _logger = new Logger("component", "navbar")
@@ -9,9 +16,9 @@ const _logger = new Logger("component", "navbar")
  * Entry function for adding the navbar component.
  */
 export function initializeNavbar() {
-  _logger.debug("initializing navbar")
-  addNavbar()
-  addSearch()
+    _logger.debug("initializing navbar")
+    addNavbar()
+    addSearch()
 }
 
 
@@ -19,14 +26,14 @@ export function initializeNavbar() {
  * Adds the navbar to the page.
  */
 function addNavbar(): void {
-  _logger.debug("waiting for header to appear")
-  waitForKeyElements(`nav > [data-testid]`, () => {
-    if (document.querySelector(".gt2-nav")) return
+    _logger.debug("waiting for header to appear")
+    waitForKeyElements(`nav > [data-testid]`, () => {
+        if (document.querySelector(".gt2-nav")) return
 
-    let loggedIn = isLoggedIn()
+        let loggedIn = isLoggedIn()
 
-    document.querySelector("main")
-      .insertAdjacentHTML("beforebegin", `
+        document.querySelector("main")
+            .insertAdjacentHTML("beforebegin", `
         <nav class="gt2-nav">
           <div class="gt2-nav-left"></div>
           <div class="gt2-nav-center">
@@ -43,70 +50,70 @@ function addNavbar(): void {
         </nav>
         <div class="gt2-search-overflow-hider"></div>`)
 
-    _logger.debug(`added navbar`)
+        _logger.debug(`added navbar`)
 
 
-    let navbarElementsToAdd: {
-      selector: string
-      localizedString: string
-    }[] = []
+        let navbarElementsToAdd: {
+            selector: string
+            localizedString: string
+        }[] = []
 
-    // home, notifications, messages (and explore on smaller screens)
-    if (loggedIn) {
-      navbarElementsToAdd = [
-        {
-          selector: "[data-testid=AppTabBar_Home_Link]",
-          localizedString: getLocalizedString("navHome")
-        }, {
-          selector: "[data-testid=AppTabBar_Notifications_Link]",
-          localizedString: getLocalizedString("navNotifications")
-        }, {
-          selector: "[data-testid=AppTabBar_DirectMessage_Link]",
-          localizedString: getLocalizedString("navMessages")
+        // home, notifications, messages (and explore on smaller screens)
+        if (loggedIn) {
+            navbarElementsToAdd = [
+                {
+                    selector: "[data-testid=AppTabBar_Home_Link]",
+                    localizedString: getLocalizedString("navHome")
+                }, {
+                    selector: "[data-testid=AppTabBar_Notifications_Link]",
+                    localizedString: getLocalizedString("navNotifications")
+                }, {
+                    selector: "[data-testid=AppTabBar_DirectMessage_Link]",
+                    localizedString: getLocalizedString("navMessages")
+                }
+            ]
+
+            if (window.innerWidth < 1005) navbarElementsToAdd.push({
+                selector: "[data-testid=AppTabBar_Explore_Link]",
+                localizedString: getLocalizedString("navExplore")
+            })
         }
-      ]
 
-      if (window.innerWidth < 1005) navbarElementsToAdd.push({
-        selector: "[data-testid=AppTabBar_Explore_Link]",
-        localizedString: getLocalizedString("navExplore")
-      })
-    }
-
-    // not logged in
-    else {
-      navbarElementsToAdd = [
-        {
-          selector: "[data-testid=AppTabBar_Explore_Link]",
-          localizedString: getLocalizedString("navExplore")
-        }, {
-          selector: `a[href="/settings"]`,
-          localizedString: getLocalizedString("navSettings")
+        // not logged in
+        else {
+            navbarElementsToAdd = [
+                {
+                    selector: "[data-testid=AppTabBar_Explore_Link]",
+                    localizedString: getLocalizedString("navExplore")
+                }, {
+                    selector: `a[href="/settings"]`,
+                    localizedString: getLocalizedString("navSettings")
+                }
+            ]
         }
-      ]
-    }
 
-    for (let elem of navbarElementsToAdd) {
-      // check for updates
-      watchForChanges(`header ${elem.selector}`, () => {
-        addOrUpdateNavbarElement(elem.selector, elem.localizedString)
-        highlightNavbarLocation()
-      }, {
-        subtree: true
-      })
-    }
+        for (let elem of navbarElementsToAdd) {
+            // check for updates
+            watchForChanges(`header ${elem.selector}`, () => {
+                addOrUpdateNavbarElement(elem.selector, elem.localizedString)
+                highlightNavbarLocation()
+            }, {
+                subtree: true
+            })
+        }
 
-    // add bird
-    addBird()
+        // add bird
+        addBird()
 
-    // handler for compose tweet button
-    let composeTweetOrig = document.querySelector<HTMLElement>("header a[href='/compose/tweet'] > div")
-    let composeTweetMock = document.querySelector<HTMLElement>(".gt2-nav .gt2-compose")
-    addClickHandlerToMockElement(composeTweetMock, composeTweetOrig)
+        // handler for compose tweet button
+        let composeTweetOrig = document.querySelector<HTMLElement>("header a[href='/compose/tweet'] > div")
+        let composeTweetMock = document.querySelector<HTMLElement>(".gt2-nav .gt2-compose")
+        addClickHandlerToMockElement(composeTweetMock, composeTweetOrig)
 
-    // handler for dropdown button
-    document.querySelector(".gt2-toggle-navbar-dropdown")
-      .addEventListener("click", dropdownToggledHandler)
-  }, false)
+        // handler for dropdown button
+        document.querySelector(".gt2-toggle-navbar-dropdown")
+            .addEventListener("click", dropdownToggledHandler)
+    }, false)
 }
 
 
@@ -114,13 +121,13 @@ function addNavbar(): void {
  * Highlights the current location in the navbar.
  */
 function highlightNavbarLocation(): void {
-  document.querySelectorAll(`.gt2-nav-left > a`)
-    ?.forEach(e => e.classList.remove("active"))
-  let elem = document.querySelector(`.gt2-nav a[href^='/${location.pathname.split("/")[1]}']`)
-  if (elem) {
-    elem.classList.add("active")
-    _logger.debug("highlighted location on navbar element:", elem)
-  }
+    document.querySelectorAll(`.gt2-nav-left > a`)
+        ?.forEach(e => e.classList.remove("active"))
+    let elem = document.querySelector(`.gt2-nav a[href^='/${location.pathname.split("/")[1]}']`)
+    if (elem) {
+        elem.classList.add("active")
+        _logger.debug("highlighted location on navbar element:", elem)
+    }
 }
 
 
@@ -130,33 +137,33 @@ function highlightNavbarLocation(): void {
  * @param localizedString localized string of the text
  */
 function addOrUpdateNavbarElement(selector: string, localizedString: string): void {
-  let origElem = document.querySelector(`header ${selector}`) as HTMLElement
-  if (!origElem) {
-    _logger.error(`Error finding navbar element with selector "${selector}"`)
-    return
-  }
+    let origElem = document.querySelector(`header ${selector}`) as HTMLElement
+    if (!origElem) {
+        _logger.error(`Error finding navbar element with selector "${selector}"`)
+        return
+    }
 
-  let mockElem = document.querySelector(`.gt2-nav ${selector}`)
+    let mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
-  // mock element does not exist
-  if (!mockElem) {
-    document.querySelector(".gt2-nav-left")
-    .insertAdjacentHTML("beforeend", origElem.outerHTML)
-    _logger.debug(`added navbar element with selector "${selector}"`)
-    mockElem = document.querySelector(`.gt2-nav ${selector}`)
+    // mock element does not exist
+    if (!mockElem) {
+        document.querySelector(".gt2-nav-left")
+            .insertAdjacentHTML("beforeend", origElem.outerHTML)
+        _logger.debug(`added navbar element with selector "${selector}"`)
+        mockElem = document.querySelector(`.gt2-nav ${selector}`)
 
-    // click handler
-    addClickHandlerToMockElement(mockElem, origElem)
-  }
+        // click handler
+        addClickHandlerToMockElement(mockElem, origElem)
+    }
 
-  // mock element already exists
-  else {
-    mockElem.innerHTML = origElem.innerHTML
-    _logger.debug(`updated navbar element with selector "${selector}"`)
-  }
+    // mock element already exists
+    else {
+        mockElem.innerHTML = origElem.innerHTML
+        _logger.debug(`updated navbar element with selector "${selector}"`)
+    }
 
-  mockElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
-  mockElem.firstElementChild.insertAdjacentHTML("beforeend", `
+    mockElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
+    mockElem.firstElementChild.insertAdjacentHTML("beforeend", `
     <div class="gt2-nav-header">${localizedString}</div>`)
 }
 
@@ -165,23 +172,23 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
  * Adds the search box to the navbar.
  */
 function addSearch(): void {
-  _logger.debug("waiting for search to appear")
-  waitForKeyElements(".gt2-search", mockSearch => {
-    waitForKeyElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
-      let searchContainer = search.closest("form")
-        ?.parentElement?.parentElement?.parentElement?.parentElement
+    _logger.debug("waiting for search to appear")
+    waitForKeyElements(".gt2-search", mockSearch => {
+        waitForKeyElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
+            let searchContainer = search.closest("form")
+                ?.parentElement?.parentElement?.parentElement?.parentElement
 
-      if (!searchContainer) {
-        _logger.error("search container not found")
-        return
-      }
+            if (!searchContainer) {
+                _logger.error("search container not found")
+                return
+            }
 
-      // replace mock search
-      let hadInput = mockSearch.querySelector("input") != null
-      mockSearch.replaceChildren(searchContainer)
-      _logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
+            // replace mock search
+            let hadInput = mockSearch.querySelector("input") != null
+            mockSearch.replaceChildren(searchContainer)
+            _logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
+        }, false)
     }, false)
-  }, false)
 }
 
 
@@ -189,11 +196,11 @@ function addSearch(): void {
  * Removes the search from the navbar.
  */
 export function removeSearch(): void {
-  let search = document.querySelector(".gt2-search")
-  if (search) {
-    search.replaceChildren()
-    _logger.debug("removed search")
-  }
+    let search = document.querySelector(".gt2-search")
+    if (search) {
+        search.replaceChildren()
+        _logger.debug("removed search")
+    }
 }
 
 
@@ -201,16 +208,16 @@ export function removeSearch(): void {
  * Adds the twitter bird to the navbar.
  */
 function addBird(): void {
-  let bird = document.querySelector<HTMLElement>("header h1 svg")
-  if (!bird) {
-    _logger.error("couldn't find twitter bird")
-  } else {
-    let mockBird = document.querySelector(".gt2-nav-bird")
+    let bird = document.querySelector<HTMLElement>("header h1 svg")
+    if (!bird) {
+        _logger.error("couldn't find twitter bird")
+    } else {
+        let mockBird = document.querySelector(".gt2-nav-bird")
 
-    mockBird.insertAdjacentHTML("beforeend", bird.outerHTML)
-    addClickHandlerToMockElement(mockBird, bird)
-    _logger.debug("added twitter bird to navbar")
-  }
+        mockBird.insertAdjacentHTML("beforeend", bird.outerHTML)
+        addClickHandlerToMockElement(mockBird, bird)
+        _logger.debug("added twitter bird to navbar")
+    }
 }
 
 
@@ -218,73 +225,73 @@ function addBird(): void {
  * Handler for the dropdown button in the navbar
  */
 function dropdownToggledHandler(): void {
-  let info = getCurrentUserInfo()
-  _logger.debug("dropdown menu toggled")
+    let info = getCurrentUserInfo()
+    _logger.debug("dropdown menu toggled")
 
-  // open "more menu"
-  let moreMenuButton = document.querySelector<HTMLElement>("header [data-testid=AppTabBar_More_Menu]")
-  moreMenuButton.click()
+    // open "more menu"
+    let moreMenuButton = document.querySelector<HTMLElement>("header [data-testid=AppTabBar_More_Menu]")
+    moreMenuButton.click()
 
-  // add elements to navbar dropdow menu
-  waitForKeyElements("#layers [data-testid=Dropdown]", moreMenu => {
-    // separator line
-    let separatorHtml = moreMenu.querySelector("[role=separator]")
-      ?.parentElement?.outerHTML ?? ""
+    // add elements to navbar dropdow menu
+    waitForKeyElements("#layers [data-testid=Dropdown]", moreMenu => {
+        // separator line
+        let separatorHtml = moreMenu.querySelector("[role=separator]")
+            ?.parentElement?.outerHTML ?? ""
 
-    // items from left menu to attach
-    let toAttach: {
-      selector: string
-      localizedString: string
-    }[] = [
-      {
-        selector: `a[href="/${info.screenName}"]`,
-        localizedString: getLocalizedString("navProfile")
-      }, {
-        selector: `a[href$="/lists"]`,
-        localizedString: getLocalizedString("navLists")
-      }, {
-        selector: `a[href$="/bookmarks"]`,
-        localizedString: getLocalizedString("navBookmarks")
-      }, {
-        selector: `a[href$="/communities"]`,
-        localizedString: getLocalizedString("navCommunities")
-      }, {
-        selector: `a[href="/explore"]`,
-        localizedString: getLocalizedString("navExplore")
-      }
-    ]
+        // items from left menu to attach
+        let toAttach: {
+            selector: string
+            localizedString: string
+        }[] = [
+            {
+                selector: `a[href="/${info.screenName}"]`,
+                localizedString: getLocalizedString("navProfile")
+            }, {
+                selector: `a[href$="/lists"]`,
+                localizedString: getLocalizedString("navLists")
+            }, {
+                selector: `a[href$="/bookmarks"]`,
+                localizedString: getLocalizedString("navBookmarks")
+            }, {
+                selector: `a[href$="/communities"]`,
+                localizedString: getLocalizedString("navCommunities")
+            }, {
+                selector: `a[href="/explore"]`,
+                localizedString: getLocalizedString("navExplore")
+            }
+        ]
 
-    for (let elem of toAttach.reverse()) {
-      let origElem = document.querySelector<HTMLElement>(`header nav ${elem.selector}`)
-      if (!origElem)
-        continue
+        for (let elem of toAttach.reverse()) {
+            let origElem = document.querySelector<HTMLElement>(`header nav ${elem.selector}`)
+            if (!origElem)
+                continue
 
-      moreMenu.insertAdjacentHTML("afterbegin", origElem.outerHTML)
-      let mockElem = moreMenu.querySelector(elem.selector)
-      mockElem.firstElementChild.insertAdjacentHTML("beforeend", `<span>${elem.localizedString}</span>`)
-      addClickHandlerToMockElement(mockElem, origElem, () => moreMenuButton.click())
-      _logger.debug(`added dropdown element with selector "${elem.selector}"`)
-    }
+            moreMenu.insertAdjacentHTML("afterbegin", origElem.outerHTML)
+            let mockElem = moreMenu.querySelector(elem.selector)
+            mockElem.firstElementChild.insertAdjacentHTML("beforeend", `<span>${elem.localizedString}</span>`)
+            addClickHandlerToMockElement(mockElem, origElem, () => moreMenuButton.click())
+            _logger.debug(`added dropdown element with selector "${elem.selector}"`)
+        }
 
-    // expand sections
-    moreMenu.querySelectorAll<HTMLElement>(`[aria-expanded=false]`)
-      .forEach(e => {
-        e.click()
-        e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
-      })
+        // expand sections
+        moreMenu.querySelectorAll<HTMLElement>(`[aria-expanded=false]`)
+            .forEach(e => {
+                e.click()
+                e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
+            })
 
-    moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
+        moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
 
-    moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
+        moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
 
-    // add ability to middle mouse click all items
-    moreMenu.addEventListener("mouseup", event => {
-      event.preventDefault()
-      let target = event.target as HTMLElement
-      if (target.closest("a") && event.button == 1) {
-        target.dispatchEvent(new MouseEvent("click", { ctrlKey: true }))
-        _logger.debug("middle clicked dropdown element", target.closest("a"))
-      }
+        // add ability to middle mouse click all items
+        moreMenu.addEventListener("mouseup", event => {
+            event.preventDefault()
+            let target = event.target as HTMLElement
+            if (target.closest("a") && event.button == 1) {
+                target.dispatchEvent(new MouseEvent("click", { ctrlKey: true }))
+                _logger.debug("middle clicked dropdown element", target.closest("a"))
+            }
+        })
     })
-  })
 }

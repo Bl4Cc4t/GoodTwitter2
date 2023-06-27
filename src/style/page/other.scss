@@ -1,30 +1,30 @@
 // make show more tweets more noticable
 body[data-page-type=home],
 body[data-page-type=search] {
-  div[data-testid=primaryColumn] section > h1 + div > div > div:not([class]) > div:first-child:last-child > div[role=button]:first-child:last-child > div:first-child:last-child > div[dir]:first-child:last-child {
-    padding: 30px 0;
+    div[data-testid=primaryColumn] section > h1 + div > div > div:not([class]) > div:first-child:last-child > div[role=button]:first-child:last-child > div:first-child:last-child > div[dir]:first-child:last-child {
+        padding: 30px 0;
 
-    > span {
-      font-weight: bold;
+        > span {
+            font-weight: bold;
+        }
     }
-  }
 }
 
 // error page
 body[data-page-error] {
-  main > div > div > div {
-    display: inline;
+    main > div > div > div {
+        display: inline;
 
-    .gt2-left-sidebar-container {
-      float: left;
-      position: relative !important;
+        .gt2-left-sidebar-container {
+            float: left;
+            position: relative !important;
 
-      + div {
-        background-color: var(--color-elem);
-        float: left;
-        margin: 0 10px;
-        width: 600px;
-      }
+            + div {
+                background-color: var(--color-elem);
+                float: left;
+                margin: 0 10px;
+                width: 600px;
+            }
+        }
     }
-  }
 }

@@ -12,19 +12,19 @@ const _logger = new Logger("request")
  * @returns valid request headers object, to be used for API calls
  */
 export function getRequestHeaders(
-  additionalHeaders?: {[header: string]: string}
+    additionalHeaders?: {[header: string]: string}
 ): {[header: string]: string} {
-  let csrf = document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
+    let csrf = document.cookie.match(/ct0=([^;]+)(;|$)/)[1]
 
-  return Object.assign({
-    authorization: `Bearer ${PUBLIC_BEARER}`,
-    origin: "https://twitter.com",
-    referer: location.href,
-    "x-twitter-client-language": getLanguage(),
-    "x-csrf-token": csrf,
-    "x-twitter-active-user": "yes",
-    // "x-twitter-auth-type": "OAuth2Session"
-  }, additionalHeaders)
+    return Object.assign({
+        authorization: `Bearer ${PUBLIC_BEARER}`,
+        origin: "https://twitter.com",
+        referer: location.href,
+        "x-twitter-client-language": getLanguage(),
+        "x-csrf-token": csrf,
+        "x-twitter-active-user": "yes",
+        // "x-twitter-auth-type": "OAuth2Session"
+    }, additionalHeaders)
 }
 
 
@@ -35,12 +35,12 @@ export function getRequestHeaders(
  * @return url with search params added
  */
 function getRequestURL(baseUrl: string, params: {[key: string]: any}): string {
-  let out = baseUrl
-  for (let [key, val] of Object.entries(params)) {
-    if (typeof val === "object") val = encodeURIComponent(JSON.stringify(val))
-    out += `&${key}=${val}`
-  }
-  return `${out.replace("&", "?")}`
+    let out = baseUrl
+    for (let [key, val] of Object.entries(params)) {
+        if (typeof val === "object") val = encodeURIComponent(JSON.stringify(val))
+        out += `&${key}=${val}`
+    }
+    return `${out.replace("&", "?")}`
 }
 
 
@@ -50,30 +50,30 @@ function getRequestURL(baseUrl: string, params: {[key: string]: any}): string {
  * @param callback function to call on success
  */
 export function requestTweet(
-  id: string,
-  callback: (result: TwitterApi.v1_1.statuses.show) => void
+    id: string,
+    callback: (result: TwitterApi.v1_1.statuses.show) => void
 ): void {
-  if (typeof id != "string" || id == "") {
-    _logger.error(`requestTweet: given id "${id}" is invalid.`)
-    return
-  }
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
-      id,
-      tweet_mode: "extended",
-      trim_user: true,
-      include_cards: 1
-    }),
-    headers: getRequestHeaders(),
-    onload: function(res) {
-      if (res.status == 200) {
-        callback(JSON.parse(res.response))
-      } else {
-        console.warn(res)
-      }
+    if (typeof id != "string" || id == "") {
+        _logger.error(`requestTweet: given id "${id}" is invalid.`)
+        return
     }
-  })
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: getRequestURL("https://twitter.com/i/api/1.1/statuses/show.json", {
+            id,
+            tweet_mode: "extended",
+            trim_user: true,
+            include_cards: 1
+        }),
+        headers: getRequestHeaders(),
+        onload: function(res) {
+            if (res.status == 200) {
+                callback(JSON.parse(res.response))
+            } else {
+                console.warn(res)
+            }
+        }
+    })
 }
 
 
@@ -83,28 +83,28 @@ export function requestTweet(
  * @param  callback function to call on success
  */
 export function requestUser(screenName: string, callback: (result: TwitterApi.UserResult) => void): void {
-  if (typeof screenName != "string" || screenName == "") {
-    _logger.error(`requestUser: given screenName "${screenName}" is invalid.`)
-    return
-  }
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: getRequestURL(`https://twitter.com/i/api/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName`, {
-      variables: {
-        screen_name: screenName,
-        withHighlightedLabel: true
-      }
-    }),
-    headers: getRequestHeaders(),
-    onload: function(res) {
-      if (res.status == 200) {
-        let _res = JSON.parse(res.response) as TwitterApi.Graphql.UserByScreenNameResponse
-        if (_res?.data?.user.result.__typename == "User") {
-          callback(_res.data.user.result)
-        } else console.warn(res)
-      } else console.warn(res)
+    if (typeof screenName != "string" || screenName == "") {
+        _logger.error(`requestUser: given screenName "${screenName}" is invalid.`)
+        return
     }
-  })
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: getRequestURL(`https://twitter.com/i/api/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName`, {
+            variables: {
+                screen_name: screenName,
+                withHighlightedLabel: true
+            }
+        }),
+        headers: getRequestHeaders(),
+        onload: function(res) {
+            if (res.status == 200) {
+                let _res = JSON.parse(res.response) as TwitterApi.Graphql.UserByScreenNameResponse
+                if (_res?.data?.user.result.__typename == "User") {
+                    callback(_res.data.user.result)
+                } else console.warn(res)
+            } else console.warn(res)
+        }
+    })
 }
 
 
@@ -115,26 +115,26 @@ export function requestUser(screenName: string, callback: (result: TwitterApi.Us
  * @param callback function to call on success
  */
 export function blockUser(userId: string, doBlock: boolean, callback: () => void): void {
-  if (typeof userId != "string" || userId == "") {
-    _logger.error(`blockUser: given userId "${userId}" is invalid.`)
-    return
-  }
-
-  GM_xmlhttpRequest({
-    method: "POST",
-    url: getRequestURL(`https://api.twitter.com/1.1/blocks/${doBlock ? "create" : "destroy"}.json`, {
-      user_id: userId,
-      skip_status: true
-    }),
-    headers: getRequestHeaders(),
-    onload: function(res) {
-      if (res.status == 200) {
-        callback()
-      } else {
-        console.warn(res)
-      }
+    if (typeof userId != "string" || userId == "") {
+        _logger.error(`blockUser: given userId "${userId}" is invalid.`)
+        return
     }
-  })
+
+    GM_xmlhttpRequest({
+        method: "POST",
+        url: getRequestURL(`https://api.twitter.com/1.1/blocks/${doBlock ? "create" : "destroy"}.json`, {
+            user_id: userId,
+            skip_status: true
+        }),
+        headers: getRequestHeaders(),
+        onload: function(res) {
+            if (res.status == 200) {
+                callback()
+            } else {
+                console.warn(res)
+            }
+        }
+    })
 }
 
 
@@ -144,38 +144,38 @@ export function blockUser(userId: string, doBlock: boolean, callback: () => void
  * @param callback the function to execute on success
  */
 export function getTweetTranslation(
-  tweetId: string,
-  callback: (result: TwitterApi.v1_1.translateTweet) => void
+    tweetId: string,
+    callback: (result: TwitterApi.v1_1.translateTweet) => void
 ): void {
-  if (typeof tweetId != "string" || tweetId == "") {
-    _logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
-    return
-  }
-
-  let urlEnd = Object.entries({
-    tweetId: tweetId,
-    destinationLanguage: "None",
-    translationSource: "Some(Google)",
-    feature: "None",
-    timeout: "None",
-    onlyCached: "None/translation/service/translateTweet"
-  }).map(e => `${e[0]}=${e[1]}`).join(",")
-
-
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: `https://twitter.com/i/api/1.1/strato/column/None/${urlEnd}`,
-    headers: getRequestHeaders({
-      referer: `https://twitter.com/i/status/${tweetId}`
-    }),
-    onload: function(res) {
-      if (res.status == 200) {
-        callback(JSON.parse(res.response) as TwitterApi.v1_1.translateTweet)
-      } else {
-        _logger.error("Error occurred while translating.", res)
-      }
+    if (typeof tweetId != "string" || tweetId == "") {
+        _logger.error(`getTweetTranslation: given tweetId "${tweetId}" is invalid.`)
+        return
     }
-  })
+
+    let urlEnd = Object.entries({
+        tweetId: tweetId,
+        destinationLanguage: "None",
+        translationSource: "Some(Google)",
+        feature: "None",
+        timeout: "None",
+        onlyCached: "None/translation/service/translateTweet"
+    }).map(e => `${e[0]}=${e[1]}`).join(",")
+
+
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: `https://twitter.com/i/api/1.1/strato/column/None/${urlEnd}`,
+        headers: getRequestHeaders({
+            referer: `https://twitter.com/i/status/${tweetId}`
+        }),
+        onload: function(res) {
+            if (res.status == 200) {
+                callback(JSON.parse(res.response) as TwitterApi.v1_1.translateTweet)
+            } else {
+                _logger.error("Error occurred while translating.", res)
+            }
+        }
+    })
 }
 
 
@@ -185,33 +185,33 @@ export function getTweetTranslation(
  * @param callback the function execute on success
  */
 export function getProfileTranslation(
-  userId: string,
-  callback: (result: TwitterApi.v1_1.translateProfile) => void
+    userId: string,
+    callback: (result: TwitterApi.v1_1.translateProfile) => void
 ): void {
-  if (typeof userId != "string" || userId == "") {
-    _logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
-    return
-  }
-
-  let urlEnd = Object.entries({
-    profileUserId: userId,
-    destinationLanguage: "None",
-    translationSource: "Some(Google)",
-    feature: "None",
-    timeout: "None",
-    onlyCached: "None/translation/service/translateProfile"
-  }).map(e => `${e[0]}=${e[1]}`).join(",")
-
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: `https://twitter.com/i/api/1.1/strato/column/None/${urlEnd}`,
-    headers: getRequestHeaders(),
-    onload: function(res) {
-      if (res.status == 200) {
-        callback(JSON.parse(res.response) as TwitterApi.v1_1.translateProfile)
-      } else {
-        _logger.error("Error occurred while translating.", res)
-      }
+    if (typeof userId != "string" || userId == "") {
+        _logger.error(`getProfileTranslation: given userId "${userId}" is invalid.`)
+        return
     }
-  })
+
+    let urlEnd = Object.entries({
+        profileUserId: userId,
+        destinationLanguage: "None",
+        translationSource: "Some(Google)",
+        feature: "None",
+        timeout: "None",
+        onlyCached: "None/translation/service/translateProfile"
+    }).map(e => `${e[0]}=${e[1]}`).join(",")
+
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: `https://twitter.com/i/api/1.1/strato/column/None/${urlEnd}`,
+        headers: getRequestHeaders(),
+        onload: function(res) {
+            if (res.status == 200) {
+                callback(JSON.parse(res.response) as TwitterApi.v1_1.translateProfile)
+            } else {
+                _logger.error("Error occurred while translating.", res)
+            }
+        }
+    })
 }

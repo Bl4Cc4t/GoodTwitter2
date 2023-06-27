@@ -1,28 +1,29 @@
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
-  @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
+    @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
 }
 
 // returns val with --font-increment added
 @function incr($val) {
-  @return calc(#{$val} + var(--font-increment));
+    @return calc(#{$val} + var(--font-increment));
 }
 
 // returns a dynamic border that can be used with clip-paths
 @function dropborder($width, $color) {
-  @return drop-shadow(#{$width} 0 0 #{$color})
-          drop-shadow(-#{$width} 0 0 #{$color})
-          drop-shadow(0 #{$width} 0 #{$color})
-          drop-shadow(0 -#{$width} 0 #{$color})
-          drop-shadow(#{$width} #{$width} 0 #{$color})
-          drop-shadow(-#{$width} -#{$width} 0 #{$color})
-          drop-shadow(-#{$width} #{$width} 0 #{$color})
-          drop-shadow(#{$width} -#{$width} 0 #{$color});
+    @return
+        drop-shadow(#{$width} 0 0 #{$color})
+        drop-shadow(-#{$width} 0 0 #{$color})
+        drop-shadow(0 #{$width} 0 #{$color})
+        drop-shadow(0 -#{$width} 0 #{$color})
+        drop-shadow(#{$width} #{$width} 0 #{$color})
+        drop-shadow(-#{$width} -#{$width} 0 #{$color})
+        drop-shadow(-#{$width} #{$width} 0 #{$color})
+        drop-shadow(#{$width} -#{$width} 0 #{$color});
 }
 
 // returns a selector string with at least one selector negated
 @function not-either($sel1, $sel2) {
-  @return "#{$sel1}:not(#{$sel2}), #{$sel2}:not(#{$sel1}), :not(#{$sel1}):not(#{$sel2})";
+    @return "#{$sel1}:not(#{$sel2}), #{$sel2}:not(#{$sel1}), :not(#{$sel1}):not(#{$sel2})";
 }
 
 
@@ -31,5 +32,5 @@
 /// @markup {scss}
 /// unicode("e655"); // "\e655"
 @function unicode($str) {
-  @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
+    @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
 }

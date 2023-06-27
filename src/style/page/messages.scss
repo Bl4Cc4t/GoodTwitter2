@@ -4,79 +4,79 @@
 // messages page
 body[data-page-type="messages"],
 body[data-page-pathname^="i/moment_maker"] {
-  .gt2-left-sidebar-container {
-    display: none;
-  }
-
-  main > div > div > div {
-    > section {
-      border-bottom-width: 1px;
-      margin-bottom: 10px;
-      max-width: unset;
-
-      &:nth-last-child(2) {
-        width: 40%;
-
-        // better indicator for active conversation
-        div[data-testid=conversation] {
-          @include separator-bottom;
-
-          > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(1) > div {
-            overflow-x: hidden;
-          }
-
-          &[aria-selected=true] {
-            background-color: var(--color-elem-sel);
-
-            + div {
-              border-right-width: 4px;
-            }
-          }
-        }
-      }
-
-      // right section
-      &:nth-last-child(1) {
-        width: 60%;
-
-        > div {
-          &,
-          > div > div,
-          > div > div:nth-child(1) > div > div > div > div,
-          > div > div:nth-child(2) > div > div > div:not([style]) > div > div > div {
-            margin: unset;
-            max-width: unset;
-          }
-        }
-      }
+    .gt2-left-sidebar-container {
+        display: none;
     }
-  }
+
+    main > div > div > div {
+        > section {
+            border-bottom-width: 1px;
+            margin-bottom: 10px;
+            max-width: unset;
+
+            &:nth-last-child(2) {
+                width: 40%;
+
+                // better indicator for active conversation
+                div[data-testid=conversation] {
+                    @include separator-bottom;
+
+                    > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(1) > div {
+                        overflow-x: hidden;
+                    }
+
+                    &[aria-selected=true] {
+                        background-color: var(--color-elem-sel);
+
+                        + div {
+                            border-right-width: 4px;
+                        }
+                    }
+                }
+            }
+
+            // right section
+            &:nth-last-child(1) {
+                width: 60%;
+
+                > div {
+                    &,
+                    > div > div,
+                    > div > div:nth-child(1) > div > div > div > div,
+                    > div > div:nth-child(2) > div > div > div:not([style]) > div > div > div {
+                        margin: unset;
+                        max-width: unset;
+                    }
+                }
+            }
+        }
+    }
 }
 
 body[data-page-pathname="messages/settings"] {
-  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
-    @include separator-bottom;
-  }
+    main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div {
+        @include separator-bottom;
+    }
 }
 
 body[data-page-pathname^="messages/"][data-page-pathname*="/info"] {
-  main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
+    main > div > div > div > section:nth-last-child(1) > div:nth-child(2) > div > div > div > div {
 
-    &:nth-child(2),
-    &:nth-child(3) {
-      > :empty {
-        margin: unset;
-      }
+        &:nth-child(2),
+        &:nth-child(3) {
+            > :empty {
+                margin: unset;
+            }
 
-      > :not(:empty) {
-        @include separator-bottom;
-      }
+            > :not(:empty) {
+                @include separator-bottom;
+            }
+        }
     }
-  }
 }
 
 body[data-page-pathname^="i/moment_maker"] {
-  section {
-    background-color: var(--color-elem);
-  }
+    section {
+        background-color: var(--color-elem);
+    }
 }

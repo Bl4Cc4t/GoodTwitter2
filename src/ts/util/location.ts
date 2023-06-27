@@ -15,12 +15,12 @@ const _logger = new Logger("location")
  * Entry function for all location adjustments.
  */
 export function initializeLocation(): void {
-  window.addEventListener("popstate", function() {
-    onLocationChange("pop")
-  })
+    window.addEventListener("popstate", function() {
+        onLocationChange("pop")
+    })
 
-  onLocationChange("init")
-  watchTitle()
+    onLocationChange("init")
+    watchTitle()
 }
 
 
@@ -29,10 +29,10 @@ export function initializeLocation(): void {
  * @param type type of the page
  */
 function setPageType(type: string): void {
-  if (document.body.dataset.pageType != type) {
-    document.body.dataset.pageType = type
-    _logger.debug(`page type set to: ${type}`)
-  }
+    if (document.body.dataset.pageType != type) {
+        document.body.dataset.pageType = type
+        _logger.debug(`page type set to: ${type}`)
+    }
 }
 
 
@@ -40,8 +40,8 @@ function setPageType(type: string): void {
  * Resets the page type.
  */
 function resetPageType(): void {
-  delete document.body.dataset.pageType
-  _logger.debug("reset page type")
+    delete document.body.dataset.pageType
+    _logger.debug("reset page type")
 }
 
 
@@ -49,8 +49,8 @@ function resetPageType(): void {
  * Sets the current page as an error page.
  */
 function setErrorPage(): void {
-  document.body.dataset.pageError = "true"
-  _logger.debug("on error page")
+    document.body.dataset.pageError = "true"
+    _logger.debug("on error page")
 }
 
 
@@ -58,16 +58,16 @@ function setErrorPage(): void {
  * Watches the page title for changes and modifies it if necessary.
  */
 function watchTitle(): void {
-  watchForChanges("head title", title => {
-    if (title.textContent != title.getAttribute("content")) {
-      for (let adj of TITLE_ADJUSTMENTS) {
-        if (location.pathname == adj.location)
-          changeTitle(adj.title)
-      }
-    }
-  }, {
-    attributes: false
-  })
+    watchForChanges("head title", title => {
+        if (title.textContent != title.getAttribute("content")) {
+            for (let adj of TITLE_ADJUSTMENTS) {
+                if (location.pathname == adj.location)
+                    changeTitle(adj.title)
+            }
+        }
+    }, {
+        attributes: false
+    })
 }
 
 
@@ -76,19 +76,19 @@ function watchTitle(): void {
  * @param newTitle the new title of the page
  */
 export function changeTitle(newTitle: string): void {
-  let title = document.querySelector("title")
-  if (!title) {
-    _logger.error("title element not found.")
-    return
-  }
+    let title = document.querySelector("title")
+    if (!title) {
+        _logger.error("title element not found.")
+        return
+    }
 
-  let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
-  if (title.textContent != newContent) {
-    title.setAttribute("content-old", title.textContent)
-    title.textContent = newContent
-    title.setAttribute("content", newContent)
-    _logger.debug(`title changed to "${newContent}"`)
-  }
+    let newContent = title.textContent.replace(/(\(.*\) )?.*/, `$1${newTitle} / Twitter`)
+    if (title.textContent != newContent) {
+        title.setAttribute("content-old", title.textContent)
+        title.textContent = newContent
+        title.setAttribute("content", newContent)
+        _logger.debug(`title changed to "${newContent}"`)
+    }
 }
 
 
@@ -96,19 +96,19 @@ export function changeTitle(newTitle: string): void {
  * Resets the page title to the last one.
  */
 export function resetTitle(): void {
-  let title = document.querySelector("title")
-  if (!title) {
-    _logger.error("title element not found.")
-    return
-  }
+    let title = document.querySelector("title")
+    if (!title) {
+        _logger.error("title element not found.")
+        return
+    }
 
-  let oldContent = title.getAttribute("content-old")
-  if (oldContent) {
-    title.setAttribute("content", oldContent)
-    title.removeAttribute("content-old")
-    title.textContent = oldContent
-    _logger.debug("reset title to: ", oldContent)
-  }
+    let oldContent = title.getAttribute("content-old")
+    if (oldContent) {
+        title.setAttribute("content", oldContent)
+        title.removeAttribute("content-old")
+        title.textContent = oldContent
+        _logger.debug("reset title to: ", oldContent)
+    }
 }
 
 
@@ -119,31 +119,31 @@ export function resetTitle(): void {
  * @returns true if the current location is in the given path object
  */
 export function onPage(path: Path, level=0): boolean {
-  let pathSplit = location.pathname.split("/")
-  pathSplit.shift()
+    let pathSplit = location.pathname.split("/")
+    pathSplit.shift()
 
-  // given path is too deep
-  if (pathSplit.length < level) return false
-  let pathCurrent = pathSplit[level]
+    // given path is too deep
+    if (pathSplit.length < level) return false
+    let pathCurrent = pathSplit[level]
 
-  // path is an array
-  if (Array.isArray(path)) {
-    for (const sub of path) {
-      // single string
-      if (typeof sub == "string" && (pathCurrent == sub || sub == "*")) return true
-      // another path object
-      else if (typeof sub != "string" && onPage(sub, level)) return true
+    // path is an array
+    if (Array.isArray(path)) {
+        for (const sub of path) {
+            // single string
+            if (typeof sub == "string" && (pathCurrent == sub || sub == "*")) return true
+            // another path object
+            else if (typeof sub != "string" && onPage(sub, level)) return true
+        }
     }
-  }
 
-  // path object
-  else {
-    for (const [top, sub] of Object.entries(path)) {
-      if ((pathCurrent == top || top == "*") && onPage(sub, level+1)) return true
+    // path object
+    else {
+        for (const [top, sub] of Object.entries(path)) {
+            if ((pathCurrent == top || top == "*") && onPage(sub, level+1)) return true
+        }
     }
-  }
 
-  return false
+    return false
 }
 
 
@@ -152,7 +152,7 @@ export function onPage(path: Path, level=0): boolean {
  * @returns true if the current location is a modal page
  */
 export function onModal(): boolean {
-  return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/) != null
+    return onPage(MODAL_PAGES) || location.pathname.match(/\/(photo|video)\/\d\/?$/) != null
 }
 
 
@@ -162,103 +162,103 @@ export function onModal(): boolean {
  * @param type type of the change event
  */
 export function onLocationChange(type: string): void {
-  _logger.info(`location change: [${type}] ${location.pathname}`)
+    _logger.info(`location change: [${type}] ${location.pathname}`)
 
-  document.body.dataset.pagePathname = location.pathname.slice(1)
+    document.body.dataset.pagePathname = location.pathname.slice(1)
 
-  // not logged in
-  if (!isLoggedIn()) {
-    document.body.classList.add("gt2-not-logged-in")
-  }
-
-  // error
-  delete document.body.dataset.pageError
-  waitForKeyElements(`main > div > div > div [data-testid=error-detail]`, e => {
-    if (!onPage({ settings: ["gt2"] })) {
-      setErrorPage()
+    // not logged in
+    if (!isLoggedIn()) {
+        document.body.classList.add("gt2-not-logged-in")
     }
-  }, false)
 
-  // tweet
-  if (onPage({
-    "*": ["status"],
-    i: { web: ["status"] }
-  }) && !onPage({
-    "*": { "status": { "*": { "retweets": ["with_comments"] } } },
-    i: { web: { "status": { "*": { "retweets": ["with_comments"] } } } }
-  })) {
-    setPageType("tweet")
+    // error
+    delete document.body.dataset.pageError
+    waitForKeyElements(`main > div > div > div [data-testid=error-detail]`, e => {
+        if (!onPage({ settings: ["gt2"] })) {
+            setErrorPage()
+        }
+    }, false)
 
-    addSourceLabel()
-    labelMoreTweetsElement()
-    scrollTweetUp(75)
-  }
+    // tweet
+    if (onPage({
+        "*": ["status"],
+        i: { web: ["status"] }
+    }) && !onPage({
+        "*": { "status": { "*": { "retweets": ["with_comments"] } } },
+        i: { web: { "status": { "*": { "retweets": ["with_comments"] } } } }
+    })) {
+        setPageType("tweet")
 
-  // home
-  else if (onPage(["home"])) {
-    setPageType("home")
-
-    enableLatestTweets()
-  }
-
-  // search/explore
-  else if (onPage(["search", "explore"])) {
-    setPageType("search")
-
-    // remove navbar search
-    removeSearch()
-  }
-
-  // settings
-  else if (onPage(["settings"]) && !onModal()) {
-    setPageType("settings")
-    addSettingsMenuEntry()
-
-    if (onPage({settings: ["gt2"]})) {
-      changeTitle("GoodTwitter2")
-      addSettings()
-    } else {
-      resetTitle()
-      hideSettings()
+        addSourceLabel()
+        labelMoreTweetsElement()
+        scrollTweetUp(75)
     }
-  }
 
-  // messages
-  else if (onPage(["messages"])) {
-    setPageType("messages")
-  }
+    // home
+    else if (onPage(["home"])) {
+        setPageType("home")
 
-  // 404
-  else if (onPage(["404"])) {
-    setErrorPage()
-  }
-
-  else if (onModal()) {
-    _logger.debug("on modal")
-  }
-
-  // unhandled / not important
-  else if (onPage(["hashtag", "i", "places", "notifications"]) || onPage({
-    "*": ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"],
-  })) {
-    _logger.warn("on unhandled page")
-    resetPageType()
-  }
-
-  // profile page
-  else if (!onModal() || onPage({intent: ["user"]})) {
-    setPageType("profile")
-
-    // @option profileMediaRedirect
-    if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
-      waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e.click())
-      _logger.debug("redirected to /media page")
+        enableLatestTweets()
     }
-  }
 
-  // unhandled modals
-  else {
-    _logger.warn("on unhandled modal")
-    // resetPageType()
-  }
+    // search/explore
+    else if (onPage(["search", "explore"])) {
+        setPageType("search")
+
+        // remove navbar search
+        removeSearch()
+    }
+
+    // settings
+    else if (onPage(["settings"]) && !onModal()) {
+        setPageType("settings")
+        addSettingsMenuEntry()
+
+        if (onPage({settings: ["gt2"]})) {
+            changeTitle("GoodTwitter2")
+            addSettings()
+        } else {
+            resetTitle()
+            hideSettings()
+        }
+    }
+
+    // messages
+    else if (onPage(["messages"])) {
+        setPageType("messages")
+    }
+
+    // 404
+    else if (onPage(["404"])) {
+        setErrorPage()
+    }
+
+    else if (onModal()) {
+        _logger.debug("on modal")
+    }
+
+    // unhandled / not important
+    else if (onPage(["hashtag", "i", "places", "notifications"]) || onPage({
+        "*": ["communities", "followers", "followers_you_follow", "following", "lists", "moments", "status", "topics"],
+    })) {
+        _logger.warn("on unhandled page")
+        resetPageType()
+    }
+
+    // profile page
+    else if (!onModal() || onPage({intent: ["user"]})) {
+        setPageType("profile")
+
+        // @option profileMediaRedirect
+        if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
+            waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e.click())
+            _logger.debug("redirected to /media page")
+        }
+    }
+
+    // unhandled modals
+    else {
+        _logger.warn("on unhandled modal")
+        // resetPageType()
+    }
 }

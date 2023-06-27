@@ -12,10 +12,10 @@ const _logger = new Logger("util")
  * @return SVG string
  */
 export function getSvg(key: keyof typeof SVG): string {
-  return `
-    <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
-      ${SVG[key]}
-    </svg>`
+    return `
+        <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
+          ${SVG[key]}
+        </svg>`
 }
 
 
@@ -24,7 +24,7 @@ export function getSvg(key: keyof typeof SVG): string {
  * @return true if logged in, false if not
  */
 export function isLoggedIn(): boolean {
-  return document.cookie.match(/twid=u/) != null
+    return document.cookie.match(/twid=u/) != null
 }
 
 
@@ -33,8 +33,8 @@ export function isLoggedIn(): boolean {
  * @return display language code
  */
 export function getLanguage(): string {
-  let lang = document.documentElement.lang
-  return lang == "en-GB" ? "en" : lang
+    let lang = document.documentElement.lang
+    return lang == "en-GB" ? "en" : lang
 }
 
 
@@ -45,28 +45,28 @@ export function getLanguage(): string {
  * @returns the localized string
  */
 export function getLocalizedString(key: string): string {
-  if (!i18n) {
-    _logger.error("error getting i18n data.")
-    return key
-  }
-
-  let lang = getLanguage()
-  if (!Object.keys(i18n).includes(lang)) {
-    _logger.warn(`the language file for ${lang} does not exist yet. falling back to english.`)
-    lang = "en"
-  }
-
-  if (!Object.keys(i18n[lang]).includes(key)) {
-    if (!hasLocalizedString(key)) {
-      _logger.error(`the string "${key}" does not exist.`)
-      return null
+    if (!i18n) {
+        _logger.error("error getting i18n data.")
+        return key
     }
 
-    _logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
-    lang = "en"
-  }
+    let lang = getLanguage()
+    if (!Object.keys(i18n).includes(lang)) {
+        _logger.warn(`the language file for ${lang} does not exist yet. falling back to english.`)
+        lang = "en"
+    }
 
-  return i18n[lang][key]
+    if (!Object.keys(i18n[lang]).includes(key)) {
+        if (!hasLocalizedString(key)) {
+            _logger.error(`the string "${key}" does not exist.`)
+            return null
+        }
+
+        _logger.warn(`the language file for ${lang} does not contain a translation for the string "${key}". falling back to english.`)
+        lang = "en"
+    }
+
+    return i18n[lang][key]
 }
 
 
@@ -76,18 +76,18 @@ export function getLocalizedString(key: string): string {
  * @returns true if the string has a localized version
  */
 export function hasLocalizedString(key: string): boolean {
-  return Object.keys(i18n["en"]).includes(key)
+    return Object.keys(i18n["en"]).includes(key)
 }
 
 
 export function getLocalizedReplacableString<K extends keyof I18nReplacable, V extends I18nReplacable[K]>(key: K, val: V): string {
-  let loc = getLocalizedString(key)
+    let loc = getLocalizedString(key)
 
-  Object.entries(val).forEach(e => {
-    loc = loc.replace(`$${e[0]}$`, e[1].toString())
-  })
+    Object.entries(val).forEach(e => {
+        loc = loc.replace(`$${e[0]}$`, e[1].toString())
+    })
 
-  return loc
+    return loc
 }
 
 
@@ -100,59 +100,59 @@ export function getLocalizedReplacableString<K extends keyof I18nReplacable, V e
  * @param iframeSelector a valid CSS selector string for an iframe to search elements in
  */
 export function waitForKeyElements(
-  selector: string,
-  callback: (e: HTMLElement) => void,
-  waitOnce = true,
-  iframeSelector?: string
+    selector: string,
+    callback: (e: HTMLElement) => void,
+    waitOnce = true,
+    iframeSelector?: string
 ): void {
-  let targetNodes: NodeListOf<HTMLElement>
-  let targetsFound = false
-  const WAIT_TIME_MS = 300
+    let targetNodes: NodeListOf<HTMLElement>
+    let targetsFound = false
+    const WAIT_TIME_MS = 300
 
 
-  // get the target nodes
-  if (typeof iframeSelector == "undefined") {
-    targetNodes = document.querySelectorAll(selector)
-  }
-  // get nodes from iframe
-  else {
-    let iframe: HTMLIFrameElement | null = document.querySelector(iframeSelector)
-    if (!iframe) return
+    // get the target nodes
+    if (typeof iframeSelector == "undefined") {
+        targetNodes = document.querySelectorAll(selector)
+    }
+    // get nodes from iframe
     else {
-      targetNodes = iframe.contentDocument.querySelectorAll(selector)
+        let iframe: HTMLIFrameElement | null = document.querySelector(iframeSelector)
+        if (!iframe) return
+        else {
+            targetNodes = iframe.contentDocument.querySelectorAll(selector)
+        }
     }
-  }
 
-  if (targetNodes && targetNodes.length > 0) {
-    targetsFound = true
+    if (targetNodes && targetNodes.length > 0) {
+        targetsFound = true
 
-    // loop over all nodes and execute the callback function
-    for (let node of Array.from(targetNodes)) {
-      if (!node.alreadyFound) {
-        callback(node)
-        node.alreadyFound = true
-      }
+        // loop over all nodes and execute the callback function
+        for (let node of Array.from(targetNodes)) {
+            if (!node.alreadyFound) {
+                callback(node)
+                node.alreadyFound = true
+            }
+        }
     }
-  }
 
-  // get the timer-control variable for this selector
-  let controlObj  = window.controlObj || {}
-  let controlKey  = selector.replace(/[^\w]/g, "_")
-  let timeControl = controlObj[controlKey]
+    // get the timer-control variable for this selector
+    let controlObj  = window.controlObj || {}
+    let controlKey  = selector.replace(/[^\w]/g, "_")
+    let timeControl = controlObj[controlKey]
 
-  // now set or clear the timer as appropriate
-  if (targetsFound && waitOnce && timeControl) {
-    // the only condition where we need to clear the timer
-    clearInterval(timeControl)
-    delete controlObj[controlKey]
-  }
+    // now set or clear the timer as appropriate
+    if (targetsFound && waitOnce && timeControl) {
+        // the only condition where we need to clear the timer
+        clearInterval(timeControl)
+        delete controlObj[controlKey]
+    }
 
-  // set a timer, if needed
-  else if (!timeControl) {
-    timeControl = setInterval(function () { waitForKeyElements(selector, callback, waitOnce, iframeSelector) }, WAIT_TIME_MS)
-    controlObj[controlKey] = timeControl
-  }
-  window.controlObj = controlObj
+    // set a timer, if needed
+    else if (!timeControl) {
+        timeControl = setInterval(function () { waitForKeyElements(selector, callback, waitOnce, iframeSelector) }, WAIT_TIME_MS)
+        controlObj[controlKey] = timeControl
+    }
+    window.controlObj = controlObj
 }
 
 
@@ -160,21 +160,21 @@ export function waitForKeyElements(
  * Watch a given element for changes and execute a callback function when they happen.
  * @param selector a valid CSS selector string of the element to watch
  * @param callback the function to execute when a change happens
- * @param subtree whether to watch child elements as well.
+ * @param options additional options for the observe function
  */
 export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, options?: MutationObserverInit): void {
-  waitForKeyElements(selector, element => {
-    if (element) {
-      callback(element)
-      new MutationObserver(mut => {
-        mut.forEach(() => callback(element))
-      }).observe(element, {
-        attributes: true,
-        childList: true,
-        ...options
-      })
-    }
-  })
+    waitForKeyElements(selector, element => {
+        if (element) {
+            callback(element)
+            new MutationObserver(mut => {
+                mut.forEach(() => callback(element))
+            }).observe(element, {
+                attributes: true,
+                childList: true,
+                ...options
+            })
+        }
+    })
 }
 
 
@@ -183,57 +183,57 @@ export function watchForChanges(selector: string, callback: (e: HTMLElement) => 
  * @returns user info object
  */
 export function getCurrentUserInfo(): UserInfo {
-  if (window.userInfo)
-    return window.userInfo
+    if (window.userInfo)
+        return window.userInfo
 
-  let user = null
-  try {
-    for (let e of Array.from(document.querySelectorAll("#react-root ~ script"))) {
-      if (e.textContent.includes("__INITIAL_STATE__")) {
-        let match = e.textContent.match(/__INITIAL_STATE__=(\{.*?\});window/)
-        if (match) {
-          let initialState = JSON.parse(match[1])
-          user = Object.values(initialState?.entities?.users?.entities)[0] ?? null
+    let user = null
+    try {
+        for (let e of Array.from(document.querySelectorAll("#react-root ~ script"))) {
+            if (e.textContent.includes("__INITIAL_STATE__")) {
+                let match = e.textContent.match(/__INITIAL_STATE__=(\{.*?});window/)
+                if (match) {
+                    let initialState = JSON.parse(match[1])
+                    user = Object.values(initialState?.entities?.users?.entities)[0] ?? null
+                }
+                break
+            }
         }
-        break
-      }
+    } catch (e) {
+        _logger.error(e)
     }
-  } catch (e) {
-    _logger.error(e)
-  }
 
 
-  if (user) {
-    window.userInfo = {
-      bannerUrl: user.profile_banner_url,
-      avatarUrl: user.profile_image_url_https.replace("_normal", "_bigger"),
-      screenName: user.screen_name,
-      name: user.name,
-      id: user.id_str,
-      stats: {
-        tweets: user.statuses_count,
-        followers: user.followers_count,
-        following: user.friends_count
-      }
+    if (user) {
+        window.userInfo = {
+            bannerUrl: user.profile_banner_url,
+            avatarUrl: user.profile_image_url_https.replace("_normal", "_bigger"),
+            screenName: user.screen_name,
+            name: user.name,
+            id: user.id_str,
+            stats: {
+                tweets: user.statuses_count,
+                followers: user.followers_count,
+                following: user.friends_count
+            }
+        }
+        _logger.info("got user info", window.userInfo)
+    } else {
+        _logger.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
+        window.userInfo = {
+            bannerUrl: "",
+            avatarUrl: DEFAULT_AVATAR_URL,
+            screenName: "youarenotloggedin",
+            name: "Anonymous",
+            id: "0",
+            stats: {
+                tweets: 0,
+                followers: 0,
+                following: 0
+            }
+        }
     }
-    _logger.info("got user info", window.userInfo)
-  } else {
-    _logger.error("match of __INITIAL_STATE__ unsuccessful, falling back to default values")
-    window.userInfo = {
-      bannerUrl: "",
-      avatarUrl: DEFAULT_AVATAR_URL,
-      screenName: "youarenotloggedin",
-      name: "Anonymous",
-      id: "0",
-      stats: {
-        tweets: 0,
-        followers: 0,
-        following: 0
-      }
-    }
-  }
 
-  return window.userInfo
+    return window.userInfo
 }
 
 
@@ -241,17 +241,18 @@ export function getCurrentUserInfo(): UserInfo {
  * Adds a click EventListener to a mock element.
  * @param mockElement the mock element to append the listener to
  * @param originalElement the original element to click on
+ * @param callback an optional callback
  */
 export function addClickHandlerToMockElement(mockElement: Element, originalElement: HTMLElement, callback?: () => void): void {
-  mockElement.addEventListener("click", (event: MouseEvent) => {
-    if (!event.ctrlKey && originalElement != null) {
-      event.preventDefault()
-      originalElement.click()
+    mockElement.addEventListener("click", (event: MouseEvent) => {
+        if (!event.ctrlKey && originalElement != null) {
+            event.preventDefault()
+            originalElement.click()
 
-      if (callback)
-        callback()
-    }
-  })
+            if (callback)
+                callback()
+        }
+    })
 }
 
 
@@ -260,9 +261,9 @@ export function addClickHandlerToMockElement(mockElement: Element, originalEleme
  * @returns true, if it does
  */
 export function isOnSingleSidebarLayout(): boolean {
-  let smallSidebars = settings.get("smallSidebars")
-  let width = window.innerWidth
-  return (!smallSidebars && width <= 1350) || (smallSidebars && width <= 1230)
+    let smallSidebars = settings.get("smallSidebars")
+    let width = window.innerWidth
+    return (!smallSidebars && width <= 1350) || (smallSidebars && width <= 1230)
 }
 
 
@@ -272,7 +273,7 @@ export function isOnSingleSidebarLayout(): boolean {
  * @returns true, if the notice has been dismissed
  */
 export function isSidebarNoticeDismissed(key: string): boolean {
-  return GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, []).includes(key)
+    return GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, []).includes(key)
 }
 
 
@@ -281,8 +282,8 @@ export function isSidebarNoticeDismissed(key: string): boolean {
  * @param key the key of the notice to dismiss.
  */
 export function dismissSidebarNotice(key: string): void {
-  let notices = GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, [])
-  notices.push(key)
-  GM_setValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, notices)
-  _logger.debug("dismissed sidebar notice with key: ", key)
+    let notices = GM_getValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, [])
+    notices.push(key)
+    GM_setValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, notices)
+    _logger.debug("dismissed sidebar notice with key: ", key)
 }

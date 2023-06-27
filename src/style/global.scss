@@ -1,274 +1,274 @@
 // global background color
 body {
-  background-color: var(--color-bg) !important;
+    background-color: var(--color-bg) !important;
 }
 
 // minimalscrollbar
 html[data-minimalscrollbar] {
-  body {
-    margin-right: 0 !important;
-  }
+    body {
+        margin-right: 0 !important;
+    }
 }
 
 // hide header completely (left sidebar)
 header {
-  display: none !important;
+    display: none !important;
 }
 
 // remove anchor decorations
 a {
-  &:hover {
-    text-decoration-thickness: 1px;
-  }
+    &:hover {
+        text-decoration-thickness: 1px;
+    }
 
-  &:not(:hover) {
-    text-decoration-line: unset;
-  }
+    &:not(:hover) {
+        text-decoration-line: unset;
+    }
 }
 
 // non transparent tooltips
 #layers [role=tooltip] {
-  background-color: rgb(110, 118, 125);
+    background-color: rgb(110, 118, 125);
 }
 
 // remove invisible overlay on tab navigation
 [data-testid^=ScrollSnap-].r-orgf3d {
-  display: none;
+    display: none;
 }
 
 // make parts around toasts clickable
 div[data-testid=toast] {
-  bottom: 0;
-  position: absolute;
+    bottom: 0;
+    position: absolute;
 }
 
 // headings decrop
 h2 {
-  font-weight: 800 !important;
-  line-height: normal !important;
+    font-weight: 800 !important;
+    line-height: normal !important;
 
-  > div {
-    &:nth-child(2) {
-      line-height: normal !important;
+    > div {
+        &:nth-child(2) {
+            line-height: normal !important;
+        }
+        // icon
+        &:nth-child(3) {
+            align-self: center;
+        }
     }
-    // icon
-    &:nth-child(3) {
-      align-self: center;
-    }
-  }
 }
 
 
 // stuff to do on modal
 html[style*="overflow: hidden"],
 html[style*="overflow-y: hidden"] {
-  .gt2-nav-center {
-    margin-right: calc(var(--scrollbar-width) / 2);
-  }
+    .gt2-nav-center {
+        margin-right: calc(var(--scrollbar-width) / 2);
+    }
 
-  .gt2-nav-right,
-  .gt2-legacy-profile-nav-right {
-    padding-right: var(--scrollbar-width);
-  }
+    .gt2-nav-right,
+    .gt2-legacy-profile-nav-right {
+        padding-right: var(--scrollbar-width);
+    }
 
-  .gt2-legacy-profile-banner img {
-    padding-right: var(--scrollbar-width);
-  }
+    .gt2-legacy-profile-banner img {
+        padding-right: var(--scrollbar-width);
+    }
 }
 
 html[style*=margin-right] {
-  margin-right: unset !important;
+    margin-right: unset !important;
 
-  main {
-    margin-right: var(--scrollbar-width);
-  }
+    main {
+        margin-right: var(--scrollbar-width);
+    }
 }
 
 
 // make line under selected tab full width
 nav [role=tablist] [role=tab] {
-  > div {
-    font-weight: 700;
-  }
-
-  &[aria-selected=true] {
-    span {
-      color: var(--color-accent);
+    > div {
+        font-weight: 700;
     }
 
-    &::after {
-      background-color: var(--color-accent);
-      bottom: 0;
-      content: "";
-      height: 4px;
-      position: absolute;
-      width: 100%;
+    &[aria-selected=true] {
+        span {
+            color: var(--color-accent);
+        }
+
+        &::after {
+            background-color: var(--color-accent);
+            bottom: 0;
+            content: "";
+            height: 4px;
+            position: absolute;
+            width: 100%;
+        }
     }
-  }
 }
 
 
 // main component
 main {
-  align-items: center !important;
+    align-items: center !important;
 
-  > div > div {
-    margin: 0 !important;
-
-    > div {
-      // compact conversations on tweets
-      div[data-testid=primaryColumn] {
-        @include separator-bottom;
-        height: fit-content;
-        margin-bottom: 10px;
+    > div > div {
+        margin: 0 !important;
 
         > div {
-          // scroll behind nav bar
-          > div:nth-child(1) {
-            position: relative;
-          }
-
-          // small compose tweet
-          > div:nth-child(2):not(.gt2-compose-large) {
-            [data-testid=toolBar] {
-              display: none;
-            }
-
-            > div,
-            > div > div:nth-child(2) {
-              padding-bottom: 0 !important;
-
-              > div > div > div > div > div:nth-child(2) {
-                padding-top: 0 !important;
-              }
-            }
-          }
-
-          // compose tweet hide scrollbar
-          .DraftEditor-root {
-            overflow: unset;
-          }
-
-          [data-testid=tweet] {
-            // put tweet images in foreground
-            img {
-              z-index: 1;
-            }
-
-            > div > div > div > div:nth-child(3) > div > div:empty {
-              margin: unset;
-            }
-          }
-
-          [data-testid=cellInnerDiv] [data-gt2-divider-add-ignore] a[href^="/i/status/"] {
-            margin: unset;
-            padding-left: 16px;
-          }
-
-          > div:nth-child(2) > div > section > div > div {
-            padding-bottom: 0 !important;
-
-            > div > div:not([class]) {
-              &:nth-last-child(2) > div {
-                border-bottom-width: 0;
-              }
-
-              &:last-child > div {
+            // compact conversations on tweets
+            div[data-testid=primaryColumn] {
+                @include separator-bottom;
                 height: fit-content;
+                margin-bottom: 10px;
 
                 > div {
-                  height: calc(6.5625rem);
-
-                  &:empty {
-                    display: none;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // separators
-      div[data-testid=primaryColumn] > div > div:nth-child(1),
-      > section {
-        @include separator-top;
-        @include separator-bottom;
-      }
-
-      // section title separator
-      > section > div:nth-child(1) > div:not([data-testid=emptyState]) > div:nth-child(1) {
-        @include separator-bottom;
-      }
-
-      div[data-testid=sidebarColumn] {
-        margin-right: 0;
-
-        > div {
-          min-height: 0 !important;
-
-          > div:nth-child(2) > div {
-            margin-bottom: 10px;
-
-            > div > div {
-              &[role=progressbar] {
-                background-color: var(--color-elem);
-                border: 1px solid var(--color-gray-dark);
-                border-radius: 0;
-                padding: 20px 0;
-              }
-
-              &:not([role=progressbar]) {
-                padding: 0;
-
-                // apply theme to sidebar elements
-                > div:not(.gt2-right-sidebar) {
-                  background-color: var(--color-elem);
-                  border: 1px solid var(--color-gray-dark);
-                  border-radius: 0;
-                  margin-bottom: 11px;
-
-                  > div {
-                    min-height: unset;
-                  }
-
-                  // tos/privacy policy/etc. nav
-                  &:nth-last-child(1) nav {
-                    padding: 15px;
-                    // more button
-                    > :nth-last-child(2) > div {
-                      &:hover {
-                        text-decoration-thickness: 1px;
-                      }
-
-                      &:not(:hover) {
-                        text-decoration-line: unset;
-                      }
+                    // scroll behind nav bar
+                    > div:nth-child(1) {
+                        position: relative;
                     }
-                  }
 
-                  &:empty {
-                    display: none;
-                  }
+                    // small compose tweet
+                    > div:nth-child(2):not(.gt2-compose-large) {
+                        [data-testid=toolBar] {
+                            display: none;
+                        }
 
-                  a[href^="/i/connect_people"] {
-                    border-radius: unset;
-                  }
+                        > div,
+                        > div > div:nth-child(2) {
+                            padding-bottom: 0 !important;
 
-                  // ChirpUpdate: readd vertical dividers
-                  // who to follow / you might like
-                  aside {
-                    > div > div,
-                    > a[href*="i/connect_people"] {
-                      @include separator-top;
+                            > div > div > div > div > div:nth-child(2) {
+                                padding-top: 0 !important;
+                            }
+                        }
                     }
-                  }
+
+                    // compose tweet hide scrollbar
+                    .DraftEditor-root {
+                        overflow: unset;
+                    }
+
+                    [data-testid=tweet] {
+                        // put tweet images in foreground
+                        img {
+                            z-index: 1;
+                        }
+
+                        > div > div > div > div:nth-child(3) > div > div:empty {
+                            margin: unset;
+                        }
+                    }
+
+                    [data-testid=cellInnerDiv] [data-gt2-divider-add-ignore] a[href^="/i/status/"] {
+                        margin: unset;
+                        padding-left: 16px;
+                    }
+
+                    > div:nth-child(2) > div > section > div > div {
+                        padding-bottom: 0 !important;
+
+                        > div > div:not([class]) {
+                            &:nth-last-child(2) > div {
+                                border-bottom-width: 0;
+                            }
+
+                            &:last-child > div {
+                                height: fit-content;
+
+                                > div {
+                                    height: calc(6.5625rem);
+
+                                    &:empty {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
+
+            // separators
+            div[data-testid=primaryColumn] > div > div:nth-child(1),
+            > section {
+                @include separator-top;
+                @include separator-bottom;
+            }
+
+            // section title separator
+            > section > div:nth-child(1) > div:not([data-testid=emptyState]) > div:nth-child(1) {
+                @include separator-bottom;
+            }
+
+            div[data-testid=sidebarColumn] {
+                margin-right: 0;
+
+                > div {
+                    min-height: 0 !important;
+
+                    > div:nth-child(2) > div {
+                        margin-bottom: 10px;
+
+                        > div > div {
+                            &[role=progressbar] {
+                                background-color: var(--color-elem);
+                                border: 1px solid var(--color-gray-dark);
+                                border-radius: 0;
+                                padding: 20px 0;
+                            }
+
+                            &:not([role=progressbar]) {
+                                padding: 0;
+
+                                // apply theme to sidebar elements
+                                > div:not(.gt2-right-sidebar) {
+                                    background-color: var(--color-elem);
+                                    border: 1px solid var(--color-gray-dark);
+                                    border-radius: 0;
+                                    margin-bottom: 11px;
+
+                                    > div {
+                                        min-height: unset;
+                                    }
+
+                                    // tos/privacy policy/etc. nav
+                                    &:nth-last-child(1) nav {
+                                        padding: 15px;
+                                        // more button
+                                        > :nth-last-child(2) > div {
+                                            &:hover {
+                                                text-decoration-thickness: 1px;
+                                            }
+
+                                            &:not(:hover) {
+                                                text-decoration-line: unset;
+                                            }
+                                        }
+                                    }
+
+                                    &:empty {
+                                        display: none;
+                                    }
+
+                                    a[href^="/i/connect_people"] {
+                                        border-radius: unset;
+                                    }
+
+                                    // ChirpUpdate: readd vertical dividers
+                                    // who to follow / you might like
+                                    aside {
+                                        > div > div,
+                                        > a[href*="i/connect_people"] {
+                                            @include separator-top;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

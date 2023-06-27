@@ -1,53 +1,53 @@
 // search & explore specific
 
 .gt2-search-overflow-hider {
-  background-color: var(--color-bg);
-  display: none;
-  height: 9px;
-  position: fixed;
-  top: 47px;
-  width: calc(600px + var(--scrollbar-width));
-  z-index: 1;
+    background-color: var(--color-bg);
+    display: none;
+    height: 9px;
+    position: fixed;
+    top: 47px;
+    width: calc(600px + var(--scrollbar-width));
+    z-index: 1;
 }
 
 // /search overflow, let search box stay on top
 body[data-page-type="search"] {
-  .gt2-search-overflow-hider {
-    display: block;
-  }
-
-  div[data-testid=primaryColumn] {
-    border-top-width: 0 !important;
-
-    > div > div:nth-child(1) {
-      @include separator-top;
-      background-color: var(--color-elem);
-      position: sticky;
-      top: 56px;
-      transition: top .2s ease-in-out;
+    .gt2-search-overflow-hider {
+        display: block;
     }
-  }
 
-  // sidebar ordering
-  .gt2-right-sidebar {
-    order: -1;
+    div[data-testid=primaryColumn] {
+        border-top-width: 0 !important;
 
-    + div {
-      border-bottom-width: 0 !important;
-      margin-bottom: 0 !important;
-      order: -3;
-
-      + div {
-        order: -2;
-      }
+        > div > div:nth-child(1) {
+            @include separator-top;
+            background-color: var(--color-elem);
+            position: sticky;
+            top: 56px;
+            transition: top .2s ease-in-out;
+        }
     }
-  }
+
+    // sidebar ordering
+    .gt2-right-sidebar {
+        order: -1;
+
+        + div {
+            border-bottom-width: 0 !important;
+            margin-bottom: 0 !important;
+            order: -3;
+
+            + div {
+                order: -2;
+            }
+        }
+    }
 }
 
 body[data-page-pathname="search"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
-  top: calc(56px - 107px);
+    top: calc(56px - 107px);
 }
 
 body[data-page-pathname="explore"].gt2-scrolled-down div[data-testid=primaryColumn] > div > div:nth-child(1) {
-  top: calc(56px - 54px);
+    top: calc(56px - 54px);
 }

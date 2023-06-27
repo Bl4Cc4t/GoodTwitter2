@@ -1,33 +1,33 @@
 // home page
 body[data-page-type="home"] {
-  [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
-    border-bottom-width: 0;
-  }
+    [data-testid=primaryColumn] > div > div > div:nth-child(2) > nav {
+        border-bottom-width: 0;
+    }
 }
 
 // hide spark options (home timeline, top right icon)
 .gt2-hide-spark-opt {
-  #layers [data-testid=Dropdown] {
-    display: none;
-  }
+    #layers [data-testid=Dropdown] {
+        display: none;
+    }
 }
 
 // spark settings
 .gt2-spark-toggle {
-  display: inline-flex;
-  padding: 15px;
+    display: inline-flex;
+    padding: 15px;
 
-  svg {
-    height: 1.25em;
-    margin-right: 10px;
-  }
+    svg {
+        height: 1.25em;
+        margin-right: 10px;
+    }
 
-  div {
-    color: var(--color-text);
-  }
+    div {
+        color: var(--color-text);
+    }
 
-  &:hover {
-    background-color: var(--color-elem-sel);
-    cursor: pointer;
-  }
+    &:hover {
+        background-color: var(--color-elem-sel);
+        cursor: pointer;
+    }
 }
