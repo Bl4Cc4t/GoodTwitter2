@@ -1,3 +1,6 @@
+@import "../util/functions";
+@import "../util/mixins";
+
 // profile page
 body[data-page-type=profile] {
     .gt2-dashboard-profile {

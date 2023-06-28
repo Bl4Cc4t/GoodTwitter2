@@ -272,7 +272,7 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
             .gt2-legacy-profile-nav-left {
                 // avatar
                 .gt2-legacy-profile-nav-avatar {
-                    filter: dropborder(2.5px, var(--color-navbar));
+                    filter: drop-border(2.5px, var(--color-navbar));
                     margin-bottom: 100px;
 
                     img {

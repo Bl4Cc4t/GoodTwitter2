@@ -1,4 +1,4 @@
-// make show more tweets more noticable
+// make show more tweets more noticeable
 body[data-page-type=home],
 body[data-page-type=search] {
     div[data-testid=primaryColumn] section > h1 + div > div > div:not([class]) > div:first-child:last-child > div[role=button]:first-child:last-child > div:first-child:last-child > div[dir]:first-child:last-child {

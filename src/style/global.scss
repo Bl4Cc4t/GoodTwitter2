@@ -1,3 +1,5 @@
+@import "./util/mixins";
+
 // global background color
 body {
     background-color: var(--color-bg) !important;

@@ -9,7 +9,7 @@
 }
 
 // returns a dynamic border that can be used with clip-paths
-@function dropborder($width, $color) {
+@function drop-border($width, $color) {
     @return
         drop-shadow(#{$width} 0 0 #{$color})
         drop-shadow(-#{$width} 0 0 #{$color})

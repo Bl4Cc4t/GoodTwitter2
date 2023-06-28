@@ -1,3 +1,6 @@
+@import "../util/functions";
+@import "../util/mixins";
+
 // tweet page
 body[data-page-type=tweet] {
     // sticky header with back button

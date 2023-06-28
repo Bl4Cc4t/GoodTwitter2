@@ -1,3 +1,6 @@
+@import "../util/functions";
+@import "../util/mixins";
+
 // settings page
 body[data-page-type=settings] {
     main {
