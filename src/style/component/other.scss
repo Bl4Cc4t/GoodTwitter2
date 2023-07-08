@@ -1,46 +1,48 @@
+@import "../util/functions";
+@import "../util/mixins";
+
 // custom icons
 .gt2-svg {
-  fill: var(--color-gray-light);
+    fill: var(--color-gray-light);
 }
 
 // element is hidden
 .gt2-hidden {
-  display: none !important;
+    display: none !important;
 }
 
 // emoji styling
 .gt2-emoji {
-  height: 1.2em;
-  margin: 0 .075em -4px;
-  width: 1.2em;
+    height: 1.2em;
+    margin: 0 .075em -4px;
+    width: 1.2em;
 }
-
 
 
 // translate tweet
 .gt2-translate-tweet,
 .gt2-translated-tweet-info {
-  color: var(--color-accent);
-  font-size: incr(13px);
-  margin-top: 5px;
-  width: max-content;
+    color: var(--color-accent);
+    font-size: incr(13px);
+    margin-top: 5px;
+    width: max-content;
 
-  &:hover {
-    cursor: pointer;
-    text-decoration-line: underline;
-  }
+    &:hover {
+        cursor: pointer;
+        text-decoration-line: underline;
+    }
 
-  svg {
-    fill: var(--color-text);
-    height: 1.25em;
-    margin-left: 1px;
-    vertical-align: middle;
-  }
+    svg {
+        fill: var(--color-text);
+        height: 1.25em;
+        margin-left: 1px;
+        vertical-align: middle;
+    }
 }
 
 .gt2-translated-tweet {
-  @include standard-link;
-  color: var(--color-text);
-  font-size: incr(15px);
-  white-space: pre-line;
+    @include standard-link;
+    color: var(--color-text);
+    font-size: incr(15px);
+    white-space: pre-line;
 }

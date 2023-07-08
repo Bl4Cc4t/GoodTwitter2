@@ -1,250 +1,253 @@
+@import "../util/functions";
+@import "../util/mixins";
+@import "../util/variables";
+
 // navbar
 .gt2-nav {
-  background-color: var(--color-navbar);
-  border-bottom: 1px solid rgba(0, 0, 0, .25);
-  display: flex;
-  height: 46px;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-
-  .gt2-nav-left {
-
-    > a {
-      display: inline-flex;
-      height: 100%;
-      padding: 0;
-      transition: all .15s ease-in-out;
-      width: fit-content;
-
-      svg {
-        color: var(--color-gray-light);
-        width: incr(23px);
-      }
-
-      > div {
-        background-color: unset !important;
-        margin-top: calc(var(--font-increment) * -1.25);
-        padding: 10px 15px;
-
-        > div:nth-child(1) > div {
-          background-color: var(--color-accent);
-          border-color: var(--color-elem);
-          color: var(--color-text-2);
-          font-size: calc(11px + var(--font-increment) * .75);
-        }
-
-        > div:not(:first-child):not(.gt2-nav-header) {
-          display: none;
-        }
-
-        .gt2-nav-header {
-          color: var(--color-gray);
-          font-size: incr(13px);
-          font-weight: bold;
-          margin-left: incr(3px);
-          margin-right: 3px;
-        }
-      }
-    }
-
-    > a.active,
-    > a:hover {
-      border-bottom: .2em solid var(--color-accent);
-
-      .gt2-nav-header {
-        color: var(--color-accent);
-      }
-    }
-
-    > a.active > div > div:nth-child(2),
-    > a.active svg,
-    > a:hover > div > div:nth-child(2),
-    > a:hover svg {
-      color: var(--color-accent);
-    }
-  }
-
-  // twitter logo
-  .gt2-nav-center {
-    margin-top: calc(8px - var(--font-increment));
-    position: absolute;
-    right: calc(50% - 12px);
-    width: incr(24px);
-
-    svg path {
-      color: #1da1f2;
-    }
-  }
-
-  // nav right
-  .gt2-nav-right {
-    align-items: center;
+    background-color: var(--color-navbar);
+    border-bottom: 1px solid rgba(0, 0, 0, .25);
     display: flex;
-    height: 100%;
-    position: absolute;
-    right: 0;
+    height: 46px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 
-    .gt2-search > div {
-      background: unset;
-      border: 1px solid var(--color-gray-dark);
-      border-radius: 21px;
-      height: auto;
-      margin-bottom: 0;
-      position: relative;
-      right: 10px;
-      transition: all .2s ease-in-out;
-      width: 300px;
+    .gt2-nav-left {
+        > a {
+            display: inline-flex;
+            height: 100%;
+            padding: 0;
+            transition: all .15s ease-in-out;
+            width: fit-content;
 
-      input {
-        color: var(--color-text);
-        font-size: 14px;
-        height: 32px;
-        padding: 8px;
-      }
+            svg {
+                color: var(--color-gray-light);
+                width: incr(23px);
+            }
 
-      &:focus-within {
-        border: 1px solid var(--color-accent);
-      }
+            > div {
+                background-color: unset !important;
+                margin-top: calc(var(--font-increment) * -1.25);
+                padding: 10px 15px;
 
-      form {
-        > div:nth-child(1) > div {
-          background-color: var(--color-elem);
-          border: 0;
+                > div:nth-child(1) > div {
+                    background-color: var(--color-accent);
+                    border-color: var(--color-elem);
+                    color: var(--color-text-2);
+                    font-size: calc(11px + var(--font-increment) * .75);
+                }
+
+                > div:not(:first-child):not(.gt2-nav-header) {
+                    display: none;
+                }
+
+                .gt2-nav-header {
+                    color: var(--color-gray);
+                    font-size: incr(13px);
+                    font-weight: bold;
+                    margin-left: incr(3px);
+                    margin-right: 3px;
+                }
+            }
         }
 
-        > div:nth-child(2) > div {
-          top: 15px !important;
+        > a.active,
+        > a:hover {
+            border-bottom: .2em solid var(--color-accent);
+
+            .gt2-nav-header {
+                color: var(--color-accent);
+            }
         }
-      }
+
+        > a.active > div > div:nth-child(2),
+        > a.active svg,
+        > a:hover > div > div:nth-child(2),
+        > a:hover svg {
+            color: var(--color-accent);
+        }
     }
 
-    .gt2-toggle-navbar-dropdown {
-      height: 34px;
-      margin-left: 5px;
-      margin-right: 15px;
-      width: 34px;
+    // twitter logo
+    .gt2-nav-center {
+        margin-top: calc(8px - var(--font-increment));
+        position: absolute;
+        right: calc(50% - 12px);
+        width: incr(24px);
 
-      img {
-        @include grayscale-hover;
-        border-radius: 9999px;
+        svg path {
+            color: #1da1f2;
+        }
+    }
+
+    // nav right
+    .gt2-nav-right {
+        align-items: center;
+        display: flex;
         height: 100%;
-        width: 100%;
-      }
+        position: absolute;
+        right: 0;
 
-      &:hover {
-        cursor: pointer;
-      }
+        .gt2-search > div {
+            background: unset;
+            border: 1px solid var(--color-gray-dark);
+            border-radius: 21px;
+            height: auto;
+            margin-bottom: 0;
+            position: relative;
+            right: 10px;
+            transition: all .2s ease-in-out;
+            width: 300px;
+
+            input {
+                color: var(--color-text);
+                font-size: 14px;
+                height: 32px;
+                padding: 8px;
+            }
+
+            &:focus-within {
+                border: 1px solid var(--color-accent);
+            }
+
+            form {
+                > div:nth-child(1) > div {
+                    background-color: var(--color-elem);
+                    border: 0;
+                }
+
+                > div:nth-child(2) > div {
+                    top: 15px !important;
+                }
+            }
+        }
+
+        .gt2-toggle-navbar-dropdown {
+            height: 34px;
+            margin-left: 5px;
+            margin-right: 15px;
+            width: 34px;
+
+            img {
+                @include grayscale-hover;
+                border-radius: 9999px;
+                height: 100%;
+                width: 100%;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .gt2-compose {
+            align-items: center;
+            background-color: var(--color-accent);
+            border-radius: 9999px;
+            color: var(--color-text-2);
+            display: inline-flex;
+            font-size: var(--font-size);
+            font-weight: 700;
+            min-height: 34px;
+            padding: 0 16px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
-
-    .gt2-compose {
-      align-items: center;
-      background-color: var(--color-accent);
-      border-radius: 9999px;
-      color: var(--color-text-2);
-      display: inline-flex;
-      font-size: var(--font-size);
-      font-weight: 700;
-      min-height: 34px;
-      padding: 0 16px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
 }
 
 
 // navbar dropdown
 #{$navbar-dropdown} {
-  max-height: calc(100vh - 54px - 10px) !important;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  top: 54px;
+    max-height: calc(100vh - 54px - 10px) !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    top: 54px;
 
-  >::-webkit-scrollbar {
-    display: none;
-  }
-
-  [data-testid=Dropdown] {
-    display: flex;
-    opacity: 0;
-
-    &.gt2-navbar-dropdown-buttons-added {
-      opacity: 1;
-    }
-
-    a:hover {
-      background-color: var(--color-elem-sel);
-    }
-
-    // existing elements
-    > div {
-      min-width: unset;
-
-      // topics / twitter circle
-      > div > a > div {
-        padding: incr(14px);
-
-        svg ~ * {
-          font-size: incr(15px);
-          font-weight: 400;
-          line-height: normal;
-        }
-      }
-
-      [aria-expanded] {
+    > ::-webkit-scrollbar {
         display: none;
-      }
-
-      section a {
-        padding: incr(14px);
-      }
     }
 
-    // inserted elements
-    > a {
-      padding: 0;
+    [data-testid=Dropdown] {
+        display: flex;
+        opacity: 0;
 
-      > div {
-        padding: incr(14px);
-
-        > div:nth-child(2) {
-          display: none;
+        &.gt2-navbar-dropdown-buttons-added {
+            opacity: 1;
         }
-      }
 
-      &.gt2-toggle-logout {
-        color: var(--color-text);
-        padding: incr(14px);
-        text-decoration-line: none;
-
-        &:link,
-        &:visited {
-          color: var(--color-text);
+        a:hover {
+            background-color: var(--color-elem-sel);
         }
-      }
 
-      span {
-        color: var(--color-text);
-        font-size: incr(15px);
-        font-weight: 400;
-        margin-left: 0;
-      }
+        // existing elements
+        > div {
+            min-width: unset;
+
+            // topics / twitter circle
+            > div > a > div {
+                padding: incr(14px);
+
+                svg ~ * {
+                    font-size: incr(15px);
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            [aria-expanded] {
+                display: none;
+            }
+
+            section a {
+                padding: incr(14px);
+            }
+        }
+
+        // inserted elements
+        > a {
+            padding: 0;
+
+            > div {
+                padding: incr(14px);
+
+                > div:nth-child(2) {
+                    display: none;
+                }
+            }
+
+            &.gt2-toggle-logout {
+                color: var(--color-text);
+                padding: incr(14px);
+                text-decoration-line: none;
+
+                &:link,
+                &:visited {
+                    color: var(--color-text);
+                }
+            }
+
+            span {
+                color: var(--color-text);
+                font-size: incr(15px);
+                font-weight: 400;
+                margin-left: 0;
+            }
+        }
     }
-  }
 
-  svg {
-    height: 1.25em;
-    margin-right: 10px;
-    width: 1.25em;
-  }
+    svg {
+        height: 1.25em;
+        margin-right: 10px;
+        width: 1.25em;
+    }
 }
 
 // hide search when added to navbar
 .gt2-search-added {
-  div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
-    display: none;
-  }
+    div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div > div:nth-child(1) {
+        display: none;
+    }
 }

@@ -11,7 +11,6 @@ export function overrideFunctions(): void {
         Element_insertAdjacentHTML.call(this, position, text.trim())
     }
 
-
     // remove "t" search parameter (probably used for tracking?)
     // https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ
     const Range_selectNodeContents = Range.prototype.selectNodeContents
@@ -19,7 +18,6 @@ export function overrideFunctions(): void {
         node.textContent = node.textContent.replace(/&t=.*$/, "")
         Range_selectNodeContents.call(this, node)
     }
-
 
     // Node removal interception
     const Node_removeChild = Node.prototype.removeChild
@@ -31,14 +29,12 @@ export function overrideFunctions(): void {
         return Node_removeChild.call(this, child)
     }
 
-
     // location change: push
     const History_push = History.prototype.pushState
     History.prototype.pushState = function() {
         History_push.apply(this, arguments)
         onLocationChange("push")
     }
-
 
     // location change: replace
     const History_replace = History.prototype.replaceState

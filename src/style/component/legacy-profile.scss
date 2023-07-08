@@ -1,3 +1,6 @@
+@import "../util/functions";
+@import "../util/mixins";
+
 body[data-page-type=profile].gt2-opt-legacy-profile {
     main {
         margin-top: calc((100vw - var(--scrollbar-width)) / 3 + 47px + 60px + 10px) !important;
