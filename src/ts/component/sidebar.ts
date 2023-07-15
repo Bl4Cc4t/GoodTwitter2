@@ -1,5 +1,5 @@
 import { Logger } from "../util/logger"
-import { getReactPropByName } from "../util/react-util"
+import { reactPropExists } from "../util/react-util"
 import { settings } from "../util/settings"
 import {
     dismissSidebarNotice,
@@ -69,14 +69,14 @@ export function initializeSidebar(): void {
  */
 function addLeftSidebar(): void {
     waitForElements("main > div > div > div", mainView => {
-        if (!mainView.querySelector(".gt2-left-sidebar")) {
-            mainView.insertAdjacentHTML("afterbegin", `
-      <div class="gt2-left-sidebar-container">
-        <div class="gt2-left-sidebar"></div>
-      </div>
-      `)
-            _logger.debug("added left sidebar")
-        }
+        if (document.querySelector(".gt2-left-sidebar"))
+            return
+
+        mainView.insertAdjacentHTML("afterbegin", `
+            <div class="gt2-left-sidebar-container">
+                <div class="gt2-left-sidebar"></div>
+            </div>`)
+        _logger.debug("added left sidebar")
     }, false)
 }
 
@@ -85,11 +85,12 @@ function addLeftSidebar(): void {
  * Adds the right helper sidebar to the DOM
  */
 function addRightSidebar(): void {
-    waitForElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", rightSidebar => {
-        if (!rightSidebar.querySelector(".gt2-right-sidebar")) {
-            rightSidebar.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
-            _logger.debug("added right sidebar")
-        }
+    waitForElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", container => {
+        if (document.querySelector(".gt2-right-sidebar") || container.matches(`[role=progressbar]`))
+            return
+
+        container.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
+        _logger.debug("added right sidebar")
     }, false)
 }
 
@@ -103,14 +104,53 @@ function addSidebarElements(): void {
     let insertAt = isOnSingleSidebarLayout() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
 
     waitForElements(insertAt, sidebar => {
+        if (sidebar.querySelector(".gt2-dashboard-profile"))
+            return
+
         sidebar.replaceChildren()
         sidebar.insertAdjacentHTML("afterbegin", `
-      ${getUpdateNoticeHtml()}
-      ${getDashboardProfileHtml()}
-      <div class="gt2-legacy-profile-info gt2-left-sidebar-element"></div>
-    `)
-        _logger.debug("added static elements")
+            ${getUpdateNoticeHtml()}
+            ${getDashboardProfileHtml()}
+            ${getLegacyProfileInfoHtml()}`)
+        _logger.debug("added static elements to", insertAt)
     }, false)
+}
+
+
+/**
+ * Gets the HTML of the current GT2 update notice.
+ * @returns the HTML of the current GT2 update notice
+ */
+function getUpdateNoticeHtml(): string {
+    let version = GM_info.script.version
+    const key = `gt2-update-${version}`
+    // check if update notice needs to be shown
+    if (!settings.get("updateNotifications") || isSidebarNoticeDismissed(key)) {
+        return ""
+    }
+
+    return `
+        <div
+          class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element"
+          data-notice-id="gt2-update-${version}"
+        >
+            <div class="gt2-sidebar-notice-header">
+                <span>GoodTwitter2</span>
+                <div class="gt2-sidebar-notice-close">
+                    <div></div>
+                    ${getSvg("x")}
+                </div>
+            </div>
+            <div class="gt2-sidebar-notice-content">
+                ${getSvg("tick")} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
+                <a
+                    href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${version.replace(/\./g, "")}"
+                    target="_blank"
+                >
+                    ${getLocalizedString("updatedInfoChangelog")}
+                </a>
+            </div>
+        </div>`
 }
 
 
@@ -166,38 +206,25 @@ function getDashboardProfileHtml(): string {
 
 
 /**
- * Gets the HTML of the current GT2 update notice.
- * @returns the HTML of the current GT2 update notice
+ * Gets the HTML for the legacy profile layout sidebar component
+ * @returns the HTML of the legacy profile layout sidebar component
  */
-function getUpdateNoticeHtml(): string {
-    let version = GM_info.script.version
-    const key = `gt2-update-${version}`
-    // check if update notice needs to be shown
-    if (!settings.get("updateNotifications") || isSidebarNoticeDismissed(key)) {
-        return ""
-    }
+function getLegacyProfileInfoHtml(): string {
+    const element = document.querySelector(".gt2-legacy-profile-info")
+    if (element)
+        return element.outerHTML
 
     return `
-        <div
-          class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element"
-          data-notice-id="gt2-update-${version}"
-        >
-            <div class="gt2-sidebar-notice-header">
-                <span>GoodTwitter2</span>
-                <div class="gt2-sidebar-notice-close">
-                    <div></div>
-                    ${getSvg("x")}
-                </div>
+        <div class="gt2-legacy-profile-info gt2-left-sidebar-element">
+            <div class="gt2-legacy-profile-name"></div>
+            <div class="gt2-legacy-profile-screen-name-wrap">
+                <span class="gt2-legacy-profile-screen-name"></span>
+                <span class="gt2-legacy-profile-follows-you"></span>
             </div>
-            <div class="gt2-sidebar-notice-content">
-                ${getSvg("tick")} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
-                <a
-                    href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${version.replace(/\./g, "")}"
-                    target="_blank"
-                >
-                    ${getLocalizedString("updatedInfoChangelog")}
-                </a>
-            </div>
+            <div class="gt2-legacy-profile-automated"></div>
+            <div class="gt2-legacy-profile-description"></div>
+            <div class="gt2-legacy-profile-items"></div>
+            <div class="gt2-legacy-profile-followers-you-follow"></div>
         </div>`
 }
 
@@ -304,15 +331,14 @@ function handleProfileMedia(): void {
 
         // add container element if it does not exist
         if (!container) {
-            let sidebar = document.querySelector(`.gt2-${placeLeft ? "left" : "right"}-sidebar`)
+            let sidebar = document.querySelector(`.gt2-${placeLeft && !isOnSingleSidebarLayout() ? "left" : "right"}-sidebar`)
 
             if (!sidebar) {
                 _logger.error("sidebar not found")
                 return
             }
             sidebar.insertAdjacentHTML("beforeend", `
-        <div class="gt2-sidebar-element-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>
-      `)
+        <div class="gt2-sidebar-element-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>`)
             container = document.querySelector(".gt2-sidebar-element-profile-media")
         }
 
@@ -349,8 +375,8 @@ function handleProfileMedia(): void {
 function handleListenLiveInSpaces() {
     const key = "listen-live-in-spaces"
     waitForElements(`[data-testid=placementTracking]`, e => {
-        const props = getReactPropByName<SocialProof>(e, "socialProof", true)
-        if (isNaN(props?.user?.start))
+        const propExists = reactPropExists(e, "socialProof")
+        if (!propExists || !e.querySelector("[data-testid=pill-contents-container]"))
             return
 
         handleSidebarNotice(e.parentElement, key)

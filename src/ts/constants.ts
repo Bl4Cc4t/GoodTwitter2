@@ -144,5 +144,6 @@ export const TITLE_ADJUSTMENTS = [
 export const GM_KEYS = {
     THEME: "theme",
     DISMISSED_SIDEBAR_NOTICES: "dismissedSidebarNotices",
-    SETTINGS: "opt_gt2"
+    SETTINGS: "opt_gt2",
+    LEGACY_PROFILE_BANNER_HEIGHT: "legacyProfile.bannerHeight"
 }

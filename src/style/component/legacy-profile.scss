@@ -56,6 +56,10 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
         width: 100%;
 
         img {
+            &[src=""] {
+                display: none;
+            }
+
             width: inherit;
         }
     }
@@ -96,14 +100,8 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
 
                 .gt2-legacy-profile-name span {
                     text-overflow: ellipsis;
-                }
-
-                .gt2-legacy-profile-name,
-                .gt2-legacy-profile-screen-name-wrap {
-                    span {
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
+                    overflow: hidden;
+                    white-space: nowrap;
                 }
             }
         }
@@ -162,6 +160,10 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
     .gt2-legacy-profile-screen-name {
         color: var(--color-gray-light);
         font-size: incr(14px);
+
+        &:not(:empty)::before {
+            content: "@";
+        }
     }
 
     .gt2-legacy-profile-info {
@@ -171,6 +173,10 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
         display: flex;
         flex-direction: column;
         padding-bottom: 10px;
+
+        > :empty {
+            display: none;
+        }
 
         .gt2-legacy-profile-screen-name {
             color: var(--color-gray-light) !important;
@@ -223,7 +229,7 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
             width: fit-content -moz-fit-content -webkit-fit-content;
         }
 
-        .gt2-legacy-profile-fyk:not(:empty) {
+        .gt2-legacy-profile-followers-you-follow:not(:empty) {
             margin-top: 12px;
             padding-right: 10px;
 
@@ -257,7 +263,7 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
             }
         }
 
-        .gt2-legacy-profile-fyk .gt2-blocked-profile-followers-you-know span {
+        .gt2-legacy-profile-followers-you-follow .gt2-blocked-profile-followers-you-follow span {
             color: var(--color-gray-light);
         }
     }
@@ -279,6 +285,10 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
                     margin-bottom: 100px;
 
                     img {
+                        &[src=""] {
+                            display: none;
+                        }
+
                         height: 200px;
                         width: 200px;
                     }
@@ -335,7 +345,8 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
 
 // LPL disabled
 body {
-    #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
+    &:not(.gt2-opt-legacy-profile),
+    &:not([data-page-type=profile]) {
         main {
             margin-top: 56px;
         }

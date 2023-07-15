@@ -163,7 +163,7 @@ body:not(.gt2-opt-small-sidebars) {
 
 // disable hexagonal avatars OFF
 body:not(.gt2-opt-disable-hexagon-avatars) {
-    .gt2-legacy-profile-nav-avatar.gt2-avatar-hex img {
+    .gt2-legacy-profile-nav-avatar[data-gt2-avatar-hex=true] img {
         clip-path: url("#hex-hw-shapeclip-clipconfig");
     }
 }

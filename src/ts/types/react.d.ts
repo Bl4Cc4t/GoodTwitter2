@@ -20,7 +20,7 @@ declare interface SocialProof {
         community: unknown
         display_name: string
         has_nft_avatar: boolean
-        highlightedLabel: unknown
+        highlightedLabel: HighlightedLabel
         is_blue_verified: boolean
         is_muted_by_admin: boolean
         is_muted_by_guest: boolean
@@ -81,4 +81,110 @@ declare interface Entry {
     }
     position: number
     cursor?: number
+}
+
+declare interface HighlightedLabel {
+    badge: {
+        url: string
+    }
+    description: string
+    longDescription?: {
+        entities: LabelEntity[]
+        text: string
+    }
+    url?: {
+        url: string
+        urlType: "DeepLink"
+    }
+    userLabelDisplayType?: "Badge"
+    userLabelType: "BusinessLabel" | "AutomatedLabel"
+}
+
+declare interface User {
+    following: boolean
+    notifications: boolean
+    can_dm: boolean
+    can_media_tag: boolean
+    default_profile: boolean
+    default_profile_image: boolean
+    description: string
+    entities: {
+        description: {
+            urls: TwitterApi.Url[]
+        }
+        url?: {
+            urls: TwitterApi.Url[]
+        }
+    },
+    fast_followers_count: number
+    favourites_count: number
+    followers_count: number
+    friends_count: number
+    has_custom_timelines: boolean
+    has_nft_avatar?: boolean
+    is_translator: boolean
+    listed_count: number
+    location: string
+    media_count: number
+    name: string
+    normal_followers_count: number
+    pinned_tweet_ids_str: string[]
+    possibly_sensitive: boolean
+    profile_banner_url?: string
+    profile_image_url_https: string
+    profile_interstitial_type: "sensitive_media"
+    screen_name: string
+    statuses_count: number
+    translator_type: "none"
+    verified: boolean
+    want_retweets: boolean
+    withheld_in_countries: [],
+    id_str: string
+    is_profile_translatable: boolean
+    smart_blocked_by: boolean
+    smart_blocking: boolean
+    business_account: unknown
+    profile_image_shape: "Circle" | "Square" | "Hexagon"
+    creator_subscriptions_count: number
+    highlights_info: {
+        can_highlight_tweets: boolean
+        highlighted_tweets: string
+    }
+    highlightedLabel: HighlightedLabel
+    verification_info: {
+        reason?: {
+            description: {
+                entities: LabelEntity[]
+                text: string
+            }
+            verified_since_msec: string
+        }
+    }
+    is_blue_verified: boolean
+    verified_type?: "Business"
+    has_graduated_access: boolean
+    created_at: string
+    professional?: {
+        category: {
+            icon_name: string
+            id: number
+            name: string
+        }[]
+        professional_type: string
+        rest_id: string
+    }
+    verified_phone_status: unknown
+}
+
+declare interface LabelEntity {
+    from_index: number
+    to_index: number
+    ref: {
+        url?: string
+        url_type?: "ExternalUrl"
+        mention?: {
+            id: string
+            screenName: string
+        }
+    }
 }

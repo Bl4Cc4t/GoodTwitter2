@@ -289,11 +289,11 @@ declare namespace TwitterApi {
 
     interface Entities {
         // https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/entities-object
-        media: Media[]
-        user_mentions: UserMention[]
-        urls: Url[]
-        hashtags: Hashtag[]
-        symbols: Symbol[]
+        media?: Media[]
+        user_mentions?: UserMention[]
+        urls?: Url[]
+        hashtags?: Hashtag[]
+        symbols?: Symbol[]
         // polls: Poll[]
     }
 

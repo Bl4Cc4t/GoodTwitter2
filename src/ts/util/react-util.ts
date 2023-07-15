@@ -4,6 +4,25 @@ import { Logger } from "./logger"
 const _logger = new Logger("react-util")
 
 
+export function reactPropExists(element: Element, propName: string): boolean {
+    const key = Object.keys(element).find(e => e.startsWith("__reactProps"))
+
+    if (!key)
+        _logger.error(`Element has no react props: `, element)
+
+    const reactProps = element[key] as ReactProps
+    return _getReactPropByName(reactProps, propName)[0]
+}
+
+function* recursiveComponents2(instance, element) {
+    if (instance.stateNode == element)
+        yield instance
+    if (instance.sibling)
+        yield* recursiveComponents2(instance.sibling, element)
+    if (instance.child)
+        yield* recursiveComponents2(instance.child, element)
+}
+
 export function getReactPropByName<T>(element: Element, propName: string, quiet = false): T | null {
     const key = Object.keys(element).find(e => e.startsWith("__reactProps"))
 
@@ -13,8 +32,19 @@ export function getReactPropByName<T>(element: Element, propName: string, quiet 
         return null
     }
 
-    const reactProps = element[key] as ReactProps
-    const result = _getReactPropByName<T>(reactProps, propName)
+    // @ts-ignore
+    const root = document.querySelector("#react-root")._reactRootContainer._internalRoot.current
+
+    let result: [boolean, T | null] = [false, null]
+    for (let component of recursiveComponents2(root, element)) {
+        result = _getReactPropByName<T>(component.pendingProps, propName)
+        if (result[0])
+            break
+
+        result = _getReactPropByName<T>(component.props || [], propName)
+        if (result[0])
+            break
+    }
 
     if (!result[0] && !quiet)
         _logger.error(`Error getting react prop "${propName}" from element: `, element)

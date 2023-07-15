@@ -3,6 +3,12 @@
 
 // profile page
 body[data-page-type=profile] {
+    div[data-testid=primaryColumn] {
+        > div > div:nth-child(1) h2 {
+            padding: 0;
+        }
+    }
+
     .gt2-dashboard-profile {
         display: none;
     }
@@ -78,7 +84,7 @@ body[data-page-type=profile] {
         }
     }
 
-    .gt2-blocked-profile-followers-you-know {
+    .gt2-blocked-profile-followers-you-follow {
         color: var(--color-gray-light);
         display: flex;
         font-size: incr(13px);
