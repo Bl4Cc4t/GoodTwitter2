@@ -1,5 +1,5 @@
 import { settings, SettingsKey } from "../util/settings"
-import { getLocalizedString, getSvg, hasLocalizedString, waitForKeyElements } from "../util/util"
+import { getLocalizedString, getSvg, hasLocalizedString, waitForElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
 
@@ -14,7 +14,7 @@ export function addSettingsMenuEntry(): void {
         main section[aria-labelledby=root-header] div[role=tablist],
         main > div > div > div > div:last-child > div[role=tablist],
         main div[data-testid=loggedOutPrivacySection]`
-    waitForKeyElements(selector, e => {
+    waitForElements(selector, e => {
         if (!document.querySelector(".gt2-toggle-settings")) {
             e.insertAdjacentHTML("beforeend", `
                 <a class="gt2-toggle-settings" href="/settings/gt2">
@@ -218,7 +218,7 @@ export function addSettings(): void {
         return
     }
 
-    waitForKeyElements(`main a[href="/settings/about"]`, () => {
+    waitForElements(`main a[href="/settings/about"]`, () => {
         let settingsHtml = getSettingsHtml()
 
         // add gt2 settings html to page

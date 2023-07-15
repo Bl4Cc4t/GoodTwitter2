@@ -2,7 +2,7 @@ import { Logger } from "./logger"
 import { getReactPropByName } from "./react-util"
 import { settings } from "./settings"
 import { getTweetData } from "./tweet"
-import { waitForKeyElements } from "./util"
+import { waitForElements } from "./util"
 
 
 const _logger = new Logger("timeline")
@@ -19,7 +19,7 @@ export function enableLatestTweets(): void {
     let sparkOptSelector = `[d*="M2 4c1.66 0 3-1.34 3-3h1c0"]`
     let dropdownSelector = "#layers [data-testid=Dropdown]"
 
-    waitForKeyElements(sparkOptSelector, toggleIcon => {
+    waitForElements(sparkOptSelector, toggleIcon => {
         const toggleDropdown = toggleIcon.closest<HTMLElement>("[aria-haspopup]");
         if (toggleDropdown == null) {
             _logger.error("spark button not found")
@@ -30,7 +30,7 @@ export function enableLatestTweets(): void {
         toggleDropdown.click()
         _logger.debug("toggled spark dropdown menu")
 
-        waitForKeyElements(`${dropdownSelector} a[href="/settings/content_preferences"]`, e => {
+        waitForElements(`${dropdownSelector} a[href="/settings/content_preferences"]`, e => {
             let dropdown = e.closest(dropdownSelector)
 
             // switch to latest
@@ -69,7 +69,7 @@ function expandTweetTcoShortlinks(): void {
     const selector = `
     article[data-testid=tweet] a[href^="http://t.co"],
     article[data-testid=tweet] a[href^="https://t.co"]`
-    waitForKeyElements(selector, expandTweetTcoShortlink, false)
+    waitForElements(selector, expandTweetTcoShortlink, false)
 }
 
 
@@ -106,7 +106,7 @@ function expandTweetTcoShortlink(anchor: Element): void {
 
 
 function hideMoreTweets() {
-    waitForKeyElements(`[data-testid=cellInnerDiv]`, cell => {
+    waitForElements(`[data-testid=cellInnerDiv]`, cell => {
         const entry = getReactPropByName<Entry>(cell, "entry", true)
         if (!entry)
             return

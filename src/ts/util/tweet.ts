@@ -1,6 +1,6 @@
 import { Logger } from "./logger"
 import { getReactPropByName } from "./react-util"
-import { getLocalizedString, waitForKeyElements } from "./util"
+import { getLocalizedString, waitForElements } from "./util"
 
 
 const _logger = new Logger("tweet")
@@ -37,7 +37,7 @@ export function getTweetData(element: Element): TwitterApi.TweetLegacy {
  */
 export function addSourceLabel(): void {
     let tweetId = getTweetPageId()
-    waitForKeyElements(`[data-testid=tweet][tabindex="-1"] [href*="${tweetId}"] time`, element => {
+    waitForElements(`[data-testid=tweet][tabindex="-1"] [href*="${tweetId}"] time`, element => {
         const tweet = getTweetData(element.closest("[data-testid=tweet]"))
 
         if (!tweet?.source) {
@@ -57,7 +57,7 @@ export function addSourceLabel(): void {
  */
 export function labelMoreTweetsElement(): void {
     let moreTweetsLocalized = getLocalizedString("moreTweets").trim()
-    waitForKeyElements(`[data-testid=cellInnerDiv] h2 span`, header => {
+    waitForElements(`[data-testid=cellInnerDiv] h2 span`, header => {
         if (header.innerText.match(moreTweetsLocalized)) {
             _logger.debug("found more tweets header, adding label")
             header.closest("[data-testid=cellInnerDiv]")
@@ -71,7 +71,7 @@ export function labelMoreTweetsElement(): void {
  * Scrolls up to make up for the added navbar height.
  */
 export function scrollTweetUp(amount: number): void {
-    waitForKeyElements(`[data-testid=tweet][tabindex="-1"] > :nth-child(1)`, () => {
+    waitForElements(`[data-testid=tweet][tabindex="-1"] > :nth-child(1)`, () => {
         window.scroll(0, window.scrollY - amount)
         _logger.debug(`scrolled up ${amount}px to make up for the added navbar height`)
     })

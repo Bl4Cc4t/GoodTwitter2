@@ -1,4 +1,4 @@
-import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
+import { waitForElements, watchForElementChanges, isLoggedIn } from "./util/util"
 import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE, TEXT_COLOR_TO_THEME } from "./constants"
 import { settings } from "./util/settings"
@@ -13,14 +13,14 @@ const _logger = new Logger("style")
  */
 export function initializeStyle(): void {
     // user color
-    waitForKeyElements(`header [href="/compose/tweet"]`, e => {
+    waitForElements(`header [href="/compose/tweet"]`, e => {
         let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
         document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
         _logger.debug(`set --color-raw-accent-normal to "${bgColor}"`)
     }, false)
 
     // font size
-    watchForChanges(`html[style*="font-size"]`, e => {
+    watchForElementChanges(`html[style*="font-size"]`, e => {
         let fontSize = e.style.fontSize
         let fontSizeCurrent = document.documentElement.style.getPropertyValue("--font-size")
         if (fontSize != fontSizeCurrent) {
@@ -34,7 +34,7 @@ export function initializeStyle(): void {
 
     // theme current
     if (isLoggedIn()) {
-        waitForKeyElements(`[data-testid="DMDrawerHeader"] h2 span`, homeSpan => {
+        waitForElements(`[data-testid="DMDrawerHeader"] h2 span`, homeSpan => {
             let textColor = getComputedStyle(homeSpan).color
             let bgColor = getComputedStyle(document.body).backgroundColor
 
@@ -92,7 +92,7 @@ export function initializeStyle(): void {
  * Reference: https://stackoverflow.com/q/8079187
  * @returns the width of the scrollbar
  */
-function getScrollbarWidth(): number {
+export function getScrollbarWidth(): number {
     if (document.documentElement.dataset.hasOwnProperty("minimalscrollbar")) {
         return 0
     }
@@ -149,7 +149,7 @@ function hideFollowSuggestions(): void {
         .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
         .join(", ")
 
-    waitForKeyElements(selector, e => {
+    waitForElements(selector, e => {
         let div = e.closest(`[data-testid=cellInnerDiv]`)
 
         div?.classList?.add("gt2-hidden")
@@ -164,7 +164,7 @@ function hideFollowSuggestions(): void {
 
     // profile page (Who to follow / Suggested)
     if ((settings.get("hideFollowSuggestionsProfileSel") & 1) == 1) {
-        waitForKeyElements(`a[href$="/header_photo"] ~ [style=""] aside [data-testid=UserCell]:nth-child(1)`, e => {
+        waitForElements(`a[href$="/header_photo"] ~ [style=""] aside [data-testid=UserCell]:nth-child(1)`, e => {
             e.closest(`[style=""]`).classList.add("gt2-hidden")
         })
     }
@@ -179,7 +179,7 @@ function showMediaWithContentWarnings(): void {
     const selector = `
         [data-testid=tweet] [href^="/"][href*="/photo/1"] [data-testid=tweetPhoto],
         [data-testid=tweet] [data-testid=previewInterstitial]`
-    waitForKeyElements(selector, e => {
+    waitForElements(selector, e => {
         let tweetArticle = e.closest("[data-testid=tweet]")
         let opt = settings.get("showMediaWithContentWarningsSel")
 
@@ -210,7 +210,7 @@ function showMediaWithContentWarnings(): void {
 function setAdditionalStyleRules(): void {
     // @option hideMessageBox: minimize DMDrawer
     if (settings.get("hideMessageBox")) {
-        waitForKeyElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
+        waitForElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
             let button = e.closest("[role=button]") as HTMLElement
             if (button) {
                 button.click()
@@ -221,7 +221,7 @@ function setAdditionalStyleRules(): void {
 
     // @option disableHexagonAvatars
     if (settings.get("disableHexagonAvatars")) {
-        waitForKeyElements("#hex-hw-shapeclip-clipconfig path", e => {
+        waitForElements("#shape-hex path", e => {
             let parent = e.parentElement
             parent.innerHTML = settings.get("squareAvatars")
                 ? `<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`
@@ -242,17 +242,17 @@ function setAdditionalStyleRules(): void {
     }
 
     // @option colorOverride: ignore reply/like/retweet/share on tweets
-    waitForKeyElements(`[data-testid=tweet] [role=group] [role=button] *`, e => {
+    waitForElements(`[data-testid=tweet] [role=group] [role=button] *`, e => {
         e.setAttribute("data-gt2-color-override-ignore", "")
     })
 
     // @option colorOverride: ignore verified badge
-    waitForKeyElements(`path[d^="M22.5 12.5c0-1.58-.875"]`, e => {
+    waitForElements(`path[d^="M22.5 12.5c0-1.58-.875"]`, e => {
         e.closest("svg").setAttribute("data-gt2-color-override-ignore", "")
     })
 
     // @option colorOverride: ignore pickers at display settings page
-    waitForKeyElements(`[data-gt2-path="i/display"] div:nth-last-child(2) > div > [role=radiogroup],
+    waitForElements(`[data-gt2-path="i/display"] div:nth-last-child(2) > div > [role=radiogroup],
                       [data-gt2-path="settings/display"] div:nth-last-child(2) > div > [role=radiogroup]`, e => {
         let aria = e.closest("[aria-labelledby]")
 
@@ -269,19 +269,19 @@ function setAdditionalStyleRules(): void {
     })
 
     // do not add dividers to tweet inline threads
-    waitForKeyElements(`[data-testid=cellInnerDiv] article,
+    waitForElements(`[data-testid=cellInnerDiv] article,
                       [data-testid=cellInnerDiv] a[href^="/i/status/"]`, e => {
         Array.from(e.closest(`[data-testid=cellInnerDiv]`)?.children || [])
             .forEach(e => e.setAttribute("data-gt2-divider-add-ignore", ""))
     })
 
     // color notifications bell (activated)
-    waitForKeyElements(`path[d^="M23.61.15c-.375"]`, e => {
+    waitForElements(`path[d^="M23.61.15c-.375"]`, e => {
         e.closest(`[role=button]`)?.setAttribute("data-gt2-bell-full-color", "")
     })
 
     // color notifications bell (deactivated)
-    waitForKeyElements(`path[d^="M23.24 3.26h-2.425V"]`, e => {
+    waitForElements(`path[d^="M23.24 3.26h-2.425V"]`, e => {
         e.closest(`[role=button]`)?.removeAttribute("data-gt2-bell-full-color")
     })
 }

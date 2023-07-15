@@ -9,7 +9,7 @@ import {
     isLoggedIn,
     isOnSingleSidebarLayout,
     isSidebarNoticeDismissed,
-    waitForKeyElements
+    waitForElements
 } from "../util/util"
 
 
@@ -35,14 +35,14 @@ export function initializeSidebar(): void {
 
         // user suggestions (Who to follow, You might like)
         if ((sel & 1) == 1) {
-            waitForKeyElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => {
+            waitForElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => {
                 e.closest("aside").parentElement.remove()
             }, false)
         }
 
         // topic suggestions
         if ((sel & 2) == 2) {
-            waitForKeyElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => {
+            waitForElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => {
                 e.closest("section").parentElement.parentElement.remove()
             }, false)
         }
@@ -55,7 +55,7 @@ export function initializeSidebar(): void {
             moveSidebarElements("left")
     })
 
-    waitForKeyElements(".gt2-sidebar-notice-close", e => e?.addEventListener("click", event => {
+    waitForElements(".gt2-sidebar-notice-close", e => e?.addEventListener("click", event => {
         let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice") as HTMLElement
         console.log(container.dataset.noticeId)
         dismissSidebarNotice(container.dataset.noticeId)
@@ -68,7 +68,7 @@ export function initializeSidebar(): void {
  * Adds the left sidebar to the DOM.
  */
 function addLeftSidebar(): void {
-    waitForKeyElements("main > div > div > div", mainView => {
+    waitForElements("main > div > div > div", mainView => {
         if (!mainView.querySelector(".gt2-left-sidebar")) {
             mainView.insertAdjacentHTML("afterbegin", `
       <div class="gt2-left-sidebar-container">
@@ -85,7 +85,7 @@ function addLeftSidebar(): void {
  * Adds the right helper sidebar to the DOM
  */
 function addRightSidebar(): void {
-    waitForKeyElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", rightSidebar => {
+    waitForElements("div[data-testid=sidebarColumn] > div > div:nth-child(2) > div > div > div", rightSidebar => {
         if (!rightSidebar.querySelector(".gt2-right-sidebar")) {
             rightSidebar.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
             _logger.debug("added right sidebar")
@@ -102,7 +102,7 @@ function addRightSidebar(): void {
 function addSidebarElements(): void {
     let insertAt = isOnSingleSidebarLayout() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
 
-    waitForKeyElements(insertAt, sidebar => {
+    waitForElements(insertAt, sidebar => {
         sidebar.replaceChildren()
         sidebar.insertAdjacentHTML("afterbegin", `
       ${getUpdateNoticeHtml()}
@@ -210,7 +210,7 @@ function handleTrends(): void {
         `section:not(.gt2-trends-handled) div[data-testid=trend]:not(.gt2-trend-wrapped),
      section[aria-labelledby^=accessible-list]:not(.gt2-trends-handled) a[href="/explore/tabs/for-you"] > div > span:not(.gt2-trend-wrapped)`
 
-    waitForKeyElements(trendsSelector, trends => {
+    waitForElements(trendsSelector, trends => {
         let trendSection = trends.closest("section")
         let trendContainer = trendSection.parentElement.parentElement
 
@@ -298,7 +298,7 @@ function handleProfileMedia(): void {
     let mediaSelector = `
         [data-testid=sidebarColumn] div:nth-child(1) > a[href*="/photo/"],
         [data-testid=sidebarColumn] div:nth-child(1) > a[href*="/video/"]`
-    waitForKeyElements(mediaSelector, media => {
+    waitForElements(mediaSelector, media => {
         let container = document.querySelector(".gt2-sidebar-element-profile-media")
         let placeLeft = settings.get("leftMedia")
 
@@ -348,7 +348,7 @@ function handleProfileMedia(): void {
 
 function handleListenLiveInSpaces() {
     const key = "listen-live-in-spaces"
-    waitForKeyElements(`[data-testid=placementTracking]`, e => {
+    waitForElements(`[data-testid=placementTracking]`, e => {
         const props = getReactPropByName<SocialProof>(e, "socialProof", true)
         if (isNaN(props?.user?.start))
             return
@@ -360,7 +360,7 @@ function handleListenLiveInSpaces() {
 
 function handleGetVerified() {
     const key = "get-verified"
-    waitForKeyElements(`[data-testid=sidebarColumn] [href="/i/verified-choose"]`, e => {
+    waitForElements(`[data-testid=sidebarColumn] [href="/i/verified-choose"]`, e => {
         const container = e?.closest("aside")?.parentElement
         if (!container)
             return

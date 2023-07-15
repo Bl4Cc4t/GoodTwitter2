@@ -99,16 +99,15 @@ export function getLocalizedReplaceableString<K extends keyof I18nReplaceable, V
  * @param waitOnce if set to false, continue to search for new elements even after the first match is found
  * @param iframeSelector a valid CSS selector string for an iframe to search elements in
  */
-export function waitForKeyElements(
+export function waitForElements(
     selector: string,
     callback: (e: HTMLElement) => void,
     waitOnce = true,
     iframeSelector?: string
-): void {
+): () => void {
     let targetNodes: NodeListOf<HTMLElement>
     let targetsFound = false
     const WAIT_TIME_MS = 300
-
 
     // get the target nodes
     if (typeof iframeSelector == "undefined") {
@@ -116,7 +115,7 @@ export function waitForKeyElements(
     }
     // get nodes from iframe
     else {
-        let iframe: HTMLIFrameElement | null = document.querySelector(iframeSelector)
+        let iframe = document.querySelector<HTMLIFrameElement>(iframeSelector)
         if (!iframe) return
         else {
             targetNodes = iframe.contentDocument.querySelectorAll(selector)
@@ -127,32 +126,42 @@ export function waitForKeyElements(
         targetsFound = true
 
         // loop over all nodes and execute the callback function
-        for (let node of Array.from(targetNodes)) {
+        targetNodes.forEach(node => {
             if (!node.alreadyFound) {
                 callback(node)
                 node.alreadyFound = true
             }
-        }
+        })
     }
 
     // get the timer-control variable for this selector
-    let controlObj  = window.controlObj || {}
-    let controlKey  = selector.replace(/[^\w]/g, "_")
+    let controlObj = unsafeWindow.controlObj || {}
+    let controlKey = selector.replace(/\s/g, "")
     let timeControl = controlObj[controlKey]
+
+    function teardown() {
+        _logger.debug("teardown of:", controlKey)
+        clearInterval(timeControl)
+        delete controlObj[controlKey]
+        targetNodes.forEach(e => e.alreadyFound = false)
+    }
 
     // now set or clear the timer as appropriate
     if (targetsFound && waitOnce && timeControl) {
         // the only condition where we need to clear the timer
-        clearInterval(timeControl)
-        delete controlObj[controlKey]
+        teardown()
     }
 
     // set a timer, if needed
     else if (!timeControl) {
-        timeControl = setInterval(function () { waitForKeyElements(selector, callback, waitOnce, iframeSelector) }, WAIT_TIME_MS)
+        timeControl = setInterval(() => {
+            waitForElements(selector, callback, waitOnce, iframeSelector)
+        }, WAIT_TIME_MS)
         controlObj[controlKey] = timeControl
     }
-    window.controlObj = controlObj
+    unsafeWindow.controlObj = controlObj
+
+    return teardown
 }
 
 
@@ -161,18 +170,38 @@ export function waitForKeyElements(
  * @param selector a valid CSS selector string of the element to watch
  * @param callback the function to execute when a change happens
  * @param options additional options for the observe function
+ * @param waitOnce if set to false, continue to search for new elements even after the first match is found
  */
-export function watchForChanges(selector: string, callback: (e: HTMLElement) => void, options?: MutationObserverInit): void {
-    waitForKeyElements(selector, element => {
-        if (element) {
-            callback(element)
-            new MutationObserver(mut => {
-                mut.forEach(() => callback(element))
-            }).observe(element, {
-                attributes: true,
-                childList: true,
-                ...options
-            })
+export function watchForElementChanges(
+    selector: string,
+    callback: (e: HTMLElement) => void,
+    options?: MutationObserverInit,
+    waitOnce = true
+): () => void {
+    let observer: MutationObserver
+    const teardown = waitForElements(selector, element => {
+        callback(element)
+
+        if (observer)
+            observer.disconnect()
+
+        observer = new MutationObserver(mutationRecord => {
+            mutationRecord.forEach(() => callback(element))
+        })
+
+        observer.observe(element, {
+            attributes: true,
+            childList: true,
+            ...options
+        })
+    }, waitOnce)
+
+    return () => {
+        teardown()
+        if (observer)
+            observer.disconnect()
+    }
+}
         }
     })
 }

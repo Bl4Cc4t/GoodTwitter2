@@ -4,8 +4,8 @@ import {
     getCurrentUserInfo,
     getLocalizedString,
     isLoggedIn,
-    waitForKeyElements,
-    watchForChanges
+    waitForElements,
+    watchForElementChanges
 } from "../util/util"
 
 
@@ -27,7 +27,7 @@ export function initializeNavbar() {
  */
 function addNavbar(): void {
     _logger.debug("waiting for header to appear")
-    waitForKeyElements(`nav > [data-testid]`, () => {
+    waitForElements(`nav > [data-testid]`, () => {
         if (document.querySelector(".gt2-nav")) return
 
         let loggedIn = isLoggedIn()
@@ -94,7 +94,7 @@ function addNavbar(): void {
 
         for (let elem of navbarElementsToAdd) {
             // check for updates
-            watchForChanges(`header ${elem.selector}`, () => {
+            watchForElementChanges(`header ${elem.selector}`, () => {
                 addOrUpdateNavbarElement(elem.selector, elem.localizedString)
                 highlightNavbarLocation()
             }, {
@@ -173,8 +173,8 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
  */
 function addSearch(): void {
     _logger.debug("waiting for search to appear")
-    waitForKeyElements(".gt2-search", mockSearch => {
-        waitForKeyElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
+    waitForElements(".gt2-search", mockSearch => {
+        waitForElements(`[data-testid=sidebarColumn] [data-testid=SearchBox_Search_Input]`, search => {
             let searchContainer = search.closest("form")
                 ?.parentElement?.parentElement?.parentElement?.parentElement
 
@@ -233,7 +233,7 @@ function dropdownToggledHandler(): void {
     moreMenuButton.click()
 
     // add elements to navbar dropdow menu
-    waitForKeyElements("#layers [data-testid=Dropdown]", moreMenu => {
+    waitForElements("#layers [data-testid=Dropdown]", moreMenu => {
         // separator line
         let separatorHtml = moreMenu.querySelector("[role=separator]")
             ?.parentElement?.outerHTML ?? ""

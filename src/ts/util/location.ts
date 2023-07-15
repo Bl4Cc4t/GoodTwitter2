@@ -5,7 +5,7 @@ import { Logger } from "./logger"
 import { settings } from "./settings"
 import { enableLatestTweets } from "./timeline"
 import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
-import { isLoggedIn, waitForKeyElements, watchForChanges } from "./util"
+import { isLoggedIn, waitForElements, watchForElementChanges } from "./util"
 
 
 const _logger = new Logger("location")
@@ -58,7 +58,7 @@ function setErrorPage(): void {
  * Watches the page title for changes and modifies it if necessary.
  */
 function watchTitle(): void {
-    watchForChanges("head title", title => {
+    watchForElementChanges("head title", title => {
         if (title.textContent != title.getAttribute("content")) {
             for (let adj of TITLE_ADJUSTMENTS) {
                 if (location.pathname == adj.location)
@@ -173,7 +173,7 @@ export function onLocationChange(type: string): void {
 
     // error
     delete document.body.dataset.pageError
-    waitForKeyElements(`main > div > div > div [data-testid=error-detail]`, e => {
+    waitForElements(`main > div > div > div [data-testid=error-detail]`, e => {
         if (!onPage({ settings: ["gt2"] })) {
             setErrorPage()
         }
@@ -251,7 +251,7 @@ export function onLocationChange(type: string): void {
 
         // @option profileMediaRedirect
         if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
-            waitForKeyElements(`[href$="/media"][aria-selected=false]`, e => e.click())
+            waitForElements(`[href$="/media"][aria-selected=false]`, e => e.click())
             _logger.debug("redirected to /media page")
         }
     }

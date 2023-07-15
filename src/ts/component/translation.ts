@@ -1,4 +1,4 @@
-import { getLanguage, getLocalizedReplaceableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
+import { getLanguage, getLocalizedReplaceableString, getLocalizedString, getSvg, waitForElements } from "../util/util"
 import { settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
@@ -32,7 +32,7 @@ export function initializeInlineTranslation(): void {
  * language.
  */
 function addInlineTranslateTweetButton(): void {
-  waitForKeyElements(`[data-testid=tweet] [lang]`, e => {
+  waitForElements(`[data-testid=tweet] [lang]`, e => {
     // ignore tweets that already have a translate button
     if (e.parentElement.querySelectorAll(":scope > [role=button]").length)
       return
