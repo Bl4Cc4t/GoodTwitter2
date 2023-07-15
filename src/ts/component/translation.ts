@@ -1,4 +1,4 @@
-import { getLanguage, getLocalizedReplacableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
+import { getLanguage, getLocalizedReplaceableString, getLocalizedString, getSvg, waitForKeyElements } from "../util/util"
 import { settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
@@ -176,7 +176,7 @@ function getTranslationHtml(translation: TwitterApi.Translation): string {
   _logger.debug("replacing emojis...")
   tl = tl.replaceEmojis()
 
-  let info = getLocalizedReplacableString("translatedTweetInfo", {
+  let info = getLocalizedReplaceableString("translatedTweetInfo", {
     lang: translation.localizedSourceLanguage,
     source: translation.translationSource == "Google"
       ? `<a href="https://translate.google.com">

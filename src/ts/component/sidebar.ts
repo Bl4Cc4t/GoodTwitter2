@@ -19,7 +19,7 @@ const _logger = new Logger("component/sidebar")
 /**
  * Initializes the sidebars by adding them and watching the elements for changes.
  */
-export function initializeSidebar():void {
+export function initializeSidebar(): void {
     _logger.debug("initializing sidebar")
     addLeftSidebar()
     addRightSidebar()
@@ -126,7 +126,7 @@ function getDashboardProfileHtml(): string {
             <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
                 <div>
                     <a ${href}="/${i.screenName}" class="gt2-avatar">
-                        <img src="${i.avatarUrl}"/>
+                        <img src="${i.avatarUrl}" alt="" />
                     </a>
                 <div class="gt2-user">
                     <a ${href}="/${i.screenName}" class="gt2-name">${i.name.replaceEmojis()}</a>
@@ -138,7 +138,7 @@ function getDashboardProfileHtml(): string {
                     <div></div>
                     ${getSvg(isLoggedIn() ? "caret" : "moon")}
                 </div>
-                <div class="gt2-stats">  
+                <div class="gt2-stats">
                     <ul>
                         <li>
                             <a ${href}="/${i.screenName}">
@@ -238,7 +238,7 @@ function handleTrends(): void {
                     // replace existing trends
                     if (leftSidebarTrends) {
                         leftSidebarTrends.replaceWith(trendContainer)
-                        _logger.debug("replace existing trends in left sidebar")
+                        _logger.debug("replaced existing trends in left sidebar")
                     }
 
                     // move trends
@@ -260,7 +260,7 @@ function handleTrends(): void {
             let text = toWrap.innerText
             let query = encodeURIComponent(text.replace(/%/g, "%25"))
                 .replace(/'/g, "%27")
-                .replace(/(^\"|\"$)/g, "")
+                .replace(/(^"|"$)/g, "")
 
             toWrap.innerHTML = `<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
         }

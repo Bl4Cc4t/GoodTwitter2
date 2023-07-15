@@ -1,6 +1,6 @@
 import { waitForKeyElements, watchForChanges, isLoggedIn } from "./util/util"
 import { getTweetData } from "./util/tweet"
-import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE_CSS, TEXT_COLOR_TO_THEME } from "./constants"
+import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE, TEXT_COLOR_TO_THEME } from "./constants"
 import { settings } from "./util/settings"
 import { Logger } from "./util/logger"
 
@@ -79,7 +79,7 @@ export function initializeStyle(): void {
     }
 
     // add stylesheet
-    GM_addStyle(GM_getResourceText(RESOURCE_CSS)).classList.add("gt2-style")
+    GM_addStyle(GM_getResourceText(RESOURCE.CSS)).classList.add("gt2-style")
     _logger.debug("added stylesheet")
 
     // additional rules

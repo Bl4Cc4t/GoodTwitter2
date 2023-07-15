@@ -80,7 +80,7 @@ export function hasLocalizedString(key: string): boolean {
 }
 
 
-export function getLocalizedReplacableString<K extends keyof I18nReplacable, V extends I18nReplacable[K]>(key: K, val: V): string {
+export function getLocalizedReplaceableString<K extends keyof I18nReplaceable, V extends I18nReplaceable[K]>(key: K, val: V): string {
     let loc = getLocalizedString(key)
 
     Object.entries(val).forEach(e => {

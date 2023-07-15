@@ -14,9 +14,9 @@ declare type Theme = (typeof import("../constants").THEMES)[number]
 
 
 /**
- * Replacable i18n strings.
+ * Replaceable i18n strings.
  */
-declare interface I18nReplacable {
+declare interface I18nReplaceable {
     bornDate: {
         date: string
     }
