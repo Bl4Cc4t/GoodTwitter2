@@ -1,6 +1,6 @@
 import { Logger } from "../util/logger"
 import { reactPropExists } from "../util/react-util"
-import { settings } from "../util/settings"
+import { Settings } from "../util/settings"
 import {
     dismissSidebarNotice,
     getCurrentUserInfo,
@@ -32,8 +32,8 @@ export function initializeSidebar(): void {
     handleGetVerified()
 
     // @option hideFollowSuggestions
-    if (settings.get("hideFollowSuggestions")) {
-        let sel = settings.get("hideFollowSuggestionsSidebarSel")
+    if (Settings.get("hideFollowSuggestions")) {
+        let sel = Settings.get("hideFollowSuggestionsSidebarSel")
 
         // user suggestions (Who to follow, You might like)
         if ((sel & 1) == 1) {
@@ -120,7 +120,7 @@ function getUpdateNoticeHtml(): string {
     let version = GM_info.script.version
     const key = `gt2-update-${version}`
     // check if update notice needs to be shown
-    if (!settings.get("updateNotifications") || isSidebarNoticeDismissed(key)) {
+    if (!Settings.get("updateNotifications") || isSidebarNoticeDismissed(key)) {
         return ""
     }
 
@@ -241,7 +241,7 @@ function handleTrends(): void {
             && trends.closest("div[data-testid=sidebarColumn]")) {
 
             // hide trends
-            if (settings.get("hideTrends")) {
+            if (Settings.get("hideTrends")) {
                 trendContainer.remove()
                 _logger.debug("removed trends")
                 return
@@ -251,7 +251,7 @@ function handleTrends(): void {
             trendContainer.classList.add("gt2-sidebar-element-trends")
 
             // move trends
-            if (settings.get("leftTrends")) {
+            if (Settings.get("leftTrends")) {
                 trendContainer.classList.add("gt2-left-sidebar-element")
 
                 if (isSet(getSidebarType(), ESidebar.Left)) {
@@ -321,7 +321,7 @@ function handleProfileMedia(): void {
         [data-testid=sidebarColumn] div:nth-child(1) > a[href*="/video/"]`
     waitForElements(mediaSelector, media => {
         let container = document.querySelector(".gt2-sidebar-element-profile-media")
-        let placeLeft = settings.get("leftMedia")
+        let placeLeft = Settings.get("leftMedia")
 
         // add container element if it does not exist
         if (!container) {

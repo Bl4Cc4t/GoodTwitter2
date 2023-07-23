@@ -1,5 +1,5 @@
 import { isLoggedIn } from "./util/util"
-import { settings } from "./util/settings"
+import { Settings } from "./util/settings"
 import { initializeStyle } from "./style"
 import { initializeInlineTranslation } from "./component/translation"
 import { overrideFunctions } from "./util/overrides"
@@ -20,13 +20,13 @@ import { initializeProfile } from "./component/profile"
 
     // redirect for mobile urls
     if (location.host == "mobile.twitter.com") {
-        if (settings.get("mobileRedirect")) {
+        if (Settings.get("mobileRedirect")) {
             location.href = location.href.replace("//mobile.twitter.com", "//twitter.com")
         } else return
     }
 
     // add settings to body
-    settings.setAllInDom()
+    Settings.setAllInDom()
     logger.debug("set all settings in the dom")
 
     // basic

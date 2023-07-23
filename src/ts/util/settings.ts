@@ -53,44 +53,26 @@ export type SettingsKey = keyof SettingsType
 /**
  * Settings helper class.
  */
-class Settings {
-    private data: SettingsType
-
-
-    /**
-     * Create a new Settings instance.
-     */
-    constructor() {
-        this.data = INITIAL_SETTINGS
-        Object.assign(this.data, this.getAll())
-        this.setAll()
+export class Settings {
+    private static get data(): SettingsType {
+        let value = INITIAL_SETTINGS
+        Object.assign(value, GM_getValue(GM_KEYS.SETTINGS, {}))
+        return new Proxy(value, {
+            set(target: SettingsType, prop, value): boolean {
+                target[prop] = value
+                GM_setValue(GM_KEYS.SETTINGS, target)
+                return true
+            }
+        })
     }
-
-
-    /**
-     * Gets all settings.
-     * @return all settings
-     */
-    getAll(): SettingsType {
-        return GM_getValue(GM_KEYS.SETTINGS)
-    }
-
-
-    /**
-     * Sets all currently active settings.
-     */
-    setAll(): void {
-        return GM_setValue(GM_KEYS.SETTINGS, this.data)
-    }
-
 
     /**
      * Sets all currently active settings in the DOM.
      */
-    setAllInDom(): void {
+    static setAllInDom(): void {
         let key: SettingsKey
-        for (key in this.data) {
-            this.setInDom(key, this.data[key])
+        for (key in Settings.data) {
+            Settings.setInDom(key, Settings.data[key])
         }
     }
 
@@ -100,18 +82,17 @@ class Settings {
      * @param key the key of the setting
      * @param value the new value
      */
-    set<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
+    static set<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
         // set in DOM
-        this.setInDom(key, value)
+        Settings.setInDom(key, value)
 
         // internal
-        this.data[key] = value
-        this.setAll()
+        Settings.data[key] = value
 
         // @option colorOverride
         if (key == "colorOverride" || key == "colorOverrideValue") {
-            if (this.get("colorOverride")) {
-                document.documentElement.style.setProperty("--color-raw-accent-override", this.get("colorOverrideValue"))
+            if (Settings.get("colorOverride")) {
+                document.documentElement.style.setProperty("--color-raw-accent-override", Settings.get("colorOverrideValue"))
             } else {
                 document.documentElement.style.removeProperty("--color-raw-accent-override")
             }
@@ -119,14 +100,13 @@ class Settings {
 
         // @option fontOverride
         if (key == "fontOverride" || key == "fontOverrideValue") {
-            if (this.get("fontOverride")) {
-                document.documentElement.style.setProperty("--font-family-override", this.get("fontOverrideValue"))
+            if (Settings.get("fontOverride")) {
+                document.documentElement.style.setProperty("--font-family-override", Settings.get("fontOverrideValue"))
             } else {
                 document.documentElement.style.removeProperty("--font-family-override")
             }
         }
     }
-
 
     /**
      * Sets a settings value in the DOM by
@@ -134,8 +114,8 @@ class Settings {
      * @param key the key of the settings
      * @param value the new value
      */
-    private setInDom<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
-        const className = this.getClassName(key, value)
+    private static setInDom<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): void {
+        const className = Settings.getClassName(key, value)
 
         if (value) document.body.classList.add(className)
         else document.body.classList.remove(className)
@@ -147,9 +127,8 @@ class Settings {
      * @param key the key of the setting
      * @returns the current value
      */
-    get<K extends SettingsKey>(key: K): SettingsType[K] {
-        this.data = this.getAll()
-        return this.data[key]
+    static get<K extends SettingsKey>(key: K): SettingsType[K] {
+        return Settings.data[key]
     }
 
 
@@ -157,9 +136,9 @@ class Settings {
      * Toggles a boolean settings value.
      * @param key the key of the setting
      */
-    toggle(key: SettingsKey): void {
-        if (typeof this.data[key] == "boolean") {
-            this.set(key, !this.get(key))
+    static toggle(key: SettingsKey): void {
+        if (typeof Settings.data[key] == "boolean") {
+            Settings.set(key, !Settings.get(key))
         }
     }
 
@@ -169,10 +148,10 @@ class Settings {
      * @param key the key of the setting
      * @param value the value to XOR with
      */
-    xor(key: SettingsKey, value: number): void {
-        let current = this.get(key)
+    static xor(key: SettingsKey, value: number): void {
+        let current = Settings.get(key)
         if (typeof current == "number") {
-            this.set(key, current ^ value)
+            Settings.set(key, current ^ value)
         }
     }
 
@@ -183,13 +162,7 @@ class Settings {
      * @param value the value of the setting. Only important for numeric settings
      * @returns a className string
      */
-    private getClassName<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): string {
+    private static getClassName<K extends SettingsKey, V extends SettingsType[K]>(key: K, value: V): string {
         return `gt2-opt-${key.camelCaseToKebabCase()}${typeof value === "number" ? `-${value}` : ""}`
     }
 }
-
-
-/**
- * "Singleton" of the settings object.
- */
-export let settings = new Settings()

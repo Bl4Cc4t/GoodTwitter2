@@ -1,7 +1,7 @@
 import { waitForElements, watchForElementChanges, isLoggedIn } from "./util/util"
 import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE, TEXT_COLOR_TO_THEME } from "./constants"
-import { settings } from "./util/settings"
+import { Settings } from "./util/settings"
 import { Logger } from "./util/logger"
 
 
@@ -65,15 +65,15 @@ export function initializeStyle(): void {
 
 
     // @option fontOverride
-    if (settings.get("fontOverride")) {
-        let fontOverride = settings.get("fontOverrideValue")
+    if (Settings.get("fontOverride")) {
+        let fontOverride = Settings.get("fontOverrideValue")
         document.documentElement.style.setProperty("--font-family-override", fontOverride)
         _logger.debug(`set --font-family-override to "${fontOverride}"`)
     }
 
     // @option colorOverride
-    if (settings.get("colorOverride")) {
-        let colorOverride = settings.get("colorOverrideValue")
+    if (Settings.get("colorOverride")) {
+        let colorOverride = Settings.get("colorOverrideValue")
         document.documentElement.style.setProperty("--color-raw-accent-override", colorOverride)
         _logger.debug(`set --color-raw-accent-override to "${colorOverride}"`)
     }
@@ -144,7 +144,7 @@ function hideFollowSuggestions(): void {
 
     let selector = ["connect_people", "topics/picker", "lists/suggested"]
         .filter((_e, i) => {
-            return (settings.get("hideFollowSuggestionsTimelineSel") & Math.pow(2, i)) == Math.pow(2, i)
+            return (Settings.get("hideFollowSuggestionsTimelineSel") & Math.pow(2, i)) == Math.pow(2, i)
         })
         .map(e => `[data-testid=primaryColumn] section [href^="/i/${e}"]`)
         .join(", ")
@@ -163,7 +163,7 @@ function hideFollowSuggestions(): void {
     })
 
     // profile page (Who to follow / Suggested)
-    if ((settings.get("hideFollowSuggestionsProfileSel") & 1) == 1) {
+    if ((Settings.get("hideFollowSuggestionsProfileSel") & 1) == 1) {
         waitForElements(`a[href$="/header_photo"] ~ [style=""] aside [data-testid=UserCell]:nth-child(1)`, e => {
             e.closest(`[style=""]`).classList.add("gt2-hidden")
         })
@@ -181,7 +181,7 @@ function showMediaWithContentWarnings(): void {
         [data-testid=tweet] [data-testid=previewInterstitial]`
     waitForElements(selector, e => {
         let tweetArticle = e.closest("[data-testid=tweet]")
-        let opt = settings.get("showMediaWithContentWarningsSel")
+        let opt = Settings.get("showMediaWithContentWarningsSel")
 
         if (tweetArticle.querySelector(`[d^="M3.693 21.707l-1.414-1.414 2.429-2.429c-2.479-2.421-3.606-5.376-3.658-5.513l-.131-."]`)) {
             const tweet = getTweetData(tweetArticle)
@@ -209,7 +209,7 @@ function showMediaWithContentWarnings(): void {
  */
 function setAdditionalStyleRules(): void {
     // @option hideMessageBox: minimize DMDrawer
-    if (settings.get("hideMessageBox")) {
+    if (Settings.get("hideMessageBox")) {
         waitForElements(`[data-testid=DMDrawer] path[d^="M12 19.344l-8.72"]`, e => {
             let button = e.closest("[role=button]") as HTMLElement
             if (button) {
@@ -220,10 +220,10 @@ function setAdditionalStyleRules(): void {
     }
 
     // @option disableHexagonAvatars
-    if (settings.get("disableHexagonAvatars")) {
+    if (Settings.get("disableHexagonAvatars")) {
         waitForElements("#shape-hex path", e => {
             let parent = e.parentElement
-            parent.innerHTML = settings.get("squareAvatars")
+            parent.innerHTML = Settings.get("squareAvatars")
                 ? `<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`
                 : `<circle cx="100" cy="100" r="100" />`
             parent.setAttribute("transform", "scale(0.005 0.005)")
@@ -231,13 +231,13 @@ function setAdditionalStyleRules(): void {
     }
 
     // @option hideFollowSuggestions
-    if (settings.get("hideFollowSuggestions")) {
+    if (Settings.get("hideFollowSuggestions")) {
         hideFollowSuggestions()
     }
 
     // @option showMediaWithContentWarnings
-    if (settings.get("showMediaWithContentWarnings")
-        && settings.get("showMediaWithContentWarningsSel") < 7) {
+    if (Settings.get("showMediaWithContentWarnings")
+        && Settings.get("showMediaWithContentWarningsSel") < 7) {
         showMediaWithContentWarnings()
     }
 

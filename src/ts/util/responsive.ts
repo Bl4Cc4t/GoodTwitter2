@@ -3,6 +3,7 @@ import { Logger } from "./logger"
 import { ESidebar, GM_KEYS } from "../constants"
 import { getSidebarType, isSet } from "./util"
 import { moveSidebarElements } from "../component/sidebar"
+import { Settings } from "./settings"
 
 const _logger = new Logger("responsive")
 
@@ -68,4 +69,14 @@ export function addResizeHandler(): void {
     _logger.debug("adding resize event handler")
     window.addEventListener("resize", resizeHandler)
     resizeHandler()
+}
+
+
+/**
+ * Adds an event handler for visibility changes on the document
+ */
+export function addVisibilityChangeHandler(): void {
+    document.addEventListener("visibilitychange", () => {
+        Settings.setAllInDom()
+    }, { passive: true })
 }

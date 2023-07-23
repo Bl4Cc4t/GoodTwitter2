@@ -1,5 +1,5 @@
 import { REGEX } from "../../constants"
-import { settings } from "../settings"
+import { Settings } from "../settings"
 import { logger } from "../logger"
 
 export {}
@@ -170,7 +170,7 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities):
         }
     }
 
-    if (settings.get("expandTcoShortlinks")) {
+    if (Settings.get("expandTcoShortlinks")) {
         let re = /href="(https:\/\/t\.co\/[^"]+)"/
         let match: RegExpMatchArray | null
         while ((match = re.exec(out)) != null) {

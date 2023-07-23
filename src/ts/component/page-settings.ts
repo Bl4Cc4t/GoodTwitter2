@@ -1,4 +1,4 @@
-import { settings, SettingsKey } from "../util/settings"
+import { Settings, SettingsKey } from "../util/settings"
 import { getLocalizedString, getSvg, hasLocalizedString, waitForElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
@@ -58,7 +58,7 @@ function getSettingToggleHtml(name: SettingsKey, additionalHtml=""): string {
         <div class="gt2-setting">
             <div>
                 <span>${getLocalizedString(name)}</span>
-                <div class="gt2-setting-toggle ${settings.get(name) ? "gt2-active" : ""}" data-setting-name="${name}">
+                <div class="gt2-setting-toggle ${Settings.get(name) ? "gt2-active" : ""}" data-setting-name="${name}">
                     <div></div>
                     <div>${getSvg("tick")}</div>
               </div>
@@ -79,7 +79,7 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
     let html = ""
     for (let [index, option] of options.entries()) {
         let sel = Math.pow(2, index)
-        let isActive = ((settings.get(settingName) as number) & sel) == sel
+        let isActive = ((Settings.get(settingName) as number) & sel) == sel
         html += `
             <div>
                 <span>${getLocalizedString(option)}</span>
@@ -120,7 +120,7 @@ function getSettingsHtml(): string {
       ${getSettingToggleHtml("showMediaWithContentWarnings", `
         <div
           data-multi-selection-name="showMediaWithContentWarningsBox"
-          class="gt2-settings-multi-selection ${settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
+          class="gt2-settings-multi-selection ${Settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
         >
           ${getSettingSelectionHtml("showMediaWithContentWarningsSel", [
             "contentWarningNudity",
@@ -154,7 +154,7 @@ function getSettingsHtml(): string {
       ${getSettingToggleHtml("hideFollowSuggestions", `
         <div
           data-multi-selection-name="hideFollowSuggestionsBox"
-          class="gt2-settings-multi-selection ${settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
+          class="gt2-settings-multi-selection ${Settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
         >
           <div>
             <div class="gt2-settings-selection-header">
@@ -189,7 +189,7 @@ function getSettingsHtml(): string {
       `)}
       ${getSettingToggleHtml("fontOverride", `
         <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
-          <input type="text" value="${settings.get("fontOverrideValue")}">
+          <input type="text" value="${Settings.get("fontOverrideValue")}">
         </div>
       `)}
       ${getSettingToggleHtml("colorOverride", `<div class="gt2-pickr"></div>`)}
@@ -276,7 +276,7 @@ function initializeColorPickr(): void {
         useAsButton: true,
         appClass: "gt2-color-override-pickr",
         inline: true,
-        default: `rgb(${settings.get("colorOverrideValue")})`,
+        default: `rgb(${Settings.get("colorOverrideValue")})`,
         components: {
             preview: true,
             hue: true,
@@ -292,7 +292,7 @@ function initializeColorPickr(): void {
     })
         .on("change", (color: Pickr.HSVaColor) => {
             let val = color.toRGBA().toString(0).slice(5, -4)
-            settings.set("colorOverrideValue", val)
+            Settings.set("colorOverrideValue", val)
             _logger.debug(`color picked: ${val}`)
         })
 
@@ -309,10 +309,10 @@ function disableTogglesIfNeeded(): void {
         .forEach(e => {
             let isDisabled = e.classList.contains("gt2-disabled")
 
-            if (settings.get("hideTrends") && !isDisabled) {
+            if (Settings.get("hideTrends") && !isDisabled) {
                 e.classList.add("gt2-disabled")
                 _logger.debug(`disabled component `, e)
-            } else if (!settings.get("hideTrends") && isDisabled) {
+            } else if (!Settings.get("hideTrends") && isDisabled) {
                 e.classList.remove("gt2-disabled")
                 _logger.debug(`enabled component `, e)
             }
@@ -347,10 +347,10 @@ function hideBasedOnToggle(toggle: SettingsKey, selector: string): void {
 
     let isHidden = target.classList.contains("gt2-hidden")
 
-    if (settings.get(toggle) && isHidden) {
+    if (Settings.get(toggle) && isHidden) {
         target.classList.remove("gt2-hidden")
         _logger.debug(`revealed component `, target)
-    } else if (!settings.get(toggle) && !isHidden) {
+    } else if (!Settings.get(toggle) && !isHidden) {
         target.classList.add("gt2-hidden")
         _logger.debug(`hid component `, target)
     }
@@ -377,13 +377,13 @@ function toggleClickHandler(event: MouseEvent): void {
 
     // multi selection
     if (settingSel) {
-        settings.xor(settingName, parseInt(settingSel))
-        _logger.debug(`setting selection changed: ${settingName} = ${settings.get(settingName)}`)
+        Settings.xor(settingName, parseInt(settingSel))
+        _logger.debug(`setting selection changed: ${settingName} = ${Settings.get(settingName)}`)
     }
 
     // normal toggle
     else {
-        settings.toggle(settingName as SettingsKey)
+        Settings.toggle(settingName as SettingsKey)
         _logger.debug(`setting toggled: ${settingName}`)
     }
 
@@ -399,6 +399,6 @@ function toggleClickHandler(event: MouseEvent): void {
 function inputKeyupHandler(event: InputEvent): void {
     let target = event.target as HTMLInputElement
     let settingName = target.closest("[data-setting-name]").getAttribute("data-setting-name")
-    settings.set(settingName as SettingsKey, target.value)
+    Settings.set(settingName as SettingsKey, target.value)
     _logger.debug(`setting value changed: ${settingName} = ${target.value}`)
 }

@@ -1,5 +1,5 @@
 import { getLanguage, getLocalizedReplaceableString, getLocalizedString, getSvg, waitForElements } from "../util/util"
-import { settings } from "../util/settings"
+import { Settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
 import { getTweetData } from "../util/tweet"
@@ -13,7 +13,7 @@ const _logger = new Logger("component", "translation")
  */
 export function initializeInlineTranslation(): void {
   // @option hideTranslateTweetButton
-  if (!settings.get("hideTranslateTweetButton"))
+  if (!Settings.get("hideTranslateTweetButton"))
     addInlineTranslateTweetButton()
 
 

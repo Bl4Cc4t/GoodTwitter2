@@ -1,6 +1,6 @@
 import { BREAKPOINTS, DEFAULT_AVATAR_URL, ESidebar, GM_KEYS, SVG } from "../constants"
 import { Logger } from "./logger"
-import { settings } from "./settings"
+import { Settings } from "./settings"
 
 
 const _logger = new Logger("util")
@@ -328,7 +328,7 @@ export function addClickHandlerToMockElement(mockElement: Element, originalEleme
  * Gets the current sidebar type.
  */
 export function getSidebarType(): ESidebar {
-    let smallSidebars = settings.get("smallSidebars")
+    let smallSidebars = Settings.get("smallSidebars")
     let width = window.innerWidth
 
     if (!smallSidebars && width > BREAKPOINTS.EXTRA_EXTRA_LARGE ||

@@ -2,7 +2,7 @@ import { removeSearch } from "../component/navbar"
 import { addSettings, addSettingsMenuEntry, hideSettings } from "../component/page-settings"
 import { MODAL_PAGES, TITLE_ADJUSTMENTS } from "../constants"
 import { Logger } from "./logger"
-import { settings } from "./settings"
+import { Settings } from "./settings"
 import { enableLatestTweets } from "./timeline"
 import { addSourceLabel, labelMoreTweetsElement, scrollTweetUp } from "./tweet"
 import { isLoggedIn, waitForElements, watchForElementChanges } from "./util"
@@ -250,7 +250,7 @@ export function onLocationChange(type: string): void {
         setPageType("profile")
 
         // @option profileMediaRedirect
-        if (settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
+        if (Settings.get("profileMediaRedirect") && !location.pathname.endsWith("/media")) {
             waitForElements(`[href$="/media"][aria-selected=false]`, e => e.click())
             _logger.debug("redirected to /media page")
         }

@@ -9,7 +9,7 @@ import {
     watchForMultipleElementChanges
 } from "../util/util"
 import { REGEX } from "../constants"
-import { settings } from "../util/settings"
+import { Settings } from "../util/settings"
 
 const _logger = new Logger("component", "profile")
 
@@ -18,9 +18,9 @@ export function initializeProfile(): void {
     _logger.debug("initializing profile page")
     addLegacyProfileHeaderSkeleton()
 
-    if (settings.get("legacyProfile"))
+    if (Settings.get("legacyProfile"))
         rebuildLegacyProfilePage()
-    else if (settings.get("expandTcoShortlinks"))
+    else if (Settings.get("expandTcoShortlinks"))
         expandProfileTcoShortlinks()
 }
 
@@ -174,7 +174,7 @@ function rebuildLegacyProfilePage(): void {
 
         // go over all links
         destination.querySelectorAll(`a`).forEach(a => {
-            if (settings.get("expandTcoShortlinks")) {
+            if (Settings.get("expandTcoShortlinks")) {
                 expandTcoShortlink(a, userInfo.entities.url?.urls ?? [])
             }
         })
@@ -199,7 +199,7 @@ function rebuildLegacyProfilePage(): void {
         // go over all links
         destination.querySelectorAll(`a`).forEach(a => {
             // expand t.co links
-            if (settings.get("expandTcoShortlinks")) {
+            if (Settings.get("expandTcoShortlinks")) {
                 expandTcoShortlink(a, userInfo.entities.description?.urls ?? [])
             }
 

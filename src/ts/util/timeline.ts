@@ -1,6 +1,6 @@
 import { Logger } from "./logger"
 import { getReactPropByName } from "./react-util"
-import { settings } from "./settings"
+import { Settings } from "./settings"
 import { getTweetData } from "./tweet"
 import { expandTcoShortlink, waitForElements } from "./util"
 
@@ -13,7 +13,7 @@ const _logger = new Logger("timeline")
  * @option forceLatest
  */
 export function enableLatestTweets(): void {
-    if (!settings.get("forceLatest"))
+    if (!Settings.get("forceLatest"))
         return
 
     let sparkOptSelector = `[d*="M2 4c1.66 0 3-1.34 3-3h1c0"]`
@@ -55,9 +55,9 @@ export function enableLatestTweets(): void {
  * Actions to execute when a new tweet is added to the DOM.
  */
 export function watchForTweets(): void {
-    if (settings.get("expandTcoShortlinks"))
+    if (Settings.get("expandTcoShortlinks"))
         expandTweetTcoShortlinks()
-    if (settings.get("hideMoreTweets"))
+    if (Settings.get("hideMoreTweets"))
         hideMoreTweets()
 }
 
