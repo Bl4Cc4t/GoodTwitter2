@@ -1,20 +1,22 @@
 {
-  "sourceMap": true,
-  "compilerOptions": {
-    "target": "es6",
-    "strict": false,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "module": "commonjs",
-    "outDir": "../../dist",
-    "rootDir": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": [
-      "dom",
-      "es2018"
-    ]
-  }
+    "sourceMap": true,
+    "compilerOptions": {
+        "target": "es6",
+        "strict": false,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "module": "commonjs",
+        "outDir": "../../dist",
+        "rootDir": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "lib": [
+            "dom",
+            "es2018"
+        ]
+    }
 }

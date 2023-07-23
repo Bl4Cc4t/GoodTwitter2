@@ -1,9 +1,9 @@
 {
-  "sourceMap": true,
-  "compilerOptions": {
-    "target": "es6",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "rootDir": "."
-  }
+    "sourceMap": true,
+    "compilerOptions": {
+        "target": "es6",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "rootDir": "."
+    }
 }
