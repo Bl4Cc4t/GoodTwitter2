@@ -2,8 +2,10 @@ import { Logger } from "../util/logger"
 import { getReactPropByName } from "../util/react-util"
 import {
     addClickHandlerToMockElement,
+    expandTcoShortlink,
     getLocalizedString,
     waitForElements,
+    watchForElementChanges,
     watchForMultipleElementChanges
 } from "../util/util"
 import { REGEX } from "../constants"
@@ -18,8 +20,28 @@ export function initializeProfile(): void {
 
     if (settings.get("legacyProfile"))
         rebuildLegacyProfilePage()
+    else if (settings.get("expandTcoShortlinks"))
+        expandProfileTcoShortlinks()
 }
 
+/**
+ * Checks for t.co shortlinks in the normal profile page and expands them.
+ */
+function expandProfileTcoShortlinks() {
+    let urls = []
+
+    watchForElementChanges(`[data-testid=UserName]`, userNameElement => {
+        const userInfo = getReactPropByName<User>(userNameElement, "user", true)
+        if (!userInfo)
+            return
+
+        urls = (userInfo.entities.url?.urls ?? []).concat(userInfo.entities.description?.urls ?? [])
+    })
+
+    waitForElements(`[data-testid=UserName] ~ * a`, anchor => {
+        expandTcoShortlink(anchor, urls)
+    })
+}
 
 /**
  * Adds the skeleton HTML of the legacy profile layout to the DOM.
@@ -68,14 +90,18 @@ function addLegacyProfileHeaderSkeleton(): void {
     })
 }
 
+/**
+ * Adds data to the legacy profile page skeleton.
+ */
 function rebuildLegacyProfilePage(): void {
     _logger.debug("rebuilding legacy profile page")
+    let userInfo: User
 
     watchForMultipleElementChanges(
         `[data-testid=UserName]`,
         `.gt2-legacy-profile-info`,
-        (userNameElement) => {
-        const userInfo = getReactPropByName<User>(userNameElement, "user", true)
+        userNameElement => {
+        userInfo = getReactPropByName<User>(userNameElement, "user", true)
         if (!userInfo)
             return
         _logger.debug("found changed userName element", userInfo)
@@ -146,6 +172,13 @@ function rebuildLegacyProfilePage(): void {
         _logger.debug("found items element")
         destination.replaceChildren(source.cloneNode(true))
 
+        // go over all links
+        destination.querySelectorAll(`a`).forEach(a => {
+            if (settings.get("expandTcoShortlinks")) {
+                expandTcoShortlink(a, userInfo.entities.url?.urls ?? [])
+            }
+        })
+
         // mocked click handlers
         const professionalCategory = destination.querySelector(`[data-testid=UserProfessionalCategory]`)
         if (professionalCategory) {
@@ -162,6 +195,22 @@ function rebuildLegacyProfilePage(): void {
         (source, destination) => {
         _logger.debug("found description element", source, destination)
         destination.replaceChildren(source.cloneNode(true))
+
+        // go over all links
+        destination.querySelectorAll(`a`).forEach(a => {
+            // expand t.co links
+            if (settings.get("expandTcoShortlinks")) {
+                expandTcoShortlink(a, userInfo.entities.description?.urls ?? [])
+            }
+
+            // clicking @user
+            if (a.textContent.trimStart().startsWith("@")) {
+                const href = a.getAttribute("href")
+                const sourceA = source.querySelector(`[href="${href}"]`)
+                const onClick = getReactPropByName<(e: MouseEvent) => void>(sourceA, "onClick")
+                a.addEventListener("click", onClick)
+            }
+        })
     }, { subtree: true }, false)
 
     // followers you follow

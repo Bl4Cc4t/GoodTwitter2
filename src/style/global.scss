@@ -1,3 +1,4 @@
+@import "./util/functions";
 @import "./util/mixins";
 
 // global background color
@@ -107,6 +108,13 @@ nav [role=tablist] [role=tab] {
             width: 100%;
         }
     }
+}
+
+// dropdown menus
+[data-testid=Dropdown] div {
+    font-size: incr(15px);
+    font-weight: 400;
+    line-height: normal;
 }
 
 

@@ -1,4 +1,4 @@
-import { DEFAULT_AVATAR_URL, GM_KEYS, SVG } from "../constants"
+import { BREAKPOINTS, DEFAULT_AVATAR_URL, ESidebar, GM_KEYS, SVG } from "../constants"
 import { Logger } from "./logger"
 import { settings } from "./settings"
 
@@ -202,13 +202,52 @@ export function watchForElementChanges(
             observer.disconnect()
     }
 }
-        }
-    })
+
+
+/**
+ * Waits for 2 elements.
+ * Usually used to transfer data from one element to the other.
+ *
+ * Same as using `watchForElementChanges` on the source element and `waitForElements` on the destination element.
+ * @param sourceSelector the selector for the first element (source)
+ * @param destinationSelector the selector for the second element (destination)
+ * @param callback the callback function to execute. Gets passed the added element nodes
+ * @param options additional options for the observe function
+ * @param waitOnce if set to false, continue to search for new elements even after the first match is found
+ */
+export function watchForMultipleElementChanges(
+    sourceSelector: string,
+    destinationSelector: string,
+    callback: ((source: HTMLElement, destination: HTMLElement) => void),
+    options?: MutationObserverInit,
+    waitOnce = true
+): () => void {
+    let destination: HTMLElement
+    let source: HTMLElement
+
+    let destinationTeardown = waitForElements(destinationSelector, e => {
+        destination = e
+        if (source)
+            callback(source, destination)
+    }, waitOnce)
+
+    let sourceTeardown = watchForElementChanges(sourceSelector, e => {
+        source = e
+        if (destination)
+            callback(source, destination)
+        else console.error(source, destination)
+    }, options, waitOnce)
+
+    return () => {
+        sourceTeardown()
+        destinationTeardown()
+    }
 }
 
 
 /**
  * Get information about the currently logged in account.
+ * TODO use react thing
  * @returns user info object
  */
 export function getCurrentUserInfo(): UserInfo {
@@ -286,13 +325,30 @@ export function addClickHandlerToMockElement(mockElement: Element, originalEleme
 
 
 /**
- * Checks, if the current layout only consists of a single sidebar.
- * @returns true, if it does
+ * Gets the current sidebar type.
  */
-export function isOnSingleSidebarLayout(): boolean {
+export function getSidebarType(): ESidebar {
     let smallSidebars = settings.get("smallSidebars")
     let width = window.innerWidth
-    return (!smallSidebars && width <= 1350) || (smallSidebars && width <= 1230)
+
+    if (!smallSidebars && width > BREAKPOINTS.EXTRA_EXTRA_LARGE ||
+        smallSidebars && width > BREAKPOINTS.EXTRA_LARGE)
+        return ESidebar.Both
+
+    if (width > BREAKPOINTS.MEDIUM)
+        return ESidebar.Right
+
+    return ESidebar.None
+}
+
+
+/**
+ * Checks, if an enum value is set via logical and.
+ * @param value the value to check
+ * @param hasValue the other value
+ */
+export function isSet<TEnum extends number>(value: TEnum, hasValue: TEnum): boolean {
+    return hasValue == (value & hasValue)
 }
 
 
@@ -315,4 +371,32 @@ export function dismissSidebarNotice(key: string): void {
     notices.push(key)
     GM_setValue(GM_KEYS.DISMISSED_SIDEBAR_NOTICES, notices)
     _logger.debug("dismissed sidebar notice with key: ", key)
+}
+
+
+/**
+ * Expands a t.co shortlink.
+ * @param anchor the a element to replace its href
+ * @param urls the urls to search for the correct t.co expansion
+ */
+export function expandTcoShortlink(anchor: Element, urls: TwitterApi.Url[]) {
+    const tcoUrl = anchor.getAttribute("href").split("?")[0]
+
+    if (!tcoUrl.includes("//t.co/"))
+        return
+
+    const url = urls.find(e => e.url == tcoUrl)
+
+    if (!url) {
+        _logger.error("expandTcoShortlinks: error getting url object", anchor, tcoUrl)
+        return
+    }
+
+    if (!url.expanded_url) {
+        _logger.error("expandTcoShortlinks: url object has no expanded_url", anchor, url)
+        return
+    }
+
+    anchor.setAttribute("href", url.expanded_url)
+    _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
 }

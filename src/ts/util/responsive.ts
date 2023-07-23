@@ -1,6 +1,8 @@
 import { getScrollbarWidth } from "../style"
 import { Logger } from "./logger"
-import { GM_KEYS } from "../constants"
+import { ESidebar, GM_KEYS } from "../constants"
+import { getSidebarType, isSet } from "./util"
+import { moveSidebarElements } from "../component/sidebar"
 
 const _logger = new Logger("responsive")
 
@@ -54,6 +56,13 @@ export function addResizeHandler(): void {
         // set banner height
         const bannerHeight = (window.innerWidth - getScrollbarWidth()) / 3 - 15
         GM_setValue(GM_KEYS.LEGACY_PROFILE_BANNER_HEIGHT, bannerHeight)
+
+        // sidebar
+        const type = getSidebarType()
+        if (isSet(type, ESidebar.Left))
+            moveSidebarElements("left")
+        else if (isSet(type, ESidebar.Right))
+            moveSidebarElements("right")
     }
 
     _logger.debug("adding resize event handler")

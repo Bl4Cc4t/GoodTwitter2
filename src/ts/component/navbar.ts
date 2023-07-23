@@ -222,7 +222,7 @@ function addBird(): void {
 
 
 /**
- * Handler for the dropdown button in the navbar
+ * Handler for the dropdown button in the navbar.
  */
 function dropdownToggledHandler(): void {
     let info = getCurrentUserInfo()
@@ -232,7 +232,7 @@ function dropdownToggledHandler(): void {
     let moreMenuButton = document.querySelector<HTMLElement>("header [data-testid=AppTabBar_More_Menu]")
     moreMenuButton.click()
 
-    // add elements to navbar dropdow menu
+    // add elements to navbar dropdown menu
     waitForElements("#layers [data-testid=Dropdown]", moreMenu => {
         // separator line
         let separatorHtml = moreMenu.querySelector("[role=separator]")

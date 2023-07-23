@@ -5,12 +5,14 @@ import {
     dismissSidebarNotice,
     getCurrentUserInfo,
     getLocalizedString,
+    getSidebarType,
     getSvg,
     isLoggedIn,
-    isOnSingleSidebarLayout,
+    isSet,
     isSidebarNoticeDismissed,
     waitForElements
 } from "../util/util"
+import { ESidebar } from "../constants"
 
 
 const _logger = new Logger("component/sidebar")
@@ -47,13 +49,6 @@ export function initializeSidebar(): void {
             }, false)
         }
     }
-
-    window.addEventListener("resize", () => {
-        if (isOnSingleSidebarLayout())
-            moveSidebarElements("right")
-        else
-            moveSidebarElements("left")
-    })
 
     waitForElements(".gt2-sidebar-notice-close", e => e?.addEventListener("click", event => {
         let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice") as HTMLElement
@@ -101,7 +96,7 @@ function addRightSidebar(): void {
  * If the there isn't enough screen space available, they get added to the one on the right.
  */
 function addSidebarElements(): void {
-    let insertAt = isOnSingleSidebarLayout() ? ".gt2-right-sidebar" : ".gt2-left-sidebar"
+    let insertAt = isSet(getSidebarType(), ESidebar.Left) ? ".gt2-left-sidebar" : ".gt2-right-sidebar"
 
     waitForElements(insertAt, sidebar => {
         if (sidebar.querySelector(".gt2-dashboard-profile"))
@@ -259,7 +254,7 @@ function handleTrends(): void {
             if (settings.get("leftTrends")) {
                 trendContainer.classList.add("gt2-left-sidebar-element")
 
-                if (!isOnSingleSidebarLayout()) {
+                if (isSet(getSidebarType(), ESidebar.Left)) {
                     let leftSidebarTrends = document.querySelector(".gt2-left-sidebar .gt2-sidebar-element-trends")
 
                     // replace existing trends
@@ -274,7 +269,6 @@ function handleTrends(): void {
                             ?.append(trendContainer)
                         _logger.debug("moved trends to left sidebar")
                     }
-
                 }
             }
         }
@@ -299,7 +293,7 @@ function handleTrends(): void {
  * Moves sidebar elements to the specified side(bar).
  * @param targetSide where to move the sidebar elements to
  */
-function moveSidebarElements(targetSide: "left" | "right"): void {
+export function moveSidebarElements(targetSide: "left" | "right"): void {
     // check if there are elements to move
     let opposite = targetSide == "left" ? "right" : "left"
     if (document.querySelectorAll(`.gt2-${opposite}-sidebar > *`).length == 0)
@@ -331,7 +325,7 @@ function handleProfileMedia(): void {
 
         // add container element if it does not exist
         if (!container) {
-            let sidebar = document.querySelector(`.gt2-${placeLeft && !isOnSingleSidebarLayout() ? "left" : "right"}-sidebar`)
+            let sidebar = document.querySelector(`.gt2-${placeLeft && isSet(getSidebarType(), ESidebar.Left) ? "left" : "right"}-sidebar`)
 
             if (!sidebar) {
                 _logger.error("sidebar not found")

@@ -10,7 +10,7 @@ import { logger } from "./util/logger"
 import { initializeNavbar } from "./component/navbar"
 import { initializeSidebar } from "./component/sidebar"
 import { watchForTweets } from "./util/timeline"
-import { addResizeHandler, addScrollHandler } from "./util/responsive"
+import { addResizeHandler, addScrollHandler, addVisibilityChangeHandler } from "./util/responsive"
 import { initializeProfile } from "./component/profile"
 
 
@@ -46,4 +46,5 @@ import { initializeProfile } from "./component/profile"
     // handlers
     addScrollHandler()
     addResizeHandler()
+    addVisibilityChangeHandler()
 })()

@@ -2,7 +2,7 @@ import { Logger } from "./logger"
 import { getReactPropByName } from "./react-util"
 import { settings } from "./settings"
 import { getTweetData } from "./tweet"
-import { waitForElements } from "./util"
+import { expandTcoShortlink, waitForElements } from "./util"
 
 
 const _logger = new Logger("timeline")
@@ -84,24 +84,8 @@ function expandTweetTcoShortlink(anchor: Element): void {
     if (!tweet)
         return
 
-    const urlEntities = tweet.entities.urls.concat(tweet.note_tweet?.entity_set?.urls || [])
-
-    // loop over all tco anchors in the tweet
-    let tcoUrl = anchor.getAttribute("href")
-    let url = urlEntities.find(e => e.url == tcoUrl.split("?")[0])
-
-    if (!url) {
-        _logger.error("expandTcoShortlinks: error getting url object", tcoUrl, tweet, tweetArticle)
-        return
-    }
-
-    if (!url.expanded_url) {
-        _logger.error("expandTcoShortlinks: url object has no expanded_url", tcoUrl, tweet, tweetArticle)
-        return
-    }
-
-    anchor.setAttribute("href", url.expanded_url)
-    _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
+    const urls = tweet.entities.urls.concat(tweet.note_tweet?.entity_set?.urls || [])
+    expandTcoShortlink(anchor, urls)
 }
 
 

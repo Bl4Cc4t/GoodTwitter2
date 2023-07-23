@@ -3,7 +3,8 @@
 
 // sticky sidebars
 .gt2-opt-sticky-sidebars {
-    #{not-either(".gt2-opt-legacy-profile", "[data-page-type=profile]")} {
+    &:not(.gt2-opt-legacy-profile),
+    &:not([data-page-type=profile]) {
         div[data-testid=sidebarColumn] > div > div:nth-child(2) {
             height: calc(100vh - 47px);
             position: fixed;
@@ -13,7 +14,7 @@
 
     &[data-page-type=profile].gt2-opt-legacy-profile {
         &:not(.gt2-scrolled-down-banner) {
-            .gt2-left-sidebar,
+            .gt2-left-sidebar-container,
             div[data-testid=sidebarColumn] > div > div:nth-child(2) {
                 position: absolute;
                 top: 0 !important;
@@ -21,7 +22,7 @@
         }
 
         &.gt2-scrolled-down-banner {
-            .gt2-left-sidebar,
+            .gt2-left-sidebar-container,
             div[data-testid=sidebarColumn] > div > div:nth-child(2) {
                 position: fixed;
                 top: calc(47px + 15px + 60px + 10px) !important;
@@ -37,9 +38,8 @@
         }
     }
 
-    // indepentently scrollable right sidebar
+    // independently scrollable right sidebar
     div[data-testid=sidebarColumn] > div {
-
         > div:nth-child(1) {
             margin-top: 0 !important;
         }

@@ -147,3 +147,35 @@ export const GM_KEYS = {
     SETTINGS: "opt_gt2",
     LEGACY_PROFILE_BANNER_HEIGHT: "legacyProfile.bannerHeight"
 }
+
+
+/**
+ * Breakpoints for the layout.
+ *
+ * Breakpoints overview:
+ *
+ * name | left sb.  | right sb. | small sb. | dimensions        | note
+ * -----|-----------|-----------|-----------|-------------------|-----
+ * xxl  | yes       | yes       |           | > 1350px          |
+ * xl   | yes       | yes       | yes       | > 1230px          |
+ * lg   |           | yes       |           | 1095px - 1350px   |
+ * md   |           | yes       | yes       | 1095px - 1230px   |
+ * md   |           | yes       |           | 1005px - 1095px   | small sidebars auto applied
+ * sm   |           |           |           | < 1005px          |
+ * xs   |           |           |           | < 705px           |
+ */
+
+export const BREAKPOINTS = {
+    EXTRA_EXTRA_LARGE: 1350,
+    EXTRA_LARGE: 1230,
+    LARGE: 1095,
+    MEDIUM: 1005,
+    SMALL: 0
+}
+
+export enum ESidebar {
+    None = 1 << 0,
+    Left = 1 << 1,
+    Right = 1 << 2,
+    Both = 1 << 1 | 1 << 2
+}
