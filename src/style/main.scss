@@ -1,27 +1,28 @@
 @charset "UTF-8";
 
 // external stylesheets
-@import "../../node_modules/@simonwep/pickr/dist/themes/classic.min";
+@import "~@simonwep/pickr/dist/themes/classic.min";
 
 // basic
-@import "./colors";
-@import "./fonts";
-@import "./global";
-@import "./responsive";
+@import "global";
+@import "responsive";
+@import "common/colors";
+@import "common/fonts";
+@import "common/icons";
 
 // components
-@import "./component/legacy-profile";
-@import "./component/navbar";
-@import "./component/option-specific";
-@import "./component/other";
-@import "./component/sidebar";
+@import "component/legacy-profile";
+@import "component/navbar";
+@import "component/option-specific";
+@import "component/other";
+@import "component/sidebar";
 
 // pages
-@import "./page/analytics";
-@import "./page/home";
-@import "./page/messages";
-@import "./page/other";
-@import "./page/profile";
-@import "./page/search";
-@import "./page/settings";
-@import "./page/tweet";
+@import "page/analytics";
+@import "page/home";
+@import "page/messages";
+@import "page/other";
+@import "page/profile";
+@import "page/search";
+@import "page/settings";
+@import "page/tweet";
