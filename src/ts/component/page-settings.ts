@@ -2,6 +2,8 @@ import { Settings, SettingsKey } from "../util/settings"
 import { getLocalizedString, getSvg, hasLocalizedString, waitForElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
+import CheckSvg from "@icon/2022/check.svg"
+import ChevronRightSvg from "@icon/2022/chevron-right.svg"
 
 
 const _logger = new Logger("component", "page-settings")
@@ -20,7 +22,7 @@ export function addSettingsMenuEntry(): void {
                 <a class="gt2-toggle-settings" href="/settings/gt2">
                     <div>
                         <span>GoodTwitter2</span>
-                        ${getSvg("caret")}
+                        ${ChevronRightSvg}
                     </div>
                 </a>`)
 
@@ -59,8 +61,8 @@ function getSettingToggleHtml(name: SettingsKey, additionalHtml=""): string {
             <div>
                 <span>${getLocalizedString(name)}</span>
                 <div class="gt2-setting-toggle ${Settings.get(name) ? "gt2-active" : ""}" data-setting-name="${name}">
-                    <div></div>
-                    <div>${getSvg("tick")}</div>
+                    <div class="gt2-icon-hover-dummy"></div>
+                    <div>${CheckSvg}</div>
               </div>
             </div>
             ${additionalHtml}
@@ -84,8 +86,8 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
             <div>
                 <span>${getLocalizedString(option)}</span>
                 <div class="gt2-setting-toggle ${isActive ? "gt2-active" : ""}" data-sel="${sel}">
-                    <div></div>
-                    <div>${getSvg("tick")}</div>
+                    <div class="gt2-icon-hover-dummy"></div>
+                    <div>${CheckSvg}</div>
                 </div>
             </div>`
     }
@@ -99,111 +101,108 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
  * @returns the HTML of the settings page
  */
 function getSettingsHtml(): string {
-  return `
-    <div class="gt2-settings-header">
-      <div class="gt2-settings-back">
-        <div></div>
-        ${getSvg("arrow")}
-      </div>
-      GoodTwitter2 v${GM_info.script.version}
-    </div>
-    <div class="gt2-settings">
-      <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderTimeline")}</div>
-      ${getSettingToggleHtml("forceLatest")}
-      ${getSettingToggleHtml("biggerPreviews")}
-      <div class="gt2-settings-separator"></div>
-
-      <div class="gt2-settings-sub-header">${getLocalizedString("statsTweets")}</div>
-      ${getSettingToggleHtml("hideTranslateTweetButton")}
-      ${getSettingToggleHtml("tweetIconsPullLeft")}
-      ${getSettingToggleHtml("hidePromoteTweetButton")}
-      ${getSettingToggleHtml("showMediaWithContentWarnings", `
-        <div
-          data-multi-selection-name="showMediaWithContentWarningsBox"
-          class="gt2-settings-multi-selection ${Settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
-        >
-          ${getSettingSelectionHtml("showMediaWithContentWarningsSel", [
-            "contentWarningNudity",
-            "contentWarningViolence",
-            "contentWarningSensitiveContent"
-          ])}
-        </div>
-      `)}
-      ${getSettingToggleHtml("hideMoreTweets")}
-      <div class="gt2-settings-separator"></div>
-
-      <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderSidebars")}</div>
-      ${getSettingToggleHtml("stickySidebars")}
-      ${getSettingToggleHtml("smallSidebars")}
-      ${getSettingToggleHtml("hideTrends")}
-      ${getSettingToggleHtml("leftTrends")}
-      ${getSettingToggleHtml("show5Trends")}
-      <div class="gt2-settings-separator"></div>
-
-      <div class="gt2-settings-sub-header">${getLocalizedString("navProfile")}</div>
-      ${getSettingToggleHtml("legacyProfile")}
-      ${getSettingToggleHtml("squareAvatars")}
-      ${getSettingToggleHtml("disableHexagonAvatars")}
-      ${getSettingToggleHtml("leftMedia")}
-      ${getSettingToggleHtml("profileMediaRedirect")}
-      <div class="gt2-settings-separator"></div>
-
-      <div class="gt2-settings-sub-header">
-        ${getLocalizedString("settingsHeaderGlobalLook")}
-      </div>
-      ${getSettingToggleHtml("hideFollowSuggestions", `
-        <div
-          data-multi-selection-name="hideFollowSuggestionsBox"
-          class="gt2-settings-multi-selection ${Settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
-        >
-          <div>
-            <div class="gt2-settings-selection-header">
-              ${getLocalizedString("settingsHeaderTimeline")}
+    return `
+        <div class="gt2-settings-header">
+            <div class="gt2-settings-back">
+                <div class="gt2-icon-hover-dummy"></div>
+                ${getSvg("arrow")}
             </div>
-            ${getSettingSelectionHtml("hideFollowSuggestionsTimelineSel", [
-              "users",
-              "topics",
-              "navLists"
-            ])}
-          </div>
-
-          <div>
-            <div class="gt2-settings-selection-header">
-              ${getLocalizedString("settingsHeaderSidebars")}
-            </div>
-            ${getSettingSelectionHtml("hideFollowSuggestionsSidebarSel", [
-              "users",
-              "topics"
-            ])}
-          </div>
-
-          <div>
-            <div class="gt2-settings-selection-header">
-              ${getLocalizedString("navProfile")}
-            </div>
-            ${getSettingSelectionHtml("hideFollowSuggestionsProfileSel", [
-              "users",
-            ])}
-          </div>
+            GoodTwitter2 v${GM_info.script.version}
         </div>
-      `)}
-      ${getSettingToggleHtml("fontOverride", `
-        <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
-          <input type="text" value="${Settings.get("fontOverrideValue")}">
-        </div>
-      `)}
-      ${getSettingToggleHtml("colorOverride", `<div class="gt2-pickr"></div>`)}
-      ${getSettingToggleHtml("hideMessageBox")}
-      ${getSettingToggleHtml("rosettaIcons")}
-      ${getSettingToggleHtml("favoriteLikes")}
-      <div class="gt2-settings-separator"></div>
+        <div class="gt2-settings">
+            <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderTimeline")}</div>
+            ${getSettingToggleHtml("forceLatest")}
+            ${getSettingToggleHtml("biggerPreviews")}
+            <div class="gt2-settings-separator"></div>
 
-      <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderOther")}</div>
-      ${getSettingToggleHtml("updateNotifications")}
-      ${getSettingToggleHtml("expandTcoShortlinks")}
-      ${getSettingToggleHtml("mobileRedirect")}
-    </div>
-  `
+            <div class="gt2-settings-sub-header">${getLocalizedString("statsTweets")}</div>
+            ${getSettingToggleHtml("hideTranslateTweetButton")}
+            ${getSettingToggleHtml("tweetIconsPullLeft")}
+            ${getSettingToggleHtml("hidePromoteTweetButton")}
+            ${getSettingToggleHtml("showMediaWithContentWarnings", `
+                <div
+                    data-multi-selection-name="showMediaWithContentWarningsBox"
+                    class="gt2-settings-multi-selection ${Settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
+                >
+                    ${getSettingSelectionHtml("showMediaWithContentWarningsSel", [
+                        "contentWarningNudity",
+                        "contentWarningViolence",
+                        "contentWarningSensitiveContent"
+                    ])}
+                </div>`)}
+            ${getSettingToggleHtml("hideMoreTweets")}
+            <div class="gt2-settings-separator"></div>
+
+            <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderSidebars")}</div>
+            ${getSettingToggleHtml("stickySidebars")}
+            ${getSettingToggleHtml("smallSidebars")}
+            ${getSettingToggleHtml("hideTrends")}
+            ${getSettingToggleHtml("leftTrends")}
+            ${getSettingToggleHtml("show5Trends")}
+            <div class="gt2-settings-separator"></div>
+
+            <div class="gt2-settings-sub-header">${getLocalizedString("navProfile")}</div>
+            ${getSettingToggleHtml("legacyProfile")}
+            ${getSettingToggleHtml("squareAvatars")}
+            ${getSettingToggleHtml("disableHexagonAvatars")}
+            ${getSettingToggleHtml("leftMedia")}
+            ${getSettingToggleHtml("profileMediaRedirect")}
+            <div class="gt2-settings-separator"></div>
+
+            <div class="gt2-settings-sub-header">
+                ${getLocalizedString("settingsHeaderGlobalLook")}
+            </div>
+            ${getSettingToggleHtml("hideFollowSuggestions", `
+                <div
+                    data-multi-selection-name="hideFollowSuggestionsBox"
+                    class="gt2-settings-multi-selection ${Settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
+                >
+                <div>
+                    <div class="gt2-settings-selection-header">
+                        ${getLocalizedString("settingsHeaderTimeline")}
+                    </div>
+                    ${getSettingSelectionHtml("hideFollowSuggestionsTimelineSel", [
+                        "users",
+                        "topics",
+                        "navLists"
+                    ])}
+                </div>
+
+                <div>
+                    <div class="gt2-settings-selection-header">
+                        ${getLocalizedString("settingsHeaderSidebars")}
+                    </div>
+                    ${getSettingSelectionHtml("hideFollowSuggestionsSidebarSel", [
+                        "users",
+                        "topics"
+                    ])}
+                </div>
+
+                <div>
+                    <div class="gt2-settings-selection-header">
+                        ${getLocalizedString("navProfile")}
+                    </div>
+                    ${getSettingSelectionHtml("hideFollowSuggestionsProfileSel", [
+                        "users",
+                    ])}
+                </div>
+            </div>`)}
+            ${getSettingToggleHtml("fontOverride", `
+                <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
+                    <input type="text" value="${Settings.get("fontOverrideValue")}">
+                </div>`)}
+            ${getSettingToggleHtml("colorOverride", `<div class="gt2-pickr"></div>`)}
+            ${getSettingToggleHtml("hideMessageBox")}
+            ${getSettingToggleHtml("rosettaIcons")}
+            ${getSettingToggleHtml("favoriteLikes")}
+            ${getSettingToggleHtml("birdIcon")}
+            <div class="gt2-settings-separator"></div>
+
+            <div class="gt2-settings-sub-header">${getLocalizedString("settingsHeaderOther")}</div>
+            ${getSettingToggleHtml("updateNotifications")}
+            ${getSettingToggleHtml("expandTcoShortlinks")}
+            ${getSettingToggleHtml("mobileRedirect")}
+        </div>`
 }
 
 

@@ -39,6 +39,7 @@ const INITIAL_SETTINGS = {
     hideMessageBox: true,
     rosettaIcons: false,
     favoriteLikes: false,
+    birdIcon: true,
 
     // other
     updateNotifications: true,

@@ -86,7 +86,6 @@ body[data-page-type=settings] {
         svg {
             position: absolute;
             right: 15px;
-            transform: rotate(-90deg);
             width: incr(1.25em);
         }
 
@@ -144,7 +143,7 @@ body[data-page-type=settings] {
 
         .gt2-settings-back {
             @include hoverable-svg;
-            display: none !important;
+            display: none;
             height: 39px;
             margin-left: -4px;
             margin-right: 18px;
@@ -152,9 +151,8 @@ body[data-page-type=settings] {
             width: 39px;
 
             svg {
-                font-size: 15px;
-                height: 1.5em;
-                width: 1.5em;
+                height: 20px;
+                width: 20px;
             }
         }
     }
@@ -191,21 +189,6 @@ body[data-page-type=settings] {
             justify-content: center;
             width: 20px;
 
-            div {
-                height: 20px;
-                position: absolute;
-                width: 20px;
-            }
-
-            // hover shadow
-            div:nth-child(1) {
-                background-color: var(--color-gray);
-                border-radius: 9999px;
-                opacity: 0;
-                padding: 10px;
-                transition: opacity .2s ease-in-out;
-            }
-
             &:not(.gt2-disabled) {
                 cursor: pointer;
 
@@ -214,16 +197,27 @@ body[data-page-type=settings] {
                 }
             }
 
+            // hover shadow
+            .gt2-icon-hover-dummy {
+                background-color: var(--color-gray);
+            }
+
+
             // checkbox
             div:nth-child(2) {
+                height: 20px;
+                width: 20px;
                 border: 2px solid var(--color-gray);
                 border-radius: 4px;
                 box-sizing: border-box;
+                display: flex;
+                transition: all .2s ease-in-out;
+            }
 
-                svg {
-                    display: none;
-                    fill: #ffffff;
-                }
+            svg {
+                height: auto;
+                opacity: 0;
+                fill: #ffffff;
             }
 
             &.gt2-active {
@@ -233,7 +227,7 @@ body[data-page-type=settings] {
                 }
 
                 svg {
-                    display: block !important;
+                    opacity: 1;
                 }
             }
 

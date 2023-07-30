@@ -1,3 +1,5 @@
+@import "functions";
+
 // style for parents with hoverable icons
 @mixin hoverable-svg {
     align-items: center;
@@ -7,18 +9,8 @@
     position: absolute;
     width: 1.5em;
 
-    div {
-        background-color: var(--color-accent);
-        border-radius: 9999px;
-        height: 39px;
-        opacity: 0;
-        position: absolute;
-        transition: opacity .2s ease-in-out;
-        width: 39px;
-    }
-
-    svg {
-        fill: var(--color-accent);
+    .gt2-icon {
+        color: var(--color-accent);
         height: 1em;
         width: 1em;
     }
@@ -26,12 +18,8 @@
     &:hover {
         cursor: pointer;
 
-        div {
+        .gt2-icon-hover-dummy {
             opacity: .1;
-        }
-
-        svg {
-            fill: var(--color-accent) !important;
         }
     }
 }
