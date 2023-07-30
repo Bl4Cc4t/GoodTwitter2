@@ -14,3 +14,4 @@ node_modules
 
 # compiled stuff
 dist
+*.woff*

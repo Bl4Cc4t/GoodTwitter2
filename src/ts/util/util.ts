@@ -14,7 +14,7 @@ const _logger = new Logger("util")
 export function getSvg(key: keyof typeof SVG): string {
     return `
         <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
-          ${SVG[key]}
+            ${SVG[key]}
         </svg>`
 }
 

@@ -1,4 +1,4 @@
-## Firefox CSP
+# Firefox CSP
 
 Since Tampermonkey Beta 4.11.6114 ([#952](https://github.com/Tampermonkey/tampermonkey/issues/952#issuecomment-639909754)) / GoodTwitter 2 v0.0.21 ([#96](https://github.com/Bl4Cc4t/GoodTwitter2/issues/96#issuecomment-643209498)) you do not have to disable the `security.csp.enable` flag anymore.
 
@@ -6,7 +6,7 @@ Disabling the flag makes you vulnerable to potential XSS attacks (read more abou
 
 Here is a guide on how to do that:
 
-### Reenabling `security.csp.enable`
+### Re-enabling `security.csp.enable`
 - Go to `about:config` (type that into your address bar)
 - Accept the warning
 - In the search bar, type `security.csp.enable`.

@@ -1,17 +1,12 @@
 {
-    "name": "GoodTwitter2dev",
+    "name": "GoodTwitter2",
     "version": "0.1.0",
     "description": "A try to make Twitter look good again.",
     "author": "schwarzkatz",
     "license": "MIT",
     "homepage": "https://github.com/Bl4Cc4t/GoodTwitter2#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Bl4Cc4t/GoodTwitter2.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Bl4Cc4t/GoodTwitter2/issues"
-    },
+    "repository": "https://github.com/Bl4Cc4t/GoodTwitter2.git",
+    "bugs": "https://github.com/Bl4Cc4t/GoodTwitter2/issues",
     "keywords": [
         "twitter",
         "userscript"
