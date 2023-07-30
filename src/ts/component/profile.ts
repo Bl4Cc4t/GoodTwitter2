@@ -86,6 +86,36 @@ function addLegacyProfileHeaderSkeleton(): void {
                     </div>
                     <div class="gt2-legacy-profile-nav-right"></div>
                 </div>`)
+
+            // navbar links: tweets & likes
+            waitForElements(`[data-testid=primaryColumn] nav [data-testid="ScrollSnap-List"]`, nav => {
+
+                addClickHandlerToMockElement(
+                    document.querySelector(".gt2-legacy-profile-stats-tweets"),
+                    nav.querySelector(":scope > div:nth-child(1) a")
+                )
+                addClickHandlerToMockElement(
+                    document.querySelector(".gt2-legacy-profile-stats-likes"),
+                    nav.querySelector(`[href$="/likes"]`)
+                )
+            }, false)
+
+            // navbar links: followers / following tabs
+            waitForElements(`[data-testid=UserName] ~ * [href*="/follow"]`, anchor => {
+                const href = anchor.getAttribute("href")
+                if (href.endsWith("/following")) {
+                    addClickHandlerToMockElement(
+                        document.querySelector(".gt2-legacy-profile-stats-following"),
+                        anchor
+                    )
+                }
+                else if (href.endsWith("/followers")) {
+                    addClickHandlerToMockElement(
+                        document.querySelector(".gt2-legacy-profile-stats-followers"),
+                        anchor
+                    )
+                }
+            })
         }
     })
 }

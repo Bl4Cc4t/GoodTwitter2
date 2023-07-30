@@ -13,14 +13,13 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
         div[data-testid=primaryColumn] > div {
             @include separator-top;
 
-            > div:nth-child(1),
-            > div:nth-child(2) > div > div > div:nth-child(1) {
+            > :first-child,
+            > :last-child > div > div > *:nth-child(1) {
                 left: -9999999px;
                 position: absolute;
                 top: 0;
             }
-
-            > div:nth-child(2) > div > div > div:nth-child(2) {
+            > :last-child > div > div > *:nth-child(2) {
                 border-top-width: 0;
             }
         }
@@ -226,7 +225,7 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
 
         .gt2-legacy-profile-name,
         .gt2-legacy-profile-items > *:not(:last-child) {
-            width: fit-content -moz-fit-content -webkit-fit-content;
+            width: fit-content;
         }
 
         .gt2-legacy-profile-followers-you-follow:not(:empty) {
@@ -339,6 +338,17 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
             .gt2-legacy-profile-screen-name-wrap {
                 display: none;
             }
+        }
+    }
+
+    &:not([data-page-pathname*="/following"]):not([data-page-pathname*="/followers"]):not([data-page-pathname*="/likes"]) .gt2-legacy-profile-stats-tweets,
+    &[data-page-pathname*="/following"] .gt2-legacy-profile-stats-following,
+    &[data-page-pathname*="/followers"] .gt2-legacy-profile-stats-followers,
+    &[data-page-pathname*="/likes"] .gt2-legacy-profile-stats-likes {
+        border-bottom: 3px solid var(--color-accent);
+
+        div:nth-child(2) {
+            color: var(--color-accent) !important;
         }
     }
 }
