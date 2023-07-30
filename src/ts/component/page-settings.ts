@@ -1,9 +1,10 @@
 import { Settings, SettingsKey } from "../util/settings"
-import { getLocalizedString, getSvg, hasLocalizedString, waitForElements } from "../util/util"
+import { getLocalizedString, hasLocalizedString, waitForElements } from "../util/util"
 import Pickr from "@simonwep/pickr"
 import { Logger } from "../util/logger"
 import CheckSvg from "@icon/2022/check.svg"
 import ChevronRightSvg from "@icon/2022/chevron-right.svg"
+import WestSvg from "@icon/2022/west.svg"
 
 
 const _logger = new Logger("component", "page-settings")
@@ -105,7 +106,7 @@ function getSettingsHtml(): string {
         <div class="gt2-settings-header">
             <div class="gt2-settings-back">
                 <div class="gt2-icon-hover-dummy"></div>
-                ${getSvg("arrow")}
+                ${WestSvg}
             </div>
             GoodTwitter2 v${GM_info.script.version}
         </div>

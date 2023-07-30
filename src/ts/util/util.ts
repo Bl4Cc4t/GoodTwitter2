@@ -1,22 +1,9 @@
-import { BREAKPOINTS, DEFAULT_AVATAR_URL, ESidebar, GM_KEYS, SVG } from "../constants"
+import { BREAKPOINTS, DEFAULT_AVATAR_URL, ESidebar, GM_KEYS } from "../constants"
 import { Logger } from "./logger"
 import { Settings } from "./settings"
 
 
 const _logger = new Logger("util")
-
-
-/**
- * Returns an SVG string.
- * @param key name of the SVG
- * @return SVG string
- */
-export function getSvg(key: keyof typeof SVG): string {
-    return `
-        <svg class="gt2-svg" viewBox="0 0 ${key == "google" ? 74 : 24} 24">
-            ${SVG[key]}
-        </svg>`
-}
 
 
 /**

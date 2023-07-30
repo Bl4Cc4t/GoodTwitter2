@@ -1,8 +1,9 @@
-import { getLanguage, getLocalizedReplaceableString, getLocalizedString, getSvg, waitForElements } from "../util/util"
+import { getLanguage, getLocalizedReplaceableString, getLocalizedString, waitForElements } from "../util/util"
 import { Settings } from "../util/settings"
 import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
 import { getTweetData } from "../util/tweet"
+import GoogleSvg from "@icon/vendor/google.svg"
 
 
 const _logger = new Logger("component", "translation")
@@ -180,7 +181,7 @@ function getTranslationHtml(translation: TwitterApi.Translation): string {
     lang: translation.localizedSourceLanguage,
     source: translation.translationSource == "Google"
       ? `<a href="https://translate.google.com">
-           ${getSvg("google")}
+           ${GoogleSvg}
          </a>`
       : translation.translationSource
   })

@@ -2,17 +2,21 @@ import { Logger } from "../util/logger"
 import { reactPropExists } from "../util/react-util"
 import { Settings } from "../util/settings"
 import {
+    addClickHandlerToMockElement,
     dismissSidebarNotice,
     getCurrentUserInfo,
     getLocalizedString,
     getSidebarType,
-    getSvg,
     isLoggedIn,
     isSet,
     isSidebarNoticeDismissed,
     waitForElements
 } from "../util/util"
 import { ESidebar } from "../constants"
+import CloseSvg from "@icon/2022/close.svg"
+import MoreHoriz from "@icon/2022/more-horiz.svg"
+import MoonSvg from "@icon/other/moon.svg"
+import CheckSvg from "@icon/2022/check.svg"
 
 
 const _logger = new Logger("component/sidebar")
@@ -152,12 +156,12 @@ function getUpdateNoticeHtml(): string {
             <div class="gt2-sidebar-notice-header">
                 <span>GoodTwitter2</span>
                 <div class="gt2-sidebar-notice-close">
-                    <div></div>
-                    ${getSvg("x")}
+                    <div class="gt2-icon-hover-dummy"></div>
+                    ${CloseSvg}
                 </div>
             </div>
             <div class="gt2-sidebar-notice-content">
-                ${getSvg("tick")} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
+                ${CheckSvg} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
                 <a
                     href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${version.replace(/\./g, "")}"
                     target="_blank"
@@ -189,10 +193,15 @@ function getDashboardProfileHtml(): string {
                         @<span >${i.screenName}</span>
                     </a>
                 </div>
-                <div class="gt2-toggle-${isLoggedIn() ? "acc-switcher-dropdown" : "lo-nightmode"}">
-                    <div></div>
-                    ${getSvg(isLoggedIn() ? "caret" : "moon")}
-                </div>
+                ${isLoggedIn() ? `
+                    <div class="gt2-toggle-acc-switcher-dropdown">
+                        <div class="gt2-icon-hover-dummy"></div>
+                        ${MoreHoriz}
+                    </div>` : `
+                    <div class="gt2-toggle-lo-nightmode">
+                        <div class="gt2-icon-hover-dummy"></div>
+                        ${MoonSvg}
+                    </div>`}
                 <div class="gt2-stats">
                     <ul>
                         <li>
@@ -423,7 +432,7 @@ function handleSidebarNotice(container: HTMLElement, key: string) {
     // add close button
     container.insertAdjacentHTML("beforeend", `
         <div class="gt2-sidebar-notice-close">
-            <div></div>
-            ${getSvg("x")}
+            <div class="gt2-icon-hover-dummy"></div>
+            ${CloseSvg}
         </div>`)
 }
