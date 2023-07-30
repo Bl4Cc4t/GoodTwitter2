@@ -5,13 +5,16 @@
         "strict": false,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "baseUrl": ".",
+        "baseUrl": "src/ts",
         "module": "commonjs",
-        "outDir": "../../dist",
-        "rootDir": ".",
+        "outDir": "dist",
+        "rootDir": "src/ts",
         "paths": {
             "@/*": [
-                "src/*"
+                "src/ts/*"
+            ],
+            "@icon/*": [
+                "icon/*"
             ]
         },
         "lib": [

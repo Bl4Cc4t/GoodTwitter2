@@ -17,5 +17,16 @@
             }
         ],
         "@babel/preset-typescript"
+    ],
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "^@icon/(.+)": "./icon/\\1",
+                    "^@/(.+)": "./src/ts/\\1"
+                }
+            }
+        ]
     ]
 }
