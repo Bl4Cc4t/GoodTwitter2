@@ -1,0 +1,40 @@
+@import "../util/mixins";
+@import "colors";
+@import "icons-2014-rosetta";
+@import "icons-2017-edge";
+
+.gt2-icon {
+    fill: currentColor;
+    color: var(--color-gray-light);
+    height: 1em;
+    width: auto;
+}
+
+.gt2-icon-hover-dummy {
+    background-color: var(--color-accent);
+    border-radius: 9999px;
+    height: 39px;
+    opacity: 0;
+    position: absolute;
+    transition: opacity .2s ease-in-out;
+    width: 39px;
+}
+
+#{svg-selector("2022/notifications-active")} {
+
+}
+
+.gt2-opt-bird-icon {
+    @include svg-override("vendor/twitter-x", "vendor/twitter-bird");
+
+    #{svg-selector("vendor/twitter-x")} {
+        color: var(--color-accent);
+    }
+}
+
+//.gt2-opt-edge-icons {
+//    @include icons-2017-edge;
+//}
+//.gt2-opt-rosetta-icons {
+//    @include icons-2014-rosetta;
+//}

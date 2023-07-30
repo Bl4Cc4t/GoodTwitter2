@@ -99,3 +99,25 @@
 @mixin separator-bottom {
     border-bottom: 1px solid var(--color-gray-dark) !important;
 }
+
+//noinspection CssInvalidFunction: provided by postcss
+@mixin svg-override($old, $new) {
+    #{svg-selector($old)} {
+        mask-image: svg-load("../../icon/#{$new}.svg");
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        stroke: currentColor;
+        stroke-width: 100;
+        transform: scale(1.2, 1.2) translate(-2px, -2px);
+
+        ~ * {
+            display: none;
+        }
+    }
+
+    [data-gt2-icon="#{$old}"] {
+        mask-image: svg-load("../../icon/#{$new}.svg");
+        mask-repeat: no-repeat;
+        mask-size: cover;
+    }
+}

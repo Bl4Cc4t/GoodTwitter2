@@ -1,11 +1,6 @@
 @import "../util/functions";
 @import "../util/mixins";
 
-// custom icons
-.gt2-svg {
-    fill: var(--color-gray-light);
-}
-
 // element is hidden
 .gt2-hidden {
     display: none !important;

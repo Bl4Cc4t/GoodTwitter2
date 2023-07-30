@@ -3,93 +3,94 @@
 @use "sass:color";
 @use "sass:map";
 @use "sass:string";
-@import "./util/variables";
+@import "../util/variables";
 
+$twitter-blue: rgb(29, 161, 242);
 
 $themes: (
     "white": (
-        "bg":           #e6ecf0,
-        "elem":         rgb(255, 255, 255),
-        "elem-sel":     rgb(247, 249, 250),
-        "gray":         rgb(91, 112, 131),
-        "gray-dark":    #e6ecf0,
-        "gray-dark-2":  rgb(196, 207, 214),
-        "gray-light":   rgb(101, 119, 134),
-        "navbar":       #ffffff,
-        "text":         rgb(20, 23, 26),
-        "text-2":       white,
-        "shadow":       rgba(101, 119, 134, .15),
-        "backdrop":     rgba(0, 0, 0, .4),
+        "bg": #e6ecf0,
+        "elem": rgb(255, 255, 255),
+        "elem-sel": rgb(247, 249, 250),
+        "gray": rgb(91, 112, 131),
+        "gray-dark": #e6ecf0,
+        "gray-dark-2": rgb(196, 207, 214),
+        "gray-light": rgb(101, 119, 134),
+        "navbar": #ffffff,
+        "text": rgb(20, 23, 26),
+        "text-2": white,
+        "shadow": rgba(101, 119, 134, .15),
+        "backdrop": rgba(0, 0, 0, .4),
         // base colors
-        "blue":         rgb(29, 161, 242),
-        "green":        rgb(23, 191, 99),
-        "red":          rgb(224, 36, 94),
-        "red-dark":     rgb(202, 32, 85),
-        "yellow":       rgb(255, 173, 31)
+        "blue": $twitter-blue,
+        "green": rgb(23, 191, 99),
+        "red": rgb(224, 36, 94),
+        "red-dark": rgb(202, 32, 85),
+        "yellow": rgb(255, 173, 31)
     ),
     "dim": (
-        "bg":           #10171e,
-        "elem":         rgb(21, 32, 43),
-        "elem-sel":     rgb(25, 39, 50),
-        "gray":         rgb(101, 119, 134),
-        "gray-dark":    #38444d,
-        "gray-dark-2":  rgb(61, 84, 102),
-        "gray-light":   rgb(136, 153, 166),
-        "navbar":       #1c2938,
-        "text":         rgb(255, 255, 255),
-        "text-2":       white,
-        "shadow":       rgba(136, 153, 166, .15),
-        "backdrop":     rgba(91, 112, 131, .4)
+        "bg": #10171e,
+        "elem": rgb(21, 32, 43),
+        "elem-sel": rgb(30, 39, 50),
+        "gray": rgb(101, 119, 134),
+        "gray-dark": #38444d,
+        "gray-dark-2": rgb(61, 84, 102),
+        "gray-light": rgb(136, 153, 166),
+        "navbar": #1c2938,
+        "text": rgb(255, 255, 255),
+        "text-2": white,
+        "shadow": rgba(136, 153, 166, .15),
+        "backdrop": rgba(91, 112, 131, .4)
     ),
     "lightsout": (
-        "bg":           #000000,
-        "elem":         #000000,
-        "elem-sel":     rgb(21, 24, 28),
-        "gray":         #657786,
-        "gray-dark":    #38444d,
-        "gray-dark-2":  rgb(47, 51, 54),
-        "gray-light":   rgb(110, 118, 125),
-        "navbar":       rgb(21, 24, 28),
-        "text":         rgb(217, 217, 217),
-        "text-2":       white,
-        "shadow":       rgba(255, 255, 255, .15),
-        "backdrop":     rgba(91, 112, 131, .4)
+        "bg": #000000,
+        "elem": #000000,
+        "elem-sel": rgb(21, 24, 28),
+        "gray": #657786,
+        "gray-dark": #38444d,
+        "gray-dark-2": rgb(47, 51, 54),
+        "gray-light": rgb(110, 118, 125),
+        "navbar": rgb(21, 24, 28),
+        "text": rgb(217, 217, 217),
+        "text-2": white,
+        "shadow": rgba(255, 255, 255, .15),
+        "backdrop": rgba(91, 112, 131, .4)
     ),
     // high contrast themes
     "white-hc": (
-        "gray":         rgb(59, 76, 92),
-        "gray-dark":    rgb(170, 184, 194),
-        "gray-light":   rgb(59, 76, 92),
-        "text":         rgb(20, 29, 38),
+        "gray": rgb(59, 76, 92),
+        "gray-dark": rgb(170, 184, 194),
+        "gray-light": rgb(59, 76, 92),
+        "text": rgb(20, 29, 38),
         // base colors
-        "blue":         rgb(38, 74, 157),
-        "green":        rgb(9, 102, 51),
-        "red":          rgb(159, 12, 58),
-        "red-dark":     rgb(169, 36, 78),
-        "yellow":       rgb(121, 80, 11)
+        "blue": rgb(38, 74, 157),
+        "green": rgb(9, 102, 51),
+        "red": rgb(159, 12, 58),
+        "red-dark": rgb(169, 36, 78),
+        "yellow": rgb(121, 80, 11)
     ),
     "dim-hc": (
-        "elem-sel":     rgb(24, 36, 48),
-        "gray":         rgb(184, 203, 217),
-        "gray-dark":    rgb(56, 68, 88),
-        "gray-light":   rgb(184, 203, 217),
-        "text-2":       rgb(15, 20, 25),
+        "elem-sel": rgb(24, 36, 48),
+        "gray": rgb(184, 203, 217),
+        "gray-dark": rgb(56, 68, 88),
+        "gray-light": rgb(184, 203, 217),
+        "text-2": rgb(15, 20, 25),
         // base colors
-        "blue":         rgb(112, 200, 255),
-        "green":        rgb(102, 211, 151),
-        "red":          rgb(240, 152, 179),
-        "red-dark":     rgb(216, 137, 161),
-        "yellow":       rgb(255, 203, 112)
+        "blue": rgb(112, 200, 255),
+        "green": rgb(102, 211, 151),
+        "red": rgb(240, 152, 179),
+        "red-dark": rgb(216, 137, 161),
+        "yellow": rgb(255, 203, 112)
     ),
     "lightsout-hc": (
-        "bg":           rgb(5, 5, 5),
-        "elem":         rgb(5, 5, 5),
-        "elem-sel":     rgb(14, 16, 18),
-        "gray":         rgb(146, 156, 166),
-        "gray-dark":    rgb(61, 65, 69),
-        "gray-light":   rgb(146, 156, 166),
-        "text":         rgb(255, 255, 255),
-        "text2":        rgb(15, 20, 25)
+        "bg": rgb(5, 5, 5),
+        "elem": rgb(5, 5, 5),
+        "elem-sel": rgb(14, 16, 18),
+        "gray": rgb(146, 156, 166),
+        "gray-dark": rgb(61, 65, 69),
+        "gray-light": rgb(146, 156, 166),
+        "text": rgb(255, 255, 255),
+        "text2": rgb(15, 20, 25)
     )
 );
 

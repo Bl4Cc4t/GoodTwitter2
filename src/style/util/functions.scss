@@ -28,3 +28,9 @@
 @function unicode($str) {
     @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
 }
+
+// noinspection CssInvalidFunction: provided by postcss.svg-as-selector.js
+@function svg-selector($path) {
+    $path: "../../icon/#{$path}.svg";
+    @return "svg-as-selector[file=\"#{$path}\"]";
+}
