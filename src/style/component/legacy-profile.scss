@@ -217,7 +217,7 @@ body[data-page-type=profile].gt2-opt-legacy-profile {
                 text-decoration-color: var(--color-gray-light);
             }
 
-            > *:not(:last-child) {
+            [data-testid=UserProfileHeader_Items] > *:not(:last-child) {
                 display: block;
                 margin-bottom: 4px;
             }
