@@ -21,10 +21,11 @@
         "doc": "doc"
     },
     "scripts": {
+        "build": "yarn build:js && yarn i18n-add-new-strings && yarn build:i18n",
+        "build:i18n": "ts-node tools/build/i18n.build.ts",
+        "build:icon-maps": "ts-node tools/build/icons.create-maps",
         "build:js": "rollup -c",
-        "i18n-add-new-strings": "ts-node util/i18n-add-new-strings.ts",
-        "build:i18n": "ts-node util/i18n-build.ts",
-        "build": "yarn build:js && yarn i18n-add-new-strings && yarn build:i18n"
+        "i18n-add-new-strings": "ts-node tools/build/i18n.add-new-strings"
     },
     "devDependencies": {
         "@babel/cli": "^7.18.10",
