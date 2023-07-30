@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
     hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
     showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -96,6 +97,7 @@ settings:
     rosettaIcons: Rosetta icons # TODO translation missing!
     rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
     favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 更新通知

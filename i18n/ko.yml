@@ -13,7 +13,7 @@ twitter-default:
   joinDate: "가입일: $date$"
   moreTweets: 트윗 더 보기
   navBookmarks: 북마크
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: 커뮤니티
   navMessages: 쪽지
   navExplore: 탐색하기
   navHome: 홈
@@ -62,8 +62,9 @@ settings:
   tweets:
     hideTranslateTweetButton: 트윗 번역 버튼 숨기기
     tweetIconsPullLeft: 트윗 아이콘을 왼쪽으로 옮기기
-    hidePromoteTweetButton: “트윗 홍보” 버튼 숨기기
+    hidePromoteTweetButton: “프로모션” 버튼 숨기기
     showMediaWithContentWarnings: 항상 콘텐츠 경고가 있는 미디어 표시
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -82,7 +83,7 @@ settings:
     disableHexagonAvatars: 육각형 프로필 사진 비활성화
     leftMedia: 왼쪽 사이드바 미디어
     leftMediaDesc: 프로필 페이지의 왼쪽 사이드바에 미디어 모음을 추가합니다.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: 프로필 페이지 방문시 /media 주소로 이동
 
   global-look:
     hideFollowSuggestions: 팔로우 추천 숨기기
@@ -96,8 +97,9 @@ settings:
     rosettaIcons: 로제타 아이콘
     rosettaIconsDesc: 2017년 이전 로제타 아이콘 폰트 사용하기
     favoriteLikes: 좋아요를 관심글로 바꾸기
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 업데이트 알림
     expandTcoShortlinks: t.co 주소 확장하기
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: 모바일 URL 넘겨주기

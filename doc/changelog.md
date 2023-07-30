@@ -1,19 +1,152 @@
 # Changelog
 
+## [0.0.44.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/542)
+*released 2023-04-06*
+
+#### Changes
+- reverted @run directive change causing various things to break ([#537](https://github.com/Bl4Cc4t/GoodTwitter2/issues/537), [#539](https://github.com/Bl4Cc4t/GoodTwitter2/issues/539), [#540](https://github.com/Bl4Cc4t/GoodTwitter2/issues/540), [#541](https://github.com/Bl4Cc4t/GoodTwitter2/issues/541)
+- fixed issues with twitter bird icon not showing up on Chrome ([#538](https://github.com/Bl4Cc4t/GoodTwitter2/issues/538)
+- ... and turned it into a toggle (find it under "Global look")
+
+
+## [0.0.44](https://github.com/Bl4Cc4t/GoodTwitter2/pull/536)
+*released 2023-04-04*
+
+#### New
+- replaced doge logo (???) with twitter logo
+
+#### Changes
+- fixed username showing up twice in the small profile view
+- translations updated
+
+
+## [0.0.43.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/529)
+*released 2023-01-24*
+
+#### Changes
+- bug fixes
+- translations updated
+
+
+## [0.0.43.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/522)
+*released 2023-01-20*
+
+#### Changes
+- fixed the force latest tweets mode ([#510](https://github.com/Bl4Cc4t/GoodTwitter2/pull/510))
+  - Twitter has removed this timeline setting and instead introduced tabs on the top of the timeline.
+  - ... which you need to click everytime you want to see the latest tweets (now called "Following").
+  - with the setting active, the "Following" tab is selected automatically everytime you visit `/home`
+
+
+## [0.0.43](https://github.com/Bl4Cc4t/GoodTwitter2/pull/515)
+*released 2023-01-13*
+
+#### New
+- Serbian translation (thanks [BaneSRB1](https://github.com/BaneSRB1)!, [#514](https://github.com/Bl4Cc4t/GoodTwitter2/pull/514))
+- added option to hide tweet analytics ([#510](https://github.com/Bl4Cc4t/GoodTwitter2/pull/510))
+
+
+## [0.0.42](https://github.com/Bl4Cc4t/GoodTwitter2/pull/506)
+*released 2022-12-04*
+
+#### New
+- re-added tweet source label ([#505](https://github.com/Bl4Cc4t/GoodTwitter2/issues/505))
+
+#### Changes
+- updated Spanish translation (thanks [@gaelcoral](https://github.com/gaelcoral)!)
+
+
+## [0.0.41.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/499)
+*released 2022-11-22*
+
+#### Changes
+- updated French translation (thanks [@Cypral](https://github.com/Cypral)!)
+- fixed verification reason & legacy profile layout issues ([#497](https://github.com/Bl4Cc4t/GoodTwitter2/issues/497))
+
+
+## [0.0.41](https://github.com/Bl4Cc4t/GoodTwitter2/pull/496)
+*released 2022-11-20*
+
+#### New
+- Bulgarian translation (thanks [@EdinUser](https://github.com/EdinUser)!, [#487](https://github.com/Bl4Cc4t/GoodTwitter2/issues/487))
+
+#### Changes
+- updated Vietnamese translation (thanks [@touanu](https://github.com/touanu)!)
+- fixed verification reason not showing up ([#492](https://github.com/Bl4Cc4t/GoodTwitter2/issues/492))
+- fixed some other styling issues
+
+
+## [0.0.40.7](https://github.com/Bl4Cc4t/GoodTwitter2/pull/486)
+*released 2022-10-02*
+
+#### Changes
+- updated Korean translation (thanks [@hellojo011](https://github.com/hellojo011)!)
+- fixed dropdown menu ([#484](https://github.com/Bl4Cc4t/GoodTwitter2/issues/484))
+- fixed images not showing up with biggerImagePreviews enabled ([#485](https://github.com/Bl4Cc4t/GoodTwitter2/issues/485))
+
+
+## [0.0.40.6](https://github.com/Bl4Cc4t/GoodTwitter2/pull/482)
+*released 2022-09-25*
+
+#### Changes
+- fixed biggerPreviews not showing any images ([#461](https://github.com/Bl4Cc4t/GoodTwitter2/issues/461), [#479](https://github.com/Bl4Cc4t/GoodTwitter2/issues/479))
+- fixed legacyProfileLayout not showing the follow/action buttons ([#478](https://github.com/Bl4Cc4t/GoodTwitter2/issues/478))
+
+
+## [0.0.40.5](https://github.com/Bl4Cc4t/GoodTwitter2/pull/477)
+*released 2022-09-24*
+
+#### Changes
+- fixed video progress not showing up when biggerPreviews was activated ([#442](https://github.com/Bl4Cc4t/GoodTwitter2/issues/442))
+- fixed legacyProfileLayout not showing up correctly ([#474](https://github.com/Bl4Cc4t/GoodTwitter2/issues/474))
+
+
+## [0.0.40.4](https://github.com/Bl4Cc4t/GoodTwitter2/pull/476)
+*released 2022-09-18*
+
+#### Changes
+- updated Romanian translation (thanks [@Andy9001](https://github.com/Andy9001)!)
+- fixed forceLatestTweets not working again ([#475](https://github.com/Bl4Cc4t/GoodTwitter2/issues/475))
+- fixed showMediaWithContentWarnings again ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
+## [0.0.40.3](https://github.com/Bl4Cc4t/GoodTwitter2/pull/470)
+*released 2022-08-28*
+
+#### Changes
+- fixed hard refreshs when clicking navbar items ([#458](https://github.com/Bl4Cc4t/GoodTwitter2/issues/458))
+- fixed forceLatestTweets not hiding modal ([#469](https://github.com/Bl4Cc4t/GoodTwitter2/issues/469))
+- fixed showMediaWithContentWarnings ([#462](https://github.com/Bl4Cc4t/GoodTwitter2/issues/462))
+
+
+## [0.0.40.2](https://github.com/Bl4Cc4t/GoodTwitter2/pull/468)
+*released 2022-08-27*
+
+#### New
+- Ukrainian translation (thanks [@megamanyoutuber](https://github.com/megamanyoutuber)!, [#464](https://github.com/Bl4Cc4t/GoodTwitter2/issues/464))
+
+#### Changes
+- fixed notifications not showing up in the navbar, as introduced by the freezing bug fix ([#459](https://github.com/Bl4Cc4t/GoodTwitter2/issues/459))
+
+
+## [0.0.40.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/457)
+*released 2022-08-13*
+
+#### Changes
+- fixed the twitter freezing issues, courtesy of [@EdinUser](https://github.com/EdinUser)! ([#455](https://github.com/Bl4Cc4t/GoodTwitter2/issues/455))
+- Japanese & Russian translation updated with new strings
+
+
 ## [0.0.40](https://github.com/Bl4Cc4t/GoodTwitter2/pull/445)
 *released 2022-07-30*
 
 #### New
-- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks @geyerbri!)
-  - #104
-  - #441
-- option to redirect to `/media` when visiting profile pages
-  - #446
+- option to redirect automatically from the [mobile site version](https://mobile.twitter.com) to the desktop one (thanks [@geyerbri](https://github.com/geyerbri)!, [#104](https://github.com/Bl4Cc4t/GoodTwitter2/issues/104), [#441](https://github.com/Bl4Cc4t/GoodTwitter2/issues/441))
+- option to redirect to `/media` when visiting profile pages ([#446](https://github.com/Bl4Cc4t/GoodTwitter2/issues/446))
 - 2 translations:
-  - #444 (thanks @touanu!)
-  - #450 (thanks @seaque!)
-- clicking the "copy link to tweet" button now removes the t parameter from the url
-  - #405
+  - Vietnamese in [#444](https://github.com/Bl4Cc4t/GoodTwitter2/pull/444) (thanks @touanu!)
+  - Turkish in [#450](https://github.com/Bl4Cc4t/GoodTwitter2/pull/450) (thanks @seaque!)
+- clicking the "copy link to tweet" button now removes the t parameter from the url ([#405](https://github.com/Bl4Cc4t/GoodTwitter2/issues/405))
   - example: `https://twitter.com/Outrojules/status/1543220843995619328?s=20&t=fCFEatQ_iAtlyiHQCWCxoQ` -> `https://twitter.com/Outrojules/status/1543220843995619328?s=20`
 
 #### Changes
@@ -47,10 +180,10 @@ Not many this time, sorry. I'm a bit short on time atm
 *released 2022-03-18*
 
 #### New
-- added indonesian translation (thanks [@NekoSam395!](https://github.com/NekoSam395))
+- added Indonesian translation (thanks [@NekoSam395](https://github.com/NekoSam395)!)
 
 #### Changes
-- updated japanese, korean & russian translation
+- updated Japanese, Korean & Russian translation
 - fixed moment_maker issues ([#416](https://github.com/Bl4Cc4t/GoodTwitter2/issues/416))
 - fixed legacy profile layout issues, showing wrong values on profile pages ([#420](https://github.com/Bl4Cc4t/GoodTwitter2/issues/420))
 
@@ -184,7 +317,7 @@ See you in about a month!
 - Reintroduced full-width indicators under the current tablist navigation element
 
    Before | After
-   ----|-----
+     ----|-----
    ![image](https://user-images.githubusercontent.com/6740726/119239648-cad71780-bb4a-11eb-879d-332858ef617b.png) | ![image](https://user-images.githubusercontent.com/6740726/119239604-7d5aaa80-bb4a-11eb-9948-855afa6c4fd0.png)
 
 #### Changes
@@ -226,7 +359,7 @@ See you in about a month!
 - Lots of bugfixes
   - [Legacy profile] No broken layout anymore ([#226](https://github.com/Bl4Cc4t/GoodTwitter2/issues/226))
   - [Legacy profile] Buttons do not disappear anymore
-![image](https://user-images.githubusercontent.com/6740726/101200391-8623f680-3666-11eb-9684-bfc75574c4b7.png)
+    ![image](https://user-images.githubusercontent.com/6740726/101200391-8623f680-3666-11eb-9684-bfc75574c4b7.png)
   - [Legacy profile] It is less likely for wrong data to appear, but it still can happen (I'm not sure how to fix this)
   - autoscroll on the search page now disabled again (when clicking the text input and then clicking on the page again, it scrolled all the way up again)
 - Twitter changed the way tooltips work. Since they are transparent now, they are not that great to read. I made them solid for now

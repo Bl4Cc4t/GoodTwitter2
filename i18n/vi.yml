@@ -54,8 +54,8 @@ settings:
     settingsHeaderOther: Khác
 
   timeline:
-    forceLatest: Buộc chế độ “Những Tweet mới nhất”
-    forceLatestDesc: Bật chế độ Tweet mới nhất không còn là mặc định nữa. Với thiết đặt này, trang sẽ tự động chuyển qua chế độ “Những Tweet mới nhất”.
+    forceLatest: Sử dụng “Đang theo dõi” như là timeline mặc định
+    forceLatestDesc: Với thiết đặt này, Twitter sẽ tự động chuyển sang trang “Đang theo dõi” mỗi lần bạn truy cập vào /home
     biggerPreviews: Ảnh xem trước lớn hơn
     biggerPreviewsDesc: Những bức ảnh cao trong các tweet sẽ được hiện ở độ phân giải tối đa.
 
@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: Dịch các nút tương tác với tweet về phía bên trái
     hidePromoteTweetButton: Ẩn nút “Promote Tweet”
     showMediaWithContentWarnings: Luôn hiển thị ảnh và video với cảnh báo nội dung
+    hideTweetAnalytics: Ẩn các số liệu công khai
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -82,7 +83,7 @@ settings:
     disableHexagonAvatars: Tắt hình đại diện lục giác
     leftMedia: Đa phương tiện ở bên trái
     leftMediaDesc: Hiển thị khung đa phương tiện ở thanh bên trái.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: Chuyển hướng đến /media khi truy cập trang hồ sơ.
 
   global-look:
     hideFollowSuggestions: Ẩn các gợi ý từ theo dõi (Chủ đề, Người dùng & Danh sách)
@@ -96,6 +97,7 @@ settings:
     rosettaIcons: Biểu tượng Rosetta
     rosettaIconsDesc: Sử dụng biểu tượng Rosetta từ năm 2017 về trước
     favoriteLikes: Thay thế thích với yêu thích (chỉ biểu tượng)
+    birdIcon: Hiện thị biểu tượng chim xanh thay vì biểu tượng doge ở logo
 
   other:
     updateNotifications: Thông báo cập nhật GoodTwitter 2

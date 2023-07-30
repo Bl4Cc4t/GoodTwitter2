@@ -54,8 +54,8 @@ settings:
     settingsHeaderOther: Другое
 
   timeline:
-    forceLatest: Всегда последние твиты
-    forceLatestDesc: Выбор режима показа последних твитов теперь является временным. Но если включен этот параметр, сайт будет автоматически переключаться на режим показа последних твитов.
+    forceLatest: Всегда открывать в ленте вкладку «Читаю»
+    forceLatestDesc: Если включен этот параметр, в ленте всегда будет выбираться вкладка «Читаю» вместо «Для вас», когда вы посещаете /home.
     biggerPreviews: Большие превью изображения
     biggerPreviewsDesc: Показывать превью высоких изображений в твитах во всю высоту.
 
@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: Сгруппировать кнопки взаимодействия с твитами слева
     hidePromoteTweetButton: Скрыть кнопку «Продвигайте свой твит»
     showMediaWithContentWarnings: Всегда показывать медиафайлы с предупреждениями о содержании
+    hideTweetAnalytics: Скрыть публичную аналитику твитов
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -71,10 +72,10 @@ settings:
     stickySidebars: Фиксированные боковые панели
     smallSidebars: Уменьшенные боковые панели
     smallSidebarsDesc: Боковые панели шириной 290px вместо 350px.
-    hideTrends: Скрыть «Актуальные темы»
-    leftTrends: Актуальные темы слева
-    leftTrendsDesc: Отображать актуальные темы в левой боковой панели.
-    show5Trends: Всегда показывать 5 актуальных тем
+    hideTrends: Скрыть «Что нового?»
+    leftTrends: «Что нового?» слева
+    leftTrendsDesc: Отображать «Что нового?» в левой колонке.
+    show5Trends: Всегда показывать 5 тем в «Что нового?»
 
   profile:
     legacyProfile: Старый дизайн профиля
@@ -82,7 +83,7 @@ settings:
     disableHexagonAvatars: Отключить шестиугольные аватары
     leftMedia: Медиа-контейнер слева
     leftMediaDesc: Отображать медиа-контейнер на странице профиля в левой боковой панели.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: Открывать сразу /media при посещении профилей пользователей
 
   global-look:
     hideFollowSuggestions: Скрыть «Кого читать»
@@ -94,10 +95,11 @@ settings:
     hideMessageBox: Скрыть меню «Сообщения»
     hideMessageBoxDesc: Скрыть новое меню «Сообщения», постоянно отображающееся в правом нижнем углу.
     rosettaIcons: Иконки Rosetta
-    rosettaIconsDesc: Использовать иконки из шрифта Rosetta, который использовался до 2017 года
+    rosettaIconsDesc: Использовать иконки из шрифта Rosetta, который использовался до 2017 года.
     favoriteLikes: Заменить Лайки на Избранное
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: Уведомления об обновлениях GoodTwitter 2
     expandTcoShortlinks: Расшифровать короткие ссылки t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Исправлять мобильные адреса

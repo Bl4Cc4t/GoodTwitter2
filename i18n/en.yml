@@ -57,8 +57,8 @@ settings:
     settingsHeaderOther: Other
 
   timeline:
-    forceLatest: Force “Latest Tweets First” mode
-    forceLatestDesc: Enabling the latest tweets mode is not permanent anymore. With this setting active, the site automatically switches back to the “Latest Tweets” mode.
+    forceLatest: Force “Following” as default timeline (previously called “Latest Tweets First” mode)
+    forceLatestDesc: With this setting active, the “Following” tab will be selected everytime you visit /home.
     biggerPreviews: Bigger image previews
     biggerPreviewsDesc: Tall images in tweets are shown in their full height.
 
@@ -67,6 +67,7 @@ settings:
     tweetIconsPullLeft: Bunch up tweet interaction buttons to the left
     hidePromoteTweetButton: Hide “Promote Tweet” button
     showMediaWithContentWarnings: Always show media with content warnings
+    hideTweetAnalytics: Hide public analytics for tweets
     hideMoreTweets: Hide “More Tweets” section on tweet page
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space.
 
@@ -99,6 +100,7 @@ settings:
     rosettaIcons: Rosetta icons
     rosettaIconsDesc: Use the pre 2017 Rosetta icon font
     favoriteLikes: Replace likes with favorites (only icons for now)
+    birdIcon: Show normal twitter icon instead of memes from 2010
 
   other:
     updateNotifications: GoodTwitter 2 update notifications

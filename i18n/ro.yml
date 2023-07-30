@@ -7,13 +7,13 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Dă Tweet
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Nuditate
+  contentWarningViolence: Violență
+  contentWarningSensitiveContent: Conținut sensibil
   joinDate: S-a alăturat în $date$
   moreTweets: Mai multe Tweeturi
   navBookmarks: Marcaje
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Comunități
   navMessages: Mesaje
   navExplore: Explorează
   navHome: Pagina principală
@@ -62,8 +62,9 @@ settings:
   tweets:
     hideTranslateTweetButton: Ascunde butonul de tradus Tweetul
     tweetIconsPullLeft: Mută butoanele de interacțiuni la stânga.
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hidePromoteTweetButton: Ascunde butonul „Promovează Tweet-ul”
+    showMediaWithContentWarnings: Afișează mereu conținut media cu avertizări de conținut
+    hideTweetAnalytics: Ascunde vizualizările publice pentru tweeturi
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -74,19 +75,19 @@ settings:
     hideTrends: Ascunde Tendințele
     leftTrends: Bara laterală de Tendințe în stânga
     leftTrendsDesc: Arată tendințele în bara laterală de stânga.
-    show5Trends: Întotdeauna afișați 5 Tendințe
+    show5Trends: Afișează întotdeauna 5 Tendințe
 
   profile:
     legacyProfile: Design de Profil Clasic
     squareAvatars: Avatare Pătrate
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
+    disableHexagonAvatars: Dezactivează avatarele cu hexagon
     leftMedia: Conținut media în bara laterală de stânga
-    leftMediaDesc: Afișați containerul media pe paginile de profil în bara laterală de stânga.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    leftMediaDesc: Afișează containerul media pe paginile de profil în bara laterală de stânga.
+    profileMediaRedirect: Redirecționează către /media atunci când vizitați paginile de profil
 
   global-look:
     hideFollowSuggestions: Ascunde sugestii de urmărit (Subiecte și Utilizatori)
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
+    hideFollowSuggestionsBox: Ascunde $type$ din $location$
     fontOverride: Folosește un font personalizat
     fontOverrideDesc: Setează un font personalizat pentru a înlocui fontul implicit. Asta merge doar când ai fontul instalat.
     colorOverride: Folosește o culoare personalizată
@@ -94,10 +95,11 @@ settings:
     hideMessageBox: Ascunde Caseta de Mesaje
     hideMessageBoxDesc: Ascunde cel nou, prezent tot timpul, caseta de mesaje în colțul de dreapta-jos.
     rosettaIcons: Pictograme Rosetta
-    rosettaIconsDesc: Folosiți pictogramele Rosetta din pre-2017.
+    rosettaIconsDesc: Folosește pictogramele Rosetta din pre-2017.
     favoriteLikes: Înlocuiți Aprecierile cu Favorite
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: Notificări de Actualizare GoodTwitter 2
     expandTcoShortlinks: Extinde link-uri scurte t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Redirecționează adresele din mobil

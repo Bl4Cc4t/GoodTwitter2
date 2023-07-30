@@ -10,10 +10,9 @@ twitter-default:
   contentWarningNudity: Ketelanjangan
   contentWarningViolence: Kekerasan
   contentWarningSensitiveContent: Konten sensitif
-  joinDate: Bergabung $date$
-  moreTweets: Tweet Lainnya
+  joinDate: Bergabung pada $date$
   navBookmarks: Markah
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Komunitas
   navMessages: Pesan
   navExplore: Jelajahi
   navHome: Beranda
@@ -64,6 +63,7 @@ settings:
     tweetIconsPullLeft: Kelompokkan tombol interaksi tweet di sebelah kiri
     hidePromoteTweetButton: Sembunykan tombol “Promosikan Tweet”
     showMediaWithContentWarnings: Selalu tampilkan media dengan peringatan konten
+    hideTweetAnalytics: Sembunyikan analitik publik untuk tweet
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -82,7 +82,7 @@ settings:
     disableHexagonAvatars: Matikan avatar segienam
     leftMedia: Bilah media sisi kiri
     leftMediaDesc: Tampilkan wadah media pada halaman profil di bilah sisi kiri.
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: Alihkan ke /media ketika mengunjungi halaman profil.
 
   global-look:
     hideFollowSuggestions: Sembunyikan saran ikuti (Topik, Pengguna & Daftar)
@@ -96,8 +96,9 @@ settings:
     rosettaIcons: Ikon Rosetta
     rosettaIconsDesc: Gunakan font ikon Rosetta pra-2017
     favoriteLikes: Mengganti suka dengan favorit (hanya ikonnya saja untuk saat ini)
+    birdIcon: Gunakan ikon Twitter normal alih-alih meme dari tahun 2010
 
   other:
     updateNotifications: Notifikasi pembaruan GoodTwitter 2
     expandTcoShortlinks: Perluas tautan pendek t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Alihkan URL mobile

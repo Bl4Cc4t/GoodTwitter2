@@ -13,7 +13,7 @@ twitter-default:
   joinDate: $date$からTwitterを利用しています
   moreTweets: その他のツイート
   navBookmarks: ブックマーク
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: コミュニティ
   navMessages: メッセージ
   navExplore: 話題を検索
   navHome: ホーム
@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: ツイート下部のアイコンを左に寄せる
     hidePromoteTweetButton: プロモートツイートボタンを隠す
     showMediaWithContentWarnings: コンテンツ警告のあるメディアを常に表示する
+    hideTweetAnalytics: ツイート下部のアナリティクス(インプレッション数)を非表示にする
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -82,7 +83,7 @@ settings:
     disableHexagonAvatars: 六角形アイコンを無効化する
     leftMedia: メディアを左に表示する
     leftMediaDesc: プロフィールページのメディアのプレビュー画像を左サイドバーに表示します。
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    profileMediaRedirect: プロフィールページアクセス時にメディア欄にリダイレクトする
 
   global-look:
     hideFollowSuggestions: おすすめユーザーを非表示にする
@@ -96,8 +97,9 @@ settings:
     rosettaIcons: ロゼッタアイコンの変更
     rosettaIconsDesc: 2017年以前のロゼッタアイコン（ツイート下部のアイコン群）を使用します。
     favoriteLikes: いいね！をお気に入りに置き換える
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter2の更新通知
     expandTcoShortlinks: t.co リンクを自動的に展開
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: モバイル版からデスクトップ版へ自動でリダイレクトする

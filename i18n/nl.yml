@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: Bundel tweet-interactieknoppen aan de linkerkant
     hidePromoteTweetButton: Verberg de knop 'Tweet promoten'
     showMediaWithContentWarnings: Geef altijd media weer met inhoudswaarschuwingen
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
@@ -96,6 +97,7 @@ settings:
     rosettaIcons: Rosetta-pictogrammen
     rosettaIconsDesc: Gebruik het Rosetta-pictogramlettertype van vóór 2017
     favoriteLikes: Vervang vind-ik-leuks door favorieten (voor nu alleen pictogrammen)
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 Update Notificaties

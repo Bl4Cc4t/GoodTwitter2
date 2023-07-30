@@ -1,0 +1,106 @@
+# ukrainian language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Твітнути
+  contentWarningNudity: Нагота
+  contentWarningViolence: Насилля
+  contentWarningSensitiveContent: Контент делікатного характера
+  joinDate: "Регистрация: $date$"
+  navBookmarks: Закладки
+  navCommunities: Спільноти
+  navMessages: Повідомлення
+  navExplore: Пошук
+  navHome: Головна
+  navLists: Списки
+  navNotifications: Сповіщення
+  navProfile: Профіль
+  statsFollowers: читачів
+  statsFollowing: читає(те)
+  statsLikes: Подобається
+  statsMoments: Моменти
+  statsTweets: Твіти
+  topics: Теми
+  translateTweet: Перекласти твіт
+  users: Користувачів
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: "Дата народження: $date$"
+  bornYear: "Год народження: $year$"
+  favorite: В избранное
+  favorites: Избранное
+  followedBy0: Немає в читаемых у користувачів, яких ви читаєте
+  followedBy1: В читаємых у $p1$
+  followedBy2: В читаємых у $p1$ і $p2$
+  followedBy3: В читаємых у $p1$, $p2$ і $p3$
+  followedBy4Plus: В читаємых у $p1$, $p2$ і такоє $nr$ користувачів, яких вы читаєте
+  translatedTweetInfo: "Мова оригінала: $lang$, перекладенно за допомогую $source$"
+  qbBlock: Внести в червоний список
+  qbBlocked: В червоном спискі
+  qbUnblock: Прибрати з черного списка
+  updatedInfo: Оновлено до $version$!
+  updatedInfoChangelog: Список змін
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Стрічка
+    settingsHeaderSidebars: Бокові панелі
+    settingsHeaderGlobalLook: Загальне оформлення
+    settingsHeaderOther: Друге
+
+  timeline:
+    forceLatest: Завжди останні твіти
+    forceLatestDesc: Вибір режима показу останніх твітов теперь є тимчасовим. Но якщо увімкнути цей параметр, сайт буде автоматично переключатися на режим показу останніх твітов.
+    biggerPreviews: Велике превью зображення
+    biggerPreviewsDesc: Показувати превью високих зображеннь в твітах на всю висоту
+
+  tweets:
+    hideTranslateTweetButton: Сховати кнопку «Перекласти твіт»
+    tweetIconsPullLeft: Згрупувати кнопки взаємодії с твітами сліва
+    hidePromoteTweetButton: Сховати кнопку «Просувайте свій твіт»
+    showMediaWithContentWarnings: Завжди показувати медіафайли с попередженням о змісту
+    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+
+  sidebars:
+    stickySidebars: Фіксовані бокові панелі
+    smallSidebars: Зменшенні бокові панелі
+    smallSidebarsDesc: Бокові панелі шириной 290px замість 350px
+    hideTrends: Сховати «Актуальні теми»
+    leftTrends: Актуальні теми зліва
+    leftTrendsDesc: Відображати актуальні теми в лівой боковій панелі
+    show5Trends: Завджи показувати 5 актуальных тем
+
+  profile:
+    legacyProfile: Старий дизайн профіля
+    squareAvatars: Квадтратні аватари
+    disableHexagonAvatars: Вимкнути шестикутні аватари
+    enableQuickBlock: Увімкнути швидке блокування
+    enableQuickBlockDesc: Наведіть і тримайте протягом 3 секунд курсор миші на кнопкі «Читати», для блокування профіля
+    leftMedia: Медіа-контейнер зліва
+    leftMediaDesc: Відображати медіа-контейнер на сторінкі профіля в лівій боковій панелі
+    profileMediaRedirect: Відкривати відразу /media при відвідуванні профілей користувача
+
+  global-look:
+    hideFollowSuggestions: Сховати «Кого читать»
+    hideFollowSuggestionsBox: Сховати $type$ в $location$
+    fontOverride: Використовувати свій шрифт
+    fontOverrideDesc: Установити свій шрифт замість шрифта по замовчуванням. Це працює тільки з установленними шрифтами
+    colorOverride: Використовувати свой колір
+    colorOverrideDesc: Установити свій колір замість цвета по замовчуванням
+    hideMessageBox: Сховати меню «Повідомлення»
+    hideMessageBoxDesc: Сховати нове меню «Повідомлення», постійно відображаються у правому нижньому углу
+    rosettaIcons: Іконки Rosetta
+    rosettaIconsDesc: Використовувати іконки з шрифту Rosetta, Який використовувався до 2017 року
+    favoriteLikes: Замінити Лайки на Вибране
+    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+
+  other:
+    updateNotifications: Сповіщення о обновленнях GoodTwitter 2
+    expandTcoShortlinks: Розшифрувати короткі посилання t.co
+    mobileRedirect: Виправляти мобільні адреса

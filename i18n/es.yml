@@ -7,13 +7,13 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Twittear
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: Desnudez
+  contentWarningViolence: Violencia
+  contentWarningSensitiveContent: Contenido delicado
   joinDate: Se unió en $date$
   moreTweets: Más Tweets
   navBookmarks: Guardados
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: Comunidades
   navMessages: Mensajes
   navExplore: Explorar
   navHome: Inicio
@@ -34,8 +34,8 @@ twitter-default:
 script:
   bornDate: "Fecha de nacimiento: $date$"
   bornYear: "Fecha de nacimiento: $year$"
-  favorite: Favorite # TODO translation missing!
-  favorites: Favorites # TODO translation missing!
+  favorite: Favorito
+  favorites: Favoritos
   followedBy0: Ninguno de tus seguidores te sigue
   followedBy1: Seguido por $p1$
   followedBy2: Seguido por $p1$ y $p2$
@@ -50,56 +50,56 @@ settings:
   headers:
     settingsHeaderTimeline: Cronología
     settingsHeaderSidebars: Barras laterales
-    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderGlobalLook: Apariencia general
     settingsHeaderOther: Otros
 
   timeline:
     forceLatest: Forzar "Tweets más recientes"
-    forceLatestDesc: Activar el modo de "Tweets más recientes" ya no es una opción permanente. Mientras tengas esta opción activa, la web habilitará automáticamente el modo de "Tweets más recientes".
+    forceLatestDesc: Al activar el modo "Tweets más recientes" en Twitter, no se mantiene en ese modo. Tras activar este ajuste, la página cambiará automáticamente el modo de "Tweets más recientes".
     biggerPreviews: Previsualizaciones de imágenes más grandes
     biggerPreviewsDesc: Las imágenes más largas de algunos tweets se muestran en toda su longitud.
 
   tweets:
-    hideTranslateTweetButton: Ocultar botón de Traducir Tweet
-    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
+    hideTranslateTweetButton: Ocultar el botón de "Traducir Tweet"
+    tweetIconsPullLeft: Agrupar los botones de interacción de los tweets a la izquierda
+    hidePromoteTweetButton: Ocultar el botón "Promocionar Tweet"
+    showMediaWithContentWarnings: Mostrar siempre los contenidos con advertencia
+    hideTweetAnalytics: Ocultar el contador de vistas de los tweets
     hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
     hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
-    stickySidebars: Barras laterales "pegajosas" (sticky)
-    smallSidebars: Barras laterales pequeñas
-    smallSidebarsDesc: Barras laterales de 290 píxeles de ancho en lugar de 350px.
-    hideTrends: Ocultar "Tendencias"
-    leftTrends: Barra lateral izquierda de Tendencias
-    leftTrendsDesc: Muestra las Tendencias en la barra lateral izquierda.
-    show5Trends: Mostrar siempre 5 Tendencias
+    stickySidebars: Fijar las barras laterales
+    smallSidebars: Hacer las barras laterales pequeñas
+    smallSidebarsDesc: Las barras laterales será 290px en lugar de 350px de ancho.
+    hideTrends: Ocultar las Tendencias
+    leftTrends: Barra lateral de Tendencias hacia la izquierda
+    leftTrendsDesc: Muestra las tendencias de la barra lateral hacia la izquierda.
+    show5Trends: Mostrar siempre las 5 Tendencias
 
   profile:
     legacyProfile: Diseño Clásico de Perfil
     squareAvatars: Avatares Cuadrados
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    leftMedia: Left sidebar media # TODO translation missing!
-    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    disableHexagonAvatars: Desactivar los avatares hexagonales
+    leftMedia: Hacer las barras laterales de contenido multimedia hacia la izquierda
+    leftMediaDesc: Muestra el contenido multimedia de los perfiles de la barra lateral hacia la izquierda.
+    profileMediaRedirect: Redireccionar a "Fotos y videos" del perfil al visitar un perfil
 
   global-look:
     hideFollowSuggestions: Ocultar "A quién seguir"
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
-    fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc:
-      # TODO translation missing!
-      Set a custom font to override the default one. This works only if you have the font installed.
-    colorOverride: Use custom color # TODO translation missing!
-    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
+    hideFollowSuggestionsBox: Ocultar $type$ de $location$
+    fontOverride: Utilizar una fuente personalizada
+    fontOverrideDesc: Establece una fuente personalizada para sustituir la fuente predeterminada. Esto sólo funciona si tienes instalada una fuente.
+    colorOverride: Utilizar un color personalizado
+    colorOverrideDesc: Establece un color personalizado para sustituir el predeterminado.
     hideMessageBox: Ocultar la bandeja de mensajes
-    hideMessageBoxDesc: Oculta la nueva bandeja de mensajes que está siempre presente en la esquina inferior derecha.
-    rosettaIcons: Rosetta icons # TODO translation missing!
-    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
-    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
+    hideMessageBoxDesc: Oculta la nueva bandeja de mensajes que encuentra presente en la esquina inferior de la derecha.
+    rosettaIcons: Iconos de Rosetta
+    rosettaIconsDesc: Utiliza los iconos "Rosetta" previo a 2017
+    favoriteLikes: Reemplazar los "Me gusta" por "Favoritos" (por ahora solamente iconos)
+    birdIcon: Mostrar el icono normal de Twitter en vez de un icono personalizado o temático
 
   other:
     updateNotifications: Notificaciones de actualización de GoodTwitter 2
     expandTcoShortlinks: Expandir enlaces abreviados de t.co
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    mobileRedirect: Redirigir las URL para móviles

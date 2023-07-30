@@ -54,8 +54,8 @@ settings:
     settingsHeaderOther: Diverses
 
   timeline:
-    forceLatest: Immer die neusten Tweets
-    forceLatestDesc: Wenn man die Anzeige der Startseite auf neuste Tweets stellt, landet man nach einer Zeit wieder bei den besten Tweets. Diese Einstellung switcht den Modus automatisch wieder zurück.
+    forceLatest: „Folge ich“ als Standard-Timeline (Einstellung hieß früher „Immer die neusten Tweets“)
+    forceLatestDesc: Wählt „Folge ich“ standardmäßig aus, wenn man die Startseite aufruft.
     biggerPreviews: Größere Bildervorschauen
     biggerPreviewsDesc: Bildervorschauen in Tweets werden komplett angezeigt.
 
@@ -64,6 +64,7 @@ settings:
     tweetIconsPullLeft: Linksbündige Tweet-Interaktions-Knöpfe
     hidePromoteTweetButton: „Promote Tweet“ verstecken
     showMediaWithContentWarnings: Medien mit Inhaltswarnung immer anzeigen
+    hideTweetAnalytics: Statistiken/Analytics für Tweets verstecken
     hideMoreTweets: „Mehr Tweets“-Abschnitt auf Tweetseiten verstecken
     hideMoreTweetsDesc: Diese zusätzlichen Tweets haben inhaltlich nichts mit dem aktuell betrachteten Tweet zu tun und sind nur dafür da, den evtl. leeren Raum unterhalb des Tweets zu füllen.
 
@@ -96,6 +97,7 @@ settings:
     rosettaIcons: Rosetta Icons
     rosettaIconsDesc: Ersetzt manche Icons mit denen der Rosetta-Schriftart von vor 2017
     favoriteLikes: Ersetzt „Gefällt mir“-Angaben durch Favoriten
+    birdIcon: Zeige normales Twitter-Icon anstelle von Memes von 2010
 
   other:
     updateNotifications: GoodTwitter-2-Update-Benachrichtigungen
