@@ -1,10 +1,11 @@
 <div align="center">
-  <h1>GoodTwitter 2 - Electric Boogaloo</h1>
+  <h1>GoodTwitter2</h1>
 
   A try to make Twitter look good again.
 
   [Changelog](https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md)
 
+  ⚠ Not dead yet! See [#567](https://github.com/Bl4Cc4t/GoodTwitter2/issues/567) for details about the current project status.
 </div>
 
 ## Content
