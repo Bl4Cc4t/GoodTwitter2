@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0-beta.1
+*released 2023-07-30*
+
+This is the first beta version of the new typescript rewrite. It should run smoother and on more browsers now!
+I'll test it on a bunch for the next release.
+
+There is still some stuff missing, that's why this is a beta version.
+
+#### New
+- Favicon changes back to the twitter bird with "Replace X icon with bird" active
+
+#### Changes
+- Too much to list here. Please see [#567](https://github.com/Bl4Cc4t/GoodTwitter2/issues/567)
+
+
 ## [0.0.44.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/542)
 *released 2023-04-06*
 
