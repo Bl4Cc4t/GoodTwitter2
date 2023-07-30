@@ -1,8 +1,10 @@
-import { waitForElements, watchForElementChanges, isLoggedIn } from "./util/util"
+import { waitForElements, watchForElementChanges, isLoggedIn, getSvgSelector } from "./util/util"
 import { getTweetData } from "./util/tweet"
 import { BG_COLOR_TO_THEME, GM_KEYS, RESOURCE, TEXT_COLOR_TO_THEME } from "./constants"
 import { Settings } from "./util/settings"
 import { Logger } from "./util/logger"
+import NotificationsActiveSvg from "@icon/2022/notifications-active.svg"
+import NotificationAddSvg from "@icon/2022/notification-add.svg"
 
 
 const _logger = new Logger("style")
@@ -276,12 +278,12 @@ function setAdditionalStyleRules(): void {
     })
 
     // color notifications bell (activated)
-    waitForElements(`path[d^="M23.61.15c-.375"]`, e => {
+    waitForElements(getSvgSelector(NotificationsActiveSvg), e => {
         e.closest(`[role=button]`)?.setAttribute("data-gt2-bell-full-color", "")
     })
 
     // color notifications bell (deactivated)
-    waitForElements(`path[d^="M23.24 3.26h-2.425V"]`, e => {
+    waitForElements(getSvgSelector(NotificationAddSvg), e => {
         e.closest(`[role=button]`)?.removeAttribute("data-gt2-bell-full-color")
     })
 }

@@ -400,3 +400,14 @@ export function expandTcoShortlink(anchor: Element, urls: TwitterApi.Url[]) {
     anchor.setAttribute("href", url.expanded_url)
     _logger.debug("expanded", tcoUrl, "to", url.expanded_url)
 }
+
+
+export function getSvgSelector(svg: string): string {
+    const match = svg.match(/(d="[^"]+")/)
+    if (!match) {
+        _logger.error("Error extracting svg selector from svg:", svg)
+        return ".gt2-matches-nothing"
+    }
+
+    return `[${match[1]}]`
+}
