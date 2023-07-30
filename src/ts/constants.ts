@@ -84,7 +84,8 @@ export const MODAL_PAGES: Path = {
         {
             "lists": ["add_member", "create"]
         },
-        "report"
+        "report",
+        "twitter_blue_sign_up"
     ],
     "intent": [],
     "search_advanced": [],
