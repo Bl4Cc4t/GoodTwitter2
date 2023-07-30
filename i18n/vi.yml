@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: Sử dụng biểu tượng Rosetta từ năm 2017 về trước
     favoriteLikes: Thay thế thích với yêu thích (chỉ biểu tượng)
     birdIcon: Hiện thị biểu tượng chim xanh thay vì biểu tượng doge ở logo
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: Thông báo cập nhật GoodTwitter 2

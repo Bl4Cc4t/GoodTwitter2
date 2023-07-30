@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: Использовать иконки из шрифта Rosetta, который использовался до 2017 года.
     favoriteLikes: Заменить Лайки на Избранное
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: Уведомления об обновлениях GoodTwitter 2

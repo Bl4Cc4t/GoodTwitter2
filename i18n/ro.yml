@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: Folosește pictogramele Rosetta din pre-2017.
     favoriteLikes: Înlocuiți Aprecierile cu Favorite
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: Notificări de Actualizare GoodTwitter 2

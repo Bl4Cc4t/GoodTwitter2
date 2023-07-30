@@ -54,7 +54,7 @@ settings:
     settingsHeaderOther: Diverses
 
   timeline:
-    forceLatest: „Folge ich“ als Standard-Timeline (Einstellung hieß früher „Immer die neusten Tweets“)
+    forceLatest: „Folge ich“ als Standard-Timeline
     forceLatestDesc: Wählt „Folge ich“ standardmäßig aus, wenn man die Startseite aufruft.
     biggerPreviews: Größere Bildervorschauen
     biggerPreviewsDesc: Bildervorschauen in Tweets werden komplett angezeigt.
@@ -97,7 +97,8 @@ settings:
     rosettaIcons: Rosetta Icons
     rosettaIconsDesc: Ersetzt manche Icons mit denen der Rosetta-Schriftart von vor 2017
     favoriteLikes: Ersetzt „Gefällt mir“-Angaben durch Favoriten
-    birdIcon: Zeige normales Twitter-Icon anstelle von Memes von 2010
+    birdIcon: Ersetze X-Icon durch den Twitter-Vogel
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter-2-Update-Benachrichtigungen

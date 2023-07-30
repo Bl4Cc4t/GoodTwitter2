@@ -11,6 +11,7 @@ twitter-default:
   contentWarningViolence: Kekerasan
   contentWarningSensitiveContent: Konten sensitif
   joinDate: Bergabung pada $date$
+  moreTweets: More Tweets # TODO translation missing!
   navBookmarks: Markah
   navCommunities: Komunitas
   navMessages: Pesan
@@ -97,6 +98,7 @@ settings:
     rosettaIconsDesc: Gunakan font ikon Rosetta pra-2017
     favoriteLikes: Mengganti suka dengan favorit (hanya ikonnya saja untuk saat ini)
     birdIcon: Gunakan ikon Twitter normal alih-alih meme dari tahun 2010
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: Notifikasi pembaruan GoodTwitter 2

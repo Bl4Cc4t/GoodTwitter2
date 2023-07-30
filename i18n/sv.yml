@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
     favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 update notifications # TODO translation missing!

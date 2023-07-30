@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: 2017年以前のロゼッタアイコン（ツイート下部のアイコン群）を使用します。
     favoriteLikes: いいね！をお気に入りに置き換える
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter2の更新通知

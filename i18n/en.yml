@@ -57,7 +57,7 @@ settings:
     settingsHeaderOther: Other
 
   timeline:
-    forceLatest: Force “Following” as default timeline (previously called “Latest Tweets First” mode)
+    forceLatest: Force “Following” as default timeline
     forceLatestDesc: With this setting active, the “Following” tab will be selected everytime you visit /home.
     biggerPreviews: Bigger image previews
     biggerPreviewsDesc: Tall images in tweets are shown in their full height.
@@ -100,7 +100,8 @@ settings:
     rosettaIcons: Rosetta icons
     rosettaIconsDesc: Use the pre 2017 Rosetta icon font
     favoriteLikes: Replace likes with favorites (only icons for now)
-    birdIcon: Show normal twitter icon instead of memes from 2010
+    birdIcon: Replace X icon with bird
+    birdIconDesc: This also changes the favicon for now.
 
   other:
     updateNotifications: GoodTwitter 2 update notifications

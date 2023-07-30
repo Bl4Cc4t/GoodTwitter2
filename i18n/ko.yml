@@ -98,6 +98,7 @@ settings:
     rosettaIconsDesc: 2017년 이전 로제타 아이콘 폰트 사용하기
     favoriteLikes: 좋아요를 관심글로 바꾸기
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: GoodTwitter 2 업데이트 알림

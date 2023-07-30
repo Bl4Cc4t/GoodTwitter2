@@ -11,6 +11,7 @@ twitter-default:
   contentWarningViolence: Насилля
   contentWarningSensitiveContent: Контент делікатного характера
   joinDate: "Регистрация: $date$"
+  moreTweets: More Tweets # TODO translation missing!
   navBookmarks: Закладки
   navCommunities: Спільноти
   navMessages: Повідомлення
@@ -19,6 +20,7 @@ twitter-default:
   navLists: Списки
   navNotifications: Сповіщення
   navProfile: Профіль
+  navSettings: Settings # TODO translation missing!
   statsFollowers: читачів
   statsFollowing: читає(те)
   statsLikes: Подобається
@@ -66,6 +68,8 @@ settings:
     hidePromoteTweetButton: Сховати кнопку «Просувайте свій твіт»
     showMediaWithContentWarnings: Завжди показувати медіафайли с попередженням о змісту
     hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
+    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
 
   sidebars:
     stickySidebars: Фіксовані бокові панелі
@@ -99,6 +103,7 @@ settings:
     rosettaIconsDesc: Використовувати іконки з шрифту Rosetta, Який використовувався до 2017 року
     favoriteLikes: Замінити Лайки на Вибране
     birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
 
   other:
     updateNotifications: Сповіщення о обновленнях GoodTwitter 2
