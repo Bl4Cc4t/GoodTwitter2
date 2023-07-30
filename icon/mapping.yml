@@ -1,0 +1,497 @@
+# This file is a mapping of the 2022 icons to their 2014 & 2017 variants.
+# Also a short description is provided for where the icons appear.
+# The names for the icons have been chosen by similarity to the Material Icons from Google: https://fonts.google.com/icons
+
+mapping:
+    accessibility:
+        desc: Sidebar / More / Settings and Support / Keyboard shortcuts
+        2014: ~
+        2017: ~
+    ad:
+        desc: Twitter Ads
+        2014: F004
+        2017: F504
+    add:
+        desc: General purpose
+        2014: F183
+        2017: F183
+    alternate-email:
+        desc: Sidebar / More / Connect
+        2014: F050
+        2017: F064
+    balloon:
+        desc: Account / birthday
+        2014: F092
+        2017: F092
+    ballot:
+        desc: Compose tweet / Add poll button
+        2014: F199
+        2017: F199
+    bar-chart:
+        desc: Tweet / Views
+        2014: F200
+        2017: F200
+    block:
+        desc: Tweet / Overflow / Block account
+        2014: E609
+        2017: E609
+    bookmark-add:
+        desc: Tweet / Share / Bookmark
+        2014: ~
+        2017: F155
+    bookmark.fill:
+        desc: Sidebar / Bookmarks (on page)
+        2014: ~
+        2017: F155
+    bookmark:
+        desc: Sidebar / Bookmarks
+        2014: ~
+        2017: bookmark
+    brush:
+        desc: Settings / Accessibility, display and languages / Display
+        2014: ~
+        2017: brush
+    brush-alt:
+        desc: Sidebar / More / Settings and Support / Display
+        2014: ~
+        2017: brush-alt
+    brush-alt.tip:
+        desc: Sidebar / More / Settings and Support / Display
+        2014: ~
+        2017: brush-alt.tip
+    calendar:
+        desc: Account join date
+        2014: F203
+        2017: F203
+    chat-bubble:
+        desc: Tweet replies
+        2014: F157
+        2017: F157
+    check:
+        desc: General purpose
+        2014: F197
+        2017: F197
+    check-circle:
+        desc: Sidebar / More / Settings and Support / Display
+        2014: F043
+        2017: F043
+    chevron-right:
+        desc: General purpose, menu navigation
+        2014: F194
+        2017: F194
+    circle.fill:
+        desc: Sidebar / More / Settings and Support / Display
+        2014: F510
+        2017: F032
+    close:
+        desc: General purpose
+        2014: F045
+        2017: F045
+    close-fullscreen:
+        desc: Tweet video / Exit fullscreen button
+        2014: F307
+        2017: F307
+    code:
+        desc: Tweet dropdown / Embed tweet
+        2014: ~
+        2017: F410
+    cookie:
+        desc: Settings / Privacy and safety / Cookie preferences
+        2014: ~
+        2017: ~
+    delete:
+        desc: Own tweet / Overflow / Delete
+        2014: F154
+        2017: F154
+    download:
+        desc: Settings / Your account / Download an archive of your data
+        2014: F186
+        2017: F186
+    edit:
+        desc: Settings / Privacy and safety / Your Tweets
+        2014: F112
+        2017: F112
+    edit.fill:
+        desc: Tweet / Edited tweet button
+        2014: F112
+        2017: F612
+    favorite:
+        desc: Tweet / Like button
+        2014: F148
+        2017: F148
+    favorite.fill:
+        desc: Tweet (liked) / Like button
+        2014: F148
+        2017: F148
+    feather-add:
+        desc: Sidebar / Tweet button (on smaller screen)
+        2014: F029
+        2017: F029
+    feather-write:
+        desc: Sidebar / More / Drafts
+        2014: F029
+        2017: F029
+    feed:
+        desc: Settings / Privacy and safety / Content you see
+        2014: F204
+        2017: F204
+    flag:
+        desc: Reporting content
+        2014: F038
+        2017: F038
+    flash-on:
+        desc:
+        2014: F160
+        2017: F160
+    gif-box:
+        desc: Compose tweet / Add GIF button
+        2014: F309
+        2017: gif-box
+    group-add:
+        desc: Communities / Add button
+        2014: ~
+        2017: ~
+    group:
+        desc: Sidebar / Communities
+        2014: F178
+        2017: F178
+    group.fill:
+        desc: Sidebar / Communities (on page)
+        2014: F178
+        2017: F178
+    groups:
+        desc: Settings / Privacy and safety / Audience and tagging
+        2014: F178
+        2017: F178
+    heart-broken:
+        desc: Settings / Your account / Deactivate your account
+        2014: ~
+        2017: heart-broken
+    heart-plus:
+        desc: Messages / Thread / Message / React button
+        2014: ~
+        2017: ~
+    help:
+        desc: Sidebar / More / Settings and Support / Help Center
+        2014: F208
+        2017: help
+    hidden-replies:
+        desc: Tweet / Hidden replies button
+        2014: ~
+        2017: hidden-replies
+    highlight-off:
+        desc: Messages / Message requests / Delete conversation button
+        2014: F044
+        2017: F044
+    home:
+        desc: Sidebar / Home
+        2014: F053
+        2017: F053
+    home.fill:
+        desc: Sidebar / Home (on page)
+        2014: F053
+        2017: F553
+    image:
+        desc: Compose tweet / Add media button
+        2014: F109
+        2017: F109
+    incoming-mail:
+        desc: Messages / Message requests
+        2014: ~
+        2017: ~
+    info:
+        desc: General purpose
+        2014: F209
+        2017: F209
+    info.fill:
+        desc:
+        2014: F209
+        2017: F217
+    key:
+        desc: Settings / Your account / Change your password
+        2014: ~
+        2017: key
+    keyboard-double-arrow-down:
+        desc: Message box (maximized) / Minimize button
+        2014: ~
+        2017: keyboard-double-arrow-down
+    keyboard-double-arrow-up:
+        desc: Message box (minimized) / Maximize button
+        2014: ~
+        2017: keyboard-double-arrow-up
+    library-add:
+        desc: Messages / Thread / Message / Overflow / Copy message
+        2014: ~
+        2017: F214
+    link:
+        desc: Account / Url
+        2014: F098
+        2017: F098
+    list-alt-add:
+        desc: Tweet dropdown / Add account to list
+        2014: ~
+        2017: ~
+    list-alt:
+        desc: Sidebar / Lists
+        2014: F094
+        2017: F094
+    list-alt.fill:
+        desc: Sidebar / Lists (on page)
+        2014: F094
+        2017: F094
+    location-on:
+        desc: Compose tweet / Location button
+        2014: F320
+        2017: location-on
+    lock.fill:
+        desc: Protected account
+        2014: ~
+        2017: F096
+    lock:
+        desc: Settings / Security and account access / Security
+        2014: ~
+        2017: F106
+    mail-add:
+        desc: Messages / New message button
+        2014: F035
+        2017: F035
+    mail.fill:
+        desc: Sidebar / Messages (on page)
+        2014: F054
+        2017: F554
+    mail:
+        desc: Sidebar / Messages
+        2014: F054
+        2017: F054
+    mic:
+        desc: Settings / Privacy and safety / Spaces
+        2014: ~
+        2017: ~
+    more-horiz-circle:
+        desc: Sidebar / More button
+        2014: F150
+        2017: more-horiz-circle
+    more-horiz:
+        desc: Sidebar / Account switcher button
+        2014: F150
+        2017: F650
+    north-east:
+        desc: General purpose. External link
+        2014: ~
+        2017: F339
+    notification-add:
+        desc: Account / Tweet notifications disabled
+        2014:
+        2017:
+    notifications-active:
+        desc: Account / Tweet notifications enabled
+        2014: F026
+        2017: F026
+    notifications-off:
+        desc:
+        2014: F037
+        2017: F037
+    notifications:
+        desc: Sidebar / Notifications
+        2014: F055
+        2017: F055
+    notifications.fill:
+        desc: Sidebar / Notifications (on page)
+        2014: F055
+        2017: F019
+    open-in-full:
+        desc: Tweet video / Fullscreen button
+        2014: F308
+        2017: F308
+    payments:
+        desc: Sidebar / More / Monetization
+        2014: F403
+        2017: F403
+    pause:
+        desc: Tweet video / Pause button
+        2014: F302
+        2017: F302
+    person:
+        desc: Sidebar / Profile
+        2014: F056
+        2017: F056
+    person.fill:
+        desc: Sidebar / Profile (on page)
+        2014: F056
+        2017: F002
+    person-add:
+        desc: Tweet dropdown / follow account
+        2014: F175
+        2017: F175
+    person-check:
+        desc:
+        2014: F176
+        2017: F176
+    person-heart.fill:
+        desc: Compose tweet / Choose audience / Twitter circle
+        2014: ~
+        2017: ~
+    person-remove:
+        desc: Tweet dropdown / unfollow account
+        2014: F097
+        2017: F097
+    person-search:
+        desc: Settings / Privacy and safety / Discoverability and contacts
+        2014: F058
+        2017: F337
+    person-star.fill:
+        desc:
+        2014:
+        2017:
+    phonelink-ring:
+        desc: Settings / Notifications / Preferences
+        2014:
+        2017:
+    play-arrow:
+        desc: Tweet video / Play button
+        2014: F301
+        2017: F301
+    public:
+        desc: Compose tweet / Choose audience / Everyone
+        2014: F089
+        2017: F089
+    push-pin.fill:
+        desc: Account / Pinned tweet
+        2014: F003
+        2017: F003
+    push-pin:
+        desc: Own pinned tweet / Overflow / Unpin from profile
+        2014: F003
+        2017: F003
+    replay:
+        desc: Tweet video / Replay button
+        2014: F303
+        2017: F303
+    reply:
+        desc: Messages / Thread / Message / Overflow / Reply
+        2014: F151
+        2017: F151
+    rocket-launch:
+        desc:
+        2014: ~
+        2017: ~
+    schedule-send:
+        desc: Compose tweet / Schedule button
+        2014: F177
+        2017: F177
+    search:
+        desc: Sidebar / Search
+        2014: F058
+        2017: F058
+    search.fill:
+        desc: Sidebar / Search (on page)
+        2014: F058
+        2017: F558
+    search.fill.2:
+        desc:
+        2014: F058
+        2017: F058
+    send:
+        desc: Messages / Thread / Send button
+        2014: ~
+        2017: ~
+    sentiment-dissatisfied:
+        desc: Trend / Overflow / Not interested in this
+        2014: F430
+        2017: F430
+    sentiment-satisfied:
+        desc: Compose tweet / Add emoji button
+        2014: F438
+        2017: F438
+    sessions:
+        desc: Settings / Security and account access / Apps and sessions
+        2014: ~
+        2017: F120
+    settings:
+        desc: Sidebar / More / Settings and Support / Settings and privacy
+        2014: F059
+        2017: F059
+    spark:
+        desc: Own tweet / Overflow / Highlight on your profile
+        2014: ~
+        2017: ~
+    supervisor-account:
+        desc: Settings / Your account / Tweetdeck Teams
+        2014: F178
+        2017: F178
+    sync-alt:
+        desc: Settings / Security and account access / Connected accounts
+        2014: ~
+        2017: F104
+    sync-disabled:
+        desc: Account / Dropdown / Turn off Retweets
+        2014: ~
+        2017: ~
+    sync:
+        desc: Retweet
+        2014: F152
+        2017: F152
+    sync.fill:
+        desc: Retweet
+        2014: F152
+        2017: F152
+    topic:
+        desc: Account / Overflow / View Topics
+        2014: ~
+        2017: topic
+    topic.fill:
+        desc: Explore / Topic
+        2014: ~
+        2017: topic
+    trending-up:
+        desc:
+        2014:
+        2017:
+    tune:
+        desc: Settings / Notifications / Filters
+        2014: F138
+        2017: F138
+    upload:
+        desc: Tweet / Share button
+        2014: ~
+        2017: F185
+    verified:
+        desc: Verified badge
+        2014: F099
+        2017: F099
+    verified.fill:
+        desc: Verified badge
+        2014: F099
+        2017: F099
+    visibility-off:
+        desc: Settings / Accessibility, display and languages / Accessibility
+        2014: ~
+        2017: F216
+    vital-signs:
+        desc: Settings / Privacy and safety / Inferred identity
+        2014: ~
+        2017: F063
+    volume-mute:
+        desc: Tweet video / Volume toggle
+        2014: F306
+        2017: F306
+    volume-off:
+        desc: Muting an account
+        2014: F101
+        2017: F101
+    volume-up:
+        desc: Tweet video / Volume toggle
+        2014: F305
+        2017: F305
+    west:
+        desc: General purpose. Menu navigation
+        2014: west
+        2017: west
+    work:
+        desc: Account / Profession badge
+        2014: ~
+        2017: work
+    workspace-premium:
+        desc: Settings / Subscriptions / Manage Creator Subscriptions
+        2014: ~
+        2017: ~
