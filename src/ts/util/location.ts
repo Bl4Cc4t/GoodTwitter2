@@ -21,6 +21,8 @@ export function initializeLocation(): void {
 
     onLocationChange("init")
     watchTitle()
+    if (Settings.get("birdIcon"))
+        watchFavicon()
 }
 
 
@@ -67,6 +69,15 @@ function watchTitle(): void {
         }
     }, {
         attributes: false
+    })
+}
+
+function watchFavicon(): void {
+    watchForElementChanges(`head [rel="shortcut icon"]:not(.gt2-favicon)`, favicon => {
+        const href = favicon.getAttribute("href").replace(".3", ".2")
+        _logger.debug("resetting favicon to twitter bird:", href)
+        document.querySelector(".gt2-favicon")?.remove()
+        favicon.insertAdjacentHTML("beforebegin", `<link rel="shortcut icon" class="gt2-favicon" href="${href}">`)
     })
 }
 
