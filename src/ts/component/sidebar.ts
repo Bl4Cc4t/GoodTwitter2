@@ -50,12 +50,32 @@ export function initializeSidebar(): void {
         }
     }
 
-    waitForElements(".gt2-sidebar-notice-close", e => e?.addEventListener("click", event => {
+    waitForElements(".gt2-sidebar-notice-close > *", e => e.addEventListener("click", event => {
         let container = (event.target as HTMLElement).closest(".gt2-sidebar-notice") as HTMLElement
         console.log(container.dataset.noticeId)
         dismissSidebarNotice(container.dataset.noticeId)
         container.remove()
-    }))
+    }), false)
+
+    waitForElements(".gt2-toggle-acc-switcher-dropdown", button => {
+        const original = document.querySelector<HTMLElement>(`[data-testid=SideNav_AccountSwitcher_Button]`)
+        addClickHandlerToMockElement(button, original, () => {
+            const position = button.getBoundingClientRect()
+            const style = `
+                <style>
+                    [data-testid=hoverCardParent] {
+                        left: ${Math.round(position.left) - 274}px !important;
+                        top: ${Math.round(position.top) + 35}px !important;
+                    }
+                    [data-testid=HoverCard] > svg {
+                        display: none;
+                    }
+                </style>`
+            waitForElements(`#layers [data-testid=hoverCardParent]`, card => {
+                card.insertAdjacentHTML("beforebegin", style)
+            })
+        })
+    }, false)
 }
 
 
