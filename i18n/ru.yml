@@ -54,25 +54,25 @@ settings:
     settingsHeaderOther: Другое
 
   timeline:
-    forceLatest: Всегда открывать в ленте вкладку «Читаю»
-    forceLatestDesc: Если включен этот параметр, в ленте всегда будет выбираться вкладка «Читаю» вместо «Для вас», когда вы посещаете /home.
-    biggerPreviews: Большие превью изображения
+    forceLatest: Всегда открывать в ленте вкладку «Вы читаете»
+    forceLatestDesc: Если включен этот параметр, то всегда, когда вы посещаете /home, в ленте будет выбираться вкладка «Вы читаете» вместо «Для вас».
+    biggerPreviews: Большие превью изображений
     biggerPreviewsDesc: Показывать превью высоких изображений в твитах во всю высоту.
 
   tweets:
-    hideTranslateTweetButton: Скрыть кнопку «Перевести твит»
+    hideTranslateTweetButton: Скрыть строку «Перевести твит»
     tweetIconsPullLeft: Сгруппировать кнопки взаимодействия с твитами слева
     hidePromoteTweetButton: Скрыть кнопку «Продвигайте свой твит»
-    showMediaWithContentWarnings: Всегда показывать медиафайлы с предупреждениями о содержании
+    showMediaWithContentWarnings: Всегда показывать сразу медиафайлы с предупреждениями о содержании
     hideTweetAnalytics: Скрыть публичную аналитику твитов
-    hideMoreTweets: Hide “More Tweets” section on tweet page # TODO translation missing!
-    hideMoreTweetsDesc: These additional tweets have nothing to do with the current tweet and just show currently popular tweets to fill some potentially empty space. # TODO translation missing!
+    hideMoreTweets: Скрыть секцию «Больше твитов» на страницах твитов
+    hideMoreTweetsDesc: Эти дополнительные твиты не имеют отношения к текущему твиту, а просто показывают популярные в данный момент твиты чтобы заполнить потенциально пустое место.
 
   sidebars:
     stickySidebars: Фиксированные боковые панели
     smallSidebars: Уменьшенные боковые панели
     smallSidebarsDesc: Боковые панели шириной 290px вместо 350px.
-    hideTrends: Скрыть «Что нового?»
+    hideTrends: Скрыть «Что нового?» (тренды)
     leftTrends: «Что нового?» слева
     leftTrendsDesc: Отображать «Что нового?» в левой колонке.
     show5Trends: Всегда показывать 5 тем в «Что нового?»
@@ -97,8 +97,8 @@ settings:
     rosettaIcons: Иконки Rosetta
     rosettaIconsDesc: Использовать иконки из шрифта Rosetta, который использовался до 2017 года.
     favoriteLikes: Заменить Лайки на Избранное
-    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
-    birdIconDesc: This also changes the favicon for now. # TODO translation missing!
+    birdIcon: Показывать лого твиттера с птицей вместо его замены
+    birdIconDesc: Это также заменяет иконку сайта во вкладке.
 
   other:
     updateNotifications: Уведомления об обновлениях GoodTwitter 2
