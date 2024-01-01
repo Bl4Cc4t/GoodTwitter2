@@ -33,7 +33,7 @@ function addNavbar(): void {
         let loggedIn = isLoggedIn()
 
         document.querySelector("main")
-            .insertAdjacentHTML("beforebegin", `
+            .insertAdjacentHTML("beforebegin", /*html*/`
         <nav class="gt2-nav">
           <div class="gt2-nav-left"></div>
           <div class="gt2-nav-center">
@@ -163,8 +163,8 @@ function addOrUpdateNavbarElement(selector: string, localizedString: string): vo
     }
 
     mockElem.firstElementChild.setAttribute("data-gt2-color-override-ignore", "")
-    mockElem.firstElementChild.insertAdjacentHTML("beforeend", `
-    <div class="gt2-nav-header">${localizedString}</div>`)
+    mockElem.firstElementChild.insertAdjacentHTML("beforeend", /*html*/`
+        <div class="gt2-nav-header">${localizedString}</div>`)
 }
 
 
@@ -268,7 +268,7 @@ function dropdownToggledHandler(): void {
 
             moreMenu.insertAdjacentHTML("afterbegin", origElem.outerHTML)
             let mockElem = moreMenu.querySelector(elem.selector)
-            mockElem.firstElementChild.insertAdjacentHTML("beforeend", `<span>${elem.localizedString}</span>`)
+            mockElem.firstElementChild.insertAdjacentHTML("beforeend", /*html*/`<span>${elem.localizedString}</span>`)
             addClickHandlerToMockElement(mockElem, origElem, () => moreMenuButton.click())
             _logger.debug(`added dropdown element with selector "${elem.selector}"`)
         }
@@ -280,7 +280,7 @@ function dropdownToggledHandler(): void {
                 e.nextElementSibling.insertAdjacentHTML("afterend", separatorHtml)
             })
 
-        moreMenu.insertAdjacentHTML("beforeend", `<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
+        moreMenu.insertAdjacentHTML("beforeend", /*html*/`<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
 
         moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
 

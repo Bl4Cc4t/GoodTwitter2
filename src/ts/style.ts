@@ -226,8 +226,8 @@ function setAdditionalStyleRules(): void {
         waitForElements("#shape-hex path", e => {
             let parent = e.parentElement
             parent.innerHTML = Settings.get("squareAvatars")
-                ? `<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`
-                : `<circle cx="100" cy="100" r="100" />`
+                ? /*html*/`<rect cx="100" cy="100" ry="10" rx="10" width="200" height="200"></rect>`
+                : /*html*/`<circle cx="100" cy="100" r="100" />`
             parent.setAttribute("transform", "scale(0.005 0.005)")
         })
     }

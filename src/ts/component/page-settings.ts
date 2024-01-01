@@ -19,7 +19,7 @@ export function addSettingsMenuEntry(): void {
         main div[data-testid=loggedOutPrivacySection]`
     waitForElements(selector, e => {
         if (!document.querySelector(".gt2-toggle-settings")) {
-            e.insertAdjacentHTML("beforeend", `
+            e.insertAdjacentHTML("beforeend", /*html*/`
                 <a class="gt2-toggle-settings" href="/settings/gt2">
                     <div>
                         <span>GoodTwitter2</span>
@@ -57,7 +57,7 @@ export function addSettingsMenuEntry(): void {
  */
 function getSettingToggleHtml(name: SettingsKey, additionalHtml=""): string {
     let description = `${name}Desc`
-    return `
+    return /*html*/`
         <div class="gt2-setting">
             <div>
                 <span>${getLocalizedString(name)}</span>
@@ -67,7 +67,7 @@ function getSettingToggleHtml(name: SettingsKey, additionalHtml=""): string {
               </div>
             </div>
             ${additionalHtml}
-            ${hasLocalizedString(description) ? `<span>${getLocalizedString(description)}</span>` : ""}
+            ${hasLocalizedString(description) ? /*html*/`<span>${getLocalizedString(description)}</span>` : ""}
         </div>`
 }
 
@@ -83,7 +83,7 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
     for (let [index, option] of options.entries()) {
         let sel = Math.pow(2, index)
         let isActive = ((Settings.get(settingName) as number) & sel) == sel
-        html += `
+        html += /*html*/`
             <div>
                 <span>${getLocalizedString(option)}</span>
                 <div class="gt2-setting-toggle ${isActive ? "gt2-active" : ""}" data-sel="${sel}">
@@ -93,7 +93,7 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
             </div>`
     }
 
-    return `<div data-setting-name="${settingName}">${html}</div>`
+    return /*html*/`<div data-setting-name="${settingName}">${html}</div>`
 }
 
 
@@ -102,7 +102,7 @@ function getSettingSelectionHtml(settingName: SettingsKey, options: string[]): s
  * @returns the HTML of the settings page
  */
 function getSettingsHtml(): string {
-    return `
+    return /*html*/`
         <div class="gt2-settings-header">
             <div class="gt2-settings-back">
                 <div class="gt2-icon-hover-dummy"></div>
@@ -120,7 +120,7 @@ function getSettingsHtml(): string {
             ${getSettingToggleHtml("hideTranslateTweetButton")}
             ${getSettingToggleHtml("tweetIconsPullLeft")}
             ${getSettingToggleHtml("hidePromoteTweetButton")}
-            ${getSettingToggleHtml("showMediaWithContentWarnings", `
+            ${getSettingToggleHtml("showMediaWithContentWarnings", /*html*/`
                 <div
                     data-multi-selection-name="showMediaWithContentWarningsBox"
                     class="gt2-settings-multi-selection ${Settings.get("showMediaWithContentWarnings") ? "" : "gt2-hidden"}"
@@ -153,7 +153,7 @@ function getSettingsHtml(): string {
             <div class="gt2-settings-sub-header">
                 ${getLocalizedString("settingsHeaderGlobalLook")}
             </div>
-            ${getSettingToggleHtml("hideFollowSuggestions", `
+            ${getSettingToggleHtml("hideFollowSuggestions", /*html*/`
                 <div
                     data-multi-selection-name="hideFollowSuggestionsBox"
                     class="gt2-settings-multi-selection ${Settings.get("hideFollowSuggestions") ? "" : "gt2-hidden"}"
@@ -188,7 +188,7 @@ function getSettingsHtml(): string {
                     ])}
                 </div>
             </div>`)}
-            ${getSettingToggleHtml("fontOverride", `
+            ${getSettingToggleHtml("fontOverride", /*html*/`
                 <div class="gt2-setting-input" data-setting-name="fontOverrideValue">
                     <input type="text" value="${Settings.get("fontOverrideValue")}">
                 </div>`)}
@@ -227,7 +227,7 @@ export function addSettings(): void {
             settingsContainer.insertAdjacentHTML("afterbegin", settingsHtml)
         } else {
             settingsContainer = document.querySelector("main > div > div > div")
-            settingsContainer.insertAdjacentHTML("beforeend", `<section>${settingsHtml}</section>`)
+            settingsContainer.insertAdjacentHTML("beforeend", /*html*/`<section>${settingsHtml}</section>`)
         }
         _logger.debug(`added gt2 settings to `, settingsContainer)
 

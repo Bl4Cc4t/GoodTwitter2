@@ -12,9 +12,8 @@ const _logger = new Logger("tweet")
  */
 export function getTweetPageId(): string | null {
     // on tweet page
-    if (document.body.dataset.pageType == "tweet") {
+    if (document.body.dataset.pageType == "tweet")
         return location.pathname.replace(/.*\/status\/(\d+)/, "$1")
-    }
 
     // error
     _logger.error("Not on a tweet page")
@@ -45,9 +44,8 @@ export function addSourceLabel(): void {
             return
         }
 
-        element.parentElement?.insertAdjacentHTML("afterend", `
-      <span class="gt2-tweet-source">${tweet.source}</span>
-    `)
+        element.parentElement?.insertAdjacentHTML("afterend", /*html*/`
+            <span class="gt2-tweet-source">${tweet.source}</span>`)
     })
 }
 

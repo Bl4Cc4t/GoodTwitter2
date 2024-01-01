@@ -65,7 +65,7 @@ export function initializeSidebar(): void {
         const original = document.querySelector<HTMLElement>(`[data-testid=SideNav_AccountSwitcher_Button]`)
         addClickHandlerToMockElement(button, original, () => {
             const position = button.getBoundingClientRect()
-            const style = `
+            const style = /*html*/`
                 <style>
                     [data-testid=hoverCardParent] {
                         left: ${Math.round(position.left) - 274}px !important;
@@ -91,7 +91,7 @@ function addLeftSidebar(): void {
         if (document.querySelector(".gt2-left-sidebar"))
             return
 
-        mainView.insertAdjacentHTML("afterbegin", `
+        mainView.insertAdjacentHTML("afterbegin", /*html*/`
             <div class="gt2-left-sidebar-container">
                 <div class="gt2-left-sidebar"></div>
             </div>`)
@@ -108,7 +108,7 @@ function addRightSidebar(): void {
         if (document.querySelector(".gt2-right-sidebar") || container.matches(`[role=progressbar]`))
             return
 
-        container.insertAdjacentHTML("afterbegin", `<div class="gt2-right-sidebar"></div>`)
+        container.insertAdjacentHTML("afterbegin", /*html*/`<div class="gt2-right-sidebar"></div>`)
         _logger.debug("added right sidebar")
     }, false)
 }
@@ -127,7 +127,7 @@ function addSidebarElements(): void {
             return
 
         sidebar.replaceChildren()
-        sidebar.insertAdjacentHTML("afterbegin", `
+        sidebar.insertAdjacentHTML("afterbegin", /*html*/`
             ${getUpdateNoticeHtml()}
             ${getDashboardProfileHtml()}
             ${getLegacyProfileInfoHtml()}`)
@@ -148,7 +148,7 @@ function getUpdateNoticeHtml(): string {
         return ""
     }
 
-    return `
+    return /*html*/`
         <div
           class="gt2-sidebar-notice gt2-update-notice gt2-left-sidebar-element"
           data-notice-id="gt2-update-${version}"
@@ -180,7 +180,7 @@ function getUpdateNoticeHtml(): string {
 function getDashboardProfileHtml(): string {
     let i = getCurrentUserInfo()
     let href = isLoggedIn() ? "href" : "data-href"
-    return `
+    return /*html*/`
         <div class="gt2-dashboard-profile gt2-left-sidebar-element">
             <a ${href}="/${i.screenName}" class="gt2-banner" style="background-image: ${i.bannerUrl ? `url(${i.bannerUrl}/600x200)` : "unset"};"></a>
                 <div>
@@ -238,7 +238,7 @@ function getLegacyProfileInfoHtml(): string {
     if (element)
         return element.outerHTML
 
-    return `
+    return /*html*/`
         <div class="gt2-legacy-profile-info gt2-left-sidebar-element">
             <div class="gt2-legacy-profile-name"></div>
             <div class="gt2-legacy-profile-screen-name-wrap">
@@ -312,7 +312,7 @@ function handleTrends(): void {
                 .replace(/'/g, "%27")
                 .replace(/(^"|"$)/g, "")
 
-            toWrap.innerHTML = `<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
+            toWrap.innerHTML = /*html*/`<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
         }
     }, false)
 }
@@ -360,8 +360,8 @@ function handleProfileMedia(): void {
                 _logger.error("sidebar not found")
                 return
             }
-            sidebar.insertAdjacentHTML("beforeend", `
-        <div class="gt2-sidebar-element-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>`)
+            sidebar.insertAdjacentHTML("beforeend", /*html*/`
+                <div class="gt2-sidebar-element-profile-media ${placeLeft ? "gt2-left-sidebar-element" : ""}"></div>`)
             container = document.querySelector(".gt2-sidebar-element-profile-media")
         }
 
@@ -430,7 +430,7 @@ function handleSidebarNotice(container: HTMLElement, key: string) {
     }
 
     // add close button
-    container.insertAdjacentHTML("beforeend", `
+    container.insertAdjacentHTML("beforeend", /*html*/`
         <div class="gt2-sidebar-notice-close">
             <div class="gt2-icon-hover-dummy"></div>
             ${CloseSvg}

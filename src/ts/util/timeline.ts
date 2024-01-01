@@ -67,8 +67,8 @@ export function watchForTweets(): void {
  */
 function expandTweetTcoShortlinks(): void {
     const selector = `
-    article[data-testid=tweet] a[href^="http://t.co"],
-    article[data-testid=tweet] a[href^="https://t.co"]`
+        article[data-testid=tweet] a[href^="http://t.co"],
+        article[data-testid=tweet] a[href^="https://t.co"]`
     waitForElements(selector, expandTweetTcoShortlink, false)
 }
 

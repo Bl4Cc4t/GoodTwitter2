@@ -57,7 +57,7 @@ Currently, this can only be done with Tampermonkey.
 - Navigate to the userscript.
 - Change to the "Externals" tab.
 - Click on "Edit" for the stylesheet and paste the content of the .css file.
-- Repeat the last step for the i18n file.
+- Repeat the previous step for the i18n file.
 
 ![](img/building/tm-edit-resources.png)
 

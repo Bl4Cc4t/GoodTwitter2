@@ -49,7 +49,7 @@ function expandProfileTcoShortlinks() {
 function addLegacyProfileHeaderSkeleton(): void {
     waitForElements("header", header => {
         if (!document.querySelector(".gt2-legacy-profile-banner")) {
-            header.insertAdjacentHTML("afterend", `
+            header.insertAdjacentHTML("afterend", /*html*/`
                 <div class="gt2-legacy-profile-banner">
                     <img src="" alt="" />
                 </div>
