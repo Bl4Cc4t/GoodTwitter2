@@ -182,7 +182,7 @@ function rebuildLegacyProfilePage(): void {
         mutationObserverOptions: {
             subtree: true
         }
-    })
+    }, { waitOnce: false })
 
     // items
     watchForMultipleElementChanges(
@@ -212,7 +212,7 @@ function rebuildLegacyProfilePage(): void {
         mutationObserverOptions: {
             subtree: true
         }
-    })
+    }, { waitOnce: false })
 
     // description
     watchForMultipleElementChanges(
@@ -243,7 +243,7 @@ function rebuildLegacyProfilePage(): void {
         mutationObserverOptions: {
             subtree: true
         }
-    })
+    }, { waitOnce: false })
 
     // followers you follow
     document.querySelector(".gt2-legacy-profile-followers-you-follow")
@@ -260,5 +260,5 @@ function rebuildLegacyProfilePage(): void {
         mutationObserverOptions: {
             subtree: true
         }
-    })
+    }, { waitOnce: false })
 }
