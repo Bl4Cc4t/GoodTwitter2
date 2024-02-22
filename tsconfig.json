@@ -21,5 +21,6 @@
             "dom",
             "es2018"
         ]
-    }
+    },
+    "exclude": [ "tools" ]
 }
