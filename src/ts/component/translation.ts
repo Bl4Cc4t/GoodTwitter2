@@ -4,6 +4,7 @@ import { getProfileTranslation, getTweetTranslation } from "../util/request"
 import { Logger } from "../util/logger"
 import { getTweetData } from "../util/tweet"
 import GoogleSvg from "@icon/vendor/google.svg"
+import { addLinkClickHandler } from "../util/location.page"
 
 
 const _logger = new Logger("component", "translation")
@@ -100,7 +101,6 @@ function translateTweetHandler(event: MouseEvent): void {
         ?.closest("div[aria-labelledby]")
         ?.closest("article[data-testid=tweet]") != null
 
-    // get id (potential parent tweet)
     const tweet = getTweetData(target.closest("article[data-testid=tweet]"))
     if (!tweet)
         return
@@ -136,6 +136,8 @@ function onTweetTranslationRequest(target: Element, response: TwitterApi.v1_1.tr
 
     target.classList.add("gt2-hidden")
     target.insertAdjacentHTML("afterend", html)
+    target.parentElement.querySelectorAll(`.gt2-translated-tweet a[href^="/"]`)
+        .forEach(e => addLinkClickHandler(e))
 }
 
 
@@ -157,6 +159,7 @@ function translateProfileHandler(event: MouseEvent): void {
         let html = getTranslationHtml(res.profileTranslation)
         target.classList.add("gt2-hidden")
         target.insertAdjacentHTML("afterend", html)
+        //addLinkClickHandler()
     })
 }
 

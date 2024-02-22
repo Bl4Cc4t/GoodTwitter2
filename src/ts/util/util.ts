@@ -268,17 +268,18 @@ export function getCurrentUserInfo(): UserInfo {
  */
 export function addClickHandlerToMockElement(mockElement: Element, originalElement: HTMLElement, callback?: () => void): void {
     mockElement.addEventListener("click", (event: MouseEvent) => {
-        if (!event.ctrlKey && originalElement != null) {
-            event.preventDefault()
+        if (event.ctrlKey || originalElement == null)
+            return
 
-            if (originalElement.onclick)
-                originalElement.click()
-            else
-                originalElement.dispatchEvent(new MouseEvent("click", { bubbles: true }))
+        event.preventDefault()
 
-            if (callback)
-                callback()
-        }
+        if (originalElement.onclick)
+            originalElement.click()
+        else
+            originalElement.dispatchEvent(new MouseEvent("click", { bubbles: true }))
+
+        if (callback)
+            callback()
     })
 }
 
@@ -303,11 +304,11 @@ export function getSidebarType(): ESidebar {
 
 /**
  * Checks, if an enum value is set via logical and.
- * @param value the value to check
- * @param hasValue the other value
+ * @param source the enum to check
+ * @param value the value
  */
-export function isSet<TEnum extends number>(value: TEnum, hasValue: TEnum): boolean {
-    return hasValue == (value & hasValue)
+export function isSet<TEnum extends number>(source: TEnum, value: TEnum): boolean {
+    return value == (source & value)
 }
 
 

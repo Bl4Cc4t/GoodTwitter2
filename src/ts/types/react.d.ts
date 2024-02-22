@@ -188,3 +188,11 @@ declare interface LabelEntity {
         }
     }
 }
+
+declare interface RichHistory {
+    push: (e: RichHistoryPushArgument) => void
+}
+
+declare interface RichHistoryPushArgument {
+    pathname: string
+}

@@ -1,4 +1,4 @@
-import { onModal } from "../util/location.page"
+import { addLinkClickHandler, onModal } from "../util/location.page"
 import { Logger } from "../util/logger"
 import {
     addClickHandlerToMockElement,
@@ -220,7 +220,7 @@ function addBird(): void {
         let mockBird = document.querySelector(".gt2-nav-bird")
 
         mockBird.insertAdjacentHTML("beforeend", bird.outerHTML)
-        addClickHandlerToMockElement(mockBird, bird)
+        addLinkClickHandler(mockBird)
         _logger.debug("added twitter bird to navbar")
     }
 }
@@ -288,6 +288,7 @@ function dropdownToggledHandler(): void {
             })
 
         moreMenu.insertAdjacentHTML("beforeend", /*html*/`<a href="/logout" class="gt2-toggle-logout">Logout</a>`)
+        addLinkClickHandler(moreMenu.querySelector(".gt2-toggle-logout"))
 
         moreMenu.classList.add("gt2-navbar-dropdown-buttons-added")
 

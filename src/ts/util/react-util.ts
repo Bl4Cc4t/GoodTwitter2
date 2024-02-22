@@ -52,6 +52,23 @@ export function getReactPropByName<T>(element: Element, propName: string, quiet 
     return result[1]
 }
 
+export function getRootReactPropByName<T>(propName: string, quiet = false): T | null {
+    const root = document.querySelector("#react-root")
+    // @ts-ignore
+    const component = root._reactRootContainer._internalRoot.current.child
+
+    let result: [boolean, T | null] = [false, null]
+    result = _getReactPropByName<T>(component.pendingProps, propName)
+
+    if (!result[0])
+        result = _getReactPropByName<T>(component.props || [], propName)
+
+    if (!result[0] && !quiet)
+        _logger.error(`Error getting react prop "${propName}" from element:`, root, component)
+
+    return result[1]
+}
+
 
 function _getReactPropByName<T>(reactProps: ReactProps, propName: string): [boolean, T | null] {
     const emptyResult: [boolean, T | null] = [false, null]

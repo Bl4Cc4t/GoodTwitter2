@@ -17,6 +17,7 @@ import CloseSvg from "@icon/2022/close.svg"
 import MoreHoriz from "@icon/2022/more-horiz.svg"
 import MoonSvg from "@icon/other/moon.svg"
 import CheckSvg from "@icon/2022/check.svg"
+import { addLinkClickHandler } from "../util/location.page"
 
 
 const _logger = new Logger("component/sidebar")
@@ -132,6 +133,8 @@ function addSidebarElements(): void {
             ${getDashboardProfileHtml()}
             ${getLegacyProfileInfoHtml()}`)
         _logger.debug("added static elements to", insertAt)
+
+        addClickHandlersToDashboardProfile()
     }, { waitOnce: false })
 }
 
@@ -230,6 +233,16 @@ function getDashboardProfileHtml(): string {
 
 
 /**
+ * Adds click handlers to the dshboard profile for soft links.
+ */
+function addClickHandlersToDashboardProfile() {
+    _logger.debug("adding click handlers to dashboard profile")
+    document.querySelectorAll(".gt2-dashboard-profile a")
+        .forEach(e => addLinkClickHandler(e))
+}
+
+
+/**
  * Gets the HTML for the legacy profile layout sidebar component
  * @returns the HTML of the legacy profile layout sidebar component
  */
@@ -313,6 +326,7 @@ function handleTrends(): void {
                 .replace(/(^"|"$)/g, "")
 
             toWrap.innerHTML = /*html*/`<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
+            addLinkClickHandler(toWrap.querySelector(".gt2-trend"))
         }
     }, { waitOnce: false })
 }

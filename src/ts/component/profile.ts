@@ -10,6 +10,7 @@ import {
 } from "../util/util"
 import { REGEX } from "../constants"
 import { Settings } from "../util/settings"
+import { addLinkClickHandler } from "../util/location.page"
 
 const _logger = new Logger("component", "profile")
 
@@ -48,70 +49,46 @@ function expandProfileTcoShortlinks() {
  */
 function addLegacyProfileHeaderSkeleton(): void {
     waitForElements("header", header => {
-        if (!document.querySelector(".gt2-legacy-profile-banner")) {
-            header.insertAdjacentHTML("afterend", /*html*/`
-                <div class="gt2-legacy-profile-banner">
-                    <img src="" alt="" />
+        if (document.querySelector(".gt2-legacy-profile-banner"))
+            return
+
+        header.insertAdjacentHTML("afterend", /*html*/`
+            <div class="gt2-legacy-profile-banner">
+                <img src="" alt="" />
+            </div>
+            <div class="gt2-legacy-profile-nav">
+                <div class="gt2-legacy-profile-nav-left">
+                    <div class="gt2-legacy-profile-nav-avatar">
+                        <img src="" alt="" />
+                    </div>
+                    <div>
+                        <div class="gt2-legacy-profile-name"></div>
+                        <div class="gt2-legacy-profile-screen-name-wrap">
+                            <span class="gt2-legacy-profile-screen-name"></span>
+                            <span class="gt2-legacy-profile-follows-you"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="gt2-legacy-profile-nav">
-                    <div class="gt2-legacy-profile-nav-left">
-                        <div class="gt2-legacy-profile-nav-avatar">
-                            <img src="" alt="" />
-                        </div>
-                        <div>
-                            <div class="gt2-legacy-profile-name"></div>
-                            <div class="gt2-legacy-profile-screen-name-wrap">
-                                <span class="gt2-legacy-profile-screen-name"></span>
-                                <span class="gt2-legacy-profile-follows-you"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gt2-legacy-profile-nav-center">
-                        <a class="gt2-legacy-profile-stats-tweets" href="" title="">
-                            <div>${getLocalizedString("statsTweets")}</div>
-                            <div data-gt2-stat-content></div>
-                        </a>
-                        <a class="gt2-legacy-profile-stats-following" href="" title="">
-                            <div>${getLocalizedString("statsFollowing")}</div>
-                            <div data-gt2-stat-content></div>
-                        </a>
-                        <a class="gt2-legacy-profile-stats-followers" href="" title="">
-                            <div>${getLocalizedString("statsFollowers")}</div>
-                            <div data-gt2-stat-content></div>
-                        </a>
-                        <a class="gt2-legacy-profile-stats-likes" href="" title="">
-                            <div>${getLocalizedString("statsLikes")}</div>
-                            <div data-gt2-stat-content></div>
-                        </a>
-                    </div>
-                    <div class="gt2-legacy-profile-nav-right"></div>
-                </div>`)
-
-            // navbar links: tweets & likes
-            waitForElements(`[data-testid=primaryColumn] nav [data-testid="ScrollSnap-List"]`, nav => {
-                addClickHandlerToMockElement(
-                    document.querySelector(".gt2-legacy-profile-stats-tweets"),
-                    nav.querySelector(":scope > div:nth-child(1) a"))
-                addClickHandlerToMockElement(
-                    document.querySelector(".gt2-legacy-profile-stats-likes"),
-                    nav.querySelector(`[href$="/likes"]`))
-            }, { waitOnce: false })
-
-            // navbar links: followers / following tabs
-            waitForElements(`[data-testid=UserName] ~ * [href*="/follow"]`, anchor => {
-                const href = anchor.getAttribute("href")
-                if (href.endsWith("/following")) {
-                    addClickHandlerToMockElement(
-                        document.querySelector(".gt2-legacy-profile-stats-following"),
-                        anchor)
-                }
-                else if (href.endsWith("/followers")) {
-                    addClickHandlerToMockElement(
-                        document.querySelector(".gt2-legacy-profile-stats-followers"),
-                        anchor)
-                }
-            })
-        }
+                <div class="gt2-legacy-profile-nav-center">
+                    <a class="gt2-legacy-profile-stats-tweets" href="" title="">
+                        <div>${getLocalizedString("statsTweets")}</div>
+                        <div data-gt2-stat-content></div>
+                    </a>
+                    <a class="gt2-legacy-profile-stats-following" href="" title="">
+                        <div>${getLocalizedString("statsFollowing")}</div>
+                        <div data-gt2-stat-content></div>
+                    </a>
+                    <a class="gt2-legacy-profile-stats-followers" href="" title="">
+                        <div>${getLocalizedString("statsFollowers")}</div>
+                        <div data-gt2-stat-content></div>
+                    </a>
+                    <a class="gt2-legacy-profile-stats-likes" href="" title="">
+                        <div>${getLocalizedString("statsLikes")}</div>
+                        <div data-gt2-stat-content></div>
+                    </a>
+                </div>
+                <div class="gt2-legacy-profile-nav-right"></div>
+            </div>`)
     })
 }
 
@@ -125,7 +102,8 @@ function rebuildLegacyProfilePage(): void {
     watchForMultipleElementChanges(
         `[data-testid=UserName]`,
         `.gt2-legacy-profile-info`,
-        userNameElement => {
+        userNameElement =>
+    {
         userInfo = getReactPropByName<User>(userNameElement, "user", true)
         if (!userInfo)
             return
@@ -156,26 +134,38 @@ function rebuildLegacyProfilePage(): void {
             .forEach(e => e.replaceChildren(followsYouElement?.cloneNode(true) ?? ""))
 
         // stats
-        const tweetsAnchor = document.querySelector(".gt2-legacy-profile-stats-tweets")
-        tweetsAnchor.setAttribute("href", `/${userInfo.screen_name}`)
-        tweetsAnchor.setAttribute("title", userInfo.statuses_count.humanize())
-        tweetsAnchor.querySelector(`[data-gt2-stat-content]`)
-            .replaceChildren(userInfo.statuses_count.humanizeShort())
-        const followingAnchor = document.querySelector(".gt2-legacy-profile-stats-following")
-        followingAnchor.setAttribute("href", `/${userInfo.screen_name}/following`)
-        followingAnchor.setAttribute("title", userInfo.friends_count.humanize())
-        followingAnchor.querySelector(`[data-gt2-stat-content]`)
-            .replaceChildren(userInfo.friends_count.humanizeShort())
-        const followersAnchor = document.querySelector(".gt2-legacy-profile-stats-followers")
-        followersAnchor.setAttribute("href", `/${userInfo.screen_name}/followers`)
-        followersAnchor.setAttribute("title", userInfo.followers_count.humanize())
-        followersAnchor.querySelector(`[data-gt2-stat-content]`)
-            .replaceChildren(userInfo.followers_count.humanizeShort())
-        const likesAnchor = document.querySelector(".gt2-legacy-profile-stats-likes")
-        likesAnchor.setAttribute("href", `/${userInfo.screen_name}/likes`)
-        likesAnchor.setAttribute("title", userInfo.favourites_count.humanize())
-        likesAnchor.querySelector(`[data-gt2-stat-content]`)
-            .replaceChildren(userInfo.favourites_count.humanizeShort())
+        const statData: {
+            selector: string
+            href: string
+            count: number
+        }[] = [
+            {
+                selector: ".gt2-legacy-profile-stats-tweets",
+                href: `/${userInfo.screen_name}`,
+                count: userInfo.statuses_count
+            }, {
+                selector: ".gt2-legacy-profile-stats-following",
+                href: `/${userInfo.screen_name}/following`,
+                count: userInfo.friends_count
+            }, {
+                selector: ".gt2-legacy-profile-stats-followers",
+                href: `/${userInfo.screen_name}/followers`,
+                count: userInfo.followers_count
+            }, {
+                selector: ".gt2-legacy-profile-stats-likes",
+                href: `/${userInfo.screen_name}/likes`,
+                count: userInfo.favourites_count
+            }
+        ]
+
+        for (const { selector, href, count } of statData) {
+            const anchor = document.querySelector(selector)
+            anchor.setAttribute("href", href)
+            anchor.setAttribute("title", count.humanize())
+            anchor.querySelector(`[data-gt2-stat-content]`)
+                .replaceChildren(count.humanizeShort())
+            addLinkClickHandler(anchor)
+        }
 
         // description (empty)
         if (!userInfo.description || userInfo.description == "") {
@@ -198,7 +188,8 @@ function rebuildLegacyProfilePage(): void {
     watchForMultipleElementChanges(
         `[data-testid=primaryColumn] [data-testid=UserProfileHeader_Items]`,
         `.gt2-legacy-profile-items`,
-        (source, destination) => {
+        (source, destination) =>
+    {
         _logger.debug("found items element")
         destination.replaceChildren(source.cloneNode(true))
 
@@ -227,7 +218,8 @@ function rebuildLegacyProfilePage(): void {
     watchForMultipleElementChanges(
         `[data-testid=primaryColumn] [data-testid=UserDescription]`,
         `.gt2-legacy-profile-description`,
-        (source, destination) => {
+        (source, destination) =>
+    {
         _logger.debug("found description element", source, destination)
         destination.replaceChildren(source.cloneNode(true))
 
@@ -259,7 +251,8 @@ function rebuildLegacyProfilePage(): void {
     watchForMultipleElementChanges(
         `[data-testid=primaryColumn] [href$="/followers_you_follow"]`,
         `.gt2-legacy-profile-followers-you-follow`,
-        (source, destination) => {
+        (source, destination) =>
+    {
         _logger.debug("found followers you follow element")
         destination.replaceChildren(source.cloneNode(true))
     }, {
