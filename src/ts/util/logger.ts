@@ -52,4 +52,4 @@ export class Logger {
 /**
  * "Singleton" of the logger, used for general purposes.
  */
-export const logger = new Logger()
+export const globalLogger = new Logger()

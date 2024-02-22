@@ -6,7 +6,7 @@ import { overrideFunctions } from "./util/overrides"
 import { initializeLocation } from "./util/location"
 import "./util/extension"
 import "../style/main.scss"
-import { logger } from "./util/logger"
+import { globalLogger } from "./util/logger"
 import { initializeNavbar } from "./component/navbar"
 import { initializeSidebar } from "./component/sidebar"
 import { watchForTweets } from "./util/timeline"
@@ -27,7 +27,7 @@ import { initializeProfile } from "./component/profile"
 
     // add settings to body
     Settings.setAllInDom()
-    logger.debug("set all settings in the dom")
+    globalLogger.debug("set all settings in the dom")
 
     // basic
     overrideFunctions()

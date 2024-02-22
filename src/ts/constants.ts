@@ -1,4 +1,4 @@
-import { logger } from "./util/logger"
+import { globalLogger } from "./util/logger"
 
 
 export const RESOURCE = {
@@ -30,7 +30,7 @@ export const REGEX = {
     EMOJI: (() => {
         let text = GM_getResourceText(RESOURCE.EMOJI_REGEX)
         if (!text || text.length == 0) {
-            logger.error(`error getting resource ${RESOURCE.EMOJI_REGEX}`)
+            globalLogger.error(`error getting resource ${RESOURCE.EMOJI_REGEX}`)
             return null
         }
         return new RegExp(`(${text})`, "gu")

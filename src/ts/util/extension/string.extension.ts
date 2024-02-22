@@ -1,6 +1,6 @@
 import { REGEX } from "../../constants"
 import { Settings } from "../settings"
-import { logger } from "../logger"
+import { globalLogger } from "../logger"
 
 export {}
 
@@ -136,7 +136,7 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities):
     // reason: multiple > 0xFFFF codepoint emojis are counted wrong: all but the first emoji have their length reduced by 1.
     // also, if any emoji > 0xFFFF precedes a url, the indices of the url are misaligned by -1.
     if (!REGEX.EMOJI) {
-        logger.error("error with emoji-regex.txt.")
+        globalLogger.error("error with emoji-regex.txt.")
     } else {
         let match: RegExpMatchArray | null
         let counter = 0
@@ -186,7 +186,7 @@ String.prototype.populateWithEntities = function(entities: TwitterApi.Entities):
 
 String.prototype.replaceEmojis = function(): string {
     if (!REGEX.EMOJI) {
-        logger.error("error with emoji-regex.txt.")
+        globalLogger.error("error with emoji-regex.txt.")
         return this
     }
 
