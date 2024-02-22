@@ -239,6 +239,8 @@ function dropdownToggledHandler(): void {
 
     // add elements to navbar dropdown menu
     waitForElements("#layers [data-testid=Dropdown]", moreMenu => {
+        moreMenu.closest(`[role=menu]`).classList.add("gt2-navbar-dropdown")
+
         // separator line
         let separatorHtml = moreMenu.querySelector("[role=separator]")
             ?.parentElement?.outerHTML ?? ""

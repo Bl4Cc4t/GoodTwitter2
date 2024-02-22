@@ -160,11 +160,11 @@
 
 
 // navbar dropdown
-#{$navbar-dropdown} {
+.gt2-navbar-dropdown {
     max-height: calc(100vh - 54px - 10px) !important;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    top: 54px;
+    top: 54px !important;
 
     > ::-webkit-scrollbar {
         display: none;

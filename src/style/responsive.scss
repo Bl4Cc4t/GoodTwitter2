@@ -21,7 +21,7 @@
             margin-right: space(1318px);
         }
 
-        #{$navbar-dropdown} {
+        .gt2-navbar-dropdown {
             right: space(1320px) !important;
         }
 
@@ -98,7 +98,7 @@
             margin-right: space(1198px);
         }
 
-        #{$navbar-dropdown} {
+        .gt2-navbar-dropdown {
             right: space(1200px) !important;
         }
 
@@ -170,7 +170,7 @@ and (min-width: 1095px) {
             margin-right: space(958px);
         }
 
-        #{$navbar-dropdown} {
+        .gt2-navbar-dropdown {
             right: space(960px) !important;
         }
 
@@ -236,7 +236,7 @@ and (min-width: 1095px) {
         padding-right: 300px;
     }
 
-    #{$navbar-dropdown} {
+    .gt2-navbar-dropdown {
         right: space(900px) !important;
     }
 
@@ -372,7 +372,7 @@ and (min-width: 1005px) {
         margin-right: space(598px);
     }
 
-    #{$navbar-dropdown} {
+    .gt2-navbar-dropdown {
         right: space(600px) !important;
     }
 
