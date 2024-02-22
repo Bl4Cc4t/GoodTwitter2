@@ -154,6 +154,13 @@ export const BREAKPOINTS = {
     SMALL: 0
 }
 
+
+/**
+ * The top offset in px.
+ */
+export const GLOBAL_TOP_OFFSET = 57
+
+
 /**
  * Sidebar visibility enum.
  */

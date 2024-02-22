@@ -1,3 +1,4 @@
+import { GLOBAL_TOP_OFFSET } from "../constants"
 import { onLocationChange } from "./location"
 
 
@@ -41,5 +42,19 @@ export function overrideFunctions(): void {
     History.prototype.replaceState = function() {
         History_replace.apply(this, arguments)
         onLocationChange("replace")
+    }
+
+    // adjust scrollBy with GLOBAL_TOP_OFFSET
+    const window_scrollBy = unsafeWindow.scrollBy
+    unsafeWindow.scrollBy = function() {
+        if (arguments.length == 2) {
+            const x = arguments[0]
+            const y = arguments[1] - GLOBAL_TOP_OFFSET
+            window_scrollBy.apply(this, [x, y])
+        } else {
+            const options = arguments[0]
+            options.top -= GLOBAL_TOP_OFFSET
+            window_scrollBy.apply(this, [options])
+        }
     }
 }
