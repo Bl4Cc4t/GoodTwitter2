@@ -270,7 +270,11 @@ export function addClickHandlerToMockElement(mockElement: Element, originalEleme
     mockElement.addEventListener("click", (event: MouseEvent) => {
         if (!event.ctrlKey && originalElement != null) {
             event.preventDefault()
-            originalElement.dispatchEvent(new MouseEvent("click", { bubbles: true }))
+
+            if (originalElement.onclick)
+                originalElement.click()
+            else
+                originalElement.dispatchEvent(new MouseEvent("click", { bubbles: true }))
 
             if (callback)
                 callback()
