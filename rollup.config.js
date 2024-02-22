@@ -68,10 +68,10 @@ export default {
                     "api.twitter.com"
                 ],
                 require: [
-                    `releases/download/v${pkg.version}/twitter.gt2eb.i18n.js`
+                    `releases/download/v${pkg.version}/goodtwitter2.i18n.js`
                 ],
                 resource: {
-                    css: `releases/download/v${pkg.version}/twitter.gt2eb.style.css`,
+                    css: `releases/download/v${pkg.version}/goodtwitter2.style.css`,
                     // emojiRegex: "raw/master/static/emoji-regex.txt"
                     emojiRegex: "raw/master/data/emoji-regex.txt"
                 }
