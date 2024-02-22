@@ -108,7 +108,7 @@ function addNavbar(): void {
         addBird()
 
         // handler for compose tweet button
-        let composeTweetOrig = document.querySelector<HTMLElement>("header a[href='/compose/tweet'] > div")
+        let composeTweetOrig = document.querySelector<HTMLElement>("header a[href*='/compose/'] > div")
         let composeTweetMock = document.querySelector<HTMLElement>(".gt2-nav .gt2-compose")
         addClickHandlerToMockElement(composeTweetMock, composeTweetOrig)
 

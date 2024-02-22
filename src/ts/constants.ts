@@ -55,7 +55,8 @@ export const MODAL_PAGES: Path = {
         "switch"
     ],
     "compose": [
-        "tweet"
+        "tweet",
+        "post"
     ],
     "i": [
         "display",
