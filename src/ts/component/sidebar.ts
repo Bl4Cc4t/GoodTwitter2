@@ -43,14 +43,14 @@ export function initializeSidebar(): void {
         if ((sel & 1) == 1) {
             waitForElements(`div[data-testid=sidebarColumn] aside [data-testid=UserCell]`, e => {
                 e.closest("aside").parentElement.remove()
-            }, false)
+            }, { waitOnce: false })
         }
 
         // topic suggestions
         if ((sel & 2) == 2) {
             waitForElements(`div[data-testid=sidebarColumn] section [href^="/i/topics/"]`, e => {
                 e.closest("section").parentElement.parentElement.remove()
-            }, false)
+            }, { waitOnce: false })
         }
     }
 
@@ -59,7 +59,7 @@ export function initializeSidebar(): void {
         console.log(container.dataset.noticeId)
         dismissSidebarNotice(container.dataset.noticeId)
         container.remove()
-    }), false)
+    }), { waitOnce: false })
 
     waitForElements(".gt2-toggle-acc-switcher-dropdown", button => {
         const original = document.querySelector<HTMLElement>(`[data-testid=SideNav_AccountSwitcher_Button]`)
@@ -79,7 +79,7 @@ export function initializeSidebar(): void {
                 card.insertAdjacentHTML("beforebegin", style)
             })
         })
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -96,7 +96,7 @@ function addLeftSidebar(): void {
                 <div class="gt2-left-sidebar"></div>
             </div>`)
         _logger.debug("added left sidebar")
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -110,7 +110,7 @@ function addRightSidebar(): void {
 
         container.insertAdjacentHTML("afterbegin", /*html*/`<div class="gt2-right-sidebar"></div>`)
         _logger.debug("added right sidebar")
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -132,7 +132,7 @@ function addSidebarElements(): void {
             ${getDashboardProfileHtml()}
             ${getLegacyProfileInfoHtml()}`)
         _logger.debug("added static elements to", insertAt)
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -314,7 +314,7 @@ function handleTrends(): void {
 
             toWrap.innerHTML = /*html*/`<a class="gt2-trend" href="/search?q=${text.includes("#") ? query : `%22${query}%22`}">${text}</a>`
         }
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -391,7 +391,7 @@ function handleProfileMedia(): void {
             .parentElement
             .parentElement
         container.replaceChildren(mediaElement)
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -403,7 +403,7 @@ function handleListenLiveInSpaces() {
             return
 
         handleSidebarNotice(e.parentElement, key)
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -415,7 +415,7 @@ function handleGetVerified() {
             return
 
         handleSidebarNotice(container, key)
-    }, false)
+    }, { waitOnce: false })
 }
 
 

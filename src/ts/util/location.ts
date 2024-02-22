@@ -68,7 +68,9 @@ function watchTitle(): void {
             }
         }
     }, {
-        attributes: false
+        mutationObserverOptions: {
+            attributes: false
+        }
     })
 }
 
@@ -188,7 +190,7 @@ export function onLocationChange(type: string): void {
         if (!onPage({ settings: ["gt2"] })) {
             setErrorPage()
         }
-    }, false)
+    }, { waitOnce: false })
 
     // tweet
     if (onPage({

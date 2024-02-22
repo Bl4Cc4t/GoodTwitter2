@@ -46,7 +46,7 @@ function addInlineTranslateTweetButton(): void {
                 </div>`)
             _logger.debug("added translate button to element: ", e)
         }
-    }, false)
+    }, { waitOnce: false })
 }
 
 

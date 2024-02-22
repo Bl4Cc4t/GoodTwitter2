@@ -69,7 +69,7 @@ function expandTweetTcoShortlinks(): void {
     const selector = `
         article[data-testid=tweet] a[href^="http://t.co"],
         article[data-testid=tweet] a[href^="https://t.co"]`
-    waitForElements(selector, expandTweetTcoShortlink, false)
+    waitForElements(selector, expandTweetTcoShortlink, { waitOnce: false })
 }
 
 
@@ -99,5 +99,5 @@ function hideMoreTweets() {
             _logger.debug(`Removed tweet from "More tweets" section: `, entry.entryId)
             cell.remove()
         }
-    }, false)
+    }, { waitOnce: false })
 }

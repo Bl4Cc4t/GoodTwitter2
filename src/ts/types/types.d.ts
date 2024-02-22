@@ -69,3 +69,26 @@ declare interface UserInfo {
         following: number
     }
 }
+
+
+/**
+ * Options for the waitForElements function
+ */
+interface WaitForElementOptions {
+    /**
+     * An optional element to apply the querySelectorAll on
+     */
+    parentElement?: Element,
+    /**
+     * Execute the callback only once or continue to search for new elements even after the first match is found. The default is true.
+     */
+    waitOnce?: boolean,
+    /**
+     * An optional abort signal for the operation.
+     */
+    signal?: AbortSignal,
+    /**
+     * Optional options for the mutation observer.
+     */
+    mutationObserverOptions?: MutationObserverInit
+}

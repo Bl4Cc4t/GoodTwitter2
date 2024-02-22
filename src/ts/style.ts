@@ -19,7 +19,7 @@ export function initializeStyle(): void {
         let bgColor = getComputedStyle(e).backgroundColor.replace(/rgb\((.*)\)/, "$1")
         document.documentElement.style.setProperty("--color-raw-accent-normal", bgColor)
         _logger.debug(`set --color-raw-accent-normal to "${bgColor}"`)
-    }, false)
+    }, { waitOnce: false })
 
     // font size
     watchForElementChanges(`html[style*="font-size"]`, e => {
@@ -50,7 +50,7 @@ export function initializeStyle(): void {
 
             // assume dim-hc
             else setTheme("dim-hc")
-        }, false)
+        }, { waitOnce: false })
     }
 
     // not logged in
@@ -201,7 +201,7 @@ function showMediaWithContentWarnings(): void {
                 tweetArticle.setAttribute("data-gt2-show-media", "1")
             }
         }
-    }, false)
+    }, { waitOnce: false })
 }
 
 

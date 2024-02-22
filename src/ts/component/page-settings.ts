@@ -45,7 +45,7 @@ export function addSettingsMenuEntry(): void {
                 hideSettings()
             })
         }
-    }, false)
+    }, { waitOnce: false })
 }
 
 

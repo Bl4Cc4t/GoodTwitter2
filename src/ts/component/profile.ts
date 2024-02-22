@@ -89,16 +89,13 @@ function addLegacyProfileHeaderSkeleton(): void {
 
             // navbar links: tweets & likes
             waitForElements(`[data-testid=primaryColumn] nav [data-testid="ScrollSnap-List"]`, nav => {
-
                 addClickHandlerToMockElement(
                     document.querySelector(".gt2-legacy-profile-stats-tweets"),
-                    nav.querySelector(":scope > div:nth-child(1) a")
-                )
+                    nav.querySelector(":scope > div:nth-child(1) a"))
                 addClickHandlerToMockElement(
                     document.querySelector(".gt2-legacy-profile-stats-likes"),
-                    nav.querySelector(`[href$="/likes"]`)
-                )
-            }, false)
+                    nav.querySelector(`[href$="/likes"]`))
+            }, { waitOnce: false })
 
             // navbar links: followers / following tabs
             waitForElements(`[data-testid=UserName] ~ * [href*="/follow"]`, anchor => {
@@ -106,14 +103,12 @@ function addLegacyProfileHeaderSkeleton(): void {
                 if (href.endsWith("/following")) {
                     addClickHandlerToMockElement(
                         document.querySelector(".gt2-legacy-profile-stats-following"),
-                        anchor
-                    )
+                        anchor)
                 }
                 else if (href.endsWith("/followers")) {
                     addClickHandlerToMockElement(
                         document.querySelector(".gt2-legacy-profile-stats-followers"),
-                        anchor
-                    )
+                        anchor)
                 }
             })
         }
@@ -192,7 +187,12 @@ function rebuildLegacyProfilePage(): void {
         if (buttons) {
             document.querySelector(".gt2-legacy-profile-nav-right").replaceChildren(buttons)
         }
-    }, { subtree: true }, false)
+    }, {
+        waitOnce: false,
+        mutationObserverOptions: {
+            subtree: true
+        }
+    })
 
     // items
     watchForMultipleElementChanges(
@@ -216,7 +216,12 @@ function rebuildLegacyProfilePage(): void {
                 professionalCategory,
                 source.querySelector(`[data-testid=UserProfessionalCategory] [role=button]`))
         }
-    }, { subtree: true }, false)
+    }, {
+        waitOnce: false,
+        mutationObserverOptions: {
+            subtree: true
+        }
+    })
 
     // description
     watchForMultipleElementChanges(
@@ -241,7 +246,12 @@ function rebuildLegacyProfilePage(): void {
                 a.addEventListener("click", onClick)
             }
         })
-    }, { subtree: true }, false)
+    }, {
+        waitOnce: false,
+        mutationObserverOptions: {
+            subtree: true
+        }
+    })
 
     // followers you follow
     document.querySelector(".gt2-legacy-profile-followers-you-follow")
@@ -252,5 +262,10 @@ function rebuildLegacyProfilePage(): void {
         (source, destination) => {
         _logger.debug("found followers you follow element")
         destination.replaceChildren(source.cloneNode(true))
-    }, { subtree: true }, false)
+    }, {
+        waitOnce: false,
+        mutationObserverOptions: {
+            subtree: true
+        }
+    })
 }

@@ -98,7 +98,9 @@ function addNavbar(): void {
                 addOrUpdateNavbarElement(elem.selector, elem.localizedString)
                 highlightNavbarLocation()
             }, {
-                subtree: true
+                mutationObserverOptions: {
+                    subtree: true
+                }
             })
         }
 
@@ -113,7 +115,7 @@ function addNavbar(): void {
         // handler for dropdown button
         document.querySelector(".gt2-toggle-navbar-dropdown")
             .addEventListener("click", dropdownToggledHandler)
-    }, false)
+    }, { waitOnce: false })
 }
 
 
@@ -187,8 +189,8 @@ function addSearch(): void {
             let hadInput = mockSearch.querySelector("input") != null
             mockSearch.replaceChildren(searchContainer)
             _logger.debug(hadInput ? "updated search in navbar" : "added search to navbar")
-        }, false)
-    }, false)
+        }, { waitOnce: false })
+    }, { waitOnce: false })
 }
 
 

@@ -83,72 +83,46 @@ export function getLocalizedReplaceableString<K extends keyof I18nReplaceable, V
  * Heavily based on https://gist.github.com/BrockA/2625891 but without jQuery.
  * @param selector a valid CSS selector string
  * @param callback the callback function to execute. Gets passed the added element node
- * @param waitOnce if set to false, continue to search for new elements even after the first match is found
- * @param iframeSelector a valid CSS selector string for an iframe to search elements in
  */
 export function waitForElements(
     selector: string,
     callback: (e: HTMLElement) => void,
-    waitOnce = true,
-    iframeSelector?: string
-): () => void {
-    let targetNodes: NodeListOf<HTMLElement>
-    let targetsFound = false
-    const WAIT_TIME_MS = 300
+    options: WaitForElementOptions = {}
+) {
+    const parentElement = options.parentElement ?? document.documentElement
+    const waitOnce = typeof options.waitOnce == "undefined" ? true : options.waitOnce
 
-    // get the target nodes
-    if (typeof iframeSelector == "undefined") {
-        targetNodes = document.querySelectorAll(selector)
-    }
-    // get nodes from iframe
-    else {
-        let iframe = document.querySelector<HTMLIFrameElement>(iframeSelector)
-        if (!iframe) return
-        else {
-            targetNodes = iframe.contentDocument.querySelectorAll(selector)
+    let results = parentElement.querySelectorAll<HTMLElement>(selector)
+    forEachNode(results, callback)
+
+    const observer = new MutationObserver(() => {
+        results = parentElement.querySelectorAll<HTMLElement>(selector)
+
+        if (results.length > 0) {
+            if (waitOnce)
+                observer.disconnect()
+
+            forEachNode(results, callback)
         }
-    }
+    })
 
-    if (targetNodes && targetNodes.length > 0) {
-        targetsFound = true
+    observer.observe(parentElement, {
+        childList: true,
+        subtree: true,
+        ...(options.mutationObserverOptions ?? {})
+    })
 
-        // loop over all nodes and execute the callback function
-        targetNodes.forEach(node => {
-            if (!node.alreadyFound) {
-                callback(node)
-                node.alreadyFound = true
-            }
-        })
-    }
+    options.signal?.addEventListener("abort", () => observer.disconnect())
+}
 
-    // get the timer-control variable for this selector
-    let controlObj = unsafeWindow.controlObj || {}
-    let controlKey = selector.replace(/\s/g, "")
-    let timeControl = controlObj[controlKey]
 
-    function teardown() {
-        _logger.debug("teardown of:", controlKey)
-        clearInterval(timeControl)
-        delete controlObj[controlKey]
-        targetNodes.forEach(e => e.alreadyFound = false)
-    }
-
-    // now set or clear the timer as appropriate
-    if (targetsFound && waitOnce && timeControl) {
-        // the only condition where we need to clear the timer
-        teardown()
-    }
-
-    // set a timer, if needed
-    else if (!timeControl) {
-        timeControl = setInterval(() => {
-            waitForElements(selector, callback, waitOnce, iframeSelector)
-        }, WAIT_TIME_MS)
-        controlObj[controlKey] = timeControl
-    }
-    unsafeWindow.controlObj = controlObj
-
-    return teardown
+function forEachNode(results: NodeListOf<HTMLElement>, callback: (e: HTMLElement) => void) {
+    results.forEach(node => {
+        if (!node.alreadyFound) {
+            callback(node)
+            node.alreadyFound = true
+        }
+    })
 }
 
 
@@ -162,11 +136,13 @@ export function waitForElements(
 export function watchForElementChanges(
     selector: string,
     callback: (e: HTMLElement) => void,
-    options?: MutationObserverInit,
-    waitOnce = true
-): () => void {
+    options: WaitForElementOptions = {}
+) {
     let observer: MutationObserver
-    const teardown = waitForElements(selector, element => {
+    const observerOptions = options.mutationObserverOptions ?? {}
+    options.mutationObserverOptions = {}
+
+    waitForElements(selector, element => {
         callback(element)
 
         if (observer)
@@ -179,15 +155,11 @@ export function watchForElementChanges(
         observer.observe(element, {
             attributes: true,
             childList: true,
-            ...options
+            ...observerOptions
         })
-    }, waitOnce)
+    }, options)
 
-    return () => {
-        teardown()
-        if (observer)
-            observer.disconnect()
-    }
+    options.signal?.addEventListener("abort", () => observer?.disconnect())
 }
 
 
@@ -206,29 +178,25 @@ export function watchForMultipleElementChanges(
     sourceSelector: string,
     destinationSelector: string,
     callback: ((source: HTMLElement, destination: HTMLElement) => void),
-    options?: MutationObserverInit,
-    waitOnce = true
-): () => void {
-    let destination: HTMLElement
+    sourceOptions: WaitForElementOptions = {},
+    destinationOptions: WaitForElementOptions = {}
+) {
     let source: HTMLElement
+    let destination: HTMLElement
 
-    let destinationTeardown = waitForElements(destinationSelector, e => {
-        destination = e
-        if (source)
-            callback(source, destination)
-    }, waitOnce)
-
-    let sourceTeardown = watchForElementChanges(sourceSelector, e => {
+    watchForElementChanges(sourceSelector, e => {
         source = e
         if (destination)
             callback(source, destination)
-        else console.error(source, destination)
-    }, options, waitOnce)
+        else
+            console.error(source, destination)
+    }, sourceOptions)
 
-    return () => {
-        sourceTeardown()
-        destinationTeardown()
-    }
+    waitForElements(destinationSelector, e => {
+        destination = e
+        if (source)
+            callback(source, destination)
+    }, destinationOptions)
 }
 
 
