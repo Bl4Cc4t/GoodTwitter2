@@ -261,10 +261,7 @@ body:not(.gt2-opt-font-override) {
 // hide message box (bottom right)
 .gt2-opt-hide-message-box {
     div[data-testid=DMDrawer] {
-        border-width: 0;
-        box-shadow: unset;
-        height: 0;
-        z-index: -1;
+        display: none;
     }
 }
 
