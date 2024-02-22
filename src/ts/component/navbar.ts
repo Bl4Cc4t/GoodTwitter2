@@ -1,3 +1,4 @@
+import { onModal } from "../util/location.page"
 import { Logger } from "../util/logger"
 import {
     addClickHandlerToMockElement,
@@ -95,8 +96,10 @@ function addNavbar(): void {
         for (let elem of navbarElementsToAdd) {
             // check for updates
             watchForElementChanges(`header ${elem.selector}`, () => {
-                addOrUpdateNavbarElement(elem.selector, elem.localizedString)
-                highlightNavbarLocation()
+                if (!onModal()) {
+                    addOrUpdateNavbarElement(elem.selector, elem.localizedString)
+                    highlightNavbarLocation()
+                }
             }, {
                 mutationObserverOptions: {
                     subtree: true
