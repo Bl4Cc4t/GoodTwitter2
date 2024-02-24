@@ -12,7 +12,7 @@ twitter-default:
   contentWarningViolence: Violència
   contentWarningSensitiveContent: Contingut sensible
   joinDate: Data en què s'hi va unir: $date$
-  moreTweets: Data en què s'hi va unir: $date$
+  moreTweets: Més tuits
   navBookmarks: Preferits
   navCommunities: Comunitats
   navMessages: Missatges
@@ -69,7 +69,7 @@ settings:
     showMediaWithContentWarnings: Mostra sempre el contingut mutlimèdia amb advertències
     hideTweetAnalytics: Amaga les estadístiques públiques dels tuits
     hideMoreTweets: Amaga la secció “Més tuits” a les pàgines del tuits
-    hideMoreTweetsDesc: Aquests tuits adicionals no tenen res a veure amb el tuit actual i solament mostren tuit en tendència per omplir espai buit.
+    hideMoreTweetsDesc: Aquests tuits adicionals no tenen res a veure amb el tuit actual i solament mostren tuits en tendència per omplir espai buit.
 
   sidebars:
     stickySidebars: Barres laterals enganxoses
