@@ -1,0 +1,109 @@
+# catalan language file
+#
+# information
+# - $test$ <- these are placeholders, please don't change them when translating.
+# - untranslated strings are commented with "TODO translation missing!"
+
+
+# strings that are used on the site already.
+twitter-default:
+  composeNewTweet: Tuiteja
+  contentWarningNudity: Nuesa
+  contentWarningViolence: Violència
+  contentWarningSensitiveContent: Contingut sensible
+  joinDate: Data en què s'hi va unir: $date$
+  moreTweets: Més tuits
+  navBookmarks: Preferits
+  navCommunities: Comunitats
+  navMessages: Missatges
+  navExplore: Explora
+  navHome: Inici
+  navLists: Llistes
+  navNotifications: Notificacions
+  navProfile: Perfil
+  navSettings: Settings
+  statsFollowers: Seguidors
+  statsFollowing: Seguint
+  statsLikes: Agradaments
+  statsMoments: Moments
+  statsTweets: Tuits
+  topics: Temes
+  translateTweet: Tradueix el tuit
+  users: Usuaris
+
+
+# strings that are used on various parts within the script.
+script:
+  bornDate: Data de naixement: $date$
+  bornYear: Any de naixement: $year$
+  favorite: Favorit
+  favorites: Favorits
+  followedBy0: No el segueix ningú que segueixis
+  followedBy1: Seguit per l'usuari $p1$
+  followedBy2: Seguit pels usuaris $p1$ i $p2$
+  followedBy3: Seguit pels usuaris $p1$, $p2$ i $p3$
+  followedBy4Plus: Seguit pels usuaris $p1$, $p2$ i per $nr$ usuaris més que segueixes
+  translatedTweetInfo: Traduït del $lang$ per $source$
+  updatedInfo: Actualitzat a la versió $version$!
+  updatedInfoChangelog: Registre de cambis
+
+
+# these strings are for the gt2 settings page.
+settings:
+  headers:
+    settingsHeaderTimeline: Cronologia
+    settingsHeaderSidebars: Barres laterals
+    settingsHeaderGlobalLook: Aparença general
+    settingsHeaderOther: Altres
+
+  timeline:
+    forceLatest: Força “Seguint” com a cronologia per omissió
+    forceLatestDesc: Amb aquesta preferència activa, la pestanya “Seguint” estarà seleccionada sempre que visitis /home.
+    biggerPreviews: Previsualitzacions d'imatge més grans
+    biggerPreviewsDesc: Les imatges altes dels tuits es mostren amb la seva altura completa.
+
+  tweets:
+    hideTranslateTweetButton: Amaga el botó “Tradueix el Tuit”
+    tweetIconsPullLeft: Mou els botons per interactuar amb tuits a l'esquerra
+    hidePromoteTweetButton: Amaga el botó “Promociona el tweet”
+    showMediaWithContentWarnings: Mostra sempre el contingut mutlimèdia amb advertències
+    hideTweetAnalytics: Amaga les estadístiques públiques dels tuits
+    hideMoreTweets: Amaga la secció “Més tuits” a les pàgines del tuits
+    hideMoreTweetsDesc: Aquests tuits adicionals no tenen res a veure amb el tuit actual i solament mostren tuits en tendència per omplir espai buit.
+
+  sidebars:
+    stickySidebars: Barres laterals enganxoses
+    smallSidebars: Barres laterals petites
+    smallSidebarsDesc: Barres laterals de 290px en comptes de barres laterals amples de 350px.
+    hideTrends: Amaga les tendències
+    leftTrends: Tendències de la barra lateral esquerra
+    leftTrendsDesc: Mostra les tendències a la barra lateral esquerra.
+    show5Trends: Mostra sempre 5 tendències
+
+  profile:
+    legacyProfile: Antic disseny de perfil
+    squareAvatars: Avatars quadrats
+    disableHexagonAvatars: Desactiva els avatars hexagonals
+    leftMedia: Multimèdia a la barra lateral esquerra
+    leftMediaDesc: Mostra el contenidor de multimèdia dels perfils a la barra lateral esquerra.
+    profileMediaRedirect: Redirecciona a /media quan visitis pàgines de perfil
+
+  global-look:
+    hideFollowSuggestions: Amaga les sugerències de seguiment (Temes, usuaris i llistes)
+    hideFollowSuggestionsBox: Amaga $type$ de $location$
+    fontOverride: Utilitza una font personalitzada
+    fontOverrideDesc: Extableix una font personalitzada que substitueixi la preestablerta. Només funciona si tens la font instal·lada.
+    colorOverride: Utilitza un color personalitzat
+    colorOverrideDesc: Estableix un color personalitzat que substitueixi el preestablert.
+    hideMessageBox: Amaga la caixa de missatges
+    hideMessageBoxDesc: Amaga el quadre de missatge nou, sempre present, del extrem inferior dret.
+    rosettaIcons: Icones de Rosetta
+    rosettaIconsDesc: Utilitza Rosetta, la font d'icones d'abans de 2017
+    favoriteLikes: Substitueix agradaments amb favorits (només icones de moment)
+    birdIcon: Mostra l'icona normal de Twiter en comptes de mems del 2010
+    birdIconDesc: També canvia el “favicon”.
+
+  other:
+    updateNotifications: Notificacions d'actualitzacions de GoodTwitter 2
+    expandTcoShortlinks: Expandeix els enllaços curts t.co
+    mobileRedirect: Redirecciona URLs mòvils
