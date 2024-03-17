@@ -76,7 +76,7 @@ export default {
                 resource: {
                     css: `releases/download/v${pkg.version}/goodtwitter2.style.css`,
                     // emojiRegex: "raw/master/static/emoji-regex.txt"
-                    emojiRegex: "raw/master/data/emoji-regex.txt"
+                    emojiRegex: "https://raw.githubusercontent.com/Bl4Cc4t/GoodTwitter2/master/data/emoji-regex.txt"
                 }
             }
         })
