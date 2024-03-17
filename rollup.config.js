@@ -64,6 +64,9 @@ export default {
                     "https://twitter.com/*/tos",
                     "https://twitter.com/account/access"
                 ],
+                grant: [
+                    "GM_addElement"
+                ],
                 connect: [
                     "api.twitter.com"
                 ],

@@ -1699,10 +1699,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tampermonkey@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "@types/tampermonkey@npm:4.0.5"
-  checksum: 8f7f7b80c412d807863018eed34075eca668580923097e74a97ad89e87768051ca58d26f27a6f0c776c4ef6f4b4b5e33c8388bf42aaa05c5752d34f667331da0
+"@types/tampermonkey@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@types/tampermonkey@npm:5.0.2"
+  checksum: 12f71405e8d21df0630760b81efab58966cdf97f990b94698d67c26f9f5b641a47e2ef3b03a1ed6e289613c4b9f0b2a2b68ff8c5c00402bda48119f9a89c922a
   languageName: node
   linkType: hard
 
@@ -1721,7 +1721,7 @@ __metadata:
     "@simonwep/pickr": ^1.8.2
     "@types/browserify": ^12.0.37
     "@types/node": ^18.7.8
-    "@types/tampermonkey": ^4.0.5
+    "@types/tampermonkey": ^5.0.2
     autoprefixer: ^10.4.8
     babel-plugin-module-resolver: ^5.0.0
     core-js: ^3.24.1

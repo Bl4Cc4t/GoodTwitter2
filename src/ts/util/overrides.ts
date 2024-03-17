@@ -45,16 +45,19 @@ export function overrideFunctions(): void {
     }
 
     // adjust scrollBy with GLOBAL_TOP_OFFSET
-    const window_scrollBy = unsafeWindow.scrollBy
-    unsafeWindow.scrollBy = function() {
-        if (arguments.length == 2) {
-            const x = arguments[0]
-            const y = arguments[1] - GLOBAL_TOP_OFFSET
-            window_scrollBy.apply(this, [x, y])
-        } else {
-            const options = arguments[0]
-            options.top -= GLOBAL_TOP_OFFSET
-            window_scrollBy.apply(this, [options])
-        }
-    }
+    GM_addElement("script", {
+        textContent: /*javascript*/`
+            const window_scrollBy = window.scrollBy
+            window.scrollBy = function() {
+                if (arguments.length == 2) {
+                    const x = arguments[0]
+                    const y = arguments[1] - ${GLOBAL_TOP_OFFSET}
+                    window_scrollBy.apply(this, [x, y])
+                } else {
+                    const options = arguments[0]
+                    options.top -= ${GLOBAL_TOP_OFFSET}
+                    window_scrollBy.apply(this, [options])
+                }
+            }`
+    })
 }
