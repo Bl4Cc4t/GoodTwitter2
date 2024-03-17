@@ -188,8 +188,6 @@ export function watchForMultipleElementChanges(
         source = e
         if (destination)
             callback(source, destination)
-        else
-            console.error(source, destination)
     }, sourceOptions)
 
     waitForElements(destinationSelector, e => {

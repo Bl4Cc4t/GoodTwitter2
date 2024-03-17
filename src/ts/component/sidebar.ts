@@ -438,7 +438,7 @@ function handleSidebarNotice(container: HTMLElement, key: string) {
     container.dataset.noticeId = key
 
     if (isSidebarNoticeDismissed(key)) {
-        _logger.debug("removing sidebar notice with key: ", key)
+        _logger.debug(`removing sidebar notice with key "${key}"`)
         container.remove()
         return
     }
