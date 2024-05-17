@@ -19,9 +19,9 @@ import { initializeProfile } from "./component/profile"
     if (!isLoggedIn() && location.pathname == "") return
 
     // redirect for mobile urls
-    if (location.host == "mobile.twitter.com") {
+    if (location.host.startsWith("mobile.")) {
         if (Settings.get("mobileRedirect")) {
-            location.href = location.href.replace("//mobile.twitter.com", "//twitter.com")
+            location.href = location.href.replace("//mobile.", "//")
         } else return
     }
 

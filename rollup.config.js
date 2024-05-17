@@ -55,20 +55,28 @@ export default {
                 "run-at": "document-body",
                 match: [
                     "https://twitter.com/*",
-                    "https://mobile.twitter.com/*"
+                    "https://mobile.twitter.com/*",
+                    "https://x.com/*",
+                    "https://mobile.x.com/*"
                 ],
                 exclude: [
                     "https://twitter.com/i/cards/*",
                     "https://twitter.com/i/release_notes",
                     "https://twitter.com/*/privacy",
                     "https://twitter.com/*/tos",
-                    "https://twitter.com/account/access"
+                    "https://twitter.com/account/access",
+                    "https://x.com/i/cards/*",
+                    "https://x.com/i/release_notes",
+                    "https://x.com/*/privacy",
+                    "https://x.com/*/tos",
+                    "https://x.com/account/access"
                 ],
                 grant: [
                     "GM_addElement"
                 ],
                 connect: [
-                    "api.twitter.com"
+                    "api.twitter.com",
+                    "api.x.com"
                 ],
                 require: [
                     `releases/download/v${pkg.version}/goodtwitter2.i18n.js`
