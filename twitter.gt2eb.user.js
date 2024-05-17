@@ -1,16 +1,23 @@
 // ==UserScript==
 // @name          GoodTwitter 2 - Electric Boogaloo
-// @version       0.0.44.1
+// @version       0.0.45
 // @description   A try to make Twitter look good again.
 // @author        schwarzkatz
 // @license       MIT
 // @match         https://twitter.com/*
 // @match         https://mobile.twitter.com/*
+// @match         https://x.com/*
+// @match         https://mobile.x.com/*
 // @exclude       https://twitter.com/i/cards/*
 // @exclude       https://twitter.com/i/release_notes
 // @exclude       https://twitter.com/*/privacy
 // @exclude       https://twitter.com/*/tos
 // @exclude       https://twitter.com/account/access
+// @exclude       https://x.com/i/cards/*
+// @exclude       https://x.com/i/release_notes
+// @exclude       https://x.com/*/privacy
+// @exclude       https://x.com/*/tos
+// @exclude       https://x.com/account/access
 // @grant         GM_deleteValue
 // @grant         GM_getResourceText
 // @grant         GM_getResourceURL
@@ -19,6 +26,7 @@
 // @grant         GM_info
 // @grant         GM_xmlhttpRequest
 // @connect       api.twitter.com
+// @connect       api.x.com
 // @resource      css https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/twitter.gt2eb.style.css
 // @resource      emojiRegex https://github.com/Bl4Cc4t/GoodTwitter2/raw/master/data/emoji-regex.txt
 // @resource      pickrCss https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css
@@ -40,9 +48,9 @@
   }
 
   // redirect for mobile urls
-  if (window.location.host == "mobile.twitter.com") {
+  if (window.location.host.startsWith("mobile.")) {
     if (GM_getValue("opt_gt2").mobileRedirect) {
-      window.location.href = window.location.href.replace("//mobile.twitter.com", "//twitter.com")
+      window.location.href = window.location.href.replace("//mobile.", "//")
     } else return
   }
 
@@ -185,7 +193,7 @@
 
   // current path
   function getPath() {
-    return window.location.href.replace(/.*?twitter\.com\//, "")
+    return window.location.href.replace(/.*?(twitter|x)\.com\//, "")
   }
 
 
@@ -1722,7 +1730,7 @@
   $("body").on("click", ".gt2-toggle-navbar-dropdown", () => {
     console.log("navbar toggled");
     let i = getInfo()
-    $("header nav > div[data-testid=AppTabBar_More_Menu]").click()
+    $("header nav > [data-testid=AppTabBar_More_Menu]").click()
     let more = "div[role=menu][style^='max-height: calc'].r-ipm5af > div > div > div"
 
     waitForKeyElements(`${more} `, e => {
@@ -1816,6 +1824,7 @@
     let d = new Date()
     d.setDate(d.getDate() + 500)
     document.cookie = `night_mode=${nm}; expires=${d.toUTCString()}; path=/; domain=.twitter.com`
+    document.cookie = `night_mode=${nm}; expires=${d.toUTCString()}; path=/; domain=.x.com`
     window.location.reload()
   })
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.45
+*released 2024-05-17*
+
+#### Changes
+- add x.com as url
+
+This is only a rudamentary change to hotfix the url change that is now happening.
+I know a lot is broken in this script right now, but as usual idk when I have more time to fix it... sorry.
+
 ## [0.0.44.1](https://github.com/Bl4Cc4t/GoodTwitter2/pull/536)
 *released 2023-04-06*
 
