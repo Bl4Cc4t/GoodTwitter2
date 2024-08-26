@@ -3,12 +3,12 @@
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: 推文
-  contentWarningNudity: Nudity # TODO translation missing!
-  contentWarningViolence: Violence # TODO translation missing!
-  contentWarningSensitiveContent: Sensitive content # TODO translation missing!
+  contentWarningNudity: 色情內容
+  contentWarningViolence: 暴力內容
+  contentWarningSensitiveContent: 敏感內容
   joinDate: 已加入 $date$
   navBookmarks: 書籤
-  navCommunities: Communities # TODO translation missing!
+  navCommunities: 社群
   navMessages: 訊息
   navExplore: 探索
   navHome: 首頁
@@ -28,13 +28,13 @@ twitter-default:
 script:
   bornDate: 出生於 $date$
   bornYear: 出生於 $year$
-  favorite: Favorite # TODO translation missing!
-  favorites: Favorites # TODO translation missing!
-  followedBy0: Not followed by anyone you’re following # TODO translation missing!
-  followedBy1: Followed by $p1$ # TODO translation missing!
-  followedBy2: Followed by $p1$ and $p2$ # TODO translation missing!
-  followedBy3: Followed by $p1$, $p2$ and $p3$ # TODO translation missing!
-  followedBy4Plus: Followed by $p1$, $p2$ and $nr$ others you follow # TODO translation missing!
+  favorite: 喜歡
+  favorites: 喜歡
+  followedBy0: 未被任何你所跟隨的人跟隨
+  followedBy1: 被 $p1$ 跟隨
+  followedBy2: 被 $p1$ 與 $p2$ 跟隨
+  followedBy3: 被 $p1$、$p2 與 $p3$ 跟隨
+  followedBy4Plus: 被 $p1$、$p2 與其他 $nr$ 人跟隨
   translatedTweetInfo: 由 $source$ 從 $lang$ 翻譯
   qbBlock: 封鎖
   qbBlocked: 己封鎖
@@ -47,7 +47,7 @@ settings:
   headers:
     settingsHeaderTimeline: 時間軸
     settingsHeaderSidebars: 側邊欄
-    settingsHeaderGlobalLook: Global Look # TODO translation missing!
+    settingsHeaderGlobalLook: 全域外觀
     settingsHeaderOther: 其他
 
   timeline:
@@ -58,10 +58,10 @@ settings:
 
   tweets:
     hideTranslateTweetButton: 隱藏翻譯此推文按鈕
-    tweetIconsPullLeft: Bunch up tweet interaction buttons to the left # TODO translation missing!
-    hidePromoteTweetButton: Hide “Promote Tweet” button # TODO translation missing!
-    showMediaWithContentWarnings: Always show media with content warnings # TODO translation missing!
-    hideTweetAnalytics: Hide public analytics for tweets # TODO translation missing!
+    tweetIconsPullLeft: 將推文互動按鈕移至左側
+    hidePromoteTweetButton: 停用「推廣推文」按鈕
+    showMediaWithContentWarnings: 總是顯示敏感內容媒體警告
+    hideTweetAnalytics: 隱藏推文統計資料
 
   sidebars:
     stickySidebars: 固定側邊欄
@@ -73,30 +73,30 @@ settings:
     show5Trends: 總是顯示 5 個流行趨勢
 
   profile:
-    legacyProfile: Legacy profile layout # TODO translation missing!
-    squareAvatars: 正方形的頭像
-    disableHexagonAvatars: Disable hexagon avatars # TODO translation missing!
-    enableQuickBlock: Enable Quickblock # TODO translation missing!
-    enableQuickBlockDesc: Hover over the follow button for 3 seconds to block a profile. # TODO translation missing!
-    leftMedia: Left sidebar media # TODO translation missing!
-    leftMediaDesc: Show the media container on profile pages in the left sidebar. # TODO translation missing!
-    profileMediaRedirect: Redirect to /media when visiting profile pages. # TODO translation missing!
+    legacyProfile: 舊版個人資料外觀
+    squareAvatars: 方形頭像
+    disableHexagonAvatars: 停用六邊形投向
+    enableQuickBlock: 啟用快速封鎖
+    enableQuickBlockDesc: 在「跟隨」按鈕上停留三秒鐘以封鎖該使用者
+    leftMedia: 左側媒體
+    leftMediaDesc: 在個人資料左側顯示媒體。
+    profileMediaRedirect: 在查看個人資料時自動導向至 /media
 
   global-look:
     hideFollowSuggestions: 隱藏跟隨誰
-    hideFollowSuggestionsBox: Hide $type$ from $location$ # TODO translation missing!
-    fontOverride: Use custom font # TODO translation missing!
-    fontOverrideDesc: Set a custom font to override the default one. This works only if you have the font installed. # TODO translation missing!
-    colorOverride: Use custom color # TODO translation missing!
-    colorOverrideDesc: Set a custom color to override the default one. # TODO translation missing!
-    hideMessageBox: Hide message box # TODO translation missing!
-    hideMessageBoxDesc: Hides the new, all time present message box in the bottom right corner. # TODO translation missing!
-    rosettaIcons: Rosetta icons # TODO translation missing!
-    rosettaIconsDesc: Use the pre 2017 Rosetta icon font # TODO translation missing!
-    favoriteLikes: Replace likes with favorites (only icons for now) # TODO translation missing!
-    birdIcon: Show normal twitter icon instead of memes from 2010 # TODO translation missing!
+    hideFollowSuggestionsBox: 從 $location$ 中隱藏 $type
+    fontOverride: 使用自訂字體
+    fontOverrideDesc: 使用自訂的字體以複寫預設字體。僅能使用以安裝的字體。
+    colorOverride: 使用自訂顏色
+    colorOverrideDesc: 使用自訂的顏色以複寫預設顏色。
+    hideMessageBox: 隱藏訊息視窗
+    hideMessageBoxDesc: 隱藏新款位於右下角的訊息視窗
+    rosettaIcons: 羅塞塔圖示
+    rosettaIconsDesc: 使用 2017 年前舊款的羅賽塔圖示
+    favoriteLikes: 以星號取代愛心圖示
+    birdIcon: 顯示正常推特圖示而不是 2010 年所推出的特別版迷因款式
 
   other:
     updateNotifications: GoodTwitter 2 更新通知
-    expandTcoShortlinks: Expand t.co shortlinks # TODO translation missing!
-    mobileRedirect: Redirect mobile URLs # TODO translation missing!
+    expandTcoShortlinks: 擴展 t.co 短連結
+    mobileRedirect: 自動導向行動版連結
