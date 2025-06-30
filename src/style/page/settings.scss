@@ -1,5 +1,5 @@
-@import "../util/functions";
-@import "../util/mixins";
+@use "../util/functions" as *;
+@use "../util/mixins" as *;
 
 // settings page
 body[data-page-type=settings] {

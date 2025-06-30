@@ -3,7 +3,7 @@
 @use "sass:color";
 @use "sass:map";
 @use "sass:string";
-@import "../util/variables";
+@use "../util/variables" as *;
 
 $twitter-blue: rgb(29, 161, 242);
 
@@ -98,7 +98,7 @@ $themes: (
 @mixin get-colors-from-map($map) {
     @each $key, $value in $map {
         --color-#{$key}: #{$value};
-        --color-raw-#{$key}: #{red($value)}, #{green($value)}, #{blue($value)};
+        --color-raw-#{$key}: #{color.channel($value, "red", $space: rgb)}, #{color.channel($value, "green", $space: rgb)}, #{color.channel($value, "blue", $space: rgb)};
     }
 }
 
@@ -112,13 +112,13 @@ $themes: (
     } @else {
         [data-theme="#{$theme}"] {
             // add missing colors to hc-themes
-            @if str-index($theme, "-hc") {
-                $map: map-merge(map-get($themes, str-slice($theme, 1, -4)), $map);
+            @if string.index($theme, "-hc") {
+                $map: map.merge(map.get($themes, string.slice($theme, 1, -4)), $map);
             }
 
             // lightsout-hc has the same base colors as dim-hc
             @if $theme == "lightsout-hc" {
-                $map: map-merge(map-get($themes, "dim-hc"), $map);
+                $map: map.merge(map.get($themes, "dim-hc"), $map);
             }
 
             @include get-colors-from-map($map);

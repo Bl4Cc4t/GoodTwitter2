@@ -1,3 +1,5 @@
+@use "sass:string";
+
 // #################
 // #  Icon fonts   #
 // #################
@@ -28,7 +30,7 @@ $edge: "https://abs.twimg.com/a/1569889127/font/edge-icons-Regular.woff";
             position: relative;
 
             &::before {
-                content: unquote("\"\\#{$glyph}\"");
+                content: string.unquote("\"\\#{$glyph}\"");
                 font-family: $font;
                 font-size: $size;
                 padding: $pad;

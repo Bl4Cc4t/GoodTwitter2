@@ -1,5 +1,5 @@
-@import "../util/functions";
-@import "../util/mixins";
+@use "../util/functions" as *;
+@use "../util/mixins" as *;
 
 // element is hidden
 .gt2-hidden {

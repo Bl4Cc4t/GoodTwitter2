@@ -1,3 +1,5 @@
+@use "sass:string";
+
 // returns calc function for evenly spacing the navbar/other parts
 @function space($val) {
     @return calc((100vw - #{$val} - var(--scrollbar-width)) / 2);
@@ -26,7 +28,7 @@
 /// @markup {scss}
 /// unicode("e655"); // "\e655"
 @function unicode($str) {
-    @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
+    @return string.unquote("\"") + string.unquote(string.insert($str, "\\", 1)) + string.unquote("\"")
 }
 
 // noinspection CssInvalidFunction: provided by postcss.svg-as-selector.js

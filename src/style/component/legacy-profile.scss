@@ -1,5 +1,5 @@
-@import "../util/functions";
-@import "../util/mixins";
+@use "../util/functions" as *;
+@use "../util/mixins" as *;
 
 body[data-page-type=profile].gt2-opt-legacy-profile {
     main {

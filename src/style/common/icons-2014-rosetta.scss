@@ -1,5 +1,5 @@
 // This file was auto generated with icons.create-maps.ts on 2023-07-29T18:32:50.709Z
-@import "../util/mixins";
+@use "../util/mixins" as *;
 
 @mixin icons-2014-rosetta {
     @include svg-override("2022/ad", "2014-rosetta/F004");

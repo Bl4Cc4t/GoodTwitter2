@@ -1,5 +1,5 @@
 // This file was auto generated with icons.create-maps.ts on 2023-07-29T18:32:50.710Z
-@import "../util/mixins";
+@use "../util/mixins" as *;
 
 @mixin icons-2017-edge {
     @include svg-override("2022/ad", "2017-edge/F504");

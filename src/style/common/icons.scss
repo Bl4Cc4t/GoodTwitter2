@@ -1,7 +1,7 @@
-@import "../util/mixins";
-@import "colors";
-@import "icons-2014-rosetta";
-@import "icons-2017-edge";
+@use "../util/functions" as *;
+@use "../util/mixins" as *;
+@use "./icons-2014-rosetta";
+@use "./icons-2017-edge";
 
 .gt2-icon {
     fill: currentColor;

@@ -1,4 +1,4 @@
-@import "functions";
+@use "./functions" as *;
 
 // style for parents with hoverable icons
 @mixin hoverable-svg {

@@ -1,28 +1,26 @@
-@charset "UTF-8";
-
 // external stylesheets
-@import "~@simonwep/pickr/dist/themes/classic.min";
+@use "~@simonwep/pickr/dist/themes/classic.min";
 
 // basic
-@import "global";
-@import "responsive";
-@import "common/colors";
-@import "common/fonts";
-@import "common/icons";
+@use "./global";
+@use "./responsive";
+@use "./common/colors";
+@use "./common/fonts";
+@use "./common/icons";
 
 // components
-@import "component/legacy-profile";
-@import "component/navbar";
-@import "component/option-specific";
-@import "component/other";
-@import "component/sidebar";
+@use "./component/legacy-profile";
+@use "./component/navbar";
+@use "./component/option-specific";
+@use "./component/other" as *;
+@use "./component/sidebar";
 
 // pages
-@import "page/analytics";
-@import "page/home";
-@import "page/messages";
-@import "page/other";
-@import "page/profile";
-@import "page/search";
-@import "page/settings";
-@import "page/tweet";
+@use "./page/analytics";
+@use "./page/home";
+@use "./page/messages";
+@use "./page/other" as *;
+@use "./page/profile";
+@use "./page/search";
+@use "./page/settings";
+@use "./page/tweet";

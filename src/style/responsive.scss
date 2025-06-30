@@ -1,6 +1,6 @@
-@import "./util/functions";
-@import "./util/mixins";
-@import "./util/variables";
+@use "./util/functions" as *;
+@use "./util/mixins" as *;
+@use "./util/variables" as *;
 
 // normal display
 @media only screen and (min-width: 1350px) {

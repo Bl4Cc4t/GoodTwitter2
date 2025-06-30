@@ -1,5 +1,5 @@
-@import "../util/functions";
-@import "../util/mixins";
+@use "../util/mixins" as *;
+@use "../util/functions" as *;
 
 // profile page
 body[data-page-type=profile] {
