@@ -17,7 +17,12 @@ async function addNewStrings() {
             continue
 
         content = await fs.promises.readFile(path.join(i18nDir, file), { encoding: "utf8" })
-        let foreignDocument = yaml.parseDocument(content)
+        const foreignDocument = yaml.parseDocument(content)
+        if (foreignDocument.errors.length > 0) {
+            console.error(foreignDocument.errors)
+            throw new Error(`parsing failed for ${file}`)
+        }
+
         const addedFields: string[] = []
         const language = file.replace(".yml", "")
 

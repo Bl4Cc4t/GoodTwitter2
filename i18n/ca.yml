@@ -4,14 +4,13 @@
 # - $test$ <- these are placeholders, please don't change them when translating.
 # - untranslated strings are commented with "TODO translation missing!"
 
-
 # strings that are used on the site already.
 twitter-default:
   composeNewTweet: Tuiteja
   contentWarningNudity: Nuesa
   contentWarningViolence: Violència
   contentWarningSensitiveContent: Contingut sensible
-  joinDate: Data en què s'hi va unir: $date$
+  joinDate: "Data en què s'hi va unir: $date$"
   moreTweets: Més tuits
   navBookmarks: Preferits
   navCommunities: Comunitats
@@ -31,11 +30,10 @@ twitter-default:
   translateTweet: Tradueix el tuit
   users: Usuaris
 
-
 # strings that are used on various parts within the script.
 script:
-  bornDate: Data de naixement: $date$
-  bornYear: Any de naixement: $year$
+  bornDate: "Data de naixement: $date$"
+  bornYear: "Any de naixement: $year$"
   favorite: Favorit
   favorites: Favorits
   followedBy0: No el segueix ningú que segueixis
@@ -46,7 +44,6 @@ script:
   translatedTweetInfo: Traduït del $lang$ per $source$
   updatedInfo: Actualitzat a la versió $version$!
   updatedInfoChangelog: Registre de cambis
-
 
 # these strings are for the gt2 settings page.
 settings:
