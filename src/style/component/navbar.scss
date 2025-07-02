@@ -104,10 +104,6 @@
                 font-size: 14px;
                 height: 32px;
                 padding: 8px;
-
-                &:focus-visible {
-                    outline: unset;
-                }
             }
 
             &:focus-within {

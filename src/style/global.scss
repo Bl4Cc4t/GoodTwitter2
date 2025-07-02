@@ -18,6 +18,10 @@ header {
     display: none !important;
 }
 
+:focus-visible {
+    outline: unset !important;
+}
+
 // remove anchor decorations
 a {
     &:hover {
