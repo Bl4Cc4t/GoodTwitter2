@@ -61,16 +61,12 @@ export default {
                 ],
                 exclude: [
                     "https://twitter.com/i/cards/*",
+                    "https://twitter.com/i/tweetdeck",
                     "https://twitter.com/i/release_notes",
                     "https://twitter.com/*/privacy",
                     "https://twitter.com/*/tos",
                     "https://twitter.com/account/access",
-                    "https://x.com/i/cards/*",
-                    "https://x.com/i/release_notes",
-                    "https://x.com/*/privacy",
-                    "https://x.com/*/tos",
-                    "https://x.com/account/access"
-                ],
+                ].map(e => [e, e.replace("//twitter", "//x")]).flat(),
                 grant: [
                     "GM_addElement"
                 ],
