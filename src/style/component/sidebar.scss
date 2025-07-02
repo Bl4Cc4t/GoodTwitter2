@@ -68,6 +68,14 @@
     }
 }
 
+.gt2-right-sidebar + div {
+    padding-top: 0;
+
+    [data-testid=super-upsell-UpsellCardRenderProperties] > div {
+        border-width: 0;
+    }
+}
+
 // dashboard profile
 .gt2-dashboard-profile {
     background-color: var(--color-elem);
@@ -240,9 +248,10 @@
             border: 3.5px solid #008000;
             border-radius: 9999px;
             fill: #ffffff;
-            height: 12px;
+            height: 1.5rem;
             margin-right: 5px;
-            vertical-align: bottom;
+            position: absolute;
+            transform: translateY(50%);
         }
     }
 }
@@ -265,7 +274,7 @@ a.gt2-trend {
 // trends
 .gt2-trends-handled,
 .gt2-sidebar-element-trends section {
-    > div > div > div > div > div {
+    > div > div > div {
         // smaller padding next to the trends cog
         &:nth-child(1) {
             padding-right: 5px;

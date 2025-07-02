@@ -166,7 +166,7 @@ function getUpdateNoticeHtml(): string {
             <div class="gt2-sidebar-notice-content">
                 ${CheckSvg} ${getLocalizedString("updatedInfo").replace("$version$", `v${version}`)}<br />
                 <a
-                    href="https://github.com/Bl4Cc4t/GoodTwitter2/blob/master/doc/changelog.md#${version.replace(/\./g, "")}"
+                    href="https://github.com/Bl4Cc4t/GoodTwitter2/releases/tag/v${version}"
                     target="_blank"
                 >
                     ${getLocalizedString("updatedInfoChangelog")}
@@ -276,7 +276,7 @@ function handleTrends(): void {
 
     waitForElements(trendsSelector, trends => {
         let trendSection = trends.closest("section")
-        let trendContainer = trendSection.parentElement.parentElement
+        let trendContainer = trendSection.parentElement
 
         // actions for the whole container
         if (!trendSection.classList.contains("gt2-trends-handled")

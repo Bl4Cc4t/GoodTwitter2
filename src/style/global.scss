@@ -232,7 +232,7 @@ main {
                                 padding: 0;
 
                                 // apply theme to sidebar elements
-                                > div:not(.gt2-right-sidebar) {
+                                > div > div:not(.gt2-right-sidebar) {
                                     background-color: var(--color-elem);
                                     border: 1px solid var(--color-gray-dark);
                                     border-radius: 0;
@@ -268,7 +268,7 @@ main {
                                     // ChirpUpdate: readd vertical dividers
                                     // who to follow / you might like
                                     aside {
-                                        > div > div,
+                                        > ul,
                                         > a[href*="i/connect_people"] {
                                             @include separator-top;
                                         }
