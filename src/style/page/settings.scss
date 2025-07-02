@@ -18,7 +18,7 @@ body[data-page-type=settings] {
             position: fixed;
 
             // ChirpUpdate: readd vertical dividers
-            [role=tablist] > div > a {
+            [role=tablist] a:not(.gt2-toggle-settings) {
                 @include separator-bottom;
             }
         }
@@ -81,12 +81,13 @@ body[data-page-type=settings] {
         div {
             padding: 12px 15px;
             width: inherit;
+            display: flex;
+            justify-content: space-between;
         }
 
         svg {
-            position: absolute;
-            right: 15px;
             width: incr(1.25em);
+            height: incr(1.25em);
         }
 
         &:hover {
