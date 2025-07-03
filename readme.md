@@ -63,7 +63,8 @@ If you want to help with coding, you can take a look at the issue tracker. There
 Thanks to these awesome people, there are translations available for the following languages:
 - Bulgarian (added by [@EdinUser](https://github.com/EdinUser))
 - Simplified Chinese (added by [@Hewasshushed](https://github.com/Hewasshushed))
-- Traditional Chinese (added by [@roy4801](https://github.com/roy4801))
+- Traditional Chinese (added by [@roy4801](https://github.com/roy4801) &
+  [@olivertzeng](https://github.com/olivertzeng))
 - Dutch (added by [@gvmelle](https://github.com/gvmelle))
 - French (added by [@Aridow](https://github.com/Aridow))
 - Indonesian (added by [@NekoSam395](https://github.com/NekoSam395))
