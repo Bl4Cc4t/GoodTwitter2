@@ -115,9 +115,10 @@ export function getScrollbarWidth(): number {
  * @param theme theme to set
  */
 function setTheme(theme: Theme): void {
-    document.documentElement.dataset.theme = theme
-    _logger.debug(`set theme to ${theme}`)
-    GM_setValue(GM_KEYS.THEME, theme)
+    // TODO not needed anymore except for high contrast cases
+    // document.documentElement.dataset.theme = theme
+    // _logger.debug(`set theme to ${theme}`)
+    // GM_setValue(GM_KEYS.THEME, theme)
 }
 
 
