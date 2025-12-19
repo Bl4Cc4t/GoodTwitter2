@@ -6,11 +6,13 @@ import postcss from "rollup-plugin-postcss"
 import autoprefixer from "autoprefixer"
 import cssnano from "cssnano"
 import inlineSvg from "postcss-inline-svg"
-import addUserscriptHeader from "rollup-plugin-add-userscript-header"
+import addUserscriptHeaderTemp from "rollup-plugin-add-userscript-header"
 import { string } from "rollup-plugin-string"
-import svgAsSelector from "./tools/build/postcss-plugin.svg-as-selector"
-import pkg from "./package.json"
+import svgAsSelector from "./tools/build/postcss-plugin.svg-as-selector.js"
+import pkg from "./package.json" with { type: "json" }
 
+// TODO: fix this import later(tm)
+const addUserscriptHeader = addUserscriptHeaderTemp["default"]
 
 const extensions = [".js", ".ts"]
 
