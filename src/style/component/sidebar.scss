@@ -71,6 +71,11 @@
 .gt2-right-sidebar + div {
     padding-top: 0;
 
+    // spacer left behind by the search box
+    &:empty {
+        display: none;
+    }
+
     [data-testid=super-upsell-UpsellCardRenderProperties] > div {
         border-width: 0;
     }
@@ -250,8 +255,8 @@
             fill: #ffffff;
             height: 1.5rem;
             margin-right: 5px;
-            position: absolute;
-            transform: translateY(50%);
+            vertical-align: middle;
+            width: 1.5rem;
         }
     }
 }
@@ -315,4 +320,10 @@ a.gt2-trend {
             }
         }
     }
+}
+
+// square sidebar boxes (who to follow, relevant people)
+[data-testid=sidebarColumn] div:has(> div > aside[role=complementary]) {
+    border-radius: 0 !important;
+    border-width: 0 !important;
 }

@@ -43,6 +43,19 @@ a {
     display: none;
 }
 
+// hide grok (bottom right drawer, tweet header button, follow suggestion)
+[data-testid=GrokDrawer],
+[data-testid=tweet] button[aria-label="Grok actions"],
+[data-testid=UserCell]:has(a[href="/grok"]) {
+    display: none !important;
+}
+
+// hide premium upsell and news box (sidebar)
+div:has(> div > aside a[href^="/i/premium_sign_up"]),
+div:has(> [data-testid=news_sidebar]) {
+    display: none !important;
+}
+
 // make parts around toasts clickable
 div[data-testid=toast] {
     bottom: 0;

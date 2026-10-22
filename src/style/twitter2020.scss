@@ -1,0 +1,188 @@
+// Twitter 2020: 2019-2022 look on top of the current X layout.
+// Do not use together with the GoodTwitter2 script.
+@use "./util/functions" as *;
+@use "./util/mixins" as *;
+@use "./common/icons-2017-edge" as edge;
+
+:root {
+    --t20-blue: #1da1f2;
+    --t20-blue-raw: 29, 161, 242;
+    --t20-blue-dark: #1a91da;
+    --t20-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+// pre-chirp font
+body,
+body :not(svg):not(path) {
+    font-family: var(--t20-font) !important;
+}
+
+// 2017-2022 icon set
+@include edge.icons-2017-edge;
+
+// the mask trick can't draw the small dots icon, the 2017 one looked the same anyway
+#{svg-selector("2022/more-horiz")} {
+    mask-image: none;
+    stroke-width: 0;
+    transform: none;
+
+    ~ * {
+        display: inline;
+    }
+}
+
+// blue bird instead of x logo
+@include svg-override("vendor/twitter-x", "vendor/twitter-bird");
+
+header h1 a[href="/home"] {
+    color: var(--t20-blue) !important;
+
+    svg {
+        color: var(--t20-blue) !important;
+    }
+}
+
+
+// icons swapped by the script: hide the ones react rendered
+svg[data-t20-icon] > :not([data-t20]) {
+    display: none !important;
+}
+
+// sidebar navigation
+header nav[role=navigation] {
+    a[data-t20-active] {
+        color: var(--t20-blue) !important;
+
+        div,
+        span,
+        svg {
+            color: var(--t20-blue) !important;
+        }
+    }
+
+    a[href="/i/calls"],
+    a[href="/i/grok"],
+    a[href="/i/jf/creators/studio"],
+    a[href="/i/premium_sign_up"],
+    a[href="/i/verified-orgs-signup"],
+    a[href="/jobs"] {
+        display: none !important;
+    }
+}
+
+// blue tweet buttons
+a[data-testid=SideNav_NewTweet_Button],
+button[data-testid=tweetButtonInline],
+button[data-testid=tweetButton] {
+    background-color: var(--t20-blue) !important;
+    border-color: var(--t20-blue) !important;
+
+    &:hover {
+        background-color: var(--t20-blue-dark) !important;
+    }
+
+    &[disabled],
+    &[aria-disabled=true] {
+        opacity: .5;
+    }
+
+    div,
+    span,
+    svg {
+        color: #ffffff !important;
+    }
+}
+
+
+// blue composer icons
+[data-testid=toolBar] [role=tablist] svg,
+[data-testid=toolBar] [role=tablist] [role=button] > div {
+    color: var(--t20-blue) !important;
+}
+
+// liked and retweeted colors
+button[data-testid=unlike] > div {
+    color: #e0245e !important;
+}
+
+button[data-testid=unretweet] > div {
+    color: #17bf63 !important;
+}
+
+
+// follow buttons: blue outline, following: blue filled
+button[data-testid$=-follow],
+button[data-testid$=-cancel] {
+    background-color: transparent !important;
+    border-color: var(--t20-blue) !important;
+
+    > * {
+        color: var(--t20-blue) !important;
+    }
+
+    &:hover {
+        background-color: rgba(var(--t20-blue-raw), .1) !important;
+    }
+}
+
+button[data-testid$=-unfollow] {
+    &:not(:hover) {
+        background-color: var(--t20-blue) !important;
+        border-color: var(--t20-blue) !important;
+
+        > * {
+            color: #ffffff !important;
+        }
+    }
+}
+
+
+// x-only clutter
+// grok: bottom right drawer, tweet header button, follow suggestion
+[data-testid=GrokDrawer],
+[data-testid=chat-drawer-root],
+[data-testid=tweet] button[aria-label="Grok actions"],
+[data-testid=UserCell]:has(a[href="/grok"]) {
+    display: none !important;
+}
+
+// anything else grok, found by its logo or a grok.com link:
+// "generate with grok" (composer), "edit image" (tweet menu), "profile summary" (profiles)
+:is(button, a, [role=button], [role=menuitem]):has(svg path[d^="M12.745 20.54l10.97-8.19"]),
+a[href^="https://grok.com"],
+svg:has(path[d^="M12.745 20.54l10.97-8.19"]) {
+    display: none !important;
+}
+
+// premium upsell and news box (sidebar), analytics upsell (own tweets)
+div:has(> div > aside a[href^="/i/premium_sign_up"]),
+div:has(> div > div > a[href="/i/account_analytics"]),
+div:has(> [data-testid=news_sidebar]),
+div:empty:has(+ div > [data-testid=news_sidebar]),
+div:has(> div > aside a[href^="/i/premium_sign_up"]) + div:empty {
+    display: none !important;
+}
+
+// view counts (added dec 2022): action bar and tweet page
+[role=group] > div:has(> a[href$="/analytics"]),
+div[aria-hidden=true]:has(+ a[href$="/analytics"]),
+a[href$="/analytics"] {
+    display: none !important;
+}
+
+// content disclosure (composer)
+div:has(> [data-testid=contentDisclosureButton]),
+[data-testid=contentDisclosureButton] {
+    display: none !important;
+}
+
+// "today's news" stories (explore): the header cell and the story cells
+[data-testid=cellInnerDiv]:has(+ [data-testid=cellInnerDiv] [data-testid=trend] [data-testid^=UserAvatar-Container]),
+[data-testid=cellInnerDiv]:has([data-testid=trend] [data-testid^=UserAvatar-Container]) {
+    display: none !important;
+}
+
+// premium-only "priority" notifications tab
+:has(> a[role=tab][href="/notifications/priority"]) {
+    display: none !important;
+}

@@ -22,6 +22,7 @@
         "build": "bun run build:js && bun run i18n-add-new-strings && bun run build:i18n",
         "build:i18n": "bun tools/build/i18n.build.ts",
         "build:icon-maps": "bun tools/build/icons.create-maps.ts",
+        "build:twitter2020": "bun tools/build/twitter2020.build.ts",
         "build:js": "rollup -c",
         "i18n-add-new-strings": "bun tools/build/i18n.add-new-strings.ts"
     },

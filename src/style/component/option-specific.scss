@@ -260,7 +260,8 @@ body:not(.gt2-opt-font-override) {
 
 // hide message box (bottom right)
 .gt2-opt-hide-message-box {
-    div[data-testid=DMDrawer] {
+    div[data-testid=DMDrawer],
+    div[data-testid=chat-drawer-root] {
         display: none;
     }
 }

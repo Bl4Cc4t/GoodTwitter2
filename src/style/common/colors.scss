@@ -211,8 +211,8 @@ body:not(.gt2-opt-rosetta-icons):not(.gt2-opt-edge-icons) {
 div[data-testid=userActions],
 div[data-testid=sendDMFromProfile],
 div[data-testid=userActions] ~ div:not([class]) > div:not([data-gt2-bell-full-color]),
-div[data-testid$=-cancel],
-div[data-testid$=-follow],
+[data-testid$=-cancel],
+[data-testid$=-follow],
 a[href="/settings/profile"],
 div[id^=topic-follow-button]:not(.r-1ucxkr8),
 div[data-testid=listCell] div[role=button],
@@ -236,7 +236,7 @@ body[data-page-pathname*="/lists/"] [data-testid=primaryColumn] section > h1 + d
 }
 
 // unfollow button
-div[data-testid$=-unfollow],
+[data-testid$=-unfollow],
 body[data-page-pathname*="/lists/"] [data-testid=primaryColumn] section > h1 + div > div > div:nth-child(1) a ~ div div[role=button].r-14lw9ot {
     transition-property: border-color, background-color, box-shadow;
 
